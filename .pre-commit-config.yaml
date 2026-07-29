@@ -170,7 +170,7 @@ repos:
         files: \.gd$
 
       - id: no-change-scene
-        name: "ban change_scene_to_file/change_scene_to_packed | bypasses GameStateManager"
+        name: "ban change_scene_to_file/change_scene_to_packed | bypasses StateManager"
         language: pygrep
         entry: '(change_scene_to_file|change_scene_to_packed|change_scene)\('
         files: \.gd$

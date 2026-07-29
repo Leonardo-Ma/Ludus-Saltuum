@@ -1,4 +1,4 @@
-## Game state machine; Coordinates UI, pause, settings, and gameplay states.
+## Game/Application state machine; Coordinates UI, pause, settings, main menu, quit
 ## Emits signals for state transitions
 extends Node
 
@@ -22,8 +22,6 @@ enum GameState {
 	MAIN_MENU_SETTINGS,
 }
 
-@export var initial_state: GameState = GameState.MAIN_MENU
-
 var _current_state: GameState = GameState.MAIN_MENU
 var _previous_state: GameState = GameState.MAIN_MENU
 var _is_initialized: bool = false
@@ -33,18 +31,11 @@ func _ready() -> void:
 	assert(not _is_initialized, "GameStateManager already initialized")
 	_is_initialized = true
 
-	call_deferred("_initialize_state")
 
-
-func _initialize_state() -> void:
-	_change_state(initial_state, true)
-
-
-# TODO Check how to remove force bool (Used by initialization)
-func _change_state(new_state: GameState, force: bool = false) -> void:
-	if not force and _current_state == new_state:
+func _change_state(new_state: GameState) -> void:
+	if _current_state == new_state:
 		return
-	assert(force or _is_valid_transition(_current_state, new_state), "Invalid state transition from " + str(_current_state) + " to " + str(new_state))
+	assert(_is_valid_transition(_current_state, new_state), "Invalid state transition from " + str(_current_state) + " to " + str(new_state))
 
 	_previous_state = _current_state
 	_current_state = new_state

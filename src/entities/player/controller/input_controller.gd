@@ -36,8 +36,6 @@ func _on_release_mouse_requested() -> void:
 
 
 func _is_ui_interacting() -> bool:
-	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		return false
 	var viewport: Viewport = get_viewport()
 	var focus_owner: Control = viewport.gui_get_focus_owner()
 	if focus_owner:

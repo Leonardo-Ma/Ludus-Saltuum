@@ -57,8 +57,9 @@ func _input(event: InputEvent) -> void:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 	if event.is_action_pressed("attack"):  # Left mouse click
-		capture_mouse_requested.emit()
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		if not GameStateManager.is_in_menu():
+			capture_mouse_requested.emit()
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 	var player_is_using_mouse: bool = event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
 	if player_is_using_mouse:
