@@ -61,7 +61,7 @@ window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GDQuest_GDScript_formatter/plugin.cfg")
+enabled=PackedStringArray("res://addons/GDQuest_GDScript_formatter/plugin.cfg", "res://addons/godotsteam/plugin.cfg")
 
 [file_customization]
 
@@ -907,7 +907,5 @@ renderer/rendering_method="gl_compatibility"
 
 [steam]
 
-initialization/app_id=4832410
-initialization/initialize_on_startup=true
-initialization/embed_callbacks=false
-multiplayer_peer/max_channels=4
+initialization/app_data/app_id=4832410
+initialization/processes/initialize_on_startup=true
