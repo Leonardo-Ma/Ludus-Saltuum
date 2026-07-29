@@ -9,9 +9,9 @@ extends AudioStreamPlayer3D
 ## Pitch at full intensity
 @export var max_pitch: float = 1.8
 ## Volume at zero intensity
-@export var min_volume_db: float = -80.0
+@export_range(-80, -30, 1) var min_volume_db: float = -80.0
 ## Volume at full intensity
-@export var max_volume_db: float = 0.0
+@export_range(-20, 6, 1) var max_volume_db: float = 0.0
 ## Intensity change per second
 @export var fade_speed: float = 4.0
 
@@ -34,10 +34,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if is_equal_approx(_current_intensity, _target_intensity):
-		_current_intensity = _target_intensity
-		return
 	_current_intensity = move_toward(_current_intensity, _target_intensity, fade_speed * delta)
+
 	volume_db = lerp(min_volume_db, max_volume_db, _current_intensity)
 	pitch_scale = lerp(min_pitch, max_pitch, _current_intensity)
 

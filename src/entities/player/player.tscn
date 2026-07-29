@@ -29,6 +29,8 @@
 [ext_resource type="Script" uid="uid://bll0orhps41m6" path="res://src/entities/components/combat/knockback_controller.gd" id="28_voi68"]
 [ext_resource type="Script" uid="uid://iyeemya81j8m" path="res://src/entities/player/skills/skills_controller.gd" id="29_skills"]
 [ext_resource type="Script" uid="uid://cpusxg43clwxv" path="res://src/entities/player/controller/vfx_controller.gd" id="31_gxh5t"]
+[ext_resource type="Script" uid="uid://5or2vf5kpdix" path="res://src/entities/player/components/vehicle_rider.gd" id="32_vehiclerider"]
+[ext_resource type="Script" uid="uid://bkp1xy01pk8yn" path="res://src/entities/player/components/PortalController.gd" id="33_portalcontroller"]
 
 [sub_resource type="Resource" id="Resource_wjvoe"]
 script = ExtResource("6_qo2tj")
@@ -508,6 +510,14 @@ script = ExtResource("28_voi68")
 [node name="VFXController" type="Node" parent="Controllers" unique_id=476175254]
 unique_name_in_owner = true
 script = ExtResource("31_gxh5t")
+
+[node name="VehicleRider" type="Node" parent="Controllers" unique_id=1987654321]
+unique_name_in_owner = true
+script = ExtResource("32_vehiclerider")
+
+[node name="PortalController" type="Node" parent="Controllers" unique_id=1987654322]
+unique_name_in_owner = true
+script = ExtResource("33_portalcontroller")
 
 [node name="Status" type="Node" parent="." unique_id=1830557303]
 

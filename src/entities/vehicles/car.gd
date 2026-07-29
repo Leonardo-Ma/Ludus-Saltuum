@@ -17,8 +17,9 @@ const REENTER_CAR_DELAY: int = 10
 @export_range(50.0, 500.0, 10.0) var max_brake_force: float = 220.0
 ## Brake force applied when not accelerating
 @export_range(0.0, 30.0, 1.0) var coast_brake_force: float = 8.0
+@export_range(1.0, 5.0, 0.1) var steering_speed: float = 2.0
 ## Steering angle at low speed
-@export_range(0.1, 1.0, 0.01) var max_steering: float = 0.28
+@export_range(0.1, 1.0, 0.01) var max_steering: float = 0.30
 @export var reverse_engine_force: float = 1500.0
 @export var reverse_max_speed: float = 20.0
 @export_range(0.5, 5.0, 0.1) var reverse_speed_threshold: float = 1.0
@@ -44,6 +45,8 @@ var _driver: PlayerEntity = null
 @onready var front_right_wheel: VehicleWheel3D = %FrontRightWheel
 @onready var back_left_wheel: VehicleWheel3D = %BackLeftWheel
 @onready var back_right_wheel: VehicleWheel3D = %BackRightWheel
+## m/s?
+@onready var speed_ratio: float
 
 
 func _ready() -> void:
@@ -70,42 +73,38 @@ func _physics_process(delta: float) -> void:
 	var forward: bool = Input.is_action_pressed("move_forward")
 	var backward: bool = Input.is_action_pressed("move_backward")
 
-	var speed: float = linear_velocity.length()
+	#var speed: float = linear_velocity.length()
 	var forward_speed: float = -global_basis.z.dot(linear_velocity)
 
-	var steering_input: float = (
-		Input
-		. get_axis(
-			"move_right",
-			"move_left",
-		)
-	)
+	var steering_input: float = Input.get_axis("move_right", "move_left")
+
+	speed_ratio = clampf(absf(forward_speed) / max_speed, 0.0, 1.0)
+
+	speed_ratio *= speed_ratio
 
 	var steering_scale: float = lerpf(
 		1.0,
-		0.35,
-		clampf(speed / max_speed, 0.0, 1.0),
+		0.15,
+		speed_ratio,
 	)
 
-	steering = steering_input * max_steering * steering_scale
+	var target_steering: float = steering_input * max_steering * steering_scale
+
+	steering = move_toward(
+		steering,
+		target_steering,
+		steering_speed * delta,
+	)
 
 	if forward:
-		var forward_scale: float = clampf(
-			1.0 - forward_speed / max_speed,
-			0.0,
-			1.0,
-		)
+		var forward_scale: float = clampf(1.0 - forward_speed / max_speed, 0.0, 1.0)
 
 		engine_force = max_engine_force * forward_scale
 		brake = 0.0
 
 	elif backward:
 		var reverse_speed: float = maxf(-forward_speed, 0.0)
-		var reverse_scale: float = clampf(
-			1.0 - reverse_speed / reverse_max_speed,
-			0.0,
-			1.0,
-		)
+		var reverse_scale: float = clampf(1.0 - reverse_speed / reverse_max_speed, 0.0, 1.0)
 
 		engine_force = -reverse_engine_force * reverse_scale
 		brake = 0.0
@@ -114,34 +113,16 @@ func _physics_process(delta: float) -> void:
 		engine_force = 0.0
 		brake = coast_brake_force
 
-	camera_pivot.global_position = (
-		camera_pivot
-		. global_position
-		. lerp(
-			camera_anchor.global_position,
-			delta * 20.0,
-		)
-	)
+	var camera_pos_t: float = 1.0 - exp(-20.0 * delta)
+	var camera_rot_t: float = 1.0 - exp(-5.0 * delta)
 
-	camera_pivot.global_transform.basis = (
-		camera_pivot
-		. global_transform
-		. basis
-		. slerp(
-			camera_anchor.global_transform.basis,
-			delta * 5.0,
-		)
-	)
+	camera_pivot.global_position = (camera_pivot.global_position.lerp(camera_anchor.global_position, camera_pos_t))
 
-	var target: Vector3 = global_position + (global_transform.basis.z * 10.0)
+	camera_pivot.global_transform.basis = (camera_pivot.global_transform.basis.slerp(camera_anchor.global_transform.basis, camera_rot_t))
 
-	camera_look_at = (
-		camera_look_at
-		. lerp(
-			target,
-			delta * 5.0,
-		)
-	)
+	var target: Vector3 = global_position + (global_basis.z * 10.0)
+
+	camera_look_at = (camera_look_at.lerp(target, camera_rot_t))
 
 	camera.look_at(camera_look_at)
 
@@ -150,11 +131,10 @@ func _on_enter_area_body_entered(body: Node3D) -> void:
 	if (is_driven) or (body is not PlayerEntity):
 		return
 	_driver = body as PlayerEntity
-	_driver.camera_controller.set_active(false)
 
 	is_driven = true
 	enter_area.set_deferred("monitoring", false)
-	_driver.enter_vehicle()
+	_driver.vehicle_rider.enter_vehicle()
 
 	camera.current = true
 	set_physics_process(true)
@@ -180,11 +160,10 @@ func exit(exit_position: Vector3) -> void:
 	camera.current = false
 
 	var driver: PlayerEntity = _driver
-	_driver.camera_controller.set_active(true)
 	_driver = null
 	is_driven = false
 
-	driver.exit_vehicle(exit_position)
+	driver.vehicle_rider.exit_vehicle(exit_position)
 
 	driving_stopped.emit(driver)
 	self.remove_from_group(Groups.PLAYERS)

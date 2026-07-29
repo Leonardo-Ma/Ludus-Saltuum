@@ -3,7 +3,9 @@ extends Node
 
 
 func is_available() -> bool:
-	return Steam.isSteamRunning() and Steam.isCloudEnabledForApp() and Steam.isCloudEnabledForAccount()
+	if !Steam.isSteamRunning():
+		return false
+	return Steam.isCloudEnabledForApp() and Steam.isCloudEnabledForAccount()
 
 
 func upload(cloud_filename: String, local_path: String) -> bool:

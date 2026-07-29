@@ -201,7 +201,6 @@ size = Vector3(1.4916992, 1, 2.89563)
 size = Vector3(0.7448158, 2.0224, 0.53845215)
 
 [node name="Vehicle" type="VehicleBody3D" unique_id=864995165]
-collision_layer = 8
 collision_mask = 11
 mass = 1200.0
 center_of_mass_mode = 1
@@ -233,7 +232,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.43, 0.3, 0.64)
 use_as_traction = true
 use_as_steering = true
 wheel_radius = 0.35
-wheel_friction_slip = 1.7
+wheel_friction_slip = 2.2
 suspension_travel = 0.045
 suspension_stiffness = 90.0
 damping_compression = 7.0
@@ -249,7 +248,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.43, 0.3, 0.64)
 use_as_traction = true
 use_as_steering = true
 wheel_radius = 0.35
-wheel_friction_slip = 1.7
+wheel_friction_slip = 2.2
 suspension_travel = 0.045
 suspension_stiffness = 90.0
 damping_compression = 7.0
@@ -264,7 +263,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.3, -0.88)
 use_as_traction = true
 wheel_radius = 0.35
-wheel_friction_slip = 1.5
+wheel_friction_slip = 2.2
 suspension_travel = 0.045
 suspension_stiffness = 80.0
 damping_compression = 7.0
@@ -279,7 +278,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.3, -0.88)
 use_as_traction = true
 wheel_radius = 0.35
-wheel_friction_slip = 1.5
+wheel_friction_slip = 2.2
 suspension_travel = 0.045
 suspension_stiffness = 80.0
 damping_compression = 7.0
@@ -322,26 +321,24 @@ shape = SubResource("BoxShape3D_cvtp5")
 script = ExtResource("8_cvtp5")
 
 [node name="EngineLoop" type="AudioStreamPlayer3D" parent="VehicleAudioController" unique_id=1014362665]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -4)
 stream = ExtResource("5_q6bat")
-unit_size = 78.5
-max_distance = 10000.0
-bus = &"Vehicle"
-script = ExtResource("6_mvrra")
-min_pitch = 0.7
-max_pitch = 1.5
-min_volume_db = -30.0
-max_volume_db = -6.0
-fade_speed = 3.0
-
-[node name="SkidLoop" type="AudioStreamPlayer3D" parent="VehicleAudioController" unique_id=656502249]
-stream = ExtResource("7_mvrra")
-unit_size = 30.0
 max_distance = 50.0
 bus = &"Vehicle"
 script = ExtResource("6_mvrra")
-min_pitch = 0.9
+min_pitch = 1.0
+max_pitch = 2.5
+min_volume_db = -30.0
+max_volume_db = -6.0
+
+[node name="SkidLoop" type="AudioStreamPlayer3D" parent="VehicleAudioController" unique_id=656502249]
+unique_name_in_owner = true
+stream = ExtResource("7_mvrra")
+max_distance = 50.0
+bus = &"Vehicle"
+script = ExtResource("6_mvrra")
+min_pitch = 0.7
 max_pitch = 1.1
-min_volume_db = -60.0
-max_volume_db = -12.0
+max_volume_db = -16.0
 fade_speed = 8.0

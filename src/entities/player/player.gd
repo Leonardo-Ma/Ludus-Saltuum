@@ -9,14 +9,12 @@ extends AggressiveEntity
 @onready var input_controller: InputController = %InputController
 @onready var skills_controller: SkillsController = %SkillsController
 
-@onready var _visual: Node3D = %Visual
-@onready var _default_visual_scale: Vector3 = _visual.scale
-
-@onready var _portal_transitioning: bool = false  # Teleport
+@onready var vehicle_rider: VehicleRider = %VehicleRider
+@onready var portal_controller: PortalController = %PortalController
 
 
 func _physics_process(delta: float) -> void:
-	if _portal_transitioning:  # If mid teleport
+	if portal_controller._portal_transitioning:  # If mid teleport
 		move_and_slide()
 		return
 
@@ -111,60 +109,5 @@ func entity_enable_disable(toggle: bool) -> void:
 	visible = toggle
 
 
-# TODO BUG Improve this garbage
-#region Car methods
-## Disable control, collision, combat while driving
-func enter_vehicle() -> void:
-	remove_from_group(Groups.PLAYERS)
-	# shrink effect
-	var tween: Tween = create_tween()
-	tween.tween_property(_visual, "scale", _default_visual_scale * 0.001, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
-	entity_enable_disable(false)
-	#tween.tween_callback(func() -> void: visible = false)
-
-
-## Restores control at exit_position
-func exit_vehicle(exit_position: Vector3) -> void:
-	global_position = exit_position
-	velocity = Vector3.ZERO
-	_visual.scale = Vector3.ZERO
-	# TODO Add an entity disable/enable method
-	add_to_group(Groups.PLAYERS)
-	entity_enable_disable(true)
-	GameEvents.set_controlled_entity(self)
-	# Grow effect
-	var tween: Tween = create_tween()
-	tween.tween_property(_visual, "scale", _default_visual_scale, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-
-
-#endregion
-
-
-#region Teleport portal
 func begin_portal_transition(source: TeleportPortal, destination: TeleportPortal) -> void:
-	if _portal_transitioning:
-		return
-
-	_portal_transitioning = true
-
-	movement_controller.disable_movement(0.25)
-
-	input_controller.set_process_input(false)
-	input_controller.set_process_unhandled_input(false)
-
-	velocity = source.transform_velocity(velocity)
-
-	var target_transform: Transform3D = destination.get_exit_transform(global_transform)
-	target_transform = destination.find_safe_exit(collision_shape.shape, target_transform)
-
-	await get_tree().physics_frame
-
-	global_transform = target_transform
-
-	await get_tree().physics_frame
-
-	input_controller.set_process_input(true)
-	input_controller.set_process_unhandled_input(true)
-
-	_portal_transitioning = false
-#endregion
+	await portal_controller.begin_portal_transition(source, destination, self)
