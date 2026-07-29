@@ -102,12 +102,10 @@ metadata/_edit_group_ = true
 [node name="SpikeMesh" type="MeshInstance3D" parent="." unique_id=1359778599]
 transform = Transform3D(1.0000005, 0, 0, 0, 1.0000007, -2.842171e-14, 0, 2.842171e-14, 1.0000007, -0.010496977, 0.010532235, -0.00637517)
 mesh = SubResource("ArrayMesh_cr444")
-skeleton = NodePath("")
 
 [node name="SpikeFloor" type="MeshInstance3D" parent="." unique_id=717568732]
 transform = Transform3D(0.010000002, 0, 0, 0, -4.3711434e-10, -0.010000005, 0, 0.010000005, -4.3711434e-10, 0, 0, 0)
 mesh = SubResource("ArrayMesh_1hd0d")
-skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1206830811]
 transform = Transform3D(0.010000002, 0, 0, 0, -4.3711434e-10, -0.010000005, 0, 0.010000005, -4.3711434e-10, 0, 0, 0)

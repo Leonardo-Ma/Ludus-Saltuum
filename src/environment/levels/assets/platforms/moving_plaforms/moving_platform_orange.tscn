@@ -72,7 +72,6 @@ metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D/MovingPlatformOrange" unique_id=861958578]
 mesh = SubResource("ArrayMesh_8sfv0")
-skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Path3D/PathFollow3D/MovingPlatformOrange" unique_id=1921458655]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)

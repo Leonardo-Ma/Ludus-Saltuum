@@ -64,4 +64,3 @@ shape = SubResource("BoxShape3D_v2gel")
 
 [node name="GoldCoin" type="MeshInstance3D" parent="." unique_id=423833491]
 mesh = SubResource("ArrayMesh_onvly")
-skeleton = NodePath("")

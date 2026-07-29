@@ -87,7 +87,6 @@ script = ExtResource("2_tn8wv")
 [node name="ButtonMesh" type="MeshInstance3D" parent="." unique_id=1461441497]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09549113, 0)
 mesh = SubResource("ArrayMesh_o2n4e")
-skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=675939780]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09549113, 0)
@@ -98,4 +97,3 @@ shape = SubResource("ConvexPolygonShape3D_knstw")
 [node name="ButtonBaseMesh" type="MeshInstance3D" parent="ButtonBase" unique_id=344330523]
 transform = Transform3D(1, 0, 0, 0, 0.27000004, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_kk13j")
-skeleton = NodePath("")

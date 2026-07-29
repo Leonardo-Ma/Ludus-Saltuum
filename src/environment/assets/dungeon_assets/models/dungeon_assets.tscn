@@ -1433,7 +1433,6 @@ visible = false
 
 [node name="railing" type="MeshInstance3D" parent="Props" unique_id=1282414447]
 mesh = SubResource("ArrayMesh_k5ehr")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/railing" unique_id=1121247342]
 
@@ -1442,7 +1441,6 @@ shape = SubResource("ConvexPolygonShape3D_mi75q")
 
 [node name="debris" type="MeshInstance3D" parent="Props" unique_id=315785155]
 mesh = SubResource("ArrayMesh_et8n6")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/debris" unique_id=1347659485]
 
@@ -1451,7 +1449,6 @@ shape = SubResource("ConvexPolygonShape3D_rgcno")
 
 [node name="pillar" type="MeshInstance3D" parent="Props" unique_id=2873613]
 mesh = SubResource("ArrayMesh_qj6dr")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/pillar" unique_id=402243455]
 
@@ -1460,7 +1457,6 @@ shape = SubResource("ConvexPolygonShape3D_5lgqp")
 
 [node name="brick" type="MeshInstance3D" parent="Props" unique_id=197015892]
 mesh = SubResource("ArrayMesh_7xweu")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/brick" unique_id=321148590]
 
@@ -1469,7 +1465,6 @@ shape = SubResource("ConvexPolygonShape3D_as4ap")
 
 [node name="bricks_001" type="MeshInstance3D" parent="Props" unique_id=1870235781]
 mesh = SubResource("ArrayMesh_k3j0u")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/bricks_001" unique_id=1787956598]
 
@@ -1478,7 +1473,6 @@ shape = SubResource("ConvexPolygonShape3D_pscps")
 
 [node name="bricks" type="MeshInstance3D" parent="Props" unique_id=209897876]
 mesh = SubResource("ArrayMesh_shq1g")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/bricks" unique_id=1498379222]
 
@@ -1487,7 +1481,6 @@ shape = SubResource("ConvexPolygonShape3D_fufgb")
 
 [node name="torch" type="MeshInstance3D" parent="Props" unique_id=1786375025]
 mesh = SubResource("ArrayMesh_klylq")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/torch" unique_id=1411523481]
 
@@ -1496,7 +1489,6 @@ shape = SubResource("ConvexPolygonShape3D_ianmo")
 
 [node name="torch_001" type="MeshInstance3D" parent="Props" unique_id=559742358]
 mesh = SubResource("ArrayMesh_c6qfw")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/torch_001" unique_id=1983353803]
 
@@ -1505,7 +1497,6 @@ shape = SubResource("ConvexPolygonShape3D_p7mnr")
 
 [node name="wooden box" type="MeshInstance3D" parent="Props" unique_id=1754512784]
 mesh = SubResource("ArrayMesh_mowko")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/wooden box" unique_id=337124710]
 
@@ -1514,7 +1505,6 @@ shape = SubResource("ConvexPolygonShape3D_71xfq")
 
 [node name="barrel" type="MeshInstance3D" parent="Props" unique_id=728402226]
 mesh = SubResource("ArrayMesh_7ymu5")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/barrel" unique_id=1699239372]
 
@@ -1523,7 +1513,6 @@ shape = SubResource("ConvexPolygonShape3D_siq1c")
 
 [node name="candle" type="MeshInstance3D" parent="Props" unique_id=933742269]
 mesh = SubResource("ArrayMesh_rnkmu")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/candle" unique_id=1800137729]
 
@@ -1532,7 +1521,6 @@ shape = SubResource("ConvexPolygonShape3D_fwq43")
 
 [node name="candle_003" type="MeshInstance3D" parent="Props" unique_id=1179111311]
 mesh = SubResource("ArrayMesh_7ikwy")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/candle_003" unique_id=1200966446]
 
@@ -1541,7 +1529,6 @@ shape = SubResource("ConvexPolygonShape3D_s6pd7")
 
 [node name="candle_001" type="MeshInstance3D" parent="Props" unique_id=1840040316]
 mesh = SubResource("ArrayMesh_wbhda")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/candle_001" unique_id=1096967418]
 
@@ -1550,7 +1537,6 @@ shape = SubResource("ConvexPolygonShape3D_bcqgc")
 
 [node name="candle_002" type="MeshInstance3D" parent="Props" unique_id=671180157]
 mesh = SubResource("ArrayMesh_6nxj3")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/candle_002" unique_id=1006357025]
 
@@ -1559,7 +1545,6 @@ shape = SubResource("ConvexPolygonShape3D_7gme3")
 
 [node name="rock_002" type="MeshInstance3D" parent="Props" unique_id=655294554]
 mesh = SubResource("ArrayMesh_a0sxd")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/rock_002" unique_id=444314412]
 
@@ -1568,7 +1553,6 @@ shape = SubResource("ConvexPolygonShape3D_taxbl")
 
 [node name="rock_003" type="MeshInstance3D" parent="Props" unique_id=1732469441]
 mesh = SubResource("ArrayMesh_ad8yb")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/rock_003" unique_id=1591722540]
 
@@ -1577,7 +1561,6 @@ shape = SubResource("ConvexPolygonShape3D_rv0do")
 
 [node name="rock_001" type="MeshInstance3D" parent="Props" unique_id=125947356]
 mesh = SubResource("ArrayMesh_yprfn")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/rock_001" unique_id=1359943727]
 
@@ -1586,7 +1569,6 @@ shape = SubResource("ConvexPolygonShape3D_kidwb")
 
 [node name="bone" type="MeshInstance3D" parent="Props" unique_id=854517709]
 mesh = SubResource("ArrayMesh_6q4oi")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/bone" unique_id=1696657672]
 
@@ -1595,7 +1577,6 @@ shape = SubResource("ConvexPolygonShape3D_c33xv")
 
 [node name="skull" type="MeshInstance3D" parent="Props" unique_id=1243481293]
 mesh = SubResource("ArrayMesh_4xqes")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/skull" unique_id=331277072]
 
@@ -1604,7 +1585,6 @@ shape = SubResource("ConvexPolygonShape3D_ieomc")
 
 [node name="chest bottom" type="MeshInstance3D" parent="Props" unique_id=734302654]
 mesh = SubResource("ArrayMesh_3bvva")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/chest bottom" unique_id=1387800051]
 
@@ -1613,7 +1593,6 @@ shape = SubResource("ConvexPolygonShape3D_t1ri2")
 
 [node name="chest top" type="MeshInstance3D" parent="Props" unique_id=651639914]
 mesh = SubResource("ArrayMesh_jgvp8")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/chest top" unique_id=470072659]
 
@@ -1622,7 +1601,6 @@ shape = SubResource("ConvexPolygonShape3D_m4ewi")
 
 [node name="chest\'s gold" type="MeshInstance3D" parent="Props" unique_id=880180209]
 mesh = SubResource("ArrayMesh_p3yfg")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/chest\'s gold" unique_id=1033245160]
 
@@ -1631,7 +1609,6 @@ shape = SubResource("ConvexPolygonShape3D_jtwqm")
 
 [node name="rock" type="MeshInstance3D" parent="Props" unique_id=1278857369]
 mesh = SubResource("ArrayMesh_jtb8g")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Props/rock" unique_id=460259570]
 
@@ -1643,7 +1620,6 @@ visible = false
 
 [node name="stairs" type="MeshInstance3D" parent="Stairs" unique_id=1508057780]
 mesh = SubResource("ArrayMesh_58rlj")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Stairs/stairs" unique_id=1824901489]
 
@@ -1652,7 +1628,6 @@ shape = SubResource("ConvexPolygonShape3D_82c8d")
 
 [node name="stairs_002" type="MeshInstance3D" parent="Stairs" unique_id=1907352057]
 mesh = SubResource("ArrayMesh_lkrj5")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Stairs/stairs_002" unique_id=1851413563]
 
@@ -1661,7 +1636,6 @@ shape = SubResource("ConvexPolygonShape3D_p3p7x")
 
 [node name="stairs_001" type="MeshInstance3D" parent="Stairs" unique_id=1508536927]
 mesh = SubResource("ArrayMesh_m13sf")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Stairs/stairs_001" unique_id=525650245]
 
@@ -1670,7 +1644,6 @@ shape = SubResource("ConvexPolygonShape3D_se1fk")
 
 [node name="stairs handhail small" type="MeshInstance3D" parent="Stairs" unique_id=65448607]
 mesh = SubResource("ArrayMesh_4lhub")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Stairs/stairs handhail small" unique_id=620245131]
 
@@ -1679,7 +1652,6 @@ shape = SubResource("ConvexPolygonShape3D_t81v1")
 
 [node name="stairs handhail big" type="MeshInstance3D" parent="Stairs" unique_id=627954231]
 mesh = SubResource("ArrayMesh_l63gr")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Stairs/stairs handhail big" unique_id=1330450738]
 
@@ -1688,7 +1660,6 @@ shape = SubResource("ConvexPolygonShape3D_ej5fs")
 
 [node name="stairs_003" type="MeshInstance3D" parent="Stairs" unique_id=1980163879]
 mesh = SubResource("ArrayMesh_0cvi2")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Stairs/stairs_003" unique_id=1368858839]
 
@@ -1701,7 +1672,6 @@ visible = false
 [node name="spikes floor" type="MeshInstance3D" parent="Traps" unique_id=1417612910]
 visible = false
 mesh = SubResource("ArrayMesh_3xlrp")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Traps/spikes floor" unique_id=875634456]
 
@@ -1711,7 +1681,6 @@ shape = SubResource("ConvexPolygonShape3D_rswbm")
 [node name="spikes" type="MeshInstance3D" parent="Traps" unique_id=1014867319]
 visible = false
 mesh = SubResource("ArrayMesh_xa1n5")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Traps/spikes" unique_id=1287525262]
 
@@ -1721,7 +1690,6 @@ shape = SubResource("ConvexPolygonShape3D_hvhyk")
 [node name="saw blade floor" type="MeshInstance3D" parent="Traps" unique_id=1594857979]
 visible = false
 mesh = SubResource("ArrayMesh_m5ws2")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Traps/saw blade floor" unique_id=878827541]
 
@@ -1731,7 +1699,6 @@ shape = SubResource("ConvexPolygonShape3D_50h2t")
 [node name="saw blade floor corner" type="MeshInstance3D" parent="Traps" unique_id=156303946]
 visible = false
 mesh = SubResource("ArrayMesh_5caau")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Traps/saw blade floor corner" unique_id=538595943]
 
@@ -1741,7 +1708,6 @@ shape = SubResource("ConvexPolygonShape3D_1pwb0")
 [node name="saw blade" type="MeshInstance3D" parent="Traps" unique_id=1367635586]
 visible = false
 mesh = SubResource("ArrayMesh_skg6o")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Traps/saw blade" unique_id=187792770]
 
@@ -1751,7 +1717,6 @@ shape = SubResource("ConvexPolygonShape3D_jqx7g")
 [node name="blade trap" type="MeshInstance3D" parent="Traps" unique_id=1954391612]
 visible = false
 mesh = SubResource("ArrayMesh_h8q8k")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Traps/blade trap" unique_id=964400178]
 
@@ -1761,7 +1726,6 @@ shape = SubResource("ConvexPolygonShape3D_pprsx")
 [node name="blade trap base" type="MeshInstance3D" parent="Traps" unique_id=328821993]
 visible = false
 mesh = SubResource("ArrayMesh_pwlw2")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Traps/blade trap base" unique_id=67094870]
 
@@ -1773,7 +1737,6 @@ visible = false
 
 [node name="Key_001" type="MeshInstance3D" parent="Interactable" unique_id=1019599447]
 mesh = SubResource("ArrayMesh_s02gj")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Interactable/Key_001" unique_id=1610680520]
 
@@ -1782,7 +1745,6 @@ shape = SubResource("ConvexPolygonShape3D_55i4q")
 
 [node name="Coin_001" type="MeshInstance3D" parent="Interactable" unique_id=741645229]
 mesh = SubResource("ArrayMesh_3jpmn")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Interactable/Coin_001" unique_id=1569782767]
 
@@ -1791,7 +1753,6 @@ shape = SubResource("ConvexPolygonShape3D_lxc0i")
 
 [node name="lever base" type="MeshInstance3D" parent="Interactable" unique_id=231549603]
 mesh = SubResource("ArrayMesh_sdr0e")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Interactable/lever base" unique_id=449871212]
 
@@ -1800,7 +1761,6 @@ shape = SubResource("ConvexPolygonShape3D_3asps")
 
 [node name="lever" type="MeshInstance3D" parent="Interactable" unique_id=2069142439]
 mesh = SubResource("ArrayMesh_fgt2h")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Interactable/lever" unique_id=133320746]
 
@@ -1812,7 +1772,6 @@ visible = false
 
 [node name="door arc" type="MeshInstance3D" parent="WallsDoors" unique_id=275393904]
 mesh = SubResource("ArrayMesh_eyyqb")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WallsDoors/door arc" unique_id=1814156600]
 
@@ -1821,7 +1780,6 @@ shape = SubResource("ConvexPolygonShape3D_akc30")
 
 [node name="door arc_037" type="MeshInstance3D" parent="WallsDoors" unique_id=1748531456]
 mesh = SubResource("ArrayMesh_sth1q")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WallsDoors/door arc_037" unique_id=583156822]
 
@@ -1830,7 +1788,6 @@ shape = SubResource("ConvexPolygonShape3D_maso8")
 
 [node name="bars_013" type="MeshInstance3D" parent="WallsDoors" unique_id=1921561612]
 mesh = SubResource("ArrayMesh_clun3")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WallsDoors/bars_013" unique_id=1115502069]
 
@@ -1839,7 +1796,6 @@ shape = SubResource("ConvexPolygonShape3D_2uvof")
 
 [node name="door arc_038" type="MeshInstance3D" parent="WallsDoors" unique_id=1138896472]
 mesh = SubResource("ArrayMesh_bja04")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WallsDoors/door arc_038" unique_id=2013450956]
 
@@ -1848,7 +1804,6 @@ shape = SubResource("ConvexPolygonShape3D_4plcw")
 
 [node name="brick wall with door" type="MeshInstance3D" parent="WallsDoors" unique_id=346111806]
 mesh = SubResource("ArrayMesh_de48q")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WallsDoors/brick wall with door" unique_id=1539381361]
 
@@ -1857,7 +1812,6 @@ shape = SubResource("ConvexPolygonShape3D_h6oa7")
 
 [node name="brick wall" type="MeshInstance3D" parent="WallsDoors" unique_id=246026940]
 mesh = SubResource("ArrayMesh_hhgdr")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WallsDoors/brick wall" unique_id=104682913]
 
@@ -1866,7 +1820,6 @@ shape = SubResource("ConvexPolygonShape3D_25fj0")
 
 [node name="smooth wall" type="MeshInstance3D" parent="WallsDoors" unique_id=1497688409]
 mesh = SubResource("ArrayMesh_vinjl")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WallsDoors/smooth wall" unique_id=2106171381]
 
@@ -1875,7 +1828,6 @@ shape = SubResource("ConvexPolygonShape3D_fg6hy")
 
 [node name="brick wall_001" type="MeshInstance3D" parent="WallsDoors" unique_id=1643449768]
 mesh = SubResource("ArrayMesh_p11hs")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WallsDoors/brick wall_001" unique_id=147279460]
 
@@ -1884,7 +1836,6 @@ shape = SubResource("BoxShape3D_p2uv2")
 
 [node name="brick wall_002" type="MeshInstance3D" parent="WallsDoors" unique_id=1786697462]
 mesh = SubResource("ArrayMesh_cnrwu")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WallsDoors/brick wall_002" unique_id=1367707898]
 
@@ -1893,7 +1844,6 @@ shape = SubResource("ConvexPolygonShape3D_d6aek")
 
 [node name="brick wall_003" type="MeshInstance3D" parent="WallsDoors" unique_id=1816124734]
 mesh = SubResource("ArrayMesh_uoiue")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WallsDoors/brick wall_003" unique_id=862666657]
 
@@ -1902,7 +1852,6 @@ shape = SubResource("ConvexPolygonShape3D_aj3br")
 
 [node name="ruined wall" type="MeshInstance3D" parent="WallsDoors" unique_id=417908046]
 mesh = SubResource("ArrayMesh_6s2lv")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WallsDoors/ruined wall" unique_id=1039091046]
 
@@ -1911,7 +1860,6 @@ shape = SubResource("ConvexPolygonShape3D_n5bci")
 
 [node name="window" type="MeshInstance3D" parent="WallsDoors" unique_id=1158944430]
 mesh = SubResource("ArrayMesh_47wug")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WallsDoors/window" unique_id=373215923]
 
@@ -1920,7 +1868,6 @@ shape = SubResource("ConvexPolygonShape3D_hd46u")
 
 [node name="window_001" type="MeshInstance3D" parent="WallsDoors" unique_id=921320655]
 mesh = SubResource("ArrayMesh_uj7iw")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WallsDoors/window_001" unique_id=1279378854]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1920929e-07, 0, 0)
@@ -1930,7 +1877,6 @@ shape = SubResource("BoxShape3D_0g1th")
 
 [node name="window_002" type="MeshInstance3D" parent="WallsDoors" unique_id=1688999907]
 mesh = SubResource("ArrayMesh_mni1q")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WallsDoors/window_002" unique_id=1139730612]
 
@@ -1939,7 +1885,6 @@ shape = SubResource("ConvexPolygonShape3D_u26bi")
 
 [node name="bars_001" type="MeshInstance3D" parent="WallsDoors" unique_id=267816582]
 mesh = SubResource("ArrayMesh_1o18o")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WallsDoors/bars_001" unique_id=1543258048]
 
@@ -1948,7 +1893,6 @@ shape = SubResource("ConvexPolygonShape3D_ktur4")
 
 [node name="door_001" type="MeshInstance3D" parent="WallsDoors" unique_id=1756891411]
 mesh = SubResource("ArrayMesh_fb3ng")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="WallsDoors/door_001" unique_id=1711169411]
 

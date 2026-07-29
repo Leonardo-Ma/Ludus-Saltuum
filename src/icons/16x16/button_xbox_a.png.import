@@ -17,6 +17,7 @@ dest_files=["res://.godot/imported/button_xbox_a.png-c0458f1a587c72b44ee7b5cb6c6
 
 compress/mode=0
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

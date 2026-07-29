@@ -10,7 +10,6 @@ points = PackedVector3Array(0.24891338, 0.052482538, 0.4845047, -0.030747665, -0
 [node name="StonePlatform_Cylinder" type="MeshInstance3D" parent="." unique_id=161338454]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 mesh = ExtResource("1_jxu1w")
-skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1984701524]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)

@@ -25,7 +25,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -124)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 130)
 
 [node name="ArrowSign" parent="Platforms/GrassPlatform" unique_id=975612369 instance=ExtResource("5_0tt45")]
-transform = Transform3D(-2, 0, 1.7484556e-07, 0, 2, 0, -1.7484556e-07, 0, -2, 0, 4, 1)
+transform = Transform3D(-2, 0, 1.7484555e-07, 0, 2, 0, -1.7484555e-07, 0, -2, 0, 4, 1)
 
 [node name="GrassPlatform5" parent="Platforms" unique_id=1973383894 instance=ExtResource("4_ypqr5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, -2, 136)

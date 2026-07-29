@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cr7v7dxishaq0" path="res://src/entities/ai/goap/graph_builder/goap_graph_builder.gd" id="1_c0ihn"]
 
-[node name="GraphEdit" type="GraphEdit"]
+[node name="GraphEdit" type="GraphEdit" unique_id=547857206]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

@@ -84,13 +84,11 @@ points = PackedVector3Array(0.19999252, 0.1095238, 0.25709063, -0.22691575, 0, -
 
 [node name="button-square" type="MeshInstance3D" parent="." unique_id=692519755]
 mesh = SubResource("ArrayMesh_v82y0")
-skeleton = NodePath("")
 
 [node name="Button" type="StaticBody3D" parent="button-square" unique_id=1786709067]
 
 [node name="button_001" type="MeshInstance3D" parent="button-square/Button" unique_id=307795783]
 mesh = SubResource("ArrayMesh_jvdhd")
-skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="button-square/Button" unique_id=1302059757]
 shape = SubResource("ConvexPolygonShape3D_y3nbc")

@@ -17,6 +17,7 @@ dest_files=["res://.godot/imported/panel-007.png-8c25ee218c4f732eec0794f7f9cf127
 
 compress/mode=0
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

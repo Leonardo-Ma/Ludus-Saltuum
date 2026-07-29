@@ -17,6 +17,7 @@ dest_files=["res://.godot/imported/world_enable.png-0aa32d9216aa5905a52ed466dae0
 
 compress/mode=0
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

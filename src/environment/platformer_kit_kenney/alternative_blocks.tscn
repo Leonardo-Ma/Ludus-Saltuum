@@ -762,7 +762,6 @@ points = PackedVector3Array(0.3492535, 0.9888367, 0.08939495, -0.3366175, 0.0137
 
 [node name="block-grass-corner" type="MeshInstance3D" parent="." unique_id=1255899192]
 mesh = SubResource("ArrayMesh_4l2t2")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-grass-corner" unique_id=289875927]
 
@@ -771,7 +770,6 @@ shape = SubResource("ConvexPolygonShape3D_k1t0j")
 
 [node name="block-grass-corner-low" type="MeshInstance3D" parent="." unique_id=627961113]
 mesh = SubResource("ArrayMesh_7efyv")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-grass-corner-low" unique_id=1649219625]
 
@@ -780,7 +778,6 @@ shape = SubResource("ConvexPolygonShape3D_8d3ry")
 
 [node name="block-grass-edge" type="MeshInstance3D" parent="." unique_id=9289128]
 mesh = SubResource("ArrayMesh_gy0li")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-grass-edge" unique_id=1165746162]
 
@@ -789,7 +786,6 @@ shape = SubResource("ConvexPolygonShape3D_2hddp")
 
 [node name="block-grass-hexagon" type="MeshInstance3D" parent="." unique_id=928304547]
 mesh = SubResource("ArrayMesh_bisxx")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-grass-hexagon" unique_id=450291879]
 
@@ -798,7 +794,6 @@ shape = SubResource("ConvexPolygonShape3D_7gta5")
 
 [node name="block-grass-large-tall" type="MeshInstance3D" parent="." unique_id=1116376209]
 mesh = SubResource("ArrayMesh_lslev")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-grass-large-tall" unique_id=1050795078]
 
@@ -807,7 +802,6 @@ shape = SubResource("ConvexPolygonShape3D_bsy4b")
 
 [node name="block-grass-low-hexagon" type="MeshInstance3D" parent="." unique_id=1480787082]
 mesh = SubResource("ArrayMesh_g15s3")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-grass-low-hexagon" unique_id=1202162066]
 
@@ -816,7 +810,6 @@ shape = SubResource("ConvexPolygonShape3D_nq438")
 
 [node name="block-grass-narrow" type="MeshInstance3D" parent="." unique_id=607172021]
 mesh = SubResource("ArrayMesh_1f7o7")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-grass-narrow" unique_id=986468906]
 
@@ -825,7 +818,6 @@ shape = SubResource("ConvexPolygonShape3D_5kpnd")
 
 [node name="block-snow-corner" type="MeshInstance3D" parent="." unique_id=2038037484]
 mesh = SubResource("ArrayMesh_c3ves")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-snow-corner" unique_id=698455470]
 
@@ -834,7 +826,6 @@ shape = SubResource("ConvexPolygonShape3D_c04vt")
 
 [node name="block-snow-corner-low" type="MeshInstance3D" parent="." unique_id=1316906642]
 mesh = SubResource("ArrayMesh_l4scb")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-snow-corner-low" unique_id=1254560551]
 
@@ -843,7 +834,6 @@ shape = SubResource("ConvexPolygonShape3D_45n48")
 
 [node name="block-snow-edge" type="MeshInstance3D" parent="." unique_id=737880955]
 mesh = SubResource("ArrayMesh_7sg1h")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-snow-edge" unique_id=380226202]
 
@@ -852,7 +842,6 @@ shape = SubResource("ConvexPolygonShape3D_a030c")
 
 [node name="block-snow-hexagon" type="MeshInstance3D" parent="." unique_id=2037629440]
 mesh = SubResource("ArrayMesh_tqsdu")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-snow-hexagon" unique_id=2005374544]
 
@@ -861,7 +850,6 @@ shape = SubResource("ConvexPolygonShape3D_56adv")
 
 [node name="block-snow-low-hexagon" type="MeshInstance3D" parent="." unique_id=1035553500]
 mesh = SubResource("ArrayMesh_dx1vp")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-snow-low-hexagon" unique_id=821274102]
 
@@ -870,7 +858,6 @@ shape = SubResource("ConvexPolygonShape3D_i8uin")
 
 [node name="block-snow-low-large" type="MeshInstance3D" parent="." unique_id=2020276993]
 mesh = SubResource("ArrayMesh_0a2ga")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-snow-low-large" unique_id=1743203695]
 
@@ -879,7 +866,6 @@ shape = SubResource("ConvexPolygonShape3D_nn2ye")
 
 [node name="block-snow-low-long" type="MeshInstance3D" parent="." unique_id=1513065523]
 mesh = SubResource("ArrayMesh_eq7mn")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-snow-low-long" unique_id=1709106964]
 
@@ -888,7 +874,6 @@ shape = SubResource("ConvexPolygonShape3D_h0kk0")
 
 [node name="block-snow-low-narrow" type="MeshInstance3D" parent="." unique_id=221417482]
 mesh = SubResource("ArrayMesh_n8o3b")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-snow-low-narrow" unique_id=108500026]
 
@@ -897,7 +882,6 @@ shape = SubResource("ConvexPolygonShape3D_pgbmw")
 
 [node name="block-snow-large-tall" type="MeshInstance3D" parent="." unique_id=1836262710]
 mesh = SubResource("ArrayMesh_t0jij")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-snow-large-tall" unique_id=394839685]
 
@@ -906,7 +890,6 @@ shape = SubResource("ConvexPolygonShape3D_n08oj")
 
 [node name="block-snow-long" type="MeshInstance3D" parent="." unique_id=691725856]
 mesh = SubResource("ArrayMesh_xvhmv")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-snow-long" unique_id=449640757]
 
@@ -915,7 +898,6 @@ shape = SubResource("ConvexPolygonShape3D_vu014")
 
 [node name="block-snow-narrow" type="MeshInstance3D" parent="." unique_id=2105968876]
 mesh = SubResource("ArrayMesh_ivrkt")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-snow-narrow" unique_id=849428753]
 

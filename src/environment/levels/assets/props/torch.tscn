@@ -110,7 +110,6 @@ shape = SubResource("BoxShape3D_q8rma")
 [node name="Torch_01" type="MeshInstance3D" parent="." unique_id=2137901692]
 transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, -1.4210855e-14, 0, 1.4210855e-14, 1.0000001, 2.9802322e-08, 0.0039462373, -0.0025486322)
 mesh = SubResource("ArrayMesh_onvly")
-skeleton = NodePath("")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1858661364]
 transform = Transform3D(0.010000001, 0, 0, 0, 0.010000002, -2.220446e-16, 0, 2.220446e-16, 0.010000002, 0, -0.0010038732, 0.002272114)

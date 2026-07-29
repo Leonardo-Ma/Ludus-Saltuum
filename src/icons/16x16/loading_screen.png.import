@@ -17,6 +17,7 @@ dest_files=["res://.godot/imported/loading_screen.png-34cb9d883dfa4d4261f037b980
 
 compress/mode=0
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

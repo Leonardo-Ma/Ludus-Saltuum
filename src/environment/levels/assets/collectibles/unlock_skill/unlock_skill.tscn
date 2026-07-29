@@ -64,7 +64,6 @@ data = SubResource("Resource_b4cpa")
 [node name="Pickup_Thunder" type="MeshInstance3D" parent="." unique_id=1998586486]
 transform = Transform3D(100, 0, 0, 0, 100, -4.371139e-06, 0, 4.371139e-06, 100, 0, 0, 0)
 mesh = SubResource("ArrayMesh_gl2up")
-skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1871288762]
 transform = Transform3D(100, 0, 0, 0, 100, -4.371139e-06, 0, 4.371139e-06, 100, 9.313226e-08, -0.016550161, -7.2343054e-10)

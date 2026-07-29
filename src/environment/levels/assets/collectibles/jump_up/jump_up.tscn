@@ -67,7 +67,6 @@ data = SubResource("Resource_ltgpi")
 [node name="Arrow" type="MeshInstance3D" parent="." unique_id=703598953]
 transform = Transform3D(-0.108856834, 0.9940574, 0, -0.99232876, -0.10866754, 0.058948666, 0.05859836, 0.0064169653, 0.99826103, 0, 0.30399436, -0.0056705587)
 mesh = SubResource("ArrayMesh_2o410")
-skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2110685710]
 transform = Transform3D(-0.038276047, 0.9992585, -0.004176556, -0.99754757, -0.03796476, 0.05880053, 0.058598362, 0.0064169653, 0.99826115, 0.010091137, 0.21587709, 0.0013212499)
@@ -76,4 +75,3 @@ shape = SubResource("BoxShape3D_i5fwg")
 [node name="Arrow2" type="MeshInstance3D" parent="." unique_id=1108557511]
 transform = Transform3D(-0.108856834, 0.9940574, 0, -0.99232876, -0.10866754, 0.058948666, 0.05859836, 0.0064169653, 0.99826103, 0, 0.11193919, 0.0056705587)
 mesh = SubResource("ArrayMesh_2o410")
-skeleton = NodePath("")

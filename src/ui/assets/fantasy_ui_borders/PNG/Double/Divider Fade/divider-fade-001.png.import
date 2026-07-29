@@ -17,6 +17,7 @@ dest_files=["res://.godot/imported/divider-fade-001.png-5374db19f484c306a7a2e0bc
 
 compress/mode=0
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

@@ -10,7 +10,6 @@ points = PackedVector3Array(-0.25368923, 0.375, -0.5410625, -0.22625479, 0.5, -0
 [node name="BlockGrassLow" type="MeshInstance3D" parent="." unique_id=1896115689]
 transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, -2)
 mesh = ExtResource("1_jsw8t")
-skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=894036949]
 transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, -2)

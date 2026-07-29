@@ -17,6 +17,7 @@ dest_files=["res://.godot/imported/party.png-0154e2f0cae845dd2cd2ee76e0035f62.ct
 
 compress/mode=0
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

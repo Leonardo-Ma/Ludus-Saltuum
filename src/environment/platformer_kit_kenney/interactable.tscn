@@ -1120,7 +1120,6 @@ points = PackedVector3Array(0.015599899, 0.20325333, 0.103464656, -0.0967498, 0.
 
 [node name="barrel" type="MeshInstance3D" parent="." unique_id=1687934489]
 mesh = SubResource("ArrayMesh_ptwkw")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="barrel" unique_id=791310689]
 
@@ -1129,7 +1128,6 @@ shape = SubResource("ConvexPolygonShape3D_td4kv")
 
 [node name="heart" type="MeshInstance3D" parent="." unique_id=281444027]
 mesh = SubResource("ArrayMesh_33aqu")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="heart" unique_id=96857662]
 
@@ -1138,7 +1136,6 @@ shape = SubResource("ConvexPolygonShape3D_i3o7j")
 
 [node name="jewel" type="MeshInstance3D" parent="." unique_id=1445457306]
 mesh = SubResource("ArrayMesh_1f6jn")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="jewel" unique_id=567695689]
 
@@ -1147,7 +1144,6 @@ shape = SubResource("ConvexPolygonShape3D_eg28n")
 
 [node name="key" type="MeshInstance3D" parent="." unique_id=1392065687]
 mesh = SubResource("ArrayMesh_02118")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="key" unique_id=887002758]
 
@@ -1156,7 +1152,6 @@ shape = SubResource("ConvexPolygonShape3D_h5rij")
 
 [node name="flag" type="MeshInstance3D" parent="." unique_id=2045959112]
 mesh = SubResource("ArrayMesh_74upf")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="flag" unique_id=11964578]
 
@@ -1165,17 +1160,14 @@ shape = SubResource("ConvexPolygonShape3D_xy4le")
 
 [node name="spring" type="MeshInstance3D" parent="." unique_id=291068417]
 mesh = SubResource("ArrayMesh_emuut")
-skeleton = NodePath("")
 
 [node name="platform_001" type="MeshInstance3D" parent="spring" unique_id=1323188716]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2954112, 0)
 mesh = SubResource("ArrayMesh_mul3e")
-skeleton = NodePath("")
 
 [node name="spring_001" type="MeshInstance3D" parent="spring" unique_id=591977474]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0008062426, 0.030257918, 0.001247361)
 mesh = SubResource("ArrayMesh_pyjsn")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="spring" unique_id=1787180618]
 
@@ -1184,11 +1176,9 @@ shape = SubResource("ConvexPolygonShape3D_xf20e")
 
 [node name="button-round" type="MeshInstance3D" parent="." unique_id=1335618685]
 mesh = SubResource("ArrayMesh_o6bby")
-skeleton = NodePath("")
 
 [node name="button" type="MeshInstance3D" parent="button-round" unique_id=381053271]
 mesh = SubResource("ArrayMesh_4sm4w")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="button-round" unique_id=158913987]
 
@@ -1197,11 +1187,9 @@ shape = SubResource("ConvexPolygonShape3D_3e4y4")
 
 [node name="button-square" type="MeshInstance3D" parent="." unique_id=1320258913]
 mesh = SubResource("ArrayMesh_w8yol")
-skeleton = NodePath("")
 
 [node name="button_001" type="MeshInstance3D" parent="button-square" unique_id=230900896]
 mesh = SubResource("ArrayMesh_glean")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="button-square" unique_id=173963474]
 
@@ -1210,12 +1198,10 @@ shape = SubResource("ConvexPolygonShape3D_q43u6")
 
 [node name="chest" type="MeshInstance3D" parent="." unique_id=1008689779]
 mesh = SubResource("ArrayMesh_0287n")
-skeleton = NodePath("")
 
 [node name="lid" type="MeshInstance3D" parent="chest" unique_id=598044672]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -0.2)
 mesh = SubResource("ArrayMesh_5bt3w")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="chest" unique_id=803127366]
 
@@ -1224,7 +1210,6 @@ shape = SubResource("ConvexPolygonShape3D_amu7h")
 
 [node name="coin-bronze" type="MeshInstance3D" parent="." unique_id=125131545]
 mesh = SubResource("ArrayMesh_i7s0x")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="coin-bronze" unique_id=169175824]
 
@@ -1233,7 +1218,6 @@ shape = SubResource("ConvexPolygonShape3D_p20mk")
 
 [node name="coin-gold" type="MeshInstance3D" parent="." unique_id=248402635]
 mesh = SubResource("ArrayMesh_sbvm7")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="coin-gold" unique_id=1570469694]
 
@@ -1242,7 +1226,6 @@ shape = SubResource("ConvexPolygonShape3D_x4kys")
 
 [node name="coin-silver" type="MeshInstance3D" parent="." unique_id=342887597]
 mesh = SubResource("ArrayMesh_scrms")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="coin-silver" unique_id=154067303]
 
@@ -1251,7 +1234,6 @@ shape = SubResource("ConvexPolygonShape3D_0mt7c")
 
 [node name="crate" type="MeshInstance3D" parent="." unique_id=69993229]
 mesh = SubResource("ArrayMesh_y1fxk")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="crate" unique_id=323955953]
 
@@ -1260,7 +1242,6 @@ shape = SubResource("ConvexPolygonShape3D_sjrer")
 
 [node name="crate-item" type="MeshInstance3D" parent="." unique_id=351572078]
 mesh = SubResource("ArrayMesh_k0o0d")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="crate-item" unique_id=1430616655]
 
@@ -1269,7 +1250,6 @@ shape = SubResource("ConvexPolygonShape3D_22u6d")
 
 [node name="crate-item-strong" type="MeshInstance3D" parent="." unique_id=1721627542]
 mesh = SubResource("ArrayMesh_8e33o")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="crate-item-strong" unique_id=1412991705]
 
@@ -1278,7 +1258,6 @@ shape = SubResource("ConvexPolygonShape3D_ca7bk")
 
 [node name="crate-strong" type="MeshInstance3D" parent="." unique_id=1733915233]
 mesh = SubResource("ArrayMesh_7psgd")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="crate-strong" unique_id=1916537165]
 
@@ -1287,7 +1266,6 @@ shape = SubResource("ConvexPolygonShape3D_mg2qd")
 
 [node name="ladder" type="MeshInstance3D" parent="." unique_id=1656526859]
 mesh = SubResource("ArrayMesh_y2f0q")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="ladder" unique_id=620470650]
 
@@ -1296,7 +1274,6 @@ shape = SubResource("ConvexPolygonShape3D_4rjgj")
 
 [node name="ladder-broken" type="MeshInstance3D" parent="." unique_id=419748245]
 mesh = SubResource("ArrayMesh_0d1qy")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="ladder-broken" unique_id=1808231169]
 
@@ -1305,7 +1282,6 @@ shape = SubResource("ConvexPolygonShape3D_so87v")
 
 [node name="ladder-long" type="MeshInstance3D" parent="." unique_id=164195201]
 mesh = SubResource("ArrayMesh_1vekg")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="ladder-long" unique_id=528056240]
 
@@ -1314,12 +1290,10 @@ shape = SubResource("ConvexPolygonShape3D_bbftg")
 
 [node name="lever" type="MeshInstance3D" parent="." unique_id=624686163]
 mesh = SubResource("ArrayMesh_tvx5p")
-skeleton = NodePath("")
 
 [node name="handle" type="MeshInstance3D" parent="lever" unique_id=371081866]
 transform = Transform3D(0.6427874, 0.7660445, 0, -0.7660445, 0.6427874, 0, 0, 0, 1, 0, 0.1, 0)
 mesh = SubResource("ArrayMesh_gi5gu")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="lever" unique_id=1290415648]
 
@@ -1328,7 +1302,6 @@ shape = SubResource("ConvexPolygonShape3D_lmo0e")
 
 [node name="lock" type="MeshInstance3D" parent="." unique_id=2006634471]
 mesh = SubResource("ArrayMesh_cj5bk")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="lock" unique_id=1241747100]
 
@@ -1337,7 +1310,6 @@ shape = SubResource("ConvexPolygonShape3D_c7oh7")
 
 [node name="star" type="MeshInstance3D" parent="." unique_id=1114848898]
 mesh = SubResource("ArrayMesh_0qw1a")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="star" unique_id=1738733067]
 

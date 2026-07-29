@@ -5,6 +5,6 @@
 
 [resource]
 script = ExtResource("2_rd7gm")
-identifier = &"gold_coin"
 icon = ExtResource("1_0d0jk")
+identifier = &"gold_coin"
 metadata/_custom_type_script = "uid://jk4f3mtctg5r"

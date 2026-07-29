@@ -74,7 +74,6 @@ points = PackedVector3Array(0.12105146, 0.06709369, 0.2239626, -0.018651422, 0.1
 [node name="GrassPlatform_Cylinder_001" type="MeshInstance3D" parent="." unique_id=1710526473]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 mesh = SubResource("ArrayMesh_wj3w1")
-skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=672748617]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)

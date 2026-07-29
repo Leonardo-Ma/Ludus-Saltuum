@@ -17,6 +17,7 @@ dest_files=["res://.godot/imported/interact.png-f29c2f0a6279ec6c1885c1502aad3233
 
 compress/mode=0
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

@@ -17,6 +17,7 @@ dest_files=["res://.godot/imported/divider-003.png-55cd0be9f694f4b8e73fcdfae3a40
 
 compress/mode=0
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

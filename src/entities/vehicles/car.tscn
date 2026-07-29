@@ -226,7 +226,6 @@ unique_name_in_owner = true
 
 [node name="body" type="MeshInstance3D" parent="Visual" unique_id=1853091941]
 mesh = SubResource("ArrayMesh_7o382")
-skeleton = NodePath("")
 
 [node name="FrontLeftWheel" type="VehicleWheel3D" parent="." unique_id=768501134]
 unique_name_in_owner = true
@@ -243,7 +242,6 @@ damping_relaxation = 9.0
 [node name="FrontLeftWheelMesh" type="MeshInstance3D" parent="FrontLeftWheel" unique_id=150478462]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.101670206, 0, 5.9604645e-08)
 mesh = SubResource("ArrayMesh_0121k")
-skeleton = NodePath("")
 
 [node name="FrontRightWheel" type="VehicleWheel3D" parent="." unique_id=1482803122]
 unique_name_in_owner = true
@@ -260,7 +258,6 @@ damping_relaxation = 9.0
 [node name="FrontRightWheelMesh" type="MeshInstance3D" parent="FrontRightWheel" unique_id=853364483]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.095351726, 0, 5.9604645e-08)
 mesh = SubResource("ArrayMesh_b36gb")
-skeleton = NodePath("")
 
 [node name="BackLeftWheel" type="VehicleWheel3D" parent="." unique_id=837358902]
 unique_name_in_owner = true
@@ -276,7 +273,6 @@ damping_relaxation = 9.0
 [node name="BackLeftWheelMesh" type="MeshInstance3D" parent="BackLeftWheel" unique_id=1843625842]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12, 0, 0)
 mesh = SubResource("ArrayMesh_f7okj")
-skeleton = NodePath("")
 
 [node name="BackRightWheel" type="VehicleWheel3D" parent="." unique_id=866159422]
 unique_name_in_owner = true
@@ -292,7 +288,6 @@ damping_relaxation = 9.0
 [node name="BackRightWheelMesh" type="MeshInstance3D" parent="BackRightWheel" unique_id=785291287]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, 0, 0)
 mesh = SubResource("ArrayMesh_ktllw")
-skeleton = NodePath("")
 
 [node name="EnterArea" type="Area3D" parent="." unique_id=1684043567]
 unique_name_in_owner = true

@@ -322,7 +322,6 @@ points = PackedVector3Array(0.21803784, 0.1693294, -0.05014481, -0.23786646, 0.1
 
 [node name="spike-block" type="MeshInstance3D" parent="." unique_id=69600475]
 mesh = SubResource("ArrayMesh_00mpp")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="spike-block" unique_id=1170818989]
 
@@ -331,7 +330,6 @@ shape = SubResource("ConvexPolygonShape3D_4q2ka")
 
 [node name="spike-block-wide" type="MeshInstance3D" parent="." unique_id=33608228]
 mesh = SubResource("ArrayMesh_7web8")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="spike-block-wide" unique_id=148935318]
 
@@ -340,12 +338,10 @@ shape = SubResource("ConvexPolygonShape3D_dkfuj")
 
 [node name="trap-spikes" type="MeshInstance3D" parent="." unique_id=1457278874]
 mesh = SubResource("ArrayMesh_ivvq2")
-skeleton = NodePath("")
 
 [node name="spikes" type="MeshInstance3D" parent="trap-spikes" unique_id=176941974]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
 mesh = SubResource("ArrayMesh_aae2s")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="trap-spikes" unique_id=27884396]
 
@@ -354,12 +350,10 @@ shape = SubResource("ConvexPolygonShape3D_ae2gd")
 
 [node name="trap-spikes-large" type="MeshInstance3D" parent="." unique_id=1470092207]
 mesh = SubResource("ArrayMesh_7tw42")
-skeleton = NodePath("")
 
 [node name="spikes_001" type="MeshInstance3D" parent="trap-spikes-large" unique_id=933455380]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
 mesh = SubResource("ArrayMesh_7k1fc")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="trap-spikes-large" unique_id=1964595214]
 
@@ -368,7 +362,6 @@ shape = SubResource("ConvexPolygonShape3D_q3bid")
 
 [node name="saw" type="MeshInstance3D" parent="." unique_id=468998307]
 mesh = SubResource("ArrayMesh_28uja")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="saw" unique_id=1287902747]
 
@@ -377,7 +370,6 @@ shape = SubResource("ConvexPolygonShape3D_66v32")
 
 [node name="bomb" type="MeshInstance3D" parent="." unique_id=145190295]
 mesh = SubResource("ArrayMesh_2qtc7")
-skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="bomb" unique_id=2145336953]
 
