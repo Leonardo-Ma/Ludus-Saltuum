@@ -187,7 +187,7 @@ func request_close_settings() -> void:
 
 func request_close_menu() -> void:
 	assert(
-		_current_state in [GameState.SAVE_MENU, GameState.ACHIEVEMENTS_MENU, GameState.MAIN_MENU_SETTINGS],
+		_current_state in [GameState.SETTINGS, GameState.SAVE_MENU, GameState.ACHIEVEMENTS_MENU, GameState.MAIN_MENU_SETTINGS],
 		"Not in a closable menu state, current: " + str(_current_state)
 	)
 	_change_state(_previous_state)
