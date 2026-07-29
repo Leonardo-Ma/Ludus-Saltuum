@@ -21,7 +21,7 @@ func _ready() -> void:
 
 
 func _on_character_step(body: Node3D) -> void:
-	if body is not PlayerEntity or _is_cycle_running:
+	if !body.is_in_group(Groups.PLAYERS) or _is_cycle_running:
 		return
 	_is_cycle_running = true
 	surface.set_deferred("monitoring", false)

@@ -51,10 +51,6 @@ func _on_attack_pressed() -> void:
 	melee_attacked.emit()
 
 
-func _requires_goap() -> bool:
-	return false
-
-
 func _on_death_complete() -> void:
 	GameEvents.remove_score(10)
 	await respawn(2.0, CheckpointManager.get_respawn_position(), true)

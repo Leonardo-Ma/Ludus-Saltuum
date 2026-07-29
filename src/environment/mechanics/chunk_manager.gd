@@ -286,7 +286,7 @@ func _sync_chunk_spawn_positions(chunk: LevelChunk) -> void:
 	for node: Node in chunk.find_children("*", "", true, false):
 		if node is Collectible:
 			(node as Collectible).spawn_position = node.global_position
-		elif node is AggressiveEntity:
+		elif node.is_in_group(Groups.PLAYERS):
 			node.spawn_position = node.global_position
 
 

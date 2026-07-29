@@ -14,5 +14,5 @@ func _ready() -> void:
 # like: acid or fire doing DoT damage
 func on_hit_connected(damage_dealt: float) -> void:
 	var attacker: Node = owner
-	if attacker is AggressiveEntity and attacker.status_manager:
+	if attacker.is_in_group(Groups.ENEMIES) and attacker.status_manager:
 		attacker.status_manager.dispatch_event(&"on_damage_dealt", {"damage": damage_dealt})

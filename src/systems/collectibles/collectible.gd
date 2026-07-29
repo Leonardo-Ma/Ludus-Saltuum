@@ -31,7 +31,7 @@ func _record_spawn_position() -> void:
 
 
 func _on_body_entered(body: Node3D) -> void:
-	if body is PlayerEntity:
+	if body.is_in_group(Groups.PLAYERS):
 		SoundManager.play_sound(collect_sounds.pick_random(), SoundManager.SoundCategory.SFX, global_position)
 		_apply_effect(body as PlayerEntity)
 		# TODO Refactor to be an exported bool instead

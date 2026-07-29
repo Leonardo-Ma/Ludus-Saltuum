@@ -77,7 +77,7 @@ func _ready() -> void:
 
 	_child_ready()
 
-	if _requires_goap():
+	if is_npc:
 		navigation_controller = $%NavigationController
 		goap_controller = $%GoapController
 		perception_system = $%PerceptionSystem
@@ -107,9 +107,6 @@ func _ready() -> void:
 ## Virtual method for subclasses to override instead of _ready()
 @abstract func _child_ready() -> void
 
-## False for Player class
-@abstract func _requires_goap() -> bool
-
 ## To Override [br]
 ## Async post-death behavior (e.g. respawn, scene transition) [br]
 ## Called when _on_death is finished
@@ -117,7 +114,7 @@ func _ready() -> void:
 
 
 # TODO Disable navigation for GOAP, disable player controller
-# Maybe transform into abstract method to force override?
+# Maybe transform into abstract method to force override? Or use entity_enable_disable (player has but not npc)?
 # Player already overrides this
 func _on_death() -> void:
 	print(str(self.name) + " is dead, Jim!")

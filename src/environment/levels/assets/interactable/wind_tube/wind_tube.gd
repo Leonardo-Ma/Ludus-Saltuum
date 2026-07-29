@@ -21,9 +21,9 @@ func _physics_process(delta: float) -> void:
 			_bodies_inside.erase(body)
 			continue
 		var force: Vector3 = wind_direction * wind_force * delta
-		if body is PlayerEntity:
+		if body.is_in_group(Groups.PLAYERS):
 			body.movement_controller.add_external_force(force)
-		elif body is AggressiveEntity:
+		elif body.is_in_group(Groups.ENEMIES):
 			body.navigation_controller.add_external_force(force)
 
 

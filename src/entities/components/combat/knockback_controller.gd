@@ -27,9 +27,9 @@ func apply_knockback(impulse: Vector3) -> void:
 		# Estimate duration based on friction slowing to 0 using the new total magnitude
 		var duration: float = _current_knockback.length() / friction
 
-		if owner is PlayerEntity:
+		if owner.is_in_group(Groups.PLAYERS):
 			owner.movement_controller.disable_movement(duration)
-		elif owner is AggressiveEntity:
+		elif owner.is_in_group(Groups.ENEMIES):
 			owner.navigation_controller.disable_movement(duration)
 
 		set_physics_process(true)

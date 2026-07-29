@@ -24,10 +24,6 @@ func _child_ready() -> void:
 	pass
 
 
-func _requires_goap() -> bool:
-	return true
-
-
 func _on_death_complete() -> void:
 	GameEvents.add_score(5)
 	GameEvents.enemy_killed.emit(spawn_position)
