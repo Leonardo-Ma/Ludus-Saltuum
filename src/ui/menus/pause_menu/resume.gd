@@ -6,4 +6,4 @@ func _ready() -> void:
 
 
 func _on_pressed() -> void:
-	GameStateManager.request_resume()
+	ApplicationStateManager.request_resume()

@@ -1,4 +1,5 @@
-## Game/Application state machine; Coordinates UI, pause, settings, main menu, quit
+## Application state machine; Coordinates UI, pause, settings, main menu, and quit
+## Handles high-level application states, not gameplay-specific modes
 ## Emits signals for state transitions
 extends Node
 
@@ -28,7 +29,7 @@ var _is_initialized: bool = false
 
 
 func _ready() -> void:
-	assert(not _is_initialized, "GameStateManager already initialized")
+	assert(not _is_initialized, "ApplicationStateManager already initialized")
 	_is_initialized = true
 
 

@@ -75,7 +75,7 @@ func _on_load_pressed() -> void:
 		SaveManager.load_from_slot(_slot_index)
 	else:
 		SaveManager.reset_for_new_game()
-	GameStateManager.request_play_from_save()
+	ApplicationStateManager.request_play_from_save()
 
 
 func _on_delete_pressed() -> void:

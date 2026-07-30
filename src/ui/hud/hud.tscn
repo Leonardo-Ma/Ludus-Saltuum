@@ -500,6 +500,7 @@ script = ExtResource("34_ulf7a")
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightSideContainer/MusicPlayerPanel/VBoxContainer" unique_id=102472105]
+propagate_maximum_size = false
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/RightSideContainer/MusicPlayerPanel/VBoxContainer/HBoxContainer" unique_id=447482693]
@@ -519,6 +520,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightSideContainer/MusicPlayerPanel/VBoxContainer" unique_id=1228158422]
+propagate_maximum_size = false
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/RightSideContainer/MusicPlayerPanel/VBoxContainer/HBoxContainer2" unique_id=583479127]

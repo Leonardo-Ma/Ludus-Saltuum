@@ -1,5 +1,5 @@
-## View mediator; Shows/hides UI based on GameStateManager signals
-## Registers UIView and forwards GameStateManager signals to it
+## View mediator; Shows/hides UI based on ApplicationStateManager signals
+## Registers UIView and forwards ApplicationStateManager signals to it
 ## https://refactoring.guru/design-patterns/mediator
 extends Node
 
@@ -11,13 +11,13 @@ var _ui: UIView
 
 
 func _ready() -> void:
-	GameStateManager.state_changed.connect(_on_game_state_changed)
-	GameStateManager.settings_opened.connect(_on_settings_opened)
-	GameStateManager.settings_closed.connect(_on_settings_closed)
-	GameStateManager.main_menu_opened.connect(_on_main_menu_opened)
-	GameStateManager.gameplay_started.connect(_on_gameplay_started)
-	GameStateManager.gameplay_resumed.connect(_on_gameplay_resumed)
-	GameStateManager.gameplay_paused.connect(_on_gameplay_paused)
+	ApplicationStateManager.state_changed.connect(_on_game_state_changed)
+	ApplicationStateManager.settings_opened.connect(_on_settings_opened)
+	ApplicationStateManager.settings_closed.connect(_on_settings_closed)
+	ApplicationStateManager.main_menu_opened.connect(_on_main_menu_opened)
+	ApplicationStateManager.gameplay_started.connect(_on_gameplay_started)
+	ApplicationStateManager.gameplay_resumed.connect(_on_gameplay_resumed)
+	ApplicationStateManager.gameplay_paused.connect(_on_gameplay_paused)
 
 
 func register_ui(ui: UIView) -> void:
@@ -62,21 +62,21 @@ func show_main_menu_settings() -> void:
 	_get_ui().show_main_menu_settings()
 
 
-func _on_game_state_changed(new_state: GameStateManager.GameState, _previous_state: GameStateManager.GameState) -> void:
+func _on_game_state_changed(new_state: ApplicationStateManager.GameState, _previous_state: ApplicationStateManager.GameState) -> void:
 	match new_state:
-		GameStateManager.GameState.MAIN_MENU:
+		ApplicationStateManager.GameState.MAIN_MENU:
 			_ui.show_main_menu()
-		GameStateManager.GameState.PLAYING:
+		ApplicationStateManager.GameState.PLAYING:
 			_ui.show_game()
-		GameStateManager.GameState.PAUSED:
+		ApplicationStateManager.GameState.PAUSED:
 			_ui.show_pause_menu()
-		GameStateManager.GameState.SETTINGS:
+		ApplicationStateManager.GameState.SETTINGS:
 			_ui.show_settings()
-		GameStateManager.GameState.SAVE_MENU:
+		ApplicationStateManager.GameState.SAVE_MENU:
 			_ui.show_save_menu()
-		GameStateManager.GameState.ACHIEVEMENTS_MENU:
+		ApplicationStateManager.GameState.ACHIEVEMENTS_MENU:
 			_ui.show_achievements()
-		GameStateManager.GameState.MAIN_MENU_SETTINGS:
+		ApplicationStateManager.GameState.MAIN_MENU_SETTINGS:
 			_ui.show_main_menu_settings()
 
 

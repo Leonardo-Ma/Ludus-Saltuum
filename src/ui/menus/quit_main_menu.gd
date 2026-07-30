@@ -9,4 +9,4 @@ func _ready() -> void:
 
 
 func _on_pressed() -> void:
-	GameStateManager.request_main_menu()
+	ApplicationStateManager.request_main_menu()

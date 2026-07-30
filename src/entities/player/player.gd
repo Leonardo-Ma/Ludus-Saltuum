@@ -45,6 +45,17 @@ func _child_ready() -> void:
 	# TODO Also disable input controller, player can attack between death and respawn
 	health.died.connect(movement_controller.disable_movement.bind(5.0))
 
+	entity_enable_disable(false)
+
+	ApplicationStateManager.state_changed.connect(_on_application_state_changed)
+
+	if ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.PLAYING):
+		entity_enable_disable(true)
+
+
+func _on_application_state_changed(new_state: ApplicationStateManager.GameState, _previous_state: ApplicationStateManager.GameState) -> void:
+	entity_enable_disable(new_state == ApplicationStateManager.GameState.PLAYING)
+
 
 ## Receives from input controller, goes to animation controller for attack
 func _on_attack_pressed() -> void:

@@ -10,4 +10,4 @@ func _ready() -> void:
 
 
 func _on_pressed() -> void:
-	GameStateManager.request_close_menu()
+	ApplicationStateManager.request_close_menu()

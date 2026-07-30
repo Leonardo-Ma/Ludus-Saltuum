@@ -10,6 +10,7 @@ enum MusicState {
 	EXPLORATION,
 	RACING,
 	COMBAT,
+	MAZE,
 	SILENCE,
 }
 # TODO Maybe an export instead?
@@ -92,8 +93,29 @@ var _music_library: Dictionary = {
 			"song_name": "Cloak of Darness",
 			"author": "Abstraction",
 		},
+		"sketchbook_2025_12_11_neuro":
+		{
+			"stream": preload("uid://d3807y65y3uky"),
+			"song_name": "Sketchbook 2025 12 11 NEURO",
+			"author": "Abstraction",
+		}
 	},
 	#MusicState.COMBAT: {},
+	MusicState.MAZE:
+	{
+		"ceiling_stars":
+		{
+			"stream": preload("uid://cv6xjgx8a5ir8"),
+			"song_name": "Ceiling Stars",
+			"author": "Crow Shade",
+		},
+		"sealed":
+		{
+			"stream": preload("uid://652qd4h6o1xt"),
+			"song_name": "Sealed",
+			"author": "Crow Shade",
+		},
+	}
 	#MusicState.NIGHT: {},
 }
 
@@ -277,11 +299,8 @@ func set_volume(volume_db: float) -> void:
 		_fade_tween.kill()
 		_fade_tween = null
 
-	if _current_player.playing:
-		_current_player.volume_db = volume_db
-
-	if _staging_player.playing:
-		_staging_player.volume_db = volume_db
+	_current_player.volume_db = volume_db
+	_staging_player.volume_db = volume_db
 
 
 func set_crossfade_duration(duration: float) -> void:

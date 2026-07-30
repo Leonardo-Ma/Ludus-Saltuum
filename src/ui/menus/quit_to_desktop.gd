@@ -13,4 +13,4 @@ func _ready() -> void:
 func _on_pressed() -> void:
 	SoundManager.play_sound(SHUT_DOWN_SOUND, SoundManager.SoundCategory.UI)
 	await get_tree().create_timer(SHUTDOWN_DELAY).timeout
-	GameStateManager.request_quit()
+	ApplicationStateManager.request_quit()

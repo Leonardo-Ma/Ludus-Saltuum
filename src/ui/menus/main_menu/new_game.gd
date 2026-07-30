@@ -6,4 +6,4 @@ func _ready() -> void:
 
 
 func _on_pressed() -> void:
-	GameStateManager.request_new_game()
+	ApplicationStateManager.request_new_game()

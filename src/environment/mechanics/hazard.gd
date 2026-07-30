@@ -24,12 +24,12 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node3D) -> void:
-	if body.is_in_group(Groups.ENEMIES):
+	if body.is_in_group(Groups.PLAYERS) or body.is_in_group(Groups.ENEMIES):
 		hitbox.find_child("CollisionShape3D").disabled = false
 		activate.emit()
 
 
 func _on_body_exited(body: Node3D) -> void:
-	if body.is_in_group(Groups.ENEMIES):
+	if body.is_in_group(Groups.PLAYERS) or body.is_in_group(Groups.ENEMIES):
 		hitbox.find_child("CollisionShape3D").disabled = true
 		deactivate.emit()

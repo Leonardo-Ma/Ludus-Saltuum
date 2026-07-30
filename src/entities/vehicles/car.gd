@@ -127,6 +127,7 @@ func _physics_process(delta: float) -> void:
 	camera.look_at(camera_look_at)
 
 
+# TODO Improve this name :\
 func _on_enter_area_body_entered(body: Node3D) -> void:
 	if (is_driven) or (body is not PlayerEntity):
 		return

@@ -21,31 +21,31 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		return
 
-	if event.is_action_pressed("quick_save") and GameStateManager.is_gameplay_active():
+	if event.is_action_pressed("quick_save") and ApplicationStateManager.is_gameplay_active():
 		SaveManager.save_to_quick_slot()
 		get_viewport().set_input_as_handled()
 		return
 
 	if not event.is_action_pressed("ui_cancel"):
 		return
-	if GameStateManager.is_in_state(GameStateManager.GameState.MAIN_MENU):
+	if ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.MAIN_MENU):
 		return
-	if GameStateManager.is_in_settings():
-		GameStateManager.request_close_settings()
+	if ApplicationStateManager.is_in_settings():
+		ApplicationStateManager.request_close_settings()
 		get_viewport().set_input_as_handled()
 		return
 	if (
-		GameStateManager.is_in_state(GameStateManager.GameState.SAVE_MENU)
-		or GameStateManager.is_in_state(GameStateManager.GameState.ACHIEVEMENTS_MENU)
-		or GameStateManager.is_in_state(GameStateManager.GameState.MAIN_MENU_SETTINGS)
+		ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.SAVE_MENU)
+		or ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.ACHIEVEMENTS_MENU)
+		or ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.MAIN_MENU_SETTINGS)
 	):
-		GameStateManager.request_close_menu()
+		ApplicationStateManager.request_close_menu()
 		get_viewport().set_input_as_handled()
 		return
-	if not GameStateManager.is_paused():
-		GameStateManager.request_pause()
+	if not ApplicationStateManager.is_paused():
+		ApplicationStateManager.request_pause()
 	else:
-		GameStateManager.request_resume()
+		ApplicationStateManager.request_resume()
 	get_viewport().set_input_as_handled()
 
 

@@ -1,12 +1,28 @@
 [gd_scene format=4 uid="uid://nd1uo24vt6d5"]
 
 [ext_resource type="PackedScene" uid="uid://cq301lp0jblvc" path="res://src/entities/enemies/enemy_template.tscn" id="1_4frua"]
+[ext_resource type="Script" uid="uid://cxqsapbic2imr" path="res://src/entities/components/combat/attack.gd" id="2_oiqqw"]
+[ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="3_cin2i"]
 [ext_resource type="AnimationLibrary" uid="uid://vginonlwcip8" path="res://src/entities/animation/libraries/combat.res" id="5_0ifyg"]
 [ext_resource type="Texture2D" uid="uid://d0qopgxxjomc5" path="res://src/entities/enemies/barbarian/barbarian_barbarian_texture.png" id="5_18ttt"]
 [ext_resource type="AnimationLibrary" uid="uid://qw3lmf4rabqb" path="res://src/entities/animation/libraries/general.res" id="6_q7dfg"]
 [ext_resource type="AnimationLibrary" uid="uid://dfypubq6ngr7a" path="res://src/entities/animation/libraries/movement.res" id="7_0ektb"]
 [ext_resource type="AnimationLibrary" uid="uid://bp21tmj3ajjq" path="res://src/entities/animation/libraries/movement_advanced.res" id="19_2rf2y"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://basam7g1dbev2" path="res://src/entities/resources/base_medium_animation_blend_tree.tres" id="20_cr6u0"]
+
+[sub_resource type="Resource" id="Resource_ud1dh"]
+resource_local_to_scene = true
+script = ExtResource("2_oiqqw")
+type = 1
+damage = 20
+metadata/_custom_type_script = "uid://cxqsapbic2imr"
+
+[sub_resource type="Resource" id="Resource_f35k1"]
+resource_local_to_scene = true
+script = ExtResource("3_cin2i")
+max_health = 100
+health_regen = 2.0
+metadata/_custom_type_script = "uid://njkofl5g11k7"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j12qd"]
 resource_name = "barbarian"
@@ -229,6 +245,8 @@ blend_shape_mode = 0
 
 [node name="Barbarian" unique_id=280064195 instance=ExtResource("1_4frua")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+attack = SubResource("Resource_ud1dh")
+health = SubResource("Resource_f35k1")
 
 [node name="AnimationPlayer" parent="." index="1" unique_id=369935479]
 libraries/combat = ExtResource("5_0ifyg")
