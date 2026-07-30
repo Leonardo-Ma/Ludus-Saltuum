@@ -7,7 +7,7 @@ data = PackedVector3Array(-2.7549999, 0, -4.6254, -2.7034, 0, -4.4322, -2.734, 0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_lvaf0"]
 height = 0.25
-radius = 7.0
+radius = 10.0
 
 [node name="RoomWide" type="StaticBody3D" unique_id=1670016718]
 
@@ -19,9 +19,4 @@ mesh = ExtResource("1_lvaf0")
 skeleton = NodePath("../..")
 
 [node name="FloorCollisionShape3D" type="CollisionShape3D" parent="." unique_id=591932819]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
-shape = SubResource("CylinderShape3D_lvaf0")
-
-[node name="FloorCollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1024138355]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
 shape = SubResource("CylinderShape3D_lvaf0")

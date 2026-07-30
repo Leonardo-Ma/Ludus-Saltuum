@@ -92,7 +92,7 @@ size = Vector3(2.10619, 0.302456, 2.1061897)
 size = Vector3(0.017099548, 0.017099548, 0.0077169295)
 
 [node name="Spike" type="Area3D" unique_id=2024920262]
-transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
+transform = Transform3D(100, 0, 0, 0, -4.3711384e-06, 99.99999, 0, -99.99999, -4.3711384e-06, 0, 0, 0)
 collision_layer = 0
 collision_mask = 3
 script = ExtResource("1_1v1el")
@@ -104,7 +104,7 @@ transform = Transform3D(1.0000005, 0, 0, 0, 1.0000007, -2.842171e-14, 0, 2.84217
 mesh = SubResource("ArrayMesh_cr444")
 
 [node name="SpikeFloor" type="MeshInstance3D" parent="." unique_id=717568732]
-transform = Transform3D(0.010000002, 0, 0, 0, -4.3711434e-10, -0.010000005, 0, 0.010000005, -4.3711434e-10, 0, 0, 0)
+transform = Transform3D(0.010000002, 0, 0, 0, -4.3711412e-10, -0.010000005, 0, 0.010000005, -4.3711412e-10, 0, 0, 0)
 mesh = SubResource("ArrayMesh_1hd0d")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1206830811]
