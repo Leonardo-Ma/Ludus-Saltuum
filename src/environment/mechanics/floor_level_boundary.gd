@@ -56,5 +56,4 @@ func _on_body_entered(body: Node3D) -> void:
 	if CheckpointManager.has_active_checkpoint():
 		target_position = CheckpointManager.get_respawn_position()
 
-	# TODO Check if a check if in group players here is needed
-	body.respawn(2.0, target_position)
+	GameEvents.request_respawn(2.0, target_position, true)

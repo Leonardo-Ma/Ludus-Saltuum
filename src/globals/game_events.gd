@@ -64,6 +64,17 @@ func set_controlled_entity(entity: Node3D) -> void:
 	controlled_entity_changed.emit(entity)
 
 
+## Request respawn for currently controlled entity
+## Entity must implement respawn
+func request_respawn(delay: float, target_position: Vector3, is_death: bool = false) -> void:
+	assert(controlled_entity != null, "No controlled entity to respawn")
+	assert(
+		controlled_entity.has_method("respawn"),
+		"Controlled entity " + controlled_entity.name + " must implement respawn(delay: float, target_position: Vector3, is_death: bool)"
+	)
+	controlled_entity.respawn(delay, target_position, is_death)
+
+
 func _on_easter_egg_found(easter_egg_name: StringName) -> void:
 	if not found_easter_eggs.has(easter_egg_name):
 		found_easter_eggs[easter_egg_name] = true

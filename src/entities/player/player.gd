@@ -45,12 +45,12 @@ func _child_ready() -> void:
 	# TODO Also disable input controller, player can attack between death and respawn
 	health.died.connect(movement_controller.disable_movement.bind(5.0))
 
-	entity_enable_disable(false)
-
 	ApplicationStateManager.state_changed.connect(_on_application_state_changed)
 
 	if ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.PLAYING):
 		entity_enable_disable(true)
+	else:
+		entity_enable_disable(false)
 
 
 func _on_application_state_changed(new_state: ApplicationStateManager.GameState, _previous_state: ApplicationStateManager.GameState) -> void:
@@ -64,7 +64,7 @@ func _on_attack_pressed() -> void:
 
 func _on_death_complete() -> void:
 	GameEvents.remove_score(10)
-	await respawn(2.0, CheckpointManager.get_respawn_position(), true)
+	GameEvents.request_respawn(2.0, CheckpointManager.get_respawn_position(), true)
 
 
 func respawn(delay: float, target_position: Vector3, is_death: bool = false) -> void:
@@ -76,7 +76,7 @@ func respawn(delay: float, target_position: Vector3, is_death: bool = false) -> 
 	# Wait for the screen to fade in
 	await get_tree().create_timer(delay / 2.0).timeout
 
-	GameEvents.controlled_entity.global_position = target_position
+	global_position = target_position
 
 	if is_death:
 		health.reset()
@@ -96,7 +96,7 @@ func respawn(delay: float, target_position: Vector3, is_death: bool = false) -> 
 func _on_return_to_checkpoint_requested() -> void:
 	if health.current_health <= 0:
 		return
-	await respawn(1.0, CheckpointManager.get_respawn_position())
+	GameEvents.request_respawn(1.0, CheckpointManager.get_respawn_position())
 
 
 func _on_damaged_vibration(_attack: Attack) -> void:

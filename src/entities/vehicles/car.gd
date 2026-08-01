@@ -176,11 +176,11 @@ func exit(exit_position: Vector3) -> void:
 func respawn(delay: float, target_position: Vector3, is_death: bool = false) -> void:
 	GameEvents.player_respawning.emit(delay)
 
+	# TODO Remove this magic number delay
 	# Wait for the screen to fade in
 	await get_tree().create_timer(delay / 2.0).timeout
 
-	global_position = target_position
-
+	global_transform = Transform3D(initial_level_position.basis, target_position)
 	rotation = Vector3.ZERO
 	linear_velocity = Vector3.ZERO
 	angular_velocity = Vector3.ZERO

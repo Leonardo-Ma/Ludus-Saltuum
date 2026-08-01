@@ -59,45 +59,11 @@ func exit_vehicle(exit_position: Vector3) -> void:
 
 #region Private API
 func _on_vehicle_entered() -> void:
-	_player.remove_from_group(Groups.PLAYERS)
-
-	_player.skills_controller.set_physics_process(false)
-	_player.set_collision_layer_value(1, false)
-
-	if _player.hurtbox:
-		_player.hurtbox.set_deferred("monitoring", false)
-		_player.hurtbox.set_deferred("monitorable", false)
-
-	if _player.hitbox:
-		_player.hitbox.set_deferred("monitoring", false)
-		_player.hitbox.set_deferred("monitorable", false)
-
-	if _player.camera_controller:
-		_player.camera_controller.set_active(false)
-
-	_player.set_physics_process(false)
-	_player.visible = false
+	_player.entity_enable_disable(false)
 
 
 func _on_vehicle_exited() -> void:
-	_player.add_to_group(Groups.PLAYERS)
-
-	_player.skills_controller.set_physics_process(true)
-	_player.set_collision_layer_value(1, true)
-
-	if _player.hurtbox:
-		_player.hurtbox.set_deferred("monitoring", true)
-		_player.hurtbox.set_deferred("monitorable", true)
-
-	if _player.hitbox:
-		_player.hitbox.set_deferred("monitoring", true)
-		_player.hitbox.set_deferred("monitorable", true)
-
-	if _player.camera_controller:
-		_player.camera_controller.set_active(true)
-
-	_player.set_physics_process(true)
-	_player.visible = true
+	_player.entity_enable_disable(true)
 
 	GameEvents.set_controlled_entity(_player)
 #endregion

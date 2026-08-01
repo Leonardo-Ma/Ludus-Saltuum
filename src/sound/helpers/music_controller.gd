@@ -105,13 +105,13 @@ var _music_library: Dictionary = {
 	{
 		"ceiling_stars":
 		{
-			"stream": preload("uid://cv6xjgx8a5ir8"),
+			"stream": preload("uid://be745nadwmqo1"),
 			"song_name": "Ceiling Stars",
 			"author": "Crow Shade",
 		},
 		"sealed":
 		{
-			"stream": preload("uid://652qd4h6o1xt"),
+			"stream": preload("uid://r8vyt5mamaab"),
 			"song_name": "Sealed",
 			"author": "Crow Shade",
 		},
