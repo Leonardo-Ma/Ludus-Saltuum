@@ -48,6 +48,8 @@ var _driver: PlayerEntity = null
 ## m/s?
 @onready var speed_ratio: float
 
+@onready var portal_controller: PortalController = %PortalController
+
 
 func _ready() -> void:
 	initial_level_position = global_transform
@@ -113,6 +115,7 @@ func _physics_process(delta: float) -> void:
 		engine_force = 0.0
 		brake = coast_brake_force
 
+	# TODO Consider a specific camera controller ?
 	var camera_pos_t: float = 1.0 - exp(-20.0 * delta)
 	var camera_rot_t: float = 1.0 - exp(-5.0 * delta)
 

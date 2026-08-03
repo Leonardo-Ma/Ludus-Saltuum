@@ -14,10 +14,6 @@ extends AggressiveEntity
 
 
 func _physics_process(delta: float) -> void:
-	if portal_controller._portal_transitioning:  # If mid teleport
-		move_and_slide()
-		return
-
 	movement_controller.move(self, delta)
 	move_and_slide()
 
@@ -114,7 +110,3 @@ func entity_enable_disable(toggle: bool) -> void:
 	camera_controller.set_active(toggle)
 	set_physics_process(toggle)
 	visible = toggle
-
-
-func begin_portal_transition(source: TeleportPortal, destination: TeleportPortal) -> void:
-	await portal_controller.begin_portal_transition(source, destination, self)
