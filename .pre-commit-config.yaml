@@ -68,6 +68,13 @@ repos:
           '
         files: \.tscn$
 
+      - id: check-snake-case
+        name: "check snake_case naming in gdscript | variables, functions, signals must be snake_case"
+        language: pygrep
+        entry: '\b(?:var|func|signal)\s+[a-z0-9_]*[A-Z][A-Za-z0-9_]*'
+        files: \.gd$
+        exclude: 'addons/'
+
       # Architecture
       - id: no-scene-tree-traversal
         name: "ban scene tree climbing | assumes scene structure and breaks on refactor | use @export, Groups, or Autoloads"
