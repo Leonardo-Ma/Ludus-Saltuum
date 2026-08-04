@@ -30,7 +30,7 @@
 [ext_resource type="Script" uid="uid://iyeemya81j8m" path="res://src/entities/player/skills/skills_controller.gd" id="29_skills"]
 [ext_resource type="Script" uid="uid://cpusxg43clwxv" path="res://src/entities/player/controller/vfx_controller.gd" id="31_gxh5t"]
 [ext_resource type="Script" uid="uid://5or2vf5kpdix" path="res://src/entities/player/components/vehicle_rider.gd" id="32_vehiclerider"]
-[ext_resource type="Script" uid="uid://bkp1xy01pk8yn" path="res://src/entities/player/components/PortalController.gd" id="33_portalcontroller"]
+[ext_resource type="Script" uid="uid://bkp1xy01pk8yn" path="res://src/entities/player/components/portal_controller.gd" id="33_portalcontroller"]
 
 [sub_resource type="Resource" id="Resource_wjvoe"]
 script = ExtResource("6_qo2tj")
