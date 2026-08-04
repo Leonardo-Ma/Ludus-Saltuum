@@ -95,5 +95,5 @@ func show_main_menu_settings() -> void:
 	_overlays.visible = false
 
 
-func set_hud_visible(is_visible: bool) -> void:
-	_hud.visible = is_visible
+func set_hud_visible(_hud_visible: bool) -> void:
+	_hud.visible = _hud_visible
