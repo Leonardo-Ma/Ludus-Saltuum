@@ -1,5 +1,7 @@
 [gd_scene format=4 uid="uid://dy7goxhejncoa"]
 
+[ext_resource type="Script" uid="uid://dmww2jmvtbr4r" path="res://src/environment/mechanics/torch.gd" id="1_ej4jl"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_q8rma"]
 size = Vector3(0.0022988631, 0.0039540827, 0.008116214)
 
@@ -102,6 +104,8 @@ shadow_mesh = SubResource("ArrayMesh_djfj2")
 
 [node name="Torch" type="StaticBody3D" unique_id=153820126]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
+script = ExtResource("1_ej4jl")
+light_color = Color(1, 1, 0.40392157, 1)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2127122882]
@@ -112,5 +116,6 @@ transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, -1.4210855e-14, 0, 1.4210
 mesh = SubResource("ArrayMesh_onvly")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1858661364]
-transform = Transform3D(0.010000001, 0, 0, 0, 0.010000002, -2.220446e-16, 0, 2.220446e-16, 0.010000002, 0, -0.0010038732, 0.002272114)
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, -2.2204457e-14, 0, 2.2204457e-14, 1, 0, -0.0010038732, 0.002272114)
 light_color = Color(1, 1, 0.40392157, 1)
