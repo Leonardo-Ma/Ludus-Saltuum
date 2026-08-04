@@ -39,7 +39,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 
 [node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_ohlae")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 127)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 111)
 
 [node name="GrassPlatform" parent="." unique_id=537577895 instance=ExtResource("4_13u3q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
@@ -55,45 +55,39 @@ data = SubResource("Resource_5h0lt")
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.0011715889, 0.37979126, -0.9988041)
 
 [node name="HexagonStonePlatform2" parent="." unique_id=509696061 instance=ExtResource("5_vb56a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 27)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5216131, 24)
 
 [node name="Button" parent="HexagonStonePlatform2" unique_id=32467190 instance=ExtResource("9_tfs21")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.39106166, -2)
 
 [node name="HexagonStonePlatform3" parent="." unique_id=968598865 instance=ExtResource("5_vb56a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 36)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5216131, 33)
 
 [node name="HexagonStonePlatform4" parent="." unique_id=1100007288 instance=ExtResource("5_vb56a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 45)
 
 [node name="LargeDoor" parent="HexagonStonePlatform4" unique_id=1399175764 node_paths=PackedStringArray("_button") instance=ExtResource("10_4fd3v")]
-transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0.5129981, 3)
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0.2488691, 3.2073288)
 _button = NodePath("../../HexagonStonePlatform2/Button")
 
-[node name="HexagonStonePlatform6" parent="." unique_id=87924254 instance=ExtResource("5_vb56a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 58)
+[node name="HexagonStonePlatform5" parent="." unique_id=22005158 instance=ExtResource("5_vb56a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5216131, 58)
 
-[node name="HexagonStonePlatform7" parent="." unique_id=542499176 instance=ExtResource("5_vb56a")]
-transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, 0, 0, 68)
-
-[node name="HexagonStonePlatform5" parent="." unique_id=1058522567 instance=ExtResource("5_vb56a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 77)
-
-[node name="Button2" parent="HexagonStonePlatform5" unique_id=2110582536 instance=ExtResource("9_tfs21")]
+[node name="Button" parent="HexagonStonePlatform5" unique_id=2110582536 instance=ExtResource("9_tfs21")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.39106166, -2)
 
-[node name="HexagonStonePlatform8" parent="." unique_id=1969961515 instance=ExtResource("5_vb56a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 86)
+[node name="HexagonStonePlatform6" parent="." unique_id=1538633650 instance=ExtResource("5_vb56a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5216131, 67)
 
-[node name="HexagonStonePlatform9" parent="." unique_id=74364943 instance=ExtResource("5_vb56a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 95)
+[node name="HexagonStonePlatform7" parent="." unique_id=2100192169 instance=ExtResource("5_vb56a")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 79)
 
-[node name="LargeDoor2" parent="HexagonStonePlatform9" unique_id=827218282 node_paths=PackedStringArray("_button") instance=ExtResource("10_4fd3v")]
-transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0.5129981, 3)
-_button = NodePath("../../HexagonStonePlatform5/Button2")
+[node name="LargeDoor" parent="HexagonStonePlatform7" unique_id=720977545 node_paths=PackedStringArray("_button") instance=ExtResource("10_4fd3v")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0.2488691, 3.2073288)
+_button = NodePath("../../HexagonStonePlatform2/Button")
 
 [node name="HexagonStonePlatform10" parent="." unique_id=1617124811 instance=ExtResource("5_vb56a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 108)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 92)
 
 [node name="HexagonStonePlatform11" parent="." unique_id=1201211531 instance=ExtResource("5_vb56a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 119)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 103)

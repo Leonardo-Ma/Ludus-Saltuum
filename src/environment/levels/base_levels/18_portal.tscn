@@ -1,16 +1,68 @@
 [gd_scene format=3 uid="uid://bcec1g8637xi4"]
 
-[ext_resource type="Script" uid="uid://dfapcpf4fli57" path="res://src/environment/levels/templates/level_chunk.gd" id="1_byynh"]
+[ext_resource type="Script" uid="uid://dfapcpf4fli57" path="res://src/environment/levels/level_chunk.gd" id="1_byynh"]
 [ext_resource type="PackedScene" uid="uid://cl6psv388cmbx" path="res://src/environment/levels/entrance_trigger.tscn" id="2_23dvy"]
 [ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_js05v"]
-[ext_resource type="PackedScene" uid="uid://0hwlnlpkbsjn" path="res://src/environment/levels/assets/platforms/static_platforms/grass.tscn" id="4_8h8un"]
+[ext_resource type="PackedScene" uid="uid://0hwlnlpkbsjn" path="res://src/environment/levels/assets/platforms/static_platforms/grass_platform.tscn" id="4_8h8un"]
 [ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="5_x6but"]
 [ext_resource type="PackedScene" uid="uid://c32lde0fr367t" path="res://src/environment/levels/assets/interactable/portal/portal.tscn" id="6_3p00d"]
+[ext_resource type="PackedScene" uid="uid://bb1l6ibw3ab5y" path="res://src/environment/levels/assets/platforms/static_platforms/hexagon_grass.tscn" id="7_5duc8"]
+[ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/levels/assets/collectibles/coins/gold_coin.tscn" id="8_j5615"]
+[ext_resource type="PackedScene" uid="uid://nd1uo24vt6d5" path="res://src/entities/enemies/barbarian/barbarian.tscn" id="9_5vwvj"]
+[ext_resource type="PackedScene" uid="uid://7ugwdowsimwr" path="res://src/environment/levels/assets/platforms/static_platforms/hexagon_stone.tscn" id="9_fnf3c"]
+[ext_resource type="Script" uid="uid://cxqsapbic2imr" path="res://src/entities/components/combat/attack.gd" id="10_ksgtg"]
+[ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="11_36gyj"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_4hukf"]
+vertices = PackedVector3Array(90.00639, 5.8, 68.79587, 91.25639, 5.8, 68.79587, 95.25639, 5.8, 67.29587, 97.25639, 5.8, 63.045864, 95.50639, 5.8, 59.045864, 94.00639, 5.8, 57.795864, 89.50639, 5.8, 57.295864, 85.75639, 5.8, 60.795864, 86.25639, 5.8, 66.04587)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(7, 6, 5), PackedInt32Array(8, 7, 0), PackedInt32Array(0, 7, 2), PackedInt32Array(2, 7, 3), PackedInt32Array(3, 7, 5)]
+
+[sub_resource type="Resource" id="Resource_6si2x"]
+resource_local_to_scene = true
+script = ExtResource("10_ksgtg")
+type = 1
+damage = 20
+metadata/_custom_type_script = "uid://cxqsapbic2imr"
+
+[sub_resource type="Resource" id="Resource_hsnq6"]
+resource_local_to_scene = true
+script = ExtResource("11_36gyj")
+max_health = 20
+health_regen = 2.0
+metadata/_custom_type_script = "uid://njkofl5g11k7"
+
+[sub_resource type="Resource" id="Resource_k1gv0"]
+resource_local_to_scene = true
+script = ExtResource("10_ksgtg")
+type = 1
+damage = 20
+metadata/_custom_type_script = "uid://cxqsapbic2imr"
+
+[sub_resource type="Resource" id="Resource_566c7"]
+resource_local_to_scene = true
+script = ExtResource("11_36gyj")
+max_health = 20
+health_regen = 2.0
+metadata/_custom_type_script = "uid://njkofl5g11k7"
+
+[sub_resource type="Resource" id="Resource_5vwvj"]
+resource_local_to_scene = true
+script = ExtResource("10_ksgtg")
+type = 1
+damage = 20
+metadata/_custom_type_script = "uid://cxqsapbic2imr"
+
+[sub_resource type="Resource" id="Resource_ksgtg"]
+resource_local_to_scene = true
+script = ExtResource("11_36gyj")
+max_health = 20
+health_regen = 2.0
+metadata/_custom_type_script = "uid://njkofl5g11k7"
 
 [node name="18Portal" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_byynh")
 score_multiplier = 1.5
-features = Array[int]([0])
+features = Array[int]([3])
 
 [node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_23dvy")]
 unique_name_in_owner = true
@@ -18,7 +70,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 
 [node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_js05v")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 200)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 162)
 
 [node name="GrassPlatform" parent="." unique_id=537577895 instance=ExtResource("4_8h8un")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 3)
@@ -27,12 +79,158 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 3)
 transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, 3, 4, -2)
 
 [node name="Portal" parent="GrassPlatform" unique_id=1766414310 node_paths=PackedStringArray("linked_portal") instance=ExtResource("6_3p00d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
-linked_portal = NodePath("../Portal2")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7857208, 0)
+linked_portal = NodePath("../../HexagonGrassPlatform/Portal2")
+portal_color = Color(1, 0, 0.5310993, 1)
 
-[node name="Portal2" parent="GrassPlatform" unique_id=1503255095 node_paths=PackedStringArray("linked_portal") instance=ExtResource("6_3p00d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 21)
-linked_portal = NodePath("../Portal")
+[node name="HexagonGrassPlatform" parent="." unique_id=637541692 instance=ExtResource("7_5duc8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 42)
 
-[node name="GrassPlatform2" parent="." unique_id=323203851 instance=ExtResource("4_8h8un")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 26)
+[node name="Portal2" parent="HexagonGrassPlatform" unique_id=875469469 node_paths=PackedStringArray("linked_portal") instance=ExtResource("6_3p00d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.0808887, -3)
+linked_portal = NodePath("../../GrassPlatform/Portal")
+portal_color = Color(1, 0, 0.5310993, 1)
+
+[node name="Portal3" parent="HexagonGrassPlatform" unique_id=803891312 node_paths=PackedStringArray("linked_portal") instance=ExtResource("6_3p00d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 4.0808887, 0)
+linked_portal = NodePath("../../LeftPath/HexagonGrassPlatform2/Portal5")
+portal_color = Color(0.74250877, 1, 0.49993896, 1)
+
+[node name="Portal4" parent="HexagonGrassPlatform" unique_id=1922228529 node_paths=PackedStringArray("linked_portal") instance=ExtResource("6_3p00d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4.0808887, 0)
+linked_portal = NodePath("../../RightPath/HexagonGrassPlatform3/Portal6")
+portal_color = Color(1, 0.2652319, 0.25777137, 1)
+
+[node name="LeftPath" type="Node3D" parent="." unique_id=1208640389]
+
+[node name="HexagonGrassPlatform2" parent="LeftPath" unique_id=2073689599 instance=ExtResource("7_5duc8")]
+transform = Transform3D(-2.9802322e-08, 0, 1, 0, 1, 0, -1, 0, -2.9802322e-08, 36, -2, 62.999996)
+
+[node name="Portal5" parent="LeftPath/HexagonGrassPlatform2" unique_id=1650161440 node_paths=PackedStringArray("linked_portal") instance=ExtResource("6_3p00d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.0808887, 0)
+linked_portal = NodePath("../../../HexagonGrassPlatform/Portal3")
+portal_color = Color(0.74250877, 1, 0.49993896, 1)
+
+[node name="HexagonGrassPlatform5" parent="LeftPath" unique_id=195605965 instance=ExtResource("7_5duc8")]
+transform = Transform3D(-0.50000006, 0, 0.8660253, 0, 1, 0, -0.8660253, 0, -0.50000006, 49.999996, -1, 63.000004)
+
+[node name="HexagonGrassPlatform8" parent="LeftPath" unique_id=431297912 instance=ExtResource("7_5duc8")]
+transform = Transform3D(-0.50000006, 0, 0.8660253, 0, 1, 0, -0.8660253, 0, -0.50000006, 64, 0, 63)
+
+[node name="HexagonGrassPlatform10" parent="LeftPath" unique_id=476732241 instance=ExtResource("7_5duc8")]
+transform = Transform3D(-0.50000006, 0, 0.8660253, 0, 1, 0, -0.8660253, 0, -0.50000006, 78, 1, 63)
+
+[node name="GoldCoin" parent="LeftPath/HexagonGrassPlatform10" unique_id=1135140376 instance=ExtResource("8_j5615")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="LeftPath" unique_id=1518766558]
+navigation_mesh = SubResource("NavigationMesh_4hukf")
+
+[node name="HexagonGrassPlatform11" parent="LeftPath/NavigationRegion3D" unique_id=1574267867 instance=ExtResource("7_5duc8")]
+transform = Transform3D(-0.50000006, 0, 0.8660253, 0, 1, 0, -0.8660253, 0, -0.50000006, 91.30023, 1, 63)
+
+[node name="Barbarian" parent="LeftPath/NavigationRegion3D/HexagonGrassPlatform11" unique_id=280064195 instance=ExtResource("9_5vwvj")]
+transform = Transform3D(0.5000001, 0, 1.4901161e-08, 0, 0.5, 0, -1.4901161e-08, 0, 0.5000001, -2.0164337, 4.413416, 3.492588)
+attack = SubResource("Resource_6si2x")
+health = SubResource("Resource_hsnq6")
+
+[node name="Barbarian2" parent="LeftPath/NavigationRegion3D/HexagonGrassPlatform11" unique_id=1199116761 instance=ExtResource("9_5vwvj")]
+transform = Transform3D(0.5000001, 0, 1.4901161e-08, 0, 0.5, 0, -1.4901161e-08, 0, 0.5000001, -2.614502, 4.413416, -1.4715233)
+attack = SubResource("Resource_k1gv0")
+health = SubResource("Resource_566c7")
+
+[node name="Barbarian3" parent="LeftPath/NavigationRegion3D/HexagonGrassPlatform11" unique_id=528371196 instance=ExtResource("9_5vwvj")]
+transform = Transform3D(0.5000001, 0, 1.4901161e-08, 0, 0.5, 0, -1.4901161e-08, 0, 0.5000001, 3.4476776, 4.413416, 2.0284767)
+attack = SubResource("Resource_5vwvj")
+health = SubResource("Resource_ksgtg")
+
+[node name="GoldCoin" parent="LeftPath/NavigationRegion3D/HexagonGrassPlatform11" unique_id=1971537253 instance=ExtResource("8_j5615")]
+transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, -2.5, 4.9815874, 4.3301315)
+
+[node name="HexagonGrassPlatform12" parent="LeftPath" unique_id=973807689 instance=ExtResource("7_5duc8")]
+transform = Transform3D(-0.50000006, 0, 0.8660253, 0, 1, 0, -0.8660253, 0, -0.50000006, 104.30023, 1, 63)
+
+[node name="HexagonGrassPlatform13" parent="LeftPath" unique_id=2131130824 instance=ExtResource("7_5duc8")]
+transform = Transform3D(-0.50000006, 0, 0.8660253, 0, 1, 0, -0.8660253, 0, -0.50000006, 107.30023, 0.065609455, 75.86114)
+
+[node name="Portal12" parent="LeftPath/HexagonGrassPlatform13" unique_id=265282057 node_paths=PackedStringArray("linked_portal") instance=ExtResource("6_3p00d")]
+transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, -2.5980682, 4.1840105, -1.5)
+linked_portal = NodePath("../../../RightPath/HexagonGrassPlatform15/Portal11")
+portal_color = Color(0.8901961, 1, 0.36862746, 1)
+
+[node name="RightPath" type="Node3D" parent="." unique_id=554241926]
+
+[node name="HexagonGrassPlatform3" parent="RightPath" unique_id=642327244 instance=ExtResource("9_fnf3c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 28, 42)
+
+[node name="Portal6" parent="RightPath/HexagonGrassPlatform3" unique_id=937136655 node_paths=PackedStringArray("linked_portal") instance=ExtResource("6_3p00d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08088684, 0)
+linked_portal = NodePath("../../../HexagonGrassPlatform/Portal4")
+portal_color = Color(1, 0.2652319, 0.25777137, 1)
+
+[node name="HexagonGrassPlatform4" parent="RightPath" unique_id=343051656 instance=ExtResource("9_fnf3c")]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -38, 29, 56)
+
+[node name="HexagonGrassPlatform6" parent="RightPath" unique_id=1661724220 instance=ExtResource("9_fnf3c")]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -38, 29, 56)
+
+[node name="HexagonGrassPlatform7" parent="RightPath" unique_id=1889121037 instance=ExtResource("9_fnf3c")]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -38, 30, 70)
+
+[node name="HexagonGrassPlatform9" parent="RightPath" unique_id=2035060753 instance=ExtResource("9_fnf3c")]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -38, 31, 84)
+
+[node name="GoldCoin" parent="RightPath/HexagonGrassPlatform9" unique_id=643531628 instance=ExtResource("8_j5615")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+
+[node name="Portal7" parent="RightPath/HexagonGrassPlatform9" unique_id=2017359342 node_paths=PackedStringArray("linked_portal") instance=ExtResource("6_3p00d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5980759, 0, -1.5)
+linked_portal = NodePath("../../HexagonGrassPlatform10/Portal8")
+portal_color = Color(0.26545882, 0.36448455, 1, 1)
+
+[node name="HexagonGrassPlatform10" parent="RightPath" unique_id=918033892 instance=ExtResource("9_fnf3c")]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -63, 40, 84)
+
+[node name="Portal8" parent="RightPath/HexagonGrassPlatform10" unique_id=1412131364 node_paths=PackedStringArray("linked_portal") instance=ExtResource("6_3p00d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4641037, 0, 2)
+linked_portal = NodePath("../../HexagonGrassPlatform9/Portal7")
+portal_color = Color(0.26545882, 0.36448455, 1, 1)
+
+[node name="HexagonGrassPlatform11" parent="RightPath" unique_id=1366545907 instance=ExtResource("9_fnf3c")]
+transform = Transform3D(0.6583866, 0, 0.7526799, 0, 1, 0, -0.7526799, 0, 0.6583866, -63, 40, 95.8182)
+
+[node name="HexagonGrassPlatform12" parent="RightPath" unique_id=2098204491 instance=ExtResource("9_fnf3c")]
+transform = Transform3D(0.8307605, 0, 0.5566299, 0, 1, 0, -0.5566299, 0, 0.8307605, -63, 40, 106.8182)
+
+[node name="HexagonGrassPlatform13" parent="RightPath" unique_id=138816991 instance=ExtResource("9_fnf3c")]
+transform = Transform3D(0.95259106, 0, 0.30425328, 0, 1, 0, -0.30425328, 0, 0.95259106, -63, 40, 117.8182)
+
+[node name="GoldCoin" parent="RightPath/HexagonGrassPlatform13" unique_id=214456465 instance=ExtResource("8_j5615")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.187088, 0)
+
+[node name="Portal9" parent="RightPath/HexagonGrassPlatform13" unique_id=480592937 node_paths=PackedStringArray("linked_portal") instance=ExtResource("6_3p00d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5874329, 0, 1.145813)
+linked_portal = NodePath("../../HexagonGrassPlatform14/Portal10")
+portal_color = Color(0.6862574, 1, 0.5996523, 1)
+
+[node name="HexagonGrassPlatform14" parent="RightPath" unique_id=819496061 instance=ExtResource("9_fnf3c")]
+transform = Transform3D(-0.95259106, 0, -0.3042532, 0, 1, 0, 0.3042532, 0, -0.95259106, -11, 11, 138.8182)
+
+[node name="GoldCoin" parent="RightPath/HexagonGrassPlatform14" unique_id=960457945 instance=ExtResource("8_j5615")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.187088, 0)
+
+[node name="Portal10" parent="RightPath/HexagonGrassPlatform14" unique_id=1656741055 node_paths=PackedStringArray("linked_portal") instance=ExtResource("6_3p00d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5874329, 0, 1.145813)
+linked_portal = NodePath("../../HexagonGrassPlatform13/Portal9")
+portal_color = Color(0.6862574, 1, 0.5996523, 1)
+
+[node name="HexagonGrassPlatform15" parent="RightPath" unique_id=1037319060 instance=ExtResource("9_fnf3c")]
+transform = Transform3D(-0.95259106, 0, -0.3042532, 0, 1, 0, 0.3042532, 0, -0.95259106, -2, 5, 143.02928)
+
+[node name="Portal11" parent="RightPath/HexagonGrassPlatform15" unique_id=969512679 node_paths=PackedStringArray("linked_portal") instance=ExtResource("6_3p00d")]
+transform = Transform3D(0.9999999, 0, 5.9604645e-08, 0, 1, 0, -5.9604645e-08, 0, 0.9999999, -3.466282, 0, 0.9924469)
+linked_portal = NodePath("../../../LeftPath/HexagonGrassPlatform13/Portal12")
+portal_color = Color(0.8901961, 1, 0.36862746, 1)
+
+[node name="HexagonGrassPlatform16" parent="RightPath" unique_id=1060123941 instance=ExtResource("9_fnf3c")]
+transform = Transform3D(-0.7994945, 0, -0.60067314, 0, 1, 0, 0.60067314, 0, -0.7994945, -1, -2, 154.92302)

@@ -3,9 +3,7 @@
 [ext_resource type="Script" uid="uid://dfapcpf4fli57" path="res://src/environment/levels/level_chunk.gd" id="1_4xqqf"]
 [ext_resource type="PackedScene" uid="uid://cl6psv388cmbx" path="res://src/environment/levels/entrance_trigger.tscn" id="2_20wir"]
 [ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_o8plj"]
-[ext_resource type="Script" uid="uid://cxqsapbic2imr" path="res://src/entities/components/combat/attack.gd" id="5_hy038"]
 [ext_resource type="PackedScene" uid="uid://nd1uo24vt6d5" path="res://src/entities/enemies/barbarian/barbarian.tscn" id="5_v0l6h"]
-[ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="6_u5kiw"]
 [ext_resource type="MeshLibrary" uid="uid://b73gxi8hvl7se" path="res://src/environment/assets/dungeon_assets/mesh_library/tiles.meshlib" id="7_uu2w2"]
 [ext_resource type="ArrayMesh" uid="uid://bduf3ad71475q" path="res://src/environment/assets/dungeon_assets/meshes/pillar_001.tres" id="8_ejpyw"]
 [ext_resource type="ArrayMesh" uid="uid://b7wauquydj40k" path="res://src/environment/assets/dungeon_assets/meshes/brick_wall_001.tres" id="9_drd34"]
@@ -15,20 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://c6on7cp5w028m" path="res://src/environment/levels/assets/traps/spikes/spikes.tscn" id="13_xegw8"]
 [ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/levels/assets/collectibles/coins/gold_coin.tscn" id="14_qm0tq"]
 [ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="15_6mv47"]
-
-[sub_resource type="Resource" id="Resource_hy038"]
-resource_local_to_scene = true
-script = ExtResource("5_hy038")
-type = 1
-damage = 10
-metadata/_custom_type_script = "uid://cxqsapbic2imr"
-
-[sub_resource type="Resource" id="Resource_u5kiw"]
-resource_local_to_scene = true
-script = ExtResource("6_u5kiw")
-max_health = 20
-health_regen = 2.0
-metadata/_custom_type_script = "uid://njkofl5g11k7"
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_dhjrq"]
 vertices = PackedVector3Array(-3.5530949, 6.871552, -3.5530953, -3.5530949, 6.871552, 15.446905, 33.446907, 6.871552, 15.446905, 33.446907, 6.871552, -3.5530953, -1.8030949, 0.62155175, -1.5530953, -3.5530949, 0.62155175, -1.5530953, -3.5530949, 0.62155175, 2.6969047, 7.196905, 0.62155175, 2.4469047, 7.696905, 0.62155175, 1.4469047, 8.946905, 0.62155175, 1.1969047, 8.946905, 0.62155175, -3.5530953, -1.5530949, 0.62155175, -3.5530953, 10.946905, 0.62155175, 3.1969047, 11.446905, 0.62155175, 3.4469047, 11.696905, 0.62155175, 2.6969047, 10.696905, 0.62155175, 1.9469047, 17.946905, 0.62155175, -0.05309534, 18.696905, 0.62155175, -0.80309534, 19.696905, 0.62155175, -3.5530953, 9.946905, 0.62155175, 1.1969047, 18.946905, 0.62155175, 4.4469047, 19.446905, 0.62155175, 2.9469047, 17.946905, 0.62155175, 1.9469047, 16.696905, 0.62155175, 4.1969047, 14.696905, 0.62155175, 2.9469047, 14.446905, 0.62155175, 5.6969047, 15.946905, 0.62155175, 4.9469047, 19.696905, 0.62155175, -0.80309534, 13.696905, 0.62155175, 9.196905, 14.446905, 0.62155175, 10.196905, 16.946905, 0.62155175, 7.6969047, 15.946905, 0.62155175, 6.9469047, 11.946905, 0.62155175, 5.6969047, 11.946905, 0.62155175, 9.196905, 19.696905, 0.62155175, 5.4469047, 20.946905, 0.62155175, 2.6969047, 20.696905, 0.62155175, -0.80309534, 19.446905, 0.62155175, 7.1969047, 18.196905, 0.62155175, 7.9469047, 14.446905, 0.62155175, 12.196905, 12.696905, 0.62155175, 15.446905, 31.446905, 0.62155175, 15.446905, 31.446905, 0.62155175, 13.196905, 12.696905, 0.62155175, 12.946905, 21.446905, 0.62155175, -0.05309534, 31.446905, 0.62155175, -1.8030953, 31.446905, 0.62155175, -3.5530953, 21.696905, 0.62155175, 1.4469047, 33.446907, 0.62155175, -1.5530953, 33.446907, 0.62155175, 12.946905, 10.196905, 0.62155175, 4.6969047, 11.446905, 0.62155175, 5.4469047, 10.946905, 0.62155175, 9.946905, 8.196905, 0.62155175, 4.9469047, 7.196905, 0.62155175, 3.9469047, 10.946905, 0.62155175, 11.946905, -1.5530949, 0.62155175, 13.196905, -1.5530949, 0.62155175, 15.446905, -3.5530949, 0.62155175, 12.946905)
@@ -358,8 +342,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 55)
 
 [node name="Barbarian" parent="." unique_id=280064195 instance=ExtResource("5_v0l6h")]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -2.0838919, 0.12219049, 8.40078)
-attack = SubResource("Resource_hy038")
-health = SubResource("Resource_u5kiw")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1158209114]
 transform = Transform3D(-6.119594e-08, 0, 1.4, 0, 1.4, 0, -1.4, 0, -6.119594e-08, -8, 0, 47)

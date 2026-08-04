@@ -6,13 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/levels/assets/collectibles/coins/gold_coin.tscn" id="5_pn68p"]
 [ext_resource type="PackedScene" uid="uid://db7v7h36s030i" path="res://src/environment/levels/assets/platforms/static_platforms/snow_platform.tscn" id="5_sld1t"]
 [ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint_flag.tscn" id="6_gr4ql"]
-[ext_resource type="PackedScene" uid="uid://cyk7txgkpg83" path="res://src/environment/levels/assets/collectibles/jump_up/jump_up.tscn" id="6_pw2dc"]
 [ext_resource type="PackedScene" uid="uid://cvcxve456vw1e" path="res://src/environment/levels/assets/collectibles/speed_up/speed_up.tscn" id="8_entio"]
+[ext_resource type="PackedScene" uid="uid://bmhb7wjnaqbtx" path="res://src/environment/levels/assets/interactable/springs/spring.tscn" id="8_gabof"]
 [ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="9_gabof"]
 
 [node name="LevelChunk" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_5f7wu")
 score_multiplier = 1.4
+features = Array[int]([1])
 
 [node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("3_jxsmh")]
 unique_name_in_owner = true
@@ -57,8 +58,8 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 4, -2)
 [node name="SnowBlock8" parent="Platforms" unique_id=297346694 instance=ExtResource("5_sld1t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 2, 52.64453)
 
-[node name="JumpUp" parent="Platforms/SnowBlock8" unique_id=707485280 instance=ExtResource("6_pw2dc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -1)
+[node name="Spring" parent="Platforms/SnowBlock8" unique_id=2127770289 instance=ExtResource("8_gabof")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.096633, 4.1006823, 0.7501831)
 
 [node name="SnowBlock9" parent="Platforms" unique_id=82066980 instance=ExtResource("5_sld1t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 4, 55.964165)
