@@ -163,6 +163,9 @@ mesh = ExtResource("9_bhkxp")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CorridorCorner/StaticBody3D" unique_id=488634501]
 shape = SubResource("ConcavePolygonShape3D_2ngux")
 
+[node name="FloorCollisionShape3D" type="CollisionShape3D" parent="CorridorCorner/StaticBody3D" unique_id=1577501181]
+shape = SubResource("CylinderShape3D_0e0v8")
+
 [node name="CorridorEnd" type="MeshInstance3D" parent="." unique_id=1889234989]
 mesh = ExtResource("10_a4n52")
 
