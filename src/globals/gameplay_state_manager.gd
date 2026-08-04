@@ -92,8 +92,6 @@ func is_in_gameplay_mode() -> bool:
 
 
 func change_gameplay_state(new_mode: GameplayMode) -> void:
-	assert(
-		_app_state_manager.is_in_state(ApplicationStateManager.GameState.PLAYING),
-		"Can only change gameplay mode during gameplay, current: " + str(_app_state_manager.get_current_state())
-	)
+	if _app_state_manager.get_current_state() != ApplicationStateManager.GameState.PLAYING:
+		push_error("Can only change gameplay mode during gameplay, current: " + str(_app_state_manager.get_current_state()))
 	_change_mode(new_mode)
