@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://l8tfyp2lpc7o" path="res://src/ui/hud/hud.tscn" id="3_dakun"]
 [ext_resource type="PackedScene" uid="uid://ceqteh34sypae" path="res://src/ui/debug/debug_interface.tscn" id="4_bi8hs"]
 [ext_resource type="PackedScene" uid="uid://bhj0ppml5rqfl" path="res://src/ui/shop/shop.tscn" id="6_7abqo"]
+[ext_resource type="Script" uid="uid://dibncct5bj8s6" path="res://src/ui/center_screen_dot.gd" id="7_gucsq"]
 
 [node name="UI" type="CanvasLayer" unique_id=670172270]
 script = ExtResource("1_7abqo")
@@ -30,3 +31,19 @@ z_index = 100
 unique_name_in_owner = true
 visible = false
 z_index = 1
+
+[node name="CenterScreenDot" type="ColorRect" parent="." unique_id=401992933]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("7_gucsq")
