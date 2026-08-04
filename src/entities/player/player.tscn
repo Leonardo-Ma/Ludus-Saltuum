@@ -484,7 +484,6 @@ margin = 0.5
 [node name="Camera3D" type="Camera3D" parent="CamRoot/SpringArm3D" unique_id=122741060]
 unique_name_in_owner = true
 transform = Transform3D(0.999982, 1.56622e-09, -0.00595156, 0.000975733, 0.986469, 0.163943, 0.00587103, -0.163946, 0.986452, 0.468412, 0.80568, 1.27759)
-current = true
 fov = 37.8493
 
 [node name="Controllers" type="Node" parent="." unique_id=1311379674]
