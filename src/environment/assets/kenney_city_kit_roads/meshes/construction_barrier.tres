@@ -1,0 +1,44 @@
+[gd_resource type="ArrayMesh" format=4 uid="uid://c7658b445u2m5"]
+
+[ext_resource type="Texture2D" uid="uid://c3jgn4iaiqy36" path="res://src/environment/assets/kenney_city_kit_roads/models/Textures/colormap.png" id="1_w3e8x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5xgup"]
+resource_name = "colormap"
+cull_mode = 2
+albedo_texture = ExtResource("1_w3e8x")
+texture_filter = 2
+metadata/_gltf_primary_texture_coord = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_tqxvk"]
+_surfaces = [{
+"aabb": AABB(-0.0525, 0, -0.1125, 0.105, 0.11874999, 0.225),
+"format": 34896613377,
+"index_count": 180,
+"index_data": PackedByteArray("EQACAAAAAwACABEAAAACAAMAEQASAAMAEgARABMAAQATABEAAAABABEAEwAUABIAAwASAAYAEgAUAAYAFAATAAQAAQAEABMABAABAAYABAAFABQAFAAFAAYABgAFAAQAAwAHAAAABgAHAAMAFQABAAAAAQAWAAYAAQAVABYABgAWABcAFwAHAAYABwAYAAAABwAXABgAAAAYABUAFwAWABkAGQAWABUACAAYABcAFQAYAAgAGQAaABcAFwAaAAgAFQAbABkACAAbABUAGQAbAA4ACgAbAAgAGwAKAA4ACAAaAA0ADQAPAAgACAAPAAoACgAPAA0ACwAaABkAGgALAA0AGQAJAAsADgAJABkACwAMAA0ACgAQAA4AHAAMAAsACwAJABwADQAMABwADgAQAB0AHQAQAAoACQAOAB4AHQAeAA4ACQAeABwAHwAdAAoADQAfAAoAHgAdAB8AHAAfAA0AHwAcAB4A"),
+"lods": [0.046517063, PackedByteArray("AAABAAIAAAACAAMAAQAEAAIAAwACAAQABAAFAAMABgAFAAQAAwAFAAYABAABAAYAAwAHAAAABgAHAAMAAQAAAAgACAAAAAcACQAGAAEABwAGAAkACAAKAAEAAQAKAAkABwALAAgACQALAAcACwAJAAwACAALAA0ACwAMAA0ACQAOAAwACQAKAA4ADQAMAA4ACAAPAAoADQAPAAgACgAPAA0ADQAQAAoACgAQAA4ADgAQAA0A")],
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 32,
+"vertex_data": PackedByteArray("C6MAAP//AAALo/////8AAP//AAD//wAA//8AAAAAAABI0v////8AAEjS//8AAAAAC6P//wAAAAALowAAAAAAAPNcAACp6gAA81z//wAAAADzXP////8AAPNcAAAAAAAAAAAAAAAAAAAAAAAA//8AALYt//8AAAAA81wAAP//AAC2Lf////8AAP//+j3//wAA///6PQAAAABI0uHU//8AAEjS4dQAAAAAC6P//6nqAAALo///VRUAAAujAABVFQAAC6MAAKnqAADzXP//VRUAAPNcAABVFQAA81z//6nqAAAAAPo9AAAAALYt4dT//wAAti3h1AAAAAAAAPo9//8AAA==")
+}]
+blend_shape_mode = 0
+
+[resource]
+resource_name = "construction-barrier_construction-barrier"
+_surfaces = [{
+"aabb": AABB(-0.0525, 0, -0.1125, 0.105, 0.11874999, 0.225),
+"attribute_data": PackedByteArray("//eY+f/3Zcb/95j5//dlxv/3mPn/92XG//eY+f/3Zcb/92XG//eY+f/3mPn/92XG//dlxv/3Zcb/95j5//eY+f/3Zcb/95j5//eY+f/3Zcb/92XG//dlxv/3Zcb/92XG//dlxv/3Zcb/92XG//dlxv/3mPn/95j5//eY+f/3mPn/95j5//eY+f/3mPn/95j5//eY+f/3mPn/95j5//dlxv/3Zcb/9//f//eY+f/3mPn/9//f//f/3//3mPn/95j5//f/3//3mPn/9zPt//cFz//3M+3/9wXP//cz7f/3Bc//9wXP//cFz//3Bc//9wXP//cz7f/3M+3/9zPt//cz7f/3M+3/9wXP//cz7f/3M+3/92XG//dlxv/3Zcb/92XG//eY+f/3mPn/95j5//cz7f/3M+3/9wXP//cFz//3Bc//9wXP//eY+f/3/9//95j5//f/3//3/9//95j5//eY+f/3/9//9//f//eY+f/3/9//95j5//f/3//3/9//95j5"),
+"format": 34896613399,
+"index_count": 180,
+"index_data": PackedByteArray("MgACAAAAAAABADIAAQAzADIAAQADADMANAAGAAQABAAFADQABQA1ADQABQAHADUACAAJAAoACgA2AAgANgA3AAgANwALAAgADAANADgAOAA5AAwAOgA7ADwAPAA9ADoAPgA/AA4ADgAPAD4AEAARABIAEgBAABAAQABBABAAQQATABAAJQAmAEIAQgBDACUAFgAUAEQAFQAXABYARQAVABYARABFABYARgBFAEQARABHAEYAGABGAEcAGABHABkAGgAYABkAGQAbABoAHAAdAB4AHwAgABwASAAfABwAHgBIABwASQBIAB4AHgBKAEkAIQBJAEoAIQBKACIAIwAhACIAIgAkACMASwBMAE0ATQBOAEsATwBQACcAJwAoAE8ALgBRAFIAUgAtAC4AUwArACwALABUAFMAVQBWAFcAVwBYAFUAWQApACoAKgBaAFkAWwBcAC8ALwBdAFsAMABeAF8AXwAxADAA"),
+"lods": [0.046517063, PackedByteArray("AAABAAIAAQADAAIABAAFAAYABQAHAAYACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAAFAAVABYAFQAXABYAGAAVABQAFAAZABgAGgAYABkAGQAbABoAHAAdAB4AHgAfABwAHwAgABwAIQAfAB4AHgAiACEAIwAhACIAIgAkACMAJQAmACcAJwAoACUAKQAqACsAKwAsACkALQAuAC8ALwAwAC0ALwAxADAA")],
+"material": SubResource("StandardMaterial3D_5xgup"),
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 96,
+"vertex_data": PackedByteArray("C6MAAP//AIALo/////8AgP//AAD//wCASNL/////AIDzXAAAAAD///Nc//8AAP//AAAAAAAA//+2Lf//AAD//wuj//8AAP//C6MAAAAA/////wAAAAD//0jS//8AAP//SNL//////79I0v//AAD/v///AAAAAP+///8AAP///7/zXP////8AgPNcAAD//wCAAAAAAP//AIC2Lf////8AgPNc//8AAP//81z///////+2Lf//AAD//7Yt////////C6P///////8Lo///AAD//0jS////////SNL//wAA//8AAAAA////v/NcAAD///+/81wAAKnq/7/zXAAAAAD/vwAAAAAAAP+/C6MAAAAA/78LowAA////v///AAAAAP+///8AAP///78AAAAA////vwAAAAAAAP+/ti3//wAA/7+2Lf//////v/Nc//8AAP+/81wAAAAA/78LowAAAAD/vwuj//8AAP+/C6P//////78LowAA////v/NcAACp6v+f81z//////7/zXAAA////v///+j3//wCASNLh1P//AIAAAPo9AAD//7Yt4dQAAP/////6PQAA//9I0uHUAAD//0jS4dQAAP+/SNLh1P///79I0uHU//+wwEjS4dQAALDA///6PQAAsMD///o9//+wwP//+j3///+////6PQAA/78AAPo9//8AgLYt4dT//wCAAAD6PQAA/78AAPo9////v/Nc//9VFf//81z//6nq//8Lo///qer//wuj//9VFf//81wAAFUV/78LowAAVRX/vwujAACp6v+/AAD6Pf//sMAAAPo9AACwwLYt4dQAALDAti3h1P//sMC2LeHU////v7Yt4dQAAP+/C6MAAKnq/58Lo///qer/nwujAABVFf/fC6P//1UV/9/zXP//VRX/3/NcAABVFf/fC6MAAFUV/98Lo///VRX/3/Nc//9VFf/f81wAAFUV/98Lo///qer/nwujAACp6v+f81z//6nq/5/zXP//qer/n/NcAACp6v+f/3////9/////f////3////9/////f////3////9/////f////3////9/////f////38AAP9/AAD/fwAA/38AAP9/////f////3////9/////f/+//3//v/9//7//f/+//3//v/9//7//f/+//3//vwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/f/9/////f////3////9/////fwAA/38AAP9/////f////3////9/////fwAA/38AAP9/AAD/f////3////9/////f////3////9/////fwAA/38AAKuaVQ2rmlUNq5pVDauaVQ3/fwAA/38AAP9/////f////3////9/////f/+//3//v/9//7//f/+/AAD/fwAA/38AAP9/VY1T5VWNU+VVjVPlVY1T5f9/////f////3////9/////f////3////9/AAD/fwAA/3////9/////fwAA/38AAP9/////f////38AAP9/AAD/fwAA")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_tqxvk")

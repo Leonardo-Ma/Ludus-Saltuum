@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c3jgn4iaiqy36"
-path.s3tc="res://.godot/imported/colormap.png-4ea603ea584d18fab40a97765192ac9f.s3tc.ctex"
+path.s3tc="res://.godot/imported/colormap.png-41c15f0615a0b1bbf37d3197821237ae.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,14 +11,13 @@ metadata={
 
 [deps]
 
-source_file="res://src/environment/assets/kenney_city_kit_roads/models/textures/colormap.png"
-dest_files=["res://.godot/imported/colormap.png-4ea603ea584d18fab40a97765192ac9f.s3tc.ctex"]
+source_file="res://src/environment/assets/kenney_city_kit_roads/models/Textures/colormap.png"
+dest_files=["res://.godot/imported/colormap.png-41c15f0615a0b1bbf37d3197821237ae.s3tc.ctex"]
 
 [params]
 
 compress/mode=2
 compress/high_quality=false
-compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

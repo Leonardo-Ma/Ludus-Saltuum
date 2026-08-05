@@ -1,6 +1,6 @@
 [gd_resource type="ArrayMesh" format=4 uid="uid://ddnt2i2w2bm1a"]
 
-[ext_resource type="Texture2D" uid="uid://c3jgn4iaiqy36" path="res://src/environment/assets/kenney_city_kit_roads/models/textures/colormap.png" id="1_bn7mx"]
+[ext_resource type="Texture2D" uid="uid://c3jgn4iaiqy36" path="res://src/environment/assets/kenney_city_kit_roads/models/Textures/colormap.png" id="1_bn7mx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7d8t1"]
 resource_name = "colormap"

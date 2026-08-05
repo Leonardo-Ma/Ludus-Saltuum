@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://0qrtv0g7tptr"]
+
+[ext_resource type="ArrayMesh" uid="uid://c7658b445u2m5" path="res://src/environment/assets/kenney_city_kit_roads/meshes/construction_barrier.tres" id="1_y4rsn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y4rsn"]
+size = Vector3(0.105, 0.11874999, 0.225)
+
+[node name="ConstructionBarrier" type="StaticBody3D" unique_id=427598426]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+
+[node name="ConstructionBarrier" type="MeshInstance3D" parent="." unique_id=1063712010]
+mesh = ExtResource("1_y4rsn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=187579495]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.059374996, 0)
+shape = SubResource("BoxShape3D_y4rsn")
