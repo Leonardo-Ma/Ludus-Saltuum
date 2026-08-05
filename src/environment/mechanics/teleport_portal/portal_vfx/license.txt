@@ -1,0 +1,8 @@
+Portal VFX
+https://binbun3d.itch.io/godot-portal-vfx
+
+Author: Binbun
+https://binbun3d.itch.io/
+
+License: CC0
+https://creativecommons.org/publicdomain/zero/1.0/

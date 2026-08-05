@@ -10,6 +10,8 @@ const TELEPORT_SOUNDS: Array[AudioStream] = [
 @export var linked_portal: TeleportPortal
 @export var cooldown_duration_seconds: float = 3.0
 
+@export var portal_vfx: VFXPortalController
+
 # TODO Remove auxiliary variable
 #gdlint: disable=class-definitions-order
 var _portal_color: Color = Color("#4db2ff23")
@@ -20,11 +22,11 @@ var _portal_color: Color = Color("#4db2ff23")
 	set(value):
 		_portal_color = value
 		if Engine.is_editor_hint():
-			_update_enabled_mesh_color()
+			# This only works because meshes > geometry > material override > resource > Local to scene = true
+			portal_vfx.set_portal_param("primary_color", value)
 
 			if linked_portal:
-				linked_portal._portal_color = value
-				linked_portal._update_enabled_mesh_color()
+				linked_portal.portal_vfx.set_portal_param("primary_color", value)
 
 var is_disabled: bool = false
 #gdlint: enable=class-definitions-order
@@ -35,50 +37,21 @@ var _tracked_players: Dictionary[Node3D, float] = {}
 ## Prevents rapid back-and-forth teleportation by blocking players on cooldown
 var _cooldown_players: Dictionary[Node3D, bool] = {}
 
-@onready var enabled_mesh: MeshInstance3D = %EnabledMesh
-
 
 # TODO Decouple tool logic from teleport logic
 func _ready() -> void:
+	assert(portal_vfx, "Portal vfx must be assigned for " + name)
 	if Engine.is_editor_hint():
-		_init_editor_color()
 		return
+
+	portal_vfx.set_portal_param("primary_color", portal_color)
 
 	# TODO Change the tool aspect to automatically link the other portal
 	assert(linked_portal != null, "Linked portal missing in " + name)
-	assert(enabled_mesh != null, "EnabledMesh missing in " + name)
 
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
-	_update_mesh_visibility()
-	_update_enabled_mesh_color()
 	set_physics_process(true)
-
-
-#region Tool editor logic
-func _init_editor_color() -> void:
-	## Read existing material color as default if export hasn't been set
-	if _portal_color == Color("#4db2ff23") and enabled_mesh and enabled_mesh.mesh:
-		for i: int in enabled_mesh.mesh.get_surface_count():
-			var mat: Material = enabled_mesh.mesh.surface_get_material(i)
-			if mat is StandardMaterial3D:
-				_portal_color = mat.albedo_color
-				break
-	_update_enabled_mesh_color()
-
-
-func _update_enabled_mesh_color() -> void:
-	if not enabled_mesh or not enabled_mesh.mesh:
-		return
-	var mat: Material = enabled_mesh.get_active_material(0)
-	enabled_mesh.set_surface_override_material(0, mat.duplicate())
-	for i: int in enabled_mesh.mesh.get_surface_count():
-		mat = enabled_mesh.get_surface_override_material(i)
-		if mat is StandardMaterial3D:
-			mat.albedo_color = portal_color
-
-
-#endregion
 
 
 func _physics_process(delta: float) -> void:
@@ -153,14 +126,10 @@ func transform_velocity(velocity: Vector3) -> Vector3:
 	return linked_portal.global_basis * global_basis.inverse() * velocity
 
 
-## Updates visibility of both enabled and disabled meshes based on portal state
-func _update_mesh_visibility() -> void:
-	var mat: Material = enabled_mesh.get_active_material(0)
-	if mat is StandardMaterial3D:
-		mat.albedo_color = Color(portal_color.r, portal_color.g, portal_color.b, 0.2 if is_disabled else portal_color.a)
-
-
 ## Public method to toggle the portal's disabled state
 func set_disabled(value: bool) -> void:
 	is_disabled = value
-	_update_mesh_visibility()
+	if value:
+		portal_vfx.close()
+	else:
+		portal_vfx.open()
