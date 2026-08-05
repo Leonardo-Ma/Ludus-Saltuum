@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="4_17vf0"]
 [ext_resource type="PackedScene" uid="uid://c3c0sejgavc7h" path="res://src/entities/vehicles/car.tscn" id="5_k6ka0"]
 [ext_resource type="MeshLibrary" uid="uid://qivysvwq1h5d" path="res://src/environment/assets/kenney_city_kit_roads/race_library.tres" id="7_evhcq"]
-[ext_resource type="Script" uid="uid://jqe7b8io8fum" path="res://src/environment/mechanics/checkpoint.gd" id="10_2fx6d"]
-[ext_resource type="PackedScene" uid="uid://dtuht3gos28nm" path="res://src/environment/mechanics/car_exit_zone.tscn" id="10_b5qn7"]
+[ext_resource type="Script" uid="uid://jqe7b8io8fum" path="res://src/environment/mechanics/checkpoint/checkpoint.gd" id="10_2fx6d"]
+[ext_resource type="PackedScene" uid="uid://dtuht3gos28nm" path="res://src/environment/mechanics/car/car_exit_zone.tscn" id="10_b5qn7"]
 [ext_resource type="PackedScene" uid="uid://0qrtv0g7tptr" path="res://src/environment/assets/kenney_city_kit_roads/scenes/construction_barrier.tscn" id="10_jpc7b"]
 [ext_resource type="PackedScene" uid="uid://b73j2aliqwvvc" path="res://src/systems/change_gameplay_state_area_3d.tscn" id="12_jlyfk"]
 

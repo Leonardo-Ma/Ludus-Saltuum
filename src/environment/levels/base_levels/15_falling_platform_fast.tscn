@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cvcxve456vw1e" path="res://src/environment/levels/assets/collectibles/speed_up/speed_up.tscn" id="5_13q54"]
 [ext_resource type="PackedScene" uid="uid://cmhy34flmgu50" path="res://src/environment/levels/assets/platforms/disappearing_platforms/hexagon_orange.tscn" id="6_0ldd6"]
 [ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="6_5qrhp"]
-[ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint_flag.tscn" id="7_18uag"]
+[ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint/checkpoint_flag.tscn" id="7_18uag"]
 
 [node name="MediumTemplate" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_wcxhf")

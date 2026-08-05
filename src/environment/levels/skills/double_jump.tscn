@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_7re3w"]
 [ext_resource type="PackedScene" uid="uid://0hwlnlpkbsjn" path="res://src/environment/levels/assets/platforms/static_platforms/grass_platform.tscn" id="4_jj4pw"]
 [ext_resource type="PackedScene" uid="uid://bb1l6ibw3ab5y" path="res://src/environment/levels/assets/platforms/static_platforms/hexagon_grass.tscn" id="5_67730"]
-[ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint_flag.tscn" id="6_oire8"]
+[ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint/checkpoint_flag.tscn" id="6_oire8"]
 [ext_resource type="PackedScene" uid="uid://cfm0nge5vjc0d" path="res://src/environment/levels/assets/collectibles/unlock_skill/unlock_skill.tscn" id="7_tjswu"]
 [ext_resource type="Resource" uid="uid://dw6jynnbqeedp" path="res://src/entities/player/skills/active_skills/double_jump.tres" id="8_8mpxv"]
 [ext_resource type="Script" uid="uid://si0x0kj8w7kf" path="res://src/systems/collectibles/collectibles_data/skill_collectible.gd" id="8_rx0ml"]

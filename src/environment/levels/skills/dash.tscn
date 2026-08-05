@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cfm0nge5vjc0d" path="res://src/environment/levels/assets/collectibles/unlock_skill/unlock_skill.tscn" id="6_uipk1"]
 [ext_resource type="Texture2D" uid="uid://d4g1stey2kdtm" path="res://src/icons/16x16/character_move.png" id="7_13u3q"]
 [ext_resource type="Script" uid="uid://si0x0kj8w7kf" path="res://src/systems/collectibles/collectibles_data/skill_collectible.gd" id="7_vpwyn"]
-[ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint_flag.tscn" id="8_dpigy"]
+[ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint/checkpoint_flag.tscn" id="8_dpigy"]
 [ext_resource type="Script" uid="uid://difrst13h47n5" path="res://src/entities/player/skills/skill_definition.gd" id="8_vb56a"]
 [ext_resource type="PackedScene" uid="uid://c5advesecca53" path="res://src/environment/levels/assets/ground_button/button_rounded.tscn" id="9_tfs21"]
 [ext_resource type="Script" uid="uid://c3miewmfuj48y" path="res://src/entities/player/skills/active_skills/dash_skill.gd" id="9_uipk1"]

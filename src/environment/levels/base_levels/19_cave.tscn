@@ -16,8 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://dy7goxhejncoa" path="res://src/environment/levels/assets/props/torch.tscn" id="13_ynq7h"]
 [ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/levels/assets/collectibles/coins/gold_coin.tscn" id="14_ynq7h"]
 [ext_resource type="PackedScene" uid="uid://mrgkaj8kjufh" path="res://src/environment/levels/assets/ground_button/button_squared.tscn" id="15_acljp"]
-[ext_resource type="PackedScene" uid="uid://bjgye0bmgf8gr" path="res://src/environment/mechanics/easter_egg.tscn" id="15_ykdc8"]
-[ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint_flag.tscn" id="16_a2riu"]
+[ext_resource type="PackedScene" uid="uid://bjgye0bmgf8gr" path="res://src/environment/mechanics/easter_egg/easter_egg.tscn" id="15_ykdc8"]
+[ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint/checkpoint_flag.tscn" id="16_a2riu"]
 [ext_resource type="PackedScene" uid="uid://c6on7cp5w028m" path="res://src/environment/levels/assets/traps/spikes/spikes.tscn" id="16_ecor2"]
 [ext_resource type="Script" uid="uid://cxqsapbic2imr" path="res://src/entities/components/combat/attack.gd" id="17_3yyhr"]
 [ext_resource type="PackedScene" uid="uid://nd1uo24vt6d5" path="res://src/entities/enemies/barbarian/barbarian.tscn" id="20_3yyhr"]
@@ -65,6 +65,7 @@ metadata/_custom_type_script = "uid://njkofl5g11k7"
 [node name="19Cave" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_de7ky")
 score_multiplier = 1.5
+features = Array[int]([4])
 
 [node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_v2fea")]
 unique_name_in_owner = true

@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://db7v7h36s030i" path="res://src/environment/levels/assets/platforms/static_platforms/snow_platform.tscn" id="5_vev7o"]
 [ext_resource type="PackedScene" uid="uid://bneqpm1wdlci3" path="res://src/environment/levels/assets/platforms/moving_plaforms/moving_platform_orange.tscn" id="6_swwcn"]
 [ext_resource type="PackedScene" uid="uid://c6on7cp5w028m" path="res://src/environment/levels/assets/traps/spikes/spikes.tscn" id="7_qhihy"]
-[ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint_flag.tscn" id="7_swwcn"]
+[ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint/checkpoint_flag.tscn" id="7_swwcn"]
 
 [node name="MediumTemplate" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_ad2n6")

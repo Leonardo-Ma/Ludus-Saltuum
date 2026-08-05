@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dtuht3gos28nm"]
 
-[ext_resource type="Script" uid="uid://c3xmi5i5swk1i" path="res://src/environment/mechanics/car_exit_zone.gd" id="1_exit"]
+[ext_resource type="Script" uid="uid://c3xmi5i5swk1i" path="res://src/environment/mechanics/car/car_exit_zone.gd" id="1_exit"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_exit"]
 size = Vector3(4, 3, 4)

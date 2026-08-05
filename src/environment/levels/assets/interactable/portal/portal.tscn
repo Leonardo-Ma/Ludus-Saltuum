@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c32lde0fr367t"]
 
-[ext_resource type="Script" uid="uid://bdsm2smu5621i" path="res://src/environment/mechanics/teleport_portal.gd" id="1_8s2yu"]
+[ext_resource type="Script" uid="uid://bdsm2smu5621i" path="res://src/environment/mechanics/teleport_portal/teleport_portal.gd" id="1_8s2yu"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_portal"]
 top_radius = 1.0

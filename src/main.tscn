@@ -11,33 +11,32 @@
 [ext_resource type="PackedScene" uid="uid://db7v7h36s030i" path="res://src/environment/levels/assets/platforms/static_platforms/snow_platform.tscn" id="8_43aqp"]
 [ext_resource type="Script" uid="uid://cxqsapbic2imr" path="res://src/entities/components/combat/attack.gd" id="8_tpi1q"]
 [ext_resource type="PackedScene" uid="uid://nd1uo24vt6d5" path="res://src/entities/enemies/barbarian/barbarian.tscn" id="9_ocmcv"]
-[ext_resource type="PackedScene" uid="uid://bpno04cqaffpc" path="res://src/world.tscn" id="9_pguyi"]
 [ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="11_adv81"]
-[ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint_flag.tscn" id="12_lovvn"]
+[ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint/checkpoint_flag.tscn" id="12_lovvn"]
 [ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/levels/assets/collectibles/coins/gold_coin.tscn" id="13_jitvu"]
-[ext_resource type="Script" uid="uid://dlbf4w8moqj2j" path="res://src/entities/components/movement.gd" id="15_e7lu8"]
-[ext_resource type="PackedScene" uid="uid://cf5ku6le2d84s" path="res://src/environment/mechanics/floor_level_boundary.tscn" id="16_tb146"]
+[ext_resource type="PackedScene" uid="uid://cf5ku6le2d84s" path="res://src/environment/mechanics/floor_level_boundary/floor_level_boundary.tscn" id="16_tb146"]
+[ext_resource type="Script" uid="uid://dlbf4w8moqj2j" path="res://src/entities/components/movement.gd" id="17_d7bab"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_mi8ch"]
-vertices = PackedVector3Array(-0.078499794, 4.5, 1.3599548, -0.078499794, 4.5, 0.85995483, -0.8284998, 4.5, 0.60995483, -1.8284998, 4.5, 1.3599548, -0.8284998, 4.5, -0.64004517, 0.1715002, 4.5, -0.89004517, 0.1715002, 4.5, -4.390045, -3.3284998, 4.5, 0.60995483, -2.3284998, 4.5, -4.390045, -3.5784998, 4.5, -3.3900452, 0.9215002, 4.5, 0.35995483, 3.1715002, 4.5, 0.85995483, 0.9215002, 4.5, -0.39004517, 3.6715002, 4.5, -0.14004517, 3.6715002, 4.5, -3.1400452, 3.1715002, 4.5, -4.140045)
-polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(6, 5, 4), PackedInt32Array(4, 2, 3), PackedInt32Array(3, 7, 4), PackedInt32Array(4, 7, 9), PackedInt32Array(4, 9, 8), PackedInt32Array(4, 8, 6), PackedInt32Array(1, 10, 0), PackedInt32Array(0, 10, 11), PackedInt32Array(12, 5, 13), PackedInt32Array(13, 5, 14), PackedInt32Array(14, 5, 15), PackedInt32Array(15, 5, 6), PackedInt32Array(10, 12, 11), PackedInt32Array(11, 12, 13)]
+vertices = PackedVector3Array(-2.0784998, 4.5, -5.5785, -3.3284998, 4.5, -4.8285, -3.5784998, 4.5, -4.0785, -3.5784998, 4.5, 0.1715002, -3.0784998, 4.5, 1.1715002, -1.8284998, 4.5, 1.6715002, 1.9215002, 4.5, 1.6715002, 3.6715002, 4.5, -3.8284998, 3.1715002, 4.5, -5.0785, 2.1715002, 4.5, -5.5785, 3.6715002, 4.5, -0.078499794, 3.1715002, 4.5, 1.1715002)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(4, 3, 5), PackedInt32Array(5, 3, 6), PackedInt32Array(8, 7, 9), PackedInt32Array(9, 7, 10), PackedInt32Array(10, 11, 6), PackedInt32Array(0, 9, 2), PackedInt32Array(2, 9, 3), PackedInt32Array(3, 9, 10), PackedInt32Array(3, 10, 6)]
 
-[sub_resource type="Resource" id="Resource_e7lu8"]
+[sub_resource type="Resource" id="Resource_tb146"]
 resource_local_to_scene = true
 script = ExtResource("8_tpi1q")
 type = 1
 damage = 10
 metadata/_custom_type_script = "uid://cxqsapbic2imr"
 
-[sub_resource type="Resource" id="Resource_okx7f"]
+[sub_resource type="Resource" id="Resource_e7lu8"]
 resource_local_to_scene = true
 script = ExtResource("11_adv81")
 max_health = 20
 health_regen = 2.0
 metadata/_custom_type_script = "uid://njkofl5g11k7"
 
-[sub_resource type="Resource" id="Resource_sif16"]
-script = ExtResource("15_e7lu8")
+[sub_resource type="Resource" id="Resource_ocmcv"]
+script = ExtResource("17_d7bab")
 metadata/_custom_type_script = "uid://dlbf4w8moqj2j"
 
 [node name="Main" type="Node" unique_id=1979390252]
@@ -88,17 +87,14 @@ metadata/_editor_floor_ = Vector3(0, 1, 0)
 
 [node name="Platforms" type="Node3D" parent="Map" unique_id=1443371602]
 
-[node name="GrassPlatform" parent="Map/Platforms" unique_id=537577895 instance=ExtResource("6_d7bab")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1.495564, 0)
-
-[node name="Box" parent="Map/Platforms/GrassPlatform" unique_id=1345912249 instance=ExtResource("7_ib8ht")]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 2.2252479, 4.434276, -2.94339)
+[node name="SnowBlock2" parent="Map/Platforms" unique_id=571541883 instance=ExtResource("8_43aqp")]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, -2, -2.4955635, 2)
 
 [node name="GrassPlatform2" parent="Map/Platforms" unique_id=18912568 instance=ExtResource("6_d7bab")]
-transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, -2, -1.495564, 13)
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, -2, -1.4955635, 15)
 
-[node name="SnowBlock2" parent="Map/Platforms" unique_id=571541883 instance=ExtResource("8_43aqp")]
-transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, -2, 0.504436, 26)
+[node name="GrassPlatform3" parent="Map/Platforms" unique_id=537577895 instance=ExtResource("6_d7bab")]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, -2, -1.4955635, 28)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Map/Platforms" unique_id=1031225863]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -2, -1.495564, 44)
@@ -107,12 +103,12 @@ navigation_mesh = SubResource("NavigationMesh_mi8ch")
 [node name="GrassPlatform3" parent="Map/Platforms/NavigationRegion3D" unique_id=1176620490 instance=ExtResource("6_d7bab")]
 
 [node name="Barbarian" parent="Map/Platforms/NavigationRegion3D/GrassPlatform3" unique_id=280064195 instance=ExtResource("9_ocmcv")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 4, 0)
-attack = SubResource("Resource_e7lu8")
-health = SubResource("Resource_okx7f")
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 4.1563425, 0)
+attack = SubResource("Resource_tb146")
+health = SubResource("Resource_e7lu8")
 
 [node name="Checkpoint" parent="Map" unique_id=742215115 instance=ExtResource("12_lovvn")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -2.1004279, 4.115602, 10.484676)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -2.1004279, 4.115602, 12.484676)
 
 [node name="Props" type="Node3D" parent="Map" unique_id=1904790884]
 
@@ -125,11 +121,11 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 7.05
 [node name="Collectibles" type="Node3D" parent="Map" unique_id=1554077165]
 
 [node name="GoldCoin" parent="Map/Collectibles" unique_id=1971537253 instance=ExtResource("13_jitvu")]
-transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0.99999976, 6.5044346, 25)
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0.99999976, 6.5044346, 23)
 
 [node name="Player" parent="." unique_id=922527968 instance=ExtResource("7_ss67u")]
-transform = Transform3D(-1, 0, -3.1786513e-08, 0, 1, 0, 3.1786513e-08, 0, -1, -1.9327073, -6.6293526, -71.52257)
-movement = SubResource("Resource_sif16")
+transform = Transform3D(1, 0, 6.3573026e-08, 0, 1, 0, -6.3573026e-08, 0, 1, -0.3070588, -6.2408867, -64.83237)
+movement = SubResource("Resource_ocmcv")
 
 [node name="FloorLevelBoundary" parent="." unique_id=444006995 node_paths=PackedStringArray("target") instance=ExtResource("16_tb146")]
 unique_name_in_owner = true

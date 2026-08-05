@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bjgye0bmgf8gr"]
 
-[ext_resource type="Script" uid="uid://cadj6q524oya2" path="res://src/environment/mechanics/easter_egg.gd" id="1_voc5g"]
+[ext_resource type="Script" uid="uid://cadj6q524oya2" path="res://src/environment/mechanics/easter_egg/easter_egg.gd" id="1_voc5g"]
 
 [node name="EasterEgg" type="Area3D" unique_id=1789181794]
 transform = Transform3D(-0.9659258, 0, -0.25881913, 0, 1, 0, 0.25881913, 0, -0.9659258, 0, 0, 0)

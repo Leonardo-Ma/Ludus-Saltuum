@@ -6,6 +6,7 @@ enum Feature {
 	SPRING = 1,
 	DISAPPEARING_PLATFORM = 2,
 	PORTAL = 3,
+	MAZE = 4,
 }
 
 const FEATURE_NAME: Dictionary = {

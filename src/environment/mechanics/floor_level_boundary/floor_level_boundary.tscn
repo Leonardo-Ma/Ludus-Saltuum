@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cf5ku6le2d84s"]
 
-[ext_resource type="Script" uid="uid://dm0m5bu51w0fd" path="res://src/environment/mechanics/floor_level_boundary.gd" id="1_g6x07"]
+[ext_resource type="Script" uid="uid://dm0m5bu51w0fd" path="res://src/environment/mechanics/floor_level_boundary/floor_level_boundary.gd" id="1_g6x07"]
 [ext_resource type="Script" uid="uid://cxqsapbic2imr" path="res://src/entities/components/combat/attack.gd" id="2_g6x07"]
 [ext_resource type="Script" uid="uid://csig12422io62" path="res://src/entities/components/combat/hitbox.gd" id="2_ojqax"]
 

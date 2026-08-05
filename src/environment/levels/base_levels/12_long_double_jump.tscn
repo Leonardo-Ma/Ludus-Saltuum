@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_kl51u"]
 [ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="5_nf6xl"]
 [ext_resource type="PackedScene" uid="uid://bb1l6ibw3ab5y" path="res://src/environment/levels/assets/platforms/static_platforms/hexagon_grass.tscn" id="5_wpoxf"]
-[ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint_flag.tscn" id="5_xufyi"]
+[ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint/checkpoint_flag.tscn" id="5_xufyi"]
 [ext_resource type="PackedScene" uid="uid://cvcxve456vw1e" path="res://src/environment/levels/assets/collectibles/speed_up/speed_up.tscn" id="6_xufyi"]
 
 [node name="MediumTemplate" type="Node3D" unique_id=1016321493]

@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://0hwlnlpkbsjn" path="res://src/environment/levels/assets/platforms/static_platforms/grass_platform.tscn" id="5_8ekpc"]
 [ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/levels/assets/collectibles/coins/gold_coin.tscn" id="5_33rl1"]
 [ext_resource type="PackedScene" uid="uid://cvcxve456vw1e" path="res://src/environment/levels/assets/collectibles/speed_up/speed_up.tscn" id="6_5k8j0"]
-[ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint_flag.tscn" id="6_378ft"]
+[ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint/checkpoint_flag.tscn" id="6_378ft"]
 
 [node name="LevelChunk" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_y6j3w")

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cl6psv388cmbx"]
 
-[ext_resource type="Script" uid="uid://jqe7b8io8fum" path="res://src/environment/mechanics/checkpoint.gd" id="1_6uqxa"]
+[ext_resource type="Script" uid="uid://jqe7b8io8fum" path="res://src/environment/mechanics/checkpoint/checkpoint.gd" id="1_6uqxa"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4vxvf"]
 size = Vector3(80, 100, 2)
