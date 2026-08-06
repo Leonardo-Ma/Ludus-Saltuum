@@ -1,0 +1,9 @@
+Tornado VFX Godot
+https://soygus.itch.io/tornado-vfx-godot
+
+Author: soygus
+https://soygus.itch.io/
+
+License: Custom
+
+"Feel free to use this asset in both personal and commercial projects, modifying the assets as needed. You may not redistribute, resell, or repackage the assets, even if the files are modified." August 05 2026

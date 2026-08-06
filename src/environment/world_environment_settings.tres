@@ -69,5 +69,4 @@ sky_material = SubResource("ShaderMaterial_5ei8p")
 background_mode = 2
 sky = SubResource("Sky_hytri")
 tonemap_mode = 2
-glow_enabled = true
 adjustment_enabled = true
