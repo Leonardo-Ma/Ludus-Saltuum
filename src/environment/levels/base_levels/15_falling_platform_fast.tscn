@@ -9,10 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="6_5qrhp"]
 [ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint/checkpoint_flag.tscn" id="7_18uag"]
 
-[node name="MediumTemplate" type="Node3D" unique_id=1016321493]
+[node name="15FallingPlatform" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_wcxhf")
 difficulty = 1
 score_multiplier = 1.5
+features = Array[int]([2])
 
 [node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_5qrhp")]
 unique_name_in_owner = true
