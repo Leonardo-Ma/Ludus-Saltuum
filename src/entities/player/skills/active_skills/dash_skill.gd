@@ -39,9 +39,7 @@ func _physics_process(delta: float) -> void:
 
 
 func process_input() -> void:
-	if skills_controller.is_sliding or not skills_controller.movement_controller.movement_enabled:
-		return
-	if _dash_cooldown > 0.0:
+	if skills_controller.is_sliding or not skills_controller.movement_controller.movement_enabled or _dash_cooldown > 0.0:
 		return
 
 	var current_time: float = Time.get_ticks_msec() / 1000.0
@@ -85,5 +83,5 @@ func _start_dash(action_dir: String) -> void:
 	var forward: Vector3 = camera_basis * Vector3(input_vec.x, 0, input_vec.y)
 	forward.y = 0.0
 	forward = forward.normalized()
-	_dash_direction = forward * skills_controller.movement_controller.current_speed * dash_velocity_multiplier
+	_dash_direction = forward * skills_controller.entity.movement.speed * dash_velocity_multiplier
 	skills_controller.movement_controller.disable_movement(dash_duration)
