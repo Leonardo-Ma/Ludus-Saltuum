@@ -59,7 +59,7 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 4, -2)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 2, 52.64453)
 
 [node name="Spring" parent="Platforms/SnowBlock8" unique_id=2127770289 instance=ExtResource("8_gabof")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.096633, 4.1006823, 0.7501831)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.096633, 4.0167704, 0.7501831)
 
 [node name="SnowBlock9" parent="Platforms" unique_id=82066980 instance=ExtResource("5_sld1t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 4, 55.964165)

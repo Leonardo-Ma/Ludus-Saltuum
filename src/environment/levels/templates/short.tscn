@@ -18,7 +18,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 5, 73.083)
 
 [node name="GrassPlatform" parent="." unique_id=537577895 instance=ExtResource("4_q120s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 5)
 
 [node name="ArrowSign" parent="GrassPlatform" unique_id=975612369 instance=ExtResource("5_0e52l")]
 transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, 3, 4, -3)
