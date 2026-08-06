@@ -1,6 +1,8 @@
 <div align="center">
 <h1> <b> <i> Ludus Saltuum </b> </i> </h1>
 
+[![Ludus Saltuum][steam_badge]][steam_url]
+
 [![Conventional Commits][conventional_commits_badge]][conventional_commits_url]
 [![Keep a Changelog][keep_changelog_badge]][keep_changelog_url]
 [![Semantion Version (SemVer)][semver_badge]][semver_url]
@@ -25,19 +27,19 @@
 </div>
 
 ---
-This was my first minigame, also to be partially used as a mechanics and architectural template for future ones.
+This was my first game, also to be partially used as a mechanics and architectural template for future ones.
 
 In order to reduce scope and actually finish and publish it, I gave myself a ~ two month period to finish.
 
 # Summary
-xx is a simple 3d low poly plataformer. The core game loop is a partially procedural endless runner around evolving player abilities.
+Ludus Saltuum is a 3d low poly plataformer. The core game loop is a partially procedural endless runner around evolving player abilities and different mechanics.
 
 ## Main Features:  
-- Skills: Multi jump, dash, feather fall, teleport
-- Jump cutting, coyote time, knockback
-- Basic sound system
-- Checkpoint and collectibles
-- Chunk based procedural level generation (Handcrafted chunks)
+- Skills: Multi jump, dash, feather fall, teleport;
+- Springs, tornados, car levels, mazes and more;
+- Jump cutting, coyote time, knockback;
+- Checkpoint and collectibles;
+- Chunk based procedural level generation (Handcrafted chunks);
 
 ![Features diagram](docs/diagrams/features.drawio.svg)
 ---
@@ -57,9 +59,8 @@ Dependencies:
 - [Git](https://git-scm.com/)
 
 ```
-Clone this repo
-Scan the project's root in Godot
-Enjoy
+1 - Clone this repo
+2 - Scan the project's root in Godot
 ```
 
 ### For commit hooks (formatter/lint/parser/spelling...) to work ([.pre-commit-config.yaml](.pre-commit-config.yaml)):
@@ -97,7 +98,7 @@ zensical serve
 
 ### Commit guideline
 Refer to [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).  
-This project's [configuration](git-conventional-commits.yaml).
+And this project's [configuration](git-conventional-commits.yaml).
 
 ```
 <type>(<optional scope>): <description>
@@ -124,8 +125,11 @@ git-cliff
 # Acknowledgments
 Refer to [ACKNOWLEDGMENTS.md](docs/ACKNOWLEDGMENTS.md).
 
-
 <!------------------------------------------------------------->
+
+[steam_badge]: https://img.shields.io/badge/Ludus%20Saltuum%20On%20Steam-%23232F3E.svg?logo=steam&logoColor=white
+[steam_url]: https://store.steampowered.com/app/4832410/Ludus_Saltuum/
+
 [conventional_commits_badge]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white
 [conventional_commits_url]: https://conventionalcommits.org
 
@@ -135,7 +139,7 @@ Refer to [ACKNOWLEDGMENTS.md](docs/ACKNOWLEDGMENTS.md).
 [semver_badge]: https://img.shields.io/badge/Semantic%20Versioning-2.0.0-green?logo=semver
 [semver_url]: https://semver.org/
 
-[zensical_badge]: https://img.shields.io/badge/Docs%20With%20Zensical-gray?logo=senzical&logoColor=gray
+[zensical_badge]: https://img.shields.io/badge/Docs%20With%20Zensical-gray?logo=zensical&logoColor=gray
 [zensical_url]: https://zensical.org/
 
 [godeberg_badge]: https://img.shields.io/badge/Codeberg-144B49?logo=codeberg&logoColor=white
