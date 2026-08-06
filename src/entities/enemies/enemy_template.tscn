@@ -82,7 +82,7 @@ _data = {
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4bfx7"]
-size = Vector3(1, 1.4, 0.65767837)
+size = Vector3(1, 1.4, 1.4268188)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_7mh1l"]
 height = 1.47117
@@ -160,7 +160,7 @@ collision_mask = 0
 script = ExtResource("24_sx6k8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=186970168]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0167861, 0.793203, 0.99409854)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0167861, 0.793203, 1.3786688)
 shape = SubResource("BoxShape3D_4bfx7")
 disabled = true
 
