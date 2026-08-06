@@ -11,9 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://c6on7cp5w028m" path="res://src/environment/levels/assets/traps/spikes/spikes.tscn" id="7_qhihy"]
 [ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint/checkpoint_flag.tscn" id="7_swwcn"]
 
-[node name="MediumTemplate" type="Node3D" unique_id=1016321493]
+[node name="10LongObstacle" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_ad2n6")
 score_multiplier = 1.5
+features = Array[int]([6])
 
 [node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_7e4qu")]
 unique_name_in_owner = true
@@ -45,10 +46,22 @@ transform = Transform3D(180, 0, 0, 0, -7.86805e-06, 180, 0, -180, -7.86805e-06, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 76)
 
 [node name="GrassPlatform6" parent="." unique_id=170478884 instance=ExtResource("4_fdenn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 75)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 88)
 
 [node name="Checkpoint" parent="GrassPlatform6" unique_id=742215115 instance=ExtResource("7_swwcn")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 4, -2)
+
+[node name="GrassPlatform13" parent="." unique_id=314357400 instance=ExtResource("4_fdenn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 99)
+
+[node name="GrassPlatform14" parent="." unique_id=868179826 instance=ExtResource("4_fdenn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 110)
+
+[node name="GrassPlatform15" parent="." unique_id=724505053 instance=ExtResource("4_fdenn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 121)
+
+[node name="GrassPlatform16" parent="." unique_id=885278752 instance=ExtResource("4_fdenn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 132)
 
 [node name="GoldCoin" parent="." unique_id=1971537253 instance=ExtResource("5_qhihy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 6, 75)

@@ -11,8 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/levels/assets/collectibles/coins/gold_coin.tscn" id="7_w2knr"]
 [ext_resource type="PackedScene" uid="uid://cvcxve456vw1e" path="res://src/environment/levels/assets/collectibles/speed_up/speed_up.tscn" id="7_xcckb"]
 
-[node name="LevelChunk" type="Node3D" unique_id=1016321493]
+[node name="08MovingShort" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_defqu")
+features = Array[int]([6])
 
 [node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_yyf3v")]
 unique_name_in_owner = true
@@ -20,7 +21,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 1)
 
 [node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_tyk6i")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 102.083)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 104.083)
 
 [node name="MovingPlatformOrange" parent="." unique_id=36073028 instance=ExtResource("4_t3dyd")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, -3, 15.837997)
@@ -74,4 +75,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -0.10530996, 85)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.89469004, 94)
 
 [node name="SnowPlatform" parent="." unique_id=1825772833 instance=ExtResource("6_t3dyd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 98)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 100)
