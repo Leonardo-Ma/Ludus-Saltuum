@@ -26,6 +26,9 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_w2gkj"]
 size = Vector3(112.08545, 135, 50)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_4hukf"]
+size = Vector3(79, 12, 2)
+
 [sub_resource type="Resource" id="Resource_acljp"]
 script = ExtResource("17_3yyhr")
 type = 1
@@ -92,6 +95,13 @@ shape = SubResource("BoxShape3D_w2gkj")
 [node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_6e1j3")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 145)
+
+[node name="InvisibleRoof" type="StaticBody3D" parent="." unique_id=1369234684]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11, 10.994753)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InvisibleRoof" unique_id=1722156380]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3.5, -0.5)
+shape = SubResource("BoxShape3D_4hukf")
 
 [node name="GrassPlatform" parent="." unique_id=537577895 instance=ExtResource("4_bjhch")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 3)
@@ -290,6 +300,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49, 2, 79.73388)
 
 [node name="GoldCoin18" parent="Coins" unique_id=1680360338 instance=ExtResource("14_ynq7h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 2, 79.73388)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=362832517]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 1.4090924, 29.73388)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=1520729331]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49, 0.605072, 78.73388)
 
 [node name="Traps" type="Node3D" parent="." unique_id=610298105]
 
