@@ -1,14 +1,14 @@
 # Read more: https://zensical.org/docs/setup/basics
 [project]
-site_name = "Untitled Platformer Documentation"
+site_name = "Ludus Saltuum Documentation"
 site_description = "Template and games documentation."
 site_author = "Leonardo"
 #site_url = "https://www.example.com/"
 docs_dir = "docs"
 #logo = "icon.svg"
 
-repo_name = "Leonardo-Ma/Untitled Platformer"
-repo_url = "https://github.com/Leonardo-Ma/Untitled-Platformer"
+repo_name = "Leonardo-Ma/Ludus Saltuum"
+repo_url = "https://github.com/Leonardo-Ma/Ludus-Saltuum"
 edit_uri = "edit/main/docs/"
 
 copyright = """
@@ -85,11 +85,15 @@ toggle.name = "Light mode"
 
 [[project.extra.social]]
 icon = "fontawesome/brands/github"
-link = "https://github.com/Leonardo-Ma/Untitled-Platformer"
+link = "https://github.com/Leonardo-Ma/Ludus-Saltuum"
 
 [[project.extra.social]]
 icon = "fontawesome/brands/gitlab"
-link = "https://gitlab.com/Leonardo-ma/Untitled-Platformer"
+link = "https://gitlab.com/Leonardo-ma/Ludus-Saltuum"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/codeberg"
+link = "https://codeberg.org/leonardo-ma/Ludus-Saltuum"
 
 # ----------------------------------------------------------------------------
 # - https://zensical.org/docs/setup/extensions/

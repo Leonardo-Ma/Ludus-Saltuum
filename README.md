@@ -1,5 +1,5 @@
 <div align="center">
-<h1> <b> <i> Untitled Platformer </b> </i> </h1>
+<h1> <b> <i> Ludus Saltuum </b> </i> </h1>
 
 [![Conventional Commits][conventional_commits_badge]][conventional_commits_url]
 [![Keep a Changelog][keep_changelog_badge]][keep_changelog_url]
@@ -139,13 +139,13 @@ Refer to [ACKNOWLEDGMENTS.md](docs/ACKNOWLEDGMENTS.md).
 [zensical_url]: https://zensical.org/
 
 [godeberg_badge]: https://img.shields.io/badge/Codeberg-144B49?logo=codeberg&logoColor=white
-[codeberg_url]: https://codeberg.org/leonardo-ma/Untitled-Platformer
+[codeberg_url]: https://codeberg.org/leonardo-ma/Ludus-Saltuum
 
 [gitlab_badge]: https://img.shields.io/badge/Gitlab-gray?logo=gitlab
-[gitlab_url]: https://gitlab.com/Leonardo-ma/Untitled-Platformer
+[gitlab_url]: https://gitlab.com/Leonardo-ma/Ludus-Saltuum
 
 [github_badge]: https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white
-[github_url]: https://github.com/Leonardo-Ma/Untitled-Platformer
+[github_url]: https://github.com/Leonardo-Ma/Ludus-Saltuum
 
 
 [pre_commit_badge]: https://img.shields.io/badge/Pre--Commit-enabled-green?logo=pre-commit
@@ -154,12 +154,12 @@ Refer to [ACKNOWLEDGMENTS.md](docs/ACKNOWLEDGMENTS.md).
 [git_cliff_badge]: https://img.shields.io/badge/Git--Cliff-changelog-green
 [git_cliff_url]: https://git-cliff.org/
 
-[ci_badge]: https://github.com/Leonardo-Ma/Untitled-Platformer/actions/workflows/ci.yml/badge.svg
-[ci_url]: https://github.com/Leonardo-Ma/Untitled-Platformer/actions/workflows/ci.yml
+[ci_badge]: https://github.com/Leonardo-Ma/Ludus-Saltuum/actions/workflows/ci.yml/badge.svg
+[ci_url]: https://github.com/Leonardo-Ma/Ludus-Saltuum/actions/workflows/ci.yml
 
-[codeql_badge]: https://github.com/Leonardo-Ma/Untitled-Platformer/actions/workflows/codeql.yml/badge.svg
-[codeql_url]: https://github.com/Leonardo-Ma/Untitled-Platformer/actions/workflows/codeql.yml
+[codeql_badge]: https://github.com/Leonardo-Ma/Ludus-Saltuum/actions/workflows/codeql.yml/badge.svg
+[codeql_url]: https://github.com/Leonardo-Ma/Ludus-Saltuum/actions/workflows/codeql.yml
 
-[github_release_badge]: https://img.shields.io/github/v/release/leonardo-ma/Untitled-Platformer
+[github_release_badge]: https://img.shields.io/github/v/release/leonardo-ma/Ludus-Saltuum
 
 [changelog]: ./CHANGELOG.md

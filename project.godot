@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Untitled Platformer"
+config/name="Ludus Saltuum"
 run/main_scene="uid://dlvcb7vmtq1lo"
 config/features=PackedStringArray("4.7", "Forward Plus")
 run/max_fps=1000

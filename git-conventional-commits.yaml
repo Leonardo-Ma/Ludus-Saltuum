@@ -33,7 +33,7 @@ changelog:
     Perf: Performance Improvements
     Remove: Removes
     BreakingChange: BREAKING CHANGES
-  commitUrl: https://github.com/Leonardo-Ma/Untitled-Platformer/commit/%commit%
-  commitRangeUrl: https://github.com/Leonardo-Ma/Untitled-Platformer/compare/%from%...%to%?diff=split
+  commitUrl: https://github.com/Leonardo-Ma/Ludus-Saltuum/commit/%commit%
+  commitRangeUrl: https://github.com/Leonardo-Ma/Ludus-Saltuum/compare/%from%...%to%?diff=split
   issueRegexPattern: "#[0-9]+"
-  issueUrl: https://github.com/Leonardo-Ma/Untitled-Platformer/issues/%issue%
+  issueUrl: https://github.com/Leonardo-Ma/Ludus-Saltuum/issues/%issue%
