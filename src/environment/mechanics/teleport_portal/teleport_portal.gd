@@ -21,7 +21,7 @@ var _portal_color: Color = Color("#4db2ff23")
 		return _portal_color
 	set(value):
 		_portal_color = value
-		if Engine.is_editor_hint():
+		if Engine.is_editor_hint() and portal_vfx:
 			# This only works because meshes > geometry > material override > resource > Local to scene = true
 			portal_vfx.set_portal_param("primary_color", value)
 
