@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://c3c0sejgavc7h" path="res://src/entities/vehicles/car.tscn" id="6_0dlys"]
 [ext_resource type="ArrayMesh" uid="uid://ct5us20stc7a0" path="res://src/environment/assets/kenney_city_kit_roads/meshes/bend.tres" id="9_6nfv3"]
 [ext_resource type="PackedScene" uid="uid://dtuht3gos28nm" path="res://src/environment/mechanics/car/car_exit_zone.tscn" id="10_6nfv3"]
-[ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint/checkpoint_flag.tscn" id="11_cfnxj"]
 [ext_resource type="Texture2D" uid="uid://c3jgn4iaiqy36" path="res://src/environment/assets/kenney_city_kit_roads/models/Textures/colormap.png" id="12_7bql8"]
+[ext_resource type="Script" uid="uid://jqe7b8io8fum" path="res://src/environment/mechanics/checkpoint/checkpoint.gd" id="12_i8gww"]
 [ext_resource type="PackedScene" uid="uid://b73j2aliqwvvc" path="res://src/systems/change_gameplay_state_area_3d.tscn" id="12_lsnar"]
 [ext_resource type="ArrayMesh" uid="uid://ddnt2i2w2bm1a" path="res://src/environment/assets/kenney_city_kit_roads/meshes/road_slant.tres" id="13_lsnar"]
 [ext_resource type="ArrayMesh" uid="uid://bqr7fp5jrjnte" path="res://src/environment/assets/kenney_city_kit_roads/meshes/road_slant_high.tres" id="14_i8gww"]
@@ -82,7 +82,7 @@ data = PackedVector3Array(0.2934, 0.08, -0.108799994, 0.20709999, 0.08, -0.20709
 item/0/name = "Straight"
 item/0/mesh = SubResource("ArrayMesh_i8gww")
 item/0/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-item/0/mesh_cast_shadow = 1
+item/0/mesh_cast_shadow = 0
 item/0/shapes = [SubResource("ConcavePolygonShape3D_jry6b"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
 item/0/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/0/navigation_layers = 1
@@ -90,27 +90,30 @@ item/0/preview = SubResource("ImageTexture_iujye")
 item/1/name = "Slant"
 item/1/mesh = ExtResource("13_lsnar")
 item/1/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-item/1/mesh_cast_shadow = 1
+item/1/mesh_cast_shadow = 0
 item/1/shapes = [SubResource("ConvexPolygonShape3D_23yl8"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0), SubResource("ConcavePolygonShape3D_ltsbo"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
 item/1/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/1/navigation_layers = 1
 item/2/name = "Slant High"
 item/2/mesh = ExtResource("14_i8gww")
 item/2/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-item/2/mesh_cast_shadow = 1
+item/2/mesh_cast_shadow = 0
 item/2/shapes = [SubResource("ConcavePolygonShape3D_41jj2"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
 item/2/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/2/navigation_layers = 1
 item/3/name = "Bend"
 item/3/mesh = ExtResource("9_6nfv3")
 item/3/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-item/3/mesh_cast_shadow = 1
+item/3/mesh_cast_shadow = 0
 item/3/shapes = [SubResource("ConcavePolygonShape3D_7bql8"), Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)]
 item/3/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 item/3/navigation_layers = 1
 metadata/_editor_source_scene = "res://src/environment/levels/assets/racing/roads/road_straight.tscn"
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_4hukf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_41jj2"]
+size = Vector3(9, 3, 2)
 
 [node name="17Car" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_cywjj")
@@ -132,7 +135,7 @@ shape = SubResource("BoxShape3D_xrfg7")
 
 [node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_18t43")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 11, 241)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 11, 242)
 
 [node name="ArrowSign" parent="." unique_id=975612369 instance=ExtResource("5_8misn")]
 transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, 9.852951, 1.0653591, 1)
@@ -158,5 +161,10 @@ disabled = true
 [node name="CarExitZone" parent="." unique_id=1796382134 instance=ExtResource("10_6nfv3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 7, 236)
 
-[node name="Checkpoint" parent="." unique_id=742215115 instance=ExtResource("11_cfnxj")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -17, 5.5751433, 136.71954)
+[node name="CustomCheckpoint" type="Area3D" parent="." unique_id=1869592511]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.618908, 7.1016707, 136.71954)
+script = ExtResource("12_i8gww")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CustomCheckpoint" unique_id=328411986]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+shape = SubResource("BoxShape3D_41jj2")

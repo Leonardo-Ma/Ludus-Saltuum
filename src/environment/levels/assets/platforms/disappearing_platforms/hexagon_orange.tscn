@@ -17,6 +17,7 @@ script = ExtResource("1_n6vtp")
 
 [node name="StonePlatform_Cylinder" type="MeshInstance3D" parent="." unique_id=161338454]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+cast_shadow = 0
 mesh = ExtResource("1_8muna")
 surface_material_override/0 = SubResource("StandardMaterial3D_0fmxi")
 
