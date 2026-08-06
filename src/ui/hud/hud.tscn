@@ -24,7 +24,6 @@
 [ext_resource type="Texture2D" uid="uid://cgiss7x7cle55" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/mouse/mouse_move.png" id="19_ljgop"]
 [ext_resource type="Texture2D" uid="uid://csdknf6h4kgqx" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/keyboard_i_outline.png" id="20_l5biy"]
 [ext_resource type="Texture2D" uid="uid://coayef6j1qmb2" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/keyboard_j_outline.png" id="21_yqmcv"]
-[ext_resource type="Texture2D" uid="uid://dy53jq6k08rjq" path="res://src/ui/assets/kenney_input-prompts/xbox_series_double/xbox_button_back_icon_outline.png" id="22_air4j"]
 [ext_resource type="Texture2D" uid="uid://d1aopeglq7q3y" path="res://src/ui/assets/kenney_input-prompts/sticks/stick_right.png" id="22_t210l"]
 [ext_resource type="Texture2D" uid="uid://rafokuj28ues" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/keyboard_k_outline.png" id="22_ulf7a"]
 [ext_resource type="Texture2D" uid="uid://dxarxbxphus2j" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/keyboard_l_outline.png" id="23_58h30"]
@@ -33,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://btbdty1xbpcap" path="res://src/ui/assets/kenney_input-prompts/flairs_double/flair_arrow_3.png" id="25_gcgkn"]
 [ext_resource type="Texture2D" uid="uid://ckvy8vbccihmw" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/12_misc/loading-dots.png" id="25_lb1pd"]
 [ext_resource type="Texture2D" uid="uid://csssgfxl235ik" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/visible.png" id="27_lb1pd"]
+[ext_resource type="Texture2D" uid="uid://dhb15ko0frh80" path="res://src/ui/assets/kenney_input-prompts/xbox_series_double/buttons/xbox_button_color_x_outline.png" id="28_58h30"]
 [ext_resource type="Script" uid="uid://bsuawdnvruik5" path="res://src/ui/hud/music_player/music_player.gd" id="34_ulf7a"]
 [ext_resource type="Texture2D" uid="uid://cvw72qmip5r4d" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/music.png" id="35_58h30"]
 [ext_resource type="Texture2D" uid="uid://bhvk4bhxhicuj" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/user.png" id="36_u7jpa"]
@@ -416,13 +416,13 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Select" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/ReturnCheckpoint/PromptsPanel/Inputs" unique_id=80538652 instance=ExtResource("11_i2hmd")]
+[node name="X" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/ReturnCheckpoint/PromptsPanel/Inputs" unique_id=80538652 instance=ExtResource("11_i2hmd")]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-texture = ExtResource("22_air4j")
+texture = ExtResource("28_58h30")
 action = &"return_to_checkpoint"
 
-[node name="ReturnCheckpoingProgress" type="TextureProgressBar" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/ReturnCheckpoint/PromptsPanel/Inputs/Select" unique_id=603943047]
+[node name="ReturnCheckpoingProgress" type="TextureProgressBar" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/ReturnCheckpoint/PromptsPanel/Inputs/X" unique_id=603943047]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
