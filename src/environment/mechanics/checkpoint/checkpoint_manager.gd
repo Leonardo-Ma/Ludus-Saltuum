@@ -82,6 +82,17 @@ func reset_checkpoint() -> void:
 	_is_chunk_relative = false
 
 
+func get_default_spawn_position() -> Vector3:
+	# Fallback to first chunk entrance if available
+	var chunks: Array[LevelChunk] = LevelChunkManager.get_active_chunks()
+	if not chunks.is_empty():
+		var entrance: Node3D = chunks[0].get_node("%EntranceTrigger")
+		if entrance and is_instance_valid(entrance):
+			return entrance.global_position
+	# Ultimate fallback: world origin
+	return Vector3.ZERO
+
+
 func restore_position(chunk_scene_path: String, local_transform: Transform3D) -> void:
 	if chunk_scene_path == "":
 		# Global checkpoint (no chunk), restore directly from local_transform.origin
