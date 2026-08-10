@@ -27,6 +27,7 @@
 [ext_resource type="Script" uid="uid://rpbdsks54nbp" path="res://src/entities/components/stat_modifier/status_manager.gd" id="19_s033l"]
 [ext_resource type="Texture2D" uid="uid://cqwuuqsliuv2f" path="res://src/entities/player/visual/asset/knight_texture.png" id="20_b2fsy"]
 [ext_resource type="Script" uid="uid://bll0orhps41m6" path="res://src/entities/components/combat/knockback_controller.gd" id="28_voi68"]
+[ext_resource type="Script" uid="uid://ck5x1bx5lem3y" path="res://src/entities/player/controller/player_save_controller.gd" id="29_2cmg6"]
 [ext_resource type="Script" uid="uid://iyeemya81j8m" path="res://src/entities/player/skills/skills_controller.gd" id="29_skills"]
 [ext_resource type="Script" uid="uid://cpusxg43clwxv" path="res://src/entities/player/controller/vfx_controller.gd" id="31_gxh5t"]
 [ext_resource type="Script" uid="uid://5or2vf5kpdix" path="res://src/entities/player/components/vehicle_rider.gd" id="32_vehiclerider"]

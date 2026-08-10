@@ -36,66 +36,26 @@ theme_override_constants/margin_bottom = 15
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_k74xf")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=504402947]
-layout_mode = 2
-
-[node name="ReturnButton" type="TextureButton" parent="MarginContainer/VBoxContainer" unique_id=2007620695]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 8
-texture_normal = ExtResource("3_41aul")
-texture_focused = ExtResource("3_6y3kf")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="FocusOnVisible" parent="MarginContainer/VBoxContainer/ReturnButton" unique_id=494770207 instance=ExtResource("5_6y3kf")]
-layout_mode = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=96765660]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=96765660]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=855527483]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="SaveSlotsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer" unique_id=2114704015]
+[node name="SaveSlotsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=2114704015]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="SaveFileItem" parent="MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/SaveSlotsContainer" unique_id=1224143979 instance=ExtResource("1_7qc06")]
+[node name="SaveFileItem" parent="MarginContainer/VBoxContainer/SaveSlotsContainer" unique_id=1224143979 instance=ExtResource("1_7qc06")]
 layout_mode = 2
 
-[node name="SaveFileItem2" parent="MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/SaveSlotsContainer" unique_id=246747433 instance=ExtResource("1_7qc06")]
+[node name="SaveFileItem5" parent="MarginContainer/VBoxContainer/SaveSlotsContainer" unique_id=332637846 instance=ExtResource("1_7qc06")]
 layout_mode = 2
-focus_neighbor_top = NodePath("../SaveFileItem")
-focus_neighbor_bottom = NodePath("../SaveFileItem3")
-
-[node name="SaveFileItem3" parent="MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/SaveSlotsContainer" unique_id=884961541 instance=ExtResource("1_7qc06")]
-layout_mode = 2
-focus_neighbor_top = NodePath("../SaveFileItem2")
-focus_neighbor_bottom = NodePath("../SaveFileItem4")
-
-[node name="SaveFileItem4" parent="MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/SaveSlotsContainer" unique_id=1299187468 instance=ExtResource("1_7qc06")]
-layout_mode = 2
-focus_neighbor_top = NodePath("../SaveFileItem3")
-focus_neighbor_bottom = NodePath("../SaveFileItem5")
-
-[node name="SaveFileItem5" parent="MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/SaveSlotsContainer" unique_id=332637846 instance=ExtResource("1_7qc06")]
-layout_mode = 2
-focus_neighbor_left = NodePath("../SaveFileItem4")
-focus_neighbor_top = NodePath("../SaveFileItem4")
 focus_neighbor_right = NodePath("../SaveFileItem6")
 focus_neighbor_bottom = NodePath("../SaveFileItem6")
 focus_next = NodePath("../SaveFileItem6")
-focus_previous = NodePath("../SaveFileItem4")
 
-[node name="SaveFileItem6" parent="MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/SaveSlotsContainer" unique_id=405651618 instance=ExtResource("1_7qc06")]
+[node name="SaveFileItem6" parent="MarginContainer/VBoxContainer/SaveSlotsContainer" unique_id=405651618 instance=ExtResource("1_7qc06")]
 layout_mode = 2
 focus_neighbor_left = NodePath("../SaveFileItem5")
 focus_neighbor_top = NodePath("../SaveFileItem5")
@@ -104,7 +64,7 @@ focus_neighbor_bottom = NodePath("../SaveFileItem7")
 focus_next = NodePath("../SaveFileItem7")
 focus_previous = NodePath("../SaveFileItem5")
 
-[node name="SaveFileItem7" parent="MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/SaveSlotsContainer" unique_id=1299187469 instance=ExtResource("1_7qc06")]
+[node name="SaveFileItem7" parent="MarginContainer/VBoxContainer/SaveSlotsContainer" unique_id=1299187469 instance=ExtResource("1_7qc06")]
 layout_mode = 2
 focus_neighbor_left = NodePath("../SaveFileItem6")
 focus_neighbor_top = NodePath("../SaveFileItem6")
@@ -112,3 +72,17 @@ focus_neighbor_right = NodePath("../SaveFileItem")
 focus_neighbor_bottom = NodePath("../SaveFileItem")
 focus_next = NodePath("../SaveFileItem")
 focus_previous = NodePath("../SaveFileItem6")
+
+[node name="ReturnButton" type="TextureButton" parent="MarginContainer" unique_id=2007620695]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+texture_normal = ExtResource("3_41aul")
+texture_focused = ExtResource("3_6y3kf")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="FocusOnVisible" parent="MarginContainer/ReturnButton" unique_id=494770207 instance=ExtResource("5_6y3kf")]
+layout_mode = 0

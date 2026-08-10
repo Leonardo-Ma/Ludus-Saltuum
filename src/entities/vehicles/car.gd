@@ -1,3 +1,7 @@
+# TODO BUG Should refactor the usage of Groups.PLAYERS to detect this car, it is causing problems in several places and
+# forces coupling the same systems that already exist in PlayerEntity (like portal controller and save controller)
+# But without using it, when entering the car the now disabled player character just goes into the void, maybe would require
+# temporarily adding player as a child of car?
 # https://www.youtube.com/watch?v=5m7nBj98rx4 LegionGames - Race Car Controller Tutorial - Godot 3D
 class_name PlayerCar
 extends VehicleBody3D

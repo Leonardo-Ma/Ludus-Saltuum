@@ -60,12 +60,12 @@ func exit_vehicle(exit_position: Vector3) -> void:
 #region Private API
 func _on_vehicle_entered() -> void:
 	_player.entity_enable_disable(false)
-	_player.remove_from_group(Groups.PLAYERS)
+	_player.add_to_group(Groups.PLAYERS)
 
 
 func _on_vehicle_exited() -> void:
 	_player.entity_enable_disable(true)
-	_player.add_to_group(Groups.PLAYERS)
+	_player.remove_from_group(Groups.PLAYERS)
 
 	GameEvents.set_controlled_entity(_player)
 #endregion

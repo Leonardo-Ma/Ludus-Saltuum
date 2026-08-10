@@ -11,6 +11,7 @@ extends AggressiveEntity
 
 @onready var vehicle_rider: VehicleRider = %VehicleRider
 @onready var portal_controller: PortalController = %PortalController
+@onready var save_controller: PlayerSaveController = %PlayerSaveController
 
 
 func _physics_process(delta: float) -> void:
@@ -30,9 +31,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _child_ready() -> void:
+	# TODO This may not be the best place for this
 	add_to_group(Groups.PLAYERS)
-	GameEvents.player_spawned.emit(self)
-	GameEvents.set_controlled_entity(self)
 
 	input_controller.attack_pressed.connect(_on_attack_pressed)
 	input_controller.return_to_checkpoint_requested.connect(_on_return_to_checkpoint_requested)
@@ -100,7 +100,11 @@ func _on_damaged_vibration(_attack: Attack) -> void:
 	Input.start_joy_vibration(0, 0.5, 0.5, 0.7)
 
 
+# TODO Maybe change this to a signal based to decouple?
 func entity_enable_disable(toggle: bool) -> void:
+	if toggle == true:
+		GameEvents.player_spawned.emit(self)
+		GameEvents.set_controlled_entity(self)
 	skills_controller.set_physics_process(toggle)
 	set_collision_layer_value(1, toggle)
 	hurtbox.set_deferred("monitoring", toggle)

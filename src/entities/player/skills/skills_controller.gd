@@ -2,7 +2,9 @@
 class_name SkillsController
 extends Node
 
+# TODO Refactor this to remove hud order, to be any order?
 signal skill_unlocked(hud_order: int, definition: SkillDefinition)
+signal resetted_skills
 
 var is_sliding: bool = false
 var base_fov: float = 0.0
@@ -27,7 +29,12 @@ func _physics_process(_delta: float) -> void:
 		skill.process_input()
 
 
-# TODO Double check this
+func reset() -> void:
+	_skills.clear()
+	resetted_skills.emit()
+
+
+# TODO BUG Double check this, something clearly wrong with this :(
 ## Replaces any existing skill with the same id
 func unlock(definition: SkillDefinition) -> void:
 	assert(definition.input_action != &"" or definition.id == &"dash", "SkillsController: '%s' has no input_action in %s" % [definition.id, name])
@@ -82,9 +89,11 @@ func _initialize_from_entity() -> void:
 
 
 func _on_landed() -> void:
+	# TODO This should be a signal
 	for skill: BaseSkill in _skills.values():
 		skill.on_landed()
 
 
 func _on_camera_settings_changed() -> void:
+	# TODO Probably should be a signal
 	base_fov = SettingsManager.camera_fov

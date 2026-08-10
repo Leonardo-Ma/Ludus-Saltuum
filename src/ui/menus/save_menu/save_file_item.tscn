@@ -4,80 +4,89 @@
 [ext_resource type="Texture2D" uid="uid://b2ggug31fd52y" path="res://src/icons/16x16/star.png" id="2_06awo"]
 [ext_resource type="Texture2D" uid="uid://dj6mk6ic8le0p" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/save.png" id="2_auyt5"]
 [ext_resource type="Texture2D" uid="uid://bmdg7sc3tlyrv" path="res://src/icons/16x16/coins.png" id="3_auyt5"]
+[ext_resource type="Texture2D" uid="uid://8hkrepcpd520" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/10_editing/cursor_link.png" id="3_hqr8n"]
 [ext_resource type="Texture2D" uid="uid://cqgd6g3oujuj" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/play.png" id="5_06awo"]
 [ext_resource type="Texture2D" uid="uid://biqkiy2y3opd2" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/trash.png" id="6_06awo"]
 
 [node name="SaveFileItem" type="AspectRatioContainer" unique_id=332637846]
-custom_minimum_size = Vector2(500, 150)
-offset_right = 450.0
-offset_bottom = 150.0
+offset_right = 600.0
+offset_bottom = 152.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_06awo")
 
 [node name="OuterMarginContainer" type="MarginContainer" parent="." unique_id=1911005888]
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="OuterMarginContainer" unique_id=1073373432]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-
-[node name="SaveFileMarginContainer" type="MarginContainer" parent="OuterMarginContainer/VBoxContainer" unique_id=1596234304]
+[node name="SaveFileMarginContainer" type="MarginContainer" parent="OuterMarginContainer" unique_id=1596234304]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Panel" type="Panel" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer" unique_id=1944257166]
+[node name="Panel" type="Panel" parent="OuterMarginContainer/SaveFileMarginContainer" unique_id=1944257166]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer" unique_id=1200585220]
+[node name="VBoxContainer" type="VBoxContainer" parent="OuterMarginContainer/SaveFileMarginContainer" unique_id=1200585220]
 layout_mode = 2
 
-[node name="SaveContainer" type="HBoxContainer" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer" unique_id=1296166856]
+[node name="SaveContainer" type="HBoxContainer" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer" unique_id=1296166856]
 layout_mode = 2
 
-[node name="DiskIcon" type="TextureRect" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer" unique_id=727825609]
-custom_minimum_size = Vector2(25, 25)
+[node name="HBoxContainer" type="HBoxContainer" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer" unique_id=235496142]
+layout_mode = 2
+
+[node name="DiskIcon" type="TextureRect" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/HBoxContainer" unique_id=727825609]
+custom_minimum_size = Vector2(65, 40)
 layout_mode = 2
 texture = ExtResource("2_auyt5")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="SaveDataMargin" type="MarginContainer" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer" unique_id=1539843453]
+[node name="SaveTypeIcon" type="TextureRect" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/HBoxContainer" unique_id=566866501]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
+texture = ExtResource("3_hqr8n")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SaveDataMargin" type="MarginContainer" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer" unique_id=1539843453]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="SaveDataContainer" type="VBoxContainer" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin" unique_id=836147986]
+[node name="SaveDataContainer" type="VBoxContainer" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin" unique_id=836147986]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TopSaveContainer" type="HBoxContainer" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer" unique_id=1703487694]
+[node name="TopSaveContainer" type="HBoxContainer" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer" unique_id=1703487694]
 layout_mode = 2
 
-[node name="SaveNameValueLabel" type="Label" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/TopSaveContainer" unique_id=957792216]
+[node name="SaveNameValueLabel" type="Label" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/TopSaveContainer" unique_id=957792216]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 16
 text = "01"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ScoreContainer" type="HBoxContainer" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/TopSaveContainer" unique_id=35128468]
+[node name="ScoreContainer" type="HBoxContainer" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/TopSaveContainer" unique_id=35128468]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ScoreTexture" type="TextureRect" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/TopSaveContainer/ScoreContainer" unique_id=236524916]
+[node name="ScoreTexture" type="TextureRect" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/TopSaveContainer/ScoreContainer" unique_id=236524916]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -85,18 +94,18 @@ texture = ExtResource("2_06awo")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="ScoreLabel" type="Label" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/TopSaveContainer/ScoreContainer" unique_id=2108178611]
+[node name="ScoreLabel" type="Label" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/TopSaveContainer/ScoreContainer" unique_id=2108178611]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 16
 text = "99999"
 
-[node name="GoldContainer" type="HBoxContainer" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/TopSaveContainer" unique_id=1332502976]
+[node name="GoldContainer" type="HBoxContainer" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/TopSaveContainer" unique_id=1332502976]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="GoldTexture" type="TextureRect" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/TopSaveContainer/GoldContainer" unique_id=1767621689]
+[node name="GoldTexture" type="TextureRect" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/TopSaveContainer/GoldContainer" unique_id=1767621689]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -104,74 +113,74 @@ texture = ExtResource("3_auyt5")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="GoldLabel" type="Label" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/TopSaveContainer/GoldContainer" unique_id=404532938]
+[node name="GoldLabel" type="Label" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/TopSaveContainer/GoldContainer" unique_id=404532938]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 16
 text = "999999"
 
-[node name="HSeparator" type="HSeparator" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer" unique_id=1925506972]
+[node name="HSeparator" type="HSeparator" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer" unique_id=1925506972]
 layout_mode = 2
 
-[node name="SaveStatisticsContainer" type="HBoxContainer" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer" unique_id=742369629]
+[node name="SaveStatisticsContainer" type="HBoxContainer" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer" unique_id=742369629]
 layout_mode = 2
 
-[node name="PlayTimeValueLabel" type="Label" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/SaveStatisticsContainer" unique_id=184206541]
+[node name="PlayTimeValueLabel" type="Label" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/SaveStatisticsContainer" unique_id=184206541]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(140, 23)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 16
 text = "xxx:xx:xx"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VSeparator" type="VSeparator" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/SaveStatisticsContainer" unique_id=1161523053]
+[node name="VSeparator" type="VSeparator" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/SaveStatisticsContainer" unique_id=1161523053]
 layout_mode = 2
 
-[node name="SaveDateValueLabel" type="Label" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/SaveStatisticsContainer" unique_id=1895465258]
+[node name="SaveDateValueLabel" type="Label" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/SaveStatisticsContainer" unique_id=1895465258]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 23)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 16
 text = "YYYY.MM.DD HH:MM"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer" unique_id=264084254]
+[node name="HSeparator" type="HSeparator" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer" unique_id=264084254]
 layout_mode = 2
+theme_override_constants/separation = 6
 
-[node name="SaveButtonsMarginContainer" type="MarginContainer" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer" unique_id=45083510]
-custom_minimum_size = Vector2(25, 25)
+[node name="SaveButtonsMarginContainer" type="MarginContainer" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer" unique_id=45083510]
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/margin_left = 25
+theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 25
+theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer/SaveButtonsMarginContainer" unique_id=1634846336]
-custom_minimum_size = Vector2(100, 30)
+[node name="HBoxContainer" type="HBoxContainer" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveButtonsMarginContainer" unique_id=1634846336]
 layout_mode = 2
 theme_override_constants/separation = 128
 
-[node name="LoadButton" type="Button" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer/SaveButtonsMarginContainer/HBoxContainer" unique_id=651057107]
+[node name="PlayButton" type="Button" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveButtonsMarginContainer/HBoxContainer" unique_id=651057107]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(46, 46)
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 0
 icon = ExtResource("5_06awo")
 icon_alignment = 1
 expand_icon = true
 
-[node name="DeleteButton" type="Button" parent="OuterMarginContainer/VBoxContainer/SaveFileMarginContainer/VBoxContainer/SaveButtonsMarginContainer/HBoxContainer" unique_id=891031120]
+[node name="DeleteButton" type="Button" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveButtonsMarginContainer/HBoxContainer" unique_id=891031120]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(46, 46)
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 0
 icon = ExtResource("6_06awo")
 icon_alignment = 1
 expand_icon = true

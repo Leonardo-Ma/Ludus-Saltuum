@@ -76,9 +76,10 @@ func _on_state_entered(new_state: GameState, previous_state: GameState) -> void:
 		GameState.PLAYING:
 			UIManager.show_gameplay()
 			PauseManager.release_pause("gameplay")
-			gameplay_started.emit()
 			if previous_state == GameState.PAUSED:
 				gameplay_resumed.emit()
+			else:
+				gameplay_started.emit()
 
 		GameState.PAUSED:
 			UIManager.show_pause_menu()

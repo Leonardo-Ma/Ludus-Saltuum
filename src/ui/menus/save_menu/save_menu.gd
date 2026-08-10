@@ -1,8 +1,8 @@
 ## Populates and refreshes all save file item slots on open
+class_name SaveMenu
 extends Control
 
 @onready var _return_button: TextureButton = %ReturnButton
-@onready var _scroll: ScrollContainer = %ScrollContainer
 @onready var _slot_items: Array[Node] = %SaveSlotsContainer.get_children()
 
 
@@ -10,9 +10,6 @@ func _ready() -> void:
 	_return_button.pressed.connect(_on_return_pressed)
 	SaveManager.save_changed.connect(_on_save_changed)
 	visibility_changed.connect(_on_visibility_changed)
-
-	for item: Node in _slot_items:
-		(item as SaveFileItem).item_focused.connect(_scroll.ensure_control_visible.bind(item as Control))
 
 
 func _on_visibility_changed() -> void:

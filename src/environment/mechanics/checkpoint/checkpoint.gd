@@ -10,10 +10,19 @@ const ACTIVATION_SOUNDS: Array[AudioStream] = [
 ]
 
 @export var is_active: bool = false
+var parent_chunk: LevelChunk = null
 
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
+	# TODO Improve this, maybe signal or move somewhere else
+	# Auto-detect parent LevelChunk (may be null for checkpoints outside chunks)
+	var current: Node = self
+	while current:
+		if current is LevelChunk:
+			parent_chunk = current as LevelChunk
+			break
+		current = current.get_parent()
 
 
 func activate_checkpoint() -> void:

@@ -1,27 +1,20 @@
-## Slot save system: slots 0-2 manual, 3-5 rotating auto-saves, slot 6 quick save
+# TODO Refactor to decouple from player spawn
+## [img]res://docs/diagrams/saving/saving.drawio.png[/img] [br]
+## Slot save system: slots 2 manual, 2 auto
 ## Write to .tmp → rename to .tres, keep .bak of previous good save
 extends Node
 
 signal save_changed(slot_index: int)
 
 const SAVE_DIR: String = "user://saves/"
-const MANUAL_SLOTS: int = 3
-const AUTO_SLOTS: int = 3
-const QUICK_SAVE_SLOT: int = MANUAL_SLOTS + AUTO_SLOTS
-const TOTAL_SLOTS: int = MANUAL_SLOTS + AUTO_SLOTS + 1
+const MANUAL_SLOTS: int = 2
+const AUTO_SLOTS: int = 2
+const TOTAL_SLOTS: int = MANUAL_SLOTS + AUTO_SLOTS
 const AUTO_SAVE_INTERVAL: float = 120.0
 const CURRENT_SAVE_VERSION: int = 1
 
-const _COLLECTIBLE_MATCH_SQ: float = 0.25  # 0.5 m radius
-const _ENEMY_MATCH_SQ: float = 0.25  # 0.5 m radius — spawn positions are deterministic
-
 var _next_auto_slot: int = 0
 var _auto_timer: Timer
-var _pending_load_data: SaveData = null
-var _consumed_collectible_positions: Array[Vector3] = []
-var _killed_enemy_positions: Array[Vector3] = []
-var _pending_player: PlayerEntity = null
-var _pending_checkpoint: Vector3 = Vector3.ZERO
 
 
 func _ready() -> void:
@@ -36,42 +29,32 @@ func _ready() -> void:
 	add_child(_auto_timer)
 	_auto_timer.start()
 
-	GameEvents.collectible_consumed.connect(_on_collectible_consumed)
-	GameEvents.enemy_killed.connect(_on_enemy_killed)
 
-	if not GameEvents.player_spawned.is_connected(_on_player_spawned_for_load):
-		GameEvents.player_spawned.connect(_on_player_spawned_for_load)
-
-
-## Resets all session tracking and global stats for a clean new game
-func reset_for_new_game() -> void:
-	_consumed_collectible_positions.clear()
-	_killed_enemy_positions.clear()
+func reset_data_for_new_game() -> void:
 	_next_auto_slot = 0
-	GameEvents.score = 0
-	GameEvents.gold = 0
-	GameEvents.easter_eggs_found = 0
-	GameEvents.found_easter_eggs.clear()
-	GameEvents.score_updated.emit(GameEvents.score)
-	GameEvents.gold_updated.emit(GameEvents.gold)
+	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
+	player.save_controller.reset_data()
+	WorldSaveController.reset_data()
+	LevelChunkManager.reset_data()
+	CheckpointSaveController.reset_data()
+	# TODO Maybe change this trigger to signal based?
+	LevelChunkManager.initialize_level()
 
 
+#region Save Load and Delete
+# TODO Change to a request save to slot
 func save_to_slot(slot_index: int) -> bool:
 	assert(
 		slot_index >= 0 and slot_index < MANUAL_SLOTS,
 		"SaveManager: manual slot must be 0–%d in %s" % [MANUAL_SLOTS - 1, name],
 	)
-	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
-	assert(player != null, "SaveManager: no player found when saving in " + name)
-	return _write_slot(slot_index, false, player)
+	return _write_slot(slot_index, false)
 
 
+# TODO Change to a request quick save
 func save_to_quick_slot() -> bool:
-	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
-	assert(player != null, "SaveManager: no player found for quick save in " + name)
-	if player.health.current_health <= 0:
-		return false
-	return _write_slot(QUICK_SAVE_SLOT, false, player)
+	# TODO Save to newest? Specific slot?
+	return _write_slot(MANUAL_SLOTS, false)
 
 
 func load_from_slot(slot_index: int) -> bool:
@@ -79,19 +62,17 @@ func load_from_slot(slot_index: int) -> bool:
 		slot_index >= 0 and slot_index < TOTAL_SLOTS,
 		"SaveManager: slot out of range in " + name,
 	)
-	if not has_save(slot_index):
-		return false
+	assert(has_save(slot_index), "Slot index " + str(slot_index) + " doesn't have save")
+
 	var data: SaveData = _load_slot_resource(slot_index)
-	if data == null:
-		return false
+	assert(data, "Data from slot" + str(slot_index) + "missing or corrupted")
+
 	if data.save_version != CURRENT_SAVE_VERSION:
 		if not _migrate(data):
 			return false
-	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
-	if player == null:
-		_pending_load_data = data
-		return true
-	_apply(data, player)
+
+	_apply(data)
+
 	return true
 
 
@@ -108,6 +89,10 @@ func delete_slot(slot_index: int) -> void:
 	save_changed.emit(slot_index)
 
 
+#endregion
+
+
+#region Public getters
 func has_save(slot_index: int) -> bool:
 	var base: String = _slot_path(slot_index)
 	return FileAccess.file_exists(base) or FileAccess.file_exists(base + ".bak")
@@ -126,36 +111,20 @@ func has_any_save() -> bool:
 	return false
 
 
-func _on_collectible_consumed(pos: Vector3) -> void:
-	_consumed_collectible_positions.append(pos)
+#endregion
 
 
-func _on_enemy_killed(pos: Vector3) -> void:
-	_killed_enemy_positions.append(pos)
-
-
+#region Private helpers
 func _on_auto_save() -> void:
 	if get_tree().paused:
 		return
-	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
-	if player == null or player.health.current_health <= 0:
-		return
 	var target_slot: int = MANUAL_SLOTS + _next_auto_slot
-	_write_slot(target_slot, true, player)
+	_write_slot(target_slot, true)
 	_next_auto_slot = (_next_auto_slot + 1) % AUTO_SLOTS
 
 
-func _on_player_spawned_for_load(_player: PlayerEntity) -> void:
-	if _pending_load_data == null:
-		return
-	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
-	assert(player != null, "SaveManager: player_spawned fired but player not found in " + name)
-	_apply(_pending_load_data, player)
-	_pending_load_data = null
-
-
-func _write_slot(slot_index: int, is_auto: bool, player: PlayerEntity) -> bool:
-	var data: SaveData = _build(player, slot_index, is_auto)
+func _write_slot(slot_index: int, is_auto: bool) -> bool:
+	var data: SaveData = _build_save(slot_index, is_auto)
 	var base: String = _slot_path(slot_index)
 	var tmp: String = base.replace(".tres", "_tmp.tres")
 	var bak: String = base + ".bak"
@@ -188,127 +157,43 @@ func _write_slot(slot_index: int, is_auto: bool, player: PlayerEntity) -> bool:
 	return true
 
 
-func _build(player: PlayerEntity, slot_index: int, is_auto: bool) -> SaveData:
+func _build_save(slot_index: int, is_auto: bool) -> SaveData:
 	var data: SaveData = SaveData.new()
 	data.save_version = CURRENT_SAVE_VERSION
 	data.slot_index = slot_index
 	data.is_auto_save = is_auto
 	data.save_timestamp = int(Time.get_unix_time_from_system())
 
-	data.score = GameEvents.score
-	data.gold = GameEvents.gold
-	data.easter_eggs_found = GameEvents.easter_eggs_found
-	data.found_easter_egg_names = []
-	for egg: StringName in GameEvents.found_easter_eggs.keys():
-		data.found_easter_egg_names.append(egg)
-	data.player_health = clampi(player.health.current_health, 0, player.health.max_health)
-	data.unlocked_skill_ids = player.skills_controller.get_unlocked_ids()
+	# TODO Check how to decouple this
+	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
+	player.save_controller.build_save(data.player)
+	WorldSaveController.build_save(data.world)
+	LevelChunkManager.build_save(data.chunks)
+	CheckpointSaveController.build_save(data.checkpoint)
 
-	data.has_checkpoint_position = CheckpointManager.has_active_checkpoint()
-	if data.has_checkpoint_position:
-		var checkpoint: Checkpoint = CheckpointManager.get_active_checkpoint()
-		var chunks: Array[LevelChunk] = LevelChunkManager.get_active_chunks()
-		var idx: int = _find_checkpoint_chunk(checkpoint, chunks)
-		if idx >= 0:
-			data.checkpoint_chunk_index = idx
-			data.checkpoint_local_offset = CheckpointManager.get_respawn_position() - LevelChunkManager.get_chunk_entrance_position(idx)
-		else:
-			data.has_checkpoint_position = false
-
-	var chunk_state: Dictionary = LevelChunkManager.get_save_data()
-	data.active_chunk_paths = chunk_state.get("active_chunk_paths", [])
-	data.scored_chunk_indices = chunk_state.get("scored_indices", [])
-	data.chunk_selector_state = chunk_state.get("selector_state", {})
-
-	data.collected_collectible_positions = _consumed_collectible_positions.duplicate()
-	data.killed_enemy_positions = _killed_enemy_positions.duplicate()
 	return data
 
 
-func _find_checkpoint_chunk(checkpoint: Checkpoint, chunks: Array[LevelChunk]) -> int:
-	for i: int in chunks.size():
-		var node: Node = checkpoint
-		while is_instance_valid(node):
-			if node == chunks[i]:
-				return i
-			node = node.get_parent()
-	return -1
+func _on_player_spawned_after_load(spawned_player: Node3D) -> void:
+	GameEvents.player_spawned.disconnect(_on_player_spawned_after_load)
+	var player: PlayerEntity = spawned_player as PlayerEntity
+	CheckpointSaveController.on_player_spawned_after_load(player)
 
 
-func _apply(data: SaveData, player: PlayerEntity) -> void:
-	GameEvents.score = data.score
-	GameEvents.gold = data.gold
-	GameEvents.easter_eggs_found = data.easter_eggs_found
-	GameEvents.found_easter_eggs.clear()
-	for egg: StringName in data.found_easter_egg_names:
-		GameEvents.found_easter_eggs[egg] = true
-	GameEvents.score_updated.emit(data.score)
-	GameEvents.gold_updated.emit(data.gold)
+func _apply(data: SaveData) -> void:
+	# TODO Check how to decouple this
+	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
+	player.save_controller.apply_save(data.player)
+	WorldSaveController.apply_save(data.world)
+	LevelChunkManager.apply_save(data.chunks)
+	CheckpointSaveController.apply_save(data.checkpoint, player)
 
-	player.health.current_health = maxi(data.player_health, 1)
-
-	for id: StringName in data.unlocked_skill_ids:
-		var def: SkillDefinition = SkillRegistry.get_definition(id)
-		if def:
-			player.skills_controller.unlock(def)
-
-	_consumed_collectible_positions = data.collected_collectible_positions.duplicate()
-	_killed_enemy_positions = data.killed_enemy_positions.duplicate()
-
-	(
-		LevelChunkManager
-		. load_save_data(
-			data.active_chunk_paths,
-			data.scored_chunk_indices,
-			data.chunk_selector_state,
-		)
-	)
-
-	if data.has_checkpoint_position:
-		var safe_index: int = mini(data.checkpoint_chunk_index, LevelChunkManager.get_active_chunks().size() - 1)
-		var entrance: Vector3 = LevelChunkManager.get_chunk_entrance_position(safe_index)
-		var restored: Vector3 = entrance + data.checkpoint_local_offset
-		CheckpointManager.restore_position(restored)
-		_pending_player = player
-		_pending_checkpoint = restored
-		_place_player_at_checkpoint.call_deferred()
-
-	_disable_killed_enemies.call_deferred()
-	_disable_consumed_collectibles.call_deferred()
-
-
-func _place_player_at_checkpoint() -> void:
-	if not is_instance_valid(_pending_player):
-		return
-	await get_tree().process_frame
-	_pending_player.global_position = _pending_checkpoint
-	_pending_player.velocity = Vector3.ZERO
-	_pending_player.movement_controller.movement_enabled = true
-	_pending_player.movement_controller.disable_timer = 0.0
-	_pending_checkpoint = Vector3.ZERO
-	_pending_player = null
-
-
-func _disable_consumed_collectibles() -> void:
-	for pos: Vector3 in _consumed_collectible_positions:
-		for c: Node in get_tree().get_nodes_in_group(Groups.COLLECTIBLES):
-			var collectible: Collectible = c as Collectible
-			if collectible == null:
-				continue
-			if pos.distance_squared_to(collectible.spawn_position) < _COLLECTIBLE_MATCH_SQ:
-				c.queue_free()
-				break
-
-
-func _disable_killed_enemies() -> void:
-	for pos: Vector3 in _killed_enemy_positions:
-		for enemy: Node in get_tree().get_nodes_in_group(Groups.ENEMIES):
-			var entity: AggressiveEntity = enemy as AggressiveEntity
-			if entity == null:
-				continue
-			if pos.distance_squared_to(entity.spawn_position) < _ENEMY_MATCH_SQ:
-				enemy.queue_free()
-				break
+	# If player not yet spawned, hook into spawn signal for deferred placement
+	if not player or not is_instance_valid(player):
+		GameEvents.player_spawned.connect(_on_player_spawned_after_load)
+	else:
+		# Player already exists, apply immediately
+		CheckpointSaveController.on_player_spawned_after_load(player)
 
 
 # PLACEHOLDER
@@ -372,3 +257,4 @@ func _sync_cloud_saves() -> void:
 
 func _cloud_filename(slot_index: int) -> String:
 	return "slot_%d.tres" % slot_index
+#endregion

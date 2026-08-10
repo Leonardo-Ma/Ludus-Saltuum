@@ -1,6 +1,9 @@
 # This will block a commit due to format or certain checks
 # Will also automatically fix as unstaged change when possible
 
+# TODO This needs work, mostly in regex checks, maybe move a few rule checks to a linter?
+# TODO Add checks for features that don't work with compatibility renderer
+
 exclude: |
   (?x)^(
     \.godot/|

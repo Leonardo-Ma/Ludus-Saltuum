@@ -3,7 +3,7 @@ extends Node
 
 #region Player
 @warning_ignore("unused_signal")
-signal player_spawned(player: Node)
+signal player_spawned(player: Node3D)
 @warning_ignore("unused_signal")
 signal counter_collectible_collected(identifier: StringName, amount: int, icon: Texture2D)
 @warning_ignore("unused_signal")
