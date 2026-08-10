@@ -50,6 +50,9 @@ func _child_ready() -> void:
 
 
 func _on_application_state_changed(new_state: ApplicationStateManager.GameState, _previous_state: ApplicationStateManager.GameState) -> void:
+	# TODO Double check this
+	if vehicle_rider.is_in_vehicle:
+		return
 	entity_enable_disable(new_state == ApplicationStateManager.GameState.PLAYING)
 
 

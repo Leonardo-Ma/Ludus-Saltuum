@@ -1,8 +1,9 @@
 # TODO It may be necessary to defer load data to after player has spawned? Maybe only in a multiplayer scenario though
+## Player save controller component
 class_name PlayerSaveController
 extends Node
 
-@onready var player: Node3D = $"../.."
+@onready var player: Node3D = owner
 
 
 func build_save(data: PlayerSaveData) -> void:

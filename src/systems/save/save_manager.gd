@@ -33,7 +33,7 @@ func _ready() -> void:
 func reset_data_for_new_game() -> void:
 	_next_auto_slot = 0
 	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
-	player.save_controller.reset_data()
+	player.player_save_controller.reset_data()
 	WorldSaveController.reset_data()
 	LevelChunkManager.reset_data()
 	CheckpointSaveController.reset_data()
@@ -166,7 +166,7 @@ func _build_save(slot_index: int, is_auto: bool) -> SaveData:
 
 	# TODO Check how to decouple this
 	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
-	player.save_controller.build_save(data.player)
+	player.player_save_controller.build_save(data.player)
 	WorldSaveController.build_save(data.world)
 	LevelChunkManager.build_save(data.chunks)
 	CheckpointSaveController.build_save(data.checkpoint)
@@ -183,7 +183,7 @@ func _on_player_spawned_after_load(spawned_player: Node3D) -> void:
 func _apply(data: SaveData) -> void:
 	# TODO Check how to decouple this
 	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
-	player.save_controller.apply_save(data.player)
+	player.player_save_controller.apply_save(data.player)
 	WorldSaveController.apply_save(data.world)
 	LevelChunkManager.apply_save(data.chunks)
 	CheckpointSaveController.apply_save(data.checkpoint, player)

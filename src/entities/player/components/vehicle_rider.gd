@@ -5,7 +5,7 @@ extends Node
 signal vehicle_entered
 signal vehicle_exited
 
-var _is_possessing_vehicle: bool = false
+var is_in_vehicle: bool = false
 
 @onready var _player: PlayerEntity = owner as PlayerEntity
 @onready var _visual: Node3D = %Visual
@@ -23,10 +23,10 @@ func _setup_component_connections() -> void:
 
 #region Public API
 func enter_vehicle() -> void:
-	if _is_possessing_vehicle:
+	if is_in_vehicle:
 		return
 
-	_is_possessing_vehicle = true
+	is_in_vehicle = true
 	vehicle_entered.emit()
 
 	# Visual shrink effect
@@ -36,7 +36,7 @@ func enter_vehicle() -> void:
 
 
 func exit_vehicle(exit_position: Vector3) -> void:
-	if not _is_possessing_vehicle:
+	if not is_in_vehicle:
 		return
 
 	_player.global_position = exit_position
@@ -45,7 +45,7 @@ func exit_vehicle(exit_position: Vector3) -> void:
 	if _visual:
 		_visual.scale = Vector3.ZERO
 
-	_is_possessing_vehicle = false
+	is_in_vehicle = false
 	vehicle_exited.emit()
 
 	# Visual grow effect
@@ -60,12 +60,10 @@ func exit_vehicle(exit_position: Vector3) -> void:
 #region Private API
 func _on_vehicle_entered() -> void:
 	_player.entity_enable_disable(false)
-	_player.add_to_group(Groups.PLAYERS)
 
 
 func _on_vehicle_exited() -> void:
 	_player.entity_enable_disable(true)
-	_player.remove_from_group(Groups.PLAYERS)
 
 	GameEvents.set_controlled_entity(_player)
 #endregion
