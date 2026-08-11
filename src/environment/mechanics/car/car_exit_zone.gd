@@ -10,10 +10,12 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	collision_shape_3d = get_child(0)
-	assert(collision_shape_3d)  # Add a collision shape as child and the only child of this
-	assert(collision_shape_3d.shape, "Add a collision shape as child of " + name + " in " + str(owner))
-	assert(collision_shape_3d in get_children(), "Add a collision shape as child of " + name + " in " + str(owner))
+	for child: Node in get_children():
+		if child is CollisionShape3D:
+			collision_shape_3d = child
+
+	assert(collision_shape_3d)  # Add a collision shape as the first child of this
+	assert(collision_shape_3d.shape, "Add shape to collision of " + name)
 	body_entered.connect(_on_body_entered)
 
 
