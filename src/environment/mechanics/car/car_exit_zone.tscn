@@ -2,13 +2,8 @@
 
 [ext_resource type="Script" uid="uid://c3xmi5i5swk1i" path="res://src/environment/mechanics/car/car_exit_zone.gd" id="1_exit"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_exit"]
-size = Vector3(4, 3, 4)
-
 [node name="CarExitZone" type="Area3D" unique_id=468399367]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 script = ExtResource("1_exit")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=140720042]
-shape = SubResource("BoxShape3D_exit")
-debug_color = Color(0.41297644, 0.4828632, 0.17252645, 1)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2111739637]

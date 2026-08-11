@@ -5,7 +5,3 @@
 [node name="EasterEgg" type="Area3D" unique_id=1789181794]
 transform = Transform3D(-0.9659258, 0, -0.25881913, 0, 1, 0, 0.25881913, 0, -0.9659258, 0, 0, 0)
 script = ExtResource("1_voc5g")
-easter_egg_name = null
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=340072683]
-unique_name_in_owner = true

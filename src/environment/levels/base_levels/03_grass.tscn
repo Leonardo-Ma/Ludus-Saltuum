@@ -88,25 +88,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.910973, 4, 145)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.910973, 6, 145)
 
 [node name="GrassPlatform24" parent="." unique_id=272180638 instance=ExtResource("5_8ekpc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.910973, 8, 145)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.910973, 7, 145)
 
 [node name="GoldCoin" parent="GrassPlatform24" unique_id=1971537253 instance=ExtResource("5_33rl1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 5, 0)
 
 [node name="GrassPlatform25" parent="." unique_id=1420895409 instance=ExtResource("5_8ekpc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.910973, 8, 156)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.910973, 6, 156)
 
 [node name="GrassPlatform34" parent="." unique_id=1140727035 instance=ExtResource("5_8ekpc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.910973, 8, 165)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.910973, 6, 165)
 
 [node name="GrassPlatform26" parent="." unique_id=495259173 instance=ExtResource("5_8ekpc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.910973, 10, 174)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.910973, 3, 174)
 
 [node name="GrassPlatform27" parent="." unique_id=1555390066 instance=ExtResource("5_8ekpc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.910973, 9, 184)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.910973, 2, 184)
 
 [node name="GrassPlatform33" parent="." unique_id=1204115375 instance=ExtResource("5_8ekpc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.910973, 8, 195)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.910973, 1, 195)
 
 [node name="GrassPlatform6" parent="." unique_id=767651646 instance=ExtResource("5_8ekpc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.910973, -3, 50)

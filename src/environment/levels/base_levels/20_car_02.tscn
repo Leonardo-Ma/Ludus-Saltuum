@@ -12,7 +12,10 @@
 [ext_resource type="PackedScene" uid="uid://b73j2aliqwvvc" path="res://src/systems/change_gameplay_state_area_3d.tscn" id="12_jlyfk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jlyfk"]
-size = Vector3(112.49707, 60, 239.78564)
+size = Vector3(112.49707, 60, 233.09521)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7gjje"]
+size = Vector3(4, 3, 9)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4hukf"]
 size = Vector3(9, 3, 2)
@@ -32,7 +35,7 @@ target_gameplay_mode = 1
 collision_shape_3d = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ChangeGameplayStateArea3D3" unique_id=1556708694]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7485352, -7.220703, 119.39282)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7485352, -7.220703, 120.83325)
 shape = SubResource("BoxShape3D_jlyfk")
 
 [node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_w8inh")]
@@ -57,6 +60,10 @@ metadata/_editor_floor_ = Vector3(0, 6, 0)
 [node name="CarExitZone" parent="." unique_id=468399367 instance=ExtResource("10_b5qn7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 7, 236)
 
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="CarExitZone" unique_id=786709505]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1, -1)
+shape = SubResource("BoxShape3D_7gjje")
+
 [node name="Props" type="Node3D" parent="." unique_id=102383337]
 
 [node name="ConstructionBarrier" parent="Props" unique_id=427598426 instance=ExtResource("10_jpc7b")]
@@ -68,6 +75,7 @@ transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 19.084568, 6.705943, 237.6
 [node name="CustomCheckpoint" type="Area3D" parent="." unique_id=356060010]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.058247, 1.8529024, 20.521873)
 script = ExtResource("10_2fx6d")
+should_save_checkpoint = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CustomCheckpoint" unique_id=530936629]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)

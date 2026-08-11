@@ -1,3 +1,4 @@
+# TODO Improve this garbage
 extends StaticBody3D
 
 @export var fade_in_seconds: int = 2

@@ -5,6 +5,8 @@ extends Area3D
 
 
 func _ready() -> void:
+	collision_shape_3d = get_child(0)
+	assert(collision_shape_3d)  # Add a collision shape as child and the only child of this
 	assert(collision_shape_3d.shape, "Add a collision shape as child of " + name)
 	assert(collision_shape_3d in get_children(), "Add a collision shape as child of " + name)
 	assert(easter_egg_name, "Easter egg name missing in " + name)

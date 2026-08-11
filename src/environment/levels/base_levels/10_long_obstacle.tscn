@@ -139,4 +139,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 173)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 191)
 
 [node name="MovingPlatformOrange" parent="." unique_id=36073028 instance=ExtResource("6_swwcn")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 34)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 1, 34)

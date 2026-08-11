@@ -13,6 +13,7 @@ const CAVE_ENVIRONMENT: Environment = preload("uid://cukvscwyyjgeh")
 
 
 func _ready() -> void:
+	assert(cave_environment, "Cave environment not selected for " + str(owner))
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 
