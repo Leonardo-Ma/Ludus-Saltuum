@@ -1,8 +1,6 @@
-# TODO BUG Should refactor the usage of Groups.PLAYERS to detect this car, it is causing problems in several places and
-# forces coupling the same systems that already exist in PlayerEntity (like portal controller and save controller)
-# But without using it, when entering the car the now disabled player character just goes into the void, maybe would require
-# temporarily adding player as a child of car?
 # https://www.youtube.com/watch?v=5m7nBj98rx4 LegionGames - Race Car Controller Tutorial - Godot 3D
+## Uses Groups.CONTROLLED when driven, player stays in Groups.PLAYERS [br]
+## Vehicle state tracked via VehicleRider.is_in_vehicle
 class_name PlayerCar
 extends VehicleBody3D
 
@@ -142,14 +140,14 @@ func _on_enter_area_body_entered(body: Node3D) -> void:
 
 	is_driven = true
 	enter_area.set_deferred("monitoring", false)
-	_driver.vehicle_rider.enter_vehicle()
+	_driver.vehicle_rider.enter_vehicle(self)
 
 	camera.current = true
 	set_physics_process(true)
 	set_process(true)
 	driving_started.emit(_driver)
 	GameEvents.set_controlled_entity(self)
-	self.add_to_group(Groups.PLAYERS)
+	add_to_group(Groups.CONTROLLED)
 
 
 func exit(exit_position: Vector3) -> void:
@@ -158,7 +156,6 @@ func exit(exit_position: Vector3) -> void:
 	set_physics_process(false)
 	set_process(false)
 
-	# TODO Add animation tween and fade out visual effect
 	rotation = Vector3.ZERO
 	engine_force = 0.0
 	linear_velocity = Vector3.ZERO
@@ -174,7 +171,7 @@ func exit(exit_position: Vector3) -> void:
 	driver.vehicle_rider.exit_vehicle(exit_position)
 
 	driving_stopped.emit(driver)
-	self.remove_from_group(Groups.PLAYERS)
+	remove_from_group(Groups.CONTROLLED)
 
 	await get_tree().create_timer(REENTER_CAR_DELAY).timeout
 	enter_area.set_deferred("monitoring", true)

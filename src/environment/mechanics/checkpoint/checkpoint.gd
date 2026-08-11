@@ -55,5 +55,5 @@ func deactivate_checkpoint() -> void:
 
 
 func _on_body_entered(body: Node3D) -> void:
-	if not is_active and body.is_in_group(Groups.PLAYERS):
+	if not is_active and body.is_in_group(Groups.CONTROLLED):
 		activate_checkpoint()

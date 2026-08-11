@@ -1,4 +1,5 @@
-## Handles vehicle entry/exit logic
+## Handles vehicle entry/exit logic [br]
+## Makes player follow vehicle global transform
 class_name VehicleRider
 extends Node
 
@@ -7,13 +8,20 @@ signal vehicle_exited
 
 var is_in_vehicle: bool = false
 
+var _vehicle: PlayerCar = null
+
 @onready var _player: PlayerEntity = owner as PlayerEntity
-@onready var _visual: Node3D = %Visual
-@onready var _default_visual_scale: Vector3 = _visual.scale if _visual else Vector3.ONE
 
 
 func _ready() -> void:
 	_setup_component_connections()
+
+
+func _physics_process(_delta: float) -> void:
+	if not is_in_vehicle:
+		return
+# TODO Maybe route this to movement controller?
+	_player.global_transform = _vehicle.global_transform
 
 
 func _setup_component_connections() -> void:
@@ -22,36 +30,23 @@ func _setup_component_connections() -> void:
 
 
 #region Public API
-func enter_vehicle() -> void:
+func enter_vehicle(vehicle: PlayerCar) -> void:
+	assert(vehicle != null, "VehicleRider: vehicle missing in " + name)
 	if is_in_vehicle:
 		return
-
+	_vehicle = vehicle
 	is_in_vehicle = true
 	vehicle_entered.emit()
-
-	# Visual shrink effect
-	if _visual:
-		var tween: Tween = _player.create_tween()
-		tween.tween_property(_visual, "scale", _default_visual_scale * 0.001, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
 
 
 func exit_vehicle(exit_position: Vector3) -> void:
 	if not is_in_vehicle:
 		return
-
 	_player.global_position = exit_position
 	_player.velocity = Vector3.ZERO
-
-	if _visual:
-		_visual.scale = Vector3.ZERO
-
+	_vehicle = null
 	is_in_vehicle = false
 	vehicle_exited.emit()
-
-	# Visual grow effect
-	if _visual:
-		var tween: Tween = _player.create_tween()
-		tween.tween_property(_visual, "scale", _default_visual_scale, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 
 #endregion
@@ -64,6 +59,4 @@ func _on_vehicle_entered() -> void:
 
 func _on_vehicle_exited() -> void:
 	_player.entity_enable_disable(true)
-
-	GameEvents.set_controlled_entity(_player)
 #endregion

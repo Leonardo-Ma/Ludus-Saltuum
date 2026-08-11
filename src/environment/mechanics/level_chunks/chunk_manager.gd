@@ -301,7 +301,7 @@ func _setup_chunk_trigger(chunk: LevelChunk) -> void:
 
 
 func _on_chunk_exit_reached(body: Node3D, passed_chunk: LevelChunk) -> void:
-	if not body.is_in_group(Groups.PLAYERS):
+	if not body.is_in_group(Groups.CONTROLLED):
 		return
 
 	if not passed_chunk.has_meta("scored"):

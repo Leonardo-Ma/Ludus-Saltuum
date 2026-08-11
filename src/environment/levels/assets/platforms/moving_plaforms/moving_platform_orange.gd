@@ -28,12 +28,12 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node3D) -> void:
-	if body.is_in_group(Groups.PLAYERS):
+	if body.is_in_group(Groups.CONTROLLED):
 		player_in_platform = true
 
 
 func _on_body_exited(body: Node3D) -> void:
-	if body.is_in_group(Groups.PLAYERS):
+	if body.is_in_group(Groups.CONTROLLED):
 		player_in_platform = false
 		wait_delay_before_returning = DELAY_UPON_ARRIVING
 

@@ -100,7 +100,7 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node3D) -> void:
 	if Engine.is_editor_hint():
 		return
-	if not body.is_in_group(Groups.PLAYERS) or body.is_in_group(Groups.ENEMIES) or is_disabled or _cooldown_players.has(body):
+	if not body.is_in_group(Groups.CONTROLLED) or body.is_in_group(Groups.ENEMIES) or is_disabled or _cooldown_players.has(body):
 		return
 
 	_tracked_players[body] = _portal_side(body.global_position)
@@ -109,7 +109,7 @@ func _on_body_entered(body: Node3D) -> void:
 func _on_body_exited(body: Node3D) -> void:
 	if Engine.is_editor_hint():
 		return
-	if not body.is_in_group(Groups.PLAYERS) or body.is_in_group(Groups.ENEMIES):
+	if not body.is_in_group(Groups.CONTROLLED) or body.is_in_group(Groups.ENEMIES):
 		return
 
 	_tracked_players.erase(body)

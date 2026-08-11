@@ -12,7 +12,7 @@ func _ready() -> void:
 
 
 func _on_body_entered(_body: Node3D) -> void:
-	if _body.is_in_group(Groups.PLAYERS):
+	if _body.is_in_group(Groups.CONTROLLED):
 		button_toggled_on.emit()
 		set_deferred("monitoring", false)
 		button_mesh.global_position.y -= 0.120

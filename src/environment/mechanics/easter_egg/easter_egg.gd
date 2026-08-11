@@ -12,5 +12,5 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node3D) -> void:
-	if body.is_in_group(Groups.PLAYERS):
+	if body.is_in_group(Groups.CONTROLLED):
 		GameEvents.easter_egg_found.emit(easter_egg_name)

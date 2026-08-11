@@ -519,6 +519,10 @@ script = ExtResource("32_vehiclerider")
 unique_name_in_owner = true
 script = ExtResource("33_portalcontroller")
 
+[node name="PlayerSaveController" type="Node" parent="Controllers" unique_id=1311394959]
+unique_name_in_owner = true
+script = ExtResource("29_2cmg6")
+
 [node name="Status" type="Node" parent="." unique_id=1830557303]
 
 [node name="StatusManager" type="Node" parent="Status" unique_id=972557881]
