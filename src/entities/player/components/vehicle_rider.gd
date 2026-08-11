@@ -20,7 +20,10 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if not is_in_vehicle:
 		return
-# TODO Maybe route this to movement controller?
+	if not is_instance_valid(_vehicle):
+		_exit_vehicle_on_invalid()
+		return
+	# TODO Maybe route this to movement controller?
 	_player.global_transform = _vehicle.global_transform
 
 
@@ -36,12 +39,15 @@ func enter_vehicle(vehicle: PlayerCar) -> void:
 		return
 	_vehicle = vehicle
 	is_in_vehicle = true
+	vehicle.tree_exiting.connect(_on_vehicle_tree_exiting)
 	vehicle_entered.emit()
 
 
 func exit_vehicle(exit_position: Vector3) -> void:
 	if not is_in_vehicle:
 		return
+	if is_instance_valid(_vehicle):
+		_vehicle.tree_exiting.disconnect(_on_vehicle_tree_exiting)
 	_player.global_position = exit_position
 	_player.velocity = Vector3.ZERO
 	_vehicle = null
@@ -58,5 +64,16 @@ func _on_vehicle_entered() -> void:
 
 
 func _on_vehicle_exited() -> void:
+	_player.entity_enable_disable(true)
+
+
+func _on_vehicle_tree_exiting() -> void:
+	_exit_vehicle_on_invalid()
+
+
+func _exit_vehicle_on_invalid() -> void:
+	_vehicle = null
+	is_in_vehicle = false
+	vehicle_exited.emit()
 	_player.entity_enable_disable(true)
 #endregion
