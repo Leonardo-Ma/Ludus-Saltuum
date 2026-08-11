@@ -48,6 +48,7 @@ var _prev_health: int = 0
 @onready var hurtbox: Hurtbox = %Hurtbox
 @onready var status_manager: StatusManager = %StatusManager
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
+@onready var animation_tree: AnimationTree = %AnimationTree
 
 @onready var navigation_controller: Node
 @onready var goap_controller: GoapMemory
@@ -57,13 +58,14 @@ var _prev_health: int = 0
 ## Children should override _child_ready instead of this
 func _ready() -> void:
 	assert(collision_shape.shape != null, "CollisionShape missing in " + name)
-	assert(hitbox, "Hitbox incorrect for " + self.name)
-	assert(hurtbox, "Hurtbox incorrect for " + self.name)
-	assert(status_manager, "Status Manager missing for " + self.name)
-	assert(animation_player, "Animation player missing for " + self.name)
-	assert(attack and attack.damage > 0 and attack.type != null, "Attack property incorrect for " + self.name)
-	assert(health and health.current_health > 0, "Health property incorrect for " + self.name)
-	assert(movement, "Movement incorrect for " + self.name)
+	assert(hitbox, "Hitbox incorrect for " + name)
+	assert(hurtbox, "Hurtbox incorrect for " + name)
+	assert(status_manager, "Status Manager missing for " + name)
+	assert(animation_player, "Animation player missing for " + name)
+	assert(animation_tree and animation_tree.anim_player, "Animation tree missing or wrong for " + name)
+	assert(attack and attack.damage > 0 and attack.type != null, "Attack property incorrect for " + name)
+	assert(health and health.current_health > 0, "Health property incorrect for " + name)
+	assert(movement, "Movement incorrect for " + name)
 
 	_setup_damage_feedback_visual_material()
 
@@ -81,16 +83,16 @@ func _ready() -> void:
 		navigation_controller = $%NavigationController
 		goap_controller = $%GoapController
 		perception_system = $%PerceptionSystem
-		assert(ai_config, "GOAP Not properly configured for " + self.name)
-		assert(goap_controller, "GoapController missing for " + self.name)
-		assert(navigation_controller, "NavigationController missing for " + self.name)
-		assert(perception_system, "Perception system missing for " + self.name)
+		assert(ai_config, "GOAP Not properly configured for " + name)
+		assert(goap_controller, "GoapController missing for " + name)
+		assert(navigation_controller, "NavigationController missing for " + name)
+		assert(perception_system, "Perception system missing for " + name)
 
 		goap_agent = GoapAgent.new()
 		var goals: Array[GoapGoal] = ai_config.create_goals()
 		var actions: Array[GoapAction] = ai_config.create_actions()
 
-		goap_agent.name = self.name
+		goap_agent.name = name
 		print("Registering GOAP agent: ", goap_agent.name)
 
 		goap_agent.init(self, goals, goap_controller, actions)
@@ -98,7 +100,7 @@ func _ready() -> void:
 
 		navigation_controller.set_physics_process(false)
 
-		assert(goap_agent != null, "NPCs must have GoapAgent. " + self.name)
+		assert(goap_agent != null, "NPCs must have GoapAgent. " + name)
 		add_to_group(Groups.ENEMIES)
 		# chunk is not yet aligned when _ready() fires
 		call_deferred("_record_spawn_position")
@@ -117,7 +119,7 @@ func _ready() -> void:
 # Maybe transform into abstract method to force override? Or use entity_enable_disable (player has but not npc)?
 # Player already overrides this
 func _on_death() -> void:
-	print(str(self.name) + " is dead, Jim!")
+	print(str(name) + " is dead, Jim!")
 
 	if _damage_tween and _damage_tween.is_valid():
 		_damage_tween.kill()
