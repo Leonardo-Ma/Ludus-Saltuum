@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://ls6v13d1btd6"]
+
+[ext_resource type="Script" uid="uid://dfapcpf4fli57" path="res://src/environment/levels/level_chunk.gd" id="1_oyc53"]
+[ext_resource type="PackedScene" uid="uid://cl6psv388cmbx" path="res://src/environment/levels/entrance_trigger.tscn" id="2_m5l38"]
+[ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_jxtp2"]
+[ext_resource type="PackedScene" uid="uid://b73j2aliqwvvc" path="res://src/systems/change_gameplay_state_area_3d.tscn" id="4_30k40"]
+[ext_resource type="PackedScene" uid="uid://c3c0sejgavc7h" path="res://src/entities/vehicles/car.tscn" id="5_uy0qx"]
+[ext_resource type="MeshLibrary" uid="uid://qivysvwq1h5d" path="res://src/environment/assets/kenney_city_kit_roads/race_library.tres" id="6_3u1mk"]
+[ext_resource type="PackedScene" uid="uid://dtuht3gos28nm" path="res://src/environment/mechanics/car/car_exit_zone.tscn" id="7_b3gi7"]
+[ext_resource type="PackedScene" uid="uid://0qrtv0g7tptr" path="res://src/environment/assets/kenney_city_kit_roads/scenes/construction_barrier.tscn" id="9_30k40"]
+[ext_resource type="PackedScene" uid="uid://c32lde0fr367t" path="res://src/environment/levels/assets/interactable/portal/portal.tscn" id="9_ewmlm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ena13"]
+size = Vector3(154, 91, 130.46338)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bi0kh"]
+size = Vector3(4, 3, 9)
+
+[node name="22CarPortal" type="Node3D" unique_id=1016321493]
+script = ExtResource("1_oyc53")
+difficulty = 1
+score_multiplier = 1.5
+features = Array[int]([0, 3])
+
+[node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_m5l38")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 0)
+
+[node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_jxtp2")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 89, 15, 158)
+
+[node name="ChangeGameplayStateArea3D3" parent="." unique_id=820773515 node_paths=PackedStringArray("collision_shape_3d") instance=ExtResource("4_30k40")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6773186, 0, 1.8963776)
+target_gameplay_mode = 1
+collision_shape_3d = NodePath("CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ChangeGameplayStateArea3D3" unique_id=1819597118]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.00293, 8.279297, 69.517334)
+shape = SubResource("BoxShape3D_ena13")
+
+[node name="Car" parent="." unique_id=864995165 instance=ExtResource("5_uy0qx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.647183, 0.87317705, 2.8251863)
+
+[node name="Map" type="GridMap" parent="." unique_id=1412466323]
+mesh_library = ExtResource("6_3u1mk")
+cell_size = Vector3(10, 1, 10)
+cell_scale = 10.0
+data = {
+"cells": PackedInt32Array(0, 0, 1441792, 0, 2, 1048576, 0, 3, 1048576, 0, 4, 1441794, 0, 1, 1441792)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="Portal" parent="Map" unique_id=1766414310 node_paths=PackedStringArray("linked_portal") instance=ExtResource("9_ewmlm")]
+transform = Transform3D(-5, 0, 4.371139e-07, 0, 5, 0, -4.371139e-07, 0, -5, 5, 5, 56)
+linked_portal = NodePath("../../MapInSky/Portal2")
+
+[node name="MapInSky" type="GridMap" parent="." unique_id=1432024438]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -46, 39, 95)
+mesh_library = ExtResource("6_3u1mk")
+cell_size = Vector3(10, 1, 10)
+cell_scale = 10.0
+data = {
+"cells": PackedInt32Array(0, 0, 1441792, 0, 2, 1048576, 0, 3, 1048576, 0, 4, 1048576, 0, 1, 1048576, 0, 5, 1048576, 0, 6, 1048576, 0, 7, 1048576, 0, 8, 1441795, 65535, 8, 655360, 65534, 8, 655363, 65534, 7, 1048576, 65534, 6, 1048576, 65534, 5, 1048576, 65534, 3, 1048577, 65532, 2, 1048576, 65532, 3, 1048576, 65532, 4, 1441793, 65532, 6, 1048576, 65532, 7, 1048576, 65532, 8, 1048576, 65534, 4, 1048576, 65534, 1, 1441793, 65534, 0, 1441792, 65534, 65535, 3, 65533, 65535, 0, 65532, 65535, 1048579, 65532, 0, 1048576, 65532, 1, 1048576, 65532, 9, 655363, -262147, 9, 655362, -589826, 9, 655362, -917505, 9, 655362, -1310720, 9, 655362, -1638399, 9, 655362, -1966078, 9, 655362, -1966077, 9, 3, -1966077, 10, 1441792, -1966077, 11, 1441792, -1966077, 12, 1441792, -1966077, 13, 1441795, -1966078, 13, 655360, -1966079, 13, 655360, -1966080, 13, 655360, -1900545, 13, 655360, -1900546, 13, 655360, -1900547, 13, 655360, -1900548, 13, 655360, -1900549, 13, 655360, -1900550, 13, 655360)
+}
+metadata/_editor_floor_ = Vector3(0, -30, 0)
+
+[node name="Portal2" parent="MapInSky" unique_id=1304329080 node_paths=PackedStringArray("linked_portal") instance=ExtResource("9_ewmlm")]
+transform = Transform3D(5, -3.5527144e-14, -5.9604645e-07, 7.105431e-15, 5, -2.384186e-07, 5.9604645e-07, 2.384186e-07, 5, 5, 1, 4)
+linked_portal = NodePath("../../Map/Portal")
+
+[node name="CarExitZone" parent="." unique_id=468399367 instance=ExtResource("7_b3gi7")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 90.00225, 10, 149.24129)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="CarExitZone" unique_id=1703276168]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1, -1)
+shape = SubResource("BoxShape3D_bi0kh")
+
+[node name="Props" type="Node3D" parent="." unique_id=762404912]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 87.5, 9, 154)
+
+[node name="ConstructionBarrier" parent="Props" unique_id=427598426 instance=ExtResource("9_30k40")]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+
+[node name="ConstructionBarrier2" parent="Props" unique_id=134060736 instance=ExtResource("9_30k40")]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 3)
