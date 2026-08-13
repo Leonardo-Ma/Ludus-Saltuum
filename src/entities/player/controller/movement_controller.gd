@@ -54,13 +54,15 @@ func movement_logic(body: CharacterBody3D) -> void:
 	var input_direction: Vector2 = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var input_length: float = input_direction.length()
 
-	# Apply deadzone – ignore tiny stick movements (keyboard always gives 1.0)
+	# Apply deadzone to ignore tiny stick movements (keyboard always gives 1.0)
 	if input_length < DEADZONE:
 		input_length = 0.0
 		input_direction = Vector2.ZERO
 
 	if input_length > 0.0:
-		var direction: Vector3 = (body.transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
+		# Use camera's global basis for movement direction (relative to camera view)
+		var camera_basis: Basis = camera.global_transform.basis
+		var direction: Vector3 = (camera_basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
 
 		# Speed scales with stick deflection (0..1); keyboard always produces 1.0
 		var speed_mult: float = input_length
@@ -68,9 +70,10 @@ func movement_logic(body: CharacterBody3D) -> void:
 		# Clamp to allowed maximum
 		current_speed = clamp(current_speed, 0.0, owner.movement.speed)
 
-		var normalized_input: Vector2 = input_direction.normalized()
+		# Calculate blend direction in body's local space (mesh is child of body with 0 rotation)
+		var local_direction: Vector3 = body.global_transform.basis.inverse() * direction
 		var speed_factor: float = current_speed / owner.movement.speed
-		var blend_direction: Vector2 = Vector2(normalized_input.x, -normalized_input.y) * speed_factor
+		var blend_direction: Vector2 = Vector2(local_direction.x, local_direction.z) * speed_factor
 
 		movement_direction_changed.emit(blend_direction, speed_factor)
 

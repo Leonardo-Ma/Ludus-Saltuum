@@ -65,9 +65,10 @@ func _input(event: InputEvent) -> void:
 	if player_is_using_mouse:
 		# TODO Smooth the camera rotation (Maybe lerp()?)
 		# Handles horizontal camera rotation
+		# Camera root has 180° y offset, so camera.forward = -player.forward
 		player.rotate_y(deg_to_rad(-event.relative.x * horizontal_sensibility))
 		# Handles vertical camera rotation
-		cam_root.rotate_x(deg_to_rad(-event.relative.y * vertical_sensibility))
+		cam_root.rotate_x(deg_to_rad(event.relative.y * vertical_sensibility))
 		# Limit vertical camera rotation
 		rotation.x = clamp(rotation.x, deg_to_rad(-90), deg_to_rad(45))
 
@@ -82,7 +83,7 @@ func _process(delta: float) -> void:
 		var h: float = look_input.x * gamepad_look_sensitivity * delta
 		var v: float = look_input.y * gamepad_look_sensitivity * delta * (1.0 if gamepad_look_invert_y else -1.0)
 		player.rotate_y(deg_to_rad(-h))
-		cam_root.rotate_x(deg_to_rad(-v))
+		cam_root.rotate_x(deg_to_rad(v))
 		# Limit vertical camera rotation
 		rotation.x = clamp(rotation.x, deg_to_rad(-90), deg_to_rad(45))
 #endregion

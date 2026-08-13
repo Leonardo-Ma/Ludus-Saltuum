@@ -625,7 +625,7 @@ script = ExtResource("9_yllr7")
 
 [node name="Visual" type="Node3D" parent="." unique_id=1015939177]
 unique_name_in_owner = true
-transform = Transform3D(-0.5, 0, 7.54979e-08, 0, 0.5, 0, -7.54979e-08, 0, -0.5, 0, 0, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="Rig_Medium" type="Node3D" parent="Visual" unique_id=713750166]
 
@@ -838,7 +838,7 @@ skin = SubResource("Skin_lhorl")
 skeleton = NodePath("..")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Visual/Rig_Medium/Skeleton3D" unique_id=1791383169]
-transform = Transform3D(-1.554681e-07, -0.999999, 9.51296e-08, 2.1464092e-07, 1.1620003e-07, 0.9999995, -0.99999934, 1.1821794e-07, 1.7825454e-07, -0.7870072, 1.1067609, -8.190924e-07)
+transform = Transform3D(0.262572, 0.00010663271, -0.96491253, 0.00011241436, -0.99999875, -7.870793e-05, -0.9649116, -8.828938e-05, -0.26257202, -0.4795538, 0.63104653, 0.06668643)
 bone_name = "hand.r"
 bone_idx = 12
 use_external_skeleton = true
@@ -851,7 +851,7 @@ skeleton = NodePath("../..")
 
 [node name="CamRoot" type="Node3D" parent="." unique_id=1468433888]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12912, 0)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.12912, 0)
 script = ExtResource("5_2wg8a")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CamRoot" unique_id=1121529721]
@@ -862,7 +862,7 @@ margin = 0.5
 
 [node name="Camera3D" type="Camera3D" parent="CamRoot/SpringArm3D" unique_id=122741060]
 unique_name_in_owner = true
-transform = Transform3D(0.999982, 1.56622e-09, -0.00595156, 0.000975733, 0.986469, 0.163943, 0.00587103, -0.163946, 0.986452, 0.468412, 0.80568, 1.27759)
+transform = Transform3D(0.999982, 1.629814e-09, -0.0059515606, 0.00097573304, 0.986469, 0.1639432, 0.0058710296, -0.16394603, 0.986452, 0.468412, 0.80568, 1.27759)
 fov = 37.8493
 
 [node name="Controllers" type="Node" parent="." unique_id=1311379674]
@@ -916,7 +916,7 @@ monitoring = false
 script = ExtResource("5_w2bk0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=1436354069]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0167861, 0.6350365, 0.818708)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.017, 0.635, -0.819)
 shape = SubResource("BoxShape3D_p2pe3")
 disabled = true
 
