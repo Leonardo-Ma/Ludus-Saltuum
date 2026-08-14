@@ -6,25 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://0hwlnlpkbsjn" path="res://src/environment/levels/assets/platforms/static_platforms/grass_platform.tscn" id="4_13u3q"]
 [ext_resource type="PackedScene" uid="uid://7ugwdowsimwr" path="res://src/environment/levels/assets/platforms/static_platforms/hexagon_stone.tscn" id="5_vb56a"]
 [ext_resource type="PackedScene" uid="uid://cfm0nge5vjc0d" path="res://src/environment/levels/assets/collectibles/unlock_skill/unlock_skill.tscn" id="6_uipk1"]
-[ext_resource type="Texture2D" uid="uid://d4g1stey2kdtm" path="res://src/icons/16x16/character_move.png" id="7_13u3q"]
+[ext_resource type="Resource" uid="uid://dq338q84ai7to" path="res://src/entities/player/skills/active_skills/dash.tres" id="7_jj27o"]
 [ext_resource type="Script" uid="uid://si0x0kj8w7kf" path="res://src/systems/collectibles/collectibles_data/skill_collectible.gd" id="7_vpwyn"]
-[ext_resource type="Script" uid="uid://difrst13h47n5" path="res://src/entities/player/skills/skill_definition.gd" id="8_vb56a"]
 [ext_resource type="PackedScene" uid="uid://c5advesecca53" path="res://src/environment/levels/assets/ground_button/button_rounded.tscn" id="9_tfs21"]
-[ext_resource type="Script" uid="uid://c3miewmfuj48y" path="res://src/entities/player/skills/active_skills/dash_skill.gd" id="9_uipk1"]
 [ext_resource type="PackedScene" uid="uid://pngs12a0famd" path="res://src/environment/levels/assets/doors/large_door.tscn" id="10_4fd3v"]
-
-[sub_resource type="Resource" id="Resource_mgm53"]
-script = ExtResource("8_vb56a")
-id = &"dash"
-skill_script = ExtResource("9_uipk1")
-icon = ExtResource("7_13u3q")
-input_action = &"dash"
-hud_order = 2
-metadata/_custom_type_script = "uid://difrst13h47n5"
 
 [sub_resource type="Resource" id="Resource_5h0lt"]
 script = ExtResource("7_vpwyn")
-definition = SubResource("Resource_mgm53")
+definition = ExtResource("7_jj27o")
 identifier = &"dash_unlock"
 metadata/_custom_type_script = "uid://si0x0kj8w7kf"
 

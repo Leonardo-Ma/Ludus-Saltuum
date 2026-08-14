@@ -24,7 +24,7 @@ func _physics_process(_delta: float) -> void:
 		_exit_vehicle_on_invalid()
 		return
 	# TODO Maybe route this to movement controller?
-	_player.global_transform = _vehicle.global_transform
+	_player.global_position = _vehicle.global_position
 
 
 func _setup_component_connections() -> void:

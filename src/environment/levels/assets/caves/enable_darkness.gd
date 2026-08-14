@@ -16,6 +16,7 @@ func _ready() -> void:
 	assert(cave_environment, "Cave environment not selected for " + str(owner))
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
+	_precompile_shaders.call_deferred()
 
 
 func _on_body_entered(body: Node3D) -> void:
@@ -40,3 +41,13 @@ func _apply_darkness(player: PlayerEntity) -> void:
 func _remove_darkness(player: Node3D) -> void:
 	var player_camera: Camera3D = player.camera_controller._camera
 	player_camera.environment = WORLD_ENVIRONMENT_SETTINGS
+
+
+# TODO This is probably wrong?
+## Force the shader to compile at startup instead of on first toggle to avoid stutter
+func _precompile_shaders() -> void:
+	var test_camera: Camera3D = Camera3D.new()
+	add_child(test_camera)
+	test_camera.environment = cave_environment.duplicate()
+	await RenderingServer.frame_post_draw
+	test_camera.queue_free()

@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="SkillDefinition" format=3 uid="uid://dq338q84ai7to"]
 
+[ext_resource type="Texture2D" uid="uid://d4g1stey2kdtm" path="res://src/icons/16x16/character_move.png" id="1_dacbw"]
 [ext_resource type="Script" uid="uid://difrst13h47n5" path="res://src/entities/player/skills/skill_definition.gd" id="1_oqy2t"]
-[ext_resource type="Texture2D" uid="uid://d4fuvtn4yvdfx" path="res://src/icons/16x16/fade_in.png" id="2_1x7jl"]
 [ext_resource type="Script" uid="uid://c3miewmfuj48y" path="res://src/entities/player/skills/active_skills/dash_skill.gd" id="3_dacbw"]
 
 [resource]
 script = ExtResource("1_oqy2t")
 id = &"dash"
 skill_script = ExtResource("3_dacbw")
-icon = ExtResource("2_1x7jl")
+icon = ExtResource("1_dacbw")
 input_action = &"dash"
 metadata/_custom_type_script = "uid://difrst13h47n5"

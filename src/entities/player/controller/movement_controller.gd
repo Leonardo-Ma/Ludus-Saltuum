@@ -62,7 +62,9 @@ func movement_logic(body: CharacterBody3D) -> void:
 	if input_length > 0.0:
 		# Use camera's global basis for movement direction (relative to camera view)
 		var camera_basis: Basis = camera.global_transform.basis
-		var direction: Vector3 = (camera_basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
+		var cam_right: Vector3 = Vector3(camera_basis.x.x, 0.0, camera_basis.x.z).normalized()
+		var cam_forward: Vector3 = Vector3(camera_basis.z.x, 0.0, camera_basis.z.z).normalized()
+		var direction: Vector3 = (cam_right * input_direction.x + cam_forward * input_direction.y).normalized()
 
 		# Speed scales with stick deflection (0..1); keyboard always produces 1.0
 		var speed_mult: float = input_length

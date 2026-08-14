@@ -142,6 +142,9 @@ func _on_enter_area_body_entered(body: Node3D) -> void:
 	enter_area.set_deferred("monitoring", false)
 	_driver.vehicle_rider.enter_vehicle(self)
 
+	camera_pivot.global_transform = camera_anchor.global_transform
+	camera_look_at = global_position + (global_basis.z * 10.0)
+
 	camera.current = true
 	set_physics_process(true)
 	set_process(true)

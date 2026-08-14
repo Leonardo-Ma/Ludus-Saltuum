@@ -6,6 +6,7 @@ extends Control
 
 
 func _ready() -> void:
+	hide()
 	for skill_slot: Control in _skills_container.get_children():
 		assert(skill_slot is HUDSkillSlot, "Skill slot %s is not HUDSkillSlot in %s" % [skill_slot.name, name])
 
@@ -45,6 +46,7 @@ func _on_skill_unlocked(_hud_order: int, definition: SkillDefinition) -> void:
 	var controller: SkillsController = (players[0] as PlayerEntity).skills_controller
 	var skill: BaseSkill = controller.get_skill(definition.id)
 	_bind_slot(skill)
+	show()
 
 
 func _bind_slot(skill: BaseSkill) -> void:
