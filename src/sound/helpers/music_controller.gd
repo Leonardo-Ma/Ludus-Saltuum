@@ -87,10 +87,10 @@ var _music_library: Dictionary = {
 			"song_name": "Never Miss Fire",
 			"author": "Abstraction",
 		},
-		"cloak_of_darness_stage_1":
+		"cloak_of_darkness_stage_1":
 		{
 			"stream": preload("uid://cynalefhnsrfh"),
-			"song_name": "Cloak of Darness",
+			"song_name": "Cloak of Darkness",
 			"author": "Abstraction",
 		},
 		"sketchbook_2025_12_11_neuro":
