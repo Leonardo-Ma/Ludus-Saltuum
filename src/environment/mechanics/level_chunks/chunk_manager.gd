@@ -27,8 +27,11 @@ const LEVEL_COMPLETE_SOUNDS: Array[AudioStream] = [
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var _all_chunks: Array[ChunkData] = []
 var _active_chunks: Array[LevelChunk] = []
+
 var _chunk_selector: ChunkSelector
 var _chunk_exit_connections: Dictionary = {}
+
+var _current_chunk_index: int = 0
 
 
 func _ready() -> void:
@@ -202,6 +205,7 @@ func clear_level() -> void:
 		if is_instance_valid(chunk):
 			_pool_chunk(chunk)
 	_active_chunks.clear()
+	_current_chunk_index = 0
 	if _chunk_selector:
 		_chunk_selector.reset()
 
@@ -212,10 +216,10 @@ func recycle_oldest_chunk() -> void:
 	assert(not _active_chunks.is_empty(), "Cannot recycle empty pool in " + self.name)
 
 	var oldest: LevelChunk = _active_chunks.pop_front()
+	_current_chunk_index = maxi(_current_chunk_index - 1, 0)
 	var newest: LevelChunk = _active_chunks.back()
 
 	chunk_recycled.emit(oldest)
-
 	_pool_chunk(oldest)
 
 	var target_transform: Transform3D = newest.get_node("%ExitTrigger").global_transform
@@ -250,6 +254,20 @@ func get_first_chunk_entrance_position() -> Vector3:
 		return Vector3.ZERO
 	print("Entrance position:", (_active_chunks[0].get_node("%EntranceTrigger") as Area3D).global_position)
 	return (_active_chunks[0].get_node("%EntranceTrigger") as Area3D).global_position
+
+
+## Skips current chunk: marks scored, teleports player to its exit
+func skip_current_chunk(player: PlayerEntity) -> void:
+	assert(
+		_current_chunk_index >= 0 and _current_chunk_index < _active_chunks.size(),
+		"LevelChunkManager: no valid current chunk to skip in " + name,
+	)
+	var current_chunk: LevelChunk = _active_chunks[_current_chunk_index]
+	# Mark as scored without giving score since skipped
+	current_chunk.set_meta("scored", true)
+	_on_chunk_exit_reached(player, current_chunk)
+	var exit_trigger: Node3D = current_chunk.get_node("%ExitTrigger")
+	player.global_position = exit_trigger.global_position
 
 
 func _get_difficulty_points(chunk: LevelChunk, data: ChunkData) -> int:
@@ -303,6 +321,10 @@ func _setup_chunk_trigger(chunk: LevelChunk) -> void:
 func _on_chunk_exit_reached(body: Node3D, passed_chunk: LevelChunk) -> void:
 	if not body.is_in_group(Groups.CONTROLLED):
 		return
+
+	var passed_index: int = _active_chunks.find(passed_chunk)
+	if passed_index != -1 and passed_index >= _current_chunk_index:
+		_current_chunk_index = passed_index + 1
 
 	if not passed_chunk.has_meta("scored"):
 		passed_chunk.set_meta("scored", true)

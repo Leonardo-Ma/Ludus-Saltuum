@@ -1,0 +1,124 @@
+[gd_scene format=3 uid="uid://c47168lpalyg1"]
+
+[ext_resource type="Script" uid="uid://bntbuf37m4n3r" path="res://src/ui/popups/skip_level_confirm.gd" id="1_fuo63"]
+[ext_resource type="Texture2D" uid="uid://boj68sx67cn8w" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/fast_forward.png" id="2_p25wu"]
+[ext_resource type="Texture2D" uid="uid://r8ac5it4c01m" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/tick.png" id="2_xy647"]
+[ext_resource type="Texture2D" uid="uid://pfmkppm3ecuw" path="res://src/ui/assets/fantasy_ui_borders/PNG/Double/Border/panel-border-010.png" id="3_6n175"]
+[ext_resource type="Texture2D" uid="uid://7p2j8n842i0a" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/cross.png" id="3_h6q6e"]
+[ext_resource type="Texture2D" uid="uid://bx6r2tioul5ru" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/6_buildings/flag.png" id="3_wrsxo"]
+[ext_resource type="PackedScene" uid="uid://b6ednpu0kwboc" path="res://src/ui/helpers/grab_focus_on_visible.tscn" id="4_h6q6e"]
+
+[node name="SkipLevelConfirm" type="Control" unique_id=574868389]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fuo63")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1454334216]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.2)
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1084603465]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -258.0
+offset_top = -128.0
+offset_right = 258.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1737808713]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer" unique_id=1348501]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer" unique_id=1713147350]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="QuestionMark" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/HBoxContainer2" unique_id=907457364]
+modulate = Color(0.09803922, 0.5254902, 0.015686275, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "¿؟"
+
+[node name="FastForward" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/HBoxContainer2" unique_id=668996646]
+modulate = Color(0.09803922, 0.5254902, 0.015686275, 1)
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+texture = ExtResource("2_p25wu")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Flag" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/HBoxContainer2" unique_id=32023511]
+modulate = Color(0.09803922, 0.5254902, 0.015686275, 1)
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+texture = ExtResource("3_wrsxo")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="QuestionMark2" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/HBoxContainer2" unique_id=693270482]
+modulate = Color(0.09803922, 0.5254902, 0.015686275, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "?;"
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/VBoxContainer" unique_id=1430027467]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer" unique_id=1417022993]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2" unique_id=2078357007]
+layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="NoButton" type="TextureButton" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=1294552436]
+unique_name_in_owner = true
+modulate = Color(0.6745098, 0, 0, 0.9411765)
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+texture_normal = ExtResource("3_h6q6e")
+texture_focused = ExtResource("3_6n175")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="GrabFocusOnVisible" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/NoButton" unique_id=494770207 instance=ExtResource("4_h6q6e")]
+layout_mode = 0
+offset_left = 250.0
+offset_right = 250.0
+
+[node name="YesButton" type="TextureButton" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=1495344399]
+unique_name_in_owner = true
+modulate = Color(0, 0.36078432, 0, 0.7137255)
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+texture_normal = ExtResource("2_xy647")
+texture_focused = ExtResource("3_6n175")
+ignore_texture_size = true
+stretch_mode = 5
