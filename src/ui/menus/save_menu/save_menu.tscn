@@ -84,5 +84,5 @@ texture_focused = ExtResource("3_6y3kf")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="FocusOnVisible" parent="MarginContainer/ReturnButton" unique_id=494770207 instance=ExtResource("5_6y3kf")]
+[node name="FocusOnVisible" parent="MarginContainer/ReturnButton" unique_id=997172304 instance=ExtResource("5_6y3kf")]
 layout_mode = 0

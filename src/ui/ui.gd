@@ -12,6 +12,9 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	UIManager.register_ui(self)
 
+	for child: Control in get_children():
+		assert(child.z_index != 0, name + " is missing CanvasItem > Ordering > Z Index. All children of UI must have manual screen ordering set")
+
 
 # BUG Web version: ESC releases mouse and ignores this on first press.
 # Works on second ESC press.

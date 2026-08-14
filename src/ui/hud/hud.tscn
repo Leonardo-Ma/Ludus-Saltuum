@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bc20xmwfj68dg" path="res://src/entities/player/combat/player_healthbar.gd" id="1_jreyb"]
 [ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="1_up44w"]
+[ext_resource type="Script" uid="uid://c1nea7ynodcea" path="res://src/ui/hud/hud.gd" id="2_6kydk"]
 [ext_resource type="Script" uid="uid://c30uhilu8tn5v" path="res://src/ui/hud/score.gd" id="2_cl4jo"]
 [ext_resource type="Texture2D" uid="uid://b2ggug31fd52y" path="res://src/icons/16x16/star.png" id="3_ndnj2"]
 [ext_resource type="Script" uid="uid://ckmipf2d40cqd" path="res://src/ui/hud/collectibles/gold.gd" id="5_4u0hr"]
@@ -33,6 +34,9 @@
 [ext_resource type="Texture2D" uid="uid://ckvy8vbccihmw" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/12_misc/loading-dots.png" id="25_lb1pd"]
 [ext_resource type="Texture2D" uid="uid://csssgfxl235ik" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/visible.png" id="27_lb1pd"]
 [ext_resource type="Texture2D" uid="uid://dhb15ko0frh80" path="res://src/ui/assets/kenney_input-prompts/xbox_series_double/buttons/xbox_button_color_x_outline.png" id="28_58h30"]
+[ext_resource type="Texture2D" uid="uid://bkufsmjm825nk" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/10_editing/undo.png" id="31_t5oo3"]
+[ext_resource type="Texture2D" uid="uid://8flurawndj1x" path="res://src/ui/assets/kenney_input-prompts/xbox_series_double/buttons/xbox_button_color_y_outline.png" id="32_754np"]
+[ext_resource type="Texture2D" uid="uid://boj68sx67cn8w" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/fast_forward.png" id="33_t5oo3"]
 [ext_resource type="Script" uid="uid://bsuawdnvruik5" path="res://src/ui/hud/music_player/music_player.gd" id="34_ulf7a"]
 [ext_resource type="Texture2D" uid="uid://cvw72qmip5r4d" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/music.png" id="35_58h30"]
 [ext_resource type="Texture2D" uid="uid://bhvk4bhxhicuj" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/user.png" id="36_u7jpa"]
@@ -64,6 +68,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_up44w")
+script = ExtResource("2_6kydk")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1645878303]
 layout_mode = 1
@@ -120,6 +125,7 @@ one_shot = true
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer" unique_id=800529395]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/separation = 16
 
 [node name="Score" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/HBoxContainer" unique_id=554377692]
 layout_mode = 2
@@ -128,7 +134,7 @@ script = ExtResource("2_cl4jo")
 [node name="ScoreIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/HBoxContainer/Score" unique_id=374341339]
 unique_name_in_owner = true
 texture_filter = 1
-custom_minimum_size = Vector2(64, 62)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("3_ndnj2")
 stretch_mode = 5
@@ -136,6 +142,7 @@ stretch_mode = 5
 [node name="ScoreCounter" type="Label" parent="MarginContainer/HBoxContainer/LeftSideContainer/HBoxContainer/Score" unique_id=1880561012]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "99999"
 
 [node name="Gold" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/HBoxContainer" unique_id=1130707200]
@@ -145,7 +152,7 @@ script = ExtResource("5_4u0hr")
 [node name="GoldIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/HBoxContainer/Gold" unique_id=1130038257]
 unique_name_in_owner = true
 texture_filter = 1
-custom_minimum_size = Vector2(64, 62)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("6_d5ccl")
 stretch_mode = 5
@@ -153,6 +160,7 @@ stretch_mode = 5
 [node name="GoldCounter" type="Label" parent="MarginContainer/HBoxContainer/LeftSideContainer/HBoxContainer/Gold" unique_id=1020301352]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "99999"
 
 [node name="PowerUps" type="MarginContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer" unique_id=1788304339]
@@ -176,7 +184,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="GamepadPromptsMargin" type="MarginContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer" unique_id=1030655433]
-custom_minimum_size = Vector2(138, 138)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
@@ -194,25 +201,17 @@ layout_mode = 2
 [node name="PromptsPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Jump" unique_id=867169028]
 layout_mode = 2
 
-[node name="Inputs" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Jump/PromptsPanel" unique_id=1160816701]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Jump" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Jump/PromptsPanel/Inputs" unique_id=192685747 instance=ExtResource("11_i2hmd")]
-custom_minimum_size = Vector2(32, 32)
+[node name="JumpKey" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Jump/PromptsPanel" unique_id=192685747 instance=ExtResource("11_i2hmd")]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("12_xy2nf")
 action = &"jump"
 
 [node name="InstructionsPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Jump" unique_id=1782869595]
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="Instructions" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Jump/InstructionsPanel" unique_id=955481330]
-layout_mode = 2
-
-[node name="Jump" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Jump/InstructionsPanel/Instructions" unique_id=1260631698]
-custom_minimum_size = Vector2(64, 64)
+[node name="Jump" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Jump/InstructionsPanel" unique_id=1260631698]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("15_ulf7a")
@@ -225,24 +224,17 @@ layout_mode = 2
 [node name="PromptsPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Attack" unique_id=210439128]
 layout_mode = 2
 
-[node name="Inputs" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Attack/PromptsPanel" unique_id=1142152173]
-layout_mode = 2
-
-[node name="Attack" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Attack/PromptsPanel/Inputs" unique_id=2104228489 instance=ExtResource("11_i2hmd")]
-custom_minimum_size = Vector2(32, 32)
+[node name="AttackKey" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Attack/PromptsPanel" unique_id=2104228489 instance=ExtResource("11_i2hmd")]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("12_tvn8q")
 action = &"attack"
 
 [node name="InstructionsPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Attack" unique_id=976774847]
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="Instructions" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Attack/InstructionsPanel" unique_id=986173639]
-layout_mode = 2
-
-[node name="Attack" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Attack/InstructionsPanel/Instructions" unique_id=344234895]
-custom_minimum_size = Vector2(64, 64)
+[node name="Attack" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Attack/InstructionsPanel" unique_id=344234895]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("15_lb1pd")
@@ -253,7 +245,6 @@ stretch_mode = 5
 layout_mode = 2
 
 [node name="PromptsPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Move" unique_id=1232640312]
-custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Move/PromptsPanel" unique_id=1585026634]
@@ -266,7 +257,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="MoveForward" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Move/PromptsPanel/HBoxContainer/MoveInputArrows/Inputs" unique_id=627257696 instance=ExtResource("11_i2hmd")]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("16_whmeo")
 action = &"move_forward"
@@ -275,19 +266,19 @@ action = &"move_forward"
 layout_mode = 2
 
 [node name="MoveLeft" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Move/PromptsPanel/HBoxContainer/MoveInputArrows/Inputs2" unique_id=1418796403 instance=ExtResource("11_i2hmd")]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("17_t210l")
 action = &"move_left"
 
 [node name="MoveBackward" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Move/PromptsPanel/HBoxContainer/MoveInputArrows/Inputs2" unique_id=457738913 instance=ExtResource("11_i2hmd")]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("18_air4j")
 action = &"move_backward"
 
 [node name="MoveRight" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Move/PromptsPanel/HBoxContainer/MoveInputArrows/Inputs2" unique_id=1398114785 instance=ExtResource("11_i2hmd")]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("19_lb1pd")
 action = &"move_right"
@@ -295,12 +286,8 @@ action = &"move_right"
 [node name="MoveInputStick" type="VBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Move/PromptsPanel/HBoxContainer" unique_id=1017354544]
 layout_mode = 2
 
-[node name="Inputs" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Move/PromptsPanel/HBoxContainer/MoveInputStick" unique_id=1846224397]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Stick" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Move/PromptsPanel/HBoxContainer/MoveInputStick/Inputs" unique_id=688084930 instance=ExtResource("11_i2hmd")]
-custom_minimum_size = Vector2(32, 32)
+[node name="Stick" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Move/PromptsPanel/HBoxContainer/MoveInputStick" unique_id=688084930 instance=ExtResource("11_i2hmd")]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("16_s7scb")
 action = &"move_left"
@@ -308,14 +295,10 @@ prefer_axis = true
 keyb_texture_override = SubResource("CompressedTexture2D_t210l")
 
 [node name="InstructionsPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Move" unique_id=1127201369]
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="Instructions" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Move/InstructionsPanel" unique_id=1578740319]
-layout_mode = 2
-
-[node name="Movement" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Move/InstructionsPanel/Instructions" unique_id=1712443712]
-custom_minimum_size = Vector2(64, 64)
+[node name="Movement" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Move/InstructionsPanel" unique_id=1712443712]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_g2kha")
@@ -332,6 +315,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="LookInputArrows" type="VBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer" unique_id=1613989915]
+visible = false
 layout_mode = 2
 
 [node name="Inputs" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer/LookInputArrows" unique_id=617171848]
@@ -368,7 +352,7 @@ action = &"look_right"
 layout_mode = 2
 
 [node name="PromptIcon" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer/LookInputStick" unique_id=366111759 node_paths=PackedStringArray("flavor_overlay") instance=ExtResource("11_i2hmd")]
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("22_t210l")
 action = &"look_left"
@@ -377,7 +361,6 @@ flavor_overlay = NodePath("RoundedArrow")
 keyb_texture_override = ExtResource("19_ljgop")
 
 [node name="RoundedArrow" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer/LookInputStick/PromptIcon" unique_id=809645122]
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -392,14 +375,10 @@ expand_mode = 3
 stretch_mode = 5
 
 [node name="InstructionsPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround" unique_id=976264450]
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="Instructions" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/InstructionsPanel" unique_id=823182115]
-layout_mode = 2
-
-[node name="Look" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/InstructionsPanel/Instructions" unique_id=599163106]
-custom_minimum_size = Vector2(64, 64)
+[node name="Look" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/InstructionsPanel" unique_id=599163106]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("27_lb1pd")
@@ -412,17 +391,13 @@ layout_mode = 2
 [node name="PromptsPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/ReturnCheckpoint" unique_id=717506907]
 layout_mode = 2
 
-[node name="Inputs" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/ReturnCheckpoint/PromptsPanel" unique_id=1076326512]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="X" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/ReturnCheckpoint/PromptsPanel/Inputs" unique_id=80538652 instance=ExtResource("11_i2hmd")]
-custom_minimum_size = Vector2(32, 32)
+[node name="X" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/ReturnCheckpoint/PromptsPanel" unique_id=80538652 instance=ExtResource("11_i2hmd")]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("28_58h30")
 action = &"return_to_checkpoint"
 
-[node name="ReturnCheckpoingProgress" type="TextureProgressBar" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/ReturnCheckpoint/PromptsPanel/Inputs/X" unique_id=603943047]
+[node name="ReturnCheckpoingProgress" type="TextureProgressBar" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/ReturnCheckpoint/PromptsPanel/X" unique_id=603943047]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -436,33 +411,75 @@ texture_progress = ExtResource("25_lb1pd")
 script = ExtResource("25_air4j")
 
 [node name="InstructionsPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/ReturnCheckpoint" unique_id=1445843771]
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="Instructions" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/ReturnCheckpoint/InstructionsPanel" unique_id=1326048615]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/ReturnCheckpoint/InstructionsPanel" unique_id=1509927427]
 layout_mode = 2
 
-[node name="ReturnCheckpoint" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/ReturnCheckpoint/InstructionsPanel/Instructions" unique_id=485041610]
-custom_minimum_size = Vector2(64, 64)
+[node name="Undo" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/ReturnCheckpoint/InstructionsPanel/HBoxContainer" unique_id=485041610]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("31_t5oo3")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Flag" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/ReturnCheckpoint/InstructionsPanel/HBoxContainer" unique_id=1317890631]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("23_lb1pd")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="Skills" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=114191235]
+[node name="SkipLevel" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer" unique_id=1118711097]
+layout_mode = 2
+
+[node name="PromptsPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/SkipLevel" unique_id=1042515942]
+layout_mode = 2
+
+[node name="Y" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/SkipLevel/PromptsPanel" unique_id=877317407 instance=ExtResource("11_i2hmd")]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("32_754np")
+action = &"skip_level"
+
+[node name="InstructionsPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/SkipLevel" unique_id=162713195]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/SkipLevel/InstructionsPanel" unique_id=1702906019]
+layout_mode = 2
+
+[node name="Skip" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/SkipLevel/InstructionsPanel/HBoxContainer" unique_id=801412691]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("33_t5oo3")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Flag" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/SkipLevel/InstructionsPanel/HBoxContainer" unique_id=302674459]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("23_lb1pd")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="SkillsPanel" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=114191235]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(480, 0)
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="Skills" type="Panel" parent="MarginContainer/HBoxContainer/Skills" unique_id=1095038458]
+[node name="Skills" type="Panel" parent="MarginContainer/HBoxContainer/SkillsPanel" unique_id=1095038458]
 self_modulate = Color(1, 1, 1, 0.5137255)
 custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("7_8stm2")
 
-[node name="SkillsContainer" type="GridContainer" parent="MarginContainer/HBoxContainer/Skills/Skills" unique_id=1910653337]
+[node name="SkillsContainer" type="GridContainer" parent="MarginContainer/HBoxContainer/SkillsPanel/Skills" unique_id=1910653337]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -472,24 +489,24 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 10
 
-[node name="Skill" parent="MarginContainer/HBoxContainer/Skills/Skills/SkillsContainer" unique_id=1660509414 instance=ExtResource("13_gy4ue")]
+[node name="Skill" parent="MarginContainer/HBoxContainer/SkillsPanel/Skills/SkillsContainer" unique_id=1660509414 instance=ExtResource("13_gy4ue")]
 layout_mode = 2
 
-[node name="Skill2" parent="MarginContainer/HBoxContainer/Skills/Skills/SkillsContainer" unique_id=216017026 instance=ExtResource("13_gy4ue")]
+[node name="Skill2" parent="MarginContainer/HBoxContainer/SkillsPanel/Skills/SkillsContainer" unique_id=216017026 instance=ExtResource("13_gy4ue")]
 layout_mode = 2
 
-[node name="Skill3" parent="MarginContainer/HBoxContainer/Skills/Skills/SkillsContainer" unique_id=1030572130 instance=ExtResource("13_gy4ue")]
+[node name="Skill3" parent="MarginContainer/HBoxContainer/SkillsPanel/Skills/SkillsContainer" unique_id=1030572130 instance=ExtResource("13_gy4ue")]
 layout_mode = 2
 
-[node name="Skill4" parent="MarginContainer/HBoxContainer/Skills/Skills/SkillsContainer" unique_id=1027499728 instance=ExtResource("13_gy4ue")]
+[node name="Skill4" parent="MarginContainer/HBoxContainer/SkillsPanel/Skills/SkillsContainer" unique_id=1027499728 instance=ExtResource("13_gy4ue")]
 layout_mode = 2
 
-[node name="Skill5" parent="MarginContainer/HBoxContainer/Skills/Skills/SkillsContainer" unique_id=1545854112 instance=ExtResource("13_gy4ue")]
+[node name="Skill5" parent="MarginContainer/HBoxContainer/SkillsPanel/Skills/SkillsContainer" unique_id=1545854112 instance=ExtResource("13_gy4ue")]
 layout_mode = 2
 
 [node name="RightSideContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1899763402]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 10
 
 [node name="MusicPlayerPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer/RightSideContainer" unique_id=484157926]
 unique_name_in_owner = true
@@ -514,7 +531,7 @@ stretch_mode = 5
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 20
 text = "SONG_TITLE"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -533,7 +550,7 @@ stretch_mode = 5
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 20
 text = "SONG_AUTHOR"
 horizontal_alignment = 1
 vertical_alignment = 1

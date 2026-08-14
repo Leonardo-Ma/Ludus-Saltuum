@@ -8,7 +8,7 @@ offset_bottom = 40.0
 
 [node name="PowerUp" type="TextureRect" parent="." unique_id=482959666]
 texture_filter = 1
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("1_3ctaq")
 expand_mode = 1

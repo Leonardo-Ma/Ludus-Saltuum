@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bq1ecmltuj6nk" path="res://src/ui/menus/version_label.tscn" id="8_fpg57"]
 [ext_resource type="Texture2D" uid="uid://cluw1pjw0m0g0" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/settings.png" id="8_rq6ct"]
 [ext_resource type="Texture2D" uid="uid://7p2j8n842i0a" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/cross.png" id="10_rq6ct"]
+[ext_resource type="Script" uid="uid://lnlr2embnblu" path="res://src/ui/menus/main_menu/version_label.gd" id="13_cd13d"]
 [ext_resource type="PackedScene" uid="uid://dc4emcvac7toq" path="res://src/ui/prompt_icon.tscn" id="13_ridtu"]
 [ext_resource type="Texture2D" uid="uid://de308rriw58px" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/arrow_keys/keyboard_arrow_up_outline.png" id="14_ua5hf"]
 [ext_resource type="Texture2D" uid="uid://bfcny5u3eltby" path="res://src/ui/assets/kenney_input-prompts/generic_double/generic_joystick_horizontal.png" id="15_r4c6q"]
@@ -113,6 +114,8 @@ script = ExtResource("4_gdklf")
 
 [node name="VersionLabel" parent="." unique_id=854464690 instance=ExtResource("8_fpg57")]
 layout_mode = 1
+text = "X.X.X"
+script = ExtResource("13_cd13d")
 
 [node name="GamepadPromptsMargin" type="MarginContainer" parent="." unique_id=186216965]
 custom_minimum_size = Vector2(138, 138)
@@ -138,7 +141,6 @@ layout_mode = 2
 
 [node name="PromptsPanel" type="PanelContainer" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu" unique_id=1932705599]
 layout_mode = 2
-size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu/PromptsPanel" unique_id=1751509723]
 layout_mode = 2
@@ -150,28 +152,28 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="UiUp" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu/PromptsPanel/HBoxContainer/MovementInput/Inputs" unique_id=192685747 instance=ExtResource("13_ridtu")]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("14_ua5hf")
 action = &"ui_up"
 
-[node name="UiLeft" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu/PromptsPanel/HBoxContainer/MovementInput/Inputs" unique_id=558785123 instance=ExtResource("13_ridtu")]
-custom_minimum_size = Vector2(32, 32)
+[node name="Inputs2" type="HBoxContainer" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu/PromptsPanel/HBoxContainer/MovementInput" unique_id=1105837869]
+layout_mode = 2
+
+[node name="UiLeft" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu/PromptsPanel/HBoxContainer/MovementInput/Inputs2" unique_id=558785123 instance=ExtResource("13_ridtu")]
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("15_rq6ct")
 action = &"ui_left"
 
-[node name="Inputs2" type="HBoxContainer" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu/PromptsPanel/HBoxContainer/MovementInput" unique_id=1105837869]
-layout_mode = 2
-
 [node name="UiDown" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu/PromptsPanel/HBoxContainer/MovementInput/Inputs2" unique_id=946841828 instance=ExtResource("13_ridtu")]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("16_mt6gl")
 action = &"ui_down"
 
 [node name="UiRight" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu/PromptsPanel/HBoxContainer/MovementInput/Inputs2" unique_id=1896841250 instance=ExtResource("13_ridtu")]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = ExtResource("17_ewdsk")
 action = &"ui_right"
@@ -179,12 +181,8 @@ action = &"ui_right"
 [node name="MovementInputStick" type="VBoxContainer" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu/PromptsPanel/HBoxContainer" unique_id=865484670]
 layout_mode = 2
 
-[node name="Inputs" type="HBoxContainer" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu/PromptsPanel/HBoxContainer/MovementInputStick" unique_id=293230792]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Stick" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu/PromptsPanel/HBoxContainer/MovementInputStick/Inputs" unique_id=1325649877 instance=ExtResource("13_ridtu")]
-custom_minimum_size = Vector2(32, 32)
+[node name="Stick" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu/PromptsPanel/HBoxContainer/MovementInputStick" unique_id=1325649877 instance=ExtResource("13_ridtu")]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("19_ua5hf")
 action = &"ui_left"
@@ -192,16 +190,11 @@ prefer_axis = true
 keyb_texture_override = ExtResource("19_rq6ct")
 
 [node name="InstructionsPanel" type="PanelContainer" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu" unique_id=154940992]
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="Instructions" type="HBoxContainer" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu/InstructionsPanel" unique_id=1490295812]
+[node name="Movement" type="TextureRect" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu/InstructionsPanel" unique_id=710309187]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-
-[node name="Movement" type="TextureRect" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu/InstructionsPanel/Instructions" unique_id=710309187]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-size_flags_horizontal = 3
 texture = ExtResource("15_r4c6q")
 expand_mode = 3
 stretch_mode = 5
@@ -216,26 +209,22 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="ConfirmKey" parent="GamepadPromptsMargin/VBoxContainer/Confirm/PromptsPanel/Inputs" unique_id=360203181 instance=ExtResource("13_ridtu")]
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("20_rq6ct")
 action = &"ui_accept"
 
 [node name="Enter" parent="GamepadPromptsMargin/VBoxContainer/Confirm/PromptsPanel/Inputs" unique_id=5174448 instance=ExtResource("13_ridtu")]
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_mt6gl")
 action = &"ui_select"
 
 [node name="InstructionsPanel" type="PanelContainer" parent="GamepadPromptsMargin/VBoxContainer/Confirm" unique_id=1445397606]
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="Instructions" type="HBoxContainer" parent="GamepadPromptsMargin/VBoxContainer/Confirm/InstructionsPanel" unique_id=62477493]
-layout_mode = 2
-
-[node name="Confirm" type="TextureRect" parent="GamepadPromptsMargin/VBoxContainer/Confirm/InstructionsPanel/Instructions" unique_id=1739677584]
-custom_minimum_size = Vector2(64, 64)
+[node name="Confirm" type="TextureRect" parent="GamepadPromptsMargin/VBoxContainer/Confirm/InstructionsPanel" unique_id=1739677584]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("22_rq6ct")
