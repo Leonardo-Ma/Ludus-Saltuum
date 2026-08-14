@@ -24,7 +24,7 @@
 [ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="21_bauo5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_w2gkj"]
-size = Vector3(112.08545, 130.28516, 50)
+size = Vector3(112.08545, 137.18651, 50)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4hukf"]
 size = Vector3(79, 12, 2)
@@ -80,21 +80,21 @@ script = ExtResource("10_12cvo")
 cave_environment = ExtResource("11_w2gkj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EnableDarkness" unique_id=93477801]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.042725, 62.5, 2.2737368e-13)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.043, 63, 0)
 shape = SubResource("BoxShape3D_w2gkj")
 
 [node name="ChangeGameplayStateArea3D" parent="." unique_id=820773515 node_paths=PackedStringArray("collision_shape_3d") instance=ExtResource("8_lpvia")]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -5, 6, 11.162539)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 11.162539)
 target_gameplay_mode = 2
 collision_shape_3d = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ChangeGameplayStateArea3D" unique_id=306969996]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.042725, 62.5, 2.2737368e-13)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.043, 63, 0)
 shape = SubResource("BoxShape3D_w2gkj")
 
 [node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_6e1j3")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 145)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 5, 145)
 
 [node name="InvisibleRoof" type="StaticBody3D" parent="." unique_id=1369234684]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11, 10.994753)

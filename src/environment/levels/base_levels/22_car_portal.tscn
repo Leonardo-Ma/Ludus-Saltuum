@@ -24,7 +24,7 @@ features = Array[int]([0, 3])
 
 [node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_m5l38")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 1)
 
 [node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_jxtp2")]
 unique_name_in_owner = true

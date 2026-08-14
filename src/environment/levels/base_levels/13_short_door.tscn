@@ -21,13 +21,13 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, 65.083)
 
 [node name="GrassPlatform" parent="." unique_id=537577895 instance=ExtResource("4_tlu6a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 4)
 
 [node name="ArrowSign" parent="GrassPlatform" unique_id=975612369 instance=ExtResource("5_yoy7s")]
 transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, 3, 4, -1)
 
 [node name="GrassPlatform2" parent="." unique_id=2089807820 instance=ExtResource("4_tlu6a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 15)
 
 [node name="GrassPlatform3" parent="." unique_id=1804554645 instance=ExtResource("4_tlu6a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 26)
@@ -56,7 +56,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -5, 49)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -5, 60)
 
 [node name="GrassPlatform4" parent="." unique_id=602639410 instance=ExtResource("4_tlu6a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 26)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 27)
 
 [node name="Button" parent="GrassPlatform4" unique_id=2110582536 instance=ExtResource("6_j3rqf")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 4, -2)
