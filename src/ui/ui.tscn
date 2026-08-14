@@ -13,6 +13,7 @@
 script = ExtResource("1_7abqo")
 
 [node name="Popups" parent="." unique_id=1969549540 instance=ExtResource("8_cx7gx")]
+unique_name_in_owner = true
 z_index = 3
 
 [node name="Shop" parent="." unique_id=1103614617 instance=ExtResource("6_7abqo")]

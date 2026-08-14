@@ -6,21 +6,21 @@ extends Area3D
 @export var fall_margin: float = 30.0
 
 ## Entity to be followed for fall boundary tracking; set via controlled_entity_changed
-@export var target: Node3D
+var target: Node3D
 
 # Store the exact spot the player was born before any checkpoints existed
 var _fallback_spawn: Vector3
 
+@onready var hitbox_collision_shape_3d: CollisionShape3D = $Hitbox/CollisionShape3D
+
 
 func _ready() -> void:
-	assert(target != null, "Target missing in " + name)
-
+	set_physics_process(false)
 	body_entered.connect(_on_body_entered)
 	CheckpointManager.checkpoint_activated.connect(_on_checkpoint_activated)
 	GameEvents.controlled_entity_changed.connect(_on_controlled_entity_changed)
 	if GameEvents.controlled_entity != null:
 		_on_controlled_entity_changed(GameEvents.controlled_entity)
-	call_deferred("_initialize_position")
 
 
 func _physics_process(_delta: float) -> void:
@@ -46,14 +46,19 @@ func _on_checkpoint_activated(checkpoint_position: Vector3) -> void:
 func _on_controlled_entity_changed(entity: Node3D) -> void:
 	assert(entity != null, "Controlled entity missing in " + name)
 	target = entity
+	set_physics_process(true)
+	hitbox_collision_shape_3d.disabled = false
 
 
 func _on_body_entered(body: Node3D) -> void:
 	if body != target:
 		return
 
-	var target_position: Vector3 = _fallback_spawn
+	var target_position: Vector3
+
 	if CheckpointManager.has_active_checkpoint():
 		target_position = CheckpointManager.get_respawn_position()
+	else:
+		target_position = _fallback_spawn
 
 	GameEvents.request_respawn(2.0, target_position, false)

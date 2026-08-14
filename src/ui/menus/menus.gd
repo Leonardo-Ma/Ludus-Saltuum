@@ -1,3 +1,4 @@
+# TODO Change this to be signal based and uncouple from other menus
 ## Controls menus visibility
 class_name MenusView
 extends Control

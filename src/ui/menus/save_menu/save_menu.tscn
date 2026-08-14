@@ -49,6 +49,13 @@ size_flags_vertical = 6
 [node name="SaveFileItem" parent="MarginContainer/VBoxContainer/SaveSlotsContainer" unique_id=1224143979 instance=ExtResource("1_7qc06")]
 layout_mode = 2
 
+[node name="GrabFocusOnVisible" parent="MarginContainer/VBoxContainer/SaveSlotsContainer/SaveFileItem/OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveButtonsMarginContainer/HBoxContainer/PlayButton" parent_id_path=PackedInt32Array(1224143979, 651057107) index="0" unique_id=494770207 instance=ExtResource("5_6y3kf")]
+layout_mode = 0
+offset_left = 204.0
+offset_top = -97.0
+offset_right = 356.0
+offset_bottom = 55.0
+
 [node name="SaveFileItem5" parent="MarginContainer/VBoxContainer/SaveSlotsContainer" unique_id=332637846 instance=ExtResource("1_7qc06")]
 layout_mode = 2
 focus_neighbor_right = NodePath("../SaveFileItem6")
@@ -84,5 +91,4 @@ texture_focused = ExtResource("3_6y3kf")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="FocusOnVisible" parent="MarginContainer/ReturnButton" unique_id=997172304 instance=ExtResource("5_6y3kf")]
-layout_mode = 0
+[editable path="MarginContainer/VBoxContainer/SaveSlotsContainer/SaveFileItem"]

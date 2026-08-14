@@ -27,4 +27,5 @@ script = ExtResource("2_ojqax")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=741375312]
 shape = SubResource("BoxShape3D_g6x07")
+disabled = true
 debug_color = Color(0.9764706, 0, 0, 1)

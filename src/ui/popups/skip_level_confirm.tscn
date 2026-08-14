@@ -24,7 +24,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 1, 1, 0.2)
+color = Color(0.27450982, 0.27450982, 0.27450982, 0.5529412)
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1084603465]
 layout_mode = 1
