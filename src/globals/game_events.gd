@@ -64,6 +64,7 @@ func set_controlled_entity(entity: Node3D) -> void:
 	controlled_entity_changed.emit(entity)
 
 
+# BUG If something passes is_death = true and doesn't kill the player, it bypasses health and restores player health to max
 ## Request respawn for currently controlled entity
 ## Entity must implement respawn
 func request_respawn(delay: float, target_position: Vector3, is_death: bool = false) -> void:
