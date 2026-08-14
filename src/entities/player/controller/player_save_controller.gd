@@ -43,7 +43,6 @@ func reset_data() -> void:
 	player.health.reset()
 	player.skills_controller.reset()
 
-	player.transform = Transform3D.IDENTITY
 	player.velocity = Vector3.ZERO
 
 	GameEvents.score = 0
