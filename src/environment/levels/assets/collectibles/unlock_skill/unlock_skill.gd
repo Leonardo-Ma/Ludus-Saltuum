@@ -9,7 +9,7 @@ func _child_ready() -> void:
 	# BUG Since these levels are generated procedurally, it doesn't catch it until generated
 	assert(skill_data != null, "UnlockSkill: SkillCollectible resource required on " + name)
 	assert(
-		skill_data.resource_path.ends_with(".tres"),
+		skill_data.definition.resource_path.ends_with(".tres"),
 		"UnlockSkill: SkillCollectible must be an external .tres resource, not inline/sub-resource on " + name
 	)
 	assert(skill_data.definition != null, "UnlockSkill: SkillCollectible definition required on " + name)

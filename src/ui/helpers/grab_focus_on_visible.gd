@@ -24,6 +24,6 @@ func _on_parent_visibility_changed() -> void:
 
 
 func _on_device_changed(device: InputManager.Device) -> void:
-	if device != InputManager.Device.KEYBOARD_MOUSE and button.is_visible_in_tree() and not button.has_focus():
+	if device != InputManager.Device.KEYBOARD_MOUSE and button.is_visible_in_tree() and get_viewport().gui_get_focus_owner() == null:
 		button.grab_focus()
 		print_debug(button.name, " Has focus")

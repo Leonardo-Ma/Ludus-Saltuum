@@ -22,6 +22,9 @@ var _switch_timer: SceneTreeTimer
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	Input.joy_connection_changed.connect(_on_joy_connection_changed)
+	if Input.get_connected_joypads().size() > 0:
+		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN  # Hidden allows to escape the game window
+		active_device = Input.get_connected_joypads().get_typed_builtin() as Device
 
 
 func _on_joy_connection_changed(device_id: int, connected: bool) -> void:

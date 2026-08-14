@@ -97,10 +97,14 @@ func _on_gameplay_started() -> void:
 	print_debug("Mouse captured by UIManager")
 
 
+# TODO Consider routing this to Input manager request release mouse? But would couple to that
+# Maybe an autoload only for the signal instead? Or use pause manager?
 func _on_gameplay_resumed() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
+# TODO Consider routing this to Input manager request release mouse? But would couple to that
+# Maybe an autoload only for the signal instead? Or use pause manager?
 func _on_gameplay_paused() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
