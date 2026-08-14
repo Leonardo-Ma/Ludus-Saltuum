@@ -1,4 +1,5 @@
 @icon("uid://bcle4jlufep4u")  # joystick.png
+## Player related inputs. Specific UI input is handled in respective feature
 class_name InputController extends Node
 
 signal attack_pressed
@@ -43,6 +44,7 @@ func _is_ui_interacting() -> bool:
 	return false
 
 
+# This may be better as _unhandled_input but camera controller keeps overriding
 func _input(event: InputEvent) -> void:
 	if _is_ui_interacting():
 		return

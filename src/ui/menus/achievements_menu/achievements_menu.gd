@@ -1,10 +1,8 @@
-## Row count and order are data-driven, so instancing happens in code — mirrors
-## KeyBindingsPanel's row instancing for the same reason
+## Row count and order are data-driven, so instancing happens in code
 class_name AchievementsMenu
 extends Control
 
 @export var _row_scene: PackedScene
-
 @onready var _rows_container: VBoxContainer = %RowsContainer
 
 
