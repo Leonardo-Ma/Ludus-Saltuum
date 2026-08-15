@@ -58,6 +58,12 @@ repos:
         entry: '^\[connection '
         files: \.tscn$
 
+      - id: no-editor-process-mode
+        name: "ban process_mode set in editor | inspector value can silently diverge from code | set Node.process_mode in _ready() instead"
+        language: pygrep
+        entry: '^process_mode\s*='
+        files: \.tscn$
+
       - id: no-custom-type-nodes
         name: ban non unique custom type nodes | editor caches class and misses script changes | use generic Node + attach script
         language: system
