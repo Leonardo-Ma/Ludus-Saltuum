@@ -59,7 +59,7 @@ func show_main_menu_settings() -> void:
 
 
 # TODO Check how the unused argument could be omitted without possible silent fails
-#gd-lint: disable=unused-argument
+@warning_ignore("unused_parameter")  # gdlint:ignore=unused-argument
 func _on_game_state_changed(new_state: ApplicationStateManager.GameState, previous_state: ApplicationStateManager.GameState) -> void:
 	match new_state:
 		ApplicationStateManager.GameState.MAIN_MENU:

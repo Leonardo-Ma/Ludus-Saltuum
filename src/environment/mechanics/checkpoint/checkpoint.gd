@@ -16,7 +16,7 @@ var parent_chunk: LevelChunk = null
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
-	# TODO Improve this, maybe signal or move somewhere else
+	# TODO BUG Improve this, maybe signal or move somewhere else. Shouldn't traverse the node path
 	# Auto-detect parent LevelChunk (may be null for checkpoints outside chunks)
 	var current: Node = self
 	while current:
