@@ -53,8 +53,7 @@ func save_to_slot(slot_index: int) -> bool:
 
 # TODO Change to a request quick save
 func save_to_quick_slot() -> bool:
-	# TODO Save to newest? Specific slot?
-	return _write_slot(MANUAL_SLOTS, false)
+	return _write_slot(MANUAL_SLOTS - 1, false)
 
 
 func load_from_slot(slot_index: int) -> bool:
