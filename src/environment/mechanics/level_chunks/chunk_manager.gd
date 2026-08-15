@@ -323,8 +323,10 @@ func _on_chunk_exit_reached(body: Node3D, passed_chunk: LevelChunk) -> void:
 		return
 
 	var passed_index: int = _active_chunks.find(passed_chunk)
-	if passed_index != -1 and passed_index >= _current_chunk_index:
-		_current_chunk_index = passed_index + 1
+	if passed_index == -1 or passed_index < _current_chunk_index:
+		return
+
+	_current_chunk_index = passed_index + 1
 
 	if not passed_chunk.has_meta("scored"):
 		passed_chunk.set_meta("scored", true)
