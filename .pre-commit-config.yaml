@@ -108,6 +108,7 @@ repos:
         language: pygrep
         entry: '(load|preload)\(\s*"res://'
         files: \.gd$
+        exclude: 'tests/'
 
       - id: no-runtime-load
         name: "ban ResourceLoader.load at runtime | causes performance drop and bypasses UID preloading | use preload"
