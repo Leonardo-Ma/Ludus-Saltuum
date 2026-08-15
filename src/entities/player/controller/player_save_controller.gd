@@ -3,7 +3,13 @@
 class_name PlayerSaveController
 extends Node
 
+var _default_spawn_transform: Transform3D
+
 @onready var player: Node3D = owner
+
+
+func _ready() -> void:
+	_default_spawn_transform = player.global_transform
 
 
 func build_save(data: PlayerSaveData) -> void:
@@ -44,6 +50,7 @@ func reset_data() -> void:
 	player.skills_controller.reset()
 
 	player.velocity = Vector3.ZERO
+	player.global_transform = _default_spawn_transform
 
 	GameEvents.score = 0
 	GameEvents.gold = 0
