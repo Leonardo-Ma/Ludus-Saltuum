@@ -2,8 +2,6 @@
 class_name ChunkSelector
 extends RefCounted
 
-const MAX_VERTICAL_DEVIATION: float = 300.0
-const MIN_VERTICAL_DEVIATION: float = -40.0
 const SKILL_UNLOCK_SCORE_STEP: int = 50
 const MIN_CHUNKS_BETWEEN_SKILLS: int = 5
 
@@ -46,7 +44,6 @@ func select_chunk_data(
 	)
 
 	var valid_pool: Array[ChunkData] = []
-	var strict_pool: Array[ChunkData] = []
 
 	print("\n==================== Chunk Selection Debug ====================")
 	print("Target Y: ", current_y, " | Chunks since turn: ", _chunks_since_turn, " | Last skill score unlock: ", _last_skill_score_threshold)
@@ -58,7 +55,6 @@ func select_chunk_data(
 		if data.unlocks_skill_id != &"":
 			if not force_skill_unlock:
 				continue
-			# Only re-offer if player still doesn't have it (allows re-spawning missed unlocks)
 			if unlocked_ids.has(data.unlocks_skill_id):
 				continue
 		else:
@@ -80,28 +76,13 @@ func select_chunk_data(
 
 		valid_pool.push_back(data)
 
-		# Prevent level from going too high or too low
-		if current_y + data.height_shift > MAX_VERTICAL_DEVIATION and data.height_shift > 0:
-			continue
-		if current_y + data.height_shift < MIN_VERTICAL_DEVIATION and data.height_shift < 0:
-			continue
+	print("Pool size: %d, total available: %d" % [valid_pool.size(), _all_chunks.size()])
 
-		strict_pool.push_back(data)
-
-	print("Pool sizes → valid: %d, strict: %d, total available: %d" % [valid_pool.size(), strict_pool.size(), _all_chunks.size()])
-
-	# Soft fallbacks
-	if not strict_pool.is_empty():
-		print("  → Using STRICT pool")
-		valid_pool = strict_pool
-	elif valid_pool.is_empty():
+	if valid_pool.is_empty():
 		print("  → EMERGENCY FALLBACK: using all basic chunks")
 		valid_pool = _all_chunks.filter(func(d: ChunkData) -> bool: return d.unlocks_skill_id == &"")
-		# If everything fails
 		if valid_pool.is_empty():
 			valid_pool = _all_chunks
-	else:
-		print("  → Using BASIC valid pool (some chunks may violate vertical/AABB)")
 
 	# Avoid recent chunks
 	var non_recent: Array[ChunkData] = valid_pool.filter(func(d: ChunkData) -> bool: return not d.scene_path in _recent_chunk_paths)
