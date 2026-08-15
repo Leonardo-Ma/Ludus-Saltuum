@@ -58,34 +58,27 @@ func _test_subsystems_exist() -> void:
 
 
 func _test_audio_buses() -> void:
-	var required_buses: Array[String] = ["Master", "Music", "SFX", "Ambient", "UI", "Voice"]
-
-	var bus_indices: Dictionary = {}
-
-	for i: int in range(AudioServer.get_bus_count()):
-		var bus_name: String = AudioServer.get_bus_name(i)
-		bus_indices[bus_name] = i
-
-	for bus_name: String in required_buses:
-		assert(
-			bus_name in bus_indices,
-			"Audio bus '%s' not found! Check your AudioBusLayout (uid://plxel2xf671u)" % bus_name,
-		)
-
-		var idx: int = bus_indices[bus_name]
-
-		assert(
-			not AudioServer.is_bus_mute(idx),
-			"Audio bus '%s' is muted. Fix it in the layout." % bus_name,
-		)
-
-	var music_idx: int = bus_indices["Music"]
-	var send: String = AudioServer.get_bus_send(music_idx)
+	var required_buses: Array[String] = ["Master", "Music", "SFX", "Ambient", "UI", "Voice", "Vehicle"]
 
 	assert(
-		send == "Master",
-		"Music bus should send to Master bus.",
+		AudioServer.get_bus_count() == required_buses.size(),
+		"Unexpected bus count: %d, expected %d" % [AudioServer.get_bus_count(), required_buses.size()],
 	)
+
+	var bus_indices: Dictionary = {}
+	for i: int in range(AudioServer.get_bus_count()):
+		bus_indices[AudioServer.get_bus_name(i)] = i
+
+	for bus_name: String in required_buses:
+		assert(bus_name in bus_indices, "Audio bus '%s' not found! Check AudioBusLayout (uid://plxel2xf671u)" % bus_name)
+		assert(not AudioServer.is_bus_mute(bus_indices[bus_name]), "Audio bus '%s' is muted." % bus_name)
+
+	for category: int in SoundManager.pool.BUSES:
+		var bus_name: String = SoundManager.pool.BUSES[category]
+		assert(bus_name in bus_indices, "SoundPool.BUSES defines category %d -> '%s', but that bus doesn't exist" % [category, bus_name])
+
+	var music_idx: int = bus_indices["Music"]
+	assert(AudioServer.get_bus_send(music_idx) == "Master", "Music bus should send to Master bus.")
 
 	print("✅ Test 3: Audio buses")
 

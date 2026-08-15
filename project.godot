@@ -46,6 +46,8 @@ CheckpointManager="*uid://cimfiv457vauf"
 TestGoapConsistency="*res://tests/goap.gd"
 TestAudio="*uid://cxi4v122jd7b6"
 TestSettingsDefaults="*uid://cieb4svyd710l"
+TestGoapPlanner="*uid://ch348xwtgj6fi"
+TestStatusManager="*uid://bw2y0ajm6l5s4"
 
 [debug]
 
