@@ -27,13 +27,13 @@ func _ready() -> void:
 
 func _on_capture_mouse_requested() -> void:
 	if not _is_ui_interacting() or PauseManager.is_paused():
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		MouseModeManager.request_mode(&"gameplay", Input.MOUSE_MODE_CAPTURED)
 		print_debug("Mouse captured by " + name)
 	print_debug(name + " failed to capture mouse")
 
 
 func _on_release_mouse_requested() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	MouseModeManager.release(&"gameplay")
 	print_debug("Mouse released by " + name)
 
 

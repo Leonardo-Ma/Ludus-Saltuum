@@ -57,10 +57,10 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		release_mouse_requested.emit()
 
+	# TODO This probably should be in input controller?
 	if event.is_action_pressed("attack"):  # Left mouse click
 		if not ApplicationStateManager.is_in_menu() and not PauseManager.is_paused():
 			capture_mouse_requested.emit()
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 	var player_is_using_mouse: bool = event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
 	if player_is_using_mouse:

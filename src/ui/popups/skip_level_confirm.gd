@@ -27,12 +27,13 @@ func _unhandled_input(event: InputEvent) -> void:
 func hide_popup() -> void:
 	hide()
 	PauseManager.release_pause("skip_level_popup")
+	MouseModeManager.release(&"popup")
 
 
 func show_popup() -> void:
 	show()
 	PauseManager.request_pause("skip_level_popup")
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	MouseModeManager.request_mode(&"popup", Input.MOUSE_MODE_VISIBLE)
 
 
 func _on_yes_pressed() -> void:

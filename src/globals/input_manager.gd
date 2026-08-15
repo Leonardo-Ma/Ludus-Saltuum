@@ -23,8 +23,8 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	Input.joy_connection_changed.connect(_on_joy_connection_changed)
 	if Input.get_connected_joypads().size() > 0:
-		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN  # Hidden allows to escape the game window
 		active_device = Input.get_connected_joypads().get_typed_builtin() as Device
+		MouseModeManager.request_mode(&"device", Input.MOUSE_MODE_HIDDEN)  # Hidden allows to escape the game window
 
 
 func _on_joy_connection_changed(device_id: int, connected: bool) -> void:
@@ -88,15 +88,7 @@ func _get_gamepad_device_type(device_id: int) -> Device:
 
 
 func _apply_mouse_mode() -> void:
-	# TODO Double check this
-	# Only manage visibility, captured mode is owned by UIManager/game state
-	print(Input.mouse_mode)
-	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		return
-
 	if active_device != Device.KEYBOARD_MOUSE:
-		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
-			Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+		MouseModeManager.request_mode(&"device", Input.MOUSE_MODE_HIDDEN)
 	else:
-		if Input.mouse_mode == Input.MOUSE_MODE_HIDDEN:
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		MouseModeManager.release(&"device")

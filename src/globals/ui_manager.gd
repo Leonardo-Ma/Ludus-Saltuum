@@ -14,10 +14,6 @@ func _ready() -> void:
 	ApplicationStateManager.state_changed.connect(_on_game_state_changed)
 	ApplicationStateManager.settings_opened.connect(_on_settings_opened)
 	ApplicationStateManager.settings_closed.connect(_on_settings_closed)
-	ApplicationStateManager.main_menu_opened.connect(_on_main_menu_opened)
-	ApplicationStateManager.gameplay_started.connect(_on_gameplay_started)
-	ApplicationStateManager.gameplay_resumed.connect(_on_gameplay_resumed)
-	ApplicationStateManager.gameplay_paused.connect(_on_gameplay_paused)
 
 
 func register_ui(ui: UIView) -> void:
@@ -62,7 +58,9 @@ func show_main_menu_settings() -> void:
 	_get_ui().show_main_menu_settings()
 
 
-func _on_game_state_changed(new_state: ApplicationStateManager.GameState, _previous_state: ApplicationStateManager.GameState) -> void:
+# TODO Check how the unused argument could be omitted without possible silent fails
+#gd-lint: disable=unused-argument
+func _on_game_state_changed(new_state: ApplicationStateManager.GameState, previous_state: ApplicationStateManager.GameState) -> void:
 	match new_state:
 		ApplicationStateManager.GameState.MAIN_MENU:
 			_ui.show_main_menu()
@@ -79,6 +77,13 @@ func _on_game_state_changed(new_state: ApplicationStateManager.GameState, _previ
 		ApplicationStateManager.GameState.MAIN_MENU_SETTINGS:
 			_ui.show_main_menu_settings()
 
+	if new_state == ApplicationStateManager.GameState.PLAYING:
+		MouseModeManager.release(&"menu")
+		MouseModeManager.request_mode(&"gameplay", Input.MOUSE_MODE_CAPTURED)
+	else:
+		MouseModeManager.release(&"gameplay")
+		MouseModeManager.request_mode(&"menu", Input.MOUSE_MODE_VISIBLE)
+
 
 func _on_settings_opened() -> void:
 	SettingsManager.apply_all()
@@ -86,27 +91,6 @@ func _on_settings_opened() -> void:
 
 func _on_settings_closed() -> void:
 	pass
-
-
-func _on_main_menu_opened() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-
-
-func _on_gameplay_started() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	print_debug("Mouse captured by UIManager")
-
-
-# TODO Consider routing this to Input manager request release mouse? But would couple to that
-# Maybe an autoload only for the signal instead? Or use pause manager?
-func _on_gameplay_resumed() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
-
-# TODO Consider routing this to Input manager request release mouse? But would couple to that
-# Maybe an autoload only for the signal instead? Or use pause manager?
-func _on_gameplay_paused() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
 func _get_ui() -> UIView:

@@ -22,7 +22,10 @@ func _ready() -> void:
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("open_shop"):
 		visible = not visible
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		if visible:
+			MouseModeManager.request_mode(&"shop", Input.MOUSE_MODE_VISIBLE)
+		else:
+			MouseModeManager.release(&"shop")
 
 
 func _on_player_spawned(spawned_player: Node) -> void:
