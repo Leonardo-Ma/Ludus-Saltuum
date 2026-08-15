@@ -1,5 +1,9 @@
+# TODO Fix this garbage, attach to specific key to open
 class_name GoapGraphBuilder
 extends GraphEdit
+
+const GOALS_DIRECTORY: String = "res://src/entities/ai/goap/goals"
+const ACTIONS_DIRECTORY: String = "res://src/entities/ai/goap/actions"
 
 var _goals: Array[GoapGoal] = []
 var _actions: Array[GoapAction] = []
@@ -8,6 +12,9 @@ var _update_timer: Timer
 
 
 func _ready() -> void:
+	if not OS.is_debug_build():
+		queue_free()
+		return
 	# Ensure this node processes even when paused
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
@@ -18,13 +25,12 @@ func _ready() -> void:
 	minimap_enabled = true
 	show_grid = true
 
-	if OS.is_debug_build():
-		_update_timer = Timer.new()
-		_update_timer.process_mode = Node.PROCESS_MODE_ALWAYS
-		_update_timer.wait_time = 1.0
-		_update_timer.timeout.connect(_check_for_updates)
-		add_child(_update_timer)
-		_update_timer.start()
+	_update_timer = Timer.new()
+	_update_timer.process_mode = Node.PROCESS_MODE_ALWAYS
+	_update_timer.wait_time = 1.0
+	_update_timer.timeout.connect(_check_for_updates)
+	add_child(_update_timer)
+	_update_timer.start()
 
 	_load_goap_elements()
 	_build_graph()
@@ -33,21 +39,32 @@ func _ready() -> void:
 func _check_for_updates() -> void:
 	var needs_rebuild: bool = false
 
-	for dir_path: String in ["res://scr/goap/goals", "res://scr/goap/actions"]:
+	for dir_path: String in [GOALS_DIRECTORY, ACTIONS_DIRECTORY]:
 		var dir: DirAccess = DirAccess.open(dir_path)
-		if dir:
-			dir.list_dir_begin()
-			var file_name: String = dir.get_next()
-			while file_name != "":
-				if file_name.ends_with(".gd"):
-					var file_path: String = dir_path + "/" + file_name
-					var mod_time: int = FileAccess.get_modified_time(file_path)
+		assert(dir != null, "GOAP directory missing in %s: %s" % [name, dir_path])
 
-					if not _last_modification_times.has(file_path) or _last_modification_times[file_path] != mod_time:
-						_last_modification_times[file_path] = mod_time
-						needs_rebuild = true
-				file_name = dir.get_next()
-			dir.list_dir_end()
+		var has_gd_script: bool = false
+
+		dir.list_dir_begin()
+		var file_name: String = dir.get_next()
+		while file_name != "":
+			if file_name.ends_with(".gd"):
+				has_gd_script = true
+
+				var file_path: String = dir_path + "/" + file_name
+				var mod_time: int = FileAccess.get_modified_time(file_path)
+
+				if not _last_modification_times.has(file_path) or _last_modification_times[file_path] != mod_time:
+					_last_modification_times[file_path] = mod_time
+					needs_rebuild = true
+
+			file_name = dir.get_next()
+		dir.list_dir_end()
+
+		assert(
+			has_gd_script,
+			"GOAP directory contains no GDScript files in %s: %s" % [name, dir_path],
+		)
 
 	if needs_rebuild:
 		_rebuild_graph()
@@ -66,11 +83,7 @@ func _rebuild_graph() -> void:
 
 
 func _load_goap_elements() -> void:
-	var goals_dir: String = "res://scr/goap/goals"
-	_goals = _load_all_goals(goals_dir)
-
-	var actions_dir: String = "res://scr/goap/actions"
-	_actions = _load_all_actions(actions_dir)
+	_actions = _load_all_actions(ACTIONS_DIRECTORY)
 
 
 func _load_all_goals(dir_path: String) -> Array[GoapGoal]:

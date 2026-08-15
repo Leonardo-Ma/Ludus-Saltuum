@@ -6,20 +6,18 @@ extends Node
 
 
 func _ready() -> void:
-	var actions: Array = []
-	var goals: Array = []
+	var actions_dir: String = "res://src/entities/ai/goap/actions"
+	var actions: Array = _load_all_scripts_in_dir(actions_dir)
 
-	# Load all actions
-	var actions_dir: String = "res://scr/goap/actions"
-	actions = _load_all_scripts_in_dir(actions_dir)
+	var goals_dir: String = "res://src/entities/ai/goap/goals"
+	var goals: Array = _load_all_scripts_in_dir(goals_dir)
 
-	# Load all goals
-	var goals_dir: String = "res://scr/goap/goals"
-	goals = _load_all_scripts_in_dir(goals_dir)
+	assert(not actions.is_empty(), "No GOAP actions found in " + self.name)
+	assert(not goals.is_empty(), "No GOAP goals found in " + self.name)
 
 	test_goal_action_consistency(goals, actions)
 	print("GOAP consistency test completed.")
-	self.queue_free()
+	queue_free()
 
 
 func _load_all_scripts_in_dir(dir_path: String) -> Array[Object]:
