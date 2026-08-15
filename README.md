@@ -27,19 +27,23 @@
 </div>
 
 ---
-This was my first game, also to be partially used as a mechanics and architectural template for future ones.
+This was my first game, also to be partially used as a mechanics and architectural template for future games.
 
-In order to reduce scope and actually finish and publish it, I gave myself a ~ two month period to finish.
+It took me about 5 months to release the demo. I applied a lot of what I learned in college while learning the engine and game development in general.
 
 # Summary
 Ludus Saltuum is a 3d low poly plataformer. The core game loop is a partially procedural endless runner around evolving player abilities and different mechanics.
 
+<video width="630" height="300" src="https://github.com/user-attachments/assets/7d917f31-5a65-4a7f-8d24-22adc9bdbf6b"></video>
+
 ## Main Features:  
+- No text! Everything is presented by icons, images or sound!
 - Skills: Multi jump, dash, feather fall, teleport;
-- Springs, tornados, car levels, mazes and more;
-- Jump cutting, coyote time, knockback;
+- Springs, tornados, car levels, mazes, portals and more;
+- Coyote time, knockback;
 - Checkpoint and collectibles;
 - Chunk based procedural level generation (Handcrafted chunks);
+- Saving system, Steam cloud, achievements;
 
 ![Features diagram](docs/diagrams/features.drawio.svg)
 ---
