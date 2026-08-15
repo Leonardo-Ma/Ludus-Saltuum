@@ -1,5 +1,4 @@
 class_name ChunkFeature
-extends Node
 
 enum Feature {
 	CAR = 0,

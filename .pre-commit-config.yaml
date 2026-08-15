@@ -98,7 +98,7 @@ repos:
         files: \.gd$
 
       - id: no-string-group-names
-        name: "ban raw string group names | silent fail | use Groups autoload constants"
+        name: "ban raw string group names | silent fail | use Groups constants"
         language: pygrep
         entry: '(add_to_group|remove_from_group|is_in_group|get_tree\(\)\.get_nodes_in_group)\(\s*"'
         files: \.gd$

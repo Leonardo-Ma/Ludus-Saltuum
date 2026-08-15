@@ -22,13 +22,11 @@ buses/default_bus_layout="uid://plxel2xf671u"
 
 [autoload]
 
-Groups="*uid://bwr6mdd41t0pc"
 SettingsManager="*uid://caq4tmrxugaw7"
 GameEvents="*res://src/globals/game_events.gd"
 InputBindingManager="*uid://dogtu7flgoe45"
 GamepadIconMap="*uid://cxhhtlg0sgl0q"
 SteamWorks="*uid://bj75q73hkheqo"
-SteamCloudSave="*uid://cvg7ryuxfkyuu"
 PauseManager="*res://src/globals/pause_manager.gd"
 MouseModeManager="*uid://buxc8pi1ca70v"
 SoundManager="*uid://c6aviitsw1wa"
@@ -40,7 +38,6 @@ UIManager="*uid://dbv6ox0nun76t"
 MusicManager="*uid://cdi31wa6jj2vh"
 InputManager="*uid://dkueywuxvkn4k"
 Achievements="*uid://mcfcqnskwnjw"
-ChunksFeature="*uid://bbh1grksk6rcl"
 LevelChunkManager="*uid://qsxf8ht6hmse"
 CheckpointManager="*uid://cimfiv457vauf"
 

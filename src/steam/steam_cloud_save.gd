@@ -1,14 +1,14 @@
 ## Syncs save slot files to Steam Cloud when Steam is running and cloud is enabled
-extends Node
+class_name SteamCloudSave
 
 
-func is_available() -> bool:
+static func is_available() -> bool:
 	if !Steam.isSteamRunning():
 		return false
 	return Steam.isCloudEnabledForApp() and Steam.isCloudEnabledForAccount()
 
 
-func upload(cloud_filename: String, local_path: String) -> bool:
+static func upload(cloud_filename: String, local_path: String) -> bool:
 	if not is_available():
 		return false
 	assert(FileAccess.file_exists(local_path), "SteamCloudSave: local file missing " + local_path)
@@ -16,7 +16,7 @@ func upload(cloud_filename: String, local_path: String) -> bool:
 	return Steam.fileWrite(cloud_filename, bytes)
 
 
-func download(cloud_filename: String, local_path: String) -> bool:
+static func download(cloud_filename: String, local_path: String) -> bool:
 	if not is_available() or not Steam.fileExists(cloud_filename):
 		return false
 	var size: int = Steam.getFileSize(cloud_filename)
@@ -30,7 +30,7 @@ func download(cloud_filename: String, local_path: String) -> bool:
 	return true
 
 
-func remote_is_newer(cloud_filename: String, local_path: String) -> bool:
+static func remote_is_newer(cloud_filename: String, local_path: String) -> bool:
 	if not is_available() or not Steam.fileExists(cloud_filename):
 		return false
 	if not FileAccess.file_exists(local_path):

@@ -1,5 +1,5 @@
 ## Centralizes all Godot Group names
-extends Node
+class_name Groups
 
 const PLAYERS: String = "players"
 const ENEMIES: String = "enemies"
