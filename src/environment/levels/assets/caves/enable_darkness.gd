@@ -46,8 +46,17 @@ func _remove_darkness(player: Node3D) -> void:
 # TODO This is probably wrong?
 ## Force the shader to compile at startup instead of on first toggle to avoid stutter
 func _precompile_shaders() -> void:
-	var test_camera: Camera3D = Camera3D.new()
-	add_child(test_camera)
-	test_camera.environment = cave_environment.duplicate()
+	var sub_viewport: SubViewport = SubViewport.new()
+	sub_viewport.size = Vector2i(4, 4)
+	sub_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+	add_child(sub_viewport)
+
+	var precompile_camera: Camera3D = Camera3D.new()
+	sub_viewport.add_child(precompile_camera)
+	precompile_camera.environment = cave_environment
+	precompile_camera.current = true
+
 	await RenderingServer.frame_post_draw
-	test_camera.queue_free()
+	await RenderingServer.frame_post_draw
+
+	sub_viewport.queue_free()
