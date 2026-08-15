@@ -1,0 +1,127 @@
+[gd_scene format=3 uid="uid://bxc67crvwseo8"]
+
+[ext_resource type="Script" uid="uid://d1k4xc3spqrwq" path="res://src/environment/levels/assets/caves/enable_darkness.gd" id="1_coq8p"]
+[ext_resource type="Script" uid="uid://cntfnfgw6oknr" path="res://tests/test_scene.gd" id="1_qcd5j"]
+[ext_resource type="Script" uid="uid://cxi4v122jd7b6" path="res://tests/audio.gd" id="1_velq5"]
+[ext_resource type="Environment" uid="uid://cukvscwyyjgeh" path="res://src/environment/levels/assets/caves/cave_environment.tres" id="2_2nij2"]
+[ext_resource type="Script" uid="uid://tcs21lbywkbn" path="res://tests/goap.gd" id="2_nkw72"]
+[ext_resource type="PackedScene" uid="uid://bjgye0bmgf8gr" path="res://src/environment/mechanics/easter_egg/easter_egg.tscn" id="3_7cbxl"]
+[ext_resource type="Script" uid="uid://ch348xwtgj6fi" path="res://tests/goap_planner.gd" id="3_qcd5j"]
+[ext_resource type="PackedScene" uid="uid://0hwlnlpkbsjn" path="res://src/environment/levels/assets/platforms/static_platforms/grass_platform.tscn" id="4_8pr8v"]
+[ext_resource type="Script" uid="uid://cieb4svyd710l" path="res://tests/settings_defaults.gd" id="4_gk0a1"]
+[ext_resource type="PackedScene" uid="uid://d1xof7ah6ogjc" path="res://src/environment/assets/kenney_cave_kit/pre_made_rooms/room_large.tscn" id="5_2nij2"]
+[ext_resource type="Script" uid="uid://bw2y0ajm6l5s4" path="res://tests/status_manager.gd" id="5_nkw72"]
+[ext_resource type="PackedScene" uid="uid://bmhb7wjnaqbtx" path="res://src/environment/levels/assets/interactable/springs/spring.tscn" id="6_8pr8v"]
+[ext_resource type="PackedScene" uid="uid://c6on7cp5w028m" path="res://src/environment/levels/assets/traps/spikes/spikes.tscn" id="7_buypi"]
+[ext_resource type="PackedScene" uid="uid://y5l0u6fifvpy" path="res://src/environment/levels/assets/interactable/tornado/tornado.tscn" id="7_vr1i5"]
+[ext_resource type="PackedScene" uid="uid://c3c0sejgavc7h" path="res://src/entities/vehicles/car.tscn" id="8_njel3"]
+[ext_resource type="PackedScene" uid="uid://cmhy34flmgu50" path="res://src/environment/levels/assets/platforms/disappearing_platforms/hexagon_orange.tscn" id="8_rpuu0"]
+[ext_resource type="PackedScene" uid="uid://bneqpm1wdlci3" path="res://src/environment/levels/assets/platforms/moving_plaforms/moving_platform_orange.tscn" id="9_oo8pe"]
+[ext_resource type="PackedScene" uid="uid://dv5rl3uuwysj8" path="res://src/environment/assets/kenney_city_kit_roads/scenes/straight.tscn" id="9_vr1i5"]
+[ext_resource type="PackedScene" uid="uid://c32lde0fr367t" path="res://src/environment/levels/assets/interactable/portal/portal.tscn" id="13_4gito"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4hukf"]
+size = Vector3(20, 9, 20)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_buypi"]
+radius = 2.6132813
+height = 9.281372
+
+[node name="TestScene" type="Node3D" unique_id=564304661]
+script = ExtResource("1_qcd5j")
+
+[node name="UnitTestAutomaticScripts" type="Node" parent="." unique_id=840427028]
+
+[node name="Audio" type="Node" parent="UnitTestAutomaticScripts" unique_id=1756939447]
+script = ExtResource("1_velq5")
+
+[node name="Goap" type="Node" parent="UnitTestAutomaticScripts" unique_id=1249779777]
+script = ExtResource("2_nkw72")
+
+[node name="GoapPlanner" type="Node" parent="UnitTestAutomaticScripts" unique_id=19659933]
+script = ExtResource("3_qcd5j")
+
+[node name="SettingsDefaults" type="Node" parent="UnitTestAutomaticScripts" unique_id=539136708]
+script = ExtResource("4_gk0a1")
+
+[node name="StatusManager" type="Node" parent="UnitTestAutomaticScripts" unique_id=1563170890]
+script = ExtResource("5_nkw72")
+
+[node name="GrassPlatform" parent="." unique_id=537577895 instance=ExtResource("4_8pr8v")]
+
+[node name="CaveDarkness" type="Node3D" parent="." unique_id=1964758997]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+
+[node name="RoomLarge" parent="CaveDarkness" unique_id=348010645 instance=ExtResource("5_2nij2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14)
+
+[node name="EnableDarkness" type="Area3D" parent="CaveDarkness/RoomLarge" unique_id=403007969]
+script = ExtResource("1_coq8p")
+cave_environment = ExtResource("2_2nij2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CaveDarkness/RoomLarge/EnableDarkness" unique_id=1004502724]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 3.5, 0)
+shape = SubResource("BoxShape3D_4hukf")
+
+[node name="RoomLarge2" parent="CaveDarkness" unique_id=868175782 instance=ExtResource("5_2nij2")]
+transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, 8, 14)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="CaveDarkness" unique_id=253404115]
+
+[node name="Lights" type="Node3D" parent="." unique_id=1462602638]
+
+[node name="InteractableAndHazards" type="Node3D" parent="." unique_id=781265761]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0)
+
+[node name="Spring" parent="InteractableAndHazards" unique_id=2127770289 instance=ExtResource("6_8pr8v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
+[node name="GrassPlatform" parent="InteractableAndHazards" unique_id=1453246228 instance=ExtResource("4_8pr8v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="Spike" parent="InteractableAndHazards" unique_id=2024920262 instance=ExtResource("7_buypi")]
+transform = Transform3D(100, 0, 0, 0, -4.3711384e-06, 99.99999, 0, -99.99999, -4.3711384e-06, 0, 3.9254575, -4)
+
+[node name="Tornado" parent="InteractableAndHazards" unique_id=483596124 instance=ExtResource("7_vr1i5")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 3, 4, 0)
+
+[node name="HexagonOrangePlatform" parent="InteractableAndHazards" unique_id=402945517 instance=ExtResource("8_rpuu0")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 4, 4.365982, -4)
+
+[node name="MovingPlatforMOrange" parent="InteractableAndHazards" unique_id=1340688729 instance=ExtResource("9_oo8pe")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, -9)
+
+[node name="SkillsUnlock" type="Node3D" parent="." unique_id=559073866]
+
+[node name="EasterEggs" type="Node3D" parent="." unique_id=452354969]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+
+[node name="GrassPlatform" parent="EasterEggs" unique_id=1136591122 instance=ExtResource("4_8pr8v")]
+
+[node name="EasterEgg" parent="EasterEggs" unique_id=1789181794 node_paths=PackedStringArray("collision_shape_3d") instance=ExtResource("3_7cbxl")]
+transform = Transform3D(2.2649368e-07, 0, -0.9999999, 0, 1, 0, 0.9999999, 0, 2.2649368e-07, 2, 5, 0)
+easter_egg_name = &"42"
+collision_shape_3d = NodePath("CollisionShape3D2")
+
+[node name="Label3D" type="Label3D" parent="EasterEggs/EasterEgg" unique_id=1336527499]
+transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, 0, 0, 0)
+text = "42"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="EasterEggs/EasterEgg" unique_id=749700449]
+transform = Transform3D(0.93301266, -0.2588191, 0.25000003, 0.25881907, -4.216698e-08, -0.9659258, 0.25000006, 0.9659258, 0.06698728, -0.7382202, -1.7881393e-07, 2.7549438)
+shape = SubResource("CapsuleShape3D_buypi")
+
+[node name="Car" type="Node3D" parent="." unique_id=521773801]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 4, -13)
+
+[node name="Vehicle" parent="Car" unique_id=864995165 instance=ExtResource("8_njel3")]
+
+[node name="RoadStraight" parent="Car" unique_id=961219849 instance=ExtResource("9_vr1i5")]
+
+[node name="Portal" parent="Car/RoadStraight" unique_id=1766414310 node_paths=PackedStringArray("linked_portal") instance=ExtResource("13_4gito")]
+transform = Transform3D(-8.742273e-09, 0, -0.2, 0, 0.2, 0, 0.2, 0, -8.742273e-09, 0.39999998, 0, -5.245367e-08)
+linked_portal = NodePath("../Portal2")
+
+[node name="Portal2" parent="Car/RoadStraight" unique_id=1329018002 node_paths=PackedStringArray("linked_portal") instance=ExtResource("13_4gito")]
+transform = Transform3D(2.6226822e-08, 0, 0.2, 0, 0.2, 0, -0.2, 0, 2.6226822e-08, -0.40000004, 0, 5.2453657e-08)
+linked_portal = NodePath("../Portal")
