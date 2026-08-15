@@ -10,7 +10,9 @@ const CHUNK_DIRECTORIES: Array[String] = [
 	"res://src/environment/levels/base_levels/",
 	"res://src/environment/levels/skills/",
 ]
-const CHUNK_SPAWN_AMOUNT: int = 8
+
+const CHUNK_SPAWN_AMOUNT: int = 10
+const CHUNK_INDEX_THAT_TRIGGERS_RECYCLING: int = 4
 
 const LEVEL_COMPLETE_SOUNDS: Array[AudioStream] = [
 	preload("uid://wsw31trreg3k"),  # chequered_ink/brass_level_complete.wav
@@ -35,6 +37,11 @@ var _current_chunk_index: int = 0
 
 
 func _ready() -> void:
+	@warning_ignore("assert_always_true")
+	assert(
+		CHUNK_SPAWN_AMOUNT > CHUNK_INDEX_THAT_TRIGGERS_RECYCLING,
+		"CHUNK_SPAWN_AMOUNT (%d) must be > CHUNK_INDEX_THAT_TRIGGERS_RECYCLING (%d)" % [CHUNK_SPAWN_AMOUNT, CHUNK_INDEX_THAT_TRIGGERS_RECYCLING]
+	)
 	_load_chunk_metadata_from_disk()
 
 	# Try to fetch the global seed, else random
@@ -270,6 +277,7 @@ func skip_current_chunk(player: PlayerEntity) -> void:
 	player.global_position = exit_trigger.global_position
 
 
+# TODO This may be best be an enum/dict in level_chunk?
 func _get_difficulty_points(chunk: LevelChunk, data: ChunkData) -> int:
 	match chunk.difficulty:
 		LevelChunk.Difficulty.EASY:
@@ -338,9 +346,8 @@ func _on_chunk_exit_reached(body: Node3D, passed_chunk: LevelChunk) -> void:
 				GameEvents.add_score(total_score)
 				break
 
-	# TODO Remove hardcoded numbers
-	# Only start recycling after the third chunk
-	if _active_chunks.size() > 2 and _active_chunks[2] == passed_chunk:
+	# Only start recycling after the configured start index
+	if _active_chunks.size() > CHUNK_INDEX_THAT_TRIGGERS_RECYCLING and _active_chunks[CHUNK_INDEX_THAT_TRIGGERS_RECYCLING] == passed_chunk:
 		recycle_oldest_chunk()
 
 
