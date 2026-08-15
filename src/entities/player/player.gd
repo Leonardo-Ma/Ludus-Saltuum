@@ -117,6 +117,7 @@ func entity_enable_disable(toggle: bool) -> void:
 		remove_from_group(Groups.CONTROLLED)
 	skills_controller.set_physics_process(toggle)
 	set_collision_layer_value(1, toggle)
+	collision_shape.set_deferred("disabled", not toggle)
 	hurtbox.set_deferred("monitoring", toggle)
 	hurtbox.set_deferred("monitorable", toggle)
 	hitbox.set_deferred("monitoring", toggle)
