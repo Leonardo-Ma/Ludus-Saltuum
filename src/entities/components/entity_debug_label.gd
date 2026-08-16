@@ -2,6 +2,7 @@
 extends Label3D
 
 @onready var animation_tree: AnimationTree = %AnimationTree
+# TODO This RedMageMemory is quite outdated and long gone
 @onready var goap_controller: RedMageMemory = %GoapController
 
 @onready var label_text: String
@@ -30,7 +31,7 @@ func _process(_delta: float) -> void:
 
 	label_text += "Current goal: "
 	if owner.goap_agent._current_goal:
-		label_text += str(owner.goap_agent._current_goal.name) + "\n"
+		label_text += str(owner.goap_agent._current_goal.get_custom_class_name()) + "\n"
 
 	if owner.goap_agent._current_goal:
 		label_text += "Current goal: " + owner.goap_agent._current_goal.get_custom_class_name()

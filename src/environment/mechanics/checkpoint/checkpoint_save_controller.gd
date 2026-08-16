@@ -1,3 +1,4 @@
+# TODO Maybe merge with CheckpointManager?
 ## Handles checkpoint save/load logic for player respawn position [br]
 ## Used by SaveManager during save/load operations
 class_name CheckpointSaveController

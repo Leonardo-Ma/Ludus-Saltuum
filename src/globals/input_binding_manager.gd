@@ -41,6 +41,7 @@ func _ready() -> void:
 ## Gamepad bindings are preserved
 func rebind(action: StringName, event: InputEvent) -> void:
 	assert(InputMap.has_action(action), "InputBindingManager: unknown action " + action)
+	assert(event is InputEventKey, "InputBindingManager: rebind only supports InputEventKey in " + name)
 	_remove_keyboard_bindings(action)
 	InputMap.action_add_event(action, event)
 	_save()
