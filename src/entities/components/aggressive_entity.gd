@@ -50,7 +50,7 @@ var _prev_health: int = 0
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var animation_tree: AnimationTree = %AnimationTree
 
-@onready var navigation_controller: Node
+@onready var navigation_controller: NavigationController
 @onready var goap_controller: GoapMemory
 @onready var perception_system: PerceptionSystem
 

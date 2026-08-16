@@ -21,7 +21,7 @@ const PARAM_IS_DAMAGED_REQUEST: String = "parameters/is_damaged/request"
 
 func _ready() -> void:
 	if entity is PlayerEntity:
-		var movement_controller: Node3D = $%MovementController
+		var movement_controller: MovementController = $%MovementController
 		assert(movement_controller, "movement_controller missing for " + owner.name)
 #		movement_controller.move_stopped.connect(_on_move_stopped)
 		movement_controller.movement_direction_changed.connect(_on_movement_direction_changed)
@@ -30,7 +30,7 @@ func _ready() -> void:
 		movement_controller.landed.connect(_on_landed)
 #		magic_controller.casted.connect(_on_magic_casted)
 	elif entity is AggressiveEntity:
-		var navigation_controller: Node = $%NavigationController
+		var navigation_controller: NavigationController = $%NavigationController
 		assert(navigation_controller, "navigation_controller missing for " + owner.name)
 		navigation_controller.movement_direction_changed.connect(_on_movement_direction_changed)
 	else:
