@@ -17,7 +17,9 @@ func _ready() -> void:
 		var key: StringName = property.name
 		if key in _EXCLUDED:
 			continue
-		#assert(all_defaults.has(key), "SettingsManager: '%s' has no entry in _DEFAULTS" % key)
+		if (key as String).begins_with("_"):
+			continue
+		assert(all_defaults.has(key), "SettingsManager: '%s' has no entry in _DEFAULTS" % key)
 
 	print("Settings defaults consistency test completed.")
 	self.queue_free()
