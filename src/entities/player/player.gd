@@ -30,6 +30,53 @@ func _physics_process(delta: float) -> void:
 				collider.apply_impulse(push_dir.normalized() * push_force, collision.get_position() - collider.global_position)
 
 
+func respawn(delay: float, target_transform: Transform3D, is_death: bool = false) -> void:
+	GameEvents.player_respawning.emit(delay)
+
+	movement_controller.disable_movement(delay)
+	velocity = Vector3.ZERO
+
+	# Wait for the screen to fade in
+	await get_tree().create_timer(delay / 2.0).timeout
+
+	global_position = target_transform.origin
+	global_rotation.y = target_transform.basis.get_euler().y
+
+	if is_death:
+		health.reset()
+		status_manager.clear_temporary_statuses()
+		scale = Vector3.ONE
+
+	input_controller.set_process_input(true)
+	input_controller.set_process_unhandled_input(true)
+
+	hitbox.set_deferred("monitoring", true)
+	hitbox.set_deferred("monitorable", true)
+
+	hurtbox.set_deferred("monitoring", true)
+	hurtbox.set_deferred("monitorable", true)
+
+
+# TODO Maybe change this to a signal based to decouple?
+# TODO Improve name
+func entity_enable_disable(toggle: bool) -> void:
+	if toggle == true:
+		GameEvents.set_controlled_entity(self)
+		add_to_group(Groups.CONTROLLED)
+	else:
+		remove_from_group(Groups.CONTROLLED)
+	skills_controller.set_physics_process(toggle)
+	set_collision_layer_value(1, toggle)
+	collision_shape.set_deferred("disabled", not toggle)
+	hurtbox.set_deferred("monitoring", toggle)
+	hurtbox.set_deferred("monitorable", toggle)
+	hitbox.set_deferred("monitoring", toggle)
+	hitbox.set_deferred("monitorable", toggle)
+	camera_controller.set_active(toggle)
+	set_physics_process(toggle)
+	visible = toggle
+
+
 func _child_ready() -> void:
 	# TODO This may not be the best place for this
 	add_to_group(Groups.PLAYERS)
@@ -67,61 +114,15 @@ func _on_attack_pressed() -> void:
 
 func _on_death_complete() -> void:
 	GameEvents.remove_score(10)
-	GameEvents.request_respawn(2.0, CheckpointManager.get_respawn_position(), true)
-
-
-func respawn(delay: float, target_position: Vector3, is_death: bool = false) -> void:
-	GameEvents.player_respawning.emit(delay)
-
-	movement_controller.disable_movement(delay)
-	velocity = Vector3.ZERO
-
-	# Wait for the screen to fade in
-	await get_tree().create_timer(delay / 2.0).timeout
-
-	global_position = target_position
-
-	if is_death:
-		health.reset()
-		status_manager.clear_temporary_statuses()
-		scale = Vector3.ONE
-
-	input_controller.set_process_input(true)
-	input_controller.set_process_unhandled_input(true)
-
-	hitbox.set_deferred("monitoring", true)
-	hitbox.set_deferred("monitorable", true)
-
-	hurtbox.set_deferred("monitoring", true)
-	hurtbox.set_deferred("monitorable", true)
+	GameEvents.request_respawn(2.0, CheckpointManager.get_respawn_transform(), true)
 
 
 func _on_return_to_checkpoint_requested() -> void:
 	if health.current_health <= 0:
 		return
-	GameEvents.request_respawn(1.0, CheckpointManager.get_respawn_position())
+	GameEvents.request_respawn(1.0, CheckpointManager.get_respawn_transform())
 
 
 func _on_damaged_vibration(_attack: Attack) -> void:
 	# TODO Change the gamepad index to the current player gamepad?
 	Input.start_joy_vibration(0, 0.5, 0.5, 0.7)
-
-
-# TODO Maybe change this to a signal based to decouple?
-# TODO Improve name
-func entity_enable_disable(toggle: bool) -> void:
-	if toggle == true:
-		GameEvents.set_controlled_entity(self)
-		add_to_group(Groups.CONTROLLED)
-	else:
-		remove_from_group(Groups.CONTROLLED)
-	skills_controller.set_physics_process(toggle)
-	set_collision_layer_value(1, toggle)
-	collision_shape.set_deferred("disabled", not toggle)
-	hurtbox.set_deferred("monitoring", toggle)
-	hurtbox.set_deferred("monitorable", toggle)
-	hitbox.set_deferred("monitoring", toggle)
-	hitbox.set_deferred("monitorable", toggle)
-	camera_controller.set_active(toggle)
-	set_physics_process(toggle)
-	visible = toggle

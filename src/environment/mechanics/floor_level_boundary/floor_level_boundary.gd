@@ -9,7 +9,7 @@ extends Area3D
 var target: Node3D
 
 # Store the exact spot the player was born before any checkpoints existed
-var _fallback_spawn: Vector3
+var _fallback_spawn_transform: Transform3D
 
 @onready var hitbox_collision_shape_3d: CollisionShape3D = $Hitbox/CollisionShape3D
 
@@ -31,7 +31,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func _initialize_position() -> void:
-	_fallback_spawn = target.global_position
+	_fallback_spawn_transform = target.global_transform
 
 	if CheckpointManager.has_active_checkpoint():
 		global_position.y = CheckpointManager.get_respawn_position().y - fall_margin
@@ -54,11 +54,11 @@ func _on_body_entered(body: Node3D) -> void:
 	if body != target:
 		return
 
-	var target_position: Vector3
+	var target_transform: Transform3D
 
 	if CheckpointManager.has_active_checkpoint():
-		target_position = CheckpointManager.get_respawn_position()
+		target_transform = CheckpointManager.get_respawn_transform()
 	else:
-		target_position = _fallback_spawn
+		target_transform = _fallback_spawn_transform
 
-	GameEvents.request_respawn(2.0, target_position, false)
+	GameEvents.request_respawn(2.0, target_transform, false)

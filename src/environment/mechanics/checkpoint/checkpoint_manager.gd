@@ -51,15 +51,17 @@ func _on_chunk_recycled(recycled_chunk: LevelChunk) -> void:
 		_is_chunk_relative = false
 
 
-func get_respawn_position() -> Vector3:
+func get_respawn_transform() -> Transform3D:
 	assert(_has_valid_position, "No active checkpoint found. Check if default spawn point defined.")
-
 	if _is_chunk_relative:
 		assert(_active_checkpoint_chunk != null and is_instance_valid(_active_checkpoint_chunk), "Checkpoint chunk no longer valid")
 		# World position from chunk current transform + local offset
-		return _active_checkpoint_chunk.global_transform * _local_checkpoint_transform.origin
-	# Global position stored directly (checkpoint outside chunk)
-	return _local_checkpoint_transform.origin
+		return _active_checkpoint_chunk.global_transform * _local_checkpoint_transform
+	return _local_checkpoint_transform
+
+
+func get_respawn_position() -> Vector3:
+	return get_respawn_transform().origin
 
 
 func has_active_checkpoint() -> bool:
@@ -82,15 +84,19 @@ func reset_checkpoint() -> void:
 	_is_chunk_relative = false
 
 
-func get_default_spawn_position() -> Vector3:
+func get_default_spawn_transform() -> Transform3D:
 	# Fallback to first chunk entrance if available
 	var chunks: Array[LevelChunk] = LevelChunkManager.get_active_chunks()
 	if not chunks.is_empty():
 		var entrance: Node3D = chunks[0].get_node("%EntranceTrigger")
 		if entrance and is_instance_valid(entrance):
-			return entrance.global_position
-	# Ultimate fallback: world origin
-	return Vector3.ZERO
+			return entrance.global_transform
+	# Fallback to world origin
+	return Transform3D.IDENTITY
+
+
+func get_default_spawn_position() -> Vector3:
+	return get_default_spawn_transform().origin
 
 
 func restore_position(chunk_scene_path: String, local_transform: Transform3D) -> void:

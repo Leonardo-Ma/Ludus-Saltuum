@@ -180,15 +180,15 @@ func exit(exit_position: Vector3) -> void:
 	enter_area.set_deferred("monitoring", true)
 
 
-func respawn(delay: float, target_position: Vector3, is_death: bool = false) -> void:
+func respawn(delay: float, target_transform: Transform3D, is_death: bool = false) -> void:
 	GameEvents.player_respawning.emit(delay)
 
 	# TODO Remove this magic number delay
 	# Wait for the screen to fade in
 	await get_tree().create_timer(delay / 2.0).timeout
 
-	global_transform = Transform3D(initial_level_position.basis, target_position)
-	rotation = Vector3.ZERO
+	global_position = target_transform.origin
+	rotation = Vector3(0.0, target_transform.basis.get_euler().y, 0.0)
 	linear_velocity = Vector3.ZERO
 	angular_velocity = Vector3.ZERO
 
