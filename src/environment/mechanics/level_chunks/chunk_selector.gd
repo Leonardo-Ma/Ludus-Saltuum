@@ -62,7 +62,7 @@ func select_chunk_data(
 				continue
 		# --------------- tag filtering ---------------
 		if not required_features.is_empty():
-			var missing_feature: bool = required_features.any(func(tag: StringName) -> bool: return not data.tags.has(tag))
+			var missing_feature: bool = required_features.any(func(feature: ChunkFeature.Feature) -> bool: return not data.features.has(feature))
 			if missing_feature:
 				continue
 		# --------------- required skills check ---------------
