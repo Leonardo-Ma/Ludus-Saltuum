@@ -48,8 +48,8 @@ func setup(slot_index: int, data: SaveData) -> void:
 	_save_name_label.text = prefix
 	_score_label.text = str(data.player.score)
 	_gold_label.text = str(data.player.gold)
-	_save_date_label.text = Time.get_datetime_string_from_unix_time(data.save_timestamp)
-	_play_time_label.text = ""
+	_save_date_label.text = _format_save_date(data.save_timestamp)
+	_play_time_label.text = _format_play_time(data.play_time_seconds)
 	_play_button.icon = PLAY
 	_play_button.disabled = false
 	_delete_button.disabled = false
@@ -87,3 +87,20 @@ func _populate_icons() -> void:
 		_save_type_icon.texture = DISPLAY
 	else:
 		_save_type_icon.texture = CURSOR_LINK
+
+
+func _format_save_date(unix_time: int) -> String:
+	var dt: Dictionary = Time.get_datetime_dict_from_unix_time(unix_time)
+	if OS.get_locale_language() == "en":
+		return "%02d/%02d/%04d %02d:%02d" % [dt.month, dt.day, dt.year, dt.hour, dt.minute]
+	return "%02d/%02d/%04d %02d:%02d" % [dt.day, dt.month, dt.year, dt.hour, dt.minute]
+
+
+func _format_play_time(seconds: float) -> String:
+	var total_seconds: int = int(seconds)
+	@warning_ignore("integer_division")
+	var hours: int = total_seconds / 3600
+	@warning_ignore("integer_division")
+	var minutes: int = (total_seconds % 3600) / 60
+	var secs: int = total_seconds % 60
+	return "%03d:%02d:%02d" % [hours, minutes, secs]

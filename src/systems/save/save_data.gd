@@ -6,6 +6,7 @@ extends Resource
 @export var slot_index: int = 0
 @export var is_auto_save: bool = false
 @export var save_timestamp: int = 0
+@export var play_time_seconds: float = 0.0
 
 @export var player: PlayerSaveData = PlayerSaveData.new()
 @export var world: WorldSaveData = WorldSaveData.new()

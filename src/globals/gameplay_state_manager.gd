@@ -17,6 +17,8 @@ var _current_mode: GameplayMode = GameplayMode.NONE
 var _previous_mode: GameplayMode = GameplayMode.NONE
 var _is_initialized: bool = false
 
+var _play_time_seconds: float = 0.0
+
 @onready var _app_state_manager: ApplicationStateManager = ApplicationStateManager
 
 
@@ -28,6 +30,18 @@ func _ready() -> void:
 
 	if _app_state_manager.is_in_state(ApplicationStateManager.GameState.PLAYING):
 		_on_application_state_entered_playing()
+
+
+func _process(delta: float) -> void:
+	_play_time_seconds += delta
+
+
+func get_play_time() -> float:
+	return _play_time_seconds
+
+
+func set_play_time(seconds: float) -> void:
+	_play_time_seconds = seconds
 
 
 func _on_application_state_changed(new_state: ApplicationStateManager.GameState, _previous_state: ApplicationStateManager.GameState) -> void:

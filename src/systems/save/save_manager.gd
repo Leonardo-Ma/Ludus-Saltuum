@@ -32,6 +32,7 @@ func _ready() -> void:
 
 func reset_data_for_new_game() -> void:
 	_next_auto_slot = 0
+	GameplayStateManager.set_play_time(0.0)
 	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
 	player.player_save_controller.reset_data()
 	WorldSaveController.reset_data()
@@ -162,6 +163,7 @@ func _build_save(slot_index: int, is_auto: bool) -> SaveData:
 	data.slot_index = slot_index
 	data.is_auto_save = is_auto
 	data.save_timestamp = int(Time.get_unix_time_from_system())
+	data.play_time_seconds = GameplayStateManager.get_play_time()
 
 	# TODO Check how to decouple this
 	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
@@ -180,6 +182,7 @@ func _on_player_spawned_after_load(spawned_player: Node3D) -> void:
 
 
 func _apply(data: SaveData) -> void:
+	GameplayStateManager.set_play_time(data.play_time_seconds)
 	# TODO Check how to decouple this
 	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
 	player.player_save_controller.apply_save(data.player)
