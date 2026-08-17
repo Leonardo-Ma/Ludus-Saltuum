@@ -98,6 +98,8 @@ var _config: ConfigFile = ConfigFile.new()
 
 
 func _ready() -> void:
+	get_window().size_changed.connect(_on_window_size_changed)
+
 	_load()
 	apply_all()
 
@@ -110,6 +112,7 @@ func apply_all() -> void:
 
 func apply_display() -> void:
 	DisplayServer.window_set_mode(window_mode)
+
 	if window_mode == DisplayServer.WINDOW_MODE_WINDOWED:
 		get_window().size = resolution
 
@@ -203,3 +206,17 @@ func reset_to_default(section: SettingsSection = SettingsSection.NONE) -> void:
 	apply_all()
 	save()
 	settings_reset.emit()
+
+
+# TODO BUG This fails if windowed but maximized. Also doesn't properly recognize screen resolution limits
+func _on_window_size_changed() -> void:
+	if window_mode != DisplayServer.WINDOW_MODE_WINDOWED:
+		return
+
+	var new_resolution: Vector2i = get_window().size
+
+	if resolution == new_resolution:
+		return
+
+	resolution = new_resolution
+	display_settings_changed.emit()

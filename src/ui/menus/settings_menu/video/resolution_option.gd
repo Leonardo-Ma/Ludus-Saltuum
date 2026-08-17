@@ -25,25 +25,22 @@ func _ready() -> void:
 	for resolution: Vector2i in RESOLUTIONS:
 		add_item("%d x %d" % [resolution.x, resolution.y])
 
-	var idx: int = RESOLUTIONS.find(SettingsManager.resolution)
-	self.selected = idx if idx != -1 else 0
-
-	get_window().size_changed.connect(_on_window_size_changed)
+	SettingsManager.display_settings_changed.connect(_on_display_settings_changed)
 	item_selected.connect(_on_resolution_changed)
 
+	_update_selected_resolution()
 
-func _on_window_size_changed() -> void:
-	var window: Window = get_window()
-	if window.mode != Window.MODE_WINDOWED:
-		return
-	var idx: int = RESOLUTIONS.find(window.size)
-	if idx != -1:
-		self.selected = idx
+
+func _on_display_settings_changed() -> void:
+	_update_selected_resolution()
+
+
+func _update_selected_resolution() -> void:
+	var index: int = RESOLUTIONS.find(SettingsManager.resolution)
+	select(index)
 
 
 func _on_resolution_changed(index: int) -> void:
-	var window: Window = get_window()
 	SettingsManager.resolution = RESOLUTIONS[index]
-	if window.mode == Window.MODE_WINDOWED:
-		window.size = SettingsManager.resolution
+	SettingsManager.apply_display()
 	SettingsManager.save()
