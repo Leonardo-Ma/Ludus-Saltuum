@@ -123,7 +123,7 @@ func load_save_data(
 
 		_setup_chunk_trigger(chunk)
 
-		next_spawn_transform = (chunk.get_node("%ExitTrigger") as Node3D).global_transform
+		next_spawn_transform = chunk.exit_trigger.global_transform
 
 
 func _load_chunk_metadata_from_disk() -> void:
@@ -148,6 +148,8 @@ func _load_chunk_metadata_from_disk() -> void:
 								var data: ChunkData = ChunkData.new()
 								data.has_checkpoint = checkpoints.size() > 0
 
+								# Chunk is never added to the tree (only metadata), so
+								# @onready entrance_trigger/exit_trigger are never set. Need use get_node directly
 								var entrance_trigger: Node3D = chunk.get_node("%EntranceTrigger")
 								var exit_trigger: Node3D = chunk.get_node("%ExitTrigger")
 								data.height_shift = exit_trigger.position.y - entrance_trigger.position.y
@@ -273,7 +275,7 @@ func skip_current_chunk(player: PlayerEntity) -> void:
 	# Mark as scored without giving score since skipped
 	current_chunk.set_meta("scored", true)
 	_on_chunk_exit_reached(player, current_chunk)
-	var exit_trigger: Node3D = current_chunk.get_node("%ExitTrigger")
+	var exit_trigger: Node3D = current_chunk.exit_trigger
 	player.global_position = exit_trigger.global_position
 
 
@@ -310,7 +312,7 @@ func _get_player_skills() -> Array[StringName]:
 
 
 func _align_chunk_to_transform(chunk: LevelChunk, target_transform: Transform3D) -> void:
-	var entrance_node: Node3D = chunk.get_node("%EntranceTrigger")
+	var entrance_node: Node3D = chunk.entrance_trigger
 
 	# Snap position and maintain the chunk native rotation
 	var rel_entrance: Transform3D = chunk.global_transform.affine_inverse() * entrance_node.global_transform
@@ -319,7 +321,7 @@ func _align_chunk_to_transform(chunk: LevelChunk, target_transform: Transform3D)
 
 
 func _setup_chunk_trigger(chunk: LevelChunk) -> void:
-	var trigger: Area3D = chunk.get_node("%ExitTrigger")
+	var trigger: Area3D = chunk.exit_trigger
 	_disconnect_chunk_trigger(chunk)
 	var callable: Callable = _on_chunk_exit_reached.bind(chunk)
 	_chunk_exit_connections[chunk.get_instance_id()] = callable
@@ -363,7 +365,7 @@ func _disconnect_chunk_trigger(chunk: LevelChunk) -> void:
 	if not _chunk_exit_connections.has(chunk_id):
 		return
 
-	var trigger: Area3D = chunk.get_node("%ExitTrigger")
+	var trigger: Area3D = chunk.exit_trigger
 	var callable: Callable = _chunk_exit_connections[chunk_id]
 	if trigger.body_entered.is_connected(callable):
 		trigger.body_entered.disconnect(callable)

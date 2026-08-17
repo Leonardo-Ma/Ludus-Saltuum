@@ -15,6 +15,7 @@ enum Difficulty { EASY, MEDIUM, HARD }
 @export var required_skill_ids: Array[StringName] = []
 
 @onready var exit_trigger: Area3D = %ExitTrigger
+@onready var entrance_trigger: Area3D = %EntranceTrigger
 
 
 func _ready() -> void:
