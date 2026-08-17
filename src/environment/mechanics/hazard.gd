@@ -1,5 +1,5 @@
 @abstract class_name Hazard
-extends Node3D
+extends Area3D
 
 signal activate
 signal deactivate
@@ -15,11 +15,9 @@ signal deactivate
 func _ready() -> void:
 	assert(attack and attack.damage > 0 and attack.type != null, "Attack property incorrect for " + name)
 
-	if self.get_parent() is Area3D or StaticBody3D:
-		self.body_entered.connect(_on_body_entered)
-		self.body_exited.connect(_on_body_exited)
-	else:
-		assert(false, "I am not Area3D or StaticBody3D " + self.name)
+	body_entered.connect(_on_body_entered)
+	body_exited.connect(_on_body_exited)
+
 	_child_ready()
 
 
