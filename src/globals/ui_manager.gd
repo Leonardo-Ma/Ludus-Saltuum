@@ -86,7 +86,7 @@ func _on_game_state_changed(new_state: ApplicationStateManager.GameState, previo
 
 
 func _on_settings_opened() -> void:
-	SettingsManager.apply_all()
+	pass
 
 
 func _on_settings_closed() -> void:

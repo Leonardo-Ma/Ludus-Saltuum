@@ -88,7 +88,6 @@ func _on_state_entered(new_state: GameState, previous_state: GameState) -> void:
 
 		GameState.SETTINGS:
 			UIManager.show_settings()
-			SettingsManager.apply_all()
 			settings_opened.emit()
 
 		GameState.SAVE_MENU:
@@ -99,7 +98,6 @@ func _on_state_entered(new_state: GameState, previous_state: GameState) -> void:
 
 		GameState.MAIN_MENU_SETTINGS:
 			UIManager.show_main_menu_settings()
-			SettingsManager.apply_all()
 			settings_opened.emit()
 
 
