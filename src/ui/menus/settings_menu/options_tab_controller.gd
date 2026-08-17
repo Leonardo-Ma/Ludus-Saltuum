@@ -1,4 +1,5 @@
 # TODO Check if force same order is best approach
+# BUG This is clearly wrong, probably a dictionary better?
 ## Manages tab switching for the settings menu
 ## Tabs, panels, and section_map must be in same order
 class_name OptionsTabController
