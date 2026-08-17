@@ -19,6 +19,7 @@ var _auto_timer: Timer
 
 func _ready() -> void:
 	DirAccess.make_dir_recursive_absolute(SAVE_DIR)
+	get_tree().set_auto_accept_quit(false)
 	_sync_cloud_saves()
 	_next_auto_slot = _find_next_auto_slot()
 
@@ -28,6 +29,10 @@ func _ready() -> void:
 	_auto_timer.timeout.connect(_on_auto_save)
 	add_child(_auto_timer)
 	_auto_timer.start()
+
+	# Saves to quick slot upon pause and quit
+	ApplicationStateManager.gameplay_paused.connect(_on_gameplay_paused)
+	ApplicationStateManager.quit_requested.connect(_on_quit_requested)
 
 
 func reset_data_for_new_game() -> void:
@@ -248,6 +253,20 @@ func _find_next_auto_slot() -> int:
 			oldest_timestamp = data.save_timestamp
 			oldest_index = i
 	return oldest_index
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		ApplicationStateManager.request_quit()
+
+
+func _on_gameplay_paused() -> void:
+	save_to_quick_slot()
+
+
+func _on_quit_requested() -> void:
+	if ApplicationStateManager.is_gameplay_active():
+		save_to_quick_slot()
 
 
 func _sync_cloud_saves() -> void:
