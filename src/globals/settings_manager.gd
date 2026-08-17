@@ -15,6 +15,7 @@ enum SettingsSection {
 	CAMERA,
 	VIDEO,
 	ACCESSIBILITY,
+	KEY_BINDINGS,
 }
 
 const _CONFIG_PATH: String = "user://settings.cfg"
@@ -24,6 +25,7 @@ const _SECTION_AUDIO: String = "audio"
 const _SECTION_UI: String = "ui"
 const _SECTION_CAMERA: String = "camera"
 const _SECTION_ACCESSIBILITY: String = "accessibility"
+const _KEY_BINDINGS: String = "key_bindings"
 
 ## Hardcoded project defaults, grouped by SettingsSection, used by reset_to_default()
 ## Each inner key must mirror an existing var declaration above
@@ -60,6 +62,10 @@ const _DEFAULTS: Dictionary = {
 	{
 		&"grayscale_enabled": false,
 	},
+	SettingsSection.KEY_BINDINGS:
+	# TODO This is necessary for tab management, but about defaults, need to check if
+	# godot saves default inputs
+	{},
 }
 
 var resolution: Vector2i = Vector2i(1920, 1080)

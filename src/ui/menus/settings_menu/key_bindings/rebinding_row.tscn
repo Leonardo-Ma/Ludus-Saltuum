@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://di80ffb0v6qrw"]
 
 [ext_resource type="Script" uid="uid://ohr3c42qg5v7" path="res://src/ui/menus/settings_menu/key_bindings/rebinding_row.gd" id="1_rebrow"]
+[ext_resource type="Texture2D" uid="uid://bkufsmjm825nk" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/10_editing/undo.png" id="2_41wco"]
 
 [node name="RebindingRow" type="PanelContainer" unique_id=100001]
 custom_minimum_size = Vector2(0, 72)
@@ -15,13 +16,10 @@ theme_override_constants/margin_right = 8
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="ActionLabel" type="Label" parent="MarginContainer/HBoxContainer" unique_id=100004]
+[node name="ActionsIconsContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1021593100]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(280, 0)
-propagate_maximum_size = true
 layout_mode = 2
-size_flags_horizontal = 6
-vertical_alignment = 1
+size_flags_horizontal = 3
 
 [node name="KeyButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=100005]
 unique_name_in_owner = true
@@ -38,10 +36,12 @@ custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ResetButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=100007]
+[node name="ResetButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1822327932]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(36, 36)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-size_flags_horizontal = 3
-text = "↩"
-flat = true
+size_flags_horizontal = 6
+size_flags_vertical = 4
+icon = ExtResource("2_41wco")
+icon_alignment = 1
+expand_icon = true

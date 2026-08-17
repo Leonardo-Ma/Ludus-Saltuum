@@ -22,8 +22,3 @@ theme_override_constants/separation = 2
 
 [node name="HSeparator" type="HSeparator" parent="." unique_id=200004]
 layout_mode = 2
-
-[node name="ResetAllButton" type="Button" parent="." unique_id=200005]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Reset All Bindings"

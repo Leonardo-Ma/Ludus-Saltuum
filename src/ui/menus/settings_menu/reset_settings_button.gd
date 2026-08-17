@@ -18,4 +18,6 @@ func _on_active_section_changed(section: SettingsManager.SettingsSection) -> voi
 
 
 func _on_pressed() -> void:
+	if _current_section == SettingsManager.SettingsSection.KEY_BINDINGS:
+		InputBindingManager.reset_all()
 	SettingsManager.reset_to_default(_current_section)

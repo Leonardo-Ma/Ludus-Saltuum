@@ -19,8 +19,11 @@
 [ext_resource type="Texture2D" uid="uid://b7eyvxyhsw0wf" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/menu_07.png" id="14_6geaa"]
 [ext_resource type="Texture2D" uid="uid://7p2j8n842i0a" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/cross.png" id="15_6geaa"]
 [ext_resource type="Texture2D" uid="uid://pfmkppm3ecuw" path="res://src/ui/assets/fantasy_ui_borders/PNG/Double/Border/panel-border-010.png" id="17_6geaa"]
+[ext_resource type="Texture2D" uid="uid://c2khjby7me4bp" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/exclamation_02.png" id="18_8l3q0"]
+[ext_resource type="Texture2D" uid="uid://dkfyut8fnqg33" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/2_items/hammer02.png" id="19_sto7j"]
 [ext_resource type="PackedScene" uid="uid://l8tfyp2lpc7o" path="res://src/ui/hud/hud.tscn" id="20_1ltwp"]
 [ext_resource type="Texture2D" uid="uid://cvw72qmip5r4d" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/music.png" id="20_6geaa"]
+[ext_resource type="Texture2D" uid="uid://do2af3s8chsgf" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/2_items/saw.png" id="20_txwea"]
 [ext_resource type="Texture2D" uid="uid://box0h5kam6d5h" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/1_game/hit-effect.png" id="21_6geaa"]
 [ext_resource type="Script" uid="uid://37a0isl6jamo" path="res://src/ui/menus/settings_menu/hud/hud_visibility_toggle.gd" id="21_lcw02"]
 [ext_resource type="Texture2D" uid="uid://csssgfxl235ik" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/visible.png" id="22_863by"]
@@ -95,9 +98,9 @@ layout_mode = 2
 [node name="SettingsContainer" type="VBoxContainer" parent="RootContainer" unique_id=1404946993 node_paths=PackedStringArray("tabs", "panels")]
 layout_mode = 2
 script = ExtResource("3_bx78x")
-tabs = [NodePath("TabMarginContainer/TabContainer/GameplayTab"), NodePath("TabMarginContainer/TabContainer/AudioTab"), NodePath("TabMarginContainer/TabContainer/HUDTab"), NodePath("TabMarginContainer/TabContainer/CameraTab"), NodePath("TabMarginContainer/TabContainer/VideoTab"), NodePath("TabMarginContainer/TabContainer/AccessibilityTab"), NodePath("TabMarginContainer/TabContainer/CreditsTab"), NodePath("TabMarginContainer/TabContainer/KeyBindingsTab"), NodePath("TabMarginContainer/TabContainer/StatisticsTab")]
-panels = [NodePath("VBoxContainer/Tabs/GameplayOptions"), NodePath("VBoxContainer/Tabs/AudioOptions"), NodePath("VBoxContainer/Tabs/HudOptions"), NodePath("VBoxContainer/Tabs/CameraOptions"), NodePath("VBoxContainer/Tabs/VideoOptions"), NodePath("VBoxContainer/Tabs/AccessibilityOptions"), NodePath("VBoxContainer/Tabs/Credits"), NodePath("VBoxContainer/Tabs/KeyBindingsPanel"), NodePath("VBoxContainer/Tabs/Statistics")]
-section_map = Array[int]([0, 1, 2, 3, 4, 5, 0, 0, 0])
+tabs = [NodePath("TabMarginContainer/TabContainer/GameplayTab"), NodePath("TabMarginContainer/TabContainer/AudioTab"), NodePath("TabMarginContainer/TabContainer/HUDTab"), NodePath("TabMarginContainer/TabContainer/CameraTab"), NodePath("TabMarginContainer/TabContainer/VideoTab"), NodePath("TabMarginContainer/TabContainer/AccessibilityTab"), NodePath("TabMarginContainer/TabContainer/CreditsTab"), NodePath("TabMarginContainer/TabContainer/StatisticsTab"), NodePath("TabMarginContainer/TabContainer/KeyBindingsTab")]
+panels = [NodePath("VBoxContainer/Tabs/GameplayOptions"), NodePath("VBoxContainer/Tabs/AudioOptions"), NodePath("VBoxContainer/Tabs/HudOptions"), NodePath("VBoxContainer/Tabs/CameraOptions"), NodePath("VBoxContainer/Tabs/VideoOptions"), NodePath("VBoxContainer/Tabs/AccessibilityOptions"), NodePath("VBoxContainer/Tabs/Credits"), NodePath("VBoxContainer/Tabs/Statistics"), NodePath("VBoxContainer/Tabs/KeyBindingsPanel")]
+section_map = Array[int]([0, 1, 2, 3, 4, 5, 0, 0, 6])
 
 [node name="TabMarginContainer" type="MarginContainer" parent="RootContainer/SettingsContainer" unique_id=1464652048]
 layout_mode = 2
@@ -295,6 +298,31 @@ theme_override_constants/separation = 40
 metadata/_tab_index = 0
 metadata/_tab_name = ""
 
+[node name="UnderBuildingWarning" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/GameplayOptions" unique_id=1797323907]
+layout_mode = 2
+
+[node name="Warning" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/GameplayOptions/UnderBuildingWarning" unique_id=1593933829]
+modulate = Color(1, 1, 0, 1)
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = ExtResource("18_8l3q0")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Hammer" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/GameplayOptions/UnderBuildingWarning" unique_id=1342083432]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = ExtResource("19_sto7j")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Saw" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/GameplayOptions/UnderBuildingWarning" unique_id=102418772]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = ExtResource("20_txwea")
+expand_mode = 3
+stretch_mode = 5
+
 [node name="AudioOptions" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=1811562513]
 visible = false
 layout_mode = 2
@@ -400,27 +428,56 @@ theme_override_constants/separation = 40
 metadata/_tab_index = 0
 metadata/_tab_name = ""
 
+[node name="UnderBuildingWarning" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions" unique_id=1567566927]
+layout_mode = 2
+alignment = 1
+
+[node name="Warning" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions/UnderBuildingWarning" unique_id=979540154]
+modulate = Color(1, 1, 0, 1)
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = ExtResource("18_8l3q0")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Hammer" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions/UnderBuildingWarning" unique_id=1522570624]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = ExtResource("19_sto7j")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Saw" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions/UnderBuildingWarning" unique_id=1652405225]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = ExtResource("20_txwea")
+expand_mode = 3
+stretch_mode = 5
+
 [node name="VBoxContainer" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions" unique_id=1115121776]
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 3
 
 [node name="CheckButton" type="CheckButton" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions/VBoxContainer" unique_id=1057472892 node_paths=PackedStringArray("preview_hud")]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+button_pressed = true
 icon = ExtResource("22_863by")
 expand_icon = true
 script = ExtResource("21_lcw02")
-preview_hud = NodePath("../BoxContainer/HUD")
+preview_hud = NodePath("../HUD")
 
-[node name="BoxContainer" type="BoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions/VBoxContainer" unique_id=886567556]
+[node name="HUD" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions/VBoxContainer" unique_id=1333227325 instance=ExtResource("20_1ltwp")]
 layout_mode = 2
-size_flags_vertical = 3
-
-[node name="HUD" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions/VBoxContainer/BoxContainer" unique_id=1333227325 instance=ExtResource("20_1ltwp")]
-layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.3, 0.3)
 
 [node name="CameraOptions" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=412193868]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 40
@@ -509,7 +566,6 @@ script = ExtResource("29_fbymy")
 layout_mode = 2
 
 [node name="VideoOptions" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=697717083]
-visible = false
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -616,6 +672,31 @@ theme_override_constants/separation = 40
 metadata/_tab_index = 0
 metadata/_tab_name = ""
 
+[node name="UnderBuildingWarning" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/Credits" unique_id=1582432370]
+layout_mode = 2
+
+[node name="Warning" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/Credits/UnderBuildingWarning" unique_id=43189914]
+modulate = Color(1, 1, 0, 1)
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = ExtResource("18_8l3q0")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Hammer" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/Credits/UnderBuildingWarning" unique_id=1201153606]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = ExtResource("19_sto7j")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Saw" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/Credits/UnderBuildingWarning" unique_id=986587292]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = ExtResource("20_txwea")
+expand_mode = 3
+stretch_mode = 5
+
 [node name="Statistics" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=347035709]
 visible = false
 layout_mode = 2
@@ -624,6 +705,31 @@ size_flags_vertical = 6
 theme_override_constants/separation = 40
 metadata/_tab_index = 0
 metadata/_tab_name = ""
+
+[node name="UnderBuildingWarning" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/Statistics" unique_id=983539419]
+layout_mode = 2
+
+[node name="Warning" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/Statistics/UnderBuildingWarning" unique_id=904692919]
+modulate = Color(1, 1, 0, 1)
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = ExtResource("18_8l3q0")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Hammer" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/Statistics/UnderBuildingWarning" unique_id=721989110]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = ExtResource("19_sto7j")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Saw" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/Statistics/UnderBuildingWarning" unique_id=1653071755]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = ExtResource("20_txwea")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="KeyBindingsPanel" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=600000001 instance=ExtResource("28_6geaa")]
 visible = false

@@ -5,25 +5,32 @@ extends PanelContainer
 signal rebind_requested(action: StringName)
 signal reset_requested(action: StringName)
 
+const _ACTION_ICON_SCENE: PackedScene = preload("uid://bnp3oyipkidl1")
+
 var _action: StringName = &""
 var _listening: bool = false
 var _pulse_tween: Tween
 
-@onready var _label: Label = %ActionLabel
+@onready var _actions_icons_container: HBoxContainer = %ActionsIconsContainer
 @onready var _key_button: Button = %KeyButton
 @onready var _gamepad_icons: HBoxContainer = %GamepadIconsContainer
 @onready var _reset_button: Button = %ResetButton
 
 
-func setup(action: StringName, display_name: String) -> void:
+func setup(action: StringName) -> void:
+	for action_icon: CompressedTexture2D in InputBindingManager.REBINDABLE_ACTIONS_ICONS[action]:
+		var new_icon_scene: Node = _ACTION_ICON_SCENE.instantiate()
+		new_icon_scene.texture = action_icon
+
+		_actions_icons_container.add_child(new_icon_scene)
+
 	_action = action
-	_label.text = display_name
 	_key_button.pressed.connect(func() -> void: rebind_requested.emit(_action))
 	_reset_button.pressed.connect(func() -> void: reset_requested.emit(_action))
 	GamepadIconMap.map_changed.connect(_refresh_gamepad)
 	InputBindingManager.binding_changed.connect(_on_binding_changed)
 	InputManager.device_changed.connect(_on_device_changed)
-	_refresh_keyboard()
+	_refresh_icon()
 	_refresh_gamepad()
 	_update_gamepad_visibility()
 
@@ -40,12 +47,12 @@ func set_listening(active: bool) -> void:
 		_pulse_tween.tween_property(_key_button, "modulate", Color.WHITE, 0.5)
 	else:
 		_key_button.modulate = Color.WHITE
-		_refresh_keyboard()
+		_refresh_icon()
 
 
 func _on_binding_changed(action: StringName) -> void:
 	if action == _action:
-		_refresh_keyboard()
+		_refresh_icon()
 
 
 func _on_device_changed(_device: InputManager.Device) -> void:
@@ -57,13 +64,16 @@ func _update_gamepad_visibility() -> void:
 	_gamepad_icons.visible = InputManager.is_gamepad_active()
 
 
-func _refresh_keyboard() -> void:
-	var event: InputEventKey = InputBindingManager.get_keyboard_event(_action)
-	if event == null:
-		_key_button.icon = null
+func _refresh_icon() -> void:
+	var keyboard_event: InputEventKey = InputBindingManager.get_keyboard_event(_action)
+
+	if keyboard_event != null:
+		var key: Key = keyboard_event.physical_keycode if keyboard_event.physical_keycode != KEY_NONE else keyboard_event.keycode
+		_key_button.icon = KeyboardIconMap.get_keyboard_icon(key)
 		return
-	var key: Key = event.physical_keycode if event.physical_keycode != KEY_NONE else event.keycode
-	_key_button.icon = KeyboardIconMap.get_keyboard_icon(key)
+
+	var mouse_event: InputEventMouseButton = InputBindingManager.get_mouse_event(_action)
+	_key_button.icon = KeyboardIconMap.get_mouse_icon(mouse_event.button_index) if mouse_event != null else null
 
 
 func _refresh_gamepad() -> void:
@@ -76,6 +86,7 @@ func _refresh_gamepad() -> void:
 		var icon: Texture2D = GamepadIconMap.get_icon_for_event(event)
 		if icon == null:
 			continue
+		# TODO This rect should be set in the editor
 		var rect: TextureRect = TextureRect.new()
 		rect.texture = icon
 		rect.custom_minimum_size = Vector2(64, 64)

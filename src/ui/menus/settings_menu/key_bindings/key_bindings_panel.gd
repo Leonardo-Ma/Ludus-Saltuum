@@ -8,14 +8,12 @@ var _listening: StringName = &""
 var _rows: Dictionary[StringName, RebindingRow] = {}
 
 @onready var _container: VBoxContainer = %RowsContainer
-@onready var _reset_all_btn: Button = %ResetAllButton
 
 
 func _ready() -> void:
 	assert(_row_scene != null, "KeyBindingsPanel: _row_scene not assigned in " + name)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	visibility_changed.connect(_on_visibility_changed)
-	_reset_all_btn.pressed.connect(InputBindingManager.reset_all)
 	_populate()
 
 
@@ -37,7 +35,7 @@ func _populate() -> void:
 		var row: RebindingRow = _row_scene.instantiate() as RebindingRow
 		_container.add_child(row)
 		_rows[action] = row
-		row.setup(action, _format_name(action))
+		row.setup(action)
 		row.rebind_requested.connect(_start_listening)
 		row.reset_requested.connect(InputBindingManager.reset_action)
 
@@ -59,7 +57,3 @@ func _stop_listening() -> void:
 func _on_visibility_changed() -> void:
 	if not visible:
 		_stop_listening()
-
-
-func _format_name(action: StringName) -> String:
-	return (action as String).replace("_", " ").capitalize()

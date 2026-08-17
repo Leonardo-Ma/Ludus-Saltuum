@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bnp3oyipkidl1"]
+
+[node name="ActionIcon" type="TextureRect" unique_id=38665338]
+custom_minimum_size = Vector2(60, 50)
+propagate_maximum_size = true
+size_flags_horizontal = 6
+size_flags_vertical = 4
+expand_mode = 3
+stretch_mode = 5

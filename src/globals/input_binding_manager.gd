@@ -18,14 +18,30 @@ const REBINDABLE_ACTIONS: Array[StringName] = [
 	#&"ui_accept",
 	#&"ui_cancel",
 	&"return_to_checkpoint",
-	&"teleport",
-	&"feather_fall",
-	&"open_shop",
-	#&"look_left",
-	#&"look_right",
-	#&"look_up",
-	#&"look_down",
+	#&"open_shop",
+	&"look_left",
+	&"look_right",
+	&"look_up",
+	&"look_down",
 ]
+
+const REBINDABLE_ACTIONS_ICONS: Dictionary[StringName, Array] = {
+	&"move_left": [Icons.CHARACTER_MOVEMENT, Icons.ARROW_LEFT],
+	&"move_right": [Icons.CHARACTER_MOVEMENT, Icons.ARROW_RIGHT],
+	&"move_forward": [Icons.CHARACTER_MOVEMENT, Icons.ARROW_UP],
+	&"move_backward": [Icons.CHARACTER_MOVEMENT, Icons.ARROW_DOWN],
+	&"jump": [Icons.JUMP],
+	&"attack": [Icons.ATTACK],
+	#&"interact": [ , ],
+	#&"ui_accept": [ , ],
+	#&"ui_cancel": [ , ],
+	&"return_to_checkpoint": [Icons.UNDO, Icons.FLAG],
+	#&"open_shop": [ , ],
+	&"look_left": [Icons.EYE, Icons.ARROW_LEFT],
+	&"look_right": [Icons.EYE, Icons.ARROW_RIGHT],
+	&"look_up": [Icons.EYE, Icons.ARROW_UP],
+	&"look_down": [Icons.EYE, Icons.ARROW_DOWN],
+}
 
 ## Before user overrides
 var _defaults: Dictionary = {}
@@ -33,6 +49,7 @@ var _defaults: Dictionary = {}
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	assert(REBINDABLE_ACTIONS.size() == REBINDABLE_ACTIONS_ICONS.size(), "Each action should have an icon.")
 	_cache_defaults()
 	_load()
 
@@ -58,11 +75,19 @@ func reset_action(action: StringName) -> void:
 	binding_changed.emit(action)
 
 
-## Resets all rebindable actions to default
 func reset_all() -> void:
 	print_debug("Key bindings reset to default")
 	for action: StringName in REBINDABLE_ACTIONS:
 		reset_action(action)
+
+
+## Returns first mouse [InputEventMouseButton] for [param action], or null if none
+func get_mouse_event(action: StringName) -> InputEventMouseButton:
+	assert(InputMap.has_action(action), "InputBindingManager: unknown action " + action)
+	for event: InputEvent in InputMap.action_get_events(action):
+		if event is InputEventMouseButton:
+			return event
+	return null
 
 
 ## Returns first keyboard [InputEventKey] for [param action], or null if none
