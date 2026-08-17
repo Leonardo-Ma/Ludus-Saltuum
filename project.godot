@@ -14,7 +14,9 @@ config/name="Ludus Saltuum"
 run/main_scene="uid://dlvcb7vmtq1lo"
 config/features=PackedStringArray("4.7", "Forward Plus")
 run/max_fps=1000
+boot_splash/image="uid://dyd72vsx72pqq"
 config/icon="uid://dyd72vsx72pqq"
+boot_splash/minimum_display_time=200
 
 [audio]
 
