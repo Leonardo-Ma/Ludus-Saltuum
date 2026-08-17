@@ -55,6 +55,7 @@ func _ready() -> void:
 
 
 ## Replaces the first keyboard binding for [param action] with [param event]
+## Sets red if has conflicts. See [method has_conflict]
 ## Gamepad bindings are preserved
 func rebind(action: StringName, event: InputEvent) -> void:
 	assert(InputMap.has_action(action), "InputBindingManager: unknown action " + action)
@@ -63,6 +64,37 @@ func rebind(action: StringName, event: InputEvent) -> void:
 	InputMap.action_add_event(action, event)
 	_save()
 	binding_changed.emit(action)
+
+
+## True if [param action]'s keyboard binding is shared with another rebindable action
+func has_conflict(action: StringName) -> bool:
+	var event: InputEventKey = get_keyboard_event(action)
+	if event == null:
+		return false
+	for other_action: StringName in REBINDABLE_ACTIONS:
+		if other_action == action:
+			continue
+		var other_event: InputEventKey = get_keyboard_event(other_action)
+		if other_event != null and _keys_match(event, other_event):
+			return true
+	return false
+
+
+# NOTE UNUSED
+func _clear_conflicting_bindings(action: StringName, new_event: InputEventKey) -> void:
+	for other_action: StringName in REBINDABLE_ACTIONS:
+		if other_action == action:
+			continue
+		for other_event: InputEvent in InputMap.action_get_events(other_action).duplicate():
+			if other_event is InputEventKey and _keys_match(other_event, new_event):
+				InputMap.action_erase_event(other_action, other_event)
+				binding_changed.emit(other_action)
+
+
+func _keys_match(a: InputEventKey, b: InputEventKey) -> bool:
+	var a_code: Key = a.physical_keycode if a.physical_keycode != KEY_NONE else a.keycode
+	var b_code: Key = b.physical_keycode if b.physical_keycode != KEY_NONE else b.keycode
+	return a_code == b_code
 
 
 ## Resets rebindable action to project default

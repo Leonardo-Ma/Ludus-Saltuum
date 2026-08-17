@@ -14,6 +14,7 @@ func _ready() -> void:
 	assert(_row_scene != null, "KeyBindingsPanel: _row_scene not assigned in " + name)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	visibility_changed.connect(_on_visibility_changed)
+	InputBindingManager.binding_changed.connect(_on_binding_changed)
 	_populate()
 
 
@@ -38,6 +39,16 @@ func _populate() -> void:
 		row.setup(action)
 		row.rebind_requested.connect(_start_listening)
 		row.reset_requested.connect(InputBindingManager.reset_action)
+	_refresh_conflicts()
+
+
+func _on_binding_changed(_action: StringName) -> void:
+	_refresh_conflicts()
+
+
+func _refresh_conflicts() -> void:
+	for action: StringName in _rows:
+		_rows[action].set_conflict(InputBindingManager.has_conflict(action))
 
 
 func _start_listening(action: StringName) -> void:

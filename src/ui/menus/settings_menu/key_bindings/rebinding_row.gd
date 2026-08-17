@@ -9,6 +9,7 @@ const _ACTION_ICON_SCENE: PackedScene = preload("uid://bnp3oyipkidl1")
 
 var _action: StringName = &""
 var _listening: bool = false
+var _has_conflict: bool = false
 var _pulse_tween: Tween
 
 @onready var _actions_icons_container: HBoxContainer = %ActionsIconsContainer
@@ -46,8 +47,19 @@ func set_listening(active: bool) -> void:
 		_pulse_tween.tween_property(_key_button, "modulate", Color(0.4, 0.8, 1.0, 1.0), 0.5)
 		_pulse_tween.tween_property(_key_button, "modulate", Color.WHITE, 0.5)
 	else:
-		_key_button.modulate = Color.WHITE
 		_refresh_icon()
+		_update_conflict_color()
+
+
+## Called by KeyBindingsPanel after any rebind
+func set_conflict(has_conflict: bool) -> void:
+	_has_conflict = has_conflict
+	if not _listening:
+		_update_conflict_color()
+
+
+func _update_conflict_color() -> void:
+	_key_button.modulate = Color.RED if _has_conflict else Color.WHITE
 
 
 func _on_binding_changed(action: StringName) -> void:
