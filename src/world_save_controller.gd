@@ -1,4 +1,5 @@
 # TODO Consider a different approach?
+# TODO Probably is best an autoload
 ## Tracks world state during gameplay (consumed collectibles, killed enemies)
 ## Used by SaveManager during save/load operations
 class_name WorldSaveController

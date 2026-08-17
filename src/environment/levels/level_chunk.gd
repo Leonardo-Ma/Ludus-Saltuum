@@ -3,8 +3,6 @@ class_name LevelChunk extends Node3D
 
 enum Difficulty { EASY, MEDIUM, HARD }
 
-enum Skill { NONE, MULTI_JUMP, DASH, TELEPORT, SLOW_FALL }
-
 @export_category("Difficulty")
 @export var difficulty: Difficulty = Difficulty.EASY
 @export var score_multiplier: float = 1.0
