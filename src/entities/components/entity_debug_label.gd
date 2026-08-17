@@ -2,8 +2,8 @@
 extends Label3D
 
 @onready var animation_tree: AnimationTree = %AnimationTree
-# TODO This RedMageMemory is quite outdated and long gone
-@onready var goap_controller: RedMageMemory = %GoapController
+
+@onready var goap_controller: BaseMemory = %GoapController
 
 @onready var label_text: String
 

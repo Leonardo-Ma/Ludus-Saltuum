@@ -1,6 +1,6 @@
 # TODO Consider transforming into a resource
 # TODO This is quite outdated and long gone, need rename and double check. This is the template?
-class_name RedMageMemory
+class_name BaseMemory
 extends GoapMemory
 
 const HEALTH_LOW_THRESHOLD: float = 0.3
