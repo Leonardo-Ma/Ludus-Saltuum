@@ -7,8 +7,8 @@ func _ready() -> void:
 	SettingsManager.settings_reset.connect(_on_settings_reset)
 
 
-func _on_toggled(is_pressed: bool) -> void:
-	SettingsManager.grayscale_enabled = is_pressed
+func _on_toggled(toggled_on: bool) -> void:
+	SettingsManager.grayscale_enabled = toggled_on
 	SettingsManager.save()
 	SettingsManager.apply_display()
 

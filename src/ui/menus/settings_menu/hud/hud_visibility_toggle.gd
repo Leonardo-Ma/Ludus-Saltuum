@@ -11,6 +11,6 @@ func _ready() -> void:
 	toggled.connect(_on_toggled)
 
 
-func _on_toggled(is_pressed: bool) -> void:
-	UIManager.set_hud_visible(is_pressed)
-	preview_hud.visible = is_pressed
+func _on_toggled(toggled_on: bool) -> void:
+	UIManager.set_hud_visible(toggled_on)
+	preview_hud.visible = toggled_on
