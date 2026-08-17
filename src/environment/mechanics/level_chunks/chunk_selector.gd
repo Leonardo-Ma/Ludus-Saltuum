@@ -4,11 +4,13 @@ extends RefCounted
 
 const SKILL_UNLOCK_SCORE_STEP: int = 50
 const MIN_CHUNKS_BETWEEN_SKILLS: int = 5
+const TURN_COOLDOWN_CHUNKS: int = 5
+const RECENT_CHUNK_HISTORY_SIZE: int = 10
 
 var _rng: RandomNumberGenerator
 var _all_chunks: Array[ChunkData]
 var _recent_chunk_paths: Array[String] = []
-var _chunks_since_turn: int = 5
+var _chunks_since_turn: int = TURN_COOLDOWN_CHUNKS
 var _last_skill_score_threshold: int = 0
 var _chunks_since_skill_unlock: int = MIN_CHUNKS_BETWEEN_SKILLS
 
@@ -20,7 +22,7 @@ func _init(rng: RandomNumberGenerator, all_chunks: Array[ChunkData]) -> void:
 
 func reset() -> void:
 	_recent_chunk_paths.clear()
-	_chunks_since_turn = 5
+	_chunks_since_turn = TURN_COOLDOWN_CHUNKS
 	_chunks_since_skill_unlock = MIN_CHUNKS_BETWEEN_SKILLS
 	_last_skill_score_threshold = 0
 
@@ -31,6 +33,12 @@ func select_chunk_data(
 	current_score: int,
 	required_features: Array[ChunkFeature.Feature] = [],
 ) -> ChunkData:
+	if not required_features.is_empty():
+		var any_chunk_provides_features: bool = _all_chunks.any(
+			func(d: ChunkData) -> bool: return required_features.all(func(f: ChunkFeature.Feature) -> bool: return d.features.has(f))
+		)
+		assert(any_chunk_provides_features, "ChunkSelector: no chunk provides all required_features %s" % [required_features])
+
 	var current_y: float = target_transform.origin.y
 
 	# Only force unlock when there are skills the player doesn't yet have
@@ -71,7 +79,7 @@ func select_chunk_data(
 			continue
 
 		# Prevent back-to-back turns
-		if data.is_turn and _chunks_since_turn < 5:
+		if data.is_turn and _chunks_since_turn < TURN_COOLDOWN_CHUNKS:
 			continue
 
 		valid_pool.push_back(data)
@@ -114,7 +122,7 @@ func select_chunk_data(
 		_chunks_since_turn += 1
 
 	_recent_chunk_paths.push_back(chosen.scene_path)
-	if _recent_chunk_paths.size() > 5:
+	if _recent_chunk_paths.size() > RECENT_CHUNK_HISTORY_SIZE:
 		_recent_chunk_paths.pop_front()
 
 	return chosen
