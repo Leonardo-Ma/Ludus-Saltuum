@@ -52,6 +52,11 @@ func _on_controlled_entity_changed(entity: Node3D) -> void:
 
 func _on_body_entered(body: Node3D) -> void:
 	if body != target:
+		# TODO Double check, edge case if you for example push a non controller car out of the world,
+		# softlocking player. Fixed by triggered its respawn. But the respawn is coupled to player so it also
+		# triggers other things like teleport fade camera effect...
+		if body.has_method("respawn"):
+			body.respawn(2.0, _fallback_spawn_transform, false)
 		return
 
 	var target_transform: Transform3D
