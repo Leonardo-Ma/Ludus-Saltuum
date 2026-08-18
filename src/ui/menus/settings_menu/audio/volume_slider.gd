@@ -14,6 +14,7 @@ func _ready() -> void:
 	step = 0.01
 	value = _get_saved_volume()
 	value_changed.connect(_on_volume_changed)
+	SettingsManager.settings_reset.connect(_on_settings_reset)
 
 
 func _on_volume_changed(new_value: float) -> void:
@@ -47,3 +48,15 @@ func _write_to_manager(new_value: float) -> void:
 			SettingsManager.volume_effects = new_value
 		SoundManager.SoundCategory.UI:
 			SettingsManager.volume_ui = new_value
+
+
+func _on_settings_reset() -> void:
+	match category:
+		SoundManager.SoundCategory.GLOBAL:
+			value = SettingsManager.volume_global
+		SoundManager.SoundCategory.MUSIC:
+			value = SettingsManager.volume_music
+		SoundManager.SoundCategory.SFX:
+			value = SettingsManager.volume_effects
+		SoundManager.SoundCategory.UI:
+			value = SettingsManager.volume_ui

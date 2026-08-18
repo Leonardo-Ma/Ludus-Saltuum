@@ -15,16 +15,17 @@ func _ready() -> void:
 	max_value = _DB_MAX
 	value = _get_saved_value()
 	value_changed.connect(_on_value_changed)
+	SettingsManager.settings_reset.connect(_on_settings_reset)
 
 
-func _on_value_changed(value: float) -> void:
+func _on_value_changed(new_value: float) -> void:
 	match property:
 		DisplayProperty.BRIGHTNESS:
-			SettingsManager.brightness = value
+			SettingsManager.brightness = new_value
 		DisplayProperty.CONTRAST:
-			SettingsManager.contrast = value
+			SettingsManager.contrast = new_value
 		DisplayProperty.SATURATION:
-			SettingsManager.saturation = value
+			SettingsManager.saturation = new_value
 	SettingsManager.apply_display()
 	SettingsManager.save()
 
@@ -38,3 +39,13 @@ func _get_saved_value() -> float:
 		DisplayProperty.SATURATION:
 			return SettingsManager.saturation
 	return 1.0
+
+
+func _on_settings_reset() -> void:
+	match property:
+		DisplayProperty.BRIGHTNESS:
+			value = SettingsManager.brightness
+		DisplayProperty.CONTRAST:
+			value = SettingsManager.contrast
+		DisplayProperty.SATURATION:
+			value = SettingsManager.saturation
