@@ -56,7 +56,7 @@ const _DEFAULTS: Dictionary = {
 		&"contrast": 1.0,
 		&"saturation": 1.0,
 		&"vsync_mode": DisplayServer.VSYNC_DISABLED,
-		&"window_mode": DisplayServer.WINDOW_MODE_WINDOWED,
+		&"window_mode": DisplayServer.WINDOW_MODE_FULLSCREEN,
 	},
 	SettingsSection.ACCESSIBILITY:
 	{
