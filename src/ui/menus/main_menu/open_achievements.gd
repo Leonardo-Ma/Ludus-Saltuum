@@ -2,6 +2,9 @@ extends TextureButton
 
 
 func _ready() -> void:
+	if OS.has_feature("demo"):
+		visible = false
+
 	pressed.connect(_on_pressed)
 
 

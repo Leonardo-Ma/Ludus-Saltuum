@@ -17,6 +17,9 @@ var _unlocked: Dictionary = {}  # Dictionary[StringName, bool]
 
 
 func _ready() -> void:
+	if OS.has_feature("demo"):
+		return
+
 	var data: AchievementRegistryData = load(_DATA_PATH)
 	assert(data != null, "Achievements: achievement_registry_data.tres not found in " + name)
 	for definition: AchievementDefinition in data.definitions:
