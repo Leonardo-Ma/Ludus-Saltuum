@@ -272,7 +272,3 @@ buffering/agile_event_flushing=true
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
-
-[steam]
-
-initialization/processes/initialize_on_startup=true
