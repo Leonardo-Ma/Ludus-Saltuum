@@ -10,7 +10,7 @@ const _SAVE_PATH: String = "user://achievements.cfg"
 const _SECTION: String = "unlocked"
 
 # TODO Should not be hardcoded
-const _ALL_SKILL_IDS: Array[StringName] = [&"dash", &"double_jump", &"feather_fall"]
+const _ALL_SKILL_IDS: Array[StringName] = [&"dash", &"double_jump"]  #, &"feather_fall"]
 
 var _by_key: Dictionary = {}  # Dictionary[StringName, AchievementDefinition]
 var _unlocked: Dictionary = {}  # Dictionary[StringName, bool]
