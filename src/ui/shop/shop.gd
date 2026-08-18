@@ -19,13 +19,13 @@ func _ready() -> void:
 	_on_viewport_size_changed()
 
 
-func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_pressed("open_shop"):
-		visible = not visible
-		if visible:
-			MouseModeManager.request_mode(&"shop", Input.MOUSE_MODE_VISIBLE)
-		else:
-			MouseModeManager.release(&"shop")
+#func _unhandled_key_input(event: InputEvent) -> void:
+#	if event.is_action_pressed("open_shop"):
+#		visible = not visible
+#		if visible:
+#			MouseModeManager.request_mode(&"shop", Input.MOUSE_MODE_VISIBLE)
+#		else:
+#			MouseModeManager.release(&"shop")
 
 
 func _on_player_spawned(spawned_player: Node) -> void:
