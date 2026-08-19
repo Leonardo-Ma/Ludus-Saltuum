@@ -42,7 +42,8 @@ repos:
               [^/]+$|
               .*/ROADMAP\.md$|
               \.docs/documentation/|
-              \script_templates/|
+              docs/index/ACKNOWLEDGMENTS\.md$|
+              script_templates/
           )
 
       # Scenes / Resources
