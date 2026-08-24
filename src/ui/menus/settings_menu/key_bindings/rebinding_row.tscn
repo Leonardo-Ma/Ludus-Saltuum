@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bkufsmjm825nk" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/10_editing/undo.png" id="2_41wco"]
 
 [node name="RebindingRow" type="PanelContainer" unique_id=100001]
+texture_filter = 1
 custom_minimum_size = Vector2(0, 72)
 script = ExtResource("1_rebrow")
 
