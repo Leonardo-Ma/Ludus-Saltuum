@@ -3,6 +3,7 @@
 [ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="1_cqtv1"]
 [ext_resource type="Script" uid="uid://b6ywxkq47cgy5" path="res://src/ui/menus/main_menu/scale_font_size.gd" id="1_mainmenu"]
 [ext_resource type="Script" uid="uid://b8xklo3ubuprp" path="res://src/ui/menus/main_menu/new_game.gd" id="2_esfjp"]
+[ext_resource type="Shader" uid="uid://bxyyjpnd11ghq" path="res://src/ui/menus/main_menu/wave_label_effect.gdshader" id="3_deyis"]
 [ext_resource type="Texture2D" uid="uid://c38n7tbohbvyk" path="res://src/ui/assets/game_logo_no_background.png" id="3_ewdsk"]
 [ext_resource type="Script" uid="uid://uh7ikvq5pxya" path="res://src/ui/menus/quit_to_desktop.gd" id="4_gdklf"]
 [ext_resource type="Texture2D" uid="uid://cqgd6g3oujuj" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/play.png" id="4_rq6ct"]
@@ -25,6 +26,12 @@
 [ext_resource type="Texture2D" uid="uid://r8ac5it4c01m" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/tick.png" id="22_rq6ct"]
 [ext_resource type="Texture2D" uid="uid://b33inr4y306ek" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/1_game/trophy.png" id="23_ewdsk"]
 [ext_resource type="Script" uid="uid://dib4grxkxaany" path="res://src/ui/menus/main_menu/open_achievements.gd" id="23_mt6gl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vprs7"]
+shader = ExtResource("3_deyis")
+shader_parameter/amplitude = 0.015
+shader_parameter/speed = 3.0
+shader_parameter/frequency = 10.0
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mt6gl"]
 
@@ -65,6 +72,7 @@ theme_override_constants/separation = 40
 script = ExtResource("1_mainmenu")
 
 [node name="TitleLabel" type="TextureRect" parent="VBoxContainer" unique_id=1604708838]
+material = SubResource("ShaderMaterial_vprs7")
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
