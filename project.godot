@@ -25,6 +25,7 @@ buses/default_bus_layout="uid://plxel2xf671u"
 
 [autoload]
 
+ShaderWarmup="*uid://dqltbgbw3oygl"
 SettingsManager="*uid://caq4tmrxugaw7"
 GameEvents="*res://src/globals/game_events.gd"
 InputBindingManager="*uid://dogtu7flgoe45"

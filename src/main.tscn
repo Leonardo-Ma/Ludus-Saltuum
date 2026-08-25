@@ -13,20 +13,59 @@
 [ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="11_adv81"]
 [ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint/checkpoint_flag.tscn" id="12_lovvn"]
 [ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/levels/assets/collectibles/coins/gold_coin.tscn" id="13_jitvu"]
+[ext_resource type="Script" uid="uid://dqltbgbw3oygl" path="res://src/globals/shader_warmup.gd" id="15_wjd0w"]
+[ext_resource type="Environment" uid="uid://cukvscwyyjgeh" path="res://src/environment/levels/assets/caves/cave_environment.tres" id="16_8ndpt"]
 [ext_resource type="PackedScene" uid="uid://cf5ku6le2d84s" path="res://src/environment/mechanics/floor_level_boundary/floor_level_boundary.tscn" id="16_tb146"]
+[ext_resource type="Material" uid="uid://dt1cep4u5y2ro" path="res://src/environment/platformer_kit_kenney/individual_assets/spring/colormap.tres" id="17_qfneb"]
+[ext_resource type="PackedScene" uid="uid://dj2polxcruojl" path="res://src/environment/levels/base_levels/01_grass.tscn" id="18_imvhg"]
+[ext_resource type="PackedScene" uid="uid://1lj71dcn61kr" path="res://src/environment/levels/base_levels/02_snow.tscn" id="19_m07h4"]
+[ext_resource type="PackedScene" uid="uid://belvpob3bulra" path="res://src/environment/levels/base_levels/03_short_grass.tscn" id="20_ui33j"]
+[ext_resource type="PackedScene" uid="uid://pj23j5mj4bnh" path="res://src/environment/levels/base_levels/04_short_grass_right.tscn" id="21_k5x6j"]
+[ext_resource type="PackedScene" uid="uid://bwcg6dmv8ll13" path="res://src/environment/levels/base_levels/05_short_snow_right.tscn" id="22_jqey7"]
+[ext_resource type="PackedScene" uid="uid://bcxcqpcblamc2" path="res://src/environment/levels/base_levels/06_short_snow_left.tscn" id="23_dqleq"]
+[ext_resource type="PackedScene" uid="uid://dokj03gad5hdg" path="res://src/environment/levels/base_levels/07_dungeon.tscn" id="24_bu6xm"]
+[ext_resource type="PackedScene" uid="uid://bwkj1fixj1gvx" path="res://src/environment/levels/base_levels/08_moving_short.tscn" id="25_l175r"]
+[ext_resource type="PackedScene" uid="uid://b1vyhj45avhsj" path="res://src/environment/levels/base_levels/09_short_grass.tscn" id="26_prqr5"]
+[ext_resource type="PackedScene" uid="uid://dbk6we1ehloks" path="res://src/environment/levels/base_levels/10_long_obstacle.tscn" id="27_7b4p7"]
+[ext_resource type="PackedScene" uid="uid://c170bytojwce5" path="res://src/environment/levels/base_levels/11_long_dash.tscn" id="28_ljw12"]
+[ext_resource type="PackedScene" uid="uid://bqfohqnnuqn66" path="res://src/environment/levels/base_levels/12_long_double_jump.tscn" id="29_q6ill"]
+[ext_resource type="PackedScene" uid="uid://uitkxkwyw3qt" path="res://src/environment/levels/base_levels/13_short_door.tscn" id="30_mmgx3"]
+[ext_resource type="PackedScene" uid="uid://sxipwajvwib3" path="res://src/environment/levels/base_levels/14_falling_platform.tscn" id="31_hxm6p"]
+[ext_resource type="PackedScene" uid="uid://qtqyvexxh6xc" path="res://src/environment/levels/base_levels/15_falling_platform_fast.tscn" id="32_lj71n"]
+[ext_resource type="PackedScene" uid="uid://dhjojqogvnw7f" path="res://src/environment/levels/base_levels/16_spring.tscn" id="33_ruk5h"]
+[ext_resource type="PackedScene" uid="uid://iuq6w78hibea" path="res://src/environment/levels/base_levels/17_car.tscn" id="34_ye406"]
+[ext_resource type="PackedScene" uid="uid://bcec1g8637xi4" path="res://src/environment/levels/base_levels/18_portal.tscn" id="35_lvuux"]
+[ext_resource type="PackedScene" uid="uid://cya52wk4gftwt" path="res://src/environment/levels/base_levels/19_cave.tscn" id="36_qbv60"]
+[ext_resource type="PackedScene" uid="uid://d3c4ybpfbndsk" path="res://src/environment/levels/base_levels/20_car_02.tscn" id="37_f6xxb"]
+[ext_resource type="PackedScene" uid="uid://bfell3kamfxsj" path="res://src/environment/levels/base_levels/21_tornado.tscn" id="38_s8ip4"]
+[ext_resource type="PackedScene" uid="uid://ls6v13d1btd6" path="res://src/environment/levels/base_levels/22_car_portal.tscn" id="39_j2t2d"]
+[ext_resource type="PackedScene" uid="uid://c3c0sejgavc7h" path="res://src/entities/vehicles/car.tscn" id="40_q6ill"]
+[ext_resource type="PackedScene" uid="uid://y5l0u6fifvpy" path="res://src/environment/levels/assets/interactable/tornado/tornado.tscn" id="41_mmgx3"]
+[ext_resource type="PackedScene" uid="uid://cmhy34flmgu50" path="res://src/environment/levels/assets/platforms/disappearing_platforms/hexagon_orange.tscn" id="42_hxm6p"]
+[ext_resource type="PackedScene" uid="uid://bneqpm1wdlci3" path="res://src/environment/levels/assets/platforms/moving_plaforms/moving_platform_orange.tscn" id="43_lj71n"]
+[ext_resource type="PackedScene" uid="uid://bb1l6ibw3ab5y" path="res://src/environment/levels/assets/platforms/static_platforms/hexagon_grass.tscn" id="44_ruk5h"]
+[ext_resource type="PackedScene" uid="uid://7ugwdowsimwr" path="res://src/environment/levels/assets/platforms/static_platforms/hexagon_stone.tscn" id="45_ye406"]
+[ext_resource type="PackedScene" uid="uid://c6on7cp5w028m" path="res://src/environment/levels/assets/traps/spikes/spikes.tscn" id="46_lvuux"]
+[ext_resource type="PackedScene" uid="uid://befbn27in7rt2" path="res://src/environment/levels/skills/dash.tscn" id="47_qbv60"]
+[ext_resource type="PackedScene" uid="uid://xgainugb6aw2" path="res://src/environment/levels/skills/double_jump.tscn" id="48_f6xxb"]
+[ext_resource type="PackedScene" uid="uid://0822o2j0w3t4" path="res://src/environment/levels/templates/long.tscn" id="49_s8ip4"]
+[ext_resource type="PackedScene" uid="uid://nysee8qcj6fd" path="res://src/environment/levels/templates/short.tscn" id="50_j2t2d"]
+[ext_resource type="PackedScene" uid="uid://y23q86likppr" path="res://src/environment/levels/templates/short_left.tscn" id="51_kjvtq"]
+[ext_resource type="PackedScene" uid="uid://dtuht3gos28nm" path="res://src/environment/mechanics/car/car_exit_zone.tscn" id="52_wkk56"]
+[ext_resource type="PackedScene" uid="uid://dlxbhva4utv0e" path="res://src/environment/mechanics/teleport_portal/portal_vfx/simple_portal_vfx.tscn" id="53_1kgfr"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_mi8ch"]
 vertices = PackedVector3Array(-2.0784998, 4.5, -5.5785, -3.3284998, 4.5, -4.8285, -3.5784998, 4.5, -4.0785, -3.5784998, 4.5, 0.1715002, -3.0784998, 4.5, 1.1715002, -1.8284998, 4.5, 1.6715002, 1.9215002, 4.5, 1.6715002, 3.6715002, 4.5, -3.8284998, 3.1715002, 4.5, -5.0785, 2.1715002, 4.5, -5.5785, 3.6715002, 4.5, -0.078499794, 3.1715002, 4.5, 1.1715002)
 polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(4, 3, 5), PackedInt32Array(5, 3, 6), PackedInt32Array(8, 7, 9), PackedInt32Array(9, 7, 10), PackedInt32Array(10, 11, 6), PackedInt32Array(0, 9, 2), PackedInt32Array(2, 9, 3), PackedInt32Array(3, 9, 10), PackedInt32Array(3, 10, 6)]
 
-[sub_resource type="Resource" id="Resource_d3u4l"]
+[sub_resource type="Resource" id="Resource_kjvtq"]
 resource_local_to_scene = true
 script = ExtResource("8_tpi1q")
 type = 1
 damage = 10
 metadata/_custom_type_script = "uid://cxqsapbic2imr"
 
-[sub_resource type="Resource" id="Resource_mlv6i"]
+[sub_resource type="Resource" id="Resource_wkk56"]
 resource_local_to_scene = true
 script = ExtResource("11_adv81")
 max_health = 20
@@ -97,8 +136,8 @@ navigation_mesh = SubResource("NavigationMesh_mi8ch")
 
 [node name="Barbarian" parent="Map/Platforms/NavigationRegion3D/GrassPlatform3" unique_id=280064195 instance=ExtResource("9_ocmcv")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 4.017614, 0)
-attack = SubResource("Resource_d3u4l")
-health = SubResource("Resource_mlv6i")
+attack = SubResource("Resource_kjvtq")
+health = SubResource("Resource_wkk56")
 
 [node name="Checkpoint" parent="Map" unique_id=742215115 instance=ExtResource("12_lovvn")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -2.1004279, 4.115602, 12.484676)
@@ -122,3 +161,9 @@ transform = Transform3D(1, 0, 6.3573026e-08, 0, 1, 0, -6.3573026e-08, 0, 1, -0.3
 [node name="FloorLevelBoundary" parent="." unique_id=444006995 instance=ExtResource("16_tb146")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -48, 0)
+
+[node name="ShaderWarmup" type="Node" parent="." unique_id=825226371]
+script = ExtResource("15_wjd0w")
+environments = Array[Environment]([ExtResource("3_ib8ht"), ExtResource("16_8ndpt")])
+materials = Array[Material]([ExtResource("17_qfneb")])
+warmup_scenes = Array[PackedScene]([ExtResource("18_imvhg"), ExtResource("19_m07h4"), ExtResource("20_ui33j"), ExtResource("21_k5x6j"), ExtResource("22_jqey7"), ExtResource("23_dqleq"), ExtResource("24_bu6xm"), ExtResource("25_l175r"), ExtResource("26_prqr5"), ExtResource("27_7b4p7"), ExtResource("28_ljw12"), ExtResource("29_q6ill"), ExtResource("30_mmgx3"), ExtResource("31_hxm6p"), ExtResource("32_lj71n"), ExtResource("33_ruk5h"), ExtResource("34_ye406"), ExtResource("35_lvuux"), ExtResource("36_qbv60"), ExtResource("37_f6xxb"), ExtResource("38_s8ip4"), ExtResource("39_j2t2d"), ExtResource("40_q6ill"), ExtResource("41_mmgx3"), ExtResource("42_hxm6p"), ExtResource("43_lj71n"), ExtResource("6_d7bab"), ExtResource("44_ruk5h"), ExtResource("45_ye406"), ExtResource("8_43aqp"), ExtResource("46_lvuux"), ExtResource("47_qbv60"), ExtResource("48_f6xxb"), ExtResource("49_s8ip4"), ExtResource("50_j2t2d"), ExtResource("51_kjvtq"), ExtResource("52_wkk56"), ExtResource("53_1kgfr")])
