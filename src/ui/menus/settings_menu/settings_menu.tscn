@@ -44,6 +44,8 @@
 [ext_resource type="Texture2D" uid="uid://brg0kodgamwf7" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/dark-mode.png" id="30_27c6e"]
 [ext_resource type="Script" uid="uid://xhi2l4chhesc" path="res://src/ui/menus/settings_menu/accessibility/grayscale_toggle.gd" id="32_8tp0o"]
 [ext_resource type="Texture2D" uid="uid://bkufsmjm825nk" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/10_editing/undo.png" id="41_4qpmk"]
+[ext_resource type="Script" uid="uid://bcmpf6o5c4dss" path="res://src/ui/menus/settings_menu/video/fps_limit_option.gd" id="41_txwea"]
+[ext_resource type="Texture2D" uid="uid://da5cj8yvrisle" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/mobile_data.png" id="41_un64q"]
 [ext_resource type="Script" uid="uid://c0x7j8wi6hylp" path="res://src/ui/menus/settings_menu/reset_settings_button.gd" id="42_u56sa"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ftg2j"]
@@ -618,6 +620,28 @@ windowed_icon = ExtResource("26_6geaa")
 maximized_icon = ExtResource("25_ha0b3")
 fullscreen_icon = ExtResource("27_6geaa")
 exclusive_fullscreen_icon = ExtResource("10_863by")
+
+[node name="FpsLimit" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions" unique_id=677594519]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="TextureRect" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions/FpsLimit" unique_id=1827731191]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("41_un64q")
+expand_mode = 2
+
+[node name="FpsLimitOption" type="OptionButton" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions/FpsLimit" unique_id=543148023]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_top = NodePath("../../Resolution/ResolutionOption")
+focus_neighbor_bottom = NodePath("../../../../../TabMarginContainer/TabContainer/VideoTab")
+focus_next = NodePath("../../../../../TabMarginContainer/TabContainer/VideoTab")
+focus_previous = NodePath("../../Resolution/ResolutionOption")
+theme = SubResource("Theme_4yx6g")
+theme_override_constants/icon_max_width = 80
+script = ExtResource("41_txwea")
 
 [node name="Brightness" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions" unique_id=1274621875]
 custom_minimum_size = Vector2(80, 80)

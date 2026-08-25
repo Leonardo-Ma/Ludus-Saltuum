@@ -27,6 +27,8 @@ const _SECTION_CAMERA: String = "camera"
 const _SECTION_ACCESSIBILITY: String = "accessibility"
 const _KEY_BINDINGS: String = "key_bindings"
 
+const FPS_PRESETS: Array[int] = [30, 60, 90, 120, 144, 165, 240, 0]  # 0 = Unlimited
+
 ## Hardcoded project defaults, grouped by SettingsSection, used by reset_to_default()
 ## Each inner key must mirror an existing var declaration above
 const _DEFAULTS: Dictionary = {
@@ -56,6 +58,7 @@ const _DEFAULTS: Dictionary = {
 		&"contrast": 1.0,
 		&"saturation": 1.0,
 		&"vsync_mode": DisplayServer.VSYNC_DISABLED,
+		&"fps_limit": 90,
 		&"window_mode": DisplayServer.WINDOW_MODE_FULLSCREEN,
 	},
 	SettingsSection.ACCESSIBILITY:
@@ -68,9 +71,6 @@ const _DEFAULTS: Dictionary = {
 	{},
 }
 
-var resolution: Vector2i = Vector2i(1920, 1080)
-var window_mode: DisplayServer.WindowMode = DisplayServer.WINDOW_MODE_WINDOWED
-
 var volume_global: float = 1.0
 var volume_music: float = 1.0
 var volume_effects: float = 1.0
@@ -78,11 +78,16 @@ var volume_ui: float = 1.0
 
 var hud_visible: bool = true
 
+var resolution: Vector2i = Vector2i(1920, 1080)
+
 var environment: Environment = preload("uid://dsshmu8vrps28")
 var brightness: float = 1.0
 var contrast: float = 1.0
 var saturation: float = 1.0
 var vsync_mode: DisplayServer.VSyncMode = DisplayServer.VSYNC_DISABLED
+var fps_limit: int = 90
+var window_mode: DisplayServer.WindowMode = DisplayServer.WINDOW_MODE_WINDOWED
+
 var grayscale_enabled: bool = false
 
 ## Camera FOV, in degrees
@@ -123,6 +128,8 @@ func apply_display() -> void:
 
 	DisplayServer.window_set_vsync_mode(vsync_mode)
 
+	Engine.max_fps = fps_limit
+
 	display_settings_changed.emit()
 
 
@@ -154,6 +161,7 @@ func save() -> void:
 	_config.set_value(_SECTION_VIDEO, "contrast", contrast)
 	_config.set_value(_SECTION_VIDEO, "saturation", saturation)
 	_config.set_value(_SECTION_VIDEO, "vsync_mode", vsync_mode)
+	_config.set_value(_SECTION_VIDEO, "fps_limit", fps_limit)
 
 	_config.set_value(_SECTION_VIDEO, "grayscale_enabled", grayscale_enabled)
 
@@ -167,6 +175,7 @@ func save() -> void:
 	_config.save(_CONFIG_PATH)
 
 
+# TODO Should all these get_values get the _DEFAULTS or be null? Don't remember the source of it
 func _load() -> void:
 	if _config.load(_CONFIG_PATH) != OK:
 		resolution = get_window().size
@@ -186,6 +195,7 @@ func _load() -> void:
 	contrast = _config.get_value(_SECTION_VIDEO, "contrast", 1.0)
 	saturation = _config.get_value(_SECTION_VIDEO, "saturation", 1.0)
 	vsync_mode = _config.get_value(_SECTION_VIDEO, "vsync_mode", DisplayServer.VSYNC_DISABLED)
+	fps_limit = _config.get_value(_SECTION_VIDEO, "fps_limit", 90)
 	grayscale_enabled = _config.get_value(_SECTION_VIDEO, "grayscale_enabled", false)
 
 	camera_fov = _config.get_value(_SECTION_CAMERA, "camera_fov", 75.0)
