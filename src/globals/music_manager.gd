@@ -5,6 +5,7 @@ extends Node
 func _ready() -> void:
 	ApplicationStateManager.state_changed.connect(_on_game_state_changed)
 	GameplayStateManager.gameplay_mode_changed.connect(_on_gameplay_mode_changed)
+	_on_game_state_changed(ApplicationStateManager.get_current_state(), ApplicationStateManager.get_current_state())
 
 
 func _on_game_state_changed(new_state: ApplicationStateManager.GameState, previous_state: ApplicationStateManager.GameState) -> void:
