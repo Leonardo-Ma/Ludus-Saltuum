@@ -8,7 +8,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://qw3lmf4rabqb" path="res://src/entities/animation/libraries/general.res" id="6_q7dfg"]
 [ext_resource type="AnimationLibrary" uid="uid://dfypubq6ngr7a" path="res://src/entities/animation/libraries/movement.res" id="7_0ektb"]
 [ext_resource type="AnimationLibrary" uid="uid://bp21tmj3ajjq" path="res://src/entities/animation/libraries/movement_advanced.res" id="19_2rf2y"]
-[ext_resource type="AnimationNodeBlendTree" uid="uid://basam7g1dbev2" path="res://src/entities/resources/base_medium_animation_blend_tree.tres" id="20_cr6u0"]
+[ext_resource type="AnimationNodeBlendTree" uid="uid://basam7g1dbev2" path="res://src/entities/animation/libraries/base_medium_animation_blend_tree.tres" id="20_cr6u0"]
 
 [sub_resource type="Resource" id="Resource_oiqqw"]
 resource_local_to_scene = true

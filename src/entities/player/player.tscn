@@ -16,7 +16,7 @@
 [ext_resource type="ArrayMesh" uid="uid://benf5fx77de3o" path="res://src/entities/player/visual/mesh/arm_right.res" id="12_qo2tj"]
 [ext_resource type="AnimationLibrary" uid="uid://bp21tmj3ajjq" path="res://src/entities/animation/libraries/movement_advanced.res" id="13_lxeum"]
 [ext_resource type="ArrayMesh" uid="uid://cdjq172y8xhry" path="res://src/entities/player/visual/mesh/body.tres" id="13_wjvoe"]
-[ext_resource type="AnimationNodeBlendTree" uid="uid://basam7g1dbev2" path="res://src/entities/resources/base_medium_animation_blend_tree.tres" id="13_xm7nl"]
+[ext_resource type="AnimationNodeBlendTree" uid="uid://basam7g1dbev2" path="res://src/entities/animation/libraries/base_medium_animation_blend_tree.tres" id="13_xm7nl"]
 [ext_resource type="ArrayMesh" uid="uid://58f33ypmjqr8" path="res://src/entities/player/visual/mesh/cape.res" id="14_gxh5t"]
 [ext_resource type="ArrayMesh" uid="uid://cq8w1o6r6it25" path="res://src/entities/player/visual/mesh/head.res" id="15_lxeum"]
 [ext_resource type="ArrayMesh" uid="uid://b6n6u8ictwcg4" path="res://src/entities/player/visual/mesh/helmet.res" id="16_0cri1"]
