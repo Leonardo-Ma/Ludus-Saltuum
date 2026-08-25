@@ -46,4 +46,6 @@ func _sync_selection() -> void:
 func _on_item_selected(index: int) -> void:
 	SettingsManager.window_mode = get_item_metadata(index)
 	DisplayServer.window_set_mode(SettingsManager.window_mode)
+	if SettingsManager.window_mode == DisplayServer.WINDOW_MODE_WINDOWED:
+		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
 	SettingsManager.save()

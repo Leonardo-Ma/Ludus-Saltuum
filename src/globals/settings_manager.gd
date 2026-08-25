@@ -114,6 +114,7 @@ func apply_display() -> void:
 	DisplayServer.window_set_mode(window_mode)
 
 	if window_mode == DisplayServer.WINDOW_MODE_WINDOWED:
+		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
 		get_window().size = resolution
 
 	environment.adjustment_brightness = brightness
