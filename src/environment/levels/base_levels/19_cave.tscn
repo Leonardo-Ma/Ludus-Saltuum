@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="5_g04di"]
 [ext_resource type="MeshLibrary" uid="uid://b7d7lco4iovry" path="res://src/environment/assets/kenney_cave_kit/mesh_libraries/cave_floors.meshlib" id="6_og7uh"]
 [ext_resource type="MeshLibrary" uid="uid://dbm1usx123dkv" path="res://src/environment/assets/kenney_cave_kit/mesh_libraries/cave_walls.meshlib" id="7_2j6we"]
-[ext_resource type="PackedScene" uid="uid://b73j2aliqwvvc" path="res://src/systems/change_gameplay_state_area_3d.tscn" id="8_lpvia"]
+[ext_resource type="PackedScene" uid="uid://b73j2aliqwvvc" path="res://src/environment/mechanics/change_gameplay_state_area_3d.tscn" id="8_lpvia"]
 [ext_resource type="Script" uid="uid://d1k4xc3spqrwq" path="res://src/environment/levels/assets/caves/enable_darkness.gd" id="10_12cvo"]
 [ext_resource type="Environment" uid="uid://cukvscwyyjgeh" path="res://src/environment/levels/assets/caves/cave_environment.tres" id="11_w2gkj"]
 [ext_resource type="MeshLibrary" uid="uid://ckg0cey8h3jup" path="res://src/environment/assets/kenney_cave_kit/mesh_libraries/cave_props.meshlib" id="12_blxea"]

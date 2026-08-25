@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dtuht3gos28nm" path="res://src/environment/mechanics/car/car_exit_zone.tscn" id="10_6nfv3"]
 [ext_resource type="Texture2D" uid="uid://c3jgn4iaiqy36" path="res://src/environment/assets/kenney_city_kit_roads/models/Textures/colormap.png" id="12_7bql8"]
 [ext_resource type="Script" uid="uid://jqe7b8io8fum" path="res://src/environment/mechanics/checkpoint/checkpoint.gd" id="12_i8gww"]
-[ext_resource type="PackedScene" uid="uid://b73j2aliqwvvc" path="res://src/systems/change_gameplay_state_area_3d.tscn" id="12_lsnar"]
+[ext_resource type="PackedScene" uid="uid://b73j2aliqwvvc" path="res://src/environment/mechanics/change_gameplay_state_area_3d.tscn" id="12_lsnar"]
 [ext_resource type="PackedScene" uid="uid://0qrtv0g7tptr" path="res://src/environment/assets/kenney_city_kit_roads/scenes/construction_barrier.tscn" id="13_i8gww"]
 [ext_resource type="ArrayMesh" uid="uid://ddnt2i2w2bm1a" path="res://src/environment/assets/kenney_city_kit_roads/meshes/road_slant.tres" id="13_lsnar"]
 [ext_resource type="ArrayMesh" uid="uid://bqr7fp5jrjnte" path="res://src/environment/assets/kenney_city_kit_roads/meshes/road_slant_high.tres" id="14_i8gww"]

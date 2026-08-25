@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://jqe7b8io8fum" path="res://src/environment/mechanics/checkpoint/checkpoint.gd" id="10_2fx6d"]
 [ext_resource type="PackedScene" uid="uid://dtuht3gos28nm" path="res://src/environment/mechanics/car/car_exit_zone.tscn" id="10_b5qn7"]
 [ext_resource type="PackedScene" uid="uid://0qrtv0g7tptr" path="res://src/environment/assets/kenney_city_kit_roads/scenes/construction_barrier.tscn" id="10_jpc7b"]
-[ext_resource type="PackedScene" uid="uid://b73j2aliqwvvc" path="res://src/systems/change_gameplay_state_area_3d.tscn" id="12_jlyfk"]
+[ext_resource type="PackedScene" uid="uid://b73j2aliqwvvc" path="res://src/environment/mechanics/change_gameplay_state_area_3d.tscn" id="12_jlyfk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jlyfk"]
 size = Vector3(112.49707, 60, 233.09521)

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dfapcpf4fli57" path="res://src/environment/levels/level_chunk.gd" id="1_oyc53"]
 [ext_resource type="PackedScene" uid="uid://cl6psv388cmbx" path="res://src/environment/levels/entrance_trigger.tscn" id="2_m5l38"]
 [ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_jxtp2"]
-[ext_resource type="PackedScene" uid="uid://b73j2aliqwvvc" path="res://src/systems/change_gameplay_state_area_3d.tscn" id="4_30k40"]
+[ext_resource type="PackedScene" uid="uid://b73j2aliqwvvc" path="res://src/environment/mechanics/change_gameplay_state_area_3d.tscn" id="4_30k40"]
 [ext_resource type="PackedScene" uid="uid://c3c0sejgavc7h" path="res://src/entities/vehicles/car.tscn" id="5_uy0qx"]
 [ext_resource type="MeshLibrary" uid="uid://qivysvwq1h5d" path="res://src/environment/assets/kenney_city_kit_roads/race_library.tres" id="6_3u1mk"]
 [ext_resource type="PackedScene" uid="uid://dtuht3gos28nm" path="res://src/environment/mechanics/car/car_exit_zone.tscn" id="7_b3gi7"]

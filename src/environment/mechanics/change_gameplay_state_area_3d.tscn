@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b73j2aliqwvvc"]
 
-[ext_resource type="Script" uid="uid://bsdb6lflwlafr" path="res://src/systems/change_gameplay_state_area_3d.gd" id="1_u3cno"]
+[ext_resource type="Script" uid="uid://bsdb6lflwlafr" path="res://src/environment/mechanics/change_gameplay_state_area_3d.gd" id="1_u3cno"]
 
 [node name="ChangeGameplayStateArea3D" type="Area3D" unique_id=820773515]
 collision_layer = 8
