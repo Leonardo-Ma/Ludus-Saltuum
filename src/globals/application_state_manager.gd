@@ -69,12 +69,10 @@ func _is_valid_transition(from_state: GameState, to_state: GameState) -> bool:
 func _on_state_entered(new_state: GameState, previous_state: GameState) -> void:
 	match new_state:
 		GameState.MAIN_MENU:
-			UIManager.show_main_menu()
 			PauseManager.request_pause("gameplay")
 			main_menu_opened.emit()
 
 		GameState.PLAYING:
-			UIManager.show_gameplay()
 			PauseManager.release_pause("gameplay")
 			if previous_state == GameState.PAUSED:
 				gameplay_resumed.emit()
@@ -82,22 +80,19 @@ func _on_state_entered(new_state: GameState, previous_state: GameState) -> void:
 				gameplay_started.emit()
 
 		GameState.PAUSED:
-			UIManager.show_pause_menu()
 			PauseManager.request_pause("gameplay")
 			gameplay_paused.emit()
 
 		GameState.SETTINGS:
-			UIManager.show_settings()
 			settings_opened.emit()
 
 		GameState.SAVE_MENU:
-			UIManager.show_save_menu()
+			pass
 
 		GameState.ACHIEVEMENTS_MENU:
-			UIManager.show_achievements()
+			pass
 
 		GameState.MAIN_MENU_SETTINGS:
-			UIManager.show_main_menu_settings()
 			settings_opened.emit()
 
 
