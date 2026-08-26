@@ -14,7 +14,7 @@ func _ready() -> void:
 	var automatic_tests: Node = %UnitTestAutomaticScripts
 
 	for file_name: String in tests_directory.get_files():
-		if not file_name.ends_with(".gd") or file_name != get_script().get_global_name():
+		if not file_name.ends_with(".gd") or file_name == "test_scene.gd":
 			continue
 
 		var test_script: GDScript = load("res://tests/" + file_name) as GDScript
