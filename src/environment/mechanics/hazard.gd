@@ -13,8 +13,9 @@ signal deactivate
 
 
 func _ready() -> void:
-	assert(attack and attack.damage > 0 and attack.type != null, "Attack property incorrect for " + name)
-
+	assert(attack and attack.type != null, "Attack property incorrect for " + name)
+	if !attack.hitkill:
+		assert(attack.damage > 0, "Attack property incorrect for " + name)
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 
