@@ -53,6 +53,7 @@
 [ext_resource type="PackedScene" uid="uid://y23q86likppr" path="res://src/environment/levels/templates/short_left.tscn" id="51_kjvtq"]
 [ext_resource type="PackedScene" uid="uid://dtuht3gos28nm" path="res://src/environment/mechanics/car/car_exit_zone.tscn" id="52_wkk56"]
 [ext_resource type="PackedScene" uid="uid://dlxbhva4utv0e" path="res://src/environment/mechanics/teleport_portal/portal_vfx/simple_portal_vfx.tscn" id="53_1kgfr"]
+[ext_resource type="PackedScene" uid="uid://bxc67crvwseo8" path="res://tests/test_scene.tscn" id="54_mmgx3"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_mi8ch"]
 vertices = PackedVector3Array(-2.0784998, 4.5, -5.5785, -3.3284998, 4.5, -4.8285, -3.5784998, 4.5, -4.0785, -3.5784998, 4.5, 0.1715002, -3.0784998, 4.5, 1.1715002, -1.8284998, 4.5, 1.6715002, 1.9215002, 4.5, 1.6715002, 3.6715002, 4.5, -3.8284998, 3.1715002, 4.5, -5.0785, 2.1715002, 4.5, -5.5785, 3.6715002, 4.5, -0.078499794, 3.1715002, 4.5, 1.1715002)
@@ -166,4 +167,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -48, 0)
 script = ExtResource("15_wjd0w")
 environments = Array[Environment]([ExtResource("3_ib8ht"), ExtResource("16_8ndpt")])
 materials = Array[Material]([ExtResource("17_qfneb")])
-warmup_scenes = Array[PackedScene]([ExtResource("18_imvhg"), ExtResource("19_m07h4"), ExtResource("20_ui33j"), ExtResource("21_k5x6j"), ExtResource("22_jqey7"), ExtResource("23_dqleq"), ExtResource("24_bu6xm"), ExtResource("25_l175r"), ExtResource("26_prqr5"), ExtResource("27_7b4p7"), ExtResource("28_ljw12"), ExtResource("29_q6ill"), ExtResource("30_mmgx3"), ExtResource("31_hxm6p"), ExtResource("32_lj71n"), ExtResource("33_ruk5h"), ExtResource("34_ye406"), ExtResource("35_lvuux"), ExtResource("36_qbv60"), ExtResource("37_f6xxb"), ExtResource("38_s8ip4"), ExtResource("39_j2t2d"), ExtResource("40_q6ill"), ExtResource("41_mmgx3"), ExtResource("42_hxm6p"), ExtResource("43_lj71n"), ExtResource("6_d7bab"), ExtResource("44_ruk5h"), ExtResource("45_ye406"), ExtResource("8_43aqp"), ExtResource("46_lvuux"), ExtResource("47_qbv60"), ExtResource("48_f6xxb"), ExtResource("49_s8ip4"), ExtResource("50_j2t2d"), ExtResource("51_kjvtq"), ExtResource("52_wkk56"), ExtResource("53_1kgfr")])
+warmup_scenes = Array[PackedScene]([ExtResource("18_imvhg"), ExtResource("19_m07h4"), ExtResource("20_ui33j"), ExtResource("21_k5x6j"), ExtResource("22_jqey7"), ExtResource("23_dqleq"), ExtResource("24_bu6xm"), ExtResource("25_l175r"), ExtResource("26_prqr5"), ExtResource("27_7b4p7"), ExtResource("28_ljw12"), ExtResource("29_q6ill"), ExtResource("30_mmgx3"), ExtResource("31_hxm6p"), ExtResource("32_lj71n"), ExtResource("33_ruk5h"), ExtResource("34_ye406"), ExtResource("35_lvuux"), ExtResource("36_qbv60"), ExtResource("37_f6xxb"), ExtResource("38_s8ip4"), ExtResource("39_j2t2d"), ExtResource("41_mmgx3"), ExtResource("42_hxm6p"), ExtResource("43_lj71n"), ExtResource("6_d7bab"), ExtResource("44_ruk5h"), ExtResource("45_ye406"), ExtResource("8_43aqp"), ExtResource("46_lvuux"), ExtResource("47_qbv60"), ExtResource("48_f6xxb"), ExtResource("49_s8ip4"), ExtResource("50_j2t2d"), ExtResource("51_kjvtq"), ExtResource("53_1kgfr")])
+
+[node name="TestScene" parent="." unique_id=564304661 instance=ExtResource("54_mmgx3")]
+transform = Transform3D(-1, 0, -8.940697e-08, 0, 1, 0, 8.940697e-08, 0, -1, 0, -13, -93)
