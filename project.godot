@@ -53,7 +53,6 @@ shapes/collision/shape_color=Color(0, 0.6, 0.701961, 1)
 
 [display]
 
-window/size/mode=3
 window/size/borderless=true
 window/subwindows/embed_subwindows=false
 window/stretch/mode="canvas_items"
