@@ -9,7 +9,6 @@
 script = ExtResource("3_n7xey")
 icon = ExtResource("2_v2gel")
 amount = 10
-identifier = &"gold_coin"
 metadata/_custom_type_script = "uid://jk4f3mtctg5r"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v2gel"]

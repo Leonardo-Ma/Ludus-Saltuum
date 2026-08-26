@@ -10,7 +10,6 @@
 script = ExtResource("3_d827c")
 icon = ExtResource("2_utwfx")
 status_effect = ExtResource("4_utwfx")
-identifier = &"speed_boost"
 metadata/_custom_type_script = "uid://cqo4vne1iqdw4"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0772g"]

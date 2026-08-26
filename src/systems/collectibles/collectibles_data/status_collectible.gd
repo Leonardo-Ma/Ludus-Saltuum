@@ -8,9 +8,9 @@ extends CollectibleData
 
 
 func apply_effect(player: PlayerEntity) -> void:
-	assert(identifier != &"collectible_name" and identifier != &"", "missing identifier.")
-	assert(status_effect != null, "Status buff collectible " + str(identifier) + " missing effect resource.")
-	assert(icon != null, "Status buff collectible " + str(identifier) + " missing icon resource.")
+	assert(status_effect.get_id() != &"collectible_name" and status_effect.get_id() != &"", "missing identifier.")
+	assert(status_effect != null, "Status buff collectible " + status_effect.get_id() + " missing effect resource.")
+	assert(icon != null, "Status buff collectible " + status_effect.get_id() + " missing data.icon definition in child_ready.")
 
 	var entity: PlayerEntity = player as PlayerEntity
 	var status_manager: StatusManager = entity.status_manager

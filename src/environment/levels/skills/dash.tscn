@@ -14,7 +14,6 @@
 [sub_resource type="Resource" id="Resource_5h0lt"]
 script = ExtResource("7_vpwyn")
 definition = ExtResource("7_jj27o")
-identifier = &"dash_unlock"
 metadata/_custom_type_script = "uid://si0x0kj8w7kf"
 
 [node name="UnlockDash" type="Node3D" unique_id=1016321493]
