@@ -1,13 +1,11 @@
 [gd_scene format=4 uid="uid://bgrkv1kk52j1t"]
 
 [ext_resource type="Script" uid="uid://b75l4oh6wligb" path="res://src/environment/levels/assets/collectibles/gigantify/gigantify.gd" id="1_76cho"]
-[ext_resource type="Texture2D" uid="uid://ba8mk8t0mx82y" path="res://src/icons/16x16/potion.png" id="2_eybqc"]
 [ext_resource type="Script" uid="uid://cqo4vne1iqdw4" path="res://src/systems/collectibles/collectibles_data/status_collectible.gd" id="3_jy7e6"]
 [ext_resource type="Resource" uid="uid://bfr78paglfbvw" path="res://src/environment/levels/assets/collectibles/gigantify/gigantify.tres" id="4_eybqc"]
 
 [sub_resource type="Resource" id="Resource_utwfx"]
 script = ExtResource("3_jy7e6")
-icon = ExtResource("2_eybqc")
 status_effect = ExtResource("4_eybqc")
 metadata/_custom_type_script = "uid://cqo4vne1iqdw4"
 

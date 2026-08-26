@@ -1,13 +1,11 @@
 [gd_scene format=4 uid="uid://cagbuvx8fhprc"]
 
 [ext_resource type="Script" uid="uid://c3q21jderdj2g" path="res://src/environment/levels/assets/collectibles/shrink/shrink.gd" id="1_6nycq"]
-[ext_resource type="Texture2D" uid="uid://ba8mk8t0mx82y" path="res://src/icons/16x16/potion.png" id="2_da43x"]
 [ext_resource type="Script" uid="uid://cqo4vne1iqdw4" path="res://src/systems/collectibles/collectibles_data/status_collectible.gd" id="3_6g4ml"]
 [ext_resource type="Resource" uid="uid://b86rvjt6lasya" path="res://src/environment/levels/assets/collectibles/shrink/shrink.tres" id="4_da43x"]
 
 [sub_resource type="Resource" id="Resource_6nycq"]
 script = ExtResource("3_6g4ml")
-icon = ExtResource("2_da43x")
 status_effect = ExtResource("4_da43x")
 metadata/_custom_type_script = "uid://cqo4vne1iqdw4"
 

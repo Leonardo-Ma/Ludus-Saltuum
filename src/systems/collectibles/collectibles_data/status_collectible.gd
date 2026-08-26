@@ -1,10 +1,11 @@
 class_name StatusCollectible
 extends CollectibleData
 
-@export var icon: Texture2D
-
 @export_category("Buff Mechanics")
 @export var status_effect: StatusEffect
+
+## Defined in collectible final script's _child_ready, using Icons constant
+var icon: Texture2D
 
 
 func apply_effect(player: PlayerEntity) -> void:
