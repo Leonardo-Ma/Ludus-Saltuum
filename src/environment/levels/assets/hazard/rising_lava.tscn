@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bod2g08kkmb2t"]
+
+[ext_resource type="Script" uid="uid://csig12422io62" path="res://src/entities/components/combat/hitbox.gd" id="1_6vcg2"]
+[ext_resource type="Script" uid="uid://cxfnhr2o3mukx" path="res://src/environment/levels/assets/hazard/rising_lava.gd" id="1_cdi7l"]
+[ext_resource type="Script" uid="uid://cxqsapbic2imr" path="res://src/entities/components/combat/attack.gd" id="2_cdi7l"]
+
+[sub_resource type="Resource" id="Resource_cdi7l"]
+script = ExtResource("2_cdi7l")
+type = 2
+hitkill = true
+metadata/_custom_type_script = "uid://cxqsapbic2imr"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4hukf"]
+
+[node name="RisingLava" type="Area3D" unique_id=30082993]
+script = ExtResource("1_cdi7l")
+attack = SubResource("Resource_cdi7l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1905279518]
+shape = SubResource("BoxShape3D_4hukf")
+
+[node name="Hitbox" type="Area3D" parent="." unique_id=477411676]
+unique_name_in_owner = true
+collision_layer = 32768
+collision_mask = 0
+script = ExtResource("1_6vcg2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=100566925]
+shape = SubResource("BoxShape3D_4hukf")

@@ -10,6 +10,7 @@ enum Feature {
 	MAZE = 4,
 	TORNADO = 5,
 	MOVING_PLATFORM = 6,
+	LAVA = 7,
 }
 
 const FEATURE_NAME: Dictionary = {
@@ -20,4 +21,5 @@ const FEATURE_NAME: Dictionary = {
 	Feature.MAZE: &"maze",
 	Feature.TORNADO: &"tornado",
 	Feature.MOVING_PLATFORM: &"moving_platform",
+	Feature.LAVA: &"lava",
 }
