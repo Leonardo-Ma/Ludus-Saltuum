@@ -20,3 +20,7 @@ func apply_effect(player: PlayerEntity) -> void:
 	status_manager.apply_status(status_effect)
 
 	GameEvents.status_buff_collected.emit(status_effect, icon)
+
+
+func _resource_to_validate() -> Resource:
+	return status_effect

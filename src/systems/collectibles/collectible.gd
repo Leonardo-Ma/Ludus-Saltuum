@@ -18,13 +18,8 @@ var rot_tween: Tween
 
 func _ready() -> void:
 	assert(data != null, "Collectible data missing on " + name)
-	# TODO This is probably not best place to place this but otherwise I think only possible inside each specific children class so, out of ideas
-	if data is StatusCollectible:
-		assert(
-			data.status_effect.resource_path.ends_with(".tres"), "status " + name + " must be external .tres attached, not unique in editor inspector"
-		)
-	elif data is CounterCollectible or data is GoldCollectible or data is HealthCollectible:
-		assert(data.resource_path.ends_with(".tres"), "status " + name + " must be external .tres attached, not unique in editor inspector")
+	data.validate_external_resource()
+
 	body_entered.connect(_on_body_entered)
 	add_to_group(Groups.COLLECTIBLES)
 	_child_ready()
