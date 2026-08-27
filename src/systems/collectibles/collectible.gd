@@ -18,14 +18,24 @@ var rot_tween: Tween
 
 func _ready() -> void:
 	assert(data != null, "Collectible data missing on " + name)
+	# TODO This is probably not best place to place this but otherwise I think only possible inside each specific children class so, out of ideas
+	if data is StatusCollectible:
+		assert(
+			data.status_effect.resource_path.ends_with(".tres"), "status " + name + " must be external .tres attached, not unique in editor inspector"
+		)
+	elif data is CounterCollectible or data is GoldCollectible or data is HealthCollectible:
+		assert(data.resource_path.ends_with(".tres"), "status " + name + " must be external .tres attached, not unique in editor inspector")
 	body_entered.connect(_on_body_entered)
 	add_to_group(Groups.COLLECTIBLES)
 	_child_ready()
+
 	# chunk may not be aligned yet when _ready() fires
-	call_deferred("_record_spawn_position")
+	_record_spawn_position.call_deferred()
+
 	_setup_float_animation()
 
 
+# TODO This should be a data driven id check instead of position, even more while using procedural generation
 func _record_spawn_position() -> void:
 	spawn_position = global_position
 
