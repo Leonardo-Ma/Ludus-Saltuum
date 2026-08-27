@@ -41,10 +41,12 @@ Things to avoid: Cutscenes, art, logo, reviews, menus,
 - Use verbs. What will the player DO in the game? Explore, fight, craft, race,
 
 ### Trailers
-First trailer:
-- Should be around 1 minute, people skim through the trailer in chunks. Make it so any second of the trailer contains something that could interest the person about the genre or the game.
+Main trailer:
+- If you make your first trailer a 6 second clip, that will be shown exactly as the microtrailer instead of splitting your trailer in random parts.
+- (To confirm this information). If the trailer is exact 30 seconds, it will cut at 8, 10, 15, 18, 22 and 25 seconds?
 Second trailer:
--
+- Should be around 1 minute, people skim through the trailer in chunks. Make it so any second of the trailer contains something that could interest the person about the genre or the game.
+
 
 ### Long description
 - Should rely more on gifs and images instead of pure text (do not include text in images).

@@ -1,5 +1,7 @@
 # Controller / Gamepad support in Godot
 
+## Good mapping examples
+- ![Last of us 2 gamepad scheme](../assets/last_of_us_2_gamepad_scheme.png)
 
 ## UI
 - Need to have a default focus artifact for each screen/menu (usually with a generic control 'focus_grab' with an on ready focus grab script).

@@ -1,5 +1,8 @@
 ## Brainstorm
 
+##### What people actually like?
+- It seems people like permanent upgrades, here I mean the whole roguelike/roguelite, incremental genres.
+
 ##### Game ideas
 - Silly car game like [barro](https://store.steampowered.com/app/618140/Barro/)
 - Tower defense
