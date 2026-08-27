@@ -26,7 +26,7 @@ func _on_value_changed(new_value: float) -> void:
 			SettingsManager.contrast = new_value
 		DisplayProperty.SATURATION:
 			SettingsManager.saturation = new_value
-	SettingsManager.apply_display()
+	SettingsManager.apply_video()
 	SettingsManager.save()
 
 

@@ -10,7 +10,7 @@ func _ready() -> void:
 func _on_toggled(toggled_on: bool) -> void:
 	SettingsManager.grayscale_enabled = toggled_on
 	SettingsManager.save()
-	SettingsManager.apply_display()
+	SettingsManager.apply_accessibility()
 
 
 func _on_settings_reset() -> void:

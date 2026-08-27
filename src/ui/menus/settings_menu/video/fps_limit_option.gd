@@ -16,7 +16,7 @@ func _ready() -> void:
 
 func _on_item_selected(index: int) -> void:
 	SettingsManager.fps_limit = SettingsManager.FPS_PRESETS[index]
-	SettingsManager.apply_display()
+	SettingsManager.apply_video()
 	SettingsManager.save()
 
 
