@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ck2xnsf2rcgoi"]
 
 [ext_resource type="PackedScene" uid="uid://c47168lpalyg1" path="res://src/ui/popups/skip_level_confirm.tscn" id="1_88p43"]
+[ext_resource type="Script" uid="uid://bwsbnsabl5y43" path="res://src/ui/popups/popups.gd" id="1_it2ep"]
 
 [node name="Popups" type="Control" unique_id=1969549540]
 layout_mode = 3
@@ -9,6 +10,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_it2ep")
 
 [node name="SkipLevelConfirm" parent="." unique_id=574868389 instance=ExtResource("1_88p43")]
+unique_name_in_owner = true
 layout_mode = 1

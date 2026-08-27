@@ -1,3 +1,4 @@
+# TODO Change to extend an abstract popup class
 ## Confirmation popup for skipping the current level chunk
 extends Control
 

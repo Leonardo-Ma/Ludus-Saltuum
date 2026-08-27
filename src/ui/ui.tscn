@@ -8,34 +8,42 @@
 [ext_resource type="PackedScene" uid="uid://bhj0ppml5rqfl" path="res://src/ui/shop/shop.tscn" id="6_7abqo"]
 [ext_resource type="Script" uid="uid://dibncct5bj8s6" path="res://src/ui/center_screen_dot.gd" id="7_gucsq"]
 [ext_resource type="PackedScene" uid="uid://ck2xnsf2rcgoi" path="res://src/ui/popups/popups.tscn" id="8_cx7gx"]
+[ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="8_t30i7"]
 
 [node name="UI" type="CanvasLayer" unique_id=670172270]
 script = ExtResource("1_7abqo")
 
-[node name="Popups" parent="." unique_id=1969549540 instance=ExtResource("8_cx7gx")]
-unique_name_in_owner = true
-z_index = 3
-
 [node name="Shop" parent="." unique_id=1103614617 instance=ExtResource("6_7abqo")]
 visible = false
 z_index = 3
+mouse_filter = 2
 
 [node name="Overlays" parent="." unique_id=1930051961 instance=ExtResource("3_cywme")]
 unique_name_in_owner = true
 visible = false
+mouse_filter = 2
 
 [node name="DebugInterface" parent="." unique_id=1832192178 instance=ExtResource("4_bi8hs")]
 unique_name_in_owner = true
 z_index = 2
+mouse_filter = 2
 
 [node name="Menus" parent="." unique_id=217563089 instance=ExtResource("2_dakun")]
 unique_name_in_owner = true
 z_index = 100
+mouse_filter = 2
 
 [node name="HUD" parent="." unique_id=1333227325 instance=ExtResource("3_dakun")]
 unique_name_in_owner = true
 visible = false
 z_index = 1
+mouse_filter = 2
+
+[node name="Popups" parent="." unique_id=1969549540 instance=ExtResource("8_cx7gx")]
+unique_name_in_owner = true
+visible = false
+z_index = 3
+theme = ExtResource("8_t30i7")
 
 [node name="CenterScreenDot" type="ColorRect" parent="." unique_id=401992933]
 unique_name_in_owner = true
