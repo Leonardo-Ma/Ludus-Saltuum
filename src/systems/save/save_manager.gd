@@ -42,7 +42,7 @@ func reset_data_for_new_game() -> void:
 	player.player_save_controller.reset_data()
 	WorldSaveController.reset_data()
 	LevelChunkManager.reset_data()
-	CheckpointSaveController.reset_data()
+	CheckpointManager.reset_save_data()
 	# TODO Maybe change this trigger to signal based?
 	LevelChunkManager.initialize_level()
 
@@ -175,7 +175,7 @@ func _build_save(slot_index: int, is_auto: bool) -> SaveData:
 	player.player_save_controller.build_save(data.player)
 	WorldSaveController.build_save(data.world)
 	LevelChunkManager.build_save(data.chunks)
-	CheckpointSaveController.build_save(data.checkpoint)
+	CheckpointManager.build_save(data.checkpoint)
 
 	return data
 
@@ -183,7 +183,7 @@ func _build_save(slot_index: int, is_auto: bool) -> SaveData:
 func _on_player_spawned_after_load(spawned_player: Node3D) -> void:
 	GameEvents.player_spawned.disconnect(_on_player_spawned_after_load)
 	var player: PlayerEntity = spawned_player as PlayerEntity
-	CheckpointSaveController.on_player_spawned_after_load(player)
+	CheckpointManager.on_player_spawned_after_load(player)
 
 
 func _apply(data: SaveData) -> void:
@@ -193,14 +193,14 @@ func _apply(data: SaveData) -> void:
 	player.player_save_controller.apply_save(data.player)
 	WorldSaveController.apply_save(data.world)
 	LevelChunkManager.apply_save(data.chunks)
-	CheckpointSaveController.apply_save(data.checkpoint, player)
+	CheckpointManager.apply_save(data.checkpoint, player)
 
 	# If player not yet spawned, hook into spawn signal for deferred placement
 	if not player or not is_instance_valid(player):
 		GameEvents.player_spawned.connect(_on_player_spawned_after_load)
 	else:
 		# Player already exists, apply immediately
-		CheckpointSaveController.on_player_spawned_after_load(player)
+		CheckpointManager.on_player_spawned_after_load(player)
 
 
 # PLACEHOLDER
