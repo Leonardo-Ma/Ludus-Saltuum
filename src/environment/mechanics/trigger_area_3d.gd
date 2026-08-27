@@ -15,7 +15,8 @@ func _ready() -> void:
 		if child is CollisionShape3D:
 			collision_shape_3d = child
 
-	assert(collision_shape_3d, "Add a collision shape as first child of " + name)
+	assert(collision_shape_3d, "Add a collision shape as child of " + name)
+	assert(collision_shape_3d.owner != self, "Collision shape must be added as child of an instance of " + name + ". Not in the parent class")
 	assert(collision_shape_3d.shape, "Add shape to collision of " + name)
 	body_entered.connect(_on_trigger_entered)
 	body_exited.connect(_on_trigger_exited)
