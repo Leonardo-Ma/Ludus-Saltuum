@@ -12,36 +12,28 @@ signal accessibility_settings_changed
 signal settings_reset
 
 enum SettingsSection {
-	NONE,
-	GAMEPLAY,
-	AUDIO,
-	HUD,
-	CAMERA,
-	VIDEO,
-	ACCESSIBILITY,
-	KEY_BINDINGS,
+	NONE = 0,
+	GAMEPLAY = 1,
+	AUDIO = 2,
+	HUD = 3,
+	CAMERA = 4,
+	VIDEO = 5,
+	ACCESSIBILITY = 6,
+	KEY_BINDINGS = 7,
 }
 
-const _SECTION_NAMES: Array[String] = [
-	"",
-	_SECTION_GAMEPLAY,
-	_SECTION_AUDIO,
-	_SECTION_HUD,
-	_SECTION_CAMERA,
-	_SECTION_VIDEO,
-	_SECTION_ACCESSIBILITY,
-	_KEY_BINDINGS,
-]
+const _SECTION_NAMES: Dictionary[SettingsSection, String] = {
+	SettingsSection.NONE: "",
+	SettingsSection.GAMEPLAY: "gameplay",
+	SettingsSection.AUDIO: "audio",
+	SettingsSection.HUD: "hud",
+	SettingsSection.CAMERA: "camera",
+	SettingsSection.VIDEO: "video",
+	SettingsSection.ACCESSIBILITY: "accessibility",
+	SettingsSection.KEY_BINDINGS: "key_bindings",
+}
 
 const _CONFIG_PATH: String = "user://settings.cfg"
-
-const _SECTION_GAMEPLAY: String = "gameplay"
-const _SECTION_AUDIO: String = "audio"
-const _SECTION_HUD: String = "hud"
-const _SECTION_CAMERA: String = "camera"
-const _SECTION_VIDEO: String = "video"
-const _SECTION_ACCESSIBILITY: String = "accessibility"
-const _KEY_BINDINGS: String = "key_bindings"
 
 const FPS_PRESETS: Array[int] = [30, 60, 90, 120, 144, 165, 240, 0]  # 0 = Unlimited
 
