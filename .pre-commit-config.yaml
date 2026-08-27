@@ -86,6 +86,32 @@ repos:
         exclude: 'addons/'
 
       # Architecture
+      - id: enum-explicit-values
+        name: "require explicit value for every enum | prevents silent reorder on insert/change/delete | enum_member = N to each"
+        language: system
+        entry: >
+          awk '
+            /enum[ \t]+[A-Za-z_]*[ \t]*\{/ { in_enum=1; buf=""; start=FNR }
+            in_enum { buf = buf $0 "\n" }
+            in_enum && /\}/ {
+              in_enum=0
+              body=buf
+              gsub(/enum[ \t]+[A-Za-z_]*[ \t]*\{/, "", body)
+              sub(/\}.*/, "", body)
+              n=split(body, items, ",")
+              for (i=1; i<=n; i++) {
+                item=items[i]
+                gsub(/^[ \t\n]+|[ \t\n]+$/, "", item)
+                if (item == "") continue
+                if (item !~ /=/) {
+                  print FILENAME ":" start ": enum member \x27" item "\x27 missing explicit value"
+                  exit 1
+                }
+              }
+            }
+          '
+        files: \.gd$
+
       - id: no-scene-tree-traversal
         name: "ban scene tree climbing | assumes scene structure and breaks on refactor | use @export, Groups, or Autoloads"
         language: pygrep
