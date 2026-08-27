@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://c1nea7ynodcea" path="res://src/ui/hud/hud.gd" id="2_6kydk"]
 [ext_resource type="Script" uid="uid://c30uhilu8tn5v" path="res://src/ui/hud/score.gd" id="2_cl4jo"]
 [ext_resource type="Texture2D" uid="uid://b2ggug31fd52y" path="res://src/icons/16x16/star.png" id="3_ndnj2"]
+[ext_resource type="Shader" uid="uid://cxr7fnjchd78d" path="res://src/ui/hud/healthbar_shatter.gdshader" id="4_a7l5u"]
 [ext_resource type="Script" uid="uid://ckmipf2d40cqd" path="res://src/ui/hud/collectibles/gold.gd" id="5_4u0hr"]
 [ext_resource type="Texture2D" uid="uid://bmdg7sc3tlyrv" path="res://src/icons/16x16/coins.png" id="6_d5ccl"]
 [ext_resource type="Script" uid="uid://n1strmrhwjlu" path="res://src/ui/hud/skills/skills_interface.gd" id="7_8stm2"]
@@ -58,6 +59,12 @@ shadow_offset = Vector2(0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i25bo"]
 bg_color = Color(1, 1, 1, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w7m8p"]
+shader = ExtResource("4_a7l5u")
+shader_parameter/progress = 0.0
+shader_parameter/crack_scale = 14.0
+shader_parameter/crack_color = Color(0.05, 0.05, 0.05, 1)
+
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_t210l"]
 
 [node name="HUD" type="Control" unique_id=1333227325]
@@ -106,6 +113,7 @@ show_percentage = false
 script = ExtResource("1_jreyb")
 
 [node name="Damagebar" type="ProgressBar" parent="MarginContainer/HBoxContainer/LeftSideContainer/PlayerHealthbar" unique_id=1633898337]
+unique_name_in_owner = true
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
@@ -121,6 +129,18 @@ show_percentage = false
 [node name="Timer" type="Timer" parent="MarginContainer/HBoxContainer/LeftSideContainer/PlayerHealthbar" unique_id=266650581]
 wait_time = 0.4
 one_shot = true
+
+[node name="ShatterOverlay" type="ColorRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/PlayerHealthbar" unique_id=1036887465]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_w7m8p")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.265625, 0.265625, 0.265625, 1)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer" unique_id=800529395]
 layout_mode = 2

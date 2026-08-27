@@ -7,10 +7,13 @@ var health: float = 0.0:
 var health_resource: Health
 
 @onready var timer: Timer = $Timer
-@onready var damagebar: ProgressBar = $Damagebar
+@onready var damagebar: ProgressBar = %Damagebar
+@onready var shatter_overlay: ColorRect = %ShatterOverlay
 
 
 func _ready() -> void:
+	assert(timer and damagebar and shatter_overlay, " Healthbar misconfigured")
+	assert(shatter_overlay.material, "Shatter overlay must have a shatter effect shader as material")
 	GameEvents.player_spawned.connect(_on_player_spawned)
 	timer.timeout.connect(_on_timer_timeout)
 
@@ -70,9 +73,20 @@ func _on_health_changed(new_health: int) -> void:
 # TODO Maybe add a 'broken' shape bar style when dead?
 func _on_death() -> void:
 	self.health = 0.0
+	_on_death_visual_effect()
 
 
 func _on_timer_timeout() -> void:
 	# Animate damagebar down to match current health
 	var tween: Tween = create_tween()
 	tween.tween_property(damagebar, "value", health, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+
+# TODO Change this to actually use a broken glass texture progressing instead of tween
+func _on_death_visual_effect() -> void:
+	var shatter_material: ShaderMaterial = shatter_overlay.material
+	shatter_overlay.visible = true
+	shatter_material.set_shader_parameter("progress", 0.0)
+	var tween: Tween = create_tween()
+	tween.tween_method(func(v: float) -> void: shatter_material.set_shader_parameter("progress", v), 0.0, 1.0, 2.0)
+	tween.tween_callback(func() -> void: shatter_overlay.visible = false)
