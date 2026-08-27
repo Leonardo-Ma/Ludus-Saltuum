@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c7tmf6rofuw1j"]
+
+[ext_resource type="Script" uid="uid://2s1yrhbush81" path="res://src/environment/mechanics/gravity_field/gravity_field.gd" id="1_t6d0g"]
+
+[node name="GravityField" type="Area3D" unique_id=524471518]
+script = ExtResource("1_t6d0g")
