@@ -10,6 +10,9 @@ const NEARBY_RANGE_SQUARED: float = 225.0  # 15.0 * 15.0
 
 func init(actor: Node) -> void:
 	_actor = actor
+	var entity: AggressiveEntity = _actor as AggressiveEntity
+	assert(entity != null, "BaseMemory: actor must be AggressiveEntity in " + name)
+	entity.health.damaged.connect(func(_attack: Attack) -> void: force_refresh_blackboard())
 
 	_blackboard = {
 		"position": _actor.position,
@@ -44,7 +47,7 @@ func _is_low_health() -> bool:
 	return _get_health_percentage() <= HEALTH_LOW_THRESHOLD
 
 
-func update_blackboard() -> void:
+func _refresh_blackboard() -> void:
 	if not is_instance_valid(_actor):
 		return
 

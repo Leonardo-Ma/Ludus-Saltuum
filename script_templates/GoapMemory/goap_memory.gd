@@ -7,7 +7,7 @@ func init(actor: Node) -> void:
 	_blackboard = {"position": _actor.position, "in_combat": false}
 
 
-func update_blackboard() -> void:
+func _refresh_blackboard() -> void:
 	var enemy_position: Vector3
 	var my_position: Vector3 = _actor.global_position
 	var distance: float = my_position.distance_to(enemy_position)
