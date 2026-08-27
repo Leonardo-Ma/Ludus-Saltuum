@@ -1,9 +1,7 @@
-[gd_resource type="Resource" script_class="CounterCollectible" format=3 uid="uid://d4l1e5omaovdj"]
+[gd_resource type="Resource" script_class="GoldCollectible" format=3 uid="uid://d4l1e5omaovdj"]
 
-[ext_resource type="Texture2D" uid="uid://bmdg7sc3tlyrv" path="res://src/icons/16x16/coins.png" id="1_0d0jk"]
-[ext_resource type="Script" uid="uid://jk4f3mtctg5r" path="res://src/systems/collectibles/collectibles_data/counter_collectible.gd" id="2_rd7gm"]
+[ext_resource type="Script" uid="uid://br86pfw0o8am4" path="res://src/systems/collectibles/collectibles_data/gold_collectible.gd" id="1_q3kj0"]
 
 [resource]
-script = ExtResource("2_rd7gm")
-icon = ExtResource("1_0d0jk")
+script = ExtResource("1_q3kj0")
 metadata/_custom_type_script = "uid://jk4f3mtctg5r"

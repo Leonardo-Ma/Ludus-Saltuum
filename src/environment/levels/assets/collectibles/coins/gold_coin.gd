@@ -8,8 +8,3 @@ func _child_ready() -> void:
 		preload("uid://luy8ck7csy0q"),  # coin_4.wav
 		preload("uid://ckl5fl1a1sq0w"),  # coin_collect.wav
 	]
-
-
-# Overriding
-func _apply_effect(_player: PlayerEntity) -> void:
-	GameEvents.add_gold(data.amount)
