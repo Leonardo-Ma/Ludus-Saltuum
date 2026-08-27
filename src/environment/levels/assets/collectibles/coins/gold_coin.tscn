@@ -1,15 +1,8 @@
 [gd_scene format=4 uid="uid://be65x13d4tlnt"]
 
 [ext_resource type="Script" uid="uid://c2mf4ow0r2nd" path="res://src/environment/levels/assets/collectibles/coins/gold_coin.gd" id="1_tg3p4"]
-[ext_resource type="Texture2D" uid="uid://bmdg7sc3tlyrv" path="res://src/icons/16x16/coins.png" id="2_v2gel"]
+[ext_resource type="Resource" uid="uid://d4l1e5omaovdj" path="res://src/environment/levels/assets/collectibles/coins/gold_coin.tres" id="2_eix43"]
 [ext_resource type="Texture2D" uid="uid://ccs62hofilq3i" path="res://src/environment/platformer_kit_kenney/texture/assets_colormap.png" id="3_8jsbt"]
-[ext_resource type="Script" uid="uid://jk4f3mtctg5r" path="res://src/systems/collectibles/collectibles_data/counter_collectible.gd" id="3_n7xey"]
-
-[sub_resource type="Resource" id="Resource_tg3p4"]
-script = ExtResource("3_n7xey")
-icon = ExtResource("2_v2gel")
-amount = 10
-metadata/_custom_type_script = "uid://jk4f3mtctg5r"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v2gel"]
 size = Vector3(0.5175781, 0.5527344, 0.49316406)
@@ -54,7 +47,7 @@ shadow_mesh = SubResource("ArrayMesh_582fi")
 [node name="GoldCoin" type="Area3D" unique_id=1971537253]
 collision_layer = 0
 script = ExtResource("1_tg3p4")
-data = SubResource("Resource_tg3p4")
+data = ExtResource("2_eix43")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1486315182]

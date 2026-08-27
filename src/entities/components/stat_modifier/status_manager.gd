@@ -19,9 +19,11 @@ var _target: Node = null
 func _ready() -> void:
 	_target = get_parent()
 	for status: StatusEffect in permanent_statuses:
+		assert(status.resource_path.get_extension() == ".tres", "status " + name + " must be external .tres attached, not edited in editor inspector")
 		if status:
 			apply_status(status)
 	for status: StatusEffect in initial_statuses:
+		assert(status.resource_path.get_extension() == ".tres", "status " + name + " must be external .tres attached, not edited in editor inspector")
 		if status:
 			apply_status(status)
 
