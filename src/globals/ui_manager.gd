@@ -30,34 +30,6 @@ func set_hud_visible(visible: bool) -> void:
 	_get_ui().set_hud_visible(visible)
 
 
-func show_main_menu() -> void:
-	_get_ui().show_main_menu()
-
-
-func show_gameplay() -> void:
-	_get_ui().show_game()
-
-
-func show_pause_menu() -> void:
-	_get_ui().show_pause_menu()
-
-
-func show_settings() -> void:
-	_get_ui().show_settings()
-
-
-func show_save_menu() -> void:
-	_get_ui().show_save_menu()
-
-
-func show_achievements() -> void:
-	_get_ui().show_achievements()
-
-
-func show_main_menu_settings() -> void:
-	_get_ui().show_main_menu_settings()
-
-
 # TODO Check how the unused argument could be omitted without possible silent fails
 @warning_ignore("unused_parameter")  # gdlint:ignore=unused-argument
 func _on_game_state_changed(new_state: ApplicationStateManager.GameState, previous_state: ApplicationStateManager.GameState) -> void:
