@@ -7,6 +7,7 @@ extends CanvasLayer
 @onready var _menus: MenusView = %Menus
 @onready var _hud: Control = %HUD
 @onready var _overlays: Control = %Overlays
+@onready var _popups: Control = %Popups
 
 
 func _ready() -> void:
@@ -17,44 +18,6 @@ func _ready() -> void:
 		assert(
 			child.z_index != 0, child.name + " is missing CanvasItem > Ordering > Z Index. All children of UI must have manual screen ordering set"
 		)
-
-
-# TODO Improve this garbage, should be _gui_input but doesn't work if so
-# BUG Web version: ESC releases mouse and ignores this on first press.
-# Works on second ESC press.
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("toggle_hud"):
-		UIManager.set_hud_visible(not UIManager.hud_visible)
-		get_viewport().set_input_as_handled()
-		return
-
-	# TODO This shouldn't be here
-	if event.is_action_pressed("quick_save") and ApplicationStateManager.is_gameplay_active():
-		SaveManager.save_to_quick_slot()
-		get_viewport().set_input_as_handled()
-		return
-
-	if not event.is_action_pressed("ui_cancel"):
-		return
-	if ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.MAIN_MENU):
-		return
-	if ApplicationStateManager.is_in_settings():
-		ApplicationStateManager.request_close_settings()
-		get_viewport().set_input_as_handled()
-		return
-	if (
-		ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.SAVE_MENU)
-		or ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.ACHIEVEMENTS_MENU)
-		or ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.MAIN_MENU_SETTINGS)
-	):
-		ApplicationStateManager.request_close_menu()
-		get_viewport().set_input_as_handled()
-		return
-	if not ApplicationStateManager.is_paused():
-		ApplicationStateManager.request_pause()
-	else:
-		ApplicationStateManager.request_resume()
-	get_viewport().set_input_as_handled()
 
 
 func show_main_menu() -> void:
@@ -75,6 +38,7 @@ func show_game() -> void:
 	_menus.visible = false
 	_hud.visible = UIManager.hud_visible
 	_overlays.visible = true
+	_popups.visible = true
 
 
 func show_pause_menu() -> void:
@@ -101,6 +65,14 @@ func show_main_menu_settings() -> void:
 	_menus.show_main_menu_settings()
 	_hud.visible = false
 	_overlays.visible = false
+
+
+func has_open_popup() -> bool:
+	return _popups.has_open_popup()
+
+
+func close_open_popup() -> void:
+	_popups.close_open_popup()
 
 
 func set_hud_visible(_hud_visible: bool) -> void:
