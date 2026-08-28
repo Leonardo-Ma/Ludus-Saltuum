@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cqgd6g3oujuj" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/play.png" id="5_863by"]
 [ext_resource type="ButtonGroup" uid="uid://ctkeu7278wn6a" path="res://src/ui/menus/settings_menu/settings_button_group.tres" id="5_b1okk"]
 [ext_resource type="Script" uid="uid://dpc6wcewh3ft" path="res://src/ui/menus/settings_menu/audio/volume_slider.gd" id="5_nap5k"]
+[ext_resource type="Script" uid="uid://fqh0yt3oyuji" path="res://src/ui/menus/settings_menu/settings_tab_button.gd" id="6_jopjw"]
 [ext_resource type="Texture2D" uid="uid://bcak65oijluxt" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/volume.png" id="7_6geaa"]
 [ext_resource type="PackedScene" uid="uid://b6ednpu0kwboc" path="res://src/ui/helpers/grab_focus_on_visible.tscn" id="7_8i7sm"]
 [ext_resource type="Script" uid="uid://djxnnbvmilpar" path="res://src/ui/menus/close_menu_button.gd" id="8_jw1je"]
@@ -97,12 +98,10 @@ theme_override_constants/margin_bottom = 20
 [node name="Panel" type="Panel" parent="RootContainer" unique_id=668241401]
 layout_mode = 2
 
-[node name="SettingsContainer" type="VBoxContainer" parent="RootContainer" unique_id=1404946993 node_paths=PackedStringArray("tabs", "panels")]
+[node name="SettingsContainer" type="VBoxContainer" parent="RootContainer" unique_id=1404946993 node_paths=PackedStringArray("tab_container")]
 layout_mode = 2
 script = ExtResource("3_bx78x")
-tabs = [NodePath("TabMarginContainer/TabContainer/GameplayTab"), NodePath("TabMarginContainer/TabContainer/AudioTab"), NodePath("TabMarginContainer/TabContainer/HUDTab"), NodePath("TabMarginContainer/TabContainer/CameraTab"), NodePath("TabMarginContainer/TabContainer/VideoTab"), NodePath("TabMarginContainer/TabContainer/AccessibilityTab"), NodePath("TabMarginContainer/TabContainer/CreditsTab"), NodePath("TabMarginContainer/TabContainer/StatisticsTab"), NodePath("TabMarginContainer/TabContainer/KeyBindingsTab")]
-panels = [NodePath("VBoxContainer/Tabs/GameplayOptions"), NodePath("VBoxContainer/Tabs/AudioOptions"), NodePath("VBoxContainer/Tabs/HudOptions"), NodePath("VBoxContainer/Tabs/CameraOptions"), NodePath("VBoxContainer/Tabs/VideoOptions"), NodePath("VBoxContainer/Tabs/AccessibilityOptions"), NodePath("VBoxContainer/Tabs/Credits"), NodePath("VBoxContainer/Tabs/Statistics"), NodePath("VBoxContainer/Tabs/KeyBindingsPanel")]
-section_map = Array[int]([0, 1, 2, 3, 4, 5, 0, 0, 6])
+tab_container = NodePath("TabMarginContainer/TabContainer")
 
 [node name="TabMarginContainer" type="MarginContainer" parent="RootContainer/SettingsContainer" unique_id=1464652048]
 layout_mode = 2
@@ -116,7 +115,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="GameplayTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=818776271]
+[node name="GameplayTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=818776271 node_paths=PackedStringArray("panel")]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -131,11 +130,14 @@ button_group = ExtResource("5_b1okk")
 icon = ExtResource("5_863by")
 icon_alignment = 1
 expand_icon = true
+script = ExtResource("6_jopjw")
+panel = NodePath("../../../VBoxContainer/Tabs/GameplayOptions")
+section = 1
 
 [node name="FocusOnVisible" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer/GameplayTab" unique_id=494770207 instance=ExtResource("7_8i7sm")]
 layout_mode = 0
 
-[node name="AudioTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1997371650]
+[node name="AudioTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1997371650 node_paths=PackedStringArray("panel")]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -150,8 +152,11 @@ button_group = ExtResource("5_b1okk")
 icon = ExtResource("7_6geaa")
 icon_alignment = 1
 expand_icon = true
+script = ExtResource("6_jopjw")
+panel = NodePath("../../../VBoxContainer/Tabs/AudioOptions")
+section = 2
 
-[node name="HUDTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=2090510106]
+[node name="HUDTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=2090510106 node_paths=PackedStringArray("panel")]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -166,8 +171,11 @@ button_group = ExtResource("5_b1okk")
 icon = ExtResource("25_ha0b3")
 icon_alignment = 1
 expand_icon = true
+script = ExtResource("6_jopjw")
+panel = NodePath("../../../VBoxContainer/Tabs/HudOptions")
+section = 3
 
-[node name="CameraTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1020966248]
+[node name="CameraTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1020966248 node_paths=PackedStringArray("panel")]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -182,8 +190,11 @@ button_group = ExtResource("5_b1okk")
 icon = ExtResource("9_6geaa")
 icon_alignment = 1
 expand_icon = true
+script = ExtResource("6_jopjw")
+panel = NodePath("../../../VBoxContainer/Tabs/CameraOptions")
+section = 4
 
-[node name="VideoTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1382191094]
+[node name="VideoTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1382191094 node_paths=PackedStringArray("panel")]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -198,8 +209,11 @@ button_group = ExtResource("5_b1okk")
 icon = ExtResource("10_863by")
 icon_alignment = 1
 expand_icon = true
+script = ExtResource("6_jopjw")
+panel = NodePath("../../../VBoxContainer/Tabs/VideoOptions")
+section = 5
 
-[node name="AccessibilityTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1249037183]
+[node name="AccessibilityTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1249037183 node_paths=PackedStringArray("panel")]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -214,8 +228,11 @@ button_group = ExtResource("5_b1okk")
 icon = ExtResource("11_6geaa")
 icon_alignment = 1
 expand_icon = true
+script = ExtResource("6_jopjw")
+panel = NodePath("../../../VBoxContainer/Tabs/AccessibilityOptions")
+section = 6
 
-[node name="CreditsTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1821142584]
+[node name="CreditsTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1821142584 node_paths=PackedStringArray("panel")]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -230,8 +247,10 @@ button_group = ExtResource("5_b1okk")
 icon = ExtResource("12_6geaa")
 icon_alignment = 1
 expand_icon = true
+script = ExtResource("6_jopjw")
+panel = NodePath("../../../VBoxContainer/Tabs/Credits")
 
-[node name="KeyBindingsTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1774065017]
+[node name="KeyBindingsTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1774065017 node_paths=PackedStringArray("panel")]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -246,8 +265,11 @@ button_group = ExtResource("5_b1okk")
 icon = ExtResource("13_6geaa")
 icon_alignment = 1
 expand_icon = true
+script = ExtResource("6_jopjw")
+panel = NodePath("../../../VBoxContainer/Tabs/KeyBindingsPanel")
+section = 7
 
-[node name="StatisticsTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1561313159]
+[node name="StatisticsTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1561313159 node_paths=PackedStringArray("panel")]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -262,6 +284,8 @@ button_group = ExtResource("5_b1okk")
 icon = ExtResource("14_6geaa")
 icon_alignment = 1
 expand_icon = true
+script = ExtResource("6_jopjw")
+panel = NodePath("../../../VBoxContainer/Tabs/Statistics")
 
 [node name="CloseSettingsButton" type="TextureButton" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1971545603]
 custom_minimum_size = Vector2(64, 64)
