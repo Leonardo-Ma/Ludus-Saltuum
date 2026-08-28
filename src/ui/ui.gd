@@ -25,6 +25,7 @@ func show_main_menu() -> void:
 	_menus.show_main_menu()
 	_hud.visible = false
 	_overlays.visible = false
+	_popups.visible = false
 
 
 func show_save_menu() -> void:
@@ -32,6 +33,7 @@ func show_save_menu() -> void:
 	_menus.show_save_menu()
 	_hud.visible = false
 	_overlays.visible = false
+	_popups.visible = false
 
 
 func show_game() -> void:
@@ -46,6 +48,7 @@ func show_pause_menu() -> void:
 	_menus.show_pause_menu()
 	_hud.visible = false
 	_overlays.visible = false
+	_popups.visible = false
 
 
 func show_settings() -> void:
@@ -58,6 +61,7 @@ func show_achievements() -> void:
 	_menus.show_achievements()
 	_hud.visible = false
 	_overlays.visible = false
+	_popups.visible = false
 
 
 func show_main_menu_settings() -> void:
