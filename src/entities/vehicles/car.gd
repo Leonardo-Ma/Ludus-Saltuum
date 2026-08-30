@@ -197,3 +197,5 @@ func respawn(delay: float, target_transform: Transform3D, is_death: bool = false
 	if is_death:
 		health.reset()
 		scale = Vector3.ONE
+
+	GameEvents.player_finished_respawning.emit()

@@ -13,6 +13,8 @@ signal score_updated(new_score: int)
 signal easter_egg_found(easter_egg_name: StringName)
 @warning_ignore("unused_signal")
 signal player_respawning(duration: float)
+@warning_ignore("unused_signal")
+signal player_finished_respawning
 signal gold_updated(new_total: int)
 @warning_ignore("unused_signal")
 signal collectible_consumed(world_position: Vector3)

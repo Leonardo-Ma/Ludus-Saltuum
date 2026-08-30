@@ -56,6 +56,8 @@ func respawn(delay: float, target_transform: Transform3D, is_death: bool = false
 	hurtbox.set_deferred("monitoring", true)
 	hurtbox.set_deferred("monitorable", true)
 
+	GameEvents.player_finished_respawning.emit()
+
 
 # TODO Maybe change this to a signal based to decouple?
 # TODO Improve name
