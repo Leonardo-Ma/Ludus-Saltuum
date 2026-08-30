@@ -13,14 +13,7 @@ const CATEGORY_LIMITS: Dictionary = {
 }
 
 ## Audio buses (match these to Audio tab setup)
-const BUSES: Dictionary = {
-	SoundManager.SoundCategory.MUSIC: "Music",
-	SoundManager.SoundCategory.SFX: "SFX",
-	SoundManager.SoundCategory.AMBIENT: "Ambient",
-	SoundManager.SoundCategory.UI: "UI",
-	SoundManager.SoundCategory.VOICE: "Voice",
-	SoundManager.SoundCategory.VEHICLE: "Vehicle",
-}
+const BUSES: Dictionary = SoundManager.BUS_NAMES
 
 ## Pools: category -> Array of available players
 var _pools: Dictionary = {}

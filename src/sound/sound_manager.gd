@@ -1,14 +1,24 @@
 extends Node
 
 enum SoundCategory {
-	UNASSIGNED,
-	GLOBAL,
-	MUSIC,
-	SFX,
-	AMBIENT,
-	UI,
-	VOICE,
-	VEHICLE,
+	UNASSIGNED = 0,
+	GLOBAL = 1,
+	MUSIC = 2,
+	SFX = 3,
+	AMBIENT = 4,
+	UI = 5,
+	VOICE = 6,
+	VEHICLE = 7,
+}
+
+const BUS_NAMES: Dictionary[SoundCategory, String] = {
+	SoundCategory.GLOBAL: "Master",
+	SoundCategory.MUSIC: "Music",
+	SoundCategory.SFX: "SFX",
+	SoundCategory.AMBIENT: "Ambient",
+	SoundCategory.UI: "UI",
+	SoundCategory.VOICE: "Voice",
+	SoundCategory.VEHICLE: "Vehicle",
 }
 
 var music: MusicController
@@ -88,29 +98,9 @@ func pause_all_sfx(paused: bool) -> void:
 
 
 #region Private helpers
-# gdlint: disable=max-returns
 func _get_bus_for_category(category: SoundCategory) -> String:
-	match category:
-		SoundCategory.UNASSIGNED:
-			assert(false, "SoundManager: category is UNASSIGNED in " + name)
-			return ""
-		SoundCategory.GLOBAL:
-			return "Master"
-		SoundCategory.MUSIC:
-			return "Music"
-		SoundCategory.SFX:
-			return "SFX"
-		SoundCategory.AMBIENT:
-			return "Ambient"
-		SoundCategory.UI:
-			return "UI"
-		SoundCategory.VOICE:
-			return "Voice"
-		SoundCategory.VEHICLE:
-			return "Vehicle"
-		_:
-			assert(false, "SoundManager: unhandled SoundCategory in " + name)
-			return ""
+	assert(BUS_NAMES.has(category), "SoundManager: unhandled SoundCategory in " + name)
+	return BUS_NAMES[category]
 
 
 func _load_volume_settings() -> void:
