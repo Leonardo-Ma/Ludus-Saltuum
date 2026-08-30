@@ -113,6 +113,15 @@ var gamepad_invert_y: bool = false
 
 var _config: ConfigFile = ConfigFile.new()
 
+var _section_to_apply_function: Dictionary[SettingsSection, Callable] = {
+	SettingsSection.GAMEPLAY: apply_gameplay,
+	SettingsSection.AUDIO: apply_audio,
+	SettingsSection.HUD: apply_hud,
+	SettingsSection.CAMERA: apply_camera,
+	SettingsSection.VIDEO: apply_video,
+	SettingsSection.ACCESSIBILITY: apply_accessibility,
+}
+
 
 func _ready() -> void:
 	get_window().size_changed.connect(_on_window_size_changed)
@@ -209,9 +218,16 @@ func reset_to_default(section: SettingsSection = SettingsSection.NONE) -> void:
 		assert(_DEFAULTS.has(target_section), "SettingsManager: no defaults for section " + str(target_section))
 		for key: StringName in _DEFAULTS[target_section]:
 			set(key, _DEFAULTS[target_section][key])
-	apply_all()
+	for target_section: SettingsSection in sections_to_reset:
+		_apply_section(target_section)
 	settings_reset.emit()
 	save()
+
+
+func _apply_section(section: SettingsSection) -> void:
+	var func_ref: Callable = _section_to_apply_function.get(section, Callable())
+	if func_ref.is_valid():
+		func_ref.call()
 
 
 # TODO BUG This fails if windowed but maximized. Also doesn't properly recognize screen resolution limits
