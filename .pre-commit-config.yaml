@@ -30,8 +30,14 @@ default_install_hook_types:
 default_stages: [pre-commit]
 
 repos:
+  # ============================================================
+  # Project-specific guardrails
+  # ============================================================
   - repo: local
     hooks:
+      # ----------------------------------------------------------
+      # Template / project rules
+      # ----------------------------------------------------------
       - id: check-filenames-are-lowercase
         name: check that filenames are lowercase
         entry: filenames must be lower-case or lower_case only
@@ -46,7 +52,9 @@ repos:
               script_templates/
           )
 
+      # ----------------------------------------------------------
       # Scenes / Resources
+      # ----------------------------------------------------------
       - id: no-custom-maximum-size
         name: "ban custom_maximum_size | breaks different resolution layouts | use anchors, size_flags, and custom_minimum_size"
         language: pygrep
@@ -77,7 +85,100 @@ repos:
             }
           '
         files: \.tscn$
+        # ----------------------------------------------------------
+        # Architecture / coupling
+        # ----------------------------------------------------------
+      - id: no-scene-tree-traversal
+        name: "ban scene tree climbing | assumes scene structure and breaks on refactor | use @export, Groups, or Autoloads"
+        language: pygrep
+        entry: '(get_parent\(\)\.get_parent\(\)|find_parent\(|get_node\(\s*"\.\.)'
+        files: \.gd$
 
+      - id: no-string-group-names
+        name: "ban raw string group names | silent fail | use Groups constants"
+        language: pygrep
+        entry: '(add_to_group|remove_from_group|is_in_group|get_tree\(\)\.get_nodes_in_group)\(\s*"'
+        files: \.gd$
+
+      - id: no-get-node-or-null
+        name: "ban get_node_or_null | fails silently | use get_node()"
+        language: pygrep
+        entry: 'get_node_or_null\('
+        files: \.gd$
+
+      - id: no-hardcoded-res-paths
+        name: "ban hardcoded res:// paths | breaks on export and bypasses UID system | use preload with uid"
+        language: pygrep
+        entry: '(load|preload)\(\s*"res://'
+        files: \.gd$
+        exclude: 'tests/'
+
+      - id: no-runtime-load
+        name: "ban ResourceLoader.load at runtime | causes performance drop and bypasses UID preloading | use preload"
+        language: pygrep
+        entry: 'ResourceLoader\.load\('
+        files: \.gd$
+        exclude: ^src/systems/save/
+
+      - id: no-change-scene
+        name: "ban change_scene_to_file/change_scene_to_packed | bypasses StateManager"
+        language: pygrep
+        entry: '(change_scene_to_file|change_scene_to_packed|change_scene)\('
+        files: \.gd$
+        # ----------------------------------------------------------
+        # UI
+        # ----------------------------------------------------------
+
+      - id: no-input-action-in-ui
+        name: "ban Input.is_action in UI scripts | UI must not poll input directly | use _unhandled_input or signals"
+        language: pygrep
+        entry: 'Input\.(is_action_pressed|is_action_just_pressed|is_key_pressed)\('
+        files: src/ui/.*\.gd$
+        # ----------------------------------------------------------
+        # Safety / platform
+        # ----------------------------------------------------------
+      - id: no-os-execute
+        name: "ban OS.execute | unsafe | use Godot APIs"
+        language: pygrep
+        entry: 'OS\.execute\s*\('
+        files: \.gd$
+
+      - id: no-audio-server-direct
+        name: "ban using AudioServer directly | bypasses SoundManager | use SoundManager"
+        language: pygrep
+        entry: 'AudioServer\.(play_sound_once|play_sound|set_bus_volume_db|get_bus_volume_db)\('
+        files: \.gd$
+        exclude: ^src/sound/|tests/
+        # ----------------------------------------------------------
+        # Physics / timing
+        # ----------------------------------------------------------
+      - id: no-super-ready
+        name: "ban super._ready() | fail prone | use @abstract func _child_ready()"
+        language: pygrep
+        entry: 'super\._ready\(\)'
+        files: \.gd$
+
+      - id: no-magic-numbers-wait
+        name: "ban create_timer with magic numbers | error prone | extract duration to a const with proper naming"
+        language: pygrep
+        entry: 'create_timer\(\s*[0-9]'
+        files: \.gd$
+
+      - id: no-delta-on-impulse
+        name: "ban delta on impulse calls | impulses are instant and must not scale with frame rate | remove delta multiplication"
+        language: pygrep
+        entry: 'apply_(impulse|central_impulse|torque_impulse)\(.*\*\s*delta'
+        files: \.gd$
+
+      - id: no-delta-missing-on-continuous-movement
+        name: "ban frame dependent continuous movement | position changes accumulate per frame and must be frame independent | multiply by delta"
+        language: pygrep
+        entry: '(position|translation)\s*\+=\s*(?!.*\*\s*delta)(?!.*delta\s*\*)'
+        files: \.gd$
+
+        # ----------------------------------------------------------
+        # Style
+        # ----------------------------------------------------------
       - id: check-snake-case
         name: "check snake_case naming in gdscript | variables, functions, signals must be snake_case"
         language: pygrep
@@ -85,7 +186,9 @@ repos:
         files: \.gd$
         exclude: 'addons/'
 
-      # Architecture
+      # ----------------------------------------------------------
+      # Opinated
+      # ----------------------------------------------------------
       - id: enum-explicit-values
         name: "require explicit value for every enum | prevents silent reorder on insert/change/delete | enum_member = N to each"
         language: system
@@ -112,12 +215,6 @@ repos:
           '
         files: \.gd$
 
-      - id: no-scene-tree-traversal
-        name: "ban scene tree climbing | assumes scene structure and breaks on refactor | use @export, Groups, or Autoloads"
-        language: pygrep
-        entry: '(get_parent\(\)\.get_parent\(\)|find_parent\(|get_node\(\s*"\.\.)'
-        files: \.gd$
-
       - id: no-resource-saver-outside-savemanager
         name: "ban ResourceSaver.save outside SaveManager | bypasses atomic write/backup/verify pipeline | use SaveManager API"
         language: pygrep
@@ -125,82 +222,15 @@ repos:
         files: \.gd$
         exclude: ^(src/systems/save/save_manager\.gd|tests/)
 
-      - id: no-get-node-or-null
-        name: "ban get_node_or_null | fails silently | use get_node()"
-        language: pygrep
-        entry: 'get_node_or_null\('
-        files: \.gd$
-
-      - id: no-string-group-names
-        name: "ban raw string group names | silent fail | use Groups constants"
-        language: pygrep
-        entry: '(add_to_group|remove_from_group|is_in_group|get_tree\(\)\.get_nodes_in_group)\(\s*"'
-        files: \.gd$
-
-      - id: no-hardcoded-res-paths
-        name: "ban hardcoded res:// paths | breaks on export and bypasses UID system | use preload with uid"
-        language: pygrep
-        entry: '(load|preload)\(\s*"res://'
-        files: \.gd$
-        exclude: 'tests/'
-
-      - id: no-runtime-load
-        name: "ban ResourceLoader.load at runtime | causes performance drop and bypasses UID preloading | use preload"
-        language: pygrep
-        entry: 'ResourceLoader\.load\('
-        files: \.gd$
-        exclude: ^src/systems/save/
-
-      - id: no-input-action-in-ui
-        name: "ban Input.is_action in UI scripts | UI must not poll input directly | use _unhandled_input or signals"
-        language: pygrep
-        entry: 'Input\.(is_action_pressed|is_action_just_pressed|is_key_pressed)\('
-        files: src/ui/.*\.gd$
-
-      - id: no-os-execute
-        name: "ban OS.execute | unsafe | use Godot APIs"
-        language: pygrep
-        entry: 'OS\.execute\s*\('
-        files: \.gd$
-
-      - id: no-audio-server-direct
-        name: "ban using AudioServer directly | bypasses SoundManager | use SoundManager"
-        language: pygrep
-        entry: 'AudioServer\.(play_sound_once|play_sound|set_bus_volume_db|get_bus_volume_db)\('
-        files: \.gd$
-        exclude: ^src/sound/|tests/
-
-      - id: no-super-ready
-        name: "ban super._ready() | fail prone | use @abstract func _child_ready()"
-        language: pygrep
-        entry: 'super\._ready\(\)'
-        files: \.gd$
-
-      - id: no-magic-numbers-wait
-        name: "ban create_timer with magic numbers | error prone | extract duration to a const with proper naming"
-        language: pygrep
-        entry: 'create_timer\(\s*[0-9]'
-        files: \.gd$
-
-      - id: no-delta-on-impulse
-        name: "ban delta on impulse calls | impulses are instant and must not scale with frame rate | remove delta multiplication"
-        language: pygrep
-        entry: 'apply_(impulse|central_impulse|torque_impulse)\(.*\*\s*delta'
-        files: \.gd$
-
-      - id: no-delta-missing-on-continuous-movement
-        name: "ban frame dependent continuous movement | position changes accumulate per frame and must be frame independent | multiply by delta"
-        language: pygrep
-        entry: '(position|translation)\s*\+=\s*(?!.*\*\s*delta)(?!.*delta\s*\*)'
-        files: \.gd$
-
       - id: no-code-collision-layer-or-mask
         name: "ban defining collision layer or mask by code | Fail prone | Do by editor only"
         language: pygrep
         entry: (?<!\.)\b(collision_layer|collision_mask)\b\s*=(?!=)\s*
         files: \.gd$
 
-      # Godot 3 syntax
+      # ----------------------------------------------------------
+      # Legacy Godot syntax
+      # ----------------------------------------------------------
 
       - id: no-godot3-yield
         name: "ban yield() | Godot 3 coroutine syntax | use await"
@@ -220,12 +250,9 @@ repos:
         entry: '\.connect\(\s*"'
         files: \.gd$
 
-      - id: no-change-scene
-        name: "ban change_scene_to_file/change_scene_to_packed | bypasses StateManager"
-        language: pygrep
-        entry: '(change_scene_to_file|change_scene_to_packed|change_scene)\('
-        files: \.gd$
-
+  # ----------------------------------------------------------
+  # Third party
+  # ----------------------------------------------------------
   - repo: https://github.com/qoomon/git-conventional-commits
     rev: f00599350f1d22c14f431b4e458f1076124c0c0d # 2.9.0
     hooks:
