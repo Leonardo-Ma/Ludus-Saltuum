@@ -9,6 +9,15 @@ var hud_visible: bool = true
 
 var _ui: UIView
 
+var _cancel_actions: Dictionary[ApplicationStateManager.GameState, Callable] = {
+	ApplicationStateManager.GameState.SETTINGS: ApplicationStateManager.request_close_settings,
+	ApplicationStateManager.GameState.MAIN_MENU_SETTINGS: ApplicationStateManager.request_close_settings,
+	ApplicationStateManager.GameState.SAVE_MENU: ApplicationStateManager.request_close_menu,
+	ApplicationStateManager.GameState.ACHIEVEMENTS_MENU: ApplicationStateManager.request_close_menu,
+	ApplicationStateManager.GameState.PLAYING: ApplicationStateManager.request_pause,
+	ApplicationStateManager.GameState.PAUSED: ApplicationStateManager.request_resume,
+}
+
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -24,7 +33,6 @@ func register_ui(ui: UIView) -> void:
 
 
 # BUG Web version: ESC releases mouse and ignores this on first press but works on second ESC press.
-# gdlint: disable=max-returns
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("toggle_hud"):
 		set_hud_visible(not hud_visible)
@@ -39,25 +47,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		_get_ui().get_viewport().set_input_as_handled()
 		return
 
-	if ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.MAIN_MENU):
+	var current_state: ApplicationStateManager.GameState = ApplicationStateManager.get_current_state()
+	if current_state == ApplicationStateManager.GameState.MAIN_MENU:
 		return
-	if ApplicationStateManager.is_in_settings():
-		ApplicationStateManager.request_close_settings()
+
+	var action: Callable = _cancel_actions.get(current_state, Callable())
+	if action.is_valid():
+		action.call()
 		_get_ui().get_viewport().set_input_as_handled()
-		return
-	if (
-		ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.SAVE_MENU)
-		or ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.ACHIEVEMENTS_MENU)
-		or ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.MAIN_MENU_SETTINGS)
-	):
-		ApplicationStateManager.request_close_menu()
-		_get_ui().get_viewport().set_input_as_handled()
-		return
-	if not ApplicationStateManager.is_paused():
-		ApplicationStateManager.request_pause()
-	else:
-		ApplicationStateManager.request_resume()
-	_get_ui().get_viewport().set_input_as_handled()
 
 
 func set_hud_visible(visible: bool) -> void:
