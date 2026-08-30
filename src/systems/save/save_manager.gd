@@ -13,6 +13,8 @@ const TOTAL_SLOTS: int = MANUAL_SLOTS + AUTO_SLOTS
 const AUTO_SAVE_INTERVAL: float = 120.0
 const CURRENT_SAVE_VERSION: int = 1
 
+var _save_block_sources: Dictionary = {}
+
 var _next_auto_slot: int = 0
 var _auto_timer: Timer
 
@@ -21,6 +23,8 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	DirAccess.make_dir_recursive_absolute(SAVE_DIR)
 	get_tree().set_auto_accept_quit(false)
+	_cleanup_stale_temp_files()
+
 	_sync_cloud_saves()
 	_next_auto_slot = _find_next_auto_slot()
 
@@ -34,6 +38,9 @@ func _ready() -> void:
 	# Saves to quick slot upon pause and quit
 	ApplicationStateManager.gameplay_paused.connect(_on_gameplay_paused)
 	ApplicationStateManager.quit_requested.connect(_on_quit_requested)
+
+	GameEvents.player_respawning.connect(request_save_block.bind(&"player_respawn"))
+	GameEvents.player_finished_respawning.connect(release_save_block.bind(&"player_respawn"))
 
 
 func reset_data_for_new_game() -> void:
@@ -60,11 +67,12 @@ func save_to_slot(slot_index: int) -> bool:
 
 
 # TODO Change to a request quick save
-func save_to_quick_slot() -> bool:
-	return _write_slot(MANUAL_SLOTS - 1, false)
+func save_to_quick_slot(force: bool) -> bool:
+	return _write_slot(MANUAL_SLOTS - 1, false, force)
 
 
 func load_from_slot(slot_index: int) -> bool:
+	assert(not is_save_blocked(), "SaveManager can't load while a save/load in progress")
 	assert(
 		slot_index >= 0 and slot_index < TOTAL_SLOTS,
 		"SaveManager: slot out of range in " + name,
@@ -78,6 +86,7 @@ func load_from_slot(slot_index: int) -> bool:
 		if not _migrate(data):
 			return false
 
+	request_save_block(&"loading")
 	_apply(data)
 
 	return true
@@ -118,12 +127,25 @@ func has_any_save() -> bool:
 	return false
 
 
+## Blocks saving while [param source] is mid-transition (respawn, load...)
+func request_save_block(source: StringName) -> void:
+	_save_block_sources[source] = true
+
+
+func release_save_block(source: StringName) -> void:
+	_save_block_sources.erase(source)
+
+
+func is_save_blocked() -> bool:
+	return not _save_block_sources.is_empty()
+
+
 #endregion
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("quick_save") and ApplicationStateManager.is_gameplay_active():
-		SaveManager.save_to_quick_slot()
+		SaveManager.save_to_quick_slot(false)
 		get_viewport().set_input_as_handled()
 		return
 
@@ -131,15 +153,43 @@ func _unhandled_input(event: InputEvent) -> void:
 #region Private helpers
 func _on_auto_save() -> void:
 	var target_slot: int = MANUAL_SLOTS + _next_auto_slot
-	_write_slot(target_slot, true)
-	_next_auto_slot = (_next_auto_slot + 1) % AUTO_SLOTS
+	if _write_slot(target_slot, true):
+		_next_auto_slot = (_next_auto_slot + 1) % AUTO_SLOTS
 
 
-func _write_slot(slot_index: int, is_auto: bool) -> bool:
-	if not ApplicationStateManager.is_gameplay_active():
+func _write_slot(slot_index: int, is_auto: bool, force: bool = false) -> bool:
+	assert(
+		slot_index >= 0 and slot_index < TOTAL_SLOTS,
+		"SaveManager: slot out of range in " + name,
+	)
+
+	if not _can_save(force):
 		return false
 
 	var data: SaveData = _build_save(slot_index, is_auto)
+	if not _persist_slot(slot_index, data):
+		return false
+
+	save_changed.emit(slot_index)
+	SteamCloudSave.upload(_cloud_filename(slot_index), _slot_path(slot_index))
+
+	print_debug("Saved slot ", slot_index)
+	return true
+
+
+func _can_save(force: bool) -> bool:
+	if not force and is_save_blocked():
+		print_debug("Save blocked by ", _save_block_sources.keys())
+		return false
+
+	if not ApplicationStateManager.is_gameplay_active():
+		print_debug("Tried saving while gameplay not active")
+		return false
+
+	return true
+
+
+func _persist_slot(slot_index: int, data: SaveData) -> bool:
 	var base: String = _slot_path(slot_index)
 	var tmp: String = base.replace(".tres", "_tmp.tres")
 	var bak: String = base + ".bak"
@@ -149,16 +199,29 @@ func _write_slot(slot_index: int, is_auto: bool) -> bool:
 		push_error("SaveManager: failed writing tmp for slot %d (error %d)" % [slot_index, err])
 		return false
 
-	var verify: SaveData = ResourceLoader.load(tmp, "", ResourceLoader.CACHE_MODE_IGNORE) as SaveData
+	var verify: SaveData = (
+		(
+			ResourceLoader
+			. load(
+				tmp,
+				"",
+				ResourceLoader.CACHE_MODE_IGNORE,
+			)
+		)
+		as SaveData
+	)
+
 	if verify == null:
-		push_error("SaveManager: tmp verification failed for slot %d, aborting commit" % slot_index)
 		_safe_remove(tmp)
+		push_error("SaveManager: tmp verification failed for slot %d, aborting commit" % slot_index)
 		return false
 
-	if FileAccess.file_exists(base):
-		if not _safe_rename(base, bak):
-			_safe_remove(tmp)
-			return false
+	if FileAccess.file_exists(bak):
+		_safe_remove(bak)
+
+	if FileAccess.file_exists(base) and not _safe_rename(base, bak):
+		_safe_remove(tmp)
+		return false
 
 	if not _safe_rename(tmp, base):
 		push_error("SaveManager: failed committing save for slot %d" % slot_index)
@@ -166,9 +229,6 @@ func _write_slot(slot_index: int, is_auto: bool) -> bool:
 			_safe_rename(bak, base)
 		return false
 
-	print_debug("Saved slot ", slot_index)
-	save_changed.emit(slot_index)
-	SteamCloudSave.upload(_cloud_filename(slot_index), base)
 	return true
 
 
@@ -195,6 +255,7 @@ func _on_player_spawned_after_load(spawned_player: Node3D) -> void:
 	GameEvents.player_spawned.disconnect(_on_player_spawned_after_load)
 	var player: PlayerEntity = spawned_player as PlayerEntity
 	CheckpointManager.on_player_spawned_after_load(player)
+	release_save_block(&"loading")
 
 
 func _apply(data: SaveData) -> void:
@@ -212,6 +273,7 @@ func _apply(data: SaveData) -> void:
 	else:
 		# Player already exists, apply immediately
 		CheckpointManager.on_player_spawned_after_load(player)
+		release_save_block(&"loading")
 
 
 # PLACEHOLDER
@@ -252,6 +314,11 @@ func _safe_rename(from: String, to: String) -> bool:
 	return true
 
 
+func _cleanup_stale_temp_files() -> void:
+	for i: int in range(TOTAL_SLOTS):
+		_safe_remove(_slot_path(i) + ".tmp")
+
+
 func _find_next_auto_slot() -> int:
 	var oldest_index: int = 0
 	var oldest_timestamp: float = INF
@@ -272,11 +339,11 @@ func _notification(what: int) -> void:
 
 
 func _on_gameplay_paused() -> void:
-	save_to_quick_slot()
+	save_to_quick_slot(false)
 
 
 func _on_quit_requested() -> void:
-	save_to_quick_slot()
+	save_to_quick_slot(true)
 
 
 func _sync_cloud_saves() -> void:
