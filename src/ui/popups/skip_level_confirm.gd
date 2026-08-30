@@ -1,6 +1,6 @@
 # TODO Change to extend an abstract popup class
 ## Confirmation popup for skipping the current level chunk
-extends Control
+extends PopupTemplate
 
 @onready var _yes_button: TextureButton = %YesButton
 @onready var _no_button: TextureButton = %NoButton

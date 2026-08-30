@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ck2xnsf2rcgoi"]
 
 [ext_resource type="PackedScene" uid="uid://c47168lpalyg1" path="res://src/ui/popups/skip_level_confirm.tscn" id="1_88p43"]
-[ext_resource type="Script" uid="uid://bwsbnsabl5y43" path="res://src/ui/popups/popups.gd" id="1_it2ep"]
+[ext_resource type="Script" uid="uid://bwsbnsabl5y43" path="res://src/ui/popups/popups_view.gd" id="1_it2ep"]
 
 [node name="Popups" type="Control" unique_id=1969549540]
 layout_mode = 3
