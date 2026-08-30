@@ -23,18 +23,11 @@ func register_ui(ui: UIView) -> void:
 	hud_visible = SettingsManager.hud_visible
 
 
-# TODO Improve this garbage, should be _gui_input but doesn't work if so
 # BUG Web version: ESC releases mouse and ignores this on first press but works on second ESC press.
 # gdlint: disable=max-returns
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("toggle_hud"):
 		set_hud_visible(not hud_visible)
-		_get_ui().get_viewport().set_input_as_handled()
-		return
-
-	# TODO This shouldn't be here
-	if event.is_action_pressed("quick_save") and ApplicationStateManager.is_gameplay_active():
-		SaveManager.save_to_quick_slot()
 		_get_ui().get_viewport().set_input_as_handled()
 		return
 

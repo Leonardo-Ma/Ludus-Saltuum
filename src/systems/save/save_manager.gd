@@ -18,6 +18,7 @@ var _auto_timer: Timer
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	DirAccess.make_dir_recursive_absolute(SAVE_DIR)
 	get_tree().set_auto_accept_quit(false)
 	_sync_cloud_saves()
@@ -117,6 +118,13 @@ func has_any_save() -> bool:
 
 
 #endregion
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("quick_save") and ApplicationStateManager.is_gameplay_active():
+		SaveManager.save_to_quick_slot()
+		get_viewport().set_input_as_handled()
+		return
 
 
 #region Private helpers
