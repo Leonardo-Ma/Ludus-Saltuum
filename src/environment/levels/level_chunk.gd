@@ -1,7 +1,11 @@
 ## Base class for all procedural level chunks
 class_name LevelChunk extends Node3D
 
-enum Difficulty { EASY, MEDIUM, HARD }
+enum Difficulty {
+	EASY = 0,
+	MEDIUM = 1,
+	HARD = 2,
+}
 
 @export_category("Difficulty")
 @export var difficulty: Difficulty = Difficulty.EASY

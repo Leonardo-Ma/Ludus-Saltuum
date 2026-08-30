@@ -1,7 +1,11 @@
 ## To a adjust display (brightness, contrast, saturation)
 extends HSlider
 
-enum DisplayProperty { BRIGHTNESS, CONTRAST, SATURATION }
+enum DisplayProperty {
+	BRIGHTNESS = 0,
+	CONTRAST = 1,
+	SATURATION = 2,
+}
 
 const _DB_MAX: float = 1.5
 const _DB_MIN: float = 0.5

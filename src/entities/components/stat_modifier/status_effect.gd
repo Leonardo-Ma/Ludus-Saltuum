@@ -3,12 +3,16 @@
 extends Resource
 
 enum StackMode {
-	NONE,  ## Cannot stack, application is ignored if present
-	STACK,  ## Adds a new stack (up to max_stacks), keeps duration
-	REPLACE,  ## Refreshes duration to maximum
-	ADD_DURATION,  ## Extends existing time
+	NONE = 0,  ## Cannot stack, application is ignored if present
+	STACK = 1,  ## Adds a new stack (up to max_stacks), keeps duration
+	REPLACE = 2,  ## Refreshes duration to maximum
+	ADD_DURATION = 3,  ## Extends existing time
 }
-enum StatusType { BUFF, DEBUFF, NEUTRAL }
+enum StatusType {
+	BUFF = 0,
+	DEBUFF = 1,
+	NEUTRAL = 2,
+}
 
 @export var type: StatusType = StatusType.NEUTRAL
 ## Optional tags

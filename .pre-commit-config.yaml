@@ -204,6 +204,7 @@ repos:
               n=split(body, items, ",")
               for (i=1; i<=n; i++) {
                 item=items[i]
+                sub(/##.*/, "", item)
                 gsub(/^[ \t\n]+|[ \t\n]+$/, "", item)
                 if (item == "") continue
                 if (item !~ /=/) {

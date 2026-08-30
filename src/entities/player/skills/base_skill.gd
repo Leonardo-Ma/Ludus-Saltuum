@@ -14,11 +14,11 @@ signal charges_updated(charges: int)
 signal toggled(active: bool)
 
 enum HUDMode {
-	COOLDOWN,  ## Progress bar drains over a duration; blocks input while active
-	COOLDOWN_SOFT,  ## Progress bar drains but does NOT grey out the slot
-	CHARGES,  ## Numeric charge counter; slot dims at zero
-	TOGGLE,  ## Slot pulses green while active
-	NONE,  ## Icon only, no state display
+	COOLDOWN = 0,  ## Progress bar drains over a duration; blocks input while active
+	COOLDOWN_SOFT = 1,  ## Progress bar drains but does NOT grey out the slot
+	CHARGES = 2,  ## Numeric charge counter; slot dims at zero
+	TOGGLE = 3,  ## Slot pulses green while active
+	NONE = 4,  ## Icon only; no state display
 }
 
 ## Injected by SkillsController immediately after add_child()
