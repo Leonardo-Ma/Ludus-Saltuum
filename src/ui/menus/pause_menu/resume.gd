@@ -1,9 +1,9 @@
-extends TextureButton
+extends UITextureButton
 
 
-func _ready() -> void:
-	pressed.connect(_on_pressed)
+func _button_ready() -> void:
+	pass
 
 
-func _on_pressed() -> void:
+func _button_pressed() -> void:
 	ApplicationStateManager.request_resume()

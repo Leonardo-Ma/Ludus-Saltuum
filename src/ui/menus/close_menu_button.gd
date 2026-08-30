@@ -1,13 +1,12 @@
-extends TextureButton
+extends UITextureButton
 
 # TODO Change this variable to a global theme
 const CLOSE_COLOR: Color = Color.RED
 
 
-func _ready() -> void:
+func _button_ready() -> void:
 	modulate = CLOSE_COLOR
-	pressed.connect(_on_pressed)
 
 
-func _on_pressed() -> void:
+func _button_pressed() -> void:
 	ApplicationStateManager.request_close_menu()

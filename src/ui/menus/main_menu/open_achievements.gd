@@ -1,12 +1,10 @@
-extends TextureButton
+extends UITextureButton
 
 
-func _ready() -> void:
+func _button_ready() -> void:
 	if OS.has_feature("demo"):
 		visible = false
 
-	pressed.connect(_on_pressed)
 
-
-func _on_pressed() -> void:
+func _button_pressed() -> void:
 	ApplicationStateManager.request_achievements_menu()

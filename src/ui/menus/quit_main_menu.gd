@@ -1,12 +1,11 @@
-extends TextureButton
+extends UITextureButton
 
 const CLOSE_COLOR: Color = Color.RED
 
 
-func _ready() -> void:
+func _button_ready() -> void:
 	modulate = CLOSE_COLOR
-	pressed.connect(_on_pressed)
 
 
-func _on_pressed() -> void:
+func _button_pressed() -> void:
 	ApplicationStateManager.request_main_menu()
