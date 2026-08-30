@@ -7,6 +7,10 @@ const _EXCLUDED: Array[StringName] = [&"resolution", &"window_mode", &"environme
 
 
 func _ready() -> void:
+	if not OS.is_debug_build():
+		queue_free()
+		return
+
 	_test_defaults_match_real_properties()
 	_test_save_and_load()
 	_test_reset_to_default()

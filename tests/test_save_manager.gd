@@ -3,6 +3,10 @@ extends Node
 
 
 func _ready() -> void:
+	if not OS.is_debug_build():
+		queue_free()
+		return
+
 	_test_has_save_and_get_slot_data()
 	_test_delete_slot_removes_all_variants()
 	print("SaveManager test completed.")

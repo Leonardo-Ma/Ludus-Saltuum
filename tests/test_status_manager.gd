@@ -13,6 +13,10 @@ class TestStatus:
 
 
 func _ready() -> void:
+	if not OS.is_debug_build():
+		queue_free()
+		return
+
 	_test_stack_mode_caps_at_max()
 	_test_replace_mode_resets_duration()
 	_test_add_duration_mode_extends_time()

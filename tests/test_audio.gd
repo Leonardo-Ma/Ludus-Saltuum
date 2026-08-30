@@ -2,6 +2,10 @@ extends Node
 
 
 func _ready() -> void:
+	if not OS.is_debug_build():
+		queue_free()
+		return
+
 	# Wait one frame to ensure all systems are initialized
 	await get_tree().process_frame
 	_run_all_tests()

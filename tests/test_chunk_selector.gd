@@ -12,6 +12,10 @@ func _make_chunk(path: String, required: Array[StringName] = [], unlocks: String
 
 
 func _ready() -> void:
+	if not OS.is_debug_build():
+		queue_free()
+		return
+
 	_test_filters_by_required_skills()
 	_test_turn_cooldown()
 	_test_forced_skill_unlock()

@@ -61,6 +61,10 @@ class OpenDoorGoal:
 
 
 func _ready() -> void:
+	if not OS.is_debug_build():
+		queue_free()
+		return
+
 	_test_finds_cheapest_plan()
 	_test_no_plan_when_unreachable()
 	print("GOAP planner test completed.")

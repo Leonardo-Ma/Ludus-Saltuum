@@ -9,6 +9,10 @@ var _original_other_events: Array[InputEvent] = []
 
 
 func _ready() -> void:
+	if not OS.is_debug_build():
+		queue_free()
+		return
+
 	_original_events = InputMap.action_get_events(_TEST_ACTION).duplicate()
 	_original_other_events = InputMap.action_get_events(_OTHER_ACTION).duplicate()
 
@@ -71,3 +75,6 @@ func _restore_original_bindings() -> void:
 	InputMap.action_erase_events(_OTHER_ACTION)
 	for event: InputEvent in _original_other_events:
 		InputMap.action_add_event(_OTHER_ACTION, event)
+
+	InputBindingManager._save()
+	InputBindingManager.binding_changed.emit(_OTHER_ACTION)

@@ -6,6 +6,10 @@ extends Node
 
 
 func _ready() -> void:
+	if not OS.is_debug_build():
+		queue_free()
+		return
+
 	var actions_dir: String = "res://src/entities/ai/goap/actions"
 	var actions: Array = _load_all_scripts_in_dir(actions_dir)
 
