@@ -40,6 +40,7 @@ func reset_data_for_new_game() -> void:
 	_next_auto_slot = 0
 	GameplayStateManager.set_play_time(0.0)
 	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
+	assert(player != null, "No player found while building save in " + name)
 	player.player_save_controller.reset_data()
 	WorldSaveController.reset_data()
 	LevelChunkManager.reset_data()
@@ -129,14 +130,15 @@ func _unhandled_input(event: InputEvent) -> void:
 
 #region Private helpers
 func _on_auto_save() -> void:
-	if get_tree().paused:
-		return
 	var target_slot: int = MANUAL_SLOTS + _next_auto_slot
 	_write_slot(target_slot, true)
 	_next_auto_slot = (_next_auto_slot + 1) % AUTO_SLOTS
 
 
 func _write_slot(slot_index: int, is_auto: bool) -> bool:
+	if not ApplicationStateManager.is_gameplay_active():
+		return false
+
 	var data: SaveData = _build_save(slot_index, is_auto)
 	var base: String = _slot_path(slot_index)
 	var tmp: String = base.replace(".tres", "_tmp.tres")
@@ -180,6 +182,7 @@ func _build_save(slot_index: int, is_auto: bool) -> SaveData:
 
 	# TODO Check how to decouple this
 	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
+	assert(player != null, "No player found while building save in " + name)
 	player.player_save_controller.build_save(data.player)
 	WorldSaveController.build_save(data.world)
 	LevelChunkManager.build_save(data.chunks)
@@ -273,8 +276,7 @@ func _on_gameplay_paused() -> void:
 
 
 func _on_quit_requested() -> void:
-	if ApplicationStateManager.is_gameplay_active():
-		save_to_quick_slot()
+	save_to_quick_slot()
 
 
 func _sync_cloud_saves() -> void:
