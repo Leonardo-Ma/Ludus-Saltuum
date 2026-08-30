@@ -14,13 +14,60 @@ signal main_menu_opened
 signal quit_requested
 
 enum GameState {
-	MAIN_MENU,
-	PLAYING,
-	PAUSED,
-	SETTINGS,
-	SAVE_MENU,
-	ACHIEVEMENTS_MENU,
-	MAIN_MENU_SETTINGS,
+	MAIN_MENU = 0,
+	PLAYING = 1,
+	PAUSED = 2,
+	SETTINGS = 3,
+	SAVE_MENU = 4,
+	ACHIEVEMENTS_MENU = 5,
+	MAIN_MENU_SETTINGS = 6,
+}
+
+const _VALID_TRANSITIONS: Dictionary = {
+	GameState.MAIN_MENU:
+	[
+		GameState.PLAYING,
+		GameState.MAIN_MENU_SETTINGS,
+		GameState.SAVE_MENU,
+		GameState.ACHIEVEMENTS_MENU,
+	],
+	GameState.PLAYING:
+	[
+		GameState.PAUSED,
+		GameState.MAIN_MENU,
+		GameState.SETTINGS,
+	],
+	GameState.PAUSED:
+	[
+		GameState.PLAYING,
+		GameState.MAIN_MENU,
+		GameState.SETTINGS,
+		GameState.SAVE_MENU,
+		GameState.ACHIEVEMENTS_MENU,
+	],
+	GameState.SETTINGS:
+	[
+		GameState.PLAYING,
+		GameState.PAUSED,
+		GameState.MAIN_MENU,
+		GameState.MAIN_MENU_SETTINGS,
+	],
+	GameState.SAVE_MENU:
+	[
+		GameState.PLAYING,
+		GameState.PAUSED,
+		GameState.MAIN_MENU,
+	],
+	GameState.ACHIEVEMENTS_MENU:
+	[
+		GameState.PAUSED,
+		GameState.MAIN_MENU,
+	],
+	GameState.MAIN_MENU_SETTINGS:
+	[
+		GameState.MAIN_MENU,
+		GameState.SETTINGS,
+	],
 }
 
 var _current_state: GameState = GameState.MAIN_MENU
@@ -45,25 +92,8 @@ func _change_state(new_state: GameState) -> void:
 	state_changed.emit(_current_state, _previous_state)
 
 
-# gdlint: disable=max-returns
 func _is_valid_transition(from_state: GameState, to_state: GameState) -> bool:
-	match from_state:
-		GameState.MAIN_MENU:
-			return to_state in [GameState.PLAYING, GameState.MAIN_MENU_SETTINGS, GameState.SAVE_MENU, GameState.ACHIEVEMENTS_MENU]
-		GameState.PLAYING:
-			return to_state in [GameState.PAUSED, GameState.MAIN_MENU, GameState.SETTINGS]
-		GameState.PAUSED:
-			return to_state in [GameState.PLAYING, GameState.MAIN_MENU, GameState.SETTINGS, GameState.SAVE_MENU, GameState.ACHIEVEMENTS_MENU]
-		GameState.SETTINGS:
-			return to_state in [GameState.PLAYING, GameState.PAUSED, GameState.MAIN_MENU, GameState.MAIN_MENU_SETTINGS]
-		GameState.SAVE_MENU:
-			return to_state in [GameState.PLAYING, GameState.PAUSED, GameState.MAIN_MENU]
-		GameState.ACHIEVEMENTS_MENU:
-			return to_state in [GameState.PAUSED, GameState.MAIN_MENU]
-		GameState.MAIN_MENU_SETTINGS:
-			return to_state in [GameState.MAIN_MENU, GameState.SETTINGS]
-		_:
-			return false
+	return _VALID_TRANSITIONS.get(from_state, []).has(to_state)
 
 
 func _on_state_entered(new_state: GameState, previous_state: GameState) -> void:
