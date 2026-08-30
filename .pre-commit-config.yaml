@@ -118,6 +118,13 @@ repos:
         entry: '(get_parent\(\)\.get_parent\(\)|find_parent\(|get_node\(\s*"\.\.)'
         files: \.gd$
 
+      - id: no-resource-saver-outside-savemanager
+        name: "ban ResourceSaver.save outside SaveManager | bypasses atomic write/backup/verify pipeline | use SaveManager API"
+        language: pygrep
+        entry: 'ResourceSaver\.save\('
+        files: \.gd$
+        exclude: ^(src/systems/save/save_manager\.gd|tests/)
+
       - id: no-get-node-or-null
         name: "ban get_node_or_null | fails silently | use get_node()"
         language: pygrep
