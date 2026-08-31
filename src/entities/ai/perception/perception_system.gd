@@ -60,9 +60,10 @@ func _process_perception() -> void:
 
 			# Additional health validation to not detect dead bodies
 			if target.has_method("get_health") or "health" in target:
-				var target_health: Variant = target.get_health() if target.has_method("get_health") else target.get("health")
-				if target_health and "health" in target_health and target_health.health <= 0.0:
-					continue  # Ignore dead entities
+				var target_health: Health = target.get_health() if target.has_method("get_health") else target.get("health")
+				if target_health and target_health.current_health <= 0.0:
+					known_entities.erase(target)
+					continue
 
 			var detection: DetectionResult = _visual_processor.detect(_owner_node, target as Node3D)
 			if detection.is_detected:
