@@ -5,7 +5,7 @@ func _ready() -> void:
 	var is_steam_running: bool = Steam.isSteamRunning()
 
 	if !is_steam_running:
-		push_error("Steam not running")
+		push_warning("Steam not running")
 		return
 
 	if OS.is_debug_build():
