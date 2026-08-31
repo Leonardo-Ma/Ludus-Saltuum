@@ -6,12 +6,12 @@ extends Node
 signal track_changed(track_name: String, author: String)
 
 enum MusicState {
-	MAIN_MENU,
-	EXPLORATION,
-	RACING,
-	COMBAT,
-	MAZE,
-	SILENCE,
+	MAIN_MENU = 0,
+	EXPLORATION = 1,
+	RACING = 2,
+	COMBAT = 3,
+	MAZE = 4,
+	SILENCE = 5,
 }
 # TODO Maybe an export instead?
 const _TRANSITION_COOLDOWN_DURATION: float = 1.0

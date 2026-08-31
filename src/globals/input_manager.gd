@@ -5,10 +5,10 @@ extends Node
 signal device_changed(device: Device)
 
 enum Device {
-	KEYBOARD_MOUSE,
-	GAMEPAD_XBOX,
-	GAMEPAD_PLAYSTATION,
-	GAMEPAD_GENERIC,
+	KEYBOARD_MOUSE = 0,
+	GAMEPAD_XBOX = 1,
+	GAMEPAD_PLAYSTATION = 2,
+	GAMEPAD_GENERIC = 3,
 }
 
 const AXIS_DEAD_ZONE: float = 0.4

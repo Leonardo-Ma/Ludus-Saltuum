@@ -7,10 +7,10 @@ signal gameplay_mode_changed(new_mode: GameplayMode, previous_mode: GameplayMode
 signal gameplay_mode_ended
 
 enum GameplayMode {
-	NONE,
-	RACING,
-	MAZE,
-	COMBAT,
+	NONE = 0,
+	RACING = 1,
+	MAZE = 2,
+	COMBAT = 3,
 }
 
 var _current_mode: GameplayMode = GameplayMode.NONE
