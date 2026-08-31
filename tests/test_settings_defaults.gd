@@ -54,10 +54,17 @@ func _test_save_and_load() -> void:
 
 
 func _test_reset_to_default() -> void:
-	var original: float = SettingsManager.volume_effects
+	var section: SettingsManager.SettingsSection = SettingsManager.SettingsSection.AUDIO
+	var original: Dictionary = {}
+	for key: StringName in SettingsManager._DEFAULTS[section]:
+		original[key] = SettingsManager.get(key)
+
 	SettingsManager.volume_effects = 0.1
-	SettingsManager.reset_to_default(SettingsManager.SettingsSection.AUDIO)
-	var expected: float = SettingsManager._DEFAULTS[SettingsManager.SettingsSection.AUDIO][&"volume_effects"]
+	SettingsManager.reset_to_default(section)
+
+	var expected: float = SettingsManager._DEFAULTS[section][&"volume_effects"]
 	assert(SettingsManager.volume_effects == expected, "SettingsManager: reset_to_default did not restore volume_effects")
-	SettingsManager.volume_effects = original
+
+	for key: StringName in original:
+		SettingsManager.set(key, original[key])
 	SettingsManager.save()
