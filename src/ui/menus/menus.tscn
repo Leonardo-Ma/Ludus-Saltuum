@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://ujv84xenekf7"]
 
-[ext_resource type="Script" uid="uid://btijgca3wb05d" path="res://src/ui/menus/button_animation.gd" id="1_6ceeu"]
 [ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="1_6j3ed"]
 [ext_resource type="Script" uid="uid://blv3o6kyvqkrm" path="res://src/ui/menus/menus.gd" id="1_tueqh"]
 [ext_resource type="PackedScene" uid="uid://ckhxplf4oi0ca" path="res://src/ui/menus/main_menu/main_menu.tscn" id="2_mugxh"]
@@ -19,9 +18,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_6j3ed")
 script = ExtResource("1_tueqh")
-
-[node name="ButtonAnimation" type="Node" parent="." unique_id=314480580]
-script = ExtResource("1_6ceeu")
 
 [node name="MainMenu" parent="." unique_id=1634997965 instance=ExtResource("2_mugxh")]
 unique_name_in_owner = true
