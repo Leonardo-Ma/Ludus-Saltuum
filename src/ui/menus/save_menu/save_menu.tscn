@@ -5,10 +5,8 @@
 [ext_resource type="Script" uid="uid://dewklxdgpe836" path="res://src/ui/menus/save_menu/save_menu.gd" id="2_41aul"]
 [ext_resource type="Texture2D" uid="uid://pfmkppm3ecuw" path="res://src/ui/assets/fantasy_ui_borders/PNG/Double/Border/panel-border-010.png" id="3_6y3kf"]
 [ext_resource type="Texture2D" uid="uid://7p2j8n842i0a" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/cross.png" id="3_41aul"]
+[ext_resource type="PackedScene" uid="uid://blui2ox13a24b" path="res://src/ui/menus/background_parallax.tscn" id="3_tp1uf"]
 [ext_resource type="PackedScene" uid="uid://b6ednpu0kwboc" path="res://src/ui/helpers/grab_focus_on_visible.tscn" id="5_6y3kf"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k74xf"]
-bg_color = Color(0.16924527, 0.16924533, 0.16924518, 1)
 
 [node name="SaveMenu" type="Control" unique_id=1667891420]
 layout_mode = 3
@@ -19,6 +17,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_y5lmd")
 script = ExtResource("2_41aul")
+
+[node name="BackgroundParallax" parent="." unique_id=501285105 instance=ExtResource("3_tp1uf")]
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1624460650]
 layout_mode = 1
@@ -31,10 +31,6 @@ theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
-
-[node name="Panel" type="Panel" parent="MarginContainer" unique_id=827759798]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_k74xf")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=96765660]
 layout_mode = 2
@@ -82,6 +78,7 @@ focus_previous = NodePath("../SaveFileItem6")
 
 [node name="ReturnButton" type="TextureButton" parent="MarginContainer" unique_id=2007620695]
 unique_name_in_owner = true
+modulate = Color(0.6745098, 0, 0, 1)
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 10

@@ -2,13 +2,11 @@
 
 [ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="1_cqtv1"]
 [ext_resource type="Script" uid="uid://b6ywxkq47cgy5" path="res://src/ui/menus/main_menu/scale_font_size.gd" id="1_mainmenu"]
-[ext_resource type="Texture2D" uid="uid://bkyq761ehnehw" path="res://src/ui/assets/background_hills/background1.png" id="2_4x1rw"]
 [ext_resource type="Script" uid="uid://b8xklo3ubuprp" path="res://src/ui/menus/main_menu/new_game.gd" id="2_esfjp"]
-[ext_resource type="Texture2D" uid="uid://dt4ksiqvn4bht" path="res://src/ui/assets/background_hills/background2.png" id="3_8b277"]
+[ext_resource type="PackedScene" uid="uid://blui2ox13a24b" path="res://src/ui/menus/background_parallax.tscn" id="2_vprs7"]
 [ext_resource type="Shader" uid="uid://bxyyjpnd11ghq" path="res://src/ui/menus/main_menu/wave_label_effect.gdshader" id="3_deyis"]
 [ext_resource type="Texture2D" uid="uid://c38n7tbohbvyk" path="res://src/ui/assets/game_logo_no_background.png" id="3_ewdsk"]
 [ext_resource type="Script" uid="uid://uh7ikvq5pxya" path="res://src/ui/menus/quit_to_desktop.gd" id="4_gdklf"]
-[ext_resource type="Texture2D" uid="uid://cne4pj3cbq5hh" path="res://src/ui/assets/background_hills/background3.png" id="4_m5s61"]
 [ext_resource type="Texture2D" uid="uid://cqgd6g3oujuj" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/play.png" id="4_rq6ct"]
 [ext_resource type="Texture2D" uid="uid://pfmkppm3ecuw" path="res://src/ui/assets/fantasy_ui_borders/PNG/Double/Border/panel-border-010.png" id="5_n5ore"]
 [ext_resource type="Script" uid="uid://u2p8jay56jmx" path="res://src/ui/menus/open_settings.gd" id="6_30lnw"]
@@ -48,34 +46,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_cqtv1")
 
-[node name="BackgroundParallax" type="Node2D" parent="." unique_id=1239946747]
-
-[node name="Sky" type="Parallax2D" parent="BackgroundParallax" unique_id=875734817]
-repeat_size = Vector2(1280, 0)
-autoscroll = Vector2(10, 0)
-
-[node name="Sky" type="Sprite2D" parent="BackgroundParallax/Sky" unique_id=1567323767]
-scale = Vector2(2, 1.686)
-texture = ExtResource("2_4x1rw")
-centered = false
-
-[node name="Background" type="Parallax2D" parent="BackgroundParallax" unique_id=1599181032]
-repeat_size = Vector2(1280, 0)
-autoscroll = Vector2(25, 0)
-
-[node name="Background" type="Sprite2D" parent="BackgroundParallax/Background" unique_id=1655178580]
-scale = Vector2(2, 1.686)
-texture = ExtResource("3_8b277")
-centered = false
-
-[node name="Trees" type="Parallax2D" parent="BackgroundParallax" unique_id=250162208]
-repeat_size = Vector2(1280, 0)
-autoscroll = Vector2(20, 0)
-
-[node name="Trees" type="Sprite2D" parent="BackgroundParallax/Trees" unique_id=159677540]
-scale = Vector2(2, 1.686)
-texture = ExtResource("4_m5s61")
-centered = false
+[node name="BackgroundParallax" parent="." unique_id=501285105 instance=ExtResource("2_vprs7")]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1452025231]
 unique_name_in_owner = true
