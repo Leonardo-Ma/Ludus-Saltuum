@@ -1,10 +1,21 @@
 extends Node3D
 
+@export var should_tests_be_executed: bool = true
+
 @onready var unit_test_automatic_scripts: Node = %UnitTestAutomaticScripts
 
 
+func _enter_tree() -> void:
+	if should_tests_be_executed:
+		return
+	var automatic_tests: Node = get_node("UnitTestAutomaticScripts")
+	for child: Node in automatic_tests.get_children():
+		automatic_tests.remove_child(child)
+		child.queue_free()
+
+
 func _ready() -> void:
-	if not OS.is_debug_build():
+	if not OS.is_debug_build() or not should_tests_be_executed:
 		queue_free()
 		return
 
