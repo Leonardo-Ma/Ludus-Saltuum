@@ -12,7 +12,7 @@ var _stat_targets: Dictionary = {}
 
 
 func _ready() -> void:
-	GameEvents.player_spawned.connect(_on_player_spawned)
+	GameEvents.player_finished_spawning.connect(_on_player_spawned)
 	GameEvents.gold_updated.connect(_on_gold_updated)
 	_on_gold_updated(GameEvents.gold)
 	get_viewport().size_changed.connect(_on_viewport_size_changed)

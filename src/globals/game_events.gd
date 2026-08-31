@@ -3,7 +3,9 @@ extends Node
 
 #region Player
 @warning_ignore("unused_signal")
-signal player_spawned(player: Node3D)
+signal player_spawning(player: Node3D)
+@warning_ignore("unused_signal")
+signal player_finished_spawning(player: Node3D)
 @warning_ignore("unused_signal")
 signal counter_collectible_collected(identifier: StringName, amount: int, icon: Texture2D)
 @warning_ignore("unused_signal")
@@ -33,6 +35,9 @@ var controlled_entity: Node3D = null
 
 func _ready() -> void:
 	easter_egg_found.connect(_on_easter_egg_found)
+
+	player_respawning.connect(SaveManager.request_save_block.bind(&"player_respawning"))
+	player_finished_respawning.connect(SaveManager.release_save_block.bind(&"player_respawning"))
 
 
 func add_score(points: int) -> void:

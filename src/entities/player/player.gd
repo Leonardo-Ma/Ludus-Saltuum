@@ -80,10 +80,11 @@ func entity_enable_disable(toggle: bool) -> void:
 
 
 func _child_ready() -> void:
-	# TODO This may not be the best place for this
 	add_to_group(Groups.PLAYERS)
 
-	assert(PlayerSaveController, "Player save controller missing for " + name)
+	assert(player_save_controller != null, "Player save controller missing for " + name)
+
+	GameEvents.player_spawning.emit(self)
 
 	input_controller.attack_pressed.connect(_on_attack_pressed)
 	input_controller.return_to_checkpoint_requested.connect(_on_return_to_checkpoint_requested)
@@ -99,7 +100,7 @@ func _child_ready() -> void:
 	else:
 		entity_enable_disable(false)
 
-	GameEvents.player_spawned.emit(self)
+	GameEvents.player_finished_spawning.emit(self)
 
 
 func _on_application_state_changed(new_state: ApplicationStateManager.GameState, _previous_state: ApplicationStateManager.GameState) -> void:

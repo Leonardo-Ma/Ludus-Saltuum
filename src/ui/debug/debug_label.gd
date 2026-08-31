@@ -7,7 +7,7 @@ var _damage_indicator_timer: float = 0.0
 
 #region Setup and Signals
 func _ready() -> void:
-	GameEvents.player_spawned.connect(_on_player_spawned)
+	GameEvents.player_finished_spawning.connect(_on_player_spawned)
 	var players: Array[Node] = get_tree().get_nodes_in_group(Groups.PLAYERS)
 	if not players.is_empty():
 		_on_player_spawned(players[0])

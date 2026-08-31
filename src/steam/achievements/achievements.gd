@@ -29,7 +29,7 @@ func _ready() -> void:
 	_load()
 	GameEvents.score_updated.connect(_on_score_updated)
 	GameEvents.easter_egg_found.connect(_on_easter_egg_found)
-	GameEvents.player_spawned.connect(_on_player_spawned)
+	GameEvents.player_finished_spawning.connect(_on_player_spawned)
 	GameEvents.status_buff_collected.connect(func(_e: StatusEffect, _i: Texture2D) -> void: _check_skill_completion())
 
 
