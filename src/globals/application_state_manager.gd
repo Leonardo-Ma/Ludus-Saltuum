@@ -70,8 +70,12 @@ const _VALID_TRANSITIONS: Dictionary = {
 	],
 }
 
+const _RETURNABLE_STATES: Array[GameState] = [GameState.PLAYING, GameState.PAUSED, GameState.MAIN_MENU]
+
 var _current_state: GameState = GameState.MAIN_MENU
 var _previous_state: GameState = GameState.MAIN_MENU
+var _menu_return_state: GameState = GameState.MAIN_MENU
+
 var _is_initialized: bool = false
 
 
@@ -84,6 +88,9 @@ func _change_state(new_state: GameState) -> void:
 	if _current_state == new_state:
 		return
 	assert(_is_valid_transition(_current_state, new_state), "Invalid state transition from " + str(_current_state) + " to " + str(new_state))
+
+	if _current_state in _RETURNABLE_STATES and new_state not in _RETURNABLE_STATES:
+		_menu_return_state = _current_state
 
 	_previous_state = _current_state
 	_current_state = new_state
@@ -190,23 +197,16 @@ func request_settings() -> void:
 
 func request_close_settings() -> void:
 	assert(is_in_settings(), "Not in settings state, current: " + str(_current_state))
-
-	if _current_state == GameState.SETTINGS:
-		if _previous_state in [GameState.PLAYING, GameState.PAUSED]:
-			_change_state(_previous_state)
-		else:
-			_change_state(GameState.PAUSED)
-	elif _current_state == GameState.MAIN_MENU_SETTINGS:
-		_change_state(GameState.MAIN_MENU)
+	_change_state(_menu_return_state)
 	settings_closed.emit()
 
 
 func request_close_menu() -> void:
 	assert(
 		_current_state in [GameState.SETTINGS, GameState.SAVE_MENU, GameState.ACHIEVEMENTS_MENU, GameState.MAIN_MENU_SETTINGS],
-		"Not in a closable menu state, current: " + str(_current_state)
+		"Not in a closable menu state, current: " + str(_current_state),
 	)
-	_change_state(_previous_state)
+	_change_state(_menu_return_state)
 
 
 func request_main_menu() -> void:
