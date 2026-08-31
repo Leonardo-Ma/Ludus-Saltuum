@@ -70,6 +70,15 @@ func get_unlocked_ids() -> Array[StringName]:
 	return ids
 
 
+func set_unlocked_ids(ids: Array[StringName]) -> void:
+	reset()
+
+	for id: StringName in ids:
+		var definition: SkillDefinition = SkillRegistry.get_definition(id)
+		assert(definition != null, "Skill definition missing for " + str(id) + " in " + name)
+		unlock(definition)
+
+
 # TODO Reconsider where to place this
 ## Forwards ghost trail request to VFXController (used by dash/teleport skills).
 func spawn_ghost_trail(duration: float = 0.5, color: Color = Color(0.8, 1.0, 1.5, 0.4)) -> void:

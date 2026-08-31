@@ -14,6 +14,9 @@ func _ready() -> void:
 	GameEvents.enemy_killed.connect(_on_enemy_killed)
 	ApplicationStateManager.main_menu_requested.connect(reset_data)
 
+	SaveManager.save_requested.connect(func(data: SaveData) -> void: build_save(data.world))
+	SaveManager.load_requested.connect(func(data: SaveData) -> void: apply_save(data.world))
+
 
 ## Builds world data for saving
 ## @param data WorldSaveData resource to populate

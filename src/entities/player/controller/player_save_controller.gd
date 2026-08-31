@@ -5,11 +5,15 @@ extends Node
 
 var _default_spawn_transform: Transform3D
 
-@onready var player: Node3D = owner
+@onready var player: PlayerEntity = owner as PlayerEntity
 
 
 func _ready() -> void:
+	assert(player != null, "Player owner missing in " + name)
+
 	_default_spawn_transform = player.global_transform
+	SaveManager.save_requested.connect(func(data: SaveData) -> void: build_save(data.player))
+	# Loading is done by game load manager
 
 
 func build_save(data: PlayerSaveData) -> void:
@@ -17,7 +21,7 @@ func build_save(data: PlayerSaveData) -> void:
 	data.gold = GameEvents.gold
 	data.easter_eggs_found = GameEvents.easter_eggs_found
 	data.found_easter_egg_names = []
-	data.health = clampi(player.health.current_health, 0, player.health.max_health)
+	data.health = clampi(player.health.current_health, 1, player.health.max_health)
 	data.unlocked_skill_ids = player.skills_controller.get_unlocked_ids()
 
 	# TODO Is this build or apply?
@@ -26,13 +30,8 @@ func build_save(data: PlayerSaveData) -> void:
 
 
 func apply_save(data: PlayerSaveData) -> void:
-	player.health.current_health = maxi(data.health, 1)
-
-	# TODO Maybe an assert here?
-	for id: StringName in data.unlocked_skill_ids:
-		var def: SkillDefinition = SkillRegistry.get_definition(id)
-		if def:
-			player.skills_controller.unlock(def)
+	player.health.current_health = data.health
+	player.skills_controller.set_unlocked_ids(data.unlocked_skill_ids)
 
 	GameEvents.score = data.score
 	GameEvents.gold = data.gold
@@ -40,6 +39,7 @@ func apply_save(data: PlayerSaveData) -> void:
 	GameEvents.gold_updated.emit(data.gold)
 
 	GameEvents.easter_eggs_found = data.easter_eggs_found
+	GameEvents.found_easter_eggs.clear()
 
 	for egg: StringName in data.found_easter_egg_names:
 		GameEvents.found_easter_eggs[egg] = true

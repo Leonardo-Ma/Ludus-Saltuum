@@ -1,8 +1,9 @@
 class_name CheckpointSaveData
 extends Resource
 
-## Scene file path of the chunk containing the checkpoint (e.g., "res://src/environment/levels/base_levels/chunk_01.tscn")
-@export var checkpoint_chunk_scene_path: String = ""
+## chunk index -1 = world/global checkpoint
+## bigger than 0, relateive to an active chunk
+@export var checkpoint_chunk_index: int = -1
 
 ## Checkpoint transform relative to its chunk's origin at save time
 @export var checkpoint_local_transform: Transform3D = Transform3D.IDENTITY

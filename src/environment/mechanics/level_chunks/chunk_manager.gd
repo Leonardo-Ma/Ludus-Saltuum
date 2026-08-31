@@ -3,6 +3,8 @@
 ## Manages object pooling, async loading, and sequential connecting of procedural level chunks
 extends Node
 
+signal level_loaded(checkpoint_data: CheckpointSaveData)
+
 signal chunk_recycled(recycled_chunk: LevelChunk)
 
 # BUG: TODO: Consider if there's better approach instead of hardcore path
@@ -48,6 +50,9 @@ func _ready() -> void:
 	var target_seed: int = GameEvents.procedural_seed if GameEvents.procedural_seed != 0 else Time.get_ticks_msec()
 	_rng.seed = target_seed
 
+	SaveManager.save_requested.connect(func(data: SaveData) -> void: build_save(data.chunks))
+	SaveManager.load_requested.connect(_on_load_requested)
+
 
 #region Saving and Loading
 func build_save(data: ChunkSaveData) -> void:
@@ -90,9 +95,7 @@ func load_save_data(
 	assert(_chunk_selector != null, "load_save_data called before metadata was loaded")
 	_chunk_selector.load_save_state(selector_state)
 
-	# TODO BUG Maybe this should be an assert?
-	if active_chunk_paths.is_empty():
-		return
+	assert(not active_chunk_paths.is_empty(), "Save contains no active chunks in " + name)
 
 	var next_spawn_transform: Transform3D = Transform3D()
 
@@ -222,17 +225,19 @@ func clear_level() -> void:
 ## Triggers by exit trigger world collision boundary
 func recycle_oldest_chunk() -> void:
 	var parent_world: Node = get_tree().root.get_node("Main")
-	assert(not _active_chunks.is_empty(), "Cannot recycle empty pool in " + self.name)
+	assert(not _active_chunks.is_empty(), "Cannot recycle empty pool in " + name)
 
 	var oldest: LevelChunk = _active_chunks.pop_front()
-	_current_chunk_index = maxi(_current_chunk_index - 1, 0)
-	var newest: LevelChunk = _active_chunks.back()
 
 	chunk_recycled.emit(oldest)
+
+	_current_chunk_index = maxi(_current_chunk_index - 1, 0)
 	_pool_chunk(oldest)
 
+	var newest: LevelChunk = _active_chunks.back()
 	var target_transform: Transform3D = newest.get_node("%ExitTrigger").global_transform
 	var next_chunk: LevelChunk = _get_random_valid_chunk(target_transform)
+
 	if next_chunk.get_parent() != parent_world:
 		if next_chunk.get_parent() != null:
 			next_chunk.get_parent().remove_child(next_chunk)
@@ -353,6 +358,7 @@ func _on_chunk_exit_reached(body: Node3D, passed_chunk: LevelChunk) -> void:
 		recycle_oldest_chunk()
 
 
+# TODO This clearly doesn't pool >:(
 func _pool_chunk(chunk: LevelChunk) -> void:
 	_disconnect_chunk_trigger(chunk)
 	if chunk.has_meta("scored"):
@@ -392,3 +398,8 @@ func _sync_chunk_spawn_positions(chunk: LevelChunk) -> void:
 			(node as Collectible).spawn_position = node.global_position
 		elif node.is_in_group(Groups.PLAYERS):
 			node.spawn_position = node.global_position
+
+
+func _on_load_requested(data: SaveData) -> void:
+	apply_save(data.chunks)
+	level_loaded.emit(data.checkpoint)

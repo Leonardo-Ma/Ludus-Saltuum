@@ -4,6 +4,10 @@
 ## Write to .tmp → rename to .tres, keep .bak of previous good save
 extends Node
 
+## Every system should trigger internal save
+signal save_requested(data: SaveData)
+## Every system should trigger internal load
+signal load_requested(data: SaveData)
 signal save_changed(slot_index: int)
 
 const SAVE_DIR: String = "user://saves/"
@@ -18,6 +22,8 @@ var _save_block_sources: Dictionary = {}
 var _next_auto_slot: int = 0
 var _auto_timer: Timer
 
+var _active_slot_index: int = -1
+
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -28,6 +34,7 @@ func _ready() -> void:
 	_sync_cloud_saves()
 	_next_auto_slot = _find_next_auto_slot()
 
+	# TODO Change this to only start when gameplay active maybe?
 	_auto_timer = Timer.new()
 	_auto_timer.name = "AutoSaveTimer"
 	_auto_timer.wait_time = AUTO_SAVE_INTERVAL
@@ -39,11 +46,9 @@ func _ready() -> void:
 	ApplicationStateManager.gameplay_paused.connect(_on_gameplay_paused)
 	ApplicationStateManager.quit_requested.connect(_on_quit_requested)
 
-	GameEvents.player_respawning.connect(request_save_block.bind(&"player_respawn"))
-	GameEvents.player_finished_respawning.connect(release_save_block.bind(&"player_respawn"))
 
-
-func reset_data_for_new_game() -> void:
+func reset_data_for_new_game(slot_index: int) -> void:
+	_active_slot_index = slot_index
 	_next_auto_slot = 0
 	GameplayStateManager.set_play_time(0.0)
 	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
@@ -58,12 +63,9 @@ func reset_data_for_new_game() -> void:
 
 #region Save Load and Delete
 # TODO Change to a request save to slot
-func save_to_slot(slot_index: int) -> bool:
-	assert(
-		slot_index >= 0 and slot_index < MANUAL_SLOTS,
-		"SaveManager: manual slot must be 0–%d in %s" % [MANUAL_SLOTS - 1, name],
-	)
-	return _write_slot(slot_index, false)
+func _save_to_active_slot(force: bool) -> void:
+	assert(_active_slot_index != -1, "SaveManager: no active slot set in " + name)
+	_write_slot(_active_slot_index, false, force)
 
 
 # TODO Change to a request quick save
@@ -72,7 +74,8 @@ func save_to_quick_slot(force: bool) -> bool:
 
 
 func load_from_slot(slot_index: int) -> bool:
-	assert(not is_save_blocked(), "SaveManager can't load while a save/load in progress")
+	assert(not is_save_blocked(), "Saving blocked by " + str(_save_block_sources.keys()))
+
 	assert(
 		slot_index >= 0 and slot_index < TOTAL_SLOTS,
 		"SaveManager: slot out of range in " + name,
@@ -86,6 +89,7 @@ func load_from_slot(slot_index: int) -> bool:
 		if not _migrate(data):
 			return false
 
+	_active_slot_index = slot_index
 	request_save_block(&"loading")
 	_apply(data)
 
@@ -145,9 +149,8 @@ func is_save_blocked() -> bool:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("quick_save") and ApplicationStateManager.is_gameplay_active():
-		SaveManager.save_to_quick_slot(false)
+		_save_to_active_slot(false)
 		get_viewport().set_input_as_handled()
-		return
 
 
 #region Private helpers
@@ -191,7 +194,7 @@ func _can_save(force: bool) -> bool:
 
 func _persist_slot(slot_index: int, data: SaveData) -> bool:
 	var base: String = _slot_path(slot_index)
-	var tmp: String = base.replace(".tres", "_tmp.tres")
+	var tmp: String = _tmp_path(slot_index)
 	var bak: String = base + ".bak"
 
 	var err: int = ResourceSaver.save(data, tmp)
@@ -240,40 +243,14 @@ func _build_save(slot_index: int, is_auto: bool) -> SaveData:
 	data.save_timestamp = int(Time.get_unix_time_from_system())
 	data.play_time_seconds = GameplayStateManager.get_play_time()
 
-	# TODO Check how to decouple this
-	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
-	assert(player != null, "No player found while building save in " + name)
-	player.player_save_controller.build_save(data.player)
-	WorldSaveController.build_save(data.world)
-	LevelChunkManager.build_save(data.chunks)
-	CheckpointManager.build_save(data.checkpoint)
+	save_requested.emit(data)
 
 	return data
 
 
-func _on_player_spawned_after_load(spawned_player: Node3D) -> void:
-	GameEvents.player_spawned.disconnect(_on_player_spawned_after_load)
-	var player: PlayerEntity = spawned_player as PlayerEntity
-	CheckpointManager.on_player_spawned_after_load(player)
-	release_save_block(&"loading")
-
-
 func _apply(data: SaveData) -> void:
 	GameplayStateManager.set_play_time(data.play_time_seconds)
-	# TODO Check how to decouple this
-	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
-	player.player_save_controller.apply_save(data.player)
-	WorldSaveController.apply_save(data.world)
-	LevelChunkManager.apply_save(data.chunks)
-	CheckpointManager.apply_save(data.checkpoint, player)
-
-	# If player not yet spawned, hook into spawn signal for deferred placement
-	if not player or not is_instance_valid(player):
-		GameEvents.player_spawned.connect(_on_player_spawned_after_load)
-	else:
-		# Player already exists, apply immediately
-		CheckpointManager.on_player_spawned_after_load(player)
-		release_save_block(&"loading")
+	load_requested.emit(data)
 
 
 # PLACEHOLDER
@@ -314,9 +291,15 @@ func _safe_rename(from: String, to: String) -> bool:
 	return true
 
 
+func _tmp_path(slot_index: int) -> String:
+	return _slot_path(slot_index).replace(".tres", "_tmp.tres")
+
+
 func _cleanup_stale_temp_files() -> void:
 	for i: int in range(TOTAL_SLOTS):
-		_safe_remove(_slot_path(i) + ".tmp")
+		var path: String = _tmp_path(i)
+		if FileAccess.file_exists(path):
+			_safe_remove(path)
 
 
 func _find_next_auto_slot() -> int:
@@ -339,11 +322,14 @@ func _notification(what: int) -> void:
 
 
 func _on_gameplay_paused() -> void:
-	save_to_quick_slot(false)
+	_save_to_active_slot(false)
 
 
 func _on_quit_requested() -> void:
-	save_to_quick_slot(true)
+	if _active_slot_index != -1:
+		_save_to_active_slot(true)
+	else:
+		push_warning("Saving on quit tried to save without active slot")
 
 
 func _sync_cloud_saves() -> void:

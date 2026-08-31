@@ -73,7 +73,7 @@ func _on_play_pressed() -> void:
 	if _has_data:
 		SaveManager.load_from_slot(_slot_index)
 	else:
-		SaveManager.reset_data_for_new_game()
+		SaveManager.reset_data_for_new_game(_slot_index)
 	ApplicationStateManager.request_play_from_save()
 
 

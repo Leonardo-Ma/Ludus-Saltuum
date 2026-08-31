@@ -1,65 +1,76 @@
 extends Node
 
 signal checkpoint_activated(checkpoint_position: Vector3)
+signal checkpoint_loaded(checkpoint_position: Vector3)  # TODO Check if refactor needed elsewhere to use this instead
 
 var _active_checkpoint: Checkpoint = null
-var _active_checkpoint_chunk: LevelChunk = null
-
-var _local_checkpoint_transform: Transform3D = Transform3D.IDENTITY
+var _checkpoint_chunk_index: int = -1
+var _checkpoint_local_transform: Transform3D = Transform3D.IDENTITY
 var _has_valid_position: bool = false
-var _is_chunk_relative: bool = false
-
-var _pending_load_data: CheckpointSaveData = null
 
 
 func _ready() -> void:
 	LevelChunkManager.chunk_recycled.connect(_on_chunk_recycled)
+	LevelChunkManager.level_loaded.connect(_on_level_loaded)
+
+	SaveManager.save_requested.connect(func(data: SaveData) -> void: build_save(data.checkpoint))
+
+
+func _on_level_loaded(data: CheckpointSaveData) -> void:
+	apply_save(data)
 
 
 # TODO Improve this
 func on_checkpoint_activated(new_checkpoint: Checkpoint) -> void:
 	if _active_checkpoint and is_instance_valid(_active_checkpoint) and _active_checkpoint != new_checkpoint:
 		_active_checkpoint.deactivate_checkpoint()
+
 	_active_checkpoint = new_checkpoint
 
 	if new_checkpoint.parent_chunk and is_instance_valid(new_checkpoint.parent_chunk):
-		# Checkpoint inside a LevelChunk, store chunk relative transform
-		_active_checkpoint_chunk = new_checkpoint.parent_chunk
-		_local_checkpoint_transform = _active_checkpoint_chunk.global_transform.affine_inverse() * new_checkpoint.global_transform
-		_is_chunk_relative = true
-		print_debug(
-			"Checkpoint activated (chunk relative) at local: ", _local_checkpoint_transform.origin, " in chunk: ", _active_checkpoint_chunk.name
-		)
+		_checkpoint_chunk_index = LevelChunkManager.get_active_chunks().find(new_checkpoint.parent_chunk)
+		assert(_checkpoint_chunk_index >= 0, "Checkpoint chunk missing in " + name)
+
+		_checkpoint_local_transform = (new_checkpoint.parent_chunk.global_transform.affine_inverse() * new_checkpoint.global_transform)
 	else:
-		# Checkpoint outside LevelChunk (tutorial, etc.), store global position directly
-		_active_checkpoint_chunk = null
-		_local_checkpoint_transform = Transform3D.IDENTITY
-		_local_checkpoint_transform.origin = new_checkpoint.global_position
-		_is_chunk_relative = false
-		print_debug("Checkpoint activated (global) at: ", new_checkpoint.global_position)
+		_checkpoint_chunk_index = -1
+		_checkpoint_local_transform = new_checkpoint.global_transform
 
 	_has_valid_position = true
 	checkpoint_activated.emit(get_respawn_position())
 
 
-func _on_chunk_recycled(recycled_chunk: LevelChunk) -> void:
-	# Only invalidate if checkpoint was chunk-relative AND its chunk was recycled
-	if _is_chunk_relative and _active_checkpoint_chunk and is_instance_valid(_active_checkpoint_chunk) and _active_checkpoint_chunk == recycled_chunk:
-		print_debug("Active checkpoint's chunk recycled, invalidating respawn position")
-		_has_valid_position = false
-		_active_checkpoint = null
-		_active_checkpoint_chunk = null
-		_local_checkpoint_transform = Transform3D.IDENTITY
-		_is_chunk_relative = false
+# TODO Check if argument is necessary
+func _on_chunk_recycled(_recycled_chunk: LevelChunk) -> void:
+	if _checkpoint_chunk_index == -1:
+		return
+
+	if _checkpoint_chunk_index == 0:
+		reset_checkpoint()
+		return
+
+	_checkpoint_chunk_index -= 1
 
 
 func get_respawn_transform() -> Transform3D:
-	assert(_has_valid_position, "No active checkpoint found. Check if default spawn point defined.")
-	if _is_chunk_relative:
-		assert(_active_checkpoint_chunk != null and is_instance_valid(_active_checkpoint_chunk), "Checkpoint chunk no longer valid")
-		# World position from chunk current transform + local offset
-		return _active_checkpoint_chunk.global_transform * _local_checkpoint_transform
-	return _local_checkpoint_transform
+	assert(_has_valid_position, "No active checkpoint found in " + name)
+
+	if _checkpoint_chunk_index == -1:
+		return Transform3D(
+			_checkpoint_local_transform.basis.orthonormalized(),
+			_checkpoint_local_transform.origin,
+		)
+
+	var active_chunks: Array[LevelChunk] = LevelChunkManager.get_active_chunks()
+	assert(
+		_checkpoint_chunk_index < active_chunks.size(),
+		"Checkpoint chunk index out of range in " + name,
+	)
+
+	var transform: Transform3D = active_chunks[_checkpoint_chunk_index].global_transform * _checkpoint_local_transform
+	# Strip scaling
+	transform.basis = transform.basis.orthonormalized()
+	return transform
 
 
 func get_respawn_position() -> Vector3:
@@ -69,9 +80,12 @@ func get_respawn_position() -> Vector3:
 func has_active_checkpoint() -> bool:
 	if not _has_valid_position:
 		return false
-	if _is_chunk_relative:
-		return _active_checkpoint_chunk != null and is_instance_valid(_active_checkpoint_chunk)
-	return true  # Global checkpoint never become invalid from chunk recycling
+
+	if _checkpoint_chunk_index == -1:
+		return true
+
+	var active_chunks: Array[LevelChunk] = LevelChunkManager.get_active_chunks()
+	return _checkpoint_chunk_index < active_chunks.size()
 
 
 func get_active_checkpoint() -> Checkpoint:
@@ -80,121 +94,56 @@ func get_active_checkpoint() -> Checkpoint:
 
 func reset_checkpoint() -> void:
 	_active_checkpoint = null
-	_active_checkpoint_chunk = null
-	_local_checkpoint_transform = Transform3D.IDENTITY
+	_checkpoint_chunk_index = -1
+	_checkpoint_local_transform = Transform3D.IDENTITY
 	_has_valid_position = false
-	_is_chunk_relative = false
 
 
 func get_default_spawn_transform() -> Transform3D:
-	# Fallback to first chunk entrance if available
 	var chunks: Array[LevelChunk] = LevelChunkManager.get_active_chunks()
-	if not chunks.is_empty():
-		var entrance: Node3D = chunks[0].get_node("%EntranceTrigger")
-		if entrance and is_instance_valid(entrance):
-			return entrance.global_transform
-	# Fallback to world origin
-	return Transform3D.IDENTITY
+	if chunks.is_empty():  # TODO Double check if this case should fallback to identity (0,0,0)
+		return Transform3D.IDENTITY
+
+	var entrance: Node3D = chunks[0].get_node("%EntranceTrigger")
+	return entrance.global_transform
 
 
 func get_default_spawn_position() -> Vector3:
 	return get_default_spawn_transform().origin
 
 
-func restore_position(chunk_scene_path: String, local_transform: Transform3D) -> void:
-	if chunk_scene_path == "":
-		# Global checkpoint (no chunk), restore directly from local_transform.origin
-		_active_checkpoint_chunk = null
-		_local_checkpoint_transform = local_transform
-		_is_chunk_relative = false
-		_has_valid_position = true
-		_active_checkpoint = null
-		checkpoint_activated.emit(get_respawn_position())
-		return
-
-	# Chunk relative checkpoint, find matching active chunk
-	for chunk: LevelChunk in LevelChunkManager.get_active_chunks():
-		if chunk.scene_file_path == chunk_scene_path:
-			_active_checkpoint_chunk = chunk
-			_local_checkpoint_transform = local_transform
-			_is_chunk_relative = true
-			_has_valid_position = true
-			_active_checkpoint = null
-			checkpoint_activated.emit(get_respawn_position())
-			return
-
-	# Fallback, chunk not found (possibly recycled between save and load)
-	_has_valid_position = false
-	push_error("CheckpointManager: Could not find chunk '" + chunk_scene_path + "' for restore_position")
-
-
 #region Save and Load
 func build_save(data: CheckpointSaveData) -> void:
-	var should_save: bool = _active_checkpoint != null and _active_checkpoint.should_save_checkpoint
-	data.has_checkpoint_position = should_save and has_active_checkpoint()
+	data.has_checkpoint_position = _has_valid_position
 
-	if data.has_checkpoint_position:
-		if _active_checkpoint_chunk and is_instance_valid(_active_checkpoint_chunk):
-			# Chunk relative checkpoint
-			data.checkpoint_chunk_scene_path = _active_checkpoint_chunk.scene_file_path
-			data.checkpoint_local_transform = _active_checkpoint_chunk.global_transform.affine_inverse() * _active_checkpoint.global_transform
-		else:
-			# Global checkpoint (outside chunks)
-			data.checkpoint_chunk_scene_path = ""
-			data.checkpoint_local_transform = Transform3D.IDENTITY
-			data.checkpoint_local_transform.origin = _active_checkpoint.global_position
+	if not data.has_checkpoint_position:
+		return
+
+	data.checkpoint_chunk_index = _checkpoint_chunk_index
+	data.checkpoint_local_transform = _checkpoint_local_transform
 
 
-## Player can be null if player not spawned
-func apply_save(data: CheckpointSaveData, player: PlayerEntity = null) -> void:
-	if data.has_checkpoint_position:
-		restore_position(data.checkpoint_chunk_scene_path, data.checkpoint_local_transform)
-
-		if player and is_instance_valid(player):
-			_place_player_at_checkpoint(player)
-		else:
-			# Player not ready yet, store for deferred placement
-			_pending_load_data = data
-	else:
-		# Save has no checkpoint -> clear stale and use default spawn
+func apply_save(data: CheckpointSaveData) -> void:
+	if not data.has_checkpoint_position:
 		reset_checkpoint()
-		_pending_load_data = null
-		if player and is_instance_valid(player):
-			_place_player_at_default(player)
+		return
+
+	_checkpoint_chunk_index = data.checkpoint_chunk_index
+	_checkpoint_local_transform = data.checkpoint_local_transform
+	_active_checkpoint = null
+	_has_valid_position = true
+
+	if _checkpoint_chunk_index >= 0:
+		var active_chunks: Array[LevelChunk] = LevelChunkManager.get_active_chunks()
+		assert(
+			_checkpoint_chunk_index < active_chunks.size(),
+			"Checkpoint chunk index out of range in " + name,
+		)
+
+	checkpoint_loaded.emit(get_respawn_position())
 
 
 func reset_save_data() -> void:
 	reset_checkpoint()
-	_pending_load_data = null
-
-
-func _place_player_at_checkpoint(player: PlayerEntity) -> void:
-	if not is_instance_valid(player):
-		return
-
-	player.global_position = get_respawn_position()
-	player.velocity = Vector3.ZERO
-	player.movement_controller.movement_enabled = true
-	player.movement_controller.disable_timer = 0.0
-
-
-func _place_player_at_default(player: PlayerEntity) -> void:
-	if not is_instance_valid(player):
-		return
-
-	player.global_position = get_default_spawn_position()
-	player.velocity = Vector3.ZERO
-	player.movement_controller.movement_enabled = true
-	player.movement_controller.disable_timer = 0.0
-
-
-func on_player_spawned_after_load(player: PlayerEntity) -> void:
-	if _pending_load_data == null:
-		return
-
-	if is_instance_valid(player):
-		_place_player_at_checkpoint(player)
-
-	_pending_load_data = null
 
 #endregion
