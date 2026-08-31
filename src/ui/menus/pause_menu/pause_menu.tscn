@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://b6ywxkq47cgy5" path="res://src/ui/menus/main_menu/scale_font_size.gd" id="2_pmc0i"]
 [ext_resource type="Script" uid="uid://mqguyiauncmr" path="res://src/ui/menus/pause_menu/resume.gd" id="2_vsi4c"]
 [ext_resource type="Texture2D" uid="uid://cqgd6g3oujuj" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/play.png" id="3_fclkf"]
-[ext_resource type="Texture2D" uid="uid://pfmkppm3ecuw" path="res://src/ui/assets/fantasy_ui_borders/PNG/Double/Border/panel-border-010.png" id="4_7nd55"]
 [ext_resource type="Script" uid="uid://buikwklv2j3ub" path="res://src/ui/menus/quit_main_menu.gd" id="4_qmph6"]
 [ext_resource type="PackedScene" uid="uid://b6ednpu0kwboc" path="res://src/ui/helpers/grab_focus_on_visible.tscn" id="5_fclkf"]
 [ext_resource type="Script" uid="uid://u2p8jay56jmx" path="res://src/ui/menus/open_settings.gd" id="6_577b3"]
@@ -46,8 +45,7 @@ alignment = 1
 script = ExtResource("2_pmc0i")
 metadata/_edit_use_anchors_ = true
 
-[node name="Resume" type="TextureButton" parent="MarginContainer/VBoxContainer" unique_id=1213342530]
-modulate = Color(0, 0.36078432, 0, 0.7137255)
+[node name="Resume" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1843837928]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_vertical = 3
@@ -57,17 +55,16 @@ focus_neighbor_right = NodePath("../Settings")
 focus_neighbor_bottom = NodePath("../Settings")
 focus_next = NodePath("../Settings")
 focus_previous = NodePath("../QuitMainMenu")
-texture_normal = ExtResource("3_fclkf")
-texture_focused = ExtResource("4_7nd55")
-ignore_texture_size = true
-stretch_mode = 5
+theme_type_variation = &"PrimaryIconButton"
+icon = ExtResource("3_fclkf")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("2_vsi4c")
 
 [node name="FocusOnVisible" parent="MarginContainer/VBoxContainer/Resume" unique_id=494770207 instance=ExtResource("5_fclkf")]
 layout_mode = 0
 
-[node name="Settings" type="TextureButton" parent="MarginContainer/VBoxContainer" unique_id=337163810]
-modulate = Color(0, 0, 0, 0.4)
+[node name="Settings" type="Button" parent="MarginContainer/VBoxContainer" unique_id=970179087]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_vertical = 3
@@ -77,14 +74,13 @@ focus_neighbor_right = NodePath("../QuitMainMenu")
 focus_neighbor_bottom = NodePath("../QuitMainMenu")
 focus_next = NodePath("../QuitMainMenu")
 focus_previous = NodePath("../Resume")
-texture_normal = ExtResource("7_fclkf")
-texture_focused = ExtResource("4_7nd55")
-ignore_texture_size = true
-stretch_mode = 5
+theme_type_variation = &"SecondaryIconButton"
+icon = ExtResource("7_fclkf")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("6_577b3")
 
-[node name="QuitMainMenu" type="TextureButton" parent="MarginContainer/VBoxContainer" unique_id=1093762851]
-modulate = Color(0.6745098, 0, 0, 0.9411765)
+[node name="QuitMainMenu" type="Button" parent="MarginContainer/VBoxContainer" unique_id=2100157567]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_vertical = 3
@@ -94,10 +90,10 @@ focus_neighbor_right = NodePath("../Resume")
 focus_neighbor_bottom = NodePath("../Resume")
 focus_next = NodePath("../Resume")
 focus_previous = NodePath("../Settings")
-texture_normal = ExtResource("9_fclkf")
-texture_focused = ExtResource("4_7nd55")
-ignore_texture_size = true
-stretch_mode = 5
+theme_type_variation = &"DangerIconButton"
+icon = ExtResource("9_fclkf")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("4_qmph6")
 
 [node name="AchievementsMargin" type="MarginContainer" parent="." unique_id=752959343]
@@ -116,13 +112,12 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="OpenAchievements" type="TextureButton" parent="AchievementsMargin" unique_id=624696087]
-modulate = Color(0.807596, 0.566473, 0, 0.9411765)
-custom_minimum_size = Vector2(64, 64)
+[node name="OpenAchievements" type="Button" parent="AchievementsMargin" unique_id=749165171]
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_vertical = 3
-texture_normal = ExtResource("11_dx3ey")
-texture_focused = ExtResource("4_7nd55")
-ignore_texture_size = true
-stretch_mode = 5
+theme_type_variation = &"AchievementsIconButton"
+icon = ExtResource("11_dx3ey")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("12_0tjqn")

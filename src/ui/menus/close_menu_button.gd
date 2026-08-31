@@ -1,11 +1,8 @@
-extends UITextureButton
-
-# TODO Change this variable to a global theme
-const CLOSE_COLOR: Color = Color.RED
+extends UIButton
 
 
 func _button_ready() -> void:
-	modulate = CLOSE_COLOR
+	pass
 
 
 func _button_pressed() -> void:

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cjtdgmmp28fgb"]
 
 [ext_resource type="Script" uid="uid://bpniia35v8mod" path="res://src/ui/menus/save_menu/save_file_item.gd" id="1_06awo"]
+[ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="1_hqr8n"]
 [ext_resource type="Texture2D" uid="uid://b2ggug31fd52y" path="res://src/icons/16x16/star.png" id="2_06awo"]
 [ext_resource type="Texture2D" uid="uid://dj6mk6ic8le0p" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/save.png" id="2_auyt5"]
 [ext_resource type="Texture2D" uid="uid://bmdg7sc3tlyrv" path="res://src/icons/16x16/coins.png" id="3_auyt5"]
@@ -8,11 +9,36 @@
 [ext_resource type="Texture2D" uid="uid://cqgd6g3oujuj" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/play.png" id="5_06awo"]
 [ext_resource type="Texture2D" uid="uid://biqkiy2y3opd2" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/trash.png" id="6_06awo"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqr8n"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.60784316)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4v4yn"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [node name="SaveFileItem" type="AspectRatioContainer" unique_id=332637846]
 offset_right = 600.0
 offset_bottom = 152.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("1_hqr8n")
 script = ExtResource("1_06awo")
 
 [node name="OuterMarginContainer" type="MarginContainer" parent="." unique_id=1911005888]
@@ -167,20 +193,24 @@ theme_override_constants/separation = 128
 
 [node name="PlayButton" type="Button" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveButtonsMarginContainer/HBoxContainer" unique_id=651057107]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 35)
+custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 6
 size_flags_vertical = 0
+theme_type_variation = &"PrimaryIconButton"
+theme_override_styles/normal = SubResource("StyleBoxFlat_hqr8n")
 icon = ExtResource("5_06awo")
 icon_alignment = 1
 expand_icon = true
 
 [node name="DeleteButton" type="Button" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveButtonsMarginContainer/HBoxContainer" unique_id=891031120]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 35)
+custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 6
 size_flags_vertical = 0
+theme_type_variation = &"DangerIconButton"
+theme_override_styles/normal = SubResource("StyleBoxFlat_4v4yn")
 icon = ExtResource("6_06awo")
 icon_alignment = 1
 expand_icon = true

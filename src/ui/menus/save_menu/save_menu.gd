@@ -2,12 +2,11 @@
 class_name SaveMenu
 extends Control
 
-@onready var _return_button: TextureButton = %ReturnButton
+@onready var _return_button: Button = %ReturnButton
 @onready var _slot_items: Array[Node] = %SaveSlotsContainer.get_children()
 
 
 func _ready() -> void:
-	_return_button.pressed.connect(_on_return_pressed)
 	SaveManager.save_changed.connect(_on_save_changed)
 	visibility_changed.connect(_on_visibility_changed)
 
@@ -29,7 +28,3 @@ func _on_save_changed(slot_index: int) -> void:
 		return
 	var item: SaveFileItem = _slot_items[slot_index] as SaveFileItem
 	item.setup(slot_index, SaveManager.get_slot_data(slot_index))
-
-
-func _on_return_pressed() -> void:
-	ApplicationStateManager.request_main_menu()

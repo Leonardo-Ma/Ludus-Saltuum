@@ -1,12 +1,11 @@
-extends UITextureButton
+extends UIButton
 
 const SHUT_DOWN_SOUND: AudioStream = preload("uid://yvujl2l3onjt")  # synth_shut_down.wav
 const SHUTDOWN_DELAY: float = 0.4
-const CLOSE_COLOR: Color = Color.RED
 
 
 func _button_ready() -> void:
-	modulate = CLOSE_COLOR
+	pass
 
 
 func _button_pressed() -> void:

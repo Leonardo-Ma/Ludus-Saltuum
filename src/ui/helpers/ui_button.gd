@@ -1,6 +1,6 @@
 ## Base texture button for animation, sfx and more
-@abstract class_name UITextureButton
-extends TextureButton
+@abstract class_name UIButton
+extends Button
 
 const POP_SOUNDS: Array[AudioStream] = [
 	preload("uid://bmmjv51rywjed"),  # pop_1.wav
@@ -45,6 +45,8 @@ func _on_pressed() -> void:
 
 
 func _on_mouse_entered() -> void:
+	if disabled:
+		return
 	(
 		SoundManager
 		. play_sound(
@@ -76,13 +78,15 @@ func _on_mouse_entered() -> void:
 		. tween_property(
 			self,
 			"modulate",
-			Color.DARK_ORANGE.darkened(0.2),
+			modulate,
 			0.1,
 		)
 	)
 
 
 func _on_mouse_exited() -> void:
+	if disabled:
+		return
 	if _hover_tween:
 		_hover_tween.kill()
 
@@ -104,7 +108,7 @@ func _on_mouse_exited() -> void:
 		. tween_property(
 			self,
 			"modulate",
-			_original_modulate,
+			modulate,
 			0.1,
 		)
 	)

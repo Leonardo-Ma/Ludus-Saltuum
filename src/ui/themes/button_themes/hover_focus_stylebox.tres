@@ -1,0 +1,7 @@
+[gd_resource type="StyleBoxTexture" format=3 uid="uid://j51qane0asjw"]
+
+[ext_resource type="Texture2D" uid="uid://pfmkppm3ecuw" path="res://src/ui/assets/fantasy_ui_borders/PNG/Double/Border/panel-border-010.png" id="1_korog"]
+
+[resource]
+texture = ExtResource("1_korog")
+modulate_color = Color(0.41015625, 0.41015625, 0.41015625, 1)

@@ -1,5 +1,5 @@
 ## Resets settings for the currently visible tab's section back to default
-extends UITextureButton
+extends UIButton
 
 @export var tabs_controller: OptionsTabController
 

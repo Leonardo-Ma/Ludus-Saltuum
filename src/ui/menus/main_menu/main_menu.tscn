@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://c38n7tbohbvyk" path="res://src/ui/assets/game_logo_no_background.png" id="3_ewdsk"]
 [ext_resource type="Script" uid="uid://uh7ikvq5pxya" path="res://src/ui/menus/quit_to_desktop.gd" id="4_gdklf"]
 [ext_resource type="Texture2D" uid="uid://cqgd6g3oujuj" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/play.png" id="4_rq6ct"]
-[ext_resource type="Texture2D" uid="uid://pfmkppm3ecuw" path="res://src/ui/assets/fantasy_ui_borders/PNG/Double/Border/panel-border-010.png" id="5_n5ore"]
 [ext_resource type="Script" uid="uid://u2p8jay56jmx" path="res://src/ui/menus/open_settings.gd" id="6_30lnw"]
 [ext_resource type="PackedScene" uid="uid://b6ednpu0kwboc" path="res://src/ui/helpers/grab_focus_on_visible.tscn" id="6_l674l"]
 [ext_resource type="PackedScene" uid="uid://bq1ecmltuj6nk" path="res://src/ui/menus/version_label.tscn" id="8_fpg57"]
@@ -75,43 +74,43 @@ texture = ExtResource("3_ewdsk")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="NewGame" type="TextureButton" parent="VBoxContainer" unique_id=1042016797]
+[node name="NewGame" type="Button" parent="VBoxContainer" unique_id=56652494]
 unique_name_in_owner = true
-modulate = Color(0, 0.36078432, 0, 1)
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(124, 124)
 layout_mode = 2
-size_flags_vertical = 3
-texture_normal = ExtResource("4_rq6ct")
-texture_focused = ExtResource("5_n5ore")
-ignore_texture_size = true
-stretch_mode = 5
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_type_variation = &"PrimaryIconButton"
+icon = ExtResource("4_rq6ct")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("2_esfjp")
 
 [node name="FocusOnVisible" parent="VBoxContainer/NewGame" unique_id=494770207 instance=ExtResource("6_l674l")]
 layout_mode = 0
 
-[node name="Settings" type="TextureButton" parent="VBoxContainer" unique_id=2017775997]
+[node name="Settings" type="Button" parent="VBoxContainer" unique_id=678562256]
 unique_name_in_owner = true
-modulate = Color(0.2509804, 0.2509804, 0.2509804, 1)
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(124, 124)
 layout_mode = 2
-size_flags_vertical = 3
-texture_normal = ExtResource("8_rq6ct")
-texture_focused = ExtResource("5_n5ore")
-ignore_texture_size = true
-stretch_mode = 5
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_type_variation = &"SecondaryIconButton"
+icon = ExtResource("8_rq6ct")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("6_30lnw")
 
-[node name="QuitDesktop" type="TextureButton" parent="VBoxContainer" unique_id=320188407]
+[node name="QuitDesktop" type="Button" parent="VBoxContainer" unique_id=1876536945]
 unique_name_in_owner = true
-modulate = Color(0.6745098, 0, 0, 1)
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(124, 124)
 layout_mode = 2
-size_flags_vertical = 3
-texture_normal = ExtResource("10_rq6ct")
-texture_focused = ExtResource("5_n5ore")
-ignore_texture_size = true
-stretch_mode = 5
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_type_variation = &"DangerIconButton"
+icon = ExtResource("10_rq6ct")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("4_gdklf")
 
 [node name="VersionLabel" parent="." unique_id=854464690 instance=ExtResource("8_fpg57")]
@@ -249,13 +248,13 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="OpenAchievements" type="TextureButton" parent="AchievementsMargin" unique_id=789477557]
-modulate = Color(0.807596, 0.566473, 0, 0.9411765)
-custom_minimum_size = Vector2(64, 64)
+[node name="OpenAchievements" type="Button" parent="AchievementsMargin" unique_id=1782733057]
+custom_minimum_size = Vector2(124, 124)
 layout_mode = 2
-size_flags_vertical = 3
-texture_normal = ExtResource("23_ewdsk")
-texture_focused = ExtResource("5_n5ore")
-ignore_texture_size = true
-stretch_mode = 5
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"AchievementsIconButton"
+icon = ExtResource("23_ewdsk")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("23_mt6gl")

@@ -1,4 +1,4 @@
-extends UITextureButton
+extends UIButton
 
 
 func _button_ready() -> void:

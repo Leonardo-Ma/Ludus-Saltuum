@@ -229,12 +229,12 @@ repos:
         entry: (?<!\.)\b(collision_layer|collision_mask)\b\s*=(?!=)\s*
         files: \.gd$
 
-      - id: no-direct-texturebutton-extends
-        name: "ban extends TextureButton | use UITextureButton for shared theming/behavior | extends UITextureButton"
+      - id: no-direct-button-extends
+        name: "ban extends Button | use UIButton for shared theming/behavior | extends UIButton"
         language: pygrep
-        entry: '^extends TextureButton$'
+        entry: '^extends Button$'
         files: \.gd$
-        exclude: ^src/ui/helpers/ui_texture_button.gd$
+        exclude: ^src/ui/helpers/ui_button.gd$
       # ----------------------------------------------------------
       # Legacy Godot syntax
       # ----------------------------------------------------------

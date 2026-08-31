@@ -3,10 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://cjtdgmmp28fgb" path="res://src/ui/menus/save_menu/save_file_item.tscn" id="1_7qc06"]
 [ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="1_y5lmd"]
 [ext_resource type="Script" uid="uid://dewklxdgpe836" path="res://src/ui/menus/save_menu/save_menu.gd" id="2_41aul"]
-[ext_resource type="Texture2D" uid="uid://pfmkppm3ecuw" path="res://src/ui/assets/fantasy_ui_borders/PNG/Double/Border/panel-border-010.png" id="3_6y3kf"]
 [ext_resource type="Texture2D" uid="uid://7p2j8n842i0a" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/cross.png" id="3_41aul"]
 [ext_resource type="PackedScene" uid="uid://blui2ox13a24b" path="res://src/ui/menus/background_parallax.tscn" id="3_tp1uf"]
 [ext_resource type="PackedScene" uid="uid://b6ednpu0kwboc" path="res://src/ui/helpers/grab_focus_on_visible.tscn" id="5_6y3kf"]
+[ext_resource type="Script" uid="uid://coi0r37wkdbpn" path="res://src/ui/menus/save_menu/return_button.gd" id="7_tp1uf"]
 
 [node name="SaveMenu" type="Control" unique_id=1667891420]
 layout_mode = 3
@@ -76,16 +76,16 @@ focus_neighbor_bottom = NodePath("../SaveFileItem")
 focus_next = NodePath("../SaveFileItem")
 focus_previous = NodePath("../SaveFileItem6")
 
-[node name="ReturnButton" type="TextureButton" parent="MarginContainer" unique_id=2007620695]
+[node name="ReturnButton" type="Button" parent="MarginContainer" unique_id=1102362163]
 unique_name_in_owner = true
-modulate = Color(0.6745098, 0, 0, 1)
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 0
-texture_normal = ExtResource("3_41aul")
-texture_focused = ExtResource("3_6y3kf")
-ignore_texture_size = true
-stretch_mode = 5
+theme_type_variation = &"DangerIconButton"
+icon = ExtResource("3_41aul")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("7_tp1uf")
 
 [editable path="MarginContainer/VBoxContainer/SaveSlotsContainer/SaveFileItem"]

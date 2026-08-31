@@ -1,5 +1,5 @@
 class_name SettingsTabButton
-extends Button
+extends UIButton
 
 signal tab_activated(panel: VBoxContainer, section: SettingsManager.SettingsSection)
 
@@ -7,6 +7,9 @@ signal tab_activated(panel: VBoxContainer, section: SettingsManager.SettingsSect
 @export var section: SettingsManager.SettingsSection
 
 
-func _ready() -> void:
+func _button_ready() -> void:
 	assert(toggle_mode == true, "Enable toggle mode for " + name)
-	pressed.connect(func() -> void: tab_activated.emit(panel, section))
+
+
+func _button_pressed() -> void:
+	tab_activated.emit(panel, section)
