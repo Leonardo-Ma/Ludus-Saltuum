@@ -13,8 +13,8 @@ var _stat_targets: Dictionary = {}
 
 func _ready() -> void:
 	GameEvents.player_finished_spawning.connect(_on_player_spawned)
-	GameEvents.gold_updated.connect(_on_gold_updated)
-	_on_gold_updated(GameEvents.gold)
+	EconomyManager.gold_updated.connect(_on_gold_updated)
+	_on_gold_updated(EconomyManager.gold)
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 	_on_viewport_size_changed()
 
@@ -51,11 +51,11 @@ func _on_player_spawned(spawned_player: Node) -> void:
 
 func _on_upgrade_requested(card: PanelContainer) -> void:
 	var upgrade_card: PanelContainer = card as PanelContainer
-	if GameEvents.gold < upgrade_card.cost:
-		_set_status("Not enough gold! Need %d more." % (upgrade_card.cost - GameEvents.gold), false)
+	if EconomyManager.gold < upgrade_card.cost:
+		_set_status("Not enough gold! Need %d more." % (upgrade_card.cost - EconomyManager.gold), false)
 		return
 
-	GameEvents.remove_gold(upgrade_card.cost)
+	EconomyManager.remove_gold(upgrade_card.cost)
 	upgrade_card.apply_upgrade(int(ceil(upgrade_card.cost * COST_GROW)))
 	_refresh_affordability()
 	_set_status("%s upgraded! Now %s %s." % [upgrade_card.stat_name, upgrade_card.get_stat_value(), upgrade_card.unit], true)
@@ -68,7 +68,7 @@ func _on_gold_updated(_new_gold: int) -> void:
 func _refresh_affordability() -> void:
 	for card: PanelContainer in _cards:
 		var upgrade_card: PanelContainer = card as PanelContainer
-		upgrade_card.set_affordable(GameEvents.gold >= upgrade_card.cost)
+		upgrade_card.set_affordable(EconomyManager.gold >= upgrade_card.cost)
 
 
 func _set_status(msg: String, ok: bool) -> void:

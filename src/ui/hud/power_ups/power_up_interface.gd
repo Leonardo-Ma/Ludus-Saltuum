@@ -16,7 +16,7 @@ func _ready() -> void:
 			# re-assign keys when actual identifiers come in
 			_powerup_ui_elements[StringName(hbox.name)] = hbox
 
-	GameEvents.status_buff_collected.connect(_on_status_buff_collected)
+	CollectiblesEvents.status_buff_collected.connect(_on_status_buff_collected)
 	GameEvents.player_respawning.connect(_on_player_respawning)
 	set_process(false)
 

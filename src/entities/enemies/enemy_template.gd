@@ -25,6 +25,6 @@ func _child_ready() -> void:
 
 
 func _on_death_complete() -> void:
-	GameEvents.add_score(5)
-	GameEvents.enemy_killed.emit(spawn_position)
+	EconomyManager.add_score(5)
+	CombatEvents.enemy_killed.emit(spawn_position)
 	queue_free()

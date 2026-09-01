@@ -27,10 +27,10 @@ func _ready() -> void:
 		_by_key[definition.key] = definition
 
 	_load()
-	GameEvents.score_updated.connect(_on_score_updated)
-	GameEvents.easter_egg_found.connect(_on_easter_egg_found)
+	EconomyManager.score_updated.connect(_on_score_updated)
+	EasterEggManager.easter_egg_found.connect(_on_easter_egg_found)
 	GameEvents.player_finished_spawning.connect(_on_player_spawned)
-	GameEvents.status_buff_collected.connect(func(_e: StatusEffect, _i: Texture2D) -> void: _check_skill_completion())
+	CollectiblesEvents.status_buff_collected.connect(func(_e: StatusEffect, _i: Texture2D) -> void: _check_skill_completion())
 
 
 func unlock(key: StringName) -> void:
@@ -106,7 +106,7 @@ func get_progress_ratio(key: StringName) -> float:
 	var definition: AchievementDefinition = _get_definition(key)
 	if definition.unlock_threshold <= 0:
 		return 0.0
-	return clampf(float(GameEvents.score) / float(definition.unlock_threshold), 0.0, 1.0)
+	return clampf(float(EconomyManager.score) / float(definition.unlock_threshold), 0.0, 1.0)
 
 
 ## Sorted unlocked first, locked ordered closest to unlock second

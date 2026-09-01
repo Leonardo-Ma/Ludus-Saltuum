@@ -8,8 +8,8 @@ var _current_gold: int = 0
 
 
 func _ready() -> void:
-	_current_gold = GameEvents.gold
-	GameEvents.gold_updated.connect(_on_gold_updated)
+	_current_gold = EconomyManager.gold
+	EconomyManager.gold_updated.connect(_on_gold_updated)
 	_update_ui(_current_gold)
 
 

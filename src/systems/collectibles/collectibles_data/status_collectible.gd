@@ -19,7 +19,7 @@ func apply_effect(player: PlayerEntity) -> void:
 	assert(status_manager.has_method("apply_status"), "StatusManager does not have apply_status method")
 	status_manager.apply_status(status_effect)
 
-	GameEvents.status_buff_collected.emit(status_effect, icon)
+	CollectiblesEvents.status_buff_collected.emit(status_effect, icon)
 
 
 func _resource_to_validate() -> Resource:

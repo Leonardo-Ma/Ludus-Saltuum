@@ -28,6 +28,8 @@ const LEVEL_COMPLETE_SOUNDS: Array[AudioStream] = [
 	preload("uid://b0bvycxcrnugp"),  # chequered_ink/xylophone_level_complete.wa
 ]
 
+var procedural_seed: int = 0
+
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var _all_chunks: Array[ChunkData] = []
 var _active_chunks: Array[LevelChunk] = []
@@ -47,7 +49,7 @@ func _ready() -> void:
 	_load_chunk_metadata_from_disk()
 
 	# Try to fetch the global seed, else random
-	var target_seed: int = GameEvents.procedural_seed if GameEvents.procedural_seed != 0 else Time.get_ticks_msec()
+	var target_seed: int = procedural_seed if procedural_seed != 0 else Time.get_ticks_msec()
 	_rng.seed = target_seed
 
 	SaveManager.save_requested.connect(func(data: SaveData) -> void: build_save(data.chunks))
@@ -350,7 +352,7 @@ func _on_chunk_exit_reached(body: Node3D, passed_chunk: LevelChunk) -> void:
 		for data: ChunkData in _all_chunks:
 			if data.scene_path == chunk_path:
 				var total_score: int = roundi((data.difficulty_points + data.skill_points) * data.score_multiplier)
-				GameEvents.add_score(total_score)
+				EconomyManager.add_score(total_score)
 				break
 
 	# Only start recycling after the configured start index
@@ -380,7 +382,7 @@ func _disconnect_chunk_trigger(chunk: LevelChunk) -> void:
 
 func _get_random_valid_chunk(target_transform: Transform3D) -> LevelChunk:
 	var unlocked_ids: Array[StringName] = _get_player_skills()
-	var chosen_data: ChunkData = _chunk_selector.select_chunk_data(target_transform, unlocked_ids, GameEvents.score)
+	var chosen_data: ChunkData = _chunk_selector.select_chunk_data(target_transform, unlocked_ids, EconomyManager.score)
 	var load_status: ResourceLoader.ThreadLoadStatus = ResourceLoader.load_threaded_get_status(chosen_data.scene_path)
 	var scene: PackedScene
 	if load_status == ResourceLoader.THREAD_LOAD_LOADED:

@@ -5,4 +5,4 @@ extends CollectibleData
 
 
 func apply_effect(_player: PlayerEntity) -> void:
-	GameEvents.add_gold(amount)
+	EconomyManager.add_gold(amount)

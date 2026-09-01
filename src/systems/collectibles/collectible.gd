@@ -43,7 +43,7 @@ func _on_body_entered(body: Node3D) -> void:
 		if data is StatusCollectible:
 			await _respawn_collectible()
 		else:
-			GameEvents.collectible_consumed.emit(spawn_position)
+			CollectiblesEvents.collectible_consumed.emit(spawn_position)
 			queue_free()
 
 

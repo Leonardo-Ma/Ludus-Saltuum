@@ -6,64 +6,19 @@ extends Node
 signal player_spawning(player: Node3D)
 @warning_ignore("unused_signal")
 signal player_finished_spawning(player: Node3D)
-@warning_ignore("unused_signal")
-signal counter_collectible_collected(identifier: StringName, amount: int, icon: Texture2D)
-@warning_ignore("unused_signal")
-signal status_buff_collected(status_effect: StatusEffect, icon: Texture2D)
-signal score_updated(new_score: int)
-@warning_ignore("unused_signal")
-signal easter_egg_found(easter_egg_name: StringName)
-@warning_ignore("unused_signal")
+
 signal player_respawning(duration: float)
-@warning_ignore("unused_signal")
 signal player_finished_respawning
-signal gold_updated(new_total: int)
-@warning_ignore("unused_signal")
-signal collectible_consumed(world_position: Vector3)
-@warning_ignore("unused_signal")
-signal enemy_killed(world_position: Vector3)
+
 signal controlled_entity_changed(entity: Node3D)
 #endregion
 
-var procedural_seed: int = 0
-var score: int = 0
-var gold: int = 0
-var easter_eggs_found: int = 0
-var found_easter_eggs: Dictionary = {}
 var controlled_entity: Node3D = null
 
 
 func _ready() -> void:
-	easter_egg_found.connect(_on_easter_egg_found)
-
 	player_respawning.connect(SaveManager.request_save_block.bind(&"player_respawning"))
 	player_finished_respawning.connect(SaveManager.release_save_block.bind(&"player_respawning"))
-
-
-func add_score(points: int) -> void:
-	score += points
-	score_updated.emit(score)
-
-
-func remove_score(points: int) -> void:
-	score -= points
-	if score <= 0:
-		score = 0
-	score_updated.emit(score)
-
-
-func add_gold(amount: int) -> void:
-	gold += amount
-	gold_updated.emit(gold)
-
-
-## Returns false if insufficient gold
-func remove_gold(amount: int) -> bool:
-	if gold < amount:
-		return false
-	gold -= amount
-	gold_updated.emit(gold)
-	return true
 
 
 func set_controlled_entity(entity: Node3D) -> void:
@@ -81,10 +36,3 @@ func request_respawn(delay: float, target_transform: Transform3D, is_death: bool
 		"Controlled entity " + controlled_entity.name + " must implement respawn(delay: float, target_transform: Transform3D, is_death: bool)"
 	)
 	controlled_entity.respawn(delay, target_transform, is_death)
-
-
-func _on_easter_egg_found(easter_egg_name: StringName) -> void:
-	if not found_easter_eggs.has(easter_egg_name):
-		found_easter_eggs[easter_egg_name] = true
-		easter_eggs_found += 1
-		print(easter_eggs_found)

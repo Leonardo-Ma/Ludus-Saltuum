@@ -10,8 +10,8 @@ var _killed_enemy_positions: Array[Vector3] = []
 
 
 func _ready() -> void:
-	GameEvents.collectible_consumed.connect(_on_collectible_consumed)
-	GameEvents.enemy_killed.connect(_on_enemy_killed)
+	CollectiblesEvents.collectible_consumed.connect(_on_collectible_consumed)
+	CombatEvents.enemy_killed.connect(_on_enemy_killed)
 	ApplicationStateManager.main_menu_requested.connect(reset_data)
 
 	SaveManager.save_requested.connect(func(data: SaveData) -> void: build_save(data.world))

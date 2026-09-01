@@ -16,9 +16,10 @@ func _ready() -> void:
 			# re-assign keys when actual identifiers come in
 			_counter_ui_elements[StringName(hbox.name)] = hbox
 
-	GameEvents.counter_collectible_collected.connect(_on_counter_collected)
+	CollectiblesEvents.counter_collectible_collected.connect(_on_counter_collected)
 
 
+# TODO This shouldn't be here
 func _on_counter_collected(identifier: StringName, amount: int, icon: Texture2D) -> void:
 	# If an UI element exists for this collectible, just update counter
 	if _counter_ui_elements.has(identifier):

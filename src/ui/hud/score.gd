@@ -8,8 +8,8 @@ var _current_score: int = 0
 
 
 func _ready() -> void:
-	_current_score = GameEvents.score
-	GameEvents.score_updated.connect(_on_score_updated)
+	_current_score = EconomyManager.score
+	EconomyManager.score_updated.connect(_on_score_updated)
 	_update_ui(_current_score)
 
 

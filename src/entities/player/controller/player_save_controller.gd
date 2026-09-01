@@ -17,15 +17,15 @@ func _ready() -> void:
 
 
 func build_save(data: PlayerSaveData) -> void:
-	data.score = GameEvents.score
-	data.gold = GameEvents.gold
-	data.easter_eggs_found = GameEvents.easter_eggs_found
+	data.score = EconomyManager.score
+	data.gold = EconomyManager.gold
+	data.easter_eggs_found = EasterEggManager.easter_eggs_found
 	data.found_easter_egg_names = []
 	data.health = clampi(player.health.current_health, 1, player.health.max_health)
 	data.unlocked_skill_ids = player.skills_controller.get_unlocked_ids()
 
 	# TODO Is this build or apply?
-	for egg: StringName in GameEvents.found_easter_eggs.keys():
+	for egg: StringName in EasterEggManager.found_easter_eggs.keys():
 		data.found_easter_egg_names.append(egg)
 
 
@@ -33,16 +33,16 @@ func apply_save(data: PlayerSaveData) -> void:
 	player.health.current_health = data.health
 	player.skills_controller.set_unlocked_ids(data.unlocked_skill_ids)
 
-	GameEvents.score = data.score
-	GameEvents.gold = data.gold
-	GameEvents.score_updated.emit(data.score)
-	GameEvents.gold_updated.emit(data.gold)
+	EconomyManager.score = data.score
+	EconomyManager.gold = data.gold
+	EconomyManager.score_updated.emit(data.score)
+	EconomyManager.gold_updated.emit(data.gold)
 
-	GameEvents.easter_eggs_found = data.easter_eggs_found
-	GameEvents.found_easter_eggs.clear()
+	EasterEggManager.easter_eggs_found = data.easter_eggs_found
+	EasterEggManager.found_easter_eggs.clear()
 
 	for egg: StringName in data.found_easter_egg_names:
-		GameEvents.found_easter_eggs[egg] = true
+		EasterEggManager.found_easter_eggs[egg] = true
 
 
 func reset_data() -> void:
@@ -52,10 +52,10 @@ func reset_data() -> void:
 	player.velocity = Vector3.ZERO
 	player.global_transform = _default_spawn_transform
 
-	GameEvents.score = 0
-	GameEvents.gold = 0
-	GameEvents.score_updated.emit(GameEvents.score)
-	GameEvents.gold_updated.emit(GameEvents.gold)
+	EconomyManager.score = 0
+	EconomyManager.gold = 0
+	EconomyManager.score_updated.emit(EconomyManager.score)
+	EconomyManager.gold_updated.emit(EconomyManager.gold)
 
-	GameEvents.easter_eggs_found = 0
-	GameEvents.found_easter_eggs.clear()
+	EasterEggManager.easter_eggs_found = 0
+	EasterEggManager.found_easter_eggs.clear()

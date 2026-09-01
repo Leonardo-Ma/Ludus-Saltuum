@@ -116,7 +116,7 @@ func _on_attack_pressed() -> void:
 
 
 func _on_death_complete() -> void:
-	GameEvents.remove_score(10)
+	EconomyManager.remove_score(10)
 	GameEvents.request_respawn(2.0, CheckpointManager.get_respawn_transform(), true)
 
 
