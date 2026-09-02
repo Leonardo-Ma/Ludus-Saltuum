@@ -103,6 +103,12 @@ func _child_ready() -> void:
 	GameEvents.player_finished_spawning.emit(self)
 
 
+func finish_load() -> void:
+	velocity = Vector3.ZERO
+	movement_controller.movement_enabled = true
+	movement_controller.disable_timer = 0.0
+
+
 func _on_application_state_changed(new_state: ApplicationStateManager.GameState, _previous_state: ApplicationStateManager.GameState) -> void:
 	# TODO Double check this
 	if vehicle_rider.is_in_vehicle:

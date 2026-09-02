@@ -31,10 +31,8 @@ func _finish_player_load(player: PlayerEntity) -> void:
 		player.global_transform = CheckpointManager.get_respawn_transform()
 	else:
 		player.global_transform = CheckpointManager.get_default_spawn_transform()
-	# TODO Shouldn't directly touch player
-	player.velocity = Vector3.ZERO
-	player.movement_controller.movement_enabled = true
-	player.movement_controller.disable_timer = 0.0
+
+	player.finish_load()
 
 	_pending_player_data = null
 	_is_loading = false
