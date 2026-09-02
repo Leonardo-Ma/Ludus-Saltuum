@@ -28,10 +28,10 @@ func init(actor: Node) -> void:
 
 func _get_health_percentage() -> float:
 	var health: Health = (_actor as AggressiveEntity).health
-	if health == null:
+	if health == null or health.max_health <= 0:
 		return 1.0
-	@warning_ignore("integer_division")  # TODO Maybe convert to float?
-	return health.current_health / health.max_health
+
+	return float(health.current_health) / health.max_health
 
 
 func _is_low_health() -> bool:
