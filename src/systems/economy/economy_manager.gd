@@ -7,6 +7,10 @@ var score: int = 0
 var gold: int = 0
 
 
+func _ready() -> void:
+	CombatEvents.enemy_killed.connect(_on_enemy_killed)
+
+
 func add_score(points: int) -> void:
 	score += points
 	score_updated.emit(score)
@@ -31,3 +35,7 @@ func remove_gold(amount: int) -> bool:
 	gold -= amount
 	gold_updated.emit(gold)
 	return true
+
+
+func _on_enemy_killed(_position: Vector3) -> void:
+	add_score(5)
