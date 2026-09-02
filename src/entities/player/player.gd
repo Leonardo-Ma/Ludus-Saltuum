@@ -31,7 +31,7 @@ func _physics_process(delta: float) -> void:
 
 
 func respawn(delay: float, target_transform: Transform3D, is_death: bool = false) -> void:
-	GameEvents.player_respawning.emit(delay)
+	ControlledEntityEvents.player_respawning.emit(delay)
 
 	movement_controller.disable_movement(delay)
 	velocity = Vector3.ZERO
@@ -56,14 +56,14 @@ func respawn(delay: float, target_transform: Transform3D, is_death: bool = false
 	hurtbox.set_deferred("monitoring", true)
 	hurtbox.set_deferred("monitorable", true)
 
-	GameEvents.player_finished_respawning.emit()
+	ControlledEntityEvents.player_finished_respawning.emit()
 
 
 # TODO Maybe change this to a signal based to decouple?
 # TODO Improve name
 func entity_enable_disable(toggle: bool) -> void:
 	if toggle == true:
-		GameEvents.set_controlled_entity(self)
+		ControlledEntityEvents.set_controlled_entity(self)
 		add_to_group(Groups.CONTROLLED)
 	else:
 		remove_from_group(Groups.CONTROLLED)
@@ -84,7 +84,7 @@ func _child_ready() -> void:
 
 	assert(player_save_controller != null, "Player save controller missing for " + name)
 
-	GameEvents.player_spawning.emit(self)
+	ControlledEntityEvents.player_spawning.emit(self)
 
 	input_controller.attack_pressed.connect(_on_attack_pressed)
 	input_controller.return_to_checkpoint_requested.connect(_on_return_to_checkpoint_requested)
@@ -100,7 +100,7 @@ func _child_ready() -> void:
 	else:
 		entity_enable_disable(false)
 
-	GameEvents.player_finished_spawning.emit(self)
+	ControlledEntityEvents.player_finished_spawning.emit(self)
 
 
 func finish_load() -> void:
@@ -123,13 +123,13 @@ func _on_attack_pressed() -> void:
 
 func _on_death_complete() -> void:
 	EconomyManager.remove_score(10)
-	GameEvents.request_respawn(2.0, CheckpointManager.get_respawn_transform(), true)
+	ControlledEntityEvents.request_respawn(2.0, CheckpointManager.get_respawn_transform(), true)
 
 
 func _on_return_to_checkpoint_requested() -> void:
 	if health.current_health <= 0:
 		return
-	GameEvents.request_respawn(1.0, CheckpointManager.get_respawn_transform())
+	ControlledEntityEvents.request_respawn(1.0, CheckpointManager.get_respawn_transform())
 
 
 func _on_damaged_vibration(_attack: Attack) -> void:

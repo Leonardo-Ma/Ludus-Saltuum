@@ -12,7 +12,7 @@ var _stat_targets: Dictionary = {}
 
 
 func _ready() -> void:
-	GameEvents.player_finished_spawning.connect(_on_player_spawned)
+	ControlledEntityEvents.player_finished_spawning.connect(_on_player_spawned)
 	EconomyManager.gold_updated.connect(_on_gold_updated)
 	_on_gold_updated(EconomyManager.gold)
 	get_viewport().size_changed.connect(_on_viewport_size_changed)

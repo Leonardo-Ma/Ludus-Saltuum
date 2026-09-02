@@ -6,7 +6,7 @@ var _is_loading: bool = false
 
 func _ready() -> void:
 	SaveManager.load_requested.connect(_on_load_requested)
-	GameEvents.player_finished_spawning.connect(_on_player_finished_spawning)
+	ControlledEntityEvents.player_finished_spawning.connect(_on_player_finished_spawning)
 
 
 func _on_load_requested(data: SaveData) -> void:
@@ -26,7 +26,7 @@ func _on_player_finished_spawning(player: PlayerEntity) -> void:
 func _finish_player_load(player: PlayerEntity) -> void:
 	player.player_save_controller.apply_save(_pending_player_data)
 
-	# TODO Refactor this condition and the 3 player assigns below to a GameEvents request spawn?
+	# TODO Refactor this condition and the 3 player assigns below to a ControlledEntityEvents request spawn?
 	if CheckpointManager.has_active_checkpoint():
 		player.global_transform = CheckpointManager.get_respawn_transform()
 	else:

@@ -6,7 +6,7 @@ var _tween: Tween
 
 func _ready() -> void:
 	hide()
-	GameEvents.player_finished_spawning.connect(_on_player_spawned)
+	ControlledEntityEvents.player_finished_spawning.connect(_on_player_spawned)
 	var players: Array[Node] = get_tree().get_nodes_in_group(Groups.PLAYERS)
 	if not players.is_empty():
 		_on_player_spawned(players[0])

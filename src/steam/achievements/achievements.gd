@@ -29,7 +29,7 @@ func _ready() -> void:
 	_load()
 	EconomyManager.score_updated.connect(_on_score_updated)
 	EasterEggManager.easter_egg_found.connect(_on_easter_egg_found)
-	GameEvents.player_finished_spawning.connect(_on_player_spawned)
+	ControlledEntityEvents.player_finished_spawning.connect(_on_player_spawned)
 	CollectiblesEvents.status_buff_collected.connect(func(_e: StatusEffect, _i: Texture2D) -> void: _check_skill_completion())
 
 
@@ -158,7 +158,7 @@ func _check_skill_completion() -> void:
 
 
 func _on_easter_egg_found(_easter_egg_name: StringName) -> void:
-	var easter_eggs_found: int = GameEvents.easter_eggs_found
+	var easter_eggs_found: int = EasterEggManager.easter_eggs_found
 	if easter_eggs_found >= 1:
 		unlock(&"first_easter_egg")
 	#if easter_eggs_found >= 2:

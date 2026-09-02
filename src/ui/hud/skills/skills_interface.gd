@@ -10,7 +10,7 @@ func _ready() -> void:
 	for skill_slot: Control in _skills_container.get_children():
 		assert(skill_slot is HUDSkillSlot, "Skill slot %s is not HUDSkillSlot in %s" % [skill_slot.name, name])
 
-	GameEvents.player_finished_spawning.connect(_on_player_spawned)
+	ControlledEntityEvents.player_finished_spawning.connect(_on_player_spawned)
 
 	# Player may already exist if HUD is loaded after the player (e.g. respawn).
 	var players: Array[Node] = get_tree().get_nodes_in_group(Groups.PLAYERS)

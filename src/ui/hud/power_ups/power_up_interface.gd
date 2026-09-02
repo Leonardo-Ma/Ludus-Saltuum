@@ -17,7 +17,7 @@ func _ready() -> void:
 			_powerup_ui_elements[StringName(hbox.name)] = hbox
 
 	CollectiblesEvents.status_buff_collected.connect(_on_status_buff_collected)
-	GameEvents.player_respawning.connect(_on_player_respawning)
+	ControlledEntityEvents.player_respawning.connect(_on_player_respawning)
 	set_process(false)
 
 

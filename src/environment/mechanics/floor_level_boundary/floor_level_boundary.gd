@@ -18,9 +18,9 @@ func _ready() -> void:
 	set_physics_process(false)
 	body_entered.connect(_on_body_entered)
 	CheckpointManager.checkpoint_activated.connect(_on_checkpoint_activated)
-	GameEvents.controlled_entity_changed.connect(_on_controlled_entity_changed)
-	if GameEvents.controlled_entity != null:
-		_on_controlled_entity_changed(GameEvents.controlled_entity)
+	ControlledEntityEvents.controlled_entity_changed.connect(_on_controlled_entity_changed)
+	if ControlledEntityEvents.controlled_entity != null:
+		_on_controlled_entity_changed(ControlledEntityEvents.controlled_entity)
 
 
 func _physics_process(_delta: float) -> void:
@@ -66,4 +66,4 @@ func _on_body_entered(body: Node3D) -> void:
 	else:
 		target_transform = _fallback_spawn_transform
 
-	GameEvents.request_respawn(2.0, target_transform, false)
+	ControlledEntityEvents.request_respawn(2.0, target_transform, false)

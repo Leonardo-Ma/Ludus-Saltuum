@@ -27,7 +27,7 @@ buses/default_bus_layout="uid://plxel2xf671u"
 
 ShaderWarmup="*uid://dqltbgbw3oygl"
 SettingsManager="*uid://caq4tmrxugaw7"
-GameEvents="*res://src/globals/game_events.gd"
+ControlledEntityEvents="*res://src/globals/controlled_entity_events.gd"
 GameLoadManager="*uid://bfkfo6da7q0ba"
 CombatEvents="*uid://u3adpccp2ng4"
 EconomyManager="*uid://bjaurfukljecb"

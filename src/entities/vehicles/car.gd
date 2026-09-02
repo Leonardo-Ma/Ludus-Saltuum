@@ -149,7 +149,7 @@ func _on_enter_area_body_entered(body: Node3D) -> void:
 	set_physics_process(true)
 	set_process(true)
 	driving_started.emit(_driver)
-	GameEvents.set_controlled_entity(self)
+	ControlledEntityEvents.set_controlled_entity(self)
 	add_to_group(Groups.CONTROLLED)
 
 
@@ -181,7 +181,7 @@ func exit(exit_position: Vector3) -> void:
 
 
 func respawn(delay: float, target_transform: Transform3D, is_death: bool = false) -> void:
-	GameEvents.player_respawning.emit(delay)
+	ControlledEntityEvents.player_respawning.emit(delay)
 
 	# TODO Remove this magic number delay
 	# Wait for the screen to fade in
@@ -198,4 +198,4 @@ func respawn(delay: float, target_transform: Transform3D, is_death: bool = false
 		health.reset()
 		scale = Vector3.ONE
 
-	GameEvents.player_finished_respawning.emit()
+	ControlledEntityEvents.player_finished_respawning.emit()

@@ -8,7 +8,7 @@ func _ready() -> void:
 	fade_rect.modulate.a = 0.0
 	fade_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
-	GameEvents.player_respawning.connect(_on_player_respawning)
+	ControlledEntityEvents.player_respawning.connect(_on_player_respawning)
 
 
 ## Fade in and out effect, to solid color then back
