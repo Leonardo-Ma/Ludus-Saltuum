@@ -24,6 +24,8 @@ var _auto_timer: Timer
 
 var _active_slot_index: int = -1
 
+var _cloud_backend: CloudSaveBackend = SteamCloudSaveBackend.new()
+
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -83,7 +85,7 @@ func load_from_slot(slot_index: int) -> bool:
 	assert(has_save(slot_index), "Slot index " + str(slot_index) + " doesn't have save")
 
 	var data: SaveData = _load_slot_resource(slot_index)
-	assert(data, "Data from slot" + str(slot_index) + "missing or corrupted")
+	assert(data != null, "SaveData missing for slot " + str(slot_index) + " in " + name)
 
 	if data.save_version != CURRENT_SAVE_VERSION:
 		if not _migrate(data):
@@ -97,15 +99,13 @@ func load_from_slot(slot_index: int) -> bool:
 
 
 func delete_slot(slot_index: int) -> void:
-	assert(
-		slot_index >= 0 and slot_index < TOTAL_SLOTS,
-		"SaveManager: slot out of range in " + name,
-	)
+	assert(slot_index >= 0 and slot_index < TOTAL_SLOTS, "SaveManager: slot out of range in " + name)
 	var base: String = _slot_path(slot_index)
 	for suffix: String in ["", ".bak", ".tmp"]:
 		var path: String = base + suffix
 		if FileAccess.file_exists(path):
 			_safe_remove(path)
+	_cloud_backend.delete(_cloud_filename(slot_index))
 	save_changed.emit(slot_index)
 
 
@@ -174,7 +174,7 @@ func _write_slot(slot_index: int, is_auto: bool, force: bool = false) -> bool:
 		return false
 
 	save_changed.emit(slot_index)
-	SteamCloudSave.upload(_cloud_filename(slot_index), _slot_path(slot_index))
+	_cloud_backend.upload(_cloud_filename(slot_index), _slot_path(slot_index))
 
 	print_debug("Saved slot ", slot_index)
 	return true
@@ -335,8 +335,8 @@ func _on_quit_requested() -> void:
 func _sync_cloud_saves() -> void:
 	for i: int in range(TOTAL_SLOTS):
 		var cloud_name: String = _cloud_filename(i)
-		if SteamCloudSave.remote_is_newer(cloud_name, _slot_path(i)):
-			SteamCloudSave.download(cloud_name, _slot_path(i))
+		if _cloud_backend.remote_is_newer(cloud_name, _slot_path(i)):
+			_cloud_backend.download(cloud_name, _slot_path(i))
 
 
 func _cloud_filename(slot_index: int) -> String:
