@@ -51,11 +51,11 @@ func _process(_delta: float) -> void:
 # TODO Create target groups, remove player being only target
 func _process_perception() -> void:
 	var current_detections: Array[DetectionResult] = []
-
 	for group: String in owner.target_groups:
-		var all_targets: Array[Node] = get_tree().get_nodes_in_group(group)
-		for target: Node in all_targets:
+		for target: Node in get_tree().get_nodes_in_group(group):
 			if target == _owner_node or not is_instance_valid(target) or not target is Node3D:
+				continue
+			if _purge_if_dead(target):
 				continue
 
 			# Additional health validation to not detect dead bodies
@@ -77,6 +77,17 @@ func _process_perception() -> void:
 	# If anyone cares about instant updates
 	if not current_detections.is_empty():
 		perception_updated.emit(current_detections)
+
+
+## Erases target from known_entities if its health reached zero, returns true if purged
+func _purge_if_dead(target: Node) -> bool:
+	if not (target.has_method("get_health") or "health" in target):
+		return false
+	var target_health: Health = target.get_health() if target.has_method("get_health") else target.get("health")
+	if target_health and target_health.current_health <= 0.0:
+		known_entities.erase(target)
+		return true
+	return false
 
 
 ## Gets the best known target data (KnownEntityData)
