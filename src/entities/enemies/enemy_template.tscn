@@ -8,8 +8,10 @@
 [ext_resource type="Script" uid="uid://cuwnfmbuuro3s" path="res://src/entities/ai/perception/visual_config.gd" id="7_djwp5"]
 [ext_resource type="Script" uid="uid://dycviide8g017" path="res://src/entities/ai/goap/actions/goto_enemy.gd" id="9_i57bl"]
 [ext_resource type="Script" uid="uid://8sv6xwujwxyk" path="res://src/entities/ai/goap/actions/melee_attack.gd" id="10_2ajce"]
+[ext_resource type="Script" uid="uid://v5kimqljxjc2" path="res://src/entities/ai/goap/actions/flee_from_enemy.gd" id="10_d3c46"]
 [ext_resource type="Script" uid="uid://djjmno7kihjpr" path="res://src/entities/ai/goap/actions/wander.gd" id="11_lrta4"]
 [ext_resource type="Script" uid="uid://c5rs5bpioolo8" path="res://src/entities/ai/goap/goals/track_enemy.gd" id="13_hwngx"]
+[ext_resource type="Script" uid="uid://b7v4ao8jga5rg" path="res://src/entities/ai/goap/goals/flee.gd" id="14_ejhyg"]
 [ext_resource type="Script" uid="uid://o8dqx6i7woqt" path="res://src/entities/ai/goap/goals/kill_enemy.gd" id="14_ia32q"]
 [ext_resource type="Script" uid="uid://8ib48sr624k3" path="res://src/entities/ai/goap/goals/wander.gd" id="15_tur1j"]
 [ext_resource type="Script" uid="uid://bvvk88q345vy4" path="res://src/entities/ai/goap/helpers/ai_config.gd" id="16_iqbar"]
@@ -34,7 +36,7 @@ metadata/_custom_type_script = "uid://cxqsapbic2imr"
 [sub_resource type="Resource" id="Resource_hp5pt"]
 resource_local_to_scene = true
 script = ExtResource("3_tc4qu")
-max_health = 20
+max_health = 21
 health_regen = 2.0
 metadata/_custom_type_script = "uid://njkofl5g11k7"
 
@@ -55,8 +57,8 @@ metadata/_custom_type_script = "uid://bqys3jbut4h6"
 
 [sub_resource type="Resource" id="Resource_f7hab"]
 script = ExtResource("16_iqbar")
-available_actions = Array[Script]([ExtResource("9_i57bl"), ExtResource("10_2ajce"), ExtResource("11_lrta4")])
-available_goals = Array[Script]([ExtResource("13_hwngx"), ExtResource("14_ia32q"), ExtResource("15_tur1j")])
+available_actions = Array[Script]([ExtResource("9_i57bl"), ExtResource("10_2ajce"), ExtResource("11_lrta4"), ExtResource("10_d3c46")])
+available_goals = Array[Script]([ExtResource("13_hwngx"), ExtResource("14_ia32q"), ExtResource("15_tur1j"), ExtResource("14_ejhyg")])
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wefi8"]
 height = 1.9296875
