@@ -2,7 +2,6 @@
 class_name SaveMenu
 extends Control
 
-@onready var _return_button: Button = %ReturnButton
 @onready var _slot_items: Array[Node] = %SaveSlotsContainer.get_children()
 
 
