@@ -26,13 +26,7 @@ func _ready() -> void:
 
 
 func _on_pressed() -> void:
-	(
-		SoundManager
-		. play_sound(
-			POP_SOUNDS.pick_random(),
-			SoundManager.SoundCategory.UI,
-		)
-	)
+	SoundManager.play_sound(POP_SOUNDS.pick_random(), SoundManager.SoundCategory.UI)
 
 	_button_pressed()
 
@@ -47,13 +41,9 @@ func _on_pressed() -> void:
 func _on_mouse_entered() -> void:
 	if disabled:
 		return
-	(
-		SoundManager
-		. play_sound(
-			HOVER_SOUND,
-			SoundManager.SoundCategory.UI,
-		)
-	)
+	if not InputManager.is_gamepad_active():
+		grab_focus()
+	SoundManager.play_sound(HOVER_SOUND, SoundManager.SoundCategory.UI)
 
 	pivot_offset = size / 2.0
 
@@ -61,27 +51,8 @@ func _on_mouse_entered() -> void:
 		_hover_tween.kill()
 
 	_hover_tween = create_tween()
-	(
-		_hover_tween
-		. tween_property(
-			self,
-			"scale",
-			Vector2(1.05, 1.05),
-			0.1,
-		)
-		. set_trans(Tween.TRANS_SINE)
-		. set_ease(Tween.EASE_OUT)
-	)
-	(
-		_hover_tween
-		. parallel()
-		. tween_property(
-			self,
-			"modulate",
-			modulate,
-			0.1,
-		)
-	)
+	_hover_tween.tween_property(self, "scale", Vector2(1.05, 1.05), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	_hover_tween.parallel().tween_property(self, "modulate", modulate, 0.1)
 
 
 func _on_mouse_exited() -> void:
@@ -91,24 +62,5 @@ func _on_mouse_exited() -> void:
 		_hover_tween.kill()
 
 	_hover_tween = create_tween()
-	(
-		_hover_tween
-		. tween_property(
-			self,
-			"scale",
-			Vector2.ONE,
-			0.1,
-		)
-		. set_trans(Tween.TRANS_SINE)
-		. set_ease(Tween.EASE_OUT)
-	)
-	(
-		_hover_tween
-		. parallel()
-		. tween_property(
-			self,
-			"modulate",
-			modulate,
-			0.1,
-		)
-	)
+	_hover_tween.tween_property(self, "scale", Vector2.ONE, 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	_hover_tween.parallel().tween_property(self, "modulate", modulate, 0.1)
