@@ -357,10 +357,9 @@ omni_range = 3.0
 [node name="Checkpoint" parent="." unique_id=742215115 instance=ExtResource("16_a2riu")]
 transform = Transform3D(-1.9318516, 0, -0.51763827, 0, 2, 0, 0.51763827, 0, -1.9318516, -50.923603, 0.23874676, 49.671375)
 
-[node name="EasterEgg" parent="." unique_id=1789181794 node_paths=PackedStringArray("collision_shape_3d") instance=ExtResource("15_ykdc8")]
+[node name="EasterEgg" parent="." unique_id=1789181794 instance=ExtResource("15_ykdc8")]
 transform = Transform3D(-0.9659258, 0, -0.25881913, 0, 1, 0, 0.25881913, 0, -0.9659258, -69.92361, 1, 75)
 easter_egg_name = &"42"
-collision_shape_3d = NodePath("CollisionShape3D2")
 
 [node name="Label3D" type="Label3D" parent="EasterEgg" unique_id=1984197059]
 transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, 0, 0, 0)
