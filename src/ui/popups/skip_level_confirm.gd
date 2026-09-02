@@ -2,8 +2,9 @@
 ## Confirmation popup for skipping the current level chunk
 extends PopupTemplate
 
-@onready var _yes_button: TextureButton = %YesButton
-@onready var _no_button: TextureButton = %NoButton
+# TODO Check if should move this to respective yes and no buttons
+@onready var _yes_button: Button = %YesButton
+@onready var _no_button: Button = %NoButton
 
 
 func _ready() -> void:

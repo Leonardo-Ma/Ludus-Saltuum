@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://c47168lpalyg1"]
 
 [ext_resource type="Script" uid="uid://bntbuf37m4n3r" path="res://src/ui/popups/skip_level_confirm.gd" id="1_fuo63"]
+[ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="1_wrsxo"]
 [ext_resource type="Texture2D" uid="uid://boj68sx67cn8w" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/fast_forward.png" id="2_p25wu"]
 [ext_resource type="Texture2D" uid="uid://r8ac5it4c01m" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/tick.png" id="2_xy647"]
-[ext_resource type="Texture2D" uid="uid://pfmkppm3ecuw" path="res://src/ui/assets/fantasy_ui_borders/PNG/Double/Border/panel-border-010.png" id="3_6n175"]
 [ext_resource type="Texture2D" uid="uid://7p2j8n842i0a" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/cross.png" id="3_h6q6e"]
 [ext_resource type="Texture2D" uid="uid://bx6r2tioul5ru" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/6_buildings/flag.png" id="3_wrsxo"]
 [ext_resource type="PackedScene" uid="uid://b6ednpu0kwboc" path="res://src/ui/helpers/grab_focus_on_visible.tscn" id="4_h6q6e"]
@@ -15,6 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_wrsxo")
 script = ExtResource("1_fuo63")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1454334216]
@@ -98,27 +99,25 @@ layout_mode = 2
 theme_override_constants/separation = 100
 alignment = 1
 
-[node name="NoButton" type="TextureButton" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=1294552436]
+[node name="NoButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=1039115649]
 unique_name_in_owner = true
 modulate = Color(0.6745098, 0, 0, 0.9411765)
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-texture_normal = ExtResource("3_h6q6e")
-texture_focused = ExtResource("3_6n175")
-ignore_texture_size = true
-stretch_mode = 5
+theme_type_variation = &"DangerIconButton"
+icon = ExtResource("3_h6q6e")
+expand_icon = true
 
 [node name="GrabFocusOnVisible" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/NoButton" unique_id=494770207 instance=ExtResource("4_h6q6e")]
 layout_mode = 0
 offset_left = 250.0
 offset_right = 250.0
 
-[node name="YesButton" type="TextureButton" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=1495344399]
+[node name="YesButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=111968559]
 unique_name_in_owner = true
 modulate = Color(0, 0.36078432, 0, 0.7137255)
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-texture_normal = ExtResource("2_xy647")
-texture_focused = ExtResource("3_6n175")
-ignore_texture_size = true
-stretch_mode = 5
+theme_type_variation = &"PrimaryIconButton"
+icon = ExtResource("2_xy647")
+expand_icon = true
