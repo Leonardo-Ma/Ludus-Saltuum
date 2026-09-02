@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="SpeedBoostStatus" format=3 uid="uid://c83km0rbkiout"]
+[gd_resource type="Resource" script_class="JumpBoostStatus" format=3 uid="uid://c83km0rbkiout"]
 
-[ext_resource type="Script" uid="uid://sx06xo701l0n" path="res://src/entities/components/stat_modifier/status_effects/speed_boost_status.gd" id="1_68k47"]
+[ext_resource type="Script" uid="uid://bm1gkgun5gr70" path="res://src/entities/components/stat_modifier/status_effects/jump_boost_status.gd" id="1_f1lja"]
 
 [resource]
-script = ExtResource("1_68k47")
+script = ExtResource("1_f1lja")
 type = 0
 duration = 10.0
 metadata/_custom_type_script = "uid://sx06xo701l0n"
