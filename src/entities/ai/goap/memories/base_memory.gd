@@ -26,20 +26,11 @@ func init(actor: Node) -> void:
 	}
 
 
-func _get_health() -> Variant:
-	if _actor.has_method("get_health"):
-		return _actor.get_health()
-
-	if "health" in _actor:
-		return _actor.get("health")
-
-	return null
-
-
 func _get_health_percentage() -> float:
-	var health: Variant = _get_health()
+	var health: Health = (_actor as AggressiveEntity).health
 	if health == null:
 		return 1.0
+	@warning_ignore("integer_division")  # TODO Maybe convert to float?
 	return health.current_health / health.max_health
 
 
