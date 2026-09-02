@@ -9,6 +9,8 @@ signal save_requested(data: SaveData)
 ## Every system should trigger internal load
 signal load_requested(data: SaveData)
 signal save_changed(slot_index: int)
+## Every system should reset for new game
+signal reset_requested
 
 const SAVE_DIR: String = "user://saves/"
 const MANUAL_SLOTS: int = 2
@@ -52,15 +54,7 @@ func _ready() -> void:
 func reset_data_for_new_game(slot_index: int) -> void:
 	_active_slot_index = slot_index
 	_next_auto_slot = 0
-	GameplayStateManager.set_play_time(0.0)
-	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
-	assert(player != null, "No player found while building save in " + name)
-	player.player_save_controller.reset_data()
-	WorldSaveController.reset_data()
-	LevelChunkManager.reset_data()
-	CheckpointManager.reset_save_data()
-	# TODO Maybe change this trigger to signal based?
-	LevelChunkManager.initialize_level()
+	reset_requested.emit()
 
 
 #region Save Load and Delete
@@ -196,33 +190,27 @@ func _persist_slot(slot_index: int, data: SaveData) -> bool:
 	var base: String = _slot_path(slot_index)
 	var tmp: String = _tmp_path(slot_index)
 	var bak: String = base + ".bak"
+	var bak_prev: String = base + ".bak.old"
 
 	var err: int = ResourceSaver.save(data, tmp)
 	if err != OK:
 		push_error("SaveManager: failed writing tmp for slot %d (error %d)" % [slot_index, err])
 		return false
 
-	var verify: SaveData = (
-		(
-			ResourceLoader
-			. load(
-				tmp,
-				"",
-				ResourceLoader.CACHE_MODE_IGNORE,
-			)
-		)
-		as SaveData
-	)
-
+	var verify: SaveData = ResourceLoader.load(tmp, "", ResourceLoader.CACHE_MODE_IGNORE) as SaveData
 	if verify == null:
 		_safe_remove(tmp)
 		push_error("SaveManager: tmp verification failed for slot %d, aborting commit" % slot_index)
 		return false
 
-	if FileAccess.file_exists(bak):
-		_safe_remove(bak)
+	var had_prev_bak: bool = FileAccess.file_exists(bak)
+	if had_prev_bak and not _safe_rename(bak, bak_prev):
+		_safe_remove(tmp)
+		return false
 
 	if FileAccess.file_exists(base) and not _safe_rename(base, bak):
+		if had_prev_bak:
+			_safe_rename(bak_prev, bak)
 		_safe_remove(tmp)
 		return false
 
@@ -230,7 +218,12 @@ func _persist_slot(slot_index: int, data: SaveData) -> bool:
 		push_error("SaveManager: failed committing save for slot %d" % slot_index)
 		if FileAccess.file_exists(bak):
 			_safe_rename(bak, base)
+		if had_prev_bak:
+			_safe_rename(bak_prev, bak)
 		return false
+
+	if had_prev_bak:
+		_safe_remove(bak_prev)
 
 	return true
 

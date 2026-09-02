@@ -10,10 +10,10 @@ var _default_spawn_transform: Transform3D
 
 func _ready() -> void:
 	assert(player != null, "Player owner missing in " + name)
-
 	_default_spawn_transform = player.global_transform
 	SaveManager.save_requested.connect(func(data: SaveData) -> void: build_save(data.player))
-	# Loading is done by game load manager
+	# Loading is triggered by game load manager
+	SaveManager.reset_requested.connect(reset_data)
 
 
 func build_save(data: PlayerSaveData) -> void:

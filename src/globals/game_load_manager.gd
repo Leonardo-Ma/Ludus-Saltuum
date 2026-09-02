@@ -1,39 +1,52 @@
+# TODO To confirm, as this works as integration, may not make sense to decouple from the systems it uses
 extends Node
 
 var _pending_player_data: PlayerSaveData
-var _is_loading: bool = false
+var _player: PlayerEntity = null
+var _load_applied: bool = false
 
 
 func _ready() -> void:
 	SaveManager.load_requested.connect(_on_load_requested)
+	CheckpointManager.load_applied.connect(_on_checkpoint_load_applied)
 	ControlledEntityEvents.player_finished_spawning.connect(_on_player_finished_spawning)
 
 
 func _on_load_requested(data: SaveData) -> void:
 	_pending_player_data = data.player
-	_is_loading = true
+	_load_applied = false
+	_player = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
+	_try_finish_load()
 
-	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
-	if player != null:
-		_finish_player_load(player)
+
+func _on_checkpoint_load_applied() -> void:
+	if _pending_player_data == null:
+		return
+	_load_applied = true
+	_try_finish_load()
 
 
 func _on_player_finished_spawning(player: PlayerEntity) -> void:
-	if _is_loading:
-		_finish_player_load(player)
+	if _pending_player_data == null:
+		return
+	_player = player
+	_try_finish_load()
 
 
-func _finish_player_load(player: PlayerEntity) -> void:
-	player.player_save_controller.apply_save(_pending_player_data)
+func _try_finish_load() -> void:
+	if _player == null or not _load_applied:
+		return
 
-	# TODO Refactor this condition and the 3 player assigns below to a ControlledEntityEvents request spawn?
+	_player.player_save_controller.apply_save(_pending_player_data)
+
 	if CheckpointManager.has_active_checkpoint():
-		player.global_transform = CheckpointManager.get_respawn_transform()
+		_player.global_transform = CheckpointManager.get_respawn_transform()
 	else:
-		player.global_transform = CheckpointManager.get_default_spawn_transform()
+		_player.global_transform = CheckpointManager.get_default_spawn_transform()
 
-	player.finish_load()
+	_player.finish_load()
 
 	_pending_player_data = null
-	_is_loading = false
+	_player = null
+	_load_applied = false
 	SaveManager.release_save_block(&"loading")

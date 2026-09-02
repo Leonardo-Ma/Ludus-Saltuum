@@ -2,6 +2,8 @@ extends Node
 
 signal checkpoint_activated(checkpoint_position: Vector3)
 signal checkpoint_loaded(checkpoint_position: Vector3)  # TODO Check if refactor needed elsewhere to use this instead
+## Unconditional, fires at the end of apply_save() regardless of a valid checkpoint
+signal load_applied
 
 var _active_checkpoint: Checkpoint = null
 var _checkpoint_chunk_index: int = -1
@@ -14,6 +16,7 @@ func _ready() -> void:
 	LevelChunkManager.level_loaded.connect(_on_level_loaded)
 
 	SaveManager.save_requested.connect(func(data: SaveData) -> void: build_save(data.checkpoint))
+	SaveManager.reset_requested.connect(reset_save_data)
 
 
 func _on_level_loaded(data: CheckpointSaveData) -> void:
@@ -93,6 +96,9 @@ func get_active_checkpoint() -> Checkpoint:
 
 
 func reset_checkpoint() -> void:
+	if _active_checkpoint and is_instance_valid(_active_checkpoint):
+		_active_checkpoint.deactivate_checkpoint()
+
 	_active_checkpoint = null
 	_checkpoint_chunk_index = -1
 	_checkpoint_local_transform = Transform3D.IDENTITY
@@ -126,6 +132,7 @@ func build_save(data: CheckpointSaveData) -> void:
 func apply_save(data: CheckpointSaveData) -> void:
 	if not data.has_checkpoint_position:
 		reset_checkpoint()
+		load_applied.emit()
 		return
 
 	_checkpoint_chunk_index = data.checkpoint_chunk_index
@@ -141,6 +148,7 @@ func apply_save(data: CheckpointSaveData) -> void:
 		)
 
 	checkpoint_loaded.emit(get_respawn_position())
+	load_applied.emit()
 
 
 func reset_save_data() -> void:

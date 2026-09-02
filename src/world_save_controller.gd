@@ -15,7 +15,8 @@ func _ready() -> void:
 	ApplicationStateManager.main_menu_requested.connect(reset_data)
 
 	SaveManager.save_requested.connect(func(data: SaveData) -> void: build_save(data.world))
-	SaveManager.load_requested.connect(func(data: SaveData) -> void: apply_save(data.world))
+	SaveManager.load_requested.connect(_on_load_requested)
+	SaveManager.reset_requested.connect(reset_data)
 
 
 ## Builds world data for saving
@@ -39,6 +40,10 @@ func reset_data() -> void:
 	_killed_enemy_positions.clear()
 
 
+func _on_load_requested(data: SaveData) -> void:
+	apply_save(data.world)
+
+
 func _on_collectible_consumed(pos: Vector3) -> void:
 	_consumed_collectible_positions.append(pos)
 
@@ -55,7 +60,7 @@ func _disable_consumed_collectibles() -> void:
 			if collectible == null:
 				continue
 			if pos.distance_squared_to(collectible.spawn_position) < _COLLECTIBLE_MATCH_SQ:
-				c.queue_free()
+				collectible.queue_free()
 				break
 
 
@@ -67,5 +72,5 @@ func _disable_killed_enemies() -> void:
 			if entity == null:
 				continue
 			if pos.distance_squared_to(entity.spawn_position) < _ENEMY_MATCH_SQ:
-				enemy.queue_free()
+				entity.queue_free()
 				break
