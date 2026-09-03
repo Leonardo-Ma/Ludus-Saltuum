@@ -17,7 +17,7 @@ var controlled_entity: Node3D = null
 
 
 func _ready() -> void:
-	player_respawning.connect(SaveManager.request_save_block.bind(&"player_respawning"))
+	player_respawning.connect(_on_player_respawning)
 	player_finished_respawning.connect(SaveManager.release_save_block.bind(&"player_respawning"))
 
 
@@ -36,3 +36,7 @@ func request_respawn(delay: float, target_transform: Transform3D, is_death: bool
 		"Controlled entity " + controlled_entity.name + " must implement respawn(delay: float, target_transform: Transform3D, is_death: bool)"
 	)
 	controlled_entity.respawn(delay, target_transform, is_death)
+
+
+func _on_player_respawning(_duration: float) -> void:
+	SaveManager.request_save_block(&"player_respawning")
