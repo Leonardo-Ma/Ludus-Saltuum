@@ -3,6 +3,9 @@
 class_name SaveFileItem
 extends AspectRatioContainer
 
+signal play_requested(slot_index: int)
+signal delete_requested(slot_index: int)
+
 const CURSOR_LINK: CompressedTexture2D = preload("uid://8hkrepcpd520")
 const DISPLAY: CompressedTexture2D = preload("uid://bkg1s07hgwn6s")
 const PLUS: CompressedTexture2D = preload("uid://dl4tpaxj10pb5")
@@ -23,8 +26,8 @@ var _has_data: bool = false
 @onready var _play_time_label: Label = %PlayTimeValueLabel
 @onready var _save_date_label: Label = %SaveDateValueLabel
 
-@onready var _play_button: Button = %PlayButton
-@onready var _delete_button: Button = %DeleteButton
+@onready var _play_button: UIButton = %PlayButton
+@onready var _delete_button: UIButton = %DeleteButton
 
 
 func _ready() -> void:
@@ -69,17 +72,14 @@ func _show_empty() -> void:
 	_delete_button.disabled = true
 
 
+## Goes to save menu parent
 func _on_play_pressed() -> void:
-	if _has_data:
-		SaveManager.load_from_slot(_slot_index)
-	else:
-		SaveManager.reset_data_for_new_game(_slot_index)
-	ApplicationStateManager.request_play_from_save()
+	play_requested.emit(_slot_index)
 
 
+## Goes to save menu parent
 func _on_delete_pressed() -> void:
-	# TODO Add confirmation popup
-	SaveManager.delete_slot(_slot_index)
+	delete_requested.emit(_slot_index)
 
 
 func _populate_icons() -> void:

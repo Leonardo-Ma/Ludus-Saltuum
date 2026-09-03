@@ -6,6 +6,10 @@ extends Control
 
 
 func _ready() -> void:
+	for slot: SaveFileItem in _slot_items:
+		slot.play_requested.connect(_on_save_file_item_play_requested)
+	for slot: SaveFileItem in _slot_items:
+		slot.delete_requested.connect(_on_save_file_item_delete_requested)
 	SaveManager.save_changed.connect(_on_save_changed)
 	visibility_changed.connect(_on_visibility_changed)
 
@@ -27,3 +31,17 @@ func _on_save_changed(slot_index: int) -> void:
 		return
 	var item: SaveFileItem = _slot_items[slot_index] as SaveFileItem
 	item.setup(slot_index, SaveManager.get_slot_data(slot_index))
+
+
+func _on_save_file_item_play_requested(slot_index: int) -> void:
+	if SaveManager.has_save(slot_index):
+		SaveManager.load_from_slot(slot_index)
+	else:
+		SaveManager.reset_data_for_new_game(slot_index)
+
+	ApplicationStateManager.request_play_from_save()
+
+
+func _on_save_file_item_delete_requested(slot_index: int) -> void:
+	# TODO Add confirmation popup
+	SaveManager.delete_slot(slot_index)
