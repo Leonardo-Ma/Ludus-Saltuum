@@ -1,6 +1,6 @@
 ## Grabs focus when parent becomes visible
 ## Attach to first focusable button in each menu
-extends Control
+extends Node
 
 @onready var button: BaseButton = get_parent()
 

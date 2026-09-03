@@ -2,7 +2,5 @@
 
 [ext_resource type="Script" uid="uid://ehownvdjncqu" path="res://src/ui/helpers/grab_focus_on_visible.gd" id="1_77f3d"]
 
-[node name="GrabFocusOnVisible" type="Control" unique_id=494770207]
-layout_mode = 3
-anchors_preset = 0
+[node name="GrabFocusOnVisible" type="Node" unique_id=1305006327]
 script = ExtResource("1_77f3d")
