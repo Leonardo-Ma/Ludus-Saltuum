@@ -12,6 +12,7 @@ config_version=5
 
 config/name="Ludus Saltuum"
 config/version="0.0.1"
+config/tags=PackedStringArray("3d", "black_galaxy_studios", "platformer")
 run/main_scene="uid://dlvcb7vmtq1lo"
 config/features=PackedStringArray("4.8", "Forward Plus")
 run/max_fps=1000
