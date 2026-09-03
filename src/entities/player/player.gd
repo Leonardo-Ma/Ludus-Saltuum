@@ -42,9 +42,10 @@ func respawn(delay: float, target_transform: Transform3D, is_death: bool = false
 	global_position = target_transform.origin
 	global_rotation.y = target_transform.basis.get_euler().y
 
+	status_manager.clear_temporary_statuses()
+	
 	if is_death:
 		health.reset()
-		status_manager.clear_temporary_statuses()
 		scale = Vector3.ONE
 
 	input_controller.set_process_input(true)
