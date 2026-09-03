@@ -11,6 +11,7 @@ signal load_requested(data: SaveData)
 signal save_changed(slot_index: int)
 ## Every system should reset for new game
 signal reset_requested
+signal reset_finished
 
 const SAVE_DIR: String = "user://saves/"
 const MANUAL_SLOTS: int = 2
@@ -55,6 +56,7 @@ func reset_data_for_new_game(slot_index: int) -> void:
 	_active_slot_index = slot_index
 	_next_auto_slot = 0
 	reset_requested.emit()
+	reset_finished.emit()
 
 
 #region Save Load and Delete

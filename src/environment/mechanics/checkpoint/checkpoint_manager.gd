@@ -13,10 +13,10 @@ var _has_valid_position: bool = false
 
 func _ready() -> void:
 	LevelChunkManager.chunk_recycled.connect(_on_chunk_recycled)
-	LevelChunkManager.level_loaded.connect(_on_level_loaded)
 
 	SaveManager.save_requested.connect(func(data: SaveData) -> void: build_save(data.checkpoint))
-	SaveManager.reset_requested.connect(reset_save_data)
+	LevelChunkManager.level_loaded.connect(_on_level_loaded)
+	SaveManager.reset_requested.connect(reset_checkpoint)
 
 
 func _on_level_loaded(data: CheckpointSaveData) -> void:
@@ -149,9 +149,4 @@ func apply_save(data: CheckpointSaveData) -> void:
 
 	checkpoint_loaded.emit(get_respawn_position())
 	load_applied.emit()
-
-
-func reset_save_data() -> void:
-	reset_checkpoint()
-
 #endregion
