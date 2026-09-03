@@ -25,13 +25,13 @@ func _ready() -> void:
 	for resolution: Vector2i in RESOLUTIONS:
 		add_item("%d x %d" % [resolution.x, resolution.y])
 
-	SettingsManager.camera_settings_changed.connect(_on_camera_settings_changed)
+	SettingsManager.video_settings_changed.connect(_on_video_settings_changed)
 	item_selected.connect(_on_resolution_changed)
 
 	_update_selected_resolution()
 
 
-func _on_camera_settings_changed() -> void:
+func _on_video_settings_changed() -> void:
 	_update_selected_resolution()
 
 
