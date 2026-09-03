@@ -48,12 +48,23 @@ func _ready() -> void:
 	)
 	_load_chunk_metadata_from_disk()
 
-	# Try to fetch the global seed, else random
-	var target_seed: int = procedural_seed if procedural_seed != 0 else Time.get_ticks_msec()
-	_rng.seed = target_seed
+	# TODO Double check
+	set_procedural_seed(procedural_seed)
 
 	SaveManager.save_requested.connect(func(data: SaveData) -> void: build_save(data.chunks))
 	SaveManager.load_requested.connect(_on_load_requested)
+	SaveManager.reset_requested.connect(reset_data)
+	SaveManager.reset_finished.connect(initialize_level)
+
+
+## Try to fetch the global seed, else random
+func set_procedural_seed(value: int) -> void:
+	procedural_seed = value
+	_rng.seed = value if value != 0 else Time.get_ticks_msec()
+
+
+func get_procedural_seed() -> int:
+	return _rng.seed
 
 
 #region Saving and Loading
