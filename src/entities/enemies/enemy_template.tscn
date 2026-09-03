@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://cq301lp0jblvc"]
 
 [ext_resource type="Script" uid="uid://du716c0fj4ubp" path="res://src/entities/enemies/enemy_template.gd" id="1_ejhyg"]
-[ext_resource type="Script" uid="uid://cxqsapbic2imr" path="res://src/entities/components/combat/attack.gd" id="2_koncd"]
-[ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="3_tc4qu"]
-[ext_resource type="Script" uid="uid://dlbf4w8moqj2j" path="res://src/entities/components/movement.gd" id="4_g5gh7"]
+[ext_resource type="Resource" uid="uid://cue70vb5xfvur" path="res://src/entities/enemies/resources/base_enemy_attack.tres" id="2_d3c46"]
+[ext_resource type="Resource" uid="uid://blu7iavd60pbx" path="res://src/entities/enemies/resources/base_enemy_health.tres" id="3_ejhyg"]
+[ext_resource type="Resource" uid="uid://11dvy0ydxiej" path="res://src/entities/enemies/resources/base_enemy_movement.tres" id="4_d3c46"]
 [ext_resource type="Script" uid="uid://bqys3jbut4h6" path="res://src/entities/ai/perception/perception_config.gd" id="6_iieoc"]
 [ext_resource type="Script" uid="uid://cuwnfmbuuro3s" path="res://src/entities/ai/perception/visual_config.gd" id="7_djwp5"]
 [ext_resource type="Script" uid="uid://dycviide8g017" path="res://src/entities/ai/goap/actions/goto_enemy.gd" id="9_i57bl"]
@@ -26,32 +26,12 @@
 [ext_resource type="Script" uid="uid://wqopxvagomo6" path="res://src/entities/components/combat/hurtbox.gd" id="25_ljr68"]
 [ext_resource type="Script" uid="uid://cpnmaicmyhwd6" path="res://src/entities/components/entity_debug_label.gd" id="26_5e42j"]
 
-[sub_resource type="Resource" id="Resource_wefi8"]
-resource_local_to_scene = true
-script = ExtResource("2_koncd")
-type = 1
-damage = 20
-metadata/_custom_type_script = "uid://cxqsapbic2imr"
-
-[sub_resource type="Resource" id="Resource_hp5pt"]
-resource_local_to_scene = true
-script = ExtResource("3_tc4qu")
-max_health = 21
-health_regen = 2.0
-metadata/_custom_type_script = "uid://njkofl5g11k7"
-
-[sub_resource type="Resource" id="Resource_rbcv5"]
-script = ExtResource("4_g5gh7")
-speed = 4.0
-metadata/_custom_type_script = "uid://dlbf4w8moqj2j"
-
 [sub_resource type="Resource" id="Resource_kcsny"]
 script = ExtResource("7_djwp5")
 metadata/_custom_type_script = "uid://cuwnfmbuuro3s"
 
 [sub_resource type="Resource" id="Resource_k6n52"]
 script = ExtResource("6_iieoc")
-memory_duration = 60.0
 visual = SubResource("Resource_kcsny")
 metadata/_custom_type_script = "uid://bqys3jbut4h6"
 
@@ -74,9 +54,9 @@ radius = 0.3
 collision_layer = 2
 collision_mask = 11
 script = ExtResource("1_ejhyg")
-attack = SubResource("Resource_wefi8")
-health = SubResource("Resource_hp5pt")
-movement = SubResource("Resource_rbcv5")
+attack = ExtResource("2_d3c46")
+health = ExtResource("3_ejhyg")
+movement = ExtResource("4_d3c46")
 perception_config = SubResource("Resource_k6n52")
 ai_config = SubResource("Resource_f7hab")
 

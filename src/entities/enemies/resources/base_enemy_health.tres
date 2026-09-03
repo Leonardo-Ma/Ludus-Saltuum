@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Health" format=3 uid="uid://blu7iavd60pbx"]
+
+[ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="1_ymgc5"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_ymgc5")
+max_health = 21
+health_regen = 2.0
+metadata/_custom_type_script = "uid://njkofl5g11k7"

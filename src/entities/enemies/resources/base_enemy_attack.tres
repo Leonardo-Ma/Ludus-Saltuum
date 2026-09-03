@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Attack" format=3 uid="uid://cue70vb5xfvur"]
+
+[ext_resource type="Script" uid="uid://cxqsapbic2imr" path="res://src/entities/components/combat/attack.gd" id="1_bki4u"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_bki4u")
+type = 1
+damage = 20
+metadata/_custom_type_script = "uid://cxqsapbic2imr"

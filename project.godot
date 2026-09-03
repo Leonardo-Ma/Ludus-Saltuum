@@ -81,6 +81,7 @@ folder_colors={
 "res://src/entities/ai/resources/": "purple",
 "res://src/entities/animation/": "orange",
 "res://src/entities/components/": "gray",
+"res://src/entities/enemies/resources/": "purple",
 "res://src/entities/player/": "red",
 "res://src/entities/player/combat/": "gray",
 "res://src/entities/player/controller/": "gray",
