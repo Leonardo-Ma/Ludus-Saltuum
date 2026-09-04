@@ -266,16 +266,16 @@ repos:
       - id: conventional-commits
         stages: [commit-msg]
 
-  - repo: https://github.com/Scony/godot-gdscript-toolkit
-    rev: b7a4935fc6483d51837f7080598dad456f4f7645 # 4.5.0
+  - repo: https://github.com/GDQuest/GDScript-formatter
+    rev: 4738e00b1a190afcb9a72e9a4c2e956eb6500ff6 # 0.24.0
     hooks:
-      - id: gdformat
-        name: Check gdscript format
-        files: \.gd$
-        args: [--line-length=150]
-      - id: gdlint
-        name: Lint gdscript
-        files: \.gd$
+      - id: gdscript-formatter
+        language: rust
+        args: ['--max-line-length=150']
+      - id: gdscript-linter
+        args: ['--max-line-length=150']
+        language: rust
+        exclude: 'tests/'
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c # v6.0.0
