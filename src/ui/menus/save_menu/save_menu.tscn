@@ -43,23 +43,27 @@ size_flags_horizontal = 6
 size_flags_vertical = 6
 
 [node name="SaveFileItem" parent="MarginContainer/VBoxContainer/SaveSlotsContainer" unique_id=1224143979 instance=ExtResource("1_7qc06")]
+custom_minimum_size = Vector2(600, 152)
 layout_mode = 2
+size_flags_horizontal = 19
+size_flags_vertical = 19
 
 [node name="GrabFocusOnVisible" parent="MarginContainer/VBoxContainer/SaveSlotsContainer/SaveFileItem/OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveButtonsMarginContainer/HBoxContainer/PlayButton" parent_id_path=PackedInt32Array(1224143979, 651057107) index="0" unique_id=494770207 instance=ExtResource("5_6y3kf")]
-layout_mode = 0
-offset_left = 204.0
-offset_top = -97.0
-offset_right = 356.0
-offset_bottom = 55.0
 
 [node name="SaveFileItem5" parent="MarginContainer/VBoxContainer/SaveSlotsContainer" unique_id=332637846 instance=ExtResource("1_7qc06")]
+custom_minimum_size = Vector2(600, 152)
 layout_mode = 2
+size_flags_horizontal = 19
+size_flags_vertical = 19
 focus_neighbor_right = NodePath("../SaveFileItem6")
 focus_neighbor_bottom = NodePath("../SaveFileItem6")
 focus_next = NodePath("../SaveFileItem6")
 
 [node name="SaveFileItem6" parent="MarginContainer/VBoxContainer/SaveSlotsContainer" unique_id=405651618 instance=ExtResource("1_7qc06")]
+custom_minimum_size = Vector2(600, 152)
 layout_mode = 2
+size_flags_horizontal = 19
+size_flags_vertical = 19
 focus_neighbor_left = NodePath("../SaveFileItem5")
 focus_neighbor_top = NodePath("../SaveFileItem5")
 focus_neighbor_right = NodePath("../SaveFileItem7")
@@ -68,7 +72,10 @@ focus_next = NodePath("../SaveFileItem7")
 focus_previous = NodePath("../SaveFileItem5")
 
 [node name="SaveFileItem7" parent="MarginContainer/VBoxContainer/SaveSlotsContainer" unique_id=1299187469 instance=ExtResource("1_7qc06")]
+custom_minimum_size = Vector2(600, 152)
 layout_mode = 2
+size_flags_horizontal = 19
+size_flags_vertical = 19
 focus_neighbor_left = NodePath("../SaveFileItem6")
 focus_neighbor_top = NodePath("../SaveFileItem6")
 focus_neighbor_right = NodePath("../SaveFileItem")
