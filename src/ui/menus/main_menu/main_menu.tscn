@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://ckhxplf4oi0ca"]
 
 [ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="1_cqtv1"]
-[ext_resource type="Script" uid="uid://b6ywxkq47cgy5" path="res://src/ui/menus/main_menu/scale_font_size.gd" id="1_mainmenu"]
 [ext_resource type="Script" uid="uid://b8xklo3ubuprp" path="res://src/ui/menus/main_menu/new_game.gd" id="2_esfjp"]
 [ext_resource type="PackedScene" uid="uid://blui2ox13a24b" path="res://src/ui/menus/background_parallax.tscn" id="2_vprs7"]
 [ext_resource type="Shader" uid="uid://bxyyjpnd11ghq" path="res://src/ui/menus/main_menu/wave_label_effect.gdshader" id="3_deyis"]
@@ -62,7 +61,6 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 40
-script = ExtResource("1_mainmenu")
 
 [node name="TitleLabel" type="TextureRect" parent="VBoxContainer" unique_id=1604708838]
 material = SubResource("ShaderMaterial_vprs7")
@@ -87,7 +85,6 @@ expand_icon = true
 script = ExtResource("2_esfjp")
 
 [node name="FocusOnVisible" parent="VBoxContainer/NewGame" unique_id=494770207 instance=ExtResource("6_l674l")]
-layout_mode = 0
 
 [node name="Settings" type="Button" parent="VBoxContainer" unique_id=678562256]
 unique_name_in_owner = true
