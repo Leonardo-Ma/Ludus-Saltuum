@@ -22,11 +22,11 @@ func get_cost(_blackboard: Dictionary) -> int:
 
 
 func get_preconditions() -> Dictionary:
-	return {}
+	return { }
 
 
 func get_effects() -> Dictionary:
-	return {"is_wandering": true}
+	return { "is_wandering": true }
 
 
 # TODO Define actor to use walk speed

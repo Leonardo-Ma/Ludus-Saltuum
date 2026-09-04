@@ -1,7 +1,7 @@
 extends MarginContainer
 
-var _powerup_ui_elements: Dictionary = {}
-var _active_trackers: Dictionary = {}
+var _powerup_ui_elements: Dictionary = { }
+var _active_trackers: Dictionary = { }
 
 @onready var power_ups_container: GridContainer = %PowerUpsContainer
 
@@ -112,19 +112,10 @@ func _on_status_buff_collected(status_effect: StatusEffect, icon: Texture2D) -> 
 			cooldown_progress.value = 0.0
 			tween.tween_property(cooldown_progress, "value", 100.0, status_effect.duration)
 
-			_active_trackers[identifier] = {
-				"node": ui_node,
-				"remaining_time": status_effect.duration,
-				"is_infinite": is_infinite,
-				"tween": tween,
-			}
+			_active_trackers[identifier] = { "node": ui_node, "remaining_time": status_effect.duration, "is_infinite": is_infinite, "tween": tween }
 
 	if not _active_trackers.has(identifier):
-		_active_trackers[identifier] = {
-			"node": ui_node,
-			"remaining_time": status_effect.duration,
-			"is_infinite": is_infinite,
-		}
+		_active_trackers[identifier] = { "node": ui_node, "remaining_time": status_effect.duration, "is_infinite": is_infinite }
 
 	set_process(true)
 

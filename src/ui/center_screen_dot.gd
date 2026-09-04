@@ -6,7 +6,7 @@ func _ready() -> void:
 
 
 # TODO Check better approach than ignores
-@warning_ignore("unused_parameter")  # gdlint:ignore=unused-argument
+@warning_ignore("unused_parameter") # gdlint-ignore-next-line unused-argument
 func _on_gameplay_mode_changed(new_mode: GameplayStateManager.GameplayMode, previous_mode: GameplayStateManager.GameplayMode) -> void:
 	print(GameplayStateManager.GameplayMode.find_key(new_mode))
 	if new_mode == GameplayStateManager.GameplayMode.RACING:

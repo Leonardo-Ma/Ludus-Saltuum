@@ -2,10 +2,10 @@ class_name Spring
 extends StaticBody3D
 
 const SPRING_SOUNDS: Array[AudioStream] = [
-	preload("uid://dxdpladlbrraw"),  # spring_02.ogg
-	preload("uid://b6p7rnol78xjj"),  # spring_03.ogg
-	preload("uid://cxvum5o603r50"),  # spring_06.ogg
-	preload("uid://cvrybl1fud1p"),  # spring_07.ogg
+	preload("uid://dxdpladlbrraw"), # spring_02.ogg
+	preload("uid://b6p7rnol78xjj"), # spring_03.ogg
+	preload("uid://cxvum5o603r50"), # spring_06.ogg
+	preload("uid://cvrybl1fud1p"), # spring_07.ogg
 ]
 
 @export_range(5.0, 50.0, 0.5, "suffix:m/s") var launch_velocity: float = 18.0

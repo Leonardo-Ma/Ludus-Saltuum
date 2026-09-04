@@ -16,9 +16,9 @@ const CATEGORY_LIMITS: Dictionary = {
 const BUSES: Dictionary = SoundManager.BUS_NAMES
 
 ## Pools: category -> Array of available players
-var _pools: Dictionary = {}
+var _pools: Dictionary = { }
 ## Active players: category -> Array of currently playing players
-var _active_players: Dictionary = {}
+var _active_players: Dictionary = { }
 
 
 func _ready() -> void:
@@ -49,7 +49,7 @@ func _create_player_for_category(category: int) -> Node:
 			player.unit_size = 15.0
 			player.max_distance = 200.0
 
-		_:  # MUSIC, UI
+		_: # MUSIC, UI
 			player = AudioStreamPlayer.new()
 
 	player.set("bus", BUSES[category])
@@ -68,8 +68,7 @@ func play_sound(sound: AudioStream, category: int, position: Vector3 = Vector3.Z
 
 	player.stream = sound
 	player.pitch_scale = 1.0
-	player.stream_paused = false  # Reset paused state
-
+	player.stream_paused = false # Reset paused state
 	if player is AudioStreamPlayer3D:
 		if position != Vector3.ZERO:
 			(player as AudioStreamPlayer3D).global_position = position

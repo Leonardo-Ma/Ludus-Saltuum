@@ -3,5 +3,6 @@
 @abstract class_name Interactable
 extends StaticBody3D
 
+
 ## To override
 @abstract func player_interact() -> void

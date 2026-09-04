@@ -43,7 +43,7 @@ func _test_turn_cooldown() -> void:
 	var turn: ChunkData = _make_chunk("res://turn.tscn", [], &"", true)
 	var straight: ChunkData = _make_chunk("res://straight.tscn", [], &"", false)
 	var selector: ChunkSelector = ChunkSelector.new(rng, [turn, straight])
-	selector._chunks_since_turn = 0  # simulate a turn was just selected
+	selector._chunks_since_turn = 0 # simulate a turn was just selected
 
 	var chosen: ChunkData = selector.select_chunk_data(Transform3D(), [], 0)
 	assert(chosen.scene_path == "res://straight.tscn", "ChunkSelector: turn chunk selected immediately after a previous turn")

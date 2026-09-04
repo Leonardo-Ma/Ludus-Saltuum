@@ -1,4 +1,4 @@
-@icon("uid://b2ggug31fd52y")  # star.png
+@icon("uid://b2ggug31fd52y") # star.png
 class_name StatusManager
 extends Node
 
@@ -11,7 +11,7 @@ signal event_dispatched(event_name: StringName, data: Dictionary)
 ## Statuses that are applied temporarily at the start (e.g., starting with a timed buff)
 @export var initial_statuses: Array[StatusEffect] = []
 
-var _active_statuses: Dictionary = {}  # Dictionary[StringName, ActiveStatusEffect]
+var _active_statuses: Dictionary = { } # Dictionary[StringName, ActiveStatusEffect]
 
 var _target: Node = null
 

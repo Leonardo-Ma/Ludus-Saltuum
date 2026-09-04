@@ -4,7 +4,7 @@ extends OptionButton
 
 func _ready() -> void:
 	for fps: int in SettingsManager.FPS_PRESETS:
-		if fps == 0:  # Unlimited label
+		if fps == 0: # Unlimited label
 			add_item("9000+")
 		else:
 			add_item(str(fps))

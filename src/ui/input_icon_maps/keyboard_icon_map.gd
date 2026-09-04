@@ -76,7 +76,7 @@ const MOUSE_ICONS: Dictionary = {
 }
 ## Maps known implicit mouse-motion actions to a static icon (not rebindable)
 const MOUSE_MOTION_ICONS: Dictionary = {
-	&"look_around": preload("uid://cgiss7x7cle55"),  # mouse_right_motion
+	&"look_around": preload("uid://cgiss7x7cle55"), # mouse_right_motion
 }
 
 

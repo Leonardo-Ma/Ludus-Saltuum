@@ -41,7 +41,6 @@ func _ready() -> void:
 	health.died.connect(_on_death)
 	#health.revived.connect(_on_revived)
 
-
 # Only if multiple idle animations (Need to create new connection in tree)
 #func _on_move_stopped() -> void:
 #	self.set("parameters/moving/transition_request", "idle")
@@ -78,7 +77,6 @@ func _on_melee_attack() -> void:
 	self.set(PARAM_ATTACK_TRANSITION, "melee_attack")
 	self.set(PARAM_ATTACK_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
-
 #func _on_magic_casted() -> void:
 #	self.set(PARAM_ATTACK_TRANSITION, "magic_attack")
 #	self.set(PARAM_ATTACK_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
@@ -91,7 +89,6 @@ func _on_damaged(_attack: Attack) -> void:
 
 func _on_death() -> void:
 	self.set(PARAM_IS_ALIVE_TRANSITION, "dead")
-
 
 # TODO Add new revive animation and state
 #func _on_revived() -> void:

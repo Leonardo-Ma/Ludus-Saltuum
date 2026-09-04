@@ -8,6 +8,7 @@ class TestStatus:
 	func get_id() -> StringName:
 		return &"test_status"
 
+
 	func get_status_name() -> String:
 		return "Test Status"
 

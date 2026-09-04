@@ -3,7 +3,7 @@ extends Node
 signal easter_egg_found(easter_egg_name: StringName)
 
 var easter_eggs_found: int = 0
-var found_easter_eggs: Dictionary = {}
+var found_easter_eggs: Dictionary = { }
 
 
 func _ready() -> void:

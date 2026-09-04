@@ -10,10 +10,12 @@ var _ticks_until_update: int = 0
 
 @warning_ignore("unused_private_class_variable")
 var _actor: Node = null
-var _blackboard: Dictionary = {}
+var _blackboard: Dictionary = { }
+
 
 # To override
 @abstract func init(actor: Node) -> void
+
 
 # To override
 ## Throttled by update_blackboard()

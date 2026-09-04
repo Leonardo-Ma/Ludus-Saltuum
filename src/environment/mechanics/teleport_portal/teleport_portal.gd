@@ -5,7 +5,7 @@ class_name TeleportPortal
 extends Area3D
 
 const TELEPORT_SOUNDS: Array[AudioStream] = [
-	preload("uid://kw3i7ckrkmv8"),  # teleport.wav
+	preload("uid://kw3i7ckrkmv8"), # teleport.wav
 ]
 @export var linked_portal: TeleportPortal
 @export var cooldown_duration_seconds: float = 3.0
@@ -13,7 +13,6 @@ const TELEPORT_SOUNDS: Array[AudioStream] = [
 @export var portal_vfx: VFXPortalController
 
 # TODO Remove auxiliary variable
-#gdlint: disable=class-definitions-order
 var _portal_color: Color = Color("#4db2ff23")
 
 @export var portal_color: Color:
@@ -29,13 +28,12 @@ var _portal_color: Color = Color("#4db2ff23")
 				linked_portal.portal_vfx.set_portal_param("primary_color", value)
 
 var is_disabled: bool = false
-#gdlint: enable=class-definitions-order
 var _cooldown_timer: float = 0.0
 
 ## Tracks players inside the portal and their entry side of the portal plane (positive/negative)
-var _tracked_players: Dictionary[Node3D, float] = {}
+var _tracked_players: Dictionary[Node3D, float] = { }
 ## Prevents rapid back-and-forth teleportation by blocking players on cooldown
-var _cooldown_players: Dictionary[Node3D, bool] = {}
+var _cooldown_players: Dictionary[Node3D, bool] = { }
 
 
 # TODO Decouple tool logic from teleport logic
@@ -91,7 +89,7 @@ func _physics_process(delta: float) -> void:
 
 				linked_portal._cooldown_players[player] = true
 				linked_portal.set_disabled(true)
-				linked_portal._cooldown_timer = cooldown_duration_seconds
+				linked_portal._cooldown_timer = cooldown_duration_seconds # gdlint-ignore private-access
 
 		if _tracked_players.has(player):
 			_tracked_players[player] = current_side

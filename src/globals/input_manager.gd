@@ -24,7 +24,7 @@ func _ready() -> void:
 	Input.joy_connection_changed.connect(_on_joy_connection_changed)
 
 	if Input.get_connected_joypads().size() > 0:
-		MouseModeManager.request_mode(&"device", Input.MOUSE_MODE_HIDDEN)  # Hidden allows to escape the game window
+		MouseModeManager.request_mode(&"device", Input.MOUSE_MODE_HIDDEN) # Hidden allows to escape the game window
 
 
 func _on_joy_connection_changed(device_id: int, connected: bool) -> void:

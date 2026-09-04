@@ -39,7 +39,8 @@ func _restore_config_file() -> void:
 
 func _test_rebind_replaces_keyboard_binding_only() -> void:
 	var gamepad_before: Array[InputEvent] = InputMap.action_get_events(_TEST_ACTION).filter(
-		func(e: InputEvent) -> bool: return e is InputEventJoypadButton
+		func(e: InputEvent) -> bool:
+			return e is InputEventJoypadButton,
 	)
 	var new_key: InputEventKey = InputEventKey.new()
 	new_key.physical_keycode = KEY_Y
@@ -47,7 +48,8 @@ func _test_rebind_replaces_keyboard_binding_only() -> void:
 
 	var keyboard_event: InputEventKey = InputBindingManager.get_keyboard_event(_TEST_ACTION)
 	var gamepad_after: Array[InputEvent] = InputMap.action_get_events(_TEST_ACTION).filter(
-		func(e: InputEvent) -> bool: return e is InputEventJoypadButton
+		func(e: InputEvent) -> bool:
+			return e is InputEventJoypadButton,
 	)
 
 	_restore_action(_TEST_ACTION)
@@ -82,7 +84,10 @@ func _test_reset_action_restores_default() -> void:
 	InputBindingManager.reset_action(_TEST_ACTION)
 
 	var restored: InputEventKey = InputBindingManager.get_keyboard_event(_TEST_ACTION)
-	var default_key: InputEventKey = _original_events.filter(func(e: InputEvent) -> bool: return e is InputEventKey).front() as InputEventKey
+	var default_key: InputEventKey = _original_events.filter(
+		func(e: InputEvent) -> bool:
+			return e is InputEventKey,
+	).front() as InputEventKey
 	assert(restored != null, "InputBindingManager: reset_action left no keyboard event")
 	assert(restored.physical_keycode == default_key.physical_keycode, "InputBindingManager: reset_action did not restore default keycode")
 

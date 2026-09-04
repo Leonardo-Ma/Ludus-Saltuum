@@ -19,11 +19,11 @@ func detect(owner_node: Node3D, target: Node3D) -> DetectionResult:
 		return result
 
 	# Sixth-sense / Hearing radius (e.g., they can always notice you if you're very close)
-	var is_very_close: bool = distance_squared < 9.0  # 3.0 * 3.0
+	var is_very_close: bool = distance_squared < 9.0 # 3.0 * 3.0
 
 	# Angle check (cone vision) - only strictly apply if not very close
 	var target_pos: Vector3 = target.global_position
-	target_pos.y = owner_node.global_position.y  # Only check horizontal angle
+	target_pos.y = owner_node.global_position.y # Only check horizontal angle
 	var to_target: Vector3 = (target_pos - owner_node.global_position).normalized()
 	# In Godot -Z is typically forward, but the navigation script uses atan2(x, z)
 	# which aligns the +Z axis with the movement direction. Therefore, +Z is forward.
@@ -39,7 +39,7 @@ func detect(owner_node: Node3D, target: Node3D) -> DetectionResult:
 	if not _has_line_of_sight(owner_node, target):
 		return result
 
-	var distance: float = sqrt(distance_squared)  # We need actual distance for detection chance formulas
+	var distance: float = sqrt(distance_squared) # We need actual distance for detection chance formulas
 	# TODO Improve this detection calculation
 	var stealth_penalty: float = _calculate_stealth_penalty(target)
 	var detection_chance: float = _calculate_detection_chance(distance, angle, stealth_penalty)
@@ -47,7 +47,7 @@ func detect(owner_node: Node3D, target: Node3D) -> DetectionResult:
 	if randf() < detection_chance:
 		result.is_detected = true
 		result.confidence = detection_chance
-		result.type = 0  # VISUAL
+		result.type = 0 # VISUAL
 		result.detected_position = target.global_position
 		result.detected_entity = target
 

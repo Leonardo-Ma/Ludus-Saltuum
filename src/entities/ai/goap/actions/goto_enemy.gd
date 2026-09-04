@@ -18,11 +18,11 @@ func get_cost(_blackboard: Dictionary) -> int:
 
 
 func get_preconditions() -> Dictionary:
-	return {"enemy_in_melee_range": false}
+	return { "enemy_in_melee_range": false }
 
 
 func get_effects() -> Dictionary:
-	return {"enemy_in_melee_range": true}
+	return { "enemy_in_melee_range": true }
 
 
 # TODO Define actor to use movement's speed

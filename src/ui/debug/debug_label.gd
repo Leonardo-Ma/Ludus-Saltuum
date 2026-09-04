@@ -4,7 +4,6 @@ var event_text: String = ""
 
 var _damage_indicator_timer: float = 0.0
 
-
 #region Setup and Signals
 func _ready() -> void:
 	ControlledEntityEvents.player_finished_spawning.connect(_on_player_spawned)
@@ -20,9 +19,7 @@ func _on_player_spawned(player: Node) -> void:
 func _on_player_damaged(_attack: Attack) -> void:
 	_damage_indicator_timer = 1.0
 
-
 #endregion
-
 
 func _process(delta: float) -> void:
 	if not self.visible:

@@ -65,7 +65,7 @@ func _get_action_key(action_name: String, fallback: String) -> String:
 
 func _connect_and_track(sig: Signal, callable: Callable) -> void:
 	sig.connect(callable)
-	_connections.append({"signal": sig, "callable": callable})
+	_connections.append({ "signal": sig, "callable": callable })
 
 
 func cleanup() -> void:
@@ -93,15 +93,16 @@ func cleanup() -> void:
 
 	hide()
 
-
 #region Skills slots animations
-
 
 #region Cooldowns
 func _create_tracked_tween() -> Tween:
 	var t: Tween = create_tween()
 	_tweens.append(t)
-	t.finished.connect(func() -> void: _tweens.erase(t))
+	t.finished.connect(
+		func() -> void:
+			_tweens.erase(t),
+	)
 	return t
 
 
@@ -126,9 +127,7 @@ func _finish_cooldown() -> void:
 	_play_pulse_animation()
 	cooldown_progress.value = 0.0
 
-
 #endregion
-
 
 func _update_charge_display(charges: int) -> void:
 	charge_label.text = str(charges)
@@ -176,5 +175,8 @@ func _show_input_blocked_feedback() -> void:
 	var tween: Tween = _create_tracked_tween()
 	modulate = Color(1.0, 0.3, 0.3, 1.0)
 	tween.tween_interval(0.1)
-	tween.tween_callback(func() -> void: modulate = original_modulate)
+	tween.tween_callback(
+		func() -> void:
+			modulate = original_modulate,
+	)
 #endregion

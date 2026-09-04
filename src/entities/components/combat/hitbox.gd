@@ -6,7 +6,7 @@ extends Area3D
 
 
 func _ready() -> void:
-	assert(collision_layer == 32768, "Hitbox of " + owner.name + " must be in layer 16")  # It's in bits
+	assert(collision_layer == 32768, "Hitbox of " + owner.name + " must be in layer 16") # It's in bits
 	assert(collision_mask == 0, "Hitbox of " + owner.name + " must not have mask")
 
 
@@ -15,4 +15,4 @@ func _ready() -> void:
 func on_hit_connected(damage_dealt: float) -> void:
 	var attacker: Node = owner
 	if attacker.is_in_group(Groups.ENEMIES) and attacker.status_manager:
-		attacker.status_manager.dispatch_event(&"on_damage_dealt", {"damage": damage_dealt})
+		attacker.status_manager.dispatch_event(&"on_damage_dealt", { "damage": damage_dealt })

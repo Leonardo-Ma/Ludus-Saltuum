@@ -7,7 +7,7 @@ signal perception_updated(detections: Array)
 var debug_mode: bool = false
 
 var config: PerceptionConfig
-var known_entities: Dictionary = {}  # Node3D -> KnownEntityData
+var known_entities: Dictionary = { } # Node3D -> KnownEntityData
 var _visual_processor: VisualProcessor
 var _last_update_time: float = 0.0
 var _owner_node: Node3D

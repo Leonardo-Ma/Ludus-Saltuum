@@ -1,16 +1,16 @@
 # https://www.youtube.com/watch?v=EP5AYllgHy8 Godot 4.0 Third Person Controller Tutorial ( 2023 )
-@icon("uid://d4g1stey2kdtm")  # character_move.png
+@icon("uid://d4g1stey2kdtm") # character_move.png
 ## Player movement controller
 class_name MovementController extends Node3D
 
 # These signals go to animation controller, debug...
 signal movement_direction_changed(direction: Vector2, speed_factor: float)
-signal jumped  # emitted only in first ground jump
+signal jumped # emitted only in first ground jump
 signal in_air
 signal landed
 
 const COYOTE_TIME: float = 0.05
-const DEADZONE: float = 0.3  # deadzone to prevent drift
+const DEADZONE: float = 0.3 # deadzone to prevent drift
 
 @export var camera: Node3D
 
@@ -82,7 +82,6 @@ func movement_logic(body: CharacterBody3D) -> void:
 		# Make armature relative to camera instead of locking upfront
 		#if direction.length() > 0.01:
 		#armature.look_at(armature.global_transform.origin + direction, Vector3.UP)
-
 		body.velocity.x = direction.x * current_speed
 		body.velocity.z = direction.z * current_speed
 	else:

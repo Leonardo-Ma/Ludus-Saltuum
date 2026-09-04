@@ -2,7 +2,7 @@
 class_name PlayerDashSkill
 extends BaseSkill
 
-const DASH_SOUND: AudioStream = preload("uid://vo301kuo1mby")  # whoosh_2.wav
+const DASH_SOUND: AudioStream = preload("uid://vo301kuo1mby") # whoosh_2.wav
 const DOUBLE_TAP_THRESHOLD: float = 0.3
 
 var dash_velocity_multiplier: float = 5.0
@@ -35,7 +35,7 @@ func _physics_process(delta: float) -> void:
 		var body: CharacterBody3D = skills_controller.entity
 		body.velocity.x = _dash_direction.x
 		body.velocity.z = _dash_direction.z
-		body.velocity.y = 0.0  # Ignore gravity during dash
+		body.velocity.y = 0.0 # Ignore gravity during dash
 
 
 func process_input() -> void:

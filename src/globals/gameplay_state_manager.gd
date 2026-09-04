@@ -37,7 +37,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_play_time_seconds += delta
 
-
 #region Getters and Setters
 func get_play_time() -> float:
 	return _play_time_seconds
@@ -46,9 +45,7 @@ func get_play_time() -> float:
 func set_play_time(seconds: float) -> void:
 	_play_time_seconds = seconds
 
-
 #endregion
-
 
 func reset_data() -> void:
 	set_play_time(0.0)

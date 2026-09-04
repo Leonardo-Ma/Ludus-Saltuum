@@ -33,7 +33,7 @@ func request_respawn(delay: float, target_transform: Transform3D, is_death: bool
 	assert(controlled_entity != null, "No controlled entity to respawn")
 	assert(
 		controlled_entity.has_method("respawn"),
-		"Controlled entity " + controlled_entity.name + " must implement respawn(delay: float, target_transform: Transform3D, is_death: bool)"
+		"Controlled entity " + controlled_entity.name + " must implement respawn(delay: float, target_transform: Transform3D, is_death: bool)",
 	)
 	controlled_entity.respawn(delay, target_transform, is_death)
 

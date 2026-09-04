@@ -35,7 +35,11 @@ func select_chunk_data(
 ) -> ChunkData:
 	if not required_features.is_empty():
 		var any_chunk_provides_features: bool = _all_chunks.any(
-			func(d: ChunkData) -> bool: return required_features.all(func(f: ChunkFeature.Feature) -> bool: return d.features.has(f))
+			func(d: ChunkData) -> bool:
+				return required_features.all(
+					func(f: ChunkFeature.Feature) -> bool:
+						return d.features.has(f),
+				),
 		)
 		assert(any_chunk_provides_features, "ChunkSelector: no chunk provides all required_features %s" % [required_features])
 
@@ -43,11 +47,11 @@ func select_chunk_data(
 
 	# Only force unlock when there are skills the player doesn't yet have
 	var has_unlockable_skill: bool = _all_chunks.any(
-		func(d: ChunkData) -> bool: return d.unlocks_skill_id != &"" and not unlocked_ids.has(d.unlocks_skill_id)
+		func(d: ChunkData) -> bool:
+			return d.unlocks_skill_id != &"" and not unlocked_ids.has(d.unlocks_skill_id),
 	)
 	var force_skill_unlock: bool = (
-		has_unlockable_skill
-		and current_score >= _last_skill_score_threshold + SKILL_UNLOCK_SCORE_STEP
+		has_unlockable_skill and current_score >= _last_skill_score_threshold + SKILL_UNLOCK_SCORE_STEP
 		and _chunks_since_skill_unlock >= MIN_CHUNKS_BETWEEN_SKILLS
 	)
 
@@ -70,11 +74,17 @@ func select_chunk_data(
 				continue
 		# --------------- tag filtering ---------------
 		if not required_features.is_empty():
-			var missing_feature: bool = required_features.any(func(feature: ChunkFeature.Feature) -> bool: return not data.features.has(feature))
+			var missing_feature: bool = required_features.any(
+				func(feature: ChunkFeature.Feature) -> bool:
+					return not data.features.has(feature),
+			)
 			if missing_feature:
 				continue
 		# --------------- required skills check ---------------
-		var missing: bool = data.required_skill_ids.any(func(id: StringName) -> bool: return not unlocked_ids.has(id))
+		var missing: bool = data.required_skill_ids.any(
+			func(id: StringName) -> bool:
+				return not unlocked_ids.has(id),
+		)
 		if missing:
 			continue
 
@@ -88,19 +98,26 @@ func select_chunk_data(
 
 	if valid_pool.is_empty():
 		print("  → EMERGENCY FALLBACK: using all basic chunks")
-		valid_pool = _all_chunks.filter(func(d: ChunkData) -> bool: return d.unlocks_skill_id == &"")
+		valid_pool = _all_chunks.filter(
+			func(d: ChunkData) -> bool:
+				return d.unlocks_skill_id == &"",
+		)
 		if valid_pool.is_empty():
 			valid_pool = _all_chunks
 
 	# Avoid recent chunks
-	var non_recent: Array[ChunkData] = valid_pool.filter(func(d: ChunkData) -> bool: return not d.scene_path in _recent_chunk_paths)
+	var non_recent: Array[ChunkData] = valid_pool.filter(
+		func(d: ChunkData) -> bool:
+			return not d.scene_path in _recent_chunk_paths,
+	)
 	if not non_recent.is_empty():
 		print("  → Filtered out recent chunks, %d remain" % non_recent.size())
 		valid_pool = non_recent
 	else:
 		print("  → WARNING: All valid chunks were recent! Relaxing filter to exclude only last chunk")
 		var non_last: Array[ChunkData] = valid_pool.filter(
-			func(d: ChunkData) -> bool: return _recent_chunk_paths.is_empty() or d.scene_path != _recent_chunk_paths.back()
+			func(d: ChunkData) -> bool:
+				return _recent_chunk_paths.is_empty() or d.scene_path != _recent_chunk_paths.back(),
 		)
 		if not non_last.is_empty():
 			valid_pool = non_last

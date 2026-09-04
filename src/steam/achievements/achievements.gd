@@ -10,10 +10,10 @@ const _SAVE_PATH: String = "user://achievements.cfg"
 const _SECTION: String = "unlocked"
 
 # TODO Should not be hardcoded
-const _ALL_SKILL_IDS: Array[StringName] = [&"dash", &"double_jump"]  #, &"feather_fall"]
+const _ALL_SKILL_IDS: Array[StringName] = [&"dash", &"double_jump"] #, &"feather_fall"]
 
-var _by_key: Dictionary = {}  # Dictionary[StringName, AchievementDefinition]
-var _unlocked: Dictionary = {}  # Dictionary[StringName, bool]
+var _by_key: Dictionary = { } # Dictionary[StringName, AchievementDefinition]
+var _unlocked: Dictionary = { } # Dictionary[StringName, bool]
 
 
 func _ready() -> void:
@@ -30,7 +30,10 @@ func _ready() -> void:
 	EconomyManager.score_updated.connect(_on_score_updated)
 	EasterEggManager.easter_egg_found.connect(_on_easter_egg_found)
 	ControlledEntityEvents.player_finished_spawning.connect(_on_player_spawned)
-	CollectiblesEvents.status_buff_collected.connect(func(_e: StatusEffect, _i: Texture2D) -> void: _check_skill_completion())
+	CollectiblesEvents.status_buff_collected.connect(
+		func(_e: StatusEffect, _i: Texture2D) -> void:
+			_check_skill_completion(),
+	)
 
 
 func unlock(key: StringName) -> void:
@@ -44,7 +47,6 @@ func unlock(key: StringName) -> void:
 	if Steam.isSteamRunning():
 		Steam.setAchievement(definition.steam_api_name)
 		Steam.storeStats()
-
 
 #region Getters
 func is_unlocked(key: StringName) -> bool:
@@ -128,9 +130,7 @@ func _get_definition(key: StringName) -> AchievementDefinition:
 	assert(_by_key.has(key), "Achievements: unknown key '%s' in %s" % [key, name] + ". Check AchievementRegistryData list")
 	return _by_key[key]
 
-
 #endregion
-
 
 #region Unlocks
 func _on_player_spawned(_player: Node) -> void:
@@ -153,7 +153,10 @@ func _on_score_updated(score: int) -> void:
 func _check_skill_completion() -> void:
 	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
 	var ids: Array[StringName] = player.skills_controller.get_unlocked_ids()
-	if _ALL_SKILL_IDS.all(func(id: StringName) -> bool: return ids.has(id)):
+	if _ALL_SKILL_IDS.all(
+		func(id: StringName) -> bool:
+			return ids.has(id),
+	):
 		unlock(&"all_skills")
 
 
@@ -166,9 +169,7 @@ func _on_easter_egg_found(_easter_egg_name: StringName) -> void:
 	#if easter_eggs_found >= 3:
 	#unlock(&"third_easter_egg")
 
-
 #endregion
-
 
 #region Save and Load
 func _save() -> void:

@@ -236,8 +236,10 @@ extends Node3D
 
 @export_group("Animation")
 
-@export_tool_button("Play Open") var play_open: Callable = func() -> void: open()
-@export_tool_button("Play Close") var play_close: Callable = func() -> void: close()
+@export_tool_button("Play Open") var play_open: Callable = func() -> void:
+	open()
+@export_tool_button("Play Close") var play_close: Callable = func() -> void:
+	close()
 
 @export var animation_speed: float = 1.0:
 	set(v):

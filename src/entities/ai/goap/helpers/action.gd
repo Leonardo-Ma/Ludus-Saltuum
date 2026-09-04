@@ -1,6 +1,7 @@
 @abstract class_name GoapAction
 extends Node
 
+
 @abstract func get_custom_class_name() -> String
 
 
@@ -21,7 +22,7 @@ func get_cost(_blackboard: Dictionary) -> int:
 ##   "has_wood": true
 ## }
 func get_preconditions() -> Dictionary:
-	return {}
+	return { }
 
 
 ## What conditions this action satisfies
@@ -30,7 +31,7 @@ func get_preconditions() -> Dictionary:
 ##   "has_wood": true
 ## }
 func get_effects() -> Dictionary:
-	return {}
+	return { }
 
 
 ## Action implementation called on every loop.

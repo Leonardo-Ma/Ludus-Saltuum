@@ -28,7 +28,6 @@ func _process(_delta: float) -> void:
 	label_text += "GOAP:\n"
 	#for values in goap_controller.get_blackboard().values():
 	#label_text += str(values) + "\n"
-
 	label_text += "Current goal: "
 	if owner.goap_agent._current_goal:
 		label_text += str(owner.goap_agent._current_goal.get_custom_class_name()) + "\n"

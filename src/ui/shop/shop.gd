@@ -4,7 +4,7 @@ extends Control
 const COST_GROW: float = 1.3
 
 ## Maps a stat_property StringName to the player resource that owns it
-var _stat_targets: Dictionary = {}
+var _stat_targets: Dictionary = { }
 
 @onready var _status_label: Label = %StatusLabel
 @onready var _shop_panel: Control = %ShopPanel
@@ -17,7 +17,6 @@ func _ready() -> void:
 	_on_gold_updated(EconomyManager.gold)
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 	_on_viewport_size_changed()
-
 
 #func _unhandled_key_input(event: InputEvent) -> void:
 #	if event.is_action_pressed("open_shop"):

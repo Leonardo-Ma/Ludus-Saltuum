@@ -3,7 +3,7 @@ extends Collectible
 
 func _child_ready() -> void:
 	collect_sounds = [
-		preload("uid://cag33c6eom3kf"),  # harpsichord_chime_positive.wav
+		preload("uid://cag33c6eom3kf"), # harpsichord_chime_positive.wav
 	]
 	var skill_data: SkillCollectible = data as SkillCollectible
 	# NOTE Since these levels are generated procedurally, it doesn't catch it until generated,

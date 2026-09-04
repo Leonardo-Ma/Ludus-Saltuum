@@ -1,8 +1,8 @@
 extends Area3D
 
 const THUNDER_SOUNDS: Array[AudioStream] = [
-	preload("uid://dsk5roghsbtm3"),  # thunder_1_near
-	preload("uid://cws8ps85wa78n"),  # thunder_5_near
+	preload("uid://dsk5roghsbtm3"), # thunder_1_near
+	preload("uid://cws8ps85wa78n"), # thunder_5_near
 ]
 
 const WORLD_ENVIRONMENT_SETTINGS: Environment = preload("uid://dsshmu8vrps28")

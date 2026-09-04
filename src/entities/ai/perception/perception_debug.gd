@@ -52,9 +52,11 @@ func _process(_delta: float) -> void:
 
 
 func _draw_debug() -> void:
+	# gdlint-ignore-next-line private-access
 	if not is_instance_valid(_perception_system) or not is_instance_valid(_perception_system._owner_node):
 		return
 
+	# gdlint-ignore-next-line private-access
 	var owner_pos: Vector3 = _perception_system._owner_node.global_position + Vector3(0, 1.0, 0)
 	var time: float = Time.get_ticks_msec() / 1000.0
 
@@ -81,12 +83,12 @@ func _draw_debug() -> void:
 		var target_pos: Vector3 = data.last_known_position + Vector3(0, 1.0, 0)
 
 		# Draw Line to Target
-		_immediate_mesh.surface_set_color(Color(1, 0, 0, 0.8))  # Red line
+		_immediate_mesh.surface_set_color(Color(1, 0, 0, 0.8)) # Red line
 		_immediate_mesh.surface_add_vertex(owner_pos)
 		_immediate_mesh.surface_add_vertex(target_pos)
 
 		# Draw Marker (Cross) at Last Known Position
-		_immediate_mesh.surface_set_color(Color(1, 1, 0, 1.0))  # Yellow cross
+		_immediate_mesh.surface_set_color(Color(1, 1, 0, 1.0)) # Yellow cross
 		var s: float = 0.5
 		_immediate_mesh.surface_add_vertex(target_pos + Vector3(-s, 0, 0))
 		_immediate_mesh.surface_add_vertex(target_pos + Vector3(s, 0, 0))

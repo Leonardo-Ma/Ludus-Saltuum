@@ -44,7 +44,7 @@ const REBINDABLE_ACTIONS_ICONS: Dictionary[StringName, Array] = {
 }
 
 ## Before user overrides
-var _defaults: Dictionary = {}
+var _defaults: Dictionary = { }
 
 
 func _ready() -> void:
@@ -149,17 +149,7 @@ func _save() -> void:
 		var event: InputEventKey = get_keyboard_event(action)
 		if event == null:
 			continue
-		(
-			config
-			. set_value(
-				_SECTION,
-				action,
-				{
-					&"physical": int(event.physical_keycode),
-					&"logical": int(event.keycode),
-				}
-			)
-		)
+		(config.set_value(_SECTION, action, { &"physical": int(event.physical_keycode), &"logical": int(event.keycode) }))
 	config.save(_SAVE_PATH)
 
 

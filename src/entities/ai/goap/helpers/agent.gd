@@ -15,7 +15,7 @@ var _goap_memory: GoapMemory
 ## Per-entity action planner
 var _action_planner: GoapActionPlanner
 var _goal_switch_cooldown: float = 0.0
-var _sorted_goals_cache: Array[GoapGoal] = []  # Cache for performance
+var _sorted_goals_cache: Array[GoapGoal] = [] # Cache for performance
 
 
 # For ever frame, is current goal still highest priority?
@@ -58,7 +58,7 @@ func _is_current_valid(blackboard: Dictionary) -> bool:
 		return false
 
 	if _current_plan.is_empty():
-		return _current_goal == null  # Valid if no goal and no plan
+		return _current_goal == null # Valid if no goal and no plan
 
 	if _current_plan_step < _current_plan.size():
 		var current_action: GoapAction = _current_plan[_current_plan_step]
@@ -98,7 +98,10 @@ func _try_get_new_plan(blackboard: Dictionary) -> void:
 func _get_sorted_goals() -> Array[GoapGoal]:
 	if _sorted_goals_cache.is_empty():
 		_sorted_goals_cache = _goals.duplicate()
-		_sorted_goals_cache.sort_custom(func(a: GoapGoal, b: GoapGoal) -> bool: return a.priority() > b.priority())
+		_sorted_goals_cache.sort_custom(
+			func(a: GoapGoal, b: GoapGoal) -> bool:
+				return a.priority() > b.priority(),
+		)
 	return _sorted_goals_cache
 
 

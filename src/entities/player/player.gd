@@ -25,7 +25,7 @@ func _physics_process(delta: float) -> void:
 		if collider is RigidBody3D:
 			var push_force: float = movement.speed * 0.1
 			var push_dir: Vector3 = -collision.get_normal()
-			push_dir.y = 0.0  # Prevent pushing into the ground or sky
+			push_dir.y = 0.0 # Prevent pushing into the ground or sky
 			if push_dir.length_squared() > 0.001:
 				collider.apply_impulse(push_dir.normalized() * push_force, collision.get_position() - collider.global_position)
 
@@ -43,7 +43,7 @@ func respawn(delay: float, target_transform: Transform3D, is_death: bool = false
 	global_rotation.y = target_transform.basis.get_euler().y
 
 	status_manager.clear_temporary_statuses()
-	
+
 	if is_death:
 		health.reset()
 		scale = Vector3.ONE

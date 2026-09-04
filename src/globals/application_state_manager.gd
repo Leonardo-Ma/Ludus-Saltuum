@@ -24,50 +24,13 @@ enum GameState {
 }
 
 const _VALID_TRANSITIONS: Dictionary = {
-	GameState.MAIN_MENU:
-	[
-		GameState.PLAYING,
-		GameState.MAIN_MENU_SETTINGS,
-		GameState.SAVE_MENU,
-		GameState.ACHIEVEMENTS_MENU,
-	],
-	GameState.PLAYING:
-	[
-		GameState.PAUSED,
-		GameState.MAIN_MENU,
-		GameState.SETTINGS,
-	],
-	GameState.PAUSED:
-	[
-		GameState.PLAYING,
-		GameState.MAIN_MENU,
-		GameState.SETTINGS,
-		GameState.SAVE_MENU,
-		GameState.ACHIEVEMENTS_MENU,
-	],
-	GameState.SETTINGS:
-	[
-		GameState.PLAYING,
-		GameState.PAUSED,
-		GameState.MAIN_MENU,
-		GameState.MAIN_MENU_SETTINGS,
-	],
-	GameState.SAVE_MENU:
-	[
-		GameState.PLAYING,
-		GameState.PAUSED,
-		GameState.MAIN_MENU,
-	],
-	GameState.ACHIEVEMENTS_MENU:
-	[
-		GameState.PAUSED,
-		GameState.MAIN_MENU,
-	],
-	GameState.MAIN_MENU_SETTINGS:
-	[
-		GameState.MAIN_MENU,
-		GameState.SETTINGS,
-	],
+	GameState.MAIN_MENU: [GameState.PLAYING, GameState.MAIN_MENU_SETTINGS, GameState.SAVE_MENU, GameState.ACHIEVEMENTS_MENU],
+	GameState.PLAYING: [GameState.PAUSED, GameState.MAIN_MENU, GameState.SETTINGS],
+	GameState.PAUSED: [GameState.PLAYING, GameState.MAIN_MENU, GameState.SETTINGS, GameState.SAVE_MENU, GameState.ACHIEVEMENTS_MENU],
+	GameState.SETTINGS: [GameState.PLAYING, GameState.PAUSED, GameState.MAIN_MENU, GameState.MAIN_MENU_SETTINGS],
+	GameState.SAVE_MENU: [GameState.PLAYING, GameState.PAUSED, GameState.MAIN_MENU],
+	GameState.ACHIEVEMENTS_MENU: [GameState.PAUSED, GameState.MAIN_MENU],
+	GameState.MAIN_MENU_SETTINGS: [GameState.MAIN_MENU, GameState.SETTINGS],
 }
 
 const _RETURNABLE_STATES: Array[GameState] = [GameState.PLAYING, GameState.PAUSED, GameState.MAIN_MENU]
@@ -184,7 +147,7 @@ func request_resume() -> void:
 func request_settings() -> void:
 	assert(
 		_current_state in [GameState.PLAYING, GameState.PAUSED, GameState.MAIN_MENU, GameState.MAIN_MENU_SETTINGS],
-		"Can only open settings from gameplay or main menu, current: " + str(_current_state)
+		"Can only open settings from gameplay or main menu, current: " + str(_current_state),
 	)
 
 	if _current_state == GameState.MAIN_MENU:
@@ -217,7 +180,8 @@ func request_main_menu() -> void:
 
 func request_save_menu() -> void:
 	assert(
-		_current_state in [GameState.MAIN_MENU, GameState.PAUSED], "Can only open save menu from MAIN_MENU or PAUSED, current: " + str(_current_state)
+		_current_state in [GameState.MAIN_MENU, GameState.PAUSED],
+		"Can only open save menu from MAIN_MENU or PAUSED, current: " + str(_current_state),
 	)
 	_change_state(GameState.SAVE_MENU)
 
@@ -225,7 +189,7 @@ func request_save_menu() -> void:
 func request_achievements_menu() -> void:
 	assert(
 		_current_state in [GameState.MAIN_MENU, GameState.PAUSED],
-		"Can only open achievements from MAIN_MENU or PAUSED, current: " + str(_current_state)
+		"Can only open achievements from MAIN_MENU or PAUSED, current: " + str(_current_state),
 	)
 	_change_state(GameState.ACHIEVEMENTS_MENU)
 

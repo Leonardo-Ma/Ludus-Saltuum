@@ -2,7 +2,7 @@
 class_name Torch
 extends StaticBody3D
 
-const GLOW_SOUND: AudioStream = preload("uid://la63nm5wsh1u")  # flame.ogg
+const GLOW_SOUND: AudioStream = preload("uid://la63nm5wsh1u") # flame.ogg
 
 ## If a button is assigned, torch will be disabled by default and only enabled when button is triggered
 @export var button: Area3D = null

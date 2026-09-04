@@ -4,15 +4,18 @@ class_name BaseMemory
 extends GoapMemory
 
 const HEALTH_LOW_THRESHOLD: float = 0.3
-const MELEE_RANGE_SQUARED: float = 1.44  # 1.2 * 1.2
-const NEARBY_RANGE_SQUARED: float = 225.0  # 15.0 * 15.0
+const MELEE_RANGE_SQUARED: float = 1.44 # 1.2 * 1.2
+const NEARBY_RANGE_SQUARED: float = 225.0 # 15.0 * 15.0
 
 
 func init(actor: Node) -> void:
 	_actor = actor
 	var entity: AggressiveEntity = _actor as AggressiveEntity
 	assert(entity != null, "BaseMemory: actor must be AggressiveEntity in " + name)
-	entity.health.damaged.connect(func(_attack: Attack) -> void: force_refresh_blackboard())
+	entity.health.damaged.connect(
+		func(_attack: Attack) -> void:
+			force_refresh_blackboard(),
+	)
 
 	_blackboard = {
 		"position": _actor.position,
@@ -22,7 +25,7 @@ func init(actor: Node) -> void:
 		"enemy_position": Vector3(),
 		"in_combat": false,
 		"low_health": false,
-		"is_wandering": false
+		"is_wandering": false,
 	}
 
 

@@ -5,7 +5,7 @@ extends VBoxContainer
 @export var _row_scene: PackedScene
 
 var _listening: StringName = &""
-var _rows: Dictionary[StringName, RebindingRow] = {}
+var _rows: Dictionary[StringName, RebindingRow] = { }
 
 @onready var _container: VBoxContainer = %RowsContainer
 

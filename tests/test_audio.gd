@@ -34,29 +34,17 @@ func _run_all_tests() -> void:
 
 # ============== INDIVIDUAL TESTS ==============
 func _test_soundmanager_autoload() -> void:
-	assert(
-		SoundManager != null,
-		"SoundManager autoload not found! Add SoundManager.gd to Project Settings → Autoload",
-	)
+	assert(SoundManager != null, "SoundManager autoload not found! Add SoundManager.gd to Project Settings → Autoload")
 
 	print("✅ Test 1: SoundManager autoload")
 
 
 func _test_subsystems_exist() -> void:
-	assert(
-		SoundManager.pool != null,
-		"SoundManager.pool is null - SoundPool not created",
-	)
+	assert(SoundManager.pool != null, "SoundManager.pool is null - SoundPool not created")
 
-	assert(
-		SoundManager.music != null,
-		"SoundManager.music is null - MusicController not created",
-	)
+	assert(SoundManager.music != null, "SoundManager.music is null - MusicController not created")
 
-	assert(
-		SoundManager.combat != null,
-		"SoundManager.combat is null - CombatPrioritySoundController not created",
-	)
+	assert(SoundManager.combat != null, "SoundManager.combat is null - CombatPrioritySoundController not created")
 
 	print("✅ Test 2: Subsystems")
 
@@ -69,7 +57,7 @@ func _test_audio_buses() -> void:
 		"Unexpected bus count: %d, expected %d" % [AudioServer.get_bus_count(), required_buses.size()],
 	)
 
-	var bus_indices: Dictionary = {}
+	var bus_indices: Dictionary = { }
 	for i: int in range(AudioServer.get_bus_count()):
 		bus_indices[AudioServer.get_bus_name(i)] = i
 
@@ -99,26 +87,14 @@ func _test_soundpool_categories() -> void:
 	]
 
 	for category: int in expected_categories:
-		assert(
-			pool.CATEGORY_LIMITS.has(category),
-			"SoundPool missing CATEGORY_LIMITS for category %d" % category,
-		)
+		assert(pool.CATEGORY_LIMITS.has(category), "SoundPool missing CATEGORY_LIMITS for category %d" % category)
 
 		var limit: int = pool.CATEGORY_LIMITS[category]
-		assert(
-			limit > 0,
-			"Category %d has invalid limit: %d" % [category, limit],
-		)
+		assert(limit > 0, "Category %d has invalid limit: %d" % [category, limit])
 
-	assert(
-		not pool._pools.is_empty(),
-		"SoundPool._pools is empty - pools not initialized",
-	)
+	assert(not pool._pools.is_empty(), "SoundPool._pools is empty - pools not initialized")
 
-	assert(
-		not pool._active_players.is_empty(),
-		"SoundPool._active_players is empty - tracking not initialized",
-	)
+	assert(not pool._active_players.is_empty(), "SoundPool._active_players is empty - tracking not initialized")
 
 	print("✅ Test 4: SoundPool categories")
 
@@ -126,33 +102,18 @@ func _test_soundpool_categories() -> void:
 func _test_music_system() -> void:
 	var music: MusicController = SoundManager.music
 
-	assert(
-		music.MusicState != null,
-		"MusicState enum not accessible",
-	)
+	assert(music.MusicState != null, "MusicState enum not accessible")
 
-	assert(
-		music._music_library != null,
-		"music._music_library is null",
-	)
+	assert(music._music_library != null, "music._music_library is null")
 
-	assert(
-		music._current_player != null,
-		"music._current_player not created",
-	)
+	assert(music._current_player != null, "music._current_player not created")
 
-	assert(
-		music._current_player.bus == "Music",
-		"Music player not assigned to Music bus",
-	)
+	assert(music._current_player.bus == "Music", "Music player not assigned to Music bus")
 
 	var test_volume: float = -15.0
 	music.set_volume(test_volume)
 	var actual_volume: float = music._current_player.volume_db
-	assert(
-		abs(actual_volume - test_volume) < 0.1,
-		"Music volume not updating properly",
-	)
+	assert(abs(actual_volume - test_volume) < 0.1, "Music volume not updating properly")
 
 	music.set_volume(-10.0)
 
@@ -162,37 +123,25 @@ func _test_music_system() -> void:
 func _test_combat_system() -> void:
 	var combat: CombatPrioritySoundController = SoundManager.combat
 
-	assert(
-		combat.Priority != null,
-		"combat priority enum not accessible",
-	)
+	assert(combat.Priority != null, "combat priority enum not accessible")
 
-	assert(
-		combat._sound_pool != null,
-		"CombatPrioritySoundController not initialized with SoundPool reference",
-	)
+	assert(combat._sound_pool != null, "CombatPrioritySoundController not initialized with SoundPool reference")
 
-	assert(
-		combat._active_sounds != null,
-		"CombatPrioritySoundController._active_sounds not initialized",
-	)
+	assert(combat._active_sounds != null, "CombatPrioritySoundController._active_sounds not initialized")
 
-	assert(
-		combat._max_active_sounds > 0,
-		"CombatPrioritySoundController._max_active_sounds not set",
-	)
+	assert(combat._max_active_sounds > 0, "CombatPrioritySoundController._max_active_sounds not set")
 
 	print("✅ Test 6: CombatPrioritySoundController functional")
 
 
 func _test_volume_controls() -> void:
 	var categories: Array[Dictionary] = [
-		{"enum": SoundManager.SoundCategory.GLOBAL, "bus": "Master"},
-		{"enum": SoundManager.SoundCategory.MUSIC, "bus": "Music"},
-		{"enum": SoundManager.SoundCategory.SFX, "bus": "SFX"},
-		{"enum": SoundManager.SoundCategory.AMBIENT, "bus": "Ambient"},
-		{"enum": SoundManager.SoundCategory.UI, "bus": "UI"},
-		{"enum": SoundManager.SoundCategory.VOICE, "bus": "Voice"},
+		{ "enum": SoundManager.SoundCategory.GLOBAL, "bus": "Master" },
+		{ "enum": SoundManager.SoundCategory.MUSIC, "bus": "Music" },
+		{ "enum": SoundManager.SoundCategory.SFX, "bus": "SFX" },
+		{ "enum": SoundManager.SoundCategory.AMBIENT, "bus": "Ambient" },
+		{ "enum": SoundManager.SoundCategory.UI, "bus": "UI" },
+		{ "enum": SoundManager.SoundCategory.VOICE, "bus": "Voice" },
 	]
 
 	for cat: Dictionary in categories:
@@ -202,26 +151,15 @@ func _test_volume_controls() -> void:
 		SoundManager.set_category_volume(cat.enum, test_volume)
 		var new_volume: float = SoundManager.get_category_volume(cat.enum)
 
-		assert(
-			abs(new_volume - test_volume) < 0.1,
-			"Volume control broken for category %s" % cat.bus,
-		)
+		assert(abs(new_volume - test_volume) < 0.1, "Volume control broken for category %s" % cat.bus)
 
 		SoundManager.set_category_volume(cat.enum, original_volume)
 
 	SoundManager.mute_all()
 	var master_idx: int = AudioServer.get_bus_index("Master")
-	assert(
-		AudioServer.is_bus_mute(master_idx),
-		"mute_all() didn't mute Master bus",
-	)
+	assert(AudioServer.is_bus_mute(master_idx), "mute_all() didn't mute Master bus")
 
 	SoundManager.unmute_all()
-	assert(
-		not AudioServer.is_bus_mute(master_idx),
-		"unmute_all() didn't unmute Master bus",
-	)
+	assert(not AudioServer.is_bus_mute(master_idx), "unmute_all() didn't unmute Master bus")
 
-	print(
-		"✅ Test 7: Volume controls",
-	)
+	print("✅ Test 7: Volume controls")

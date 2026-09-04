@@ -25,9 +25,11 @@ func _ready() -> void:
 
 @abstract func _child_ready() -> void
 
+
 @abstract func _on_trigger_entered(body: Node3D) -> void
 
+
 ## Optional override
-@warning_ignore("unused_parameter")  #gdlint: disable=unused-argument
+@warning_ignore("unused_parameter") # gdlint-ignore-next-line unused-argument
 func _on_trigger_exited(body: Node3D) -> void:
 	pass

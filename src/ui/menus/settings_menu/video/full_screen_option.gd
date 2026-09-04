@@ -11,10 +11,10 @@ var _last_mode: DisplayServer.WindowMode = DisplayServer.WINDOW_MODE_WINDOWED
 
 func _ready() -> void:
 	_window_modes = [
-		{&"icon": windowed_icon, &"mode": DisplayServer.WINDOW_MODE_WINDOWED},
-		{&"icon": maximized_icon, &"mode": DisplayServer.WINDOW_MODE_MAXIMIZED},
-		{&"icon": fullscreen_icon, &"mode": DisplayServer.WINDOW_MODE_FULLSCREEN},
-		{&"icon": exclusive_fullscreen_icon, &"mode": DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN},
+		{ &"icon": windowed_icon, &"mode": DisplayServer.WINDOW_MODE_WINDOWED },
+		{ &"icon": maximized_icon, &"mode": DisplayServer.WINDOW_MODE_MAXIMIZED },
+		{ &"icon": fullscreen_icon, &"mode": DisplayServer.WINDOW_MODE_FULLSCREEN },
+		{ &"icon": exclusive_fullscreen_icon, &"mode": DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN },
 	]
 	_populate()
 	item_selected.connect(_on_item_selected)

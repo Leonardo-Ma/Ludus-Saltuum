@@ -9,7 +9,7 @@ signal knockback_received(knockback_velocity: Vector3)
 
 
 func _ready() -> void:
-	assert(collision_layer == 0, "Hurtbox of " + owner.name + " must not have a layer")  # It's in bits
+	assert(collision_layer == 0, "Hurtbox of " + owner.name + " must not have a layer") # It's in bits
 	assert(collision_mask == 32768, "Hurtbox of " + owner.name + " must be in mask 16")
 
 	area_entered.connect(_on_area_entered)

@@ -1,7 +1,7 @@
 extends Node
 
 signal checkpoint_activated(checkpoint_position: Vector3)
-signal checkpoint_loaded(checkpoint_position: Vector3)  # TODO Check if refactor needed elsewhere to use this instead
+signal checkpoint_loaded(checkpoint_position: Vector3) # TODO Check if refactor needed elsewhere to use this instead
 ## Unconditional, fires at the end of apply_save() regardless of a valid checkpoint
 signal load_applied
 
@@ -14,7 +14,10 @@ var _has_valid_position: bool = false
 func _ready() -> void:
 	LevelChunkManager.chunk_recycled.connect(_on_chunk_recycled)
 
-	SaveManager.save_requested.connect(func(data: SaveData) -> void: build_save(data.checkpoint))
+	SaveManager.save_requested.connect(
+		func(data: SaveData) -> void:
+			build_save(data.checkpoint),
+	)
 	LevelChunkManager.level_loaded.connect(_on_level_loaded)
 	SaveManager.reset_requested.connect(reset_checkpoint)
 
@@ -59,16 +62,10 @@ func get_respawn_transform() -> Transform3D:
 	assert(_has_valid_position, "No active checkpoint found in " + name)
 
 	if _checkpoint_chunk_index == -1:
-		return Transform3D(
-			_checkpoint_local_transform.basis.orthonormalized(),
-			_checkpoint_local_transform.origin,
-		)
+		return Transform3D(_checkpoint_local_transform.basis.orthonormalized(), _checkpoint_local_transform.origin)
 
 	var active_chunks: Array[LevelChunk] = LevelChunkManager.get_active_chunks()
-	assert(
-		_checkpoint_chunk_index < active_chunks.size(),
-		"Checkpoint chunk index out of range in " + name,
-	)
+	assert(_checkpoint_chunk_index < active_chunks.size(), "Checkpoint chunk index out of range in " + name)
 
 	var transform: Transform3D = active_chunks[_checkpoint_chunk_index].global_transform * _checkpoint_local_transform
 	# Strip scaling
@@ -107,7 +104,7 @@ func reset_checkpoint() -> void:
 
 func get_default_spawn_transform() -> Transform3D:
 	var chunks: Array[LevelChunk] = LevelChunkManager.get_active_chunks()
-	if chunks.is_empty():  # TODO Double check if this case should fallback to identity (0,0,0)
+	if chunks.is_empty(): # TODO Double check if this case should fallback to identity (0,0,0)
 		return Transform3D.IDENTITY
 
 	var entrance: Node3D = chunks[0].get_node("%EntranceTrigger")
@@ -116,7 +113,6 @@ func get_default_spawn_transform() -> Transform3D:
 
 func get_default_spawn_position() -> Vector3:
 	return get_default_spawn_transform().origin
-
 
 #region Save and Load
 func build_save(data: CheckpointSaveData) -> void:
@@ -142,10 +138,7 @@ func apply_save(data: CheckpointSaveData) -> void:
 
 	if _checkpoint_chunk_index >= 0:
 		var active_chunks: Array[LevelChunk] = LevelChunkManager.get_active_chunks()
-		assert(
-			_checkpoint_chunk_index < active_chunks.size(),
-			"Checkpoint chunk index out of range in " + name,
-		)
+		assert(_checkpoint_chunk_index < active_chunks.size(), "Checkpoint chunk index out of range in " + name)
 
 	checkpoint_loaded.emit(get_respawn_position())
 	load_applied.emit()

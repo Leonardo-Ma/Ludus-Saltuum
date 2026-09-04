@@ -6,7 +6,7 @@ extends VehicleBody3D
 
 signal driving_started(player: PlayerEntity)
 signal driving_stopped(player: PlayerEntity)
-signal teleported  # Back to checkpoint for example
+signal teleported # Back to checkpoint for example
 
 const REENTER_CAR_DELAY: int = 10
 
@@ -86,19 +86,11 @@ func _physics_process(delta: float) -> void:
 
 	speed_ratio *= speed_ratio
 
-	var steering_scale: float = lerpf(
-		1.0,
-		0.15,
-		speed_ratio,
-	)
+	var steering_scale: float = lerpf(1.0, 0.15, speed_ratio)
 
 	var target_steering: float = steering_input * max_steering * steering_scale
 
-	steering = move_toward(
-		steering,
-		target_steering,
-		steering_speed * delta,
-	)
+	steering = move_toward(steering, target_steering, steering_speed * delta)
 
 	if forward:
 		var forward_scale: float = clampf(1.0 - forward_speed / max_speed, 0.0, 1.0)

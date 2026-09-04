@@ -14,7 +14,10 @@ func _ready() -> void:
 	CombatEvents.enemy_killed.connect(_on_enemy_killed)
 	ApplicationStateManager.main_menu_requested.connect(reset_data)
 
-	SaveManager.save_requested.connect(func(data: SaveData) -> void: build_save(data.world))
+	SaveManager.save_requested.connect(
+		func(data: SaveData) -> void:
+			build_save(data.world),
+	)
 	SaveManager.load_requested.connect(_on_load_requested)
 	SaveManager.reset_requested.connect(reset_data)
 

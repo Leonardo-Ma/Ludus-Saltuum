@@ -1,6 +1,6 @@
 extends Node
 
-var _pause_sources: Dictionary = {}
+var _pause_sources: Dictionary = { }
 
 
 func request_pause(source_name: String) -> void:

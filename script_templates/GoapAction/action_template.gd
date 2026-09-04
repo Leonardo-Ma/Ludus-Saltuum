@@ -15,11 +15,11 @@ func get_cost(_blackboard: Dictionary) -> int:
 
 
 func get_preconditions() -> Dictionary:
-	return {"precondition": true}
+	return { "precondition": true }
 
 
 func get_effects() -> Dictionary:
-	return {"post_effect": true}
+	return { "post_effect": true }
 
 
 func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:

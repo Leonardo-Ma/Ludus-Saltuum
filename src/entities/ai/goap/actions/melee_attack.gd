@@ -18,11 +18,11 @@ func get_cost(_blackboard: Dictionary) -> int:
 
 
 func get_preconditions() -> Dictionary:
-	return {"enemy_in_melee_range": true, "enemy_alive": true}
+	return { "enemy_in_melee_range": true, "enemy_alive": true }
 
 
 func get_effects() -> Dictionary:
-	return {"enemy_alive": false}
+	return { "enemy_alive": false }
 
 
 func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:

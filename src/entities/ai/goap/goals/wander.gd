@@ -17,4 +17,4 @@ func priority() -> int:
 
 
 func get_desired_state() -> Dictionary:
-	return {"is_wandering": true}
+	return { "is_wandering": true }

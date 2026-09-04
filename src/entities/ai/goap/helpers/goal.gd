@@ -22,4 +22,4 @@ func priority() -> int:
 ## e.g: in your world state you may store "hunger" as a number, but inside your
 ## goap you can deal with it as "is_hungry".
 func get_desired_state() -> Dictionary:
-	return {}
+	return { }

@@ -17,7 +17,7 @@ enum MusicState {
 const _TRANSITION_COOLDOWN_DURATION: float = 1.0
 
 const _MUTED_VOLUME_DB: float = -80.0
-
+# fmt:off
 var _music_library: Dictionary = {
 	MusicState.MAIN_MENU:
 	{
@@ -118,7 +118,7 @@ var _music_library: Dictionary = {
 	}
 	#MusicState.NIGHT: {},
 }
-
+# fmt:on
 var _current_state: MusicState = MusicState.SILENCE
 
 var _player_a: AudioStreamPlayer
@@ -198,28 +198,14 @@ func play(track: AudioStream, fade_duration: float = 1.0, track_key: String = ""
 		return
 
 	_fade_tween = create_tween()
-	(
-		_fade_tween
-		. tween_property(
-			_current_player,
-			"volume_db",
-			_music_volume_db,
-			fade_duration,
-		)
-	)
+	_fade_tween.tween_property(_current_player, "volume_db", _music_volume_db, fade_duration)
 
-	(
-		_fade_tween
-		. parallel()
-		. tween_property(
-			_staging_player,
-			"volume_db",
-			_MUTED_VOLUME_DB,
-			fade_duration,
-		)
-	)
+	_fade_tween.parallel().tween_property(_staging_player, "volume_db", _MUTED_VOLUME_DB, fade_duration)
 
-	_fade_tween.tween_callback(func() -> void: _staging_player.stop())
+	_fade_tween.tween_callback(
+		func() -> void:
+			_staging_player.stop(),
+	)
 
 
 func change_state(new_state: MusicState, immediate: bool = false, track_key: String = "") -> void:
@@ -234,7 +220,7 @@ func change_state(new_state: MusicState, immediate: bool = false, track_key: Str
 		stop()
 		return
 
-	var tracks: Dictionary = _music_library.get(new_state, {})
+	var tracks: Dictionary = _music_library.get(new_state, { })
 	if tracks.is_empty():
 		return
 
@@ -279,17 +265,12 @@ func stop(fade_duration: float = 1.0) -> void:
 		return
 
 	_fade_tween = create_tween()
-	(
-		_fade_tween
-		. tween_property(
-			_current_player,
-			"volume_db",
-			_MUTED_VOLUME_DB,
-			fade_duration,
-		)
-	)
+	_fade_tween.tween_property(_current_player, "volume_db", _MUTED_VOLUME_DB, fade_duration)
 
-	_fade_tween.tween_callback(func() -> void: _current_player.stop())
+	_fade_tween.tween_callback(
+		func() -> void:
+			_current_player.stop(),
+	)
 
 
 func set_volume(volume_db: float) -> void:
@@ -327,7 +308,7 @@ func get_current_track_author() -> String:
 
 func get_current_track_full_info() -> Dictionary:
 	if not _current_player.playing:
-		return {}
+		return { }
 
 	for state_tracks: Dictionary in _music_library.values():
 		for key: String in state_tracks:
@@ -336,10 +317,10 @@ func get_current_track_full_info() -> Dictionary:
 					"key": key,
 					"name": state_tracks[key].get("song_name", key),
 					"author": state_tracks[key].get("author", "Unknown"),
-					"state": _current_state
+					"state": _current_state,
 				}
 
-	return {"error": "Track not found in library"}
+	return { "error": "Track not found in library" }
 
 
 func on_combat_started() -> void:
@@ -349,10 +330,9 @@ func on_combat_started() -> void:
 func on_combat_ended() -> void:
 	change_state(MusicState.EXPLORATION)
 
-
 #region Private helper
 func _on_track_finished() -> void:
-	var tracks: Dictionary = _music_library.get(_current_state, {})
+	var tracks: Dictionary = _music_library.get(_current_state, { })
 	var candidates: Array = []
 	if not tracks.is_empty():
 		for key: String in tracks:

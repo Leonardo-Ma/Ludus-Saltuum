@@ -8,6 +8,7 @@ signal deactivate
 
 @onready var hitbox: Hitbox = %Hitbox
 
+
 ## Children should override this instead of _ready()
 @abstract func _child_ready() -> void
 

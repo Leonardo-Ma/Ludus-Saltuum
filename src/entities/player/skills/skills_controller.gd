@@ -9,7 +9,7 @@ signal resetted_skills
 var is_sliding: bool = false
 var base_fov: float = 0.0
 
-var _skills: Dictionary = {}
+var _skills: Dictionary = { }
 
 @onready var entity: PlayerEntity = owner
 @onready var movement_controller: MovementController = %MovementController
@@ -55,7 +55,10 @@ func get_skills_ordered() -> Array[BaseSkill]:
 	var result: Array[BaseSkill] = []
 	for skill: BaseSkill in _skills.values():
 		result.append(skill)
-	result.sort_custom(func(a: BaseSkill, b: BaseSkill) -> bool: return a.definition.hud_order < b.definition.hud_order)
+	result.sort_custom(
+		func(a: BaseSkill, b: BaseSkill) -> bool:
+			return a.definition.hud_order < b.definition.hud_order,
+	)
 	return result
 
 
@@ -92,7 +95,10 @@ func _initialize_from_entity() -> void:
 	var definitions: Array[SkillDefinition] = []
 	for id: StringName in entity.startup_skill_ids:
 		definitions.append(SkillRegistry.get_definition(id))
-	definitions.sort_custom(func(a: SkillDefinition, b: SkillDefinition) -> bool: return a.hud_order < b.hud_order)
+	definitions.sort_custom(
+		func(a: SkillDefinition, b: SkillDefinition) -> bool:
+			return a.hud_order < b.hud_order,
+	)
 	for definition: SkillDefinition in definitions:
 		unlock(definition)
 

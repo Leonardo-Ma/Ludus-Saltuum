@@ -4,8 +4,8 @@ extends BaseSkill
 signal multi_jump_executed
 
 const MULTI_JUMP_SOUNDS: Array[AudioStream] = [
-	preload("uid://i61p6tvxnhor"),  # jump.wav
-	preload("uid://bb1w0acj8f3i1"),  # jump_short.wav
+	preload("uid://i61p6tvxnhor"), # jump.wav
+	preload("uid://bb1w0acj8f3i1"), # jump_short.wav
 ]
 
 ## Used for air jumps
@@ -74,7 +74,6 @@ func _on_jumped() -> void:
 func _on_in_air() -> void:
 	_jumps_remaining = definition.max_charges
 	charges_updated.emit(_jumps_remaining)
-
 
 #region Visual and sound effects
 func _play_jump_feedback() -> void:

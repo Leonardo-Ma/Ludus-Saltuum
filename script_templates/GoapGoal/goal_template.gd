@@ -15,4 +15,4 @@ func priority() -> int:
 
 
 func get_desired_state() -> Dictionary:
-	return {"insert_desired_state": true}
+	return { "insert_desired_state": true }

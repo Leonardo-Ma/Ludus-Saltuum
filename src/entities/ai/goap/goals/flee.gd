@@ -18,4 +18,4 @@ func priority() -> int:
 
 
 func get_desired_state() -> Dictionary:
-	return {"enemy_nearby": false}
+	return { "enemy_nearby": false }

@@ -20,7 +20,7 @@ const TOTAL_SLOTS: int = MANUAL_SLOTS + AUTO_SLOTS
 const AUTO_SAVE_INTERVAL: float = 120.0
 const CURRENT_SAVE_VERSION: int = 1
 
-var _save_block_sources: Dictionary = {}
+var _save_block_sources: Dictionary = { }
 
 var _next_auto_slot: int = 0
 var _auto_timer: Timer
@@ -58,8 +58,8 @@ func reset_data_for_new_game(slot_index: int) -> void:
 	reset_requested.emit()
 	reset_finished.emit()
 
-
 #region Save Load and Delete
+
 # TODO Change to a request save to slot
 func _save_to_active_slot(force: bool) -> void:
 	assert(_active_slot_index != -1, "SaveManager: no active slot set in " + name)
@@ -74,10 +74,7 @@ func save_to_quick_slot(force: bool) -> bool:
 func load_from_slot(slot_index: int) -> bool:
 	assert(not is_save_blocked(), "Saving blocked by " + str(_save_block_sources.keys()))
 
-	assert(
-		slot_index >= 0 and slot_index < TOTAL_SLOTS,
-		"SaveManager: slot out of range in " + name,
-	)
+	assert(slot_index >= 0 and slot_index < TOTAL_SLOTS, "SaveManager: slot out of range in " + name)
 	assert(has_save(slot_index), "Slot index " + str(slot_index) + " doesn't have save")
 
 	var data: SaveData = _load_slot_resource(slot_index)
@@ -104,9 +101,7 @@ func delete_slot(slot_index: int) -> void:
 	_cloud_backend.delete(_cloud_filename(slot_index))
 	save_changed.emit(slot_index)
 
-
 #endregion
-
 
 #region Public getters
 func has_save(slot_index: int) -> bool:
@@ -139,15 +134,12 @@ func release_save_block(source: StringName) -> void:
 func is_save_blocked() -> bool:
 	return not _save_block_sources.is_empty()
 
-
 #endregion
-
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("quick_save") and ApplicationStateManager.is_gameplay_active():
 		_save_to_active_slot(false)
 		get_viewport().set_input_as_handled()
-
 
 #region Private helpers
 func _on_auto_save() -> void:
@@ -157,10 +149,7 @@ func _on_auto_save() -> void:
 
 
 func _write_slot(slot_index: int, is_auto: bool, force: bool = false) -> bool:
-	assert(
-		slot_index >= 0 and slot_index < TOTAL_SLOTS,
-		"SaveManager: slot out of range in " + name,
-	)
+	assert(slot_index >= 0 and slot_index < TOTAL_SLOTS, "SaveManager: slot out of range in " + name)
 
 	if not _can_save(force):
 		return false

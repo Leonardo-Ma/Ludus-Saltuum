@@ -1,6 +1,6 @@
 extends UIButton
 
-const SHUT_DOWN_SOUND: AudioStream = preload("uid://yvujl2l3onjt")  # synth_shut_down.wav
+const SHUT_DOWN_SOUND: AudioStream = preload("uid://yvujl2l3onjt") # synth_shut_down.wav
 const SHUTDOWN_DELAY: float = 0.4
 
 

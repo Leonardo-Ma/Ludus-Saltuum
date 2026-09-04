@@ -33,7 +33,7 @@ func get_plan(goal: GoapGoal, blackboard: Dictionary) -> Array[GoapAction]:
 			desired_state.erase(key)
 
 	if desired_state.is_empty():
-		return []  # Goal already achieved
+		return [] # Goal already achieved
 
 	var all_plans: Array[Dictionary] = []
 	var initial_plan: Array[GoapAction] = []
@@ -75,7 +75,12 @@ func _verify_plan(plan: Array[GoapAction], initial_blackboard: Dictionary, goal_
 
 
 func _build_plans(
-	remaining_state: Dictionary, blackboard: Dictionary, current_plan: Array[GoapAction], all_plans: Array[Dictionary], depth: int, current_cost: int
+	remaining_state: Dictionary,
+	blackboard: Dictionary,
+	current_plan: Array[GoapAction],
+	all_plans: Array[Dictionary],
+	depth: int,
+	current_cost: int,
 ) -> void:
 	if depth >= MAX_DEPTH:
 		return
@@ -131,15 +136,7 @@ func _build_plans(
 			if new_cost < _best_cost_found:
 				_best_cost_found = new_cost
 
-			(
-				all_plans
-				. append(
-					{
-						"actions": new_plan,
-						"cost": new_cost,
-					},
-				)
-			)
+			(all_plans.append({ "actions": new_plan, "cost": new_cost }))
 		else:
 			_build_plans(new_remaining, new_blackboard, new_plan, all_plans, depth + 1, new_cost)
 
@@ -149,7 +146,7 @@ func _has_cycle(plan: Array[GoapAction]) -> bool:
 		return true
 
 	# Simple rolling window limit
-	var counts: Dictionary = {}
+	var counts: Dictionary = { }
 	for action: GoapAction in plan:
 		var cls: String = action.get_custom_class_name()
 		counts[cls] = counts.get(cls, 0) + 1
@@ -172,5 +169,5 @@ func _print_plan(plan: Dictionary) -> void:
 	var action_names: Array[String] = []
 	for action: GoapAction in plan["actions"]:
 		action_names.append(action.get_custom_class_name())
-	var info: Dictionary = {"cost": plan["cost"], "actions": action_names}
+	var info: Dictionary = { "cost": plan["cost"], "actions": action_names }
 	print(info)

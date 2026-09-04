@@ -6,8 +6,8 @@ extends StaticBody3D
 
 var _is_cycle_running: bool = false
 var _mesh_parts: Array[MeshInstance3D] = []
-var _part_original_overlays: Dictionary[MeshInstance3D, Material] = {}
-var _part_white_overlays: Dictionary[MeshInstance3D, StandardMaterial3D] = {}
+var _part_original_overlays: Dictionary[MeshInstance3D, Material] = { }
+var _part_white_overlays: Dictionary[MeshInstance3D, StandardMaterial3D] = { }
 
 @onready var surface: Area3D = $Surface
 @onready var body_collision: CollisionShape3D = $CollisionShape3D
@@ -30,7 +30,7 @@ func _on_character_step(body: Node3D) -> void:
 	disable()
 	await get_tree().create_timer(fade_in_seconds).timeout
 	surface.set_deferred("monitoring", true)
-	body_collision.disabled = false  # collision before visual — no texture visible yet
+	body_collision.disabled = false # collision before visual — no texture visible yet
 	await _play_appear_effect(float(fade_in_seconds))
 	_restore_original_overlays()
 	_is_cycle_running = false

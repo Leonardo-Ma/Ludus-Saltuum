@@ -88,5 +88,14 @@ func _on_death_visual_effect() -> void:
 	shatter_overlay.visible = true
 	shatter_material.set_shader_parameter("progress", 0.0)
 	var tween: Tween = create_tween()
-	tween.tween_method(func(v: float) -> void: shatter_material.set_shader_parameter("progress", v), 0.0, 1.0, 2.0)
-	tween.tween_callback(func() -> void: shatter_overlay.visible = false)
+	tween.tween_method(
+		func(v: float) -> void:
+			shatter_material.set_shader_parameter("progress", v),
+		0.0,
+		1.0,
+		2.0,
+	)
+	tween.tween_callback(
+		func() -> void:
+			shatter_overlay.visible = false,
+	)

@@ -5,7 +5,7 @@ extends Node
 ## Highest priority first; first source with an active request wins
 const _PRIORITY: Array[StringName] = [&"popup", &"shop", &"menu", &"gameplay", &"device"]
 
-static var _requests: Dictionary[StringName, Input.MouseMode] = {}
+static var _requests: Dictionary[StringName, Input.MouseMode] = { }
 
 
 static func request_mode(source: StringName, mode: Input.MouseMode) -> void:

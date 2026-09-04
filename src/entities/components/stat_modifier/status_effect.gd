@@ -1,12 +1,12 @@
-@icon("uid://b2ggug31fd52y")  # star.png
+@icon("uid://b2ggug31fd52y") # star.png
 @abstract class_name StatusEffect
 extends Resource
 
 enum StackMode {
-	NONE = 0,  ## Cannot stack, application is ignored if present
-	STACK = 1,  ## Adds a new stack (up to max_stacks), keeps duration
-	REPLACE = 2,  ## Refreshes duration to maximum
-	ADD_DURATION = 3,  ## Extends existing time
+	NONE = 0, ## Cannot stack, application is ignored if present
+	STACK = 1, ## Adds a new stack (up to max_stacks), keeps duration
+	REPLACE = 2, ## Refreshes duration to maximum
+	ADD_DURATION = 3, ## Extends existing time
 }
 enum StatusType {
 	BUFF = 0,
@@ -29,14 +29,16 @@ enum StatusType {
 ## Interval in seconds for the on_tick event to trigger if StackMode.STACK
 @export var tick_interval: float = 1.0
 
+
 ## To be overridden
 @abstract func get_id() -> StringName
+
 
 ## To be overridden (UI uses this)
 @abstract func get_status_name() -> String
 
-
 #region Optional functions to be overridden
+
 ## Applies only once (a temporary buff or debuff)
 func on_apply(_target: Node) -> void:
 	pass

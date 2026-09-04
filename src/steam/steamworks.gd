@@ -19,7 +19,6 @@ func _ready() -> void:
 	#if !is_valid_license:
 	#	push_error("Player didn't purchase the game")
 	#	return
-
 	var steam_player_name: String = Steam.getPersonaName()
 	print("Username: ", steam_player_name + "\n")
 

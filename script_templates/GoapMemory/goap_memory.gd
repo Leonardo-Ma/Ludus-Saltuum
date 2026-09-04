@@ -4,7 +4,7 @@ extends GoapMemory
 
 func init(actor: Node) -> void:
 	_actor = actor
-	_blackboard = {"position": _actor.position, "in_combat": false}
+	_blackboard = { "position": _actor.position, "in_combat": false }
 
 
 func _refresh_blackboard() -> void:

@@ -26,8 +26,14 @@ func setup(action: StringName) -> void:
 		_actions_icons_container.add_child(new_icon_scene)
 
 	_action = action
-	_key_button.pressed.connect(func() -> void: rebind_requested.emit(_action))
-	_reset_button.pressed.connect(func() -> void: reset_requested.emit(_action))
+	_key_button.pressed.connect(
+		func() -> void:
+			rebind_requested.emit(_action),
+	)
+	_reset_button.pressed.connect(
+		func() -> void:
+			reset_requested.emit(_action),
+	)
 	GamepadIconMap.map_changed.connect(_refresh_gamepad)
 	InputBindingManager.binding_changed.connect(_on_binding_changed)
 	InputManager.device_changed.connect(_on_device_changed)

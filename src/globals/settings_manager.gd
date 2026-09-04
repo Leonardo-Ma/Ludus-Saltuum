@@ -35,27 +35,17 @@ const _SECTION_NAMES: Dictionary[SettingsSection, String] = {
 
 const _CONFIG_PATH: String = "user://settings.cfg"
 
-const FPS_PRESETS: Array[int] = [30, 60, 90, 120, 144, 165, 240, 0]  # 0 = Unlimited
+const FPS_PRESETS: Array[int] = [30, 60, 90, 120, 144, 165, 240, 0] # 0 = Unlimited
 
 ## Hardcoded project defaults, grouped by SettingsSection, used by reset_to_default()
 ## Each inner key must mirror an existing var declaration above
 const _DEFAULTS: Dictionary = {
 	SettingsSection.GAMEPLAY:
 	# To be added options here
-	{},
-	SettingsSection.AUDIO:
-	{
-		&"volume_global": 1.0,
-		&"volume_music": 1.0,
-		&"volume_effects": 1.0,
-		&"volume_ui": 1.0,
-	},
-	SettingsSection.HUD:
-	{
-		&"hud_visible": true,
-	},
-	SettingsSection.CAMERA:
-	{
+	{ },
+	SettingsSection.AUDIO: { &"volume_global": 1.0, &"volume_music": 1.0, &"volume_effects": 1.0, &"volume_ui": 1.0 },
+	SettingsSection.HUD: { &"hud_visible": true },
+	SettingsSection.CAMERA: {
 		&"camera_fov": 75.0,
 		&"camera_distance": 3.0,
 		&"mouse_sensitivity_horizontal": 0.2,
@@ -63,9 +53,8 @@ const _DEFAULTS: Dictionary = {
 		&"gamepad_sensitivity": 120.0,
 		&"gamepad_invert_y": false,
 	},
-	SettingsSection.VIDEO:
-	{
-		&"resolution": null,  # Can't properly know what is the resolution
+	SettingsSection.VIDEO: {
+		&"resolution": null, # Can't properly know what is the resolution
 		&"window_mode": DisplayServer.WINDOW_MODE_WINDOWED,
 		&"vsync_mode": DisplayServer.VSYNC_DISABLED,
 		&"fps_limit": 90,
@@ -73,14 +62,11 @@ const _DEFAULTS: Dictionary = {
 		#&"contrast": 1.0,
 		#&"saturation": 1.0,
 	},
-	SettingsSection.ACCESSIBILITY:
-	{
-		&"grayscale_enabled": false,
-	},
+	SettingsSection.ACCESSIBILITY: { &"grayscale_enabled": false },
 	SettingsSection.KEY_BINDINGS:
 	# TODO This is necessary for tab management, but about defaults, need to check if
 	# godot saves default inputs
-	{},
+	{ },
 }
 
 var volume_global: float = 1.0
@@ -170,7 +156,6 @@ func apply_video() -> void:
 	environment.adjustment_brightness = brightness
 	#environment.adjustment_contrast = contrast
 	#environment.adjustment_saturation = saturation
-
 	DisplayServer.window_set_vsync_mode(vsync_mode)
 
 	Engine.max_fps = fps_limit
@@ -197,17 +182,7 @@ func _load() -> void:
 
 	for section: SettingsSection in _DEFAULTS:
 		for key: StringName in _DEFAULTS[section]:
-			set(
-				key,
-				(
-					_config
-					. get_value(
-						_SECTION_NAMES[section],
-						key,
-						_DEFAULTS[section][key],
-					)
-				),
-			)
+			set(key, (_config.get_value(_SECTION_NAMES[section], key, _DEFAULTS[section][key])))
 
 
 ## Resets settings for [param section] to hardcoded default

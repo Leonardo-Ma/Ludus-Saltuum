@@ -8,24 +8,26 @@ signal level_loaded(checkpoint_data: CheckpointSaveData)
 signal chunk_recycled(recycled_chunk: LevelChunk)
 
 # BUG: TODO: Consider if there's better approach instead of hardcore path
+# fmt:off
 const CHUNK_DIRECTORIES: Array[String] = [
 	"res://src/environment/levels/base_levels/",
 	"res://src/environment/levels/skills/",
 ]
+# fmt:on
 
 const CHUNK_SPAWN_AMOUNT: int = 10
 const CHUNK_INDEX_THAT_TRIGGERS_RECYCLING: int = 4
 
 const LEVEL_COMPLETE_SOUNDS: Array[AudioStream] = [
-	preload("uid://wsw31trreg3k"),  # chequered_ink/brass_level_complete.wav
-	preload("uid://c1auaooli8ysa"),  # chequered_ink/grand_piano_level_complete.wav
-	preload("uid://mihwryxscya7"),  # chequered_ink/harpsichord_level_complete.wav
-	preload("uid://b5ebce6j3jc7o"),  # chequered_ink/music_box_level_complete.wav
-	preload("uid://cmtn3755bxxon"),  # chequered_ink/sitar_level_complete.wav
-	preload("uid://bkvgbgxainyo1"),  # chequered_ink/steel_drums_level_complete.wav
-	preload("uid://d4kb4jp777v37"),  # chequered_ink/synth_bass_level_complete.wav
-	preload("uid://dl6cgw48oqc0y"),  # chequered_ink/vibraphone_level_complete.wav
-	preload("uid://b0bvycxcrnugp"),  # chequered_ink/xylophone_level_complete.wa
+	preload("uid://wsw31trreg3k"), # chequered_ink/brass_level_complete.wav
+	preload("uid://c1auaooli8ysa"), # chequered_ink/grand_piano_level_complete.wav
+	preload("uid://mihwryxscya7"), # chequered_ink/harpsichord_level_complete.wav
+	preload("uid://b5ebce6j3jc7o"), # chequered_ink/music_box_level_complete.wav
+	preload("uid://cmtn3755bxxon"), # chequered_ink/sitar_level_complete.wav
+	preload("uid://bkvgbgxainyo1"), # chequered_ink/steel_drums_level_complete.wav
+	preload("uid://d4kb4jp777v37"), # chequered_ink/synth_bass_level_complete.wav
+	preload("uid://dl6cgw48oqc0y"), # chequered_ink/vibraphone_level_complete.wav
+	preload("uid://b0bvycxcrnugp"), # chequered_ink/xylophone_level_complete.wa
 ]
 
 var procedural_seed: int = 0
@@ -35,7 +37,7 @@ var _all_chunks: Array[ChunkData] = []
 var _active_chunks: Array[LevelChunk] = []
 
 var _chunk_selector: ChunkSelector
-var _chunk_exit_connections: Dictionary = {}
+var _chunk_exit_connections: Dictionary = { }
 
 var _current_chunk_index: int = 0
 
@@ -44,14 +46,17 @@ func _ready() -> void:
 	@warning_ignore("assert_always_true")
 	assert(
 		CHUNK_SPAWN_AMOUNT > CHUNK_INDEX_THAT_TRIGGERS_RECYCLING,
-		"CHUNK_SPAWN_AMOUNT (%d) must be > CHUNK_INDEX_THAT_TRIGGERS_RECYCLING (%d)" % [CHUNK_SPAWN_AMOUNT, CHUNK_INDEX_THAT_TRIGGERS_RECYCLING]
+		"CHUNK_SPAWN_AMOUNT (%d) must be > CHUNK_INDEX_THAT_TRIGGERS_RECYCLING (%d)" % [CHUNK_SPAWN_AMOUNT, CHUNK_INDEX_THAT_TRIGGERS_RECYCLING],
 	)
 	_load_chunk_metadata_from_disk()
 
 	# TODO Double check
 	set_procedural_seed(procedural_seed)
 
-	SaveManager.save_requested.connect(func(data: SaveData) -> void: build_save(data.chunks))
+	SaveManager.save_requested.connect(
+		func(data: SaveData) -> void:
+			build_save(data.chunks),
+	)
 	SaveManager.load_requested.connect(_on_load_requested)
 	SaveManager.reset_requested.connect(reset_data)
 	SaveManager.reset_finished.connect(initialize_level)
@@ -65,7 +70,6 @@ func set_procedural_seed(value: int) -> void:
 
 func get_procedural_seed() -> int:
 	return _rng.seed
-
 
 #region Saving and Loading
 func build_save(data: ChunkSaveData) -> void:
@@ -84,11 +88,7 @@ func build_save(data: ChunkSaveData) -> void:
 
 
 func apply_save(data: ChunkSaveData) -> void:
-	load_save_data(
-		data.active_chunk_paths,
-		data.scored_chunk_indices,
-		data.chunk_selector_state,
-	)
+	load_save_data(data.active_chunk_paths, data.scored_chunk_indices, data.chunk_selector_state)
 
 
 func reset_data() -> void:
@@ -96,11 +96,7 @@ func reset_data() -> void:
 	_chunk_selector.reset()
 
 
-func load_save_data(
-	active_chunk_paths: Array[String],
-	scored_indices: Array[int],
-	selector_state: Dictionary,
-) -> void:
+func load_save_data(active_chunk_paths: Array[String], scored_indices: Array[int], selector_state: Dictionary) -> void:
 	var parent_world: Node = get_tree().root.get_node("Main")
 
 	clear_level()
@@ -193,9 +189,7 @@ func _load_chunk_metadata_from_disk() -> void:
 	assert(_all_chunks.size() > 0, "No valid LevelChunks found in directories.")
 	_chunk_selector = ChunkSelector.new(_rng, _all_chunks)
 
-
 #endregion
-
 
 ## Load chunks to be kept in memory, save them in active chunks
 func initialize_level() -> void:
@@ -285,10 +279,7 @@ func get_first_chunk_entrance_position() -> Vector3:
 
 ## Skips current chunk: marks scored, teleports player to its exit
 func skip_current_chunk(player: PlayerEntity) -> void:
-	assert(
-		_current_chunk_index >= 0 and _current_chunk_index < _active_chunks.size(),
-		"LevelChunkManager: no valid current chunk to skip in " + name,
-	)
+	assert(_current_chunk_index >= 0 and _current_chunk_index < _active_chunks.size(), "LevelChunkManager: no valid current chunk to skip in " + name)
 	var current_chunk: LevelChunk = _active_chunks[_current_chunk_index]
 	# Mark as scored without giving score since skipped
 	current_chunk.set_meta("scored", true)

@@ -7,7 +7,7 @@ const ACTIONS_DIRECTORY: String = "res://src/entities/ai/goap/actions"
 
 var _goals: Array[GoapGoal] = []
 var _actions: Array[GoapAction] = []
-var _last_modification_times: Dictionary = {}
+var _last_modification_times: Dictionary = { }
 var _update_timer: Timer
 
 
@@ -61,10 +61,7 @@ func _check_for_updates() -> void:
 			file_name = dir.get_next()
 		dir.list_dir_end()
 
-		assert(
-			has_gd_script,
-			"GOAP directory contains no GDScript files in %s: %s" % [name, dir_path],
-		)
+		assert(has_gd_script, "GOAP directory contains no GDScript files in %s: %s" % [name, dir_path])
 
 	if needs_rebuild:
 		_rebuild_graph()
@@ -126,7 +123,7 @@ func _load_all_actions(dir_path: String) -> Array[GoapAction]:
 
 func _build_graph() -> void:
 	var y_offset: int = 0
-	var goal_nodes: Dictionary = {}
+	var goal_nodes: Dictionary = { }
 
 	for i: int in range(_goals.size()):
 		var goal: GoapGoal = _goals[i]

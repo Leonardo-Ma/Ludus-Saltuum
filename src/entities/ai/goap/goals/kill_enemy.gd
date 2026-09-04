@@ -16,4 +16,4 @@ func priority() -> int:
 
 
 func get_desired_state() -> Dictionary:
-	return {"enemy_alive": false}
+	return { "enemy_alive": false }

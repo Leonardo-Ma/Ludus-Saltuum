@@ -12,10 +12,11 @@ enum Priority {
 
 # Sound data structure
 class CombatSound:
-	var player: Variant  # Can be AudioStreamPlayer or AudioStreamPlayer2D
+	var player: Variant # Can be AudioStreamPlayer or AudioStreamPlayer2D
 	var priority: int
 	var timestamp: int
 	var sound_id: String
+
 
 	func _init(p: Variant, prio: int, id: String = "") -> void:
 		player = p
@@ -26,10 +27,10 @@ class CombatSound:
 
 var _sound_pool: SoundPool
 var _active_sounds: Array[CombatSound] = []
-var _max_active_sounds: int = 10  # Max combat sounds at once
+var _max_active_sounds: int = 10 # Max combat sounds at once
 
 # Special effects for intense combat
-var _intensity_level: int = 0  # 0-3
+var _intensity_level: int = 0 # 0-3
 var _intensity_timer: float = 0.0
 
 
@@ -37,13 +38,7 @@ func initialize(pool: SoundPool) -> void:
 	_sound_pool = pool
 
 
-func play_with_priority(
-	sound: AudioStream,
-	position: Vector3,
-	priority: int,
-	sound_id: String = "",
-	source_node: Node3D = null,
-) -> bool:
+func play_with_priority(sound: AudioStream, position: Vector3, priority: int, sound_id: String = "", source_node: Node3D = null) -> bool:
 	var actual_pos: Vector3 = position
 	if source_node:
 		actual_pos = source_node.global_position
@@ -54,7 +49,7 @@ func play_with_priority(
 		var lowest_priority: int = _active_sounds[lowest_priority_idx].priority
 
 		if priority <= lowest_priority:
-			return false  # New sound not important enough
+			return false # New sound not important enough
 
 		# Replace the lowest priority sound
 		var old_sound: CombatSound = _active_sounds[lowest_priority_idx]
@@ -123,7 +118,7 @@ func _update_combat_intensity(priority: int) -> void:
 			intensity_increase = 4
 
 	_intensity_level = min(_intensity_level + intensity_increase, 3)
-	_intensity_timer = 3.0  # Intensity decays after 3 seconds
+	_intensity_timer = 3.0 # Intensity decays after 3 seconds
 
 
 func _process(delta: float) -> void:

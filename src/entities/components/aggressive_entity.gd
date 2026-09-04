@@ -10,14 +10,14 @@ signal melee_attacked
 
 ## When damaged, called by code
 const DAMAGE_SOUNDS: Array[AudioStream] = [
-	preload("uid://c2uxva6p1yaxw"),  # chequered_ink/punch.wav
-	preload("uid://ygovytmkf0xu"),  # chequered_ink/punch_2.wav
-	preload("uid://c4qxkql51g7pm"),  # chequered_ink/punch_3.wav
+	preload("uid://c2uxva6p1yaxw"), # chequered_ink/punch.wav
+	preload("uid://ygovytmkf0xu"), # chequered_ink/punch_2.wav
+	preload("uid://c4qxkql51g7pm"), # chequered_ink/punch_3.wav
 ]
 
 ## When attacking, called by animation player
 const ATTACK_SOUNDS: Array[AudioStream] = [
-	preload("uid://domodec4epc7f"),  # sword_slice.wav
+	preload("uid://domodec4epc7f"), # sword_slice.wav
 	#preload("uid://doay56c5x3rwr"),  # sword_clash_2.wav
 ]
 
@@ -37,7 +37,7 @@ const ATTACK_SOUNDS: Array[AudioStream] = [
 @export var ai_config: AIConfig
 
 var goap_agent: GoapAgent = null
-var spawn_position: Vector3  # saved after chunk alignment; used for save/load matching
+var spawn_position: Vector3 # saved after chunk alignment; used for save/load matching
 var _damage_material: StandardMaterial3D
 var _damage_tween: Tween
 var _prev_health: int = 0
@@ -109,6 +109,7 @@ func _ready() -> void:
 ## Virtual method for subclasses to override instead of _ready()
 @abstract func _child_ready() -> void
 
+
 ## To Override [br]
 ## Async post-death behavior (e.g. respawn, scene transition) [br]
 ## Called when _on_death is finished
@@ -140,7 +141,6 @@ func _on_death() -> void:
 
 func _record_spawn_position() -> void:
 	spawn_position = global_position
-
 
 #region Visual effects and animations
 func _setup_damage_feedback_visual_material() -> void:
@@ -198,12 +198,10 @@ func _get_all_mesh_instances(node: Node) -> Array[MeshInstance3D]:
 		result.append_array(_get_all_mesh_instances(child))
 	return result
 
-
 #endregion
-
 
 ## Timer creation callback for Health resource (dependency injection)
 func _create_timer(duration: float, callback: Callable) -> void:
 	await get_tree().create_timer(duration).timeout
-	if is_instance_valid(self):  # Entity alive?
+	if is_instance_valid(self): # Entity alive?
 		callback.call()

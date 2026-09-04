@@ -1,4 +1,4 @@
-@icon("uid://bcle4jlufep4u")  # joystick.png
+@icon("uid://bcle4jlufep4u") # joystick.png
 ## Player related inputs. Specific UI input is handled in respective feature
 class_name InputController extends Node
 
@@ -21,7 +21,10 @@ func _ready() -> void:
 	_respawn_timer = Timer.new()
 	_respawn_timer.one_shot = true
 	_respawn_timer.wait_time = RETURN_HOLD_DURATION
-	_respawn_timer.timeout.connect(func() -> void: return_to_checkpoint_requested.emit())
+	_respawn_timer.timeout.connect(
+		func() -> void:
+			return_to_checkpoint_requested.emit(),
+	)
 	add_child(_respawn_timer)
 
 

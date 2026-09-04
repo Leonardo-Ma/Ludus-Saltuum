@@ -15,11 +15,11 @@ func get_cost(_blackboard: Dictionary) -> int:
 
 
 func get_preconditions() -> Dictionary:
-	return {"enemy_nearby": true, "low_health": true}
+	return { "enemy_nearby": true, "low_health": true }
 
 
 func get_effects() -> Dictionary:
-	return {"enemy_nearby": false}
+	return { "enemy_nearby": false }
 
 
 # TODO Define actor to use run speed

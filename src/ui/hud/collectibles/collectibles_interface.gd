@@ -1,7 +1,7 @@
 extends MarginContainer
 
 # Dictionary to map collectible identifier (StringName) to its instantiated UI element (TextureRect)
-var _counter_ui_elements: Dictionary = {}
+var _counter_ui_elements: Dictionary = { }
 
 @onready var collectibles_container: GridContainer = %CollectiblesContainer
 

@@ -47,7 +47,6 @@ func _create_subsystems() -> void:
 	combat.name = "CombatPrioritySoundController"
 	add_child(combat)
 
-
 #region Public API
 func play_sound(sound: AudioStream, category: SoundCategory, position: Vector3 = Vector3.ZERO) -> void:
 	pool.play_sound(sound, category, position)
@@ -93,9 +92,7 @@ func pause_all_sfx(paused: bool) -> void:
 	pool.pause_category(SoundCategory.AMBIENT, paused)
 	pool.pause_category(SoundCategory.VOICE, paused)
 
-
 #endregion
-
 
 #region Private helpers
 func _get_bus_for_category(category: SoundCategory) -> String:

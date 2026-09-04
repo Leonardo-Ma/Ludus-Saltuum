@@ -18,7 +18,7 @@ func _ready() -> void:
 
 
 func _check_defaults() -> void:
-	var all_defaults: Dictionary = {}
+	var all_defaults: Dictionary = { }
 	for section: Dictionary in SettingsManager._DEFAULTS.values():
 		all_defaults.merge(section)
 
@@ -55,7 +55,7 @@ func _test_save_and_load() -> void:
 
 func _test_reset_to_default() -> void:
 	var section: SettingsManager.SettingsSection = SettingsManager.SettingsSection.AUDIO
-	var original: Dictionary = {}
+	var original: Dictionary = { }
 	for key: StringName in SettingsManager._DEFAULTS[section]:
 		original[key] = SettingsManager.get(key)
 

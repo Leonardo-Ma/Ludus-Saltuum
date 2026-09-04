@@ -3,13 +3,13 @@
 extends Button
 
 const POP_SOUNDS: Array[AudioStream] = [
-	preload("uid://bmmjv51rywjed"),  # pop_1.wav
-	preload("uid://bs5ws2by636gj"),  # pop_2.wav
-	preload("uid://51tu1dqta8wv"),  # pop_3.wav
-	preload("uid://dyr0xhho2e7pv"),  # pop_4.wav
+	preload("uid://bmmjv51rywjed"), # pop_1.wav
+	preload("uid://bs5ws2by636gj"), # pop_2.wav
+	preload("uid://51tu1dqta8wv"), # pop_3.wav
+	preload("uid://dyr0xhho2e7pv"), # pop_4.wav
 ]
 
-const HOVER_SOUND: AudioStream = preload("uid://cxb6ockccyuf0")  # switch1.wav
+const HOVER_SOUND: AudioStream = preload("uid://cxb6ockccyuf0") # switch1.wav
 
 var _original_modulate: Color
 var _hover_tween: Tween
@@ -33,6 +33,7 @@ func _on_pressed() -> void:
 
 ## Function to override instead of _ready
 @abstract func _button_ready() -> void
+
 
 ## Function to override instead of _on_pressed
 @abstract func _button_pressed() -> void

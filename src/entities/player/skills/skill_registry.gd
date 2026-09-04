@@ -3,7 +3,7 @@ extends Node
 # TODO Remove hardcoded path
 const _DATA_PATH: StringName = &"res://src/entities/player/skills/skill_registry_data.tres"
 
-var _by_id: Dictionary = {}
+var _by_id: Dictionary = { }
 
 
 func _ready() -> void:
@@ -29,4 +29,7 @@ func all() -> Array[SkillDefinition]:
 
 ## Definitions that include [param tag]
 func with_tag(tag: StringName) -> Array[SkillDefinition]:
-	return all().filter(func(d: SkillDefinition) -> bool: return tag in d.tags)
+	return all().filter(
+		func(d: SkillDefinition) -> bool:
+			return tag in d.tags,
+	)

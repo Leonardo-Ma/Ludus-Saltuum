@@ -1,4 +1,4 @@
-@icon("uid://c71vj0fgk7gfw")  # heart.png
+@icon("uid://c71vj0fgk7gfw") # heart.png
 
 class_name Health
 extends Resource
@@ -25,10 +25,10 @@ var current_health: int = max_health:
 			health_changed.emit(current_health)
 
 var invulnerable: bool = false
-var _timer_callback: Callable  # Reference to entity's timer creation method
+var _timer_callback: Callable # Reference to entity's timer creation method
 var _is_regenerating: bool = false
-var _regen_tick_rate: float = 0.5  # Regenerate every 0.5 seconds
-var _regen_delay: float = 15.0  # Seconds to wait after damage before regenerating
+var _regen_tick_rate: float = 0.5 # Regenerate every 0.5 seconds
+var _regen_delay: float = 15.0 # Seconds to wait after damage before regenerating
 var _waiting_for_regen_delay: bool = false
 var _last_damage_time: int = 0
 
@@ -40,11 +40,11 @@ func take_damage(attack: Attack) -> void:
 		current_health = 0
 	else:
 		current_health -= attack.damage
+
 	_last_damage_time = Time.get_ticks_msec()
 	damaged.emit(attack)
 	enable_invulnerability(1.0)
-	stop_regeneration()  # Stop any active regen and reset delay
-
+	stop_regeneration() # Stop any active regen and reset delay
 	if current_health <= 0:
 		died.emit()
 	else:
@@ -68,7 +68,6 @@ func initialize_timer_callback(callback: Callable) -> void:
 	_timer_callback = callback
 	start_regeneration()
 
-
 #region Invulnerability
 func enable_invulnerability(duration: float = 0.0) -> void:
 	invulnerable = true
@@ -82,11 +81,10 @@ func disable_invulnerability() -> void:
 	invulnerable = false
 	invulnerability_changed.emit(false)
 
-
 #endregion
 
-
 #region Health Regeneration
+
 ## Schedule regeneration to start after delay
 func schedule_regeneration() -> void:
 	if not _can_regenerate():

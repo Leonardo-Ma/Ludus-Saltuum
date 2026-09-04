@@ -4,9 +4,9 @@ extends Area3D
 signal checkpoint_activated(checkpoint_node: Checkpoint)
 
 const ACTIVATION_SOUNDS: Array[AudioStream] = [
-	preload("uid://elo0urfpuyn7"),  # rise01
-	preload("uid://cslbkk8dlfqo2"),  # rise02
-	preload("uid://ot2jiajcrnw8"),  # rise03
+	preload("uid://elo0urfpuyn7"), # rise01
+	preload("uid://cslbkk8dlfqo2"), # rise02
+	preload("uid://ot2jiajcrnw8"), # rise03
 ]
 
 @export var is_active: bool = false

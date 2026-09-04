@@ -16,7 +16,8 @@ func _ready() -> void:
 
 	for child: Control in get_children():
 		assert(
-			child.z_index != 0, child.name + " is missing CanvasItem > Ordering > Z Index. All children of UI must have manual screen ordering set"
+			child.z_index != 0,
+			child.name + " is missing CanvasItem > Ordering > Z Index. All children of UI must have manual screen ordering set",
 		)
 
 

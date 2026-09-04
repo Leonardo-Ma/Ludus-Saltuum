@@ -1,4 +1,4 @@
-@icon("uid://bgcef2dg8bwf")  # computer.png
+@icon("uid://bgcef2dg8bwf") # computer.png
 ## Configuration resource for entity AI
 ## Defines which actions and goals are available for a specific entity type
 class_name AIConfig
@@ -14,7 +14,7 @@ extends Resource
 ## Creates action instances from the configured scripts
 func create_actions() -> Array[GoapAction]:
 	var actions: Array[GoapAction] = []
-	var seen_scripts: Dictionary = {}
+	var seen_scripts: Dictionary = { }
 
 	for action_script: Script in available_actions:
 		assert(action_script != null, "AIConfig: Null script found in available_actions")
@@ -29,7 +29,7 @@ func create_actions() -> Array[GoapAction]:
 		var instance: Variant = action_script.new()
 		assert(
 			instance is GoapAction,
-			"AIConfig: Script '%s' is not a GoapAction! Found type: %s" % [script_path, instance.get_class() if instance else "null"]
+			"AIConfig: Script '%s' is not a GoapAction! Found type: %s" % [script_path, instance.get_class() if instance else "null"],
 		)
 
 		actions.append(instance)
@@ -41,7 +41,7 @@ func create_actions() -> Array[GoapAction]:
 ## Creates goal instances from the configured scripts
 func create_goals() -> Array[GoapGoal]:
 	var goals: Array[GoapGoal] = []
-	var seen_scripts: Dictionary = {}
+	var seen_scripts: Dictionary = { }
 
 	for goal_script: Script in available_goals:
 		assert(goal_script != null, "AIConfig: Null script found in available_goals")
@@ -56,7 +56,7 @@ func create_goals() -> Array[GoapGoal]:
 		var instance: Variant = goal_script.new()
 		assert(
 			instance is GoapGoal,
-			"AIConfig: Script '%s' is not a GoapGoal! Found type: %s" % [script_path, instance.get_class() if instance else "null"]
+			"AIConfig: Script '%s' is not a GoapGoal! Found type: %s" % [script_path, instance.get_class() if instance else "null"],
 		)
 
 		goals.append(instance)
