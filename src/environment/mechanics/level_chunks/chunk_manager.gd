@@ -64,15 +64,15 @@ func _ready() -> void:
 
 ## Try to fetch the global seed, else random
 func set_procedural_seed(value: int) -> void:
-	procedural_seed = value
-	_rng.seed = value if value != 0 else Time.get_ticks_msec()
+	procedural_seed = value if value != 0 else Time.get_ticks_msec()
 
 
 func get_procedural_seed() -> int:
-	return _rng.seed
+	return procedural_seed
 
 #region Saving and Loading
 func build_save(data: ChunkSaveData) -> void:
+	data.procedural_seed = get_procedural_seed()
 	var paths: Array[String] = []
 	var scored_indices: Array[int] = []
 
@@ -88,7 +88,8 @@ func build_save(data: ChunkSaveData) -> void:
 
 
 func apply_save(data: ChunkSaveData) -> void:
-	load_save_data(data.active_chunk_paths, data.scored_chunk_indices, data.chunk_selector_state)
+	set_procedural_seed(data.procedural_seed)
+	_load_save_data(data.active_chunk_paths, data.scored_chunk_indices, data.chunk_selector_state)
 
 
 func reset_data() -> void:
@@ -96,12 +97,12 @@ func reset_data() -> void:
 	_chunk_selector.reset()
 
 
-func load_save_data(active_chunk_paths: Array[String], scored_indices: Array[int], selector_state: Dictionary) -> void:
+func _load_save_data(active_chunk_paths: Array[String], scored_indices: Array[int], selector_state: Dictionary) -> void:
 	var parent_world: Node = get_tree().root.get_node("Main")
 
 	clear_level()
 
-	assert(_chunk_selector != null, "load_save_data called before metadata was loaded")
+	assert(_chunk_selector != null, "_load_save_data called before metadata was loaded")
 	_chunk_selector.load_save_state(selector_state)
 
 	assert(not active_chunk_paths.is_empty(), "Save contains no active chunks in " + name)
@@ -365,6 +366,8 @@ func _on_chunk_exit_reached(body: Node3D, passed_chunk: LevelChunk) -> void:
 # TODO This clearly doesn't pool >:(
 func _pool_chunk(chunk: LevelChunk) -> void:
 	_disconnect_chunk_trigger(chunk)
+	chunk.entrance_trigger.set_deferred("monitoring", false)
+	chunk.entrance_trigger.set_deferred("monitorable", false)
 	if chunk.has_meta("scored"):
 		chunk.remove_meta("scored")
 	chunk.queue_free()
