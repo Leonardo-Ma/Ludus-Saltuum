@@ -10,12 +10,14 @@ var _stat_targets: Dictionary = { }
 @onready var _shop_panel: Control = %ShopPanel
 @onready var _cards: Array[PanelContainer] = _collect_cards()
 
+var _economy_controller: EconomyController
+
 
 func _ready() -> void:
 	ControlledEntityEvents.player_finished_spawning.connect(_on_player_spawned)
-	EconomyManager.gold_updated.connect(_on_gold_updated)
-	_on_gold_updated(EconomyManager.gold)
+
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
+
 	_on_viewport_size_changed()
 
 #func _unhandled_key_input(event: InputEvent) -> void:
@@ -27,9 +29,13 @@ func _ready() -> void:
 #			MouseModeManager.release(&"shop")
 
 
-func _on_player_spawned(spawned_player: Node) -> void:
-	var player: PlayerEntity = spawned_player as PlayerEntity
+func _on_player_spawned(player: PlayerEntity) -> void:
+	_economy_controller = player.economy_controller
+	_economy_controller.gold_changed.connect(_on_gold_changed)
+
 	assert(player != null, "Invalid player node for Shop")
+
+	_economy_controller = player.economy_controller
 
 	_stat_targets = {
 		&"speed": player.movement,
@@ -38,6 +44,8 @@ func _on_player_spawned(spawned_player: Node) -> void:
 		&"max_health": player.health,
 		&"health_regen": player.health,
 	}
+
+	_refresh_affordability()
 
 	for card: PanelContainer in _cards:
 		var upgrade_card: PanelContainer = card as PanelContainer
@@ -50,24 +58,27 @@ func _on_player_spawned(spawned_player: Node) -> void:
 
 func _on_upgrade_requested(card: PanelContainer) -> void:
 	var upgrade_card: PanelContainer = card as PanelContainer
-	if EconomyManager.gold < upgrade_card.cost:
-		_set_status("Not enough gold! Need %d more." % (upgrade_card.cost - EconomyManager.gold), false)
+	if _economy_controller.gold < upgrade_card.cost:
+		_set_status("Not enough gold! Need %d more." % (upgrade_card.cost - _economy_controller.gold), false)
 		return
 
-	EconomyManager.remove_gold(upgrade_card.cost)
+	_economy_controller.remove_gold(upgrade_card.cost)
 	upgrade_card.apply_upgrade(int(ceil(upgrade_card.cost * COST_GROW)))
 	_refresh_affordability()
 	_set_status("%s upgraded! Now %s %s." % [upgrade_card.stat_name, upgrade_card.get_stat_value(), upgrade_card.unit], true)
 
 
-func _on_gold_updated(_new_gold: int) -> void:
+func _on_gold_changed(_new_gold: int) -> void:
 	_refresh_affordability()
 
 
 func _refresh_affordability() -> void:
+	if not is_instance_valid(_economy_controller):
+		return
+
 	for card: PanelContainer in _cards:
 		var upgrade_card: PanelContainer = card as PanelContainer
-		upgrade_card.set_affordable(EconomyManager.gold >= upgrade_card.cost)
+		upgrade_card.set_affordable(_economy_controller.gold >= upgrade_card.cost)
 
 
 func _set_status(msg: String, ok: bool) -> void:

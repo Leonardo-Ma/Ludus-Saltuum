@@ -36,6 +36,8 @@ var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var _all_chunks: Array[ChunkData] = []
 var _active_chunks: Array[LevelChunk] = []
 
+var _player: PlayerEntity
+
 var _chunk_selector: ChunkSelector
 var _chunk_exit_connections: Dictionary = { }
 
@@ -60,6 +62,7 @@ func _ready() -> void:
 	SaveManager.load_requested.connect(_on_load_requested)
 	SaveManager.reset_requested.connect(reset_data)
 	SaveManager.reset_finished.connect(initialize_level)
+	ControlledEntityEvents.player_finished_spawning.connect(_on_player_spawned)
 
 
 ## Try to fetch the global seed, else random
@@ -194,6 +197,8 @@ func _load_chunk_metadata_from_disk() -> void:
 
 ## Load chunks to be kept in memory, save them in active chunks
 func initialize_level() -> void:
+	_player = get_tree().get_first_node_in_group(Groups.PLAYERS)
+	assert(_player != null, "No player found for " + name)
 	var parent_world: Node = get_tree().root.get_node("Main")
 	assert(_all_chunks.size() > 0, "No chunks available in LevelManager AutoLoad " + self.name)
 	clear_level()
@@ -315,10 +320,9 @@ func _get_chunk_data_by_path(path: String) -> ChunkData:
 	return null
 
 
-func _get_player_skills() -> Array[StringName]:
-	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS)
-	assert(player != null, "Player missing in " + self.name)
-	return player.skills_controller.get_unlocked_ids()
+func _on_player_spawned(player: PlayerEntity) -> void:
+	_player = player
+	initialize_level.call_deferred()
 
 
 func _align_chunk_to_transform(chunk: LevelChunk, target_transform: Transform3D) -> void:
@@ -355,7 +359,7 @@ func _on_chunk_exit_reached(body: Node3D, passed_chunk: LevelChunk) -> void:
 		for data: ChunkData in _all_chunks:
 			if data.scene_path == chunk_path:
 				var total_score: int = roundi((data.difficulty_points + data.skill_points) * data.score_multiplier)
-				EconomyManager.add_score(total_score)
+				_player.economy_controller.add_score(total_score)
 				break
 
 	# Only start recycling after the configured start index
@@ -386,8 +390,8 @@ func _disconnect_chunk_trigger(chunk: LevelChunk) -> void:
 
 
 func _get_random_valid_chunk(target_transform: Transform3D) -> LevelChunk:
-	var unlocked_ids: Array[StringName] = _get_player_skills()
-	var chosen_data: ChunkData = _chunk_selector.select_chunk_data(target_transform, unlocked_ids, EconomyManager.score)
+	var unlocked_ids: Array[StringName] = _player.skills_controller.get_unlocked_ids()
+	var chosen_data: ChunkData = _chunk_selector.select_chunk_data(target_transform, unlocked_ids, _player.economy_controller.score)
 	var load_status: ResourceLoader.ThreadLoadStatus = ResourceLoader.load_threaded_get_status(chosen_data.scene_path)
 	var scene: PackedScene
 	if load_status == ResourceLoader.THREAD_LOAD_LOADED:

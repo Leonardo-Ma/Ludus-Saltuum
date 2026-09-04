@@ -5,7 +5,10 @@ extends Node
 
 var _default_spawn_transform: Transform3D
 
-@onready var player: PlayerEntity = owner as PlayerEntity
+@onready var player: PlayerEntity = owner
+
+@onready var skills_controller: SkillsController = %SkillsController
+@onready var economy_controller: EconomyController = %EconomyController
 
 
 func _ready() -> void:
@@ -20,12 +23,13 @@ func _ready() -> void:
 
 
 func build_save(data: PlayerSaveData) -> void:
-	data.score = EconomyManager.score
-	data.gold = EconomyManager.gold
+	data.health = clampi(player.health.current_health, 1, player.health.max_health)
+	data.unlocked_skill_ids = skills_controller.get_unlocked_ids()
+	data.score = economy_controller.score
+	data.gold = economy_controller.gold
+
 	data.easter_eggs_found = EasterEggManager.easter_eggs_found
 	data.found_easter_egg_names = []
-	data.health = clampi(player.health.current_health, 1, player.health.max_health)
-	data.unlocked_skill_ids = player.skills_controller.get_unlocked_ids()
 
 	# TODO Is this build or apply?
 	for egg: StringName in EasterEggManager.found_easter_eggs.keys():
@@ -36,10 +40,10 @@ func apply_save(data: PlayerSaveData) -> void:
 	player.health.current_health = data.health
 	player.skills_controller.set_unlocked_ids(data.unlocked_skill_ids)
 
-	EconomyManager.score = data.score
-	EconomyManager.gold = data.gold
-	EconomyManager.score_updated.emit(data.score)
-	EconomyManager.gold_updated.emit(data.gold)
+	economy_controller.score = data.score
+	economy_controller.gold = data.gold
+	economy_controller.score_changed.emit(data.score)
+	economy_controller.gold_changed.emit(data.gold)
 
 	EasterEggManager.easter_eggs_found = data.easter_eggs_found
 	EasterEggManager.found_easter_eggs.clear()
@@ -55,10 +59,10 @@ func reset_data() -> void:
 	player.velocity = Vector3.ZERO
 	player.global_transform = _default_spawn_transform
 
-	EconomyManager.score = 0
-	EconomyManager.gold = 0
-	EconomyManager.score_updated.emit(EconomyManager.score)
-	EconomyManager.gold_updated.emit(EconomyManager.gold)
+	economy_controller.score = 0
+	economy_controller.gold = 0
+	economy_controller.score_changed.emit(economy_controller.score)
+	economy_controller.gold_changed.emit(economy_controller.gold)
 
 	EasterEggManager.easter_eggs_found = 0
 	EasterEggManager.found_easter_eggs.clear()

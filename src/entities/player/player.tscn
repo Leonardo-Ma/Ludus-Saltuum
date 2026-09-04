@@ -29,6 +29,7 @@
 [ext_resource type="Script" uid="uid://bll0orhps41m6" path="res://src/entities/components/combat/knockback_controller.gd" id="28_voi68"]
 [ext_resource type="Script" uid="uid://ck5x1bx5lem3y" path="res://src/entities/player/controller/player_save_controller.gd" id="29_2cmg6"]
 [ext_resource type="Script" uid="uid://iyeemya81j8m" path="res://src/entities/player/skills/skills_controller.gd" id="29_skills"]
+[ext_resource type="Script" uid="uid://biwfa126u8fpm" path="res://src/entities/player/controller/economy_controller.gd" id="30_snams"]
 [ext_resource type="Script" uid="uid://cpusxg43clwxv" path="res://src/entities/player/controller/vfx_controller.gd" id="31_gxh5t"]
 [ext_resource type="Script" uid="uid://5or2vf5kpdix" path="res://src/entities/player/components/vehicle_rider.gd" id="32_vehiclerider"]
 [ext_resource type="Script" uid="uid://bkp1xy01pk8yn" path="res://src/entities/player/components/portal_controller.gd" id="33_portalcontroller"]
@@ -940,6 +941,10 @@ script = ExtResource("33_portalcontroller")
 [node name="PlayerSaveController" type="Node" parent="Controllers" unique_id=1311394959]
 unique_name_in_owner = true
 script = ExtResource("29_2cmg6")
+
+[node name="EconomyController" type="Node" parent="Controllers" unique_id=1842982480]
+unique_name_in_owner = true
+script = ExtResource("30_snams")
 
 [node name="Status" type="Node" parent="." unique_id=1830557303]
 

@@ -2,18 +2,24 @@
 extends HBoxContainer
 
 var _current_gold: int = 0
+var _economy_controller: EconomyController
 
 @onready var _gold_label: Label = %GoldCounter as Label
 @onready var _gold_icon: TextureRect = %GoldIcon as TextureRect
 
 
-func _ready() -> void:
-	_current_gold = EconomyManager.gold
-	EconomyManager.gold_updated.connect(_on_gold_updated)
+func setup(economy_controller: EconomyController) -> void:
+	_economy_controller = economy_controller
+
+	_current_gold = _economy_controller.gold
+
+	if not _economy_controller.gold_changed.is_connected(_on_gold_changed):
+		_economy_controller.gold_changed.connect(_on_gold_changed)
+
 	_update_ui(_current_gold)
 
 
-func _on_gold_updated(new_gold: int) -> void:
+func _on_gold_changed(new_gold: int) -> void:
 	var gold_diff: int = new_gold - _current_gold
 	_current_gold = new_gold
 	_update_ui(new_gold)

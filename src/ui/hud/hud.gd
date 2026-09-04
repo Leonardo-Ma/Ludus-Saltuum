@@ -3,10 +3,23 @@ extends Control
 @onready var skills_panel: VBoxContainer = %SkillsPanel
 @onready var player_healthbar: ProgressBar = %PlayerHealthbar
 @onready var power_ups: MarginContainer = %PowerUps
+@onready var score: HBoxContainer = %Score
+@onready var gold: HBoxContainer = %Gold
 
 
 func _ready() -> void:
-	GameplayStateManager.gameplay_mode_changed.connect(_on_gameplay_changed)
+	ControlledEntityEvents.player_finished_spawning.connect(_on_player_finished_spawning)
+
+
+func _on_player_finished_spawning(player: PlayerEntity) -> void:
+	gold.setup(player.economy_controller)
+	score.setup(player.economy_controller)
+
+
+func setup(player: PlayerEntity) -> void:
+	gold.setup(player.economy_controller)
+	score.setup(player.economy_controller)
+	player_healthbar.setup(player)
 
 
 @warning_ignore("unused_parameter")

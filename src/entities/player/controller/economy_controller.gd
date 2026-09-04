@@ -1,7 +1,9 @@
+## Score and gold
+class_name EconomyController
 extends Node
 
-signal score_updated(new_score: int)
-signal gold_updated(new_total: int)
+signal score_changed(new_score: int)
+signal gold_changed(new_gold: int)
 
 var score: int = 0
 var gold: int = 0
@@ -13,19 +15,17 @@ func _ready() -> void:
 
 func add_score(points: int) -> void:
 	score += points
-	score_updated.emit(score)
+	score_changed.emit(score)
 
 
 func remove_score(points: int) -> void:
-	score -= points
-	if score <= 0:
-		score = 0
-	score_updated.emit(score)
+	score = maxi(0, score - points)
+	score_changed.emit(score)
 
 
 func add_gold(amount: int) -> void:
 	gold += amount
-	gold_updated.emit(gold)
+	gold_changed.emit(gold)
 
 
 ## Returns false if insufficient gold
@@ -33,7 +33,7 @@ func remove_gold(amount: int) -> bool:
 	if gold < amount:
 		return false
 	gold -= amount
-	gold_updated.emit(gold)
+	gold_changed.emit(gold)
 	return true
 
 

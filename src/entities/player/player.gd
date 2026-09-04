@@ -7,11 +7,12 @@ extends AggressiveEntity
 @onready var camera_controller: CameraController = %CamRoot
 @onready var movement_controller: MovementController = %MovementController
 @onready var input_controller: InputController = %InputController
-@onready var skills_controller: SkillsController = %SkillsController
 
+@onready var player_save_controller: PlayerSaveController = %PlayerSaveController
+@onready var skills_controller: SkillsController = %SkillsController
 @onready var vehicle_rider: VehicleRider = %VehicleRider
 @onready var portal_controller: PortalController = %PortalController
-@onready var player_save_controller: PlayerSaveController = %PlayerSaveController
+@onready var economy_controller: EconomyController = %EconomyController
 
 
 func _physics_process(delta: float) -> void:
@@ -123,7 +124,7 @@ func _on_attack_pressed() -> void:
 
 
 func _on_death_complete() -> void:
-	EconomyManager.remove_score(10)
+	economy_controller.remove_score(10)
 	ControlledEntityEvents.request_respawn(2.0, CheckpointManager.get_respawn_transform(), true)
 
 

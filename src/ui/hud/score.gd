@@ -2,18 +2,24 @@
 extends HBoxContainer
 
 var _current_score: int = 0
+var _economy_controller: EconomyController
 
 @onready var _score_label: Label = %ScoreCounter as Label
 @onready var _score_icon: TextureRect = %ScoreIcon as TextureRect
 
 
-func _ready() -> void:
-	_current_score = EconomyManager.score
-	EconomyManager.score_updated.connect(_on_score_updated)
+func setup(economy_controller: EconomyController) -> void:
+	_economy_controller = economy_controller
+
+	_current_score = _economy_controller.score
+
+	if not _economy_controller.score_changed.is_connected(_on_score_changed):
+		_economy_controller.score_changed.connect(_on_score_changed)
+
 	_update_ui(_current_score)
 
 
-func _on_score_updated(new_score: int) -> void:
+func _on_score_changed(new_score: int) -> void:
 	var score_diff: int = new_score - _current_score
 	_current_score = new_score
 	_update_ui(new_score)
