@@ -7,8 +7,9 @@ extends CollectibleData
 
 
 func apply_effect(_player: PlayerEntity) -> void:
-	assert(definition != null, "SkillCollectible: definition is null in " + definition.get_id())
+	assert(definition != null, "SkillCollectible: definition is null in " + definition.id)
 	_player.skills_controller.unlock(definition)
+	CollectiblesEvents.skill_collected.emit(definition)
 
 
 func _resource_to_validate() -> Resource:

@@ -11,7 +11,7 @@ const _SECTION: String = "unlocked"
 # TODO Should not be hardcoded
 const _ALL_SKILL_IDS: Array[StringName] = [&"dash", &"double_jump"] #, &"feather_fall"]
 
-var _by_key: Dictionary = { } # Dictionary[StringName, AchievementDefinition]
+var _achievement_keys: Dictionary = { } # Dictionary[StringName, AchievementDefinition]
 var _unlocked: Dictionary = { } # Dictionary[StringName, bool]
 
 var _economy_controller: EconomyController
@@ -29,14 +29,15 @@ func _ready() -> void:
 
 	for definition: AchievementDefinition in data.definitions:
 		assert(definition.key != &"", "Achievements: a definition has an empty key in " + name)
-		_by_key[definition.key] = definition
+		_achievement_keys[definition.key] = definition
 
 	_load()
 
 	ControlledEntityEvents.player_finished_spawning.connect(_on_player_spawned)
 
-	CollectiblesEvents.status_buff_collected.connect(
-		func(_e: StatusEffect, _i: Texture2D) -> void:
+	@warning_ignore("unused_parameter")
+	CollectiblesEvents.skill_collected.connect(
+		func(skill_definition: SkillDefinition) -> void:
 			_check_skill_completion(),
 	)
 
@@ -120,7 +121,7 @@ func get_steam_icon(key: StringName) -> Texture2D:
 func get_all_keys() -> Array[StringName]:
 	var keys: Array[StringName] = []
 
-	for key: StringName in _by_key:
+	for key: StringName in _achievement_keys:
 		keys.append(key)
 
 	return keys
@@ -153,9 +154,9 @@ func _compare_unlock_priority(a: StringName, b: StringName) -> bool:
 
 
 func _get_definition(key: StringName) -> AchievementDefinition:
-	assert(_by_key.has(key), "Achievements: unknown key '%s' in %s. Check AchievementRegistryData list" % [key, name])
+	assert(_achievement_keys.has(key), "Achievements: unknown key '%s' in %s. Check AchievementRegistryData list" % [key, name])
 
-	return _by_key[key]
+	return _achievement_keys[key]
 
 #endregion
 
