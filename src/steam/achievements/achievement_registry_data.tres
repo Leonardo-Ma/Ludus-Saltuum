@@ -8,8 +8,9 @@
 [ext_resource type="Resource" uid="uid://b8cy72edy7g6p" path="res://src/steam/achievements/definitions/score_2000.tres" id="5_kopsy"]
 [ext_resource type="Resource" uid="uid://c285pwbysem8r" path="res://src/steam/achievements/definitions/score_10000.tres" id="6_q04fw"]
 [ext_resource type="Resource" uid="uid://5lpj4d1afxty" path="res://src/steam/achievements/definitions/first_easter_egg.tres" id="7_kopsy"]
+[ext_resource type="Resource" uid="uid://p6j3o4yq4w2a" path="res://src/steam/achievements/definitions/all_skills.tres" id="8_q04fw"]
 
 [resource]
 script = ExtResource("2_3rx86")
-definitions = Array[ExtResource("1_oghpr")]([ExtResource("2_gtumx"), ExtResource("3_4ifc3"), ExtResource("4_k76g5"), ExtResource("5_kopsy"), ExtResource("6_q04fw"), ExtResource("7_kopsy")])
+definitions = Array[ExtResource("1_oghpr")]([ExtResource("2_gtumx"), ExtResource("3_4ifc3"), ExtResource("4_k76g5"), ExtResource("5_kopsy"), ExtResource("6_q04fw"), ExtResource("7_kopsy"), ExtResource("8_q04fw")])
 metadata/_custom_type_script = "uid://btiku606u1tw3"
