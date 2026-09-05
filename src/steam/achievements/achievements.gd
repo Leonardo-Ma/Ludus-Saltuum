@@ -16,6 +16,7 @@ var _unlocked: Dictionary = { } # Dictionary[StringName, bool]
 
 var _economy_controller: EconomyController
 var _skills_controller: SkillsController
+var _easter_egg_controller: EasterEggController
 var _score: int = 0
 
 
@@ -32,7 +33,6 @@ func _ready() -> void:
 
 	_load()
 
-	EasterEggManager.easter_egg_found.connect(_on_easter_egg_found)
 	ControlledEntityEvents.player_finished_spawning.connect(_on_player_spawned)
 
 	CollectiblesEvents.status_buff_collected.connect(
@@ -42,16 +42,20 @@ func _ready() -> void:
 
 
 func unlock(key: StringName) -> void:
+	print_debug("Trying to unlock " + key + " achievement")
 	var definition: AchievementDefinition = _get_definition(key)
 
 	if not _unlocked.get(key, false):
 		_unlocked[key] = true
 		_save()
 		achievement_unlocked.emit(key)
+		print_debug("Unlocked achievement  " + key)
 
+	# TODO Move this to steam specific script
 	if Steam.isSteamRunning():
 		Steam.setAchievement(definition.steam_api_name)
 		Steam.storeStats()
+		print_debug("Unlocked achievement  " + key + " on steam")
 
 #region Getters
 
@@ -160,6 +164,8 @@ func _get_definition(key: StringName) -> AchievementDefinition:
 func _on_player_spawned(player: PlayerEntity) -> void:
 	_economy_controller = player.economy_controller
 	_skills_controller = player.skills_controller
+	_easter_egg_controller = player.easter_egg_controller
+	_easter_egg_controller.found.connect(_on_easter_egg_found)
 
 	if not _economy_controller.score_changed.is_connected(_on_score_changed):
 		_economy_controller.score_changed.connect(_on_score_changed)
@@ -198,8 +204,8 @@ func _check_skill_completion() -> void:
 		unlock(&"all_skills")
 
 
-func _on_easter_egg_found(_easter_egg_name: StringName) -> void:
-	var easter_eggs_found: int = EasterEggManager.easter_eggs_found
+func _on_easter_egg_found(_easter_egg_name: EasterEgg.Name) -> void:
+	var easter_eggs_found: int = _easter_egg_controller.easter_eggs_found
 
 	if easter_eggs_found >= 1:
 		unlock(&"first_easter_egg")
@@ -231,4 +237,5 @@ func _load() -> void:
 	for key: String in config.get_section_keys(_SECTION):
 		_unlocked[StringName(key)] = config.get_value(_SECTION, key, false)
 
+# TODO Add a reset achievements that is tied to save and doesn't impact steam
 #endregion

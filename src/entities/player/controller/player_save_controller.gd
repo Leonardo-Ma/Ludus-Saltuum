@@ -9,6 +9,7 @@ var _default_spawn_transform: Transform3D
 
 @onready var skills_controller: SkillsController = %SkillsController
 @onready var economy_controller: EconomyController = %EconomyController
+@onready var easter_egg_controller: EasterEggController = %EasterEggController
 
 
 func _ready() -> void:
@@ -24,15 +25,17 @@ func _ready() -> void:
 
 func build_save(data: PlayerSaveData) -> void:
 	data.health = clampi(player.health.current_health, 1, player.health.max_health)
+
 	data.unlocked_skill_ids = skills_controller.get_unlocked_ids()
+
 	data.score = economy_controller.score
 	data.gold = economy_controller.gold
 
-	data.easter_eggs_found = EasterEggManager.easter_eggs_found
+	data.easter_eggs_found = easter_egg_controller.easter_eggs_found
 	data.found_easter_egg_names = []
 
 	# TODO Is this build or apply?
-	for egg: StringName in EasterEggManager.found_easter_eggs.keys():
+	for egg: EasterEgg.Name in easter_egg_controller.found_easter_eggs.keys():
 		data.found_easter_egg_names.append(egg)
 
 
@@ -45,11 +48,11 @@ func apply_save(data: PlayerSaveData) -> void:
 	economy_controller.score_changed.emit(data.score)
 	economy_controller.gold_changed.emit(data.gold)
 
-	EasterEggManager.easter_eggs_found = data.easter_eggs_found
-	EasterEggManager.found_easter_eggs.clear()
+	easter_egg_controller.easter_eggs_found = data.easter_eggs_found
+	easter_egg_controller.found_easter_eggs.clear()
 
-	for egg: StringName in data.found_easter_egg_names:
-		EasterEggManager.found_easter_eggs[egg] = true
+	for egg: EasterEgg.Name in data.found_easter_egg_names:
+		easter_egg_controller.found_easter_eggs[egg] = true
 
 
 func reset_data() -> void:
@@ -64,5 +67,5 @@ func reset_data() -> void:
 	economy_controller.score_changed.emit(economy_controller.score)
 	economy_controller.gold_changed.emit(economy_controller.gold)
 
-	EasterEggManager.easter_eggs_found = 0
-	EasterEggManager.found_easter_eggs.clear()
+	easter_egg_controller.easter_eggs_found = 0
+	easter_egg_controller.found_easter_eggs.clear()

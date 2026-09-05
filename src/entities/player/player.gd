@@ -13,6 +13,7 @@ extends AggressiveEntity
 @onready var vehicle_rider: VehicleRider = %VehicleRider
 @onready var portal_controller: PortalController = %PortalController
 @onready var economy_controller: EconomyController = %EconomyController
+@onready var easter_egg_controller: EasterEggController = %EasterEggController
 
 
 func _physics_process(delta: float) -> void:
