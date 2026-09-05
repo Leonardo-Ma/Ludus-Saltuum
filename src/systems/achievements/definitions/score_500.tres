@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://7o27to2kkob1" path="res://src/art_assets/achievements/500_score_locked.png" id="1_jls8e"]
 [ext_resource type="Texture2D" uid="uid://cbi2q76y54426" path="res://src/art_assets/achievements/500_score_unlocked.png" id="2_yh5gp"]
-[ext_resource type="Script" uid="uid://b2cu8elnnkiw1" path="res://src/steam/achievements/achievement_definition.gd" id="3_tvoll"]
+[ext_resource type="Script" uid="uid://b2cu8elnnkiw1" path="res://src/systems/achievements/achievement_definition.gd" id="3_tvoll"]
 
 [resource]
 script = ExtResource("3_tvoll")

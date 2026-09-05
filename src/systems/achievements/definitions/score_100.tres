@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="AchievementDefinition" format=3 uid="uid://dn4ujn1u8vkpb"]
 
 [ext_resource type="Texture2D" uid="uid://boekm47mclflb" path="res://src/art_assets/achievements/100_score_locked.png" id="1_53r1h"]
-[ext_resource type="Script" uid="uid://b2cu8elnnkiw1" path="res://src/steam/achievements/achievement_definition.gd" id="1_m67hm"]
+[ext_resource type="Script" uid="uid://b2cu8elnnkiw1" path="res://src/systems/achievements/achievement_definition.gd" id="1_m67hm"]
 [ext_resource type="Texture2D" uid="uid://12tgpdhb1pe5" path="res://src/art_assets/achievements/100_score_unlocked.png" id="1_pd2c2"]
 
 [resource]

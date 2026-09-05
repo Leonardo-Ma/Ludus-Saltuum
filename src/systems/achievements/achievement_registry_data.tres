@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="AchievementRegistryData" format=3 uid="uid://rvm76nrub6ue"]
+
+[ext_resource type="Script" uid="uid://b2cu8elnnkiw1" path="res://src/systems/achievements/achievement_definition.gd" id="1_iaumu"]
+[ext_resource type="Resource" uid="uid://b4evvcm6pwyxc" path="res://src/systems/achievements/definitions/first_run.tres" id="2_52sgm"]
+[ext_resource type="Resource" uid="uid://dn4ujn1u8vkpb" path="res://src/systems/achievements/definitions/score_100.tres" id="3_mrk03"]
+[ext_resource type="Resource" uid="uid://bblnacqf82b1q" path="res://src/systems/achievements/definitions/score_500.tres" id="4_usdqb"]
+[ext_resource type="Resource" uid="uid://b8cy72edy7g6p" path="res://src/systems/achievements/definitions/score_2000.tres" id="5_er3f2"]
+[ext_resource type="Resource" uid="uid://c285pwbysem8r" path="res://src/systems/achievements/definitions/score_10000.tres" id="6_agd6f"]
+[ext_resource type="Resource" uid="uid://5lpj4d1afxty" path="res://src/systems/achievements/definitions/first_easter_egg.tres" id="7_20er3"]
+[ext_resource type="Resource" uid="uid://p6j3o4yq4w2a" path="res://src/systems/achievements/definitions/all_skills.tres" id="8_twi51"]
+[ext_resource type="Script" uid="uid://btiku606u1tw3" path="res://src/systems/achievements/achievement_registry_data.gd" id="9_pfh12"]
+
+[resource]
+script = ExtResource("9_pfh12")
+definitions = Array[ExtResource("1_iaumu")]([ExtResource("2_52sgm"), ExtResource("3_mrk03"), ExtResource("4_usdqb"), ExtResource("5_er3f2"), ExtResource("6_agd6f"), ExtResource("7_20er3"), ExtResource("8_twi51")])
+metadata/_custom_type_script = "uid://btiku606u1tw3"

@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://2yhtdcf0bebw" path="res://src/art_assets/achievements/first_easter_egg_locked.png" id="1_pggu3"]
 [ext_resource type="Texture2D" uid="uid://5x5xfc2h212h" path="res://src/art_assets/achievements/first_easter_egg_unlocked.png" id="2_fxnq3"]
-[ext_resource type="Script" uid="uid://b2cu8elnnkiw1" path="res://src/steam/achievements/achievement_definition.gd" id="3_3fys4"]
+[ext_resource type="Script" uid="uid://b2cu8elnnkiw1" path="res://src/systems/achievements/achievement_definition.gd" id="3_3fys4"]
 
 [resource]
 script = ExtResource("3_3fys4")

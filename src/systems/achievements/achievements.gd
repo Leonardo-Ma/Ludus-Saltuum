@@ -4,8 +4,7 @@ extends Node
 
 signal achievement_unlocked(key: StringName)
 
-# TODO Remove hardcoded path
-const _DATA_PATH: StringName = &"res://src/steam/achievements/achievement_registry_data.tres"
+const ACHIEVEMENT_REGISTRY_DATA: AchievementRegistryData = preload("uid://rvm76nrub6ue")
 const _SAVE_PATH: String = "user://achievements.cfg"
 const _SECTION: String = "unlocked"
 # TODO Should not be hardcoded
@@ -24,7 +23,7 @@ func _ready() -> void:
 	if OS.has_feature("demo"):
 		return
 
-	var data: AchievementRegistryData = load(_DATA_PATH)
+	var data: AchievementRegistryData = ACHIEVEMENT_REGISTRY_DATA
 	assert(data != null, "Achievements: achievement_registry_data.tres not found in " + name)
 
 	for definition: AchievementDefinition in data.definitions:
@@ -63,6 +62,7 @@ func unlock(key: StringName) -> void:
 func is_unlocked(key: StringName) -> bool:
 	var definition: AchievementDefinition = _get_definition(key)
 
+	# TODO Move this to steam specific script
 	if Steam.isSteamRunning():
 		var result: Dictionary = Steam.getAchievement(definition.steam_api_name)
 		if result.get("ret", false):
