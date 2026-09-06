@@ -27,10 +27,13 @@ var _auto_timer: Timer
 
 var _active_slot_index: int = -1
 
-var _cloud_backend: CloudSaveBackend = SteamCloudSaveBackend.new()
+var _cloud_backend: CloudSaveBackend
 
 
 func _ready() -> void:
+	# TODO Move somewhere else
+	configure_cloud_backend(SteamCloudSaveBackend.new())
+
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	DirAccess.make_dir_recursive_absolute(SAVE_DIR)
 	get_tree().set_auto_accept_quit(false)
@@ -50,6 +53,10 @@ func _ready() -> void:
 	# Saves to quick slot upon pause and quit
 	ApplicationStateManager.gameplay_paused.connect(_on_gameplay_paused)
 	ApplicationStateManager.quit_requested.connect(_on_quit_requested)
+
+
+func configure_cloud_backend(backend: CloudSaveBackend) -> void:
+	_cloud_backend = backend
 
 
 func reset_save(slot_index: int) -> void:
