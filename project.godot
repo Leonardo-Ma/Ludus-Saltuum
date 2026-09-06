@@ -50,6 +50,9 @@ CheckpointManager="*uid://cimfiv457vauf"
 
 [debug]
 
+gdscript/warnings/directory_rules={
+"res://addons": 1
+}
 gdscript/warnings/untyped_declaration=1
 gdscript/warnings/inferred_declaration=1
 gdscript/warnings/missing_await=1
