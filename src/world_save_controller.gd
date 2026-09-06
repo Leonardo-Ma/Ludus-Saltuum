@@ -12,39 +12,39 @@ var _killed_enemy_positions: Array[Vector3] = []
 func _ready() -> void:
 	CollectiblesEvents.collectible_consumed.connect(_on_collectible_consumed)
 	CombatEvents.enemy_killed.connect(_on_enemy_killed)
-	ApplicationStateManager.main_menu_requested.connect(reset_data)
+	ApplicationStateManager.main_menu_requested.connect(reset_save_data)
 
 	SaveManager.save_requested.connect(
 		func(data: SaveData) -> void:
-			build_save(data.world),
+			build_save_data(data.world),
 	)
 	SaveManager.load_requested.connect(_on_load_requested)
-	SaveManager.reset_requested.connect(reset_data)
+	SaveManager.reset_requested.connect(reset_save_data)
 
 
 ## Builds world data for saving
 ## @param data WorldSaveData resource to populate
-func build_save(data: WorldSaveData) -> void:
+func build_save_data(data: WorldSaveData) -> void:
 	data.collected_collectible_positions = _consumed_collectible_positions.duplicate()
 	data.killed_enemy_positions = _killed_enemy_positions.duplicate()
 
 
 ## Applies world data when loading a save
 ## @param data WorldSaveData resource to apply
-func apply_save(data: WorldSaveData) -> void:
+func apply_save_data(data: WorldSaveData) -> void:
 	_consumed_collectible_positions = data.collected_collectible_positions.duplicate()
 	_killed_enemy_positions = data.killed_enemy_positions.duplicate()
 	_disable_killed_enemies.call_deferred()
 	_disable_consumed_collectibles.call_deferred()
 
 
-func reset_data() -> void:
+func reset_save_data() -> void:
 	_consumed_collectible_positions.clear()
 	_killed_enemy_positions.clear()
 
 
 func _on_load_requested(data: SaveData) -> void:
-	apply_save(data.world)
+	apply_save_data(data.world)
 
 
 func _on_collectible_consumed(pos: Vector3) -> void:

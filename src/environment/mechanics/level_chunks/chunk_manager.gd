@@ -57,10 +57,10 @@ func _ready() -> void:
 
 	SaveManager.save_requested.connect(
 		func(data: SaveData) -> void:
-			build_save(data.chunks),
+			build_save_data(data.chunks),
 	)
 	SaveManager.load_requested.connect(_on_load_requested)
-	SaveManager.reset_requested.connect(reset_data)
+	SaveManager.reset_requested.connect(reset_save_data)
 	SaveManager.reset_finished.connect(initialize_level)
 	ControlledEntityEvents.player_finished_spawning.connect(_on_player_spawned)
 
@@ -74,7 +74,7 @@ func get_procedural_seed() -> int:
 	return procedural_seed
 
 #region Saving and Loading
-func build_save(data: ChunkSaveData) -> void:
+func build_save_data(data: ChunkSaveData) -> void:
 	data.procedural_seed = get_procedural_seed()
 	var paths: Array[String] = []
 	var scored_indices: Array[int] = []
@@ -90,12 +90,12 @@ func build_save(data: ChunkSaveData) -> void:
 	data.chunk_selector_state = _chunk_selector.get_save_state()
 
 
-func apply_save(data: ChunkSaveData) -> void:
+func apply_save_data(data: ChunkSaveData) -> void:
 	set_procedural_seed(data.procedural_seed)
 	_load_save_data(data.active_chunk_paths, data.scored_chunk_indices, data.chunk_selector_state)
 
 
-func reset_data() -> void:
+func reset_save_data() -> void:
 	clear_level()
 	_chunk_selector.reset()
 
@@ -412,5 +412,5 @@ func _sync_chunk_spawn_positions(chunk: LevelChunk) -> void:
 
 
 func _on_load_requested(data: SaveData) -> void:
-	apply_save(data.chunks)
+	apply_save_data(data.chunks)
 	level_loaded.emit(data.checkpoint)

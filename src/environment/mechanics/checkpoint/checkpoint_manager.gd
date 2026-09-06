@@ -2,7 +2,7 @@ extends Node
 
 signal checkpoint_activated(checkpoint_position: Vector3)
 signal checkpoint_loaded(checkpoint_position: Vector3) # TODO Check if refactor needed elsewhere to use this instead
-## Unconditional, fires at the end of apply_save() regardless of a valid checkpoint
+## Unconditional, fires at the end of apply_save_data() regardless of a valid checkpoint
 signal load_applied
 
 var _active_checkpoint: Checkpoint = null
@@ -16,14 +16,14 @@ func _ready() -> void:
 
 	SaveManager.save_requested.connect(
 		func(data: SaveData) -> void:
-			build_save(data.checkpoint),
+			build_save_data(data.checkpoint),
 	)
 	LevelChunkManager.level_loaded.connect(_on_level_loaded)
 	SaveManager.reset_requested.connect(reset_checkpoint)
 
 
 func _on_level_loaded(data: CheckpointSaveData) -> void:
-	apply_save(data)
+	apply_save_data(data)
 
 
 # TODO Improve this
@@ -115,7 +115,7 @@ func get_default_spawn_position() -> Vector3:
 	return get_default_spawn_transform().origin
 
 #region Save and Load
-func build_save(data: CheckpointSaveData) -> void:
+func build_save_data(data: CheckpointSaveData) -> void:
 	data.has_checkpoint_position = _has_valid_position
 
 	if not data.has_checkpoint_position:
@@ -125,7 +125,7 @@ func build_save(data: CheckpointSaveData) -> void:
 	data.checkpoint_local_transform = _checkpoint_local_transform
 
 
-func apply_save(data: CheckpointSaveData) -> void:
+func apply_save_data(data: CheckpointSaveData) -> void:
 	if not data.has_checkpoint_position:
 		reset_checkpoint()
 		load_applied.emit()

@@ -52,7 +52,7 @@ func _ready() -> void:
 	ApplicationStateManager.quit_requested.connect(_on_quit_requested)
 
 
-func reset_data_for_new_game(slot_index: int) -> void:
+func reset_save(slot_index: int) -> void:
 	_active_slot_index = slot_index
 	_next_auto_slot = 0
 	reset_requested.emit()
@@ -154,7 +154,7 @@ func _write_slot(slot_index: int, is_auto: bool, force: bool = false) -> bool:
 	if not _can_save(force):
 		return false
 
-	var data: SaveData = _build_save(slot_index, is_auto)
+	var data: SaveData = _build_save_data(slot_index, is_auto)
 	if not _persist_slot(slot_index, data):
 		return false
 
@@ -219,7 +219,7 @@ func _persist_slot(slot_index: int, data: SaveData) -> bool:
 	return true
 
 
-func _build_save(slot_index: int, is_auto: bool) -> SaveData:
+func _build_save_data(slot_index: int, is_auto: bool) -> SaveData:
 	var data: SaveData = SaveData.new()
 	data.save_version = CURRENT_SAVE_VERSION
 	data.slot_index = slot_index

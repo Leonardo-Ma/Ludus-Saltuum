@@ -17,13 +17,13 @@ func _ready() -> void:
 	_default_spawn_transform = player.global_transform
 	SaveManager.save_requested.connect(
 		func(data: SaveData) -> void:
-			build_save(data.player),
+			build_save_data(data.player),
 	)
 	# Loading is triggered by game load manager
-	SaveManager.reset_requested.connect(reset_data)
+	SaveManager.reset_requested.connect(reset_save_data)
 
 
-func build_save(data: PlayerSaveData) -> void:
+func build_save_data(data: PlayerSaveData) -> void:
 	data.health = clampi(player.health.current_health, 1, player.health.max_health)
 
 	data.unlocked_skill_ids = skills_controller.get_unlocked_ids()
@@ -39,7 +39,7 @@ func build_save(data: PlayerSaveData) -> void:
 		data.found_easter_egg_names.append(egg)
 
 
-func apply_save(data: PlayerSaveData) -> void:
+func apply_save_data(data: PlayerSaveData) -> void:
 	player.health.current_health = data.health
 	player.skills_controller.set_unlocked_ids(data.unlocked_skill_ids)
 
@@ -55,7 +55,7 @@ func apply_save(data: PlayerSaveData) -> void:
 		easter_egg_controller.found_easter_eggs[egg] = true
 
 
-func reset_data() -> void:
+func reset_save_data() -> void:
 	player.health.reset()
 	player.skills_controller.reset()
 

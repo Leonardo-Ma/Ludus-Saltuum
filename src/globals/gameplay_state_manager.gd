@@ -31,7 +31,7 @@ func _ready() -> void:
 	if _app_state_manager.is_in_state(ApplicationStateManager.GameState.PLAYING):
 		_on_application_state_entered_playing()
 
-	SaveManager.reset_requested.connect(reset_data)
+	SaveManager.reset_requested.connect(reset_save_data)
 
 
 func _process(delta: float) -> void:
@@ -47,7 +47,7 @@ func set_play_time(seconds: float) -> void:
 
 #endregion
 
-func reset_data() -> void:
+func reset_save_data() -> void:
 	set_play_time(0.0)
 
 

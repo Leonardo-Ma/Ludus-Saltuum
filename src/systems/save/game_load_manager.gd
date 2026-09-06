@@ -42,7 +42,7 @@ func _try_finish_load() -> void:
 	if _player == null or not _load_applied:
 		return
 
-	_player.player_save_controller.apply_save(_pending_player_data)
+	_player.player_save_controller.apply_save_data(_pending_player_data)
 
 	if CheckpointManager.has_active_checkpoint():
 		_player.global_transform = CheckpointManager.get_respawn_transform()

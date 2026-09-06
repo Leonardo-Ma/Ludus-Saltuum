@@ -37,7 +37,7 @@ func _on_save_file_item_play_requested(slot_index: int) -> void:
 	if SaveManager.has_save(slot_index):
 		SaveManager.load_from_slot(slot_index)
 	else:
-		SaveManager.reset_data_for_new_game(slot_index)
+		SaveManager.reset_save(slot_index)
 
 	ApplicationStateManager.request_play_from_save()
 
