@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://bneqpm1wdlci3" path="res://src/environment/levels/assets/platforms/moving_plaforms/moving_platform_orange.tscn" id="9_oo8pe"]
 [ext_resource type="Script" uid="uid://bp3xqcivcfioc" path="res://tests/test_input_binding_manager.gd" id="9_psyko"]
 [ext_resource type="PackedScene" uid="uid://dv5rl3uuwysj8" path="res://src/environment/assets/kenney_city_kit_roads/scenes/straight.tscn" id="9_vr1i5"]
+[ext_resource type="Script" uid="uid://b5mgnr7b8dgc2" path="res://tests/test_perception_system.gd" id="10_bud03"]
 [ext_resource type="PackedScene" uid="uid://c32lde0fr367t" path="res://src/environment/levels/assets/interactable/portal/portal.tscn" id="13_4gito"]
 [ext_resource type="PackedScene" uid="uid://cfm0nge5vjc0d" path="res://src/environment/levels/assets/collectibles/unlock_skill/unlock_skill.tscn" id="19_jlvjc"]
 [ext_resource type="PackedScene" uid="uid://bgrkv1kk52j1t" path="res://src/environment/levels/assets/collectibles/gigantify/gigantify.tscn" id="19_n72yh"]
@@ -76,8 +77,11 @@ script = ExtResource("7_gk0a1")
 [node name="ChunkSelector" type="Node" parent="UnitTestAutomaticScripts" unique_id=1529381063]
 script = ExtResource("8_yw10t")
 
-[node name="test_input_binding_manager" type="Node" parent="UnitTestAutomaticScripts" unique_id=1041043935]
+[node name="InputBindingManager" type="Node" parent="UnitTestAutomaticScripts" unique_id=1041043935]
 script = ExtResource("9_psyko")
+
+[node name="PerceptionSystem" type="Node" parent="UnitTestAutomaticScripts" unique_id=2093061917]
+script = ExtResource("10_bud03")
 
 [node name="GrassPlatform" parent="." unique_id=537577895 instance=ExtResource("4_8pr8v")]
 
