@@ -58,7 +58,7 @@ Strictly follows [Godot's recommended code style guidelines](https://docs.godote
 
 <!-- TODO Finish this (Make it friendly for first time developers) -->
 # Developing
-### Dependencies:
+#### Dependencies:
 
 - [Godot 4](https://godotengine.org/)
 - [Git](https://git-scm.com/)
@@ -73,15 +73,14 @@ Strictly follows [Godot's recommended code style guidelines](https://docs.godote
 
 ### For commit hooks (formatter/lint/parser/spelling...) to work ([.pre-commit-config.yaml](.pre-commit-config.yaml)):
 
-Dependencies:
+#### Dependencies:
 - [python](https://www.python.org/)
-- [pipx](https://github.com/pypa/pipx)
 - [pre-commit](https://github.com/pre-commit/pre-commit)
 
-Installing with pipx:
+Installing with pip (You can also use [pipx](https://github.com/pypa/pipx)):
 ```bash
-pipx install pre-commit
-pipx ensurepath
+pip install pre-commit
+pip ensurepath
 
 cd <repo-path>
 pre-commit install --install-hooks
@@ -90,13 +89,13 @@ pre-commit install --hook-type commit-msg
 
 ### To change docs (zensical)
 
-Dependencies:
+#### Dependencies:
 - [zensical](https://zensical.org/)
 
-Installing with pipx:
+Installing with pip (You can also use [pipx](https://github.com/pypa/pipx))::
 ```bash
 cd <project path>
-pipx install zensical
+pip install zensical
 ```
 
 Running zensical locally:
@@ -116,18 +115,20 @@ empty line as separator
 <optional footer>
 ```
 
-### To use git-cliff (changelog generator) locally:
+### To use [git-cliff](https://git-cliff.org/) (changelog generator) locally:
 
-Dependencies:
-- [pre-commit](https://github.com/pre-commit/pre-commit)
+#### Dependencies:
 - [rust](https://rust-lang.org/tools/install/)
 - [git-cliff](https://github.com/orhun/git-cliff)
 
 
-[Git cliff usage examples](https://git-cliff.org/docs/usage/examples/)
-<!-- TODO Improve this git cliff usage-->
+[Git cliff usage examples:](https://git-cliff.org/docs/usage/examples/)
 ```bash
-git-cliff
+# Outputs to CHANGELOG.md file
+git cliff --output CHANGELOG.md
+
+# Without path, defaults to `CHANGELOG.md`
+git cliff -o
 ```
 
 # Acknowledgments
