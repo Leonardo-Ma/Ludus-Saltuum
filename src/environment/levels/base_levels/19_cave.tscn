@@ -20,11 +20,6 @@
 [ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint/checkpoint_flag.tscn" id="16_a2riu"]
 [ext_resource type="PackedScene" uid="uid://c6on7cp5w028m" path="res://src/environment/levels/assets/traps/spikes/spikes.tscn" id="16_ecor2"]
 [ext_resource type="Script" uid="uid://cxqsapbic2imr" path="res://src/entities/components/combat/attack.gd" id="17_3yyhr"]
-[ext_resource type="PackedScene" uid="uid://nd1uo24vt6d5" path="res://src/entities/enemies/barbarian/barbarian.tscn" id="20_3yyhr"]
-[ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="21_bauo5"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_w2gkj"]
-size = Vector3(112.08545, 137.18651, 50)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4hukf"]
 size = Vector3(79, 12, 2)
@@ -51,19 +46,8 @@ metadata/_custom_type_script = "uid://cxqsapbic2imr"
 radius = 2.6132813
 height = 9.281372
 
-[sub_resource type="Resource" id="Resource_vxfml"]
-resource_local_to_scene = true
-script = ExtResource("17_3yyhr")
-type = 1
-damage = 20
-metadata/_custom_type_script = "uid://cxqsapbic2imr"
-
-[sub_resource type="Resource" id="Resource_nqxna"]
-resource_local_to_scene = true
-script = ExtResource("21_bauo5")
-max_health = 20
-health_regen = 2.0
-metadata/_custom_type_script = "uid://njkofl5g11k7"
+[sub_resource type="BoxShape3D" id="BoxShape3D_w2gkj"]
+size = Vector3(112.08545, 135, 50)
 
 [node name="19Cave" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_de7ky")
@@ -74,13 +58,275 @@ features = Array[int]([4])
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 
+[node name="Map" type="Node3D" parent="." unique_id=864257759]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -2)
+
+[node name="RoomsSmall" type="GridMap" parent="Map" unique_id=2075401892]
+mesh_library = ExtResource("12_raejx")
+cell_size = Vector3(11, 1, 11)
+collision_mask = 11
+data = {
+"cells": PackedInt32Array(0, 1, 1441798, 1, 1, 1048576, 0, 2, 1441792, 1, 2, 1048576, 65535, 2, 0, 65534, 1, 1048576, 65534, 2, 1441792, 65533, 1, 655360, 65533, 2, 1048584, 65533, 3, 0, 65532, 2, 655360, 1, 3, 0, 0, 3, 655360, 0, 4, 0, 65531, 3, 655360, 65531, 5, 655366, 65532, 5, 0, 65531, 6, 0, 65530, 6, 655360, 65530, 7, 1441792, 65531, 7, 0, 524288, 4, 1310720, 524288, 3, 1179648, 524289, 3, 1310720, 524289, 2, 524288, 524288, 2, 131072, 524289, 1, 524288, 524288, 1, 524294, 589823, 1, 524294, 589823, 2, 1310720, 589822, 2, 131072, 589822, 1, 524288, 589821, 1, 1179648, 589821, 2, 524296, 589820, 2, 1179648, 589821, 3, 1310720, 589819, 3, 1179648, 589820, 5, 1310720, 589819, 5, 1310726, 589819, 6, 1310720, 589819, 7, 1310720, 589818, 7, 131072, 589818, 6, 1179648, 65535, 1, 1441798)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="RoomsLarge" type="GridMap" parent="Map" unique_id=1044077658]
+mesh_library = ExtResource("13_raejx")
+cell_size = Vector3(20, 1, 20)
+collision_mask = 11
+data = {
+"cells": PackedInt32Array(65535, 2, 655372, 65534, 2, 12, 65533, 2, 655370, 65532, 2, 1048578, 589823, 2, 524300, 589822, 2, 524300, 589821, 2, 524298, 589820, 2, 524290)
+}
+metadata/_editor_floor_ = Vector3(0, 8, 0)
+
+[node name="Floor" type="GridMap" parent="Map" unique_id=54067683]
+mesh_library = ExtResource("6_og7uh")
+cell_size = Vector3(4, 1, 4)
+collision_mask = 11
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="WallsNorthSouth" type="GridMap" parent="Map" unique_id=823625883]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+mesh_library = ExtResource("7_2j6we")
+cell_size = Vector3(4, 1, 4)
+collision_mask = 11
+data = {
+"cells": PackedInt32Array(1, 2, 1441801, 65522, 14, 1048582, 65522, 15, 6, 65518, 15, 1441804, 65518, 16, 1441805, 65518, 17, 1048588, 65518, 18, 1048585, 65518, 10, 1048590, 589806, 10, 524302, 524289, 2, 1310729, 589810, 14, 131078, 589810, 15, 1179654, 589806, 15, 1310732, 589806, 17, 1179660, 589806, 16, 1310733, 589806, 18, 1179657)
+}
+metadata/_editor_floor_ = Vector3(0, 1, 0)
+
+[node name="WallsEastWest" type="GridMap" parent="Map" unique_id=1243316642]
+mesh_library = ExtResource("7_2j6we")
+cell_size = Vector3(4, 1, 4)
+collision_mask = 11
+data = {
+"cells": PackedInt32Array(65515, 12, 655374, 65515, 14, 1048589, 65515, 16, 1048589, 65515, 18, 1048589, 65515, 20, 1441806, 65517, 20, 1048590, 65518, 22, 655372, 65520, 22, 7, 65521, 22, 7, 65522, 22, 7, 65523, 22, 7, 65524, 22, 7, 65526, 22, 12, 65527, 22, 13, 65529, 22, 655373, 65531, 22, 13, 65533, 22, 13, 65535, 22, 13, 1, 22, 1048590, 1, 24, 1441805, 1, 26, 1441805, 1, 28, 1441805, 1, 30, 1048589, 1, 32, 1441805, 1, 34, 14, 65535, 34, 655374, 589803, 12, 1179662, 589803, 14, 1310733, 589803, 16, 1310733, 589803, 18, 1310733, 589803, 20, 131086, 589805, 20, 524302, 589805, 22, 131086, 589806, 22, 131084, 589808, 22, 131079, 589809, 22, 131079, 589810, 22, 131079, 589811, 22, 131079, 589812, 22, 131079, 589817, 22, 524301, 589819, 22, 524301, 589821, 22, 524301, 589823, 22, 524301, 524289, 22, 524302, 524289, 24, 1310733, 524289, 26, 1310733, 524289, 28, 1310733, 524289, 30, 1310733, 524289, 32, 1310733, 524289, 34, 1310734, 589823, 34, 1179662, 65517, 22, 1441806, 65527, 9, 1441794, 589815, 9, 1179650, 65524, 9, 655366, 589812, 9, 1179654, 65526, 8, 0, 589814, 8, 131072, 589815, 22, 524301, 589814, 22, 524300, 65526, 13, 6, 589814, 13, 1310726)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="Props" type="GridMap" parent="Map" unique_id=362753108]
+mesh_library = ExtResource("12_blxea")
+
+[node name="Torches" type="Node3D" parent="Map" unique_id=1069717325]
+
+[node name="EasterEggLight" type="OmniLight3D" parent="Map/Torches" unique_id=552839837]
+transform = Transform3D(0.93301266, -0.2500001, 0.25881916, 0.25881913, 0.9659258, -1.26642075e-08, -0.2500001, 0.06698736, 0.9659258, -70, 1, 78)
+light_color = Color(0.20915484, 0.2715035, 0.089869075, 1)
+
+[node name="Torch2" parent="Map/Torches" unique_id=991325420 instance=ExtResource("13_ynq7h")]
+transform = Transform3D(0, 100.000015, 1.1920931e-05, -6.629455e-13, -1.1920928e-05, 100.00001, 100.000015, 0, 9.094947e-13, 10.395432, 2.397791, 18.369923)
+
+[node name="Torch9" parent="Map/Torches" unique_id=1689075471 instance=ExtResource("13_ynq7h")]
+transform = Transform3D(-100.000015, -4.3711393e-06, -7.200323e-13, -6.629455e-13, -1.1920927e-05, 100.00001, -4.3711393e-06, 100.000015, 1.192093e-05, 5.320632, 2.397791, 32.113297)
+
+[node name="Torch3" parent="Map/Torches" unique_id=167615452 instance=ExtResource("13_ynq7h")]
+transform = Transform3D(0, 100.000015, 1.1920931e-05, -6.629455e-13, -1.1920928e-05, 100.00001, 100.000015, 0, 9.094947e-13, 21.465551, 2.397791, 28.369923)
+
+[node name="Torch4" parent="Map/Torches" unique_id=102623877 instance=ExtResource("13_ynq7h")]
+transform = Transform3D(-12.9312525, -99.1604, -1.1820841e-05, -1.1900135e-12, -1.1920928e-05, 100.00001, -99.1604, 12.9312525, 1.5415247e-06, 0.8854109, 2.397791, 38.326565)
+
+[node name="Torch5" parent="Map/Torches" unique_id=764607170 instance=ExtResource("13_ynq7h")]
+transform = Transform3D(-25.549664, -95.3526, -15.971864, -4.133822, -15.427638, 98.71626, -96.5926, 25.881922, 3.0853646e-06, 0.3234954, 3.2451708, 51.326565)
+
+[node name="Torch6" parent="Map/Torches" unique_id=1354325278 instance=ExtResource("13_ynq7h")]
+transform = Transform3D(-69.71753, -70.3276, -13.910454, -4.133822, -15.427641, 98.71628, -71.57083, 69.397575, 7.84855, -19.370464, 3.2451708, 51.394146)
+
+[node name="Torch7" parent="Map/Torches" unique_id=1226695821 instance=ExtResource("13_ynq7h")]
+transform = Transform3D(-96.59258, 25.881907, 1.1313342e-06, -9.1950997e-14, -4.3711393e-06, 100, 25.881907, 96.59257, 4.2221964e-06, -60.301495, 2.9644651, 51.190395)
+
+[node name="Torch16" parent="Map/Torches" unique_id=1987919598 node_paths=PackedStringArray("button") instance=ExtResource("13_ynq7h")]
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -23.813622, 3.9214823, 86.86545)
+button = NodePath("../../ButtonBase")
+activation_delay = 0.5
+light_color = Color(1, 0.02745098, 0, 1)
+
+[node name="Torch11" parent="Map/Torches" unique_id=213542441 node_paths=PackedStringArray("button") instance=ExtResource("13_ynq7h")]
+transform = Transform3D(-99.604034, -8.890383, -1.0598161e-06, 2.2585682e-20, -1.1920927e-05, 100, -8.890383, 99.60403, 1.1873723e-05, -23.813622, 3.9214823, 93.10589)
+button = NodePath("../../ButtonBase")
+activation_delay = 0.5
+light_color = Color(1, 0.02745098, 0, 1)
+
+[node name="Torch17" parent="Map/Torches" unique_id=1859859865 node_paths=PackedStringArray("button") instance=ExtResource("13_ynq7h")]
+transform = Transform3D(98.89746, -12.479516, 7.9720917, -8.174089, -1.1142142, 99.65913, -12.348154, -99.21199, -2.1220162, -19.813622, 3.9214823, 86.7907)
+button = NodePath("../../ButtonBase")
+activation_delay = 1.5
+light_color = Color(1, 0.02745098, 0, 1)
+
+[node name="Torch13" parent="Map/Torches" unique_id=1254150585 node_paths=PackedStringArray("button") instance=ExtResource("13_ynq7h")]
+transform = Transform3D(-99.55721, -4.5656433, -8.216774, -8.174089, -1.1142142, 99.65913, -4.6416326, 99.889496, 0.7360809, -14.8136215, 3.9214823, 92.97026)
+button = NodePath("../../ButtonBase")
+activation_delay = 2.0
+light_color = Color(1, 0.02745098, 0, 1)
+
+[node name="Torch14" parent="Map/Torches" unique_id=1299166164 node_paths=PackedStringArray("button") instance=ExtResource("13_ynq7h")]
+transform = Transform3D(-100, -8.839135e-06, -9.536755e-07, 0, -1.1801719e-05, 99.99999, -8.6491455e-06, 100, 1.1801718e-05, -7.624008, 3.9214823, 93.12219)
+button = NodePath("../../ButtonBase")
+activation_delay = 2.5
+light_color = Color(1, 0.02745098, 0, 1)
+
+[node name="Torch19" parent="Map/Torches" unique_id=416348946 node_paths=PackedStringArray("button") instance=ExtResource("13_ynq7h")]
+transform = Transform3D(98.89746, -12.479516, 7.9720917, -8.174089, -1.1142142, 99.65913, -12.348154, -99.21199, -2.1220162, -7.624008, 3.9214823, 86.86596)
+button = NodePath("../../ButtonBase")
+activation_delay = 2.5
+light_color = Color(1, 0.02745098, 0, 1)
+
+[node name="Torch12" parent="Map/Torches" unique_id=1565446605 node_paths=PackedStringArray("button") instance=ExtResource("13_ynq7h")]
+transform = Transform3D(-100.000015, -8.742278e-06, -3.821371e-13, 0, -4.3711393e-06, 100.00001, -8.742279e-06, 100.00001, 4.3711393e-06, -19.624008, 3.9214823, 93.17055)
+button = NodePath("../../ButtonBase")
+activation_delay = 1.5
+light_color = Color(1, 0.02745098, 0, 1)
+
+[node name="Torch15" parent="Map/Torches" unique_id=2003925859 node_paths=PackedStringArray("button") instance=ExtResource("13_ynq7h")]
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -14.8136215, 3.9214823, 87.042145)
+button = NodePath("../../ButtonBase")
+activation_delay = 2.0
+light_color = Color(1, 0.02745098, 0, 1)
+
+[node name="Torch18" parent="Map/Torches" unique_id=1332751135 node_paths=PackedStringArray("button") instance=ExtResource("13_ynq7h")]
+transform = Transform3D(-4.3711393e-06, 100.00001, 4.3711393e-06, 0, -4.3711393e-06, 100.00001, 100.000015, 4.371139e-06, 1.9106854e-13, 9.190022, 5.442431, 90.11564)
+button = NodePath("../../ButtonBase")
+activation_delay = 5.0
+light_color = Color(1, 0.02745098, 0, 1)
+
+[node name="Coins" type="Node3D" parent="Map" unique_id=1783785353]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1190472, 0)
+
+[node name="GoldCoin" parent="Map/Coins" unique_id=1971537253 instance=ExtResource("14_ynq7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 2, 29.73388)
+
+[node name="GoldCoin2" parent="Map/Coins" unique_id=1051877876 instance=ExtResource("14_ynq7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 2, 29.73388)
+
+[node name="GoldCoin3" parent="Map/Coins" unique_id=1344515878 instance=ExtResource("14_ynq7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 2, 29.73388)
+
+[node name="GoldCoin4" parent="Map/Coins" unique_id=2025440545 instance=ExtResource("14_ynq7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 2, 30.73388)
+
+[node name="GoldCoin5" parent="Map/Coins" unique_id=1380838397 instance=ExtResource("14_ynq7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 2, 30.73388)
+
+[node name="GoldCoin6" parent="Map/Coins" unique_id=1981317140 instance=ExtResource("14_ynq7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 2, 30.73388)
+
+[node name="GoldCoin7" parent="Map/Coins" unique_id=21622856 instance=ExtResource("14_ynq7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 2, 31.73388)
+
+[node name="GoldCoin8" parent="Map/Coins" unique_id=228349885 instance=ExtResource("14_ynq7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 2, 31.73388)
+
+[node name="GoldCoin9" parent="Map/Coins" unique_id=552423030 instance=ExtResource("14_ynq7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 2, 31.73388)
+
+[node name="GoldCoin10" parent="Map/Coins" unique_id=2136913563 instance=ExtResource("14_ynq7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49, 2, 77.73388)
+
+[node name="GoldCoin11" parent="Map/Coins" unique_id=179568400 instance=ExtResource("14_ynq7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 2, 77.73388)
+
+[node name="GoldCoin12" parent="Map/Coins" unique_id=2126177287 instance=ExtResource("14_ynq7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 2, 77.73388)
+
+[node name="GoldCoin13" parent="Map/Coins" unique_id=2041259789 instance=ExtResource("14_ynq7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 2, 78.73388)
+
+[node name="GoldCoin14" parent="Map/Coins" unique_id=427392801 instance=ExtResource("14_ynq7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49, 2, 78.73388)
+
+[node name="GoldCoin15" parent="Map/Coins" unique_id=788560036 instance=ExtResource("14_ynq7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 2, 78.73388)
+
+[node name="GoldCoin16" parent="Map/Coins" unique_id=945754001 instance=ExtResource("14_ynq7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 2, 79.73388)
+
+[node name="GoldCoin17" parent="Map/Coins" unique_id=1293499791 instance=ExtResource("14_ynq7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49, 2, 79.73388)
+
+[node name="GoldCoin18" parent="Map/Coins" unique_id=1680360338 instance=ExtResource("14_ynq7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 2, 79.73388)
+
+[node name="InvisibleRoof" type="StaticBody3D" parent="Map" unique_id=1369234684]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11, 10.994753)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/InvisibleRoof" unique_id=1722156380]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3.5, -0.5)
+shape = SubResource("BoxShape3D_4hukf")
+
+[node name="ButtonBase" parent="Map" unique_id=32467190 instance=ExtResource("15_acljp")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -41.091625, 0.1802187, 89.969345)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Map" unique_id=362832517]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 1.4090924, 29.73388)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Map" unique_id=1520729331]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49, 0.605072, 78.73388)
+
+[node name="Traps" type="Node3D" parent="Map" unique_id=610298105]
+
+[node name="Spike2" parent="Map/Traps" unique_id=1145988321 instance=ExtResource("16_ecor2")]
+transform = Transform3D(-193.18517, 51.76383, 2.2626689e-06, 0, -8.742278e-06, 200, 51.76383, 193.18517, 8.444392e-06, -27.923594, 0.3801397, 28.671356)
+attack = SubResource("Resource_acljp")
+
+[node name="SpikeLight" type="OmniLight3D" parent="Map/Traps" unique_id=1344973791]
+transform = Transform3D(-0.9659258, 0.25881922, 3.0853624e-08, -3.5527128e-15, -1.1920918e-07, 1, 0.25881922, 0.9659258, 1.15147216e-07, -27.923595, 1.3518752, 28.671356)
+light_color = Color(0.4812734, 1.0709092e-06, 3.6098064e-07, 1)
+omni_range = 3.0
+
+[node name="Spike" parent="Map/Traps" unique_id=2024920262 instance=ExtResource("16_ecor2")]
+transform = Transform3D(-193.18517, 51.76383, 2.2626689e-06, 0, -8.742278e-06, 200, 51.76383, 193.18517, 8.444392e-06, -48.923595, 0.38299, 60.671383)
+attack = SubResource("Resource_bauo5")
+
+[node name="SpikeLight2" type="OmniLight3D" parent="Map/Traps" unique_id=1204468273]
+transform = Transform3D(0.93301266, -0.2500001, 0.25881916, 0.25881913, 0.9659258, -8.807501e-09, -0.2500001, 0.06698736, 0.9659258, -48.85491, 0.34003186, 61)
+light_color = Color(0.4812734, 1.0709092e-06, 3.6098064e-07, 1)
+omni_range = 3.0
+
+[node name="Spike3" parent="Map/Traps" unique_id=386040707 instance=ExtResource("16_ecor2")]
+transform = Transform3D(-193.18517, 51.76383, 2.2626689e-06, 0, -8.742278e-06, 200, 51.76383, 193.18517, 8.444392e-06, 6.0764046, 0.38299, 96.67139)
+attack = SubResource("Resource_7lt6f")
+
+[node name="SpikeLight3" type="OmniLight3D" parent="Map/Traps" unique_id=485927865]
+transform = Transform3D(0.93301266, -0.2500001, 0.25881916, 0.25881913, 0.9659258, -1.4214317e-08, -0.2500001, 0.06698736, 0.9659258, 6.145088, 0.34003186, 97)
+light_color = Color(0.4812734, 1.0709092e-06, 3.6098064e-07, 1)
+omni_range = 3.0
+
+[node name="Spike4" parent="Map/Traps" unique_id=1192741039 instance=ExtResource("16_ecor2")]
+transform = Transform3D(-193.18517, 51.76383, 2.2626689e-06, 0, -8.742278e-06, 200, 51.76383, 193.18517, 8.444392e-06, 6.0764046, 0.38299, 108.67139)
+attack = SubResource("Resource_7lt6f")
+
+[node name="SpikeLight4" type="OmniLight3D" parent="Map/Traps" unique_id=1475670088]
+transform = Transform3D(0.93301266, -0.2500001, 0.25881916, 0.25881913, 0.9659258, -1.0874314e-08, -0.2500001, 0.06698736, 0.9659258, 6.145088, 0.34003186, 109)
+light_color = Color(0.4812734, 1.0709092e-06, 3.6098064e-07, 1)
+omni_range = 3.0
+
+[node name="Spike5" parent="Map/Traps" unique_id=622152896 instance=ExtResource("16_ecor2")]
+transform = Transform3D(-193.18517, 51.76383, 2.2626689e-06, 0, -8.742278e-06, 200, 51.76383, 193.18517, 8.444392e-06, 6.0764046, 0.38299, 120.67139)
+attack = SubResource("Resource_7lt6f")
+
+[node name="SpikeLight5" type="OmniLight3D" parent="Map/Traps" unique_id=493714636]
+transform = Transform3D(0.93301266, -0.2500001, 0.25881916, 0.25881913, 0.9659258, -1.473102e-08, -0.2500001, 0.06698736, 0.9659258, 6.145088, 0.34003186, 121)
+light_color = Color(0.4812734, 1.0709092e-06, 3.6098064e-07, 1)
+omni_range = 3.0
+
+[node name="EasterEgg" parent="Map" unique_id=1789181794 instance=ExtResource("15_ykdc8")]
+transform = Transform3D(-0.9659258, 0, -0.25881913, 0, 1, 0, 0.25881913, 0, -0.9659258, -69.92361, 1, 75)
+easter_egg_name = 1
+
+[node name="Label3D" type="Label3D" parent="Map/EasterEgg" unique_id=1984197059]
+transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, 0, 0, 0)
+text = "42"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Map/EasterEgg" unique_id=113210453]
+transform = Transform3D(0.93301266, -0.25881913, 0.2500001, 0.25881913, -4.371139e-08, -0.9659258, 0.2500001, 0.9659258, 0.066987306, -0.7382202, -1.7881393e-07, 2.7549438)
+shape = SubResource("CapsuleShape3D_acljp")
+
 [node name="EnableDarkness" type="Area3D" parent="." unique_id=1987405358]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 11.162539)
 script = ExtResource("10_12cvo")
 cave_environment = ExtResource("11_w2gkj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EnableDarkness" unique_id=93477801]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.043, 63, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.043, 64.093254, 2.2737368e-13)
 shape = SubResource("BoxShape3D_w2gkj")
 
 [node name="ChangeGameplayStateArea3D" parent="." unique_id=820773515 node_paths=PackedStringArray("collision_shape_3d") instance=ExtResource("8_lpvia")]
@@ -96,282 +342,11 @@ shape = SubResource("BoxShape3D_w2gkj")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 5, 145)
 
-[node name="InvisibleRoof" type="StaticBody3D" parent="." unique_id=1369234684]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11, 10.994753)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="InvisibleRoof" unique_id=1722156380]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 3.5, -0.5)
-shape = SubResource("BoxShape3D_4hukf")
-
 [node name="GrassPlatform" parent="." unique_id=537577895 instance=ExtResource("4_bjhch")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 5)
 
 [node name="ArrowSign" parent="GrassPlatform" unique_id=975612369 instance=ExtResource("5_g04di")]
 transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, 3, 4, -2)
 
-[node name="GrassPlatform2" parent="." unique_id=1995932124 instance=ExtResource("4_bjhch")]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -5, -1, 9)
-
-[node name="RoomsSmall" type="GridMap" parent="." unique_id=2075401892]
-mesh_library = ExtResource("12_raejx")
-cell_size = Vector3(11, 1, 11)
-collision_mask = 11
-data = {
-"cells": PackedInt32Array(65535, 1, 1441798, 0, 1, 1441798, 1, 1, 1048576, 0, 2, 1441792, 1, 2, 1048576, 65535, 2, 0, 65534, 1, 1048576, 65534, 2, 1441792, 65533, 1, 655360, 65533, 2, 1048584, 65533, 3, 0, 65532, 2, 655360, 1, 3, 0, 0, 3, 655360, 0, 4, 0, 65531, 3, 655360, 65531, 5, 655366, 65532, 5, 0, 65531, 6, 0, 65530, 6, 655360, 65530, 7, 1441792, 65531, 7, 0, 524288, 4, 1310720, 524288, 3, 1179648, 524289, 3, 1310720, 524289, 2, 524288, 524288, 2, 131072, 524289, 1, 524288, 524288, 1, 524294, 589823, 1, 524294, 589823, 2, 1310720, 589822, 2, 131072, 589822, 1, 524288, 589821, 1, 1179648, 589821, 2, 524296, 589820, 2, 1179648, 589821, 3, 1310720, 589819, 3, 1179648, 589820, 5, 1310720, 589819, 5, 1310726, 589819, 6, 1310720, 589819, 7, 1310720, 589818, 7, 131072, 589818, 6, 1179648)
-}
-metadata/_editor_floor_ = Vector3(0, 0, 0)
-
-[node name="RoomsLarge" type="GridMap" parent="." unique_id=1044077658]
-mesh_library = ExtResource("13_raejx")
-cell_size = Vector3(20, 1, 20)
-collision_mask = 11
-data = {
-"cells": PackedInt32Array(65535, 2, 655372, 65534, 2, 12, 65533, 2, 655370, 65532, 2, 1048578, 589823, 2, 524300, 589822, 2, 524300, 589821, 2, 524298, 589820, 2, 524290)
-}
-metadata/_editor_floor_ = Vector3(0, 8, 0)
-
-[node name="Floor" type="GridMap" parent="." unique_id=54067683]
-mesh_library = ExtResource("6_og7uh")
-cell_size = Vector3(4, 1, 4)
-collision_mask = 11
-metadata/_editor_floor_ = Vector3(0, 0, 0)
-
-[node name="WallsNorthSouth" type="GridMap" parent="." unique_id=823625883]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
-mesh_library = ExtResource("7_2j6we")
-cell_size = Vector3(4, 1, 4)
-collision_mask = 11
-data = {
-"cells": PackedInt32Array(1, 2, 1441801, 65522, 14, 1048582, 65522, 15, 6, 65518, 15, 1441804, 65518, 16, 1441805, 65518, 17, 1048588, 65518, 18, 1048585, 65518, 10, 1048590, 589806, 10, 524302, 524289, 2, 1310729, 589810, 14, 131078, 589810, 15, 1179654, 589806, 15, 1310732, 589806, 17, 1179660, 589806, 16, 1310733, 589806, 18, 1179657)
-}
-metadata/_editor_floor_ = Vector3(0, 8, 0)
-
-[node name="WallsEastWest" type="GridMap" parent="." unique_id=1243316642]
-mesh_library = ExtResource("7_2j6we")
-cell_size = Vector3(4, 1, 4)
-collision_mask = 11
-data = {
-"cells": PackedInt32Array(65515, 12, 655374, 65515, 14, 1048589, 65515, 16, 1048589, 65515, 18, 1048589, 65515, 20, 1441806, 65517, 20, 1048590, 65518, 22, 655372, 65520, 22, 7, 65521, 22, 7, 65522, 22, 7, 65523, 22, 7, 65524, 22, 7, 65526, 22, 12, 65527, 22, 13, 65529, 22, 655373, 65531, 22, 13, 65533, 22, 13, 65535, 22, 13, 1, 22, 1048590, 1, 24, 1441805, 1, 26, 1441805, 1, 28, 1441805, 1, 30, 1048589, 1, 32, 1441805, 1, 34, 14, 65535, 34, 655374, 589803, 12, 1179662, 589803, 14, 1310733, 589803, 16, 1310733, 589803, 18, 1310733, 589803, 20, 131086, 589805, 20, 524302, 589805, 22, 131086, 589806, 22, 131084, 589808, 22, 131079, 589809, 22, 131079, 589810, 22, 131079, 589811, 22, 131079, 589812, 22, 131079, 589817, 22, 524301, 589819, 22, 524301, 589821, 22, 524301, 589823, 22, 524301, 524289, 22, 524302, 524289, 24, 1310733, 524289, 26, 1310733, 524289, 28, 1310733, 524289, 30, 1310733, 524289, 32, 1310733, 524289, 34, 1310734, 589823, 34, 1179662, 65517, 22, 1441806, 65527, 9, 1441794, 589815, 9, 1179650, 65524, 9, 655366, 589812, 9, 1179654, 65526, 8, 0, 589814, 8, 131072, 589815, 22, 524301, 589814, 22, 524300, 65526, 13, 6, 589814, 13, 1310726)
-}
-metadata/_editor_floor_ = Vector3(0, 0, 0)
-
-[node name="Props" type="GridMap" parent="." unique_id=362753108]
-mesh_library = ExtResource("12_blxea")
-
-[node name="Torches" type="Node3D" parent="." unique_id=1069717325]
-
-[node name="EasterEggLight" type="OmniLight3D" parent="Torches" unique_id=552839837]
-transform = Transform3D(0.93301266, -0.2500001, 0.25881916, 0.25881913, 0.9659258, -1.26642075e-08, -0.2500001, 0.06698736, 0.9659258, -70, 1, 78)
-light_color = Color(0.20915484, 0.2715035, 0.089869075, 1)
-
-[node name="Torch2" parent="Torches" unique_id=991325420 instance=ExtResource("13_ynq7h")]
-transform = Transform3D(0, 100.000015, 1.1920931e-05, -6.629455e-13, -1.1920928e-05, 100.00001, 100.000015, 0, 9.094947e-13, 10.395432, 2.397791, 18.369923)
-
-[node name="Torch9" parent="Torches" unique_id=1689075471 instance=ExtResource("13_ynq7h")]
-transform = Transform3D(-100.000015, -4.3711393e-06, -7.200323e-13, -6.629455e-13, -1.1920927e-05, 100.00001, -4.3711393e-06, 100.000015, 1.192093e-05, 5.320632, 2.397791, 32.113297)
-
-[node name="Torch3" parent="Torches" unique_id=167615452 instance=ExtResource("13_ynq7h")]
-transform = Transform3D(0, 100.000015, 1.1920931e-05, -6.629455e-13, -1.1920928e-05, 100.00001, 100.000015, 0, 9.094947e-13, 21.465551, 2.397791, 28.369923)
-
-[node name="Torch4" parent="Torches" unique_id=102623877 instance=ExtResource("13_ynq7h")]
-transform = Transform3D(-12.9312525, -99.1604, -1.1820841e-05, -1.1900135e-12, -1.1920928e-05, 100.00001, -99.1604, 12.9312525, 1.5415247e-06, 0.8854109, 2.397791, 38.326565)
-
-[node name="Torch5" parent="Torches" unique_id=764607170 instance=ExtResource("13_ynq7h")]
-transform = Transform3D(-25.549664, -95.3526, -15.971864, -4.133822, -15.427638, 98.71626, -96.5926, 25.881922, 3.0853646e-06, 0.3234954, 3.2451708, 51.326565)
-
-[node name="Torch6" parent="Torches" unique_id=1354325278 instance=ExtResource("13_ynq7h")]
-transform = Transform3D(-69.71753, -70.3276, -13.910454, -4.133822, -15.427641, 98.71628, -71.57083, 69.397575, 7.84855, -19.370464, 3.2451708, 51.394146)
-
-[node name="Torch8" parent="Torches" unique_id=153820126 instance=ExtResource("13_ynq7h")]
-
-[node name="Torch7" parent="Torches" unique_id=1226695821 instance=ExtResource("13_ynq7h")]
-transform = Transform3D(-96.59258, 25.881907, 1.1313342e-06, -9.1950997e-14, -4.3711393e-06, 100, 25.881907, 96.59257, 4.2221964e-06, -60.301495, 2.9644651, 51.190395)
-
-[node name="Torch16" parent="Torches" unique_id=1987919598 node_paths=PackedStringArray("button") instance=ExtResource("13_ynq7h")]
-transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -23.813622, 3.9214823, 86.86545)
-button = NodePath("../../ButtonBase")
-activation_delay = 0.5
-light_color = Color(1, 0.02745098, 0, 1)
-
-[node name="Torch11" parent="Torches" unique_id=213542441 node_paths=PackedStringArray("button") instance=ExtResource("13_ynq7h")]
-transform = Transform3D(-99.604034, -8.890383, -1.0598161e-06, 2.2585682e-20, -1.1920927e-05, 100, -8.890383, 99.60403, 1.1873723e-05, -23.813622, 3.9214823, 93.10589)
-button = NodePath("../../ButtonBase")
-activation_delay = 0.5
-light_color = Color(1, 0.02745098, 0, 1)
-
-[node name="Torch17" parent="Torches" unique_id=1859859865 node_paths=PackedStringArray("button") instance=ExtResource("13_ynq7h")]
-transform = Transform3D(98.89746, -12.479516, 7.9720917, -8.174089, -1.1142142, 99.65913, -12.348154, -99.21199, -2.1220162, -19.813622, 3.9214823, 86.7907)
-button = NodePath("../../ButtonBase")
-activation_delay = 1.5
-light_color = Color(1, 0.02745098, 0, 1)
-
-[node name="Torch13" parent="Torches" unique_id=1254150585 node_paths=PackedStringArray("button") instance=ExtResource("13_ynq7h")]
-transform = Transform3D(-99.55721, -4.5656433, -8.216774, -8.174089, -1.1142142, 99.65913, -4.6416326, 99.889496, 0.7360809, -14.8136215, 3.9214823, 92.97026)
-button = NodePath("../../ButtonBase")
-activation_delay = 2.0
-light_color = Color(1, 0.02745098, 0, 1)
-
-[node name="Torch14" parent="Torches" unique_id=1299166164 node_paths=PackedStringArray("button") instance=ExtResource("13_ynq7h")]
-transform = Transform3D(-100, -8.839135e-06, -9.536755e-07, 0, -1.1801719e-05, 99.99999, -8.6491455e-06, 100, 1.1801718e-05, -7.624008, 3.9214823, 93.12219)
-button = NodePath("../../ButtonBase")
-activation_delay = 2.5
-light_color = Color(1, 0.02745098, 0, 1)
-
-[node name="Torch19" parent="Torches" unique_id=416348946 node_paths=PackedStringArray("button") instance=ExtResource("13_ynq7h")]
-transform = Transform3D(98.89746, -12.479516, 7.9720917, -8.174089, -1.1142142, 99.65913, -12.348154, -99.21199, -2.1220162, -7.624008, 3.9214823, 86.86596)
-button = NodePath("../../ButtonBase")
-activation_delay = 2.5
-light_color = Color(1, 0.02745098, 0, 1)
-
-[node name="Torch12" parent="Torches" unique_id=1565446605 node_paths=PackedStringArray("button") instance=ExtResource("13_ynq7h")]
-transform = Transform3D(-100.000015, -8.742278e-06, -3.821371e-13, 0, -4.3711393e-06, 100.00001, -8.742279e-06, 100.00001, 4.3711393e-06, -19.624008, 3.9214823, 93.17055)
-button = NodePath("../../ButtonBase")
-activation_delay = 1.5
-light_color = Color(1, 0.02745098, 0, 1)
-
-[node name="Torch15" parent="Torches" unique_id=2003925859 node_paths=PackedStringArray("button") instance=ExtResource("13_ynq7h")]
-transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -14.8136215, 3.9214823, 87.042145)
-button = NodePath("../../ButtonBase")
-activation_delay = 2.0
-light_color = Color(1, 0.02745098, 0, 1)
-
-[node name="Torch18" parent="Torches" unique_id=1332751135 node_paths=PackedStringArray("button") instance=ExtResource("13_ynq7h")]
-transform = Transform3D(-4.3711393e-06, 100.00001, 4.3711393e-06, 0, -4.3711393e-06, 100.00001, 100.000015, 4.371139e-06, 1.9106854e-13, 9.190022, 5.442431, 90.11564)
-button = NodePath("../../ButtonBase")
-activation_delay = 5.0
-light_color = Color(1, 0.02745098, 0, 1)
-
-[node name="ButtonBase" parent="." unique_id=32467190 instance=ExtResource("15_acljp")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -41.091625, 0.1802187, 89.969345)
-
-[node name="Coins" type="Node3D" parent="." unique_id=1783785353]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1190472, 0)
-
-[node name="GoldCoin" parent="Coins" unique_id=1971537253 instance=ExtResource("14_ynq7h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 2, 29.73388)
-
-[node name="GoldCoin2" parent="Coins" unique_id=1051877876 instance=ExtResource("14_ynq7h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 2, 29.73388)
-
-[node name="GoldCoin3" parent="Coins" unique_id=1344515878 instance=ExtResource("14_ynq7h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 2, 29.73388)
-
-[node name="GoldCoin4" parent="Coins" unique_id=2025440545 instance=ExtResource("14_ynq7h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 2, 30.73388)
-
-[node name="GoldCoin5" parent="Coins" unique_id=1380838397 instance=ExtResource("14_ynq7h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 2, 30.73388)
-
-[node name="GoldCoin6" parent="Coins" unique_id=1981317140 instance=ExtResource("14_ynq7h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 2, 30.73388)
-
-[node name="GoldCoin7" parent="Coins" unique_id=21622856 instance=ExtResource("14_ynq7h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 2, 31.73388)
-
-[node name="GoldCoin8" parent="Coins" unique_id=228349885 instance=ExtResource("14_ynq7h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 2, 31.73388)
-
-[node name="GoldCoin9" parent="Coins" unique_id=552423030 instance=ExtResource("14_ynq7h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 2, 31.73388)
-
-[node name="GoldCoin10" parent="Coins" unique_id=2136913563 instance=ExtResource("14_ynq7h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49, 2, 77.73388)
-
-[node name="GoldCoin11" parent="Coins" unique_id=179568400 instance=ExtResource("14_ynq7h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 2, 77.73388)
-
-[node name="GoldCoin12" parent="Coins" unique_id=2126177287 instance=ExtResource("14_ynq7h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 2, 77.73388)
-
-[node name="GoldCoin13" parent="Coins" unique_id=2041259789 instance=ExtResource("14_ynq7h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 2, 78.73388)
-
-[node name="GoldCoin14" parent="Coins" unique_id=427392801 instance=ExtResource("14_ynq7h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49, 2, 78.73388)
-
-[node name="GoldCoin15" parent="Coins" unique_id=788560036 instance=ExtResource("14_ynq7h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 2, 78.73388)
-
-[node name="GoldCoin16" parent="Coins" unique_id=945754001 instance=ExtResource("14_ynq7h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 2, 79.73388)
-
-[node name="GoldCoin17" parent="Coins" unique_id=1293499791 instance=ExtResource("14_ynq7h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49, 2, 79.73388)
-
-[node name="GoldCoin18" parent="Coins" unique_id=1680360338 instance=ExtResource("14_ynq7h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 2, 79.73388)
-
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=362832517]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 1.4090924, 29.73388)
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=1520729331]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49, 0.605072, 78.73388)
-
-[node name="Traps" type="Node3D" parent="." unique_id=610298105]
-
-[node name="Spike2" parent="Traps" unique_id=1145988321 instance=ExtResource("16_ecor2")]
-transform = Transform3D(-193.18517, 51.76383, 2.2626689e-06, 0, -8.742278e-06, 200, 51.76383, 193.18517, 8.444392e-06, -27.923594, 0.3801397, 28.671356)
-attack = SubResource("Resource_acljp")
-
-[node name="SpikeLight" type="OmniLight3D" parent="Traps" unique_id=1344973791]
-transform = Transform3D(-0.9659258, 0.25881922, 3.0853624e-08, -3.5527128e-15, -1.1920918e-07, 1, 0.25881922, 0.9659258, 1.15147216e-07, -27.923595, 1.3518752, 28.671356)
-light_color = Color(0.4812734, 1.0709092e-06, 3.6098064e-07, 1)
-omni_range = 3.0
-
-[node name="Spike" parent="Traps" unique_id=2024920262 instance=ExtResource("16_ecor2")]
-transform = Transform3D(-193.18517, 51.76383, 2.2626689e-06, 0, -8.742278e-06, 200, 51.76383, 193.18517, 8.444392e-06, -48.923595, 0.38299, 60.671383)
-attack = SubResource("Resource_bauo5")
-
-[node name="SpikeLight2" type="OmniLight3D" parent="Traps" unique_id=1204468273]
-transform = Transform3D(0.93301266, -0.2500001, 0.25881916, 0.25881913, 0.9659258, -8.807501e-09, -0.2500001, 0.06698736, 0.9659258, -48.85491, 0.34003186, 61)
-light_color = Color(0.4812734, 1.0709092e-06, 3.6098064e-07, 1)
-omni_range = 3.0
-
-[node name="Spike3" parent="Traps" unique_id=386040707 instance=ExtResource("16_ecor2")]
-transform = Transform3D(-193.18517, 51.76383, 2.2626689e-06, 0, -8.742278e-06, 200, 51.76383, 193.18517, 8.444392e-06, 6.0764046, 0.38299, 96.67139)
-attack = SubResource("Resource_7lt6f")
-
-[node name="SpikeLight3" type="OmniLight3D" parent="Traps" unique_id=485927865]
-transform = Transform3D(0.93301266, -0.2500001, 0.25881916, 0.25881913, 0.9659258, -1.4214317e-08, -0.2500001, 0.06698736, 0.9659258, 6.145088, 0.34003186, 97)
-light_color = Color(0.4812734, 1.0709092e-06, 3.6098064e-07, 1)
-omni_range = 3.0
-
-[node name="Spike4" parent="Traps" unique_id=1192741039 instance=ExtResource("16_ecor2")]
-transform = Transform3D(-193.18517, 51.76383, 2.2626689e-06, 0, -8.742278e-06, 200, 51.76383, 193.18517, 8.444392e-06, 6.0764046, 0.38299, 108.67139)
-attack = SubResource("Resource_7lt6f")
-
-[node name="SpikeLight4" type="OmniLight3D" parent="Traps" unique_id=1475670088]
-transform = Transform3D(0.93301266, -0.2500001, 0.25881916, 0.25881913, 0.9659258, -1.0874314e-08, -0.2500001, 0.06698736, 0.9659258, 6.145088, 0.34003186, 109)
-light_color = Color(0.4812734, 1.0709092e-06, 3.6098064e-07, 1)
-omni_range = 3.0
-
-[node name="Spike5" parent="Traps" unique_id=622152896 instance=ExtResource("16_ecor2")]
-transform = Transform3D(-193.18517, 51.76383, 2.2626689e-06, 0, -8.742278e-06, 200, 51.76383, 193.18517, 8.444392e-06, 6.0764046, 0.38299, 120.67139)
-attack = SubResource("Resource_7lt6f")
-
-[node name="SpikeLight5" type="OmniLight3D" parent="Traps" unique_id=493714636]
-transform = Transform3D(0.93301266, -0.2500001, 0.25881916, 0.25881913, 0.9659258, -1.473102e-08, -0.2500001, 0.06698736, 0.9659258, 6.145088, 0.34003186, 121)
-light_color = Color(0.4812734, 1.0709092e-06, 3.6098064e-07, 1)
-omni_range = 3.0
-
 [node name="Checkpoint" parent="." unique_id=742215115 instance=ExtResource("16_a2riu")]
 transform = Transform3D(-1.9318516, 0, -0.51763827, 0, 2, 0, 0.51763827, 0, -1.9318516, -50.923603, 0.23874676, 49.671375)
-
-[node name="EasterEgg" parent="." unique_id=1789181794 instance=ExtResource("15_ykdc8")]
-transform = Transform3D(-0.9659258, 0, -0.25881913, 0, 1, 0, 0.25881913, 0, -0.9659258, -69.92361, 1, 75)
-easter_egg_name = 1
-
-[node name="Label3D" type="Label3D" parent="EasterEgg" unique_id=1984197059]
-transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, 0, 0, 0)
-text = "42"
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="EasterEgg" unique_id=113210453]
-transform = Transform3D(0.93301266, -0.25881913, 0.2500001, 0.25881913, -4.371139e-08, -0.9659258, 0.2500001, 0.9659258, 0.066987306, -0.7382202, -1.7881393e-07, 2.7549438)
-shape = SubResource("CapsuleShape3D_acljp")
-
-[node name="Enemies" type="Node3D" parent="." unique_id=903411414]
-
-[node name="Barbarian" parent="Enemies" unique_id=280064195 instance=ExtResource("20_3yyhr")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -16, 0.64962804, 29)
-attack = SubResource("Resource_vxfml")
-health = SubResource("Resource_nqxna")

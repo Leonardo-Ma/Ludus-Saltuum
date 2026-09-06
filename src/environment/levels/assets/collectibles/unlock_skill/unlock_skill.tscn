@@ -58,6 +58,7 @@ shadow_mesh = SubResource("ArrayMesh_ejgj7")
 size = Vector3(0.009728268, 0.008617551, 0.008831613)
 
 [node name="UnlockSkill" type="Area3D" unique_id=707485280]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 script = ExtResource("1_quyoq")
 data = SubResource("Resource_b4cpa")
 

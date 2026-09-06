@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://pj23j5mj4bnh"]
 
 [ext_resource type="Script" uid="uid://dfapcpf4fli57" path="res://src/environment/levels/level_chunk.gd" id="1_spnry"]
-[ext_resource type="PackedScene" uid="uid://cyk7txgkpg83" path="res://src/environment/levels/assets/collectibles/jump_up/jump_up.tscn" id="5_0dcht"]
 [ext_resource type="PackedScene" uid="uid://cl6psv388cmbx" path="res://src/environment/levels/entrance_trigger.tscn" id="5_lkvch"]
 [ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="5_xyw6i"]
 [ext_resource type="PackedScene" uid="uid://0hwlnlpkbsjn" path="res://src/environment/levels/assets/platforms/static_platforms/grass_platform.tscn" id="6_71ha2"]
+[ext_resource type="PackedScene" uid="uid://bmhb7wjnaqbtx" path="res://src/environment/levels/assets/interactable/springs/spring.tscn" id="6_xyw6i"]
 [ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="7_7cl11"]
 
 [node name="LevelChunk" type="Node3D" unique_id=1016321493]
@@ -34,8 +34,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -3, 17)
 [node name="GrassPlatform5" parent="." unique_id=1321168641 instance=ExtResource("6_71ha2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -3, 26)
 
-[node name="JumpUp" parent="GrassPlatform5" unique_id=707485280 instance=ExtResource("5_0dcht")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 6, -2)
+[node name="Spring" parent="GrassPlatform5" unique_id=2127770289 instance=ExtResource("6_xyw6i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6585464, 4, 0.384943)
 
 [node name="GrassPlatform4" parent="." unique_id=1507871139 instance=ExtResource("6_71ha2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, 29)

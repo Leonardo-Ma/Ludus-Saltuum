@@ -29,26 +29,22 @@ features = Array[int]([0])
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 1)
 
-[node name="ChangeGameplayStateArea3D3" parent="." unique_id=820773515 node_paths=PackedStringArray("collision_shape_3d") instance=ExtResource("12_jlyfk")]
+[node name="Map" type="Node3D" parent="." unique_id=569364285]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+
+[node name="ChangeGameplayStateArea3D3" parent="Map" unique_id=820773515 node_paths=PackedStringArray("collision_shape_3d") instance=ExtResource("12_jlyfk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6773186, 0, 1.8963776)
 target_gameplay_mode = 1
 collision_shape_3d = NodePath("CollisionShape3D")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ChangeGameplayStateArea3D3" unique_id=1556708694]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/ChangeGameplayStateArea3D3" unique_id=1556708694]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7485352, -7.220703, 120.83325)
 shape = SubResource("BoxShape3D_jlyfk")
 
-[node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_w8inh")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 11, 242.05392)
-
-[node name="ArrowSign" parent="." unique_id=975612369 instance=ExtResource("4_17vf0")]
+[node name="ArrowSign" parent="Map" unique_id=975612369 instance=ExtResource("4_17vf0")]
 transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, 9.852951, 1.0653591, 1)
 
-[node name="Car" parent="." unique_id=977934045 instance=ExtResource("5_k6ka0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.647183, 0.87317705, 2.8251863)
-
-[node name="Map" type="GridMap" parent="." unique_id=202553855]
+[node name="Map" type="GridMap" parent="Map" unique_id=202553855]
 mesh_library = ExtResource("7_evhcq")
 cell_size = Vector3(10, 1, 10)
 cell_scale = 10.0
@@ -57,26 +53,33 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 6, 0)
 
-[node name="CarExitZone" parent="." unique_id=468399367 instance=ExtResource("10_b5qn7")]
+[node name="CarExitZone" parent="Map" unique_id=468399367 instance=ExtResource("10_b5qn7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 7, 236)
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="CarExitZone" unique_id=786709505]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Map/CarExitZone" unique_id=786709505]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1, -1)
 shape = SubResource("BoxShape3D_7gjje")
 
-[node name="Props" type="Node3D" parent="." unique_id=102383337]
+[node name="Props" type="Node3D" parent="Map" unique_id=102383337]
 
-[node name="ConstructionBarrier" parent="Props" unique_id=427598426 instance=ExtResource("10_jpc7b")]
+[node name="ConstructionBarrier" parent="Map/Props" unique_id=427598426 instance=ExtResource("10_jpc7b")]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 19.084568, 6.705943, 232.64314)
 
-[node name="ConstructionBarrier2" parent="Props" unique_id=181340406 instance=ExtResource("10_jpc7b")]
+[node name="ConstructionBarrier2" parent="Map/Props" unique_id=181340406 instance=ExtResource("10_jpc7b")]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 19.084568, 6.705943, 237.64314)
 
-[node name="CustomCheckpoint" type="Area3D" parent="." unique_id=356060010]
+[node name="CustomCheckpoint" type="Area3D" parent="Map" unique_id=356060010]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.058247, 1.8529024, 20.521873)
 script = ExtResource("10_2fx6d")
 should_save_checkpoint = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CustomCheckpoint" unique_id=530936629]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/CustomCheckpoint" unique_id=530936629]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 shape = SubResource("BoxShape3D_4hukf")
+
+[node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_w8inh")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 11, 291.22556)
+
+[node name="Car" parent="." unique_id=977934045 instance=ExtResource("5_k6ka0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.647183, 0.87317705, 2.8251863)

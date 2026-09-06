@@ -47,11 +47,8 @@ transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, -8, 6, 50)
 [node name="HexagonOrangePlatform6" parent="." unique_id=1096550739 instance=ExtResource("6_0ldd6")]
 transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, -2, 8, 63)
 
-[node name="HexagonOrangePlatform7" parent="." unique_id=917439350 instance=ExtResource("6_0ldd6")]
-transform = Transform3D(0.98994946, 0, 0.98994946, 0, 1.4, 0, -0.98994946, 0, 0.98994946, -2, 10, 76)
-
 [node name="HexagonOrangePlatform8" parent="." unique_id=1492594446 instance=ExtResource("6_0ldd6")]
-transform = Transform3D(0.98994946, 0, 0.98994946, 0, 1.4, 0, -0.98994946, 0, 0.98994946, 3, -3, 91)
+transform = Transform3D(0.98994946, 0, 0.98994946, 0, 1.4, 0, -0.98994946, 0, 0.98994946, 5, -3, 91)
 
 [node name="HexagonOrangePlatform15" parent="." unique_id=1738284771 instance=ExtResource("6_0ldd6")]
 transform = Transform3D(0.98994946, 0, 0.98994946, 0, 1.4, 0, -0.98994946, 0, 0.98994946, 3, -3, 106)
@@ -75,7 +72,7 @@ transform = Transform3D(0.98994946, 0, 0.98994946, 0, 1.4, 0, -0.98994946, 0, 0.
 transform = Transform3D(0.98994946, 0, 0.98994946, 0, 1.4, 0, -0.98994946, 0, 0.98994946, -4, -3, 134)
 
 [node name="HexagonStonePlatform2" parent="." unique_id=917477647 instance=ExtResource("4_8ma26")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -3, 1, 76)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -3, 1, 78)
 
 [node name="Checkpoint" parent="HexagonStonePlatform2" unique_id=742215115 instance=ExtResource("7_18uag")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.42397928, 0)

@@ -26,22 +26,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 36, 214)
 transform = Transform3D(1.9318516, 0, 0.5176381, 0, 2, 0, -0.5176381, 0, 1.9318516, 0, -8, 11)
 
 [node name="ArrowSign" parent="HexagonGrassPlatform4" unique_id=975612369 instance=ExtResource("5_yq3rd")]
-transform = Transform3D(0.044172764, 0.21272726, -1.9881654, 0.79390913, 1.8233091, 0.2127273, 1.8351462, -0.793909, -0.044172853, -1.9937152, 4.2629385, -0.74987173)
+transform = Transform3D(1.8351463, -0.793909, -0.044172794, 0.7939091, 1.8233091, 0.2127273, -0.044172853, -0.21272726, 1.9881656, -1.9937154, 4.2629385, -0.74987173)
 
 [node name="Spring" parent="HexagonGrassPlatform4" unique_id=2127770289 instance=ExtResource("6_ja35m")]
-transform = Transform3D(1.0000004, 0, 0, 0, 1, 0, 0, 0, 1.0000004, -1.2940956, 4.334357, 4.829631)
+transform = Transform3D(1.0000006, 0, 0, 0, 1, 0, 0, 0, 1.0000006, 3.734294, 4.334357, 1.5182424)
 
 [node name="HexagonGrassPlatform14" parent="." unique_id=1904350627 instance=ExtResource("4_orgol")]
 transform = Transform3D(1.4142135, 0, -1.4142135, 0, 2, 0, 1.4142135, 0, 1.4142135, 7, 25, 198)
 
 [node name="HexagonGrassPlatform15" parent="." unique_id=537577895 instance=ExtResource("4_orgol")]
-transform = Transform3D(1.4142135, 0, -1.4142135, 0, 2, 0, 1.4142135, 0, 1.4142135, 8, 3, 43)
+transform = Transform3D(-0.5176382, 0, -1.9318516, 0, 2, 0, 1.9318516, 0, -0.5176382, 26, 3, 15)
 
 [node name="Spring" parent="HexagonGrassPlatform15" unique_id=1433963982 instance=ExtResource("6_ja35m")]
 transform = Transform3D(1.0000004, 0, 0, 0, 1, 0, 0, 0, 1.0000004, 2.2414398, 4.334357, -2.2414389)
 
 [node name="HexagonGrassPlatform16" parent="." unique_id=1725111545 instance=ExtResource("4_orgol")]
-transform = Transform3D(0.5176381, 0, -1.9318519, 0, 2, 0, 1.9318519, 0, 0.5176381, 36, 15, 34)
+transform = Transform3D(0.5176381, 0, -1.9318519, 0, 2, 0, 1.9318519, 0, 0.5176381, 36, 15, 36)
 
 [node name="Spring" parent="HexagonGrassPlatform16" unique_id=1727672790 instance=ExtResource("6_ja35m")]
 transform = Transform3D(1.0000005, 0, 0, 0, 1, 0, 0, 0, 1.0000005, 3.1473064, 4.334357, 1.1393023)
