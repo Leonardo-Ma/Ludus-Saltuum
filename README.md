@@ -58,13 +58,17 @@ Strictly follows [Godot's recommended code style guidelines](https://docs.godote
 
 <!-- TODO Finish this (Make it friendly for first time developers) -->
 # Developing
-Dependencies:
+### Dependencies:
+
 - [Godot 4](https://godotengine.org/)
 - [Git](https://git-scm.com/)
+- [Git-lfs](https://git-lfs.com/)
 
 ```
 1 - Clone this repo
-2 - Scan the project's root in Godot
+2 - run: git lfs pull
+3 - Scan the project's root in Godot
+4 - Open the project.
 ```
 
 ### For commit hooks (formatter/lint/parser/spelling...) to work ([.pre-commit-config.yaml](.pre-commit-config.yaml)):
