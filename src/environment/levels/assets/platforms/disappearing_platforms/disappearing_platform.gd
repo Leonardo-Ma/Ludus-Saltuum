@@ -2,7 +2,7 @@
 extends StaticBody3D
 
 @export var fade_in_seconds: int = 2
-@export var fade_out_seconds: int = 3
+@export var fade_out_seconds: int = 4
 
 var _is_cycle_running: bool = false
 var _mesh_parts: Array[MeshInstance3D] = []
@@ -21,6 +21,7 @@ func _ready() -> void:
 	surface.body_entered.connect(_on_character_step)
 
 
+# TODO Check if async await is best approach
 func _on_character_step(body: Node3D) -> void:
 	if !body.is_in_group(Groups.CONTROLLED) or _is_cycle_running:
 		return
