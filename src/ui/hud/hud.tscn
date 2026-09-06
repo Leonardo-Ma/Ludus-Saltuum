@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://l8tfyp2lpc7o"]
 
-[ext_resource type="Script" uid="uid://bc20xmwfj68dg" path="res://src/entities/player/combat/player_healthbar.gd" id="1_jreyb"]
+[ext_resource type="Script" uid="uid://bc20xmwfj68dg" path="res://src/ui/hud/player_healthbar.gd" id="1_jreyb"]
 [ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="1_up44w"]
 [ext_resource type="Script" uid="uid://c1nea7ynodcea" path="res://src/ui/hud/hud.gd" id="2_6kydk"]
 [ext_resource type="Script" uid="uid://c30uhilu8tn5v" path="res://src/ui/hud/score.gd" id="2_cl4jo"]

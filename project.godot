@@ -83,7 +83,6 @@ folder_colors={
 "res://src/entities/components/": "gray",
 "res://src/entities/enemies/resources/": "purple",
 "res://src/entities/player/": "red",
-"res://src/entities/player/combat/": "gray",
 "res://src/entities/player/controller/": "gray",
 "res://src/entities/player/skills/": "gray",
 "res://src/entities/player/visual/": "orange",
