@@ -1,0 +1,46 @@
+name: tests
+
+on:
+  push:
+    branches:
+      - main
+      - next
+    paths-ignore:
+      - 'CHANGELOG.md'  # Don't run CI for changelog only commits
+  pull_request:
+    paths-ignore:
+      - 'CHANGELOG.md'
+
+permissions:
+  contents: read
+
+jobs:
+  godot-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Godot
+        uses: chickensoft-games/setup-godot@c233594225991af5aec714e52457cc76d6df8fa2 # v2.4.2
+        with:
+          version: '4.8'
+
+      - name: Run GDScript tests
+        shell: bash
+        run: |
+          set -o pipefail
+
+          godot \
+            --headless \
+            --path . \
+            res://tests/test_scene.tscn \
+            --quit-after 10 \
+            2>&1 | tee test_output.log
+
+          if grep -qi "assertion failed" test_output.log; then
+            echo "GDScript assertion failure detected"
+            exit 1
+          fi
