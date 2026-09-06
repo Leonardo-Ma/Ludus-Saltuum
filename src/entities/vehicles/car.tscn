@@ -210,7 +210,7 @@ continuous_cd = true
 script = ExtResource("1_car")
 max_brake_force = 280.0
 coast_brake_force = 12.0
-max_steering = 0.18
+max_steering = 0.25
 reverse_max_speed = 36.0
 health = SubResource("Resource_u1f61")
 
