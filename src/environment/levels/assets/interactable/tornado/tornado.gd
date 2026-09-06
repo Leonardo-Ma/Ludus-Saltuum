@@ -2,8 +2,8 @@
 class_name WindTube
 extends Area3D
 
-@export_range(1.0, 50.0, 0.5, "suffix:m/s²") var wind_force: float = 20.0
-@export_range(1.0, 50.0, 0.5, "suffix:m/s") var max_wind_speed: float = 25.0
+@export_range(1.0, 100.0, 0.5, "suffix:m/s²") var wind_force: float = 20.0
+@export_range(1.0, 100.0, 0.5, "suffix:m/s") var max_wind_speed: float = 25.0
 
 var _bodies_inside: Array[CharacterBody3D] = []
 
