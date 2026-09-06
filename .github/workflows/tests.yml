@@ -26,7 +26,10 @@ jobs:
       - name: Setup Godot
         uses: chickensoft-games/setup-godot@c233594225991af5aec714e52457cc76d6df8fa2 # v2.4.2
         with:
-          version: '4.8'
+          version: '4.8.0-dev.4'
+
+      - name: Verify version
+        run:  godot --version
 
       - name: Run GDScript tests
         shell: bash
@@ -35,8 +38,8 @@ jobs:
 
           godot \
             --headless \
-            --path . \
-            res://tests/test_scene.tscn \
+            --path ./src \
+            res://main.tscn \
             --quit-after 10 \
             2>&1 | tee test_output.log
 
