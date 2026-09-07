@@ -1,16 +1,12 @@
 ## Maps InputEvent to icon texture
 ## Listens to InputManager.device_changed to swap the active map
 ## Emits map_changed on device change
-extends Node
+class_name GamepadIconMap
+extends RefCounted
 
 signal map_changed
 
 var _gamepad_map: GamepadMap = XboxMap.new()
-
-
-func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS
-	InputManager.device_changed.connect(_on_device_changed)
 
 
 ## Returns null for unmapped events, should fall back to text
@@ -27,7 +23,7 @@ func get_icon_for_event(event: InputEvent) -> Texture2D:
 	return null
 
 
-func _on_device_changed(device: InputManager.Device) -> void:
+func set_device(device: InputManager.Device) -> void:
 	match device:
 		InputManager.Device.GAMEPAD_PLAYSTATION:
 			_gamepad_map = PlaystationMap.new()

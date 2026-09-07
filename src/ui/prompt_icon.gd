@@ -12,11 +12,14 @@ extends TextureRect
 ## Optional keyboard override texture
 @export var keyb_texture_override: Texture2D
 
+var _gamepad_icon_map: GamepadIconMap = GamepadIconMap.new()
+
 
 func _ready() -> void:
 	assert(action != &"", "Action not assigned in " + name)
 	assert(InputMap.has_action(action), "Wrong action in " + name)
-	GamepadIconMap.map_changed.connect(_refresh)
+	_gamepad_icon_map.map_changed.connect(_refresh)
+	InputManager.device_changed.connect(_on_device_changed)
 	InputBindingManager.binding_changed.connect(_on_binding_changed)
 	_refresh()
 
@@ -46,21 +49,21 @@ func _resolve_gamepad(events: Array[InputEvent]) -> Texture2D:
 	# Two passes: preferred type first, then fallback
 	for event: InputEvent in events:
 		if prefer_axis and event is InputEventJoypadMotion:
-			var icon: Texture2D = GamepadIconMap.get_icon_for_event(event)
+			var icon: Texture2D = _gamepad_icon_map.get_icon_for_event(event)
 			if icon != null:
 				return icon
 		elif not prefer_axis and event is InputEventJoypadButton:
-			var icon: Texture2D = GamepadIconMap.get_icon_for_event(event)
+			var icon: Texture2D = _gamepad_icon_map.get_icon_for_event(event)
 			if icon != null:
 				return icon
 
 	for event: InputEvent in events:
 		if prefer_axis and event is InputEventJoypadButton:
-			var icon: Texture2D = GamepadIconMap.get_icon_for_event(event)
+			var icon: Texture2D = _gamepad_icon_map.get_icon_for_event(event)
 			if icon != null:
 				return icon
 		elif not prefer_axis and event is InputEventJoypadMotion:
-			var icon: Texture2D = GamepadIconMap.get_icon_for_event(event)
+			var icon: Texture2D = _gamepad_icon_map.get_icon_for_event(event)
 			if icon != null:
 				return icon
 
@@ -84,3 +87,7 @@ func _resolve_keyboard(events: Array[InputEvent]) -> Texture2D:
 				return icon
 
 	return KeyboardIconMap.get_mouse_motion_icon(action)
+
+
+func _on_device_changed(device: InputManager.Device) -> void:
+	_gamepad_icon_map.set_device(device)

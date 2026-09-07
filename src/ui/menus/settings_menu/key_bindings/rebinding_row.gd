@@ -17,6 +17,8 @@ var _pulse_tween: Tween
 @onready var _gamepad_icons: HBoxContainer = %GamepadIconsContainer
 @onready var _reset_button: Button = %ResetButton
 
+var _gamepad_icon_map: GamepadIconMap = GamepadIconMap.new()
+
 
 func setup(action: StringName) -> void:
 	for action_icon: CompressedTexture2D in InputBindingManager.REBINDABLE_ACTIONS_ICONS[action]:
@@ -34,7 +36,7 @@ func setup(action: StringName) -> void:
 		func() -> void:
 			reset_requested.emit(_action),
 	)
-	GamepadIconMap.map_changed.connect(_refresh_gamepad)
+	_gamepad_icon_map.map_changed.connect(_refresh_gamepad)
 	InputBindingManager.binding_changed.connect(_on_binding_changed)
 	InputManager.device_changed.connect(_on_device_changed)
 	_refresh_icon()
@@ -101,7 +103,7 @@ func _refresh_gamepad() -> void:
 	if not InputManager.is_gamepad_active():
 		return
 	for event: InputEvent in InputMap.action_get_events(_action):
-		var icon: Texture2D = GamepadIconMap.get_icon_for_event(event)
+		var icon: Texture2D = _gamepad_icon_map.get_icon_for_event(event)
 		if icon == null:
 			continue
 		# TODO This rect should be set in the editor
