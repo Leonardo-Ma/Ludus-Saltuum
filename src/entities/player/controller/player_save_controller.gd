@@ -56,6 +56,9 @@ func apply_save_data(data: PlayerSaveData) -> void:
 
 
 func reset_save_data() -> void:
+	if player.vehicle_rider.is_in_vehicle:
+		player.vehicle_rider.vehicle.exit(player.global_position)
+
 	player.health.reset()
 	player.skills_controller.reset()
 

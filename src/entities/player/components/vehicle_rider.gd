@@ -8,6 +8,10 @@ signal vehicle_exited
 
 var is_in_vehicle: bool = false
 
+var vehicle: PlayerCar:
+	get:
+		return _vehicle
+
 var _vehicle: PlayerCar = null
 
 @onready var _player: PlayerEntity = owner as PlayerEntity
@@ -32,13 +36,13 @@ func _setup_component_connections() -> void:
 	vehicle_exited.connect(_on_vehicle_exited)
 
 #region Public API
-func enter_vehicle(vehicle: PlayerCar) -> void:
-	assert(vehicle != null, "VehicleRider: vehicle missing in " + name)
+func enter_vehicle(player_car: PlayerCar) -> void:
+	assert(player_car != null, "VehicleRider: vehicle missing in " + name)
 	if is_in_vehicle:
 		return
-	_vehicle = vehicle
+	_vehicle = player_car
 	is_in_vehicle = true
-	vehicle.tree_exiting.connect(_on_vehicle_tree_exiting)
+	player_car.tree_exiting.connect(_on_vehicle_tree_exiting)
 	vehicle_entered.emit()
 
 

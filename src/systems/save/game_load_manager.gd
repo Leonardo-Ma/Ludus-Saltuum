@@ -42,6 +42,9 @@ func _try_finish_load() -> void:
 	if _player == null or not _load_applied:
 		return
 
+	if _player.vehicle_rider.is_in_vehicle:
+		_player.vehicle_rider.vehicle.exit(_player.global_position)
+
 	_player.player_save_controller.apply_save_data(_pending_player_data)
 
 	if CheckpointManager.has_active_checkpoint():
