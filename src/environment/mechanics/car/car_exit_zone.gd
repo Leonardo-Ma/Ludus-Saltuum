@@ -11,4 +11,4 @@ func _on_trigger_entered(body: Node3D) -> void:
 	var car: PlayerCar = body as PlayerCar
 	if car == null or not car.is_driven:
 		return
-	await car.exit(car.global_position)
+	car.exit(car.global_position)

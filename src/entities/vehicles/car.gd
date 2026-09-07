@@ -168,8 +168,11 @@ func exit(exit_position: Vector3) -> void:
 	driving_stopped.emit(driver)
 	remove_from_group(Groups.CONTROLLED)
 
-	await get_tree().create_timer(REENTER_CAR_DELAY).timeout
-	enter_area.set_deferred("monitoring", true)
+	var reenter_timer: SceneTreeTimer = get_tree().create_timer(REENTER_CAR_DELAY)
+	reenter_timer.timeout.connect(
+		func() -> void:
+			enter_area.set_deferred("monitoring", true),
+	)
 
 
 func respawn(delay: float, target_transform: Transform3D, is_death: bool = false) -> void:
