@@ -1,4 +1,4 @@
-## Manages unlocked skills and routes input actions to the correct skill by id
+## Manages unlocked skills and routes input actions to the correct skill
 class_name SkillsController
 extends Node
 
@@ -9,7 +9,7 @@ signal resetted_skills
 var is_sliding: bool = false
 var base_fov: float = 0.0
 
-var _skills: Dictionary = { }
+var _skills: Dictionary[SkillDefinition, BaseSkill] = { }
 
 @onready var entity: PlayerEntity = owner
 @onready var movement_controller: MovementController = %MovementController
@@ -35,19 +35,18 @@ func reset() -> void:
 
 
 # TODO BUG Double check this, something clearly wrong with this :(
-## Replaces any existing skill with the same id
+## Replaces any existing skill
 func unlock(definition: SkillDefinition) -> void:
-	assert(definition.input_action != &"" or definition.id == &"dash", "SkillsController: '%s' has no input_action in %s" % [definition.id, name])
+	assert(definition.input_action != &"", "SkillsController: " + definition.resource_name + "is missing input_action in " + name)
 
-	if _skills.has(definition.id):
-		(_skills[definition.id] as BaseSkill).queue_free()
+	if _skills.has(definition):
+		_skills[definition].queue_free()
 
 	var skill: BaseSkill = definition.skill_script.new()
-	skill.name = definition.id
 	skill.definition = definition
 	skill.skills_controller = self
 	add_child(skill)
-	_skills[definition.id] = skill
+	_skills[definition] = skill
 	skill_unlocked.emit(definition.hud_order, definition)
 
 
@@ -62,24 +61,22 @@ func get_skills_ordered() -> Array[BaseSkill]:
 	return result
 
 
-func get_skill(skill_id: StringName) -> BaseSkill:
-	return _skills.get(skill_id) as BaseSkill
+func get_skill(definition: SkillDefinition) -> BaseSkill:
+	return _skills.get(definition) as BaseSkill
 
 
-func get_unlocked_ids() -> Array[StringName]:
-	var ids: Array[StringName] = []
-	for id: StringName in _skills:
-		ids.append(id)
-	return ids
+func get_unlocked_skills() -> Array[SkillDefinition]:
+	var skills: Array[SkillDefinition] = []
+	for skill: SkillDefinition in _skills:
+		skills.append(skill)
+	return skills
 
 
-func set_unlocked_ids(ids: Array[StringName]) -> void:
+func set_unlocked_skills(skills: Array[SkillDefinition]) -> void:
 	reset()
 
-	for id: StringName in ids:
-		var definition: SkillDefinition = SkillRegistry.get_definition(id)
-		assert(definition != null, "Skill definition missing for " + str(id) + " in " + name)
-		unlock(definition)
+	for skill: SkillDefinition in skills:
+		unlock(skill)
 
 
 # TODO Reconsider where to place this
@@ -90,17 +87,17 @@ func spawn_ghost_trail(duration: float = 0.5, color: Color = Color(0.8, 1.0, 1.5
 
 ## Unlocks startup skills sorted by hud_order for consistent display order
 func _initialize_from_entity() -> void:
-	if entity.startup_skill_ids.is_empty():
+	if entity.startup_skills.is_empty():
 		return
-	var definitions: Array[SkillDefinition] = []
-	for id: StringName in entity.startup_skill_ids:
-		definitions.append(SkillRegistry.get_definition(id))
-	definitions.sort_custom(
+	var skills: Array[SkillDefinition] = []
+	for skill: SkillDefinition in entity.startup_skills:
+		skills.append(skill)
+	skills.sort_custom(
 		func(a: SkillDefinition, b: SkillDefinition) -> bool:
 			return a.hud_order < b.hud_order,
 	)
-	for definition: SkillDefinition in definitions:
-		unlock(definition)
+	for skill: SkillDefinition in skills:
+		unlock(skill)
 
 
 func _on_landed() -> void:

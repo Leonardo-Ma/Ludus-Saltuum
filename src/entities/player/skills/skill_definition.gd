@@ -2,8 +2,6 @@
 class_name SkillDefinition
 extends Resource
 
-@export var id: StringName = ""
-
 ## The behaviour node attached to the player when this skill is unlocked
 @export var skill_script: Script
 

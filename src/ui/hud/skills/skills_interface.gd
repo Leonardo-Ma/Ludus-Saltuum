@@ -44,7 +44,7 @@ func _on_skill_unlocked(_hud_order: int, definition: SkillDefinition) -> void:
 	if players.is_empty():
 		return
 	var controller: SkillsController = (players[0] as PlayerEntity).skills_controller
-	var skill: BaseSkill = controller.get_skill(definition.id)
+	var skill: BaseSkill = controller.get_skill(definition)
 	_bind_slot(skill)
 	show()
 

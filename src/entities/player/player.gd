@@ -2,7 +2,7 @@ class_name PlayerEntity
 extends AggressiveEntity
 
 @export_category("Skills")
-@export var startup_skill_ids: Array[StringName] = []
+@export var startup_skills: Array[SkillDefinition] = []
 
 @onready var camera_controller: CameraController = %CamRoot
 @onready var movement_controller: MovementController = %MovementController

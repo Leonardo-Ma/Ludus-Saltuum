@@ -29,7 +29,7 @@ func reset() -> void:
 
 func select_chunk_data(
 	target_transform: Transform3D,
-	unlocked_ids: Array[StringName],
+	unlocked: Array[SkillDefinition],
 	current_score: int,
 	required_features: Array[ChunkFeature.Feature] = [],
 ) -> ChunkData:
@@ -48,7 +48,7 @@ func select_chunk_data(
 	# Only force unlock when there are skills the player doesn't yet have
 	var has_unlockable_skill: bool = _all_chunks.any(
 		func(d: ChunkData) -> bool:
-			return d.unlocks_skill_id != &"" and not unlocked_ids.has(d.unlocks_skill_id),
+			return d.unlocks_skill != null and not unlocked.has(d.unlocks_skill),
 	)
 	var force_skill_unlock: bool = (
 		has_unlockable_skill and current_score >= _last_skill_score_threshold + SKILL_UNLOCK_SCORE_STEP
@@ -64,10 +64,10 @@ func select_chunk_data(
 
 	for data: ChunkData in _all_chunks:
 		# --------------- skill unlock filtering ---------------
-		if data.unlocks_skill_id != &"":
+		if data.unlocks_skill != null:
 			if not force_skill_unlock:
 				continue
-			if unlocked_ids.has(data.unlocks_skill_id):
+			if unlocked.has(data.unlocks_skill):
 				continue
 		else:
 			if force_skill_unlock:
@@ -81,9 +81,9 @@ func select_chunk_data(
 			if missing_feature:
 				continue
 		# --------------- required skills check ---------------
-		var missing: bool = data.required_skill_ids.any(
-			func(id: StringName) -> bool:
-				return not unlocked_ids.has(id),
+		var missing: bool = data.required_skill.any(
+			func(skill: SkillDefinition) -> bool:
+				return not unlocked.has(skill),
 		)
 		if missing:
 			continue
@@ -100,7 +100,7 @@ func select_chunk_data(
 		print("  → EMERGENCY FALLBACK: using all basic chunks")
 		valid_pool = _all_chunks.filter(
 			func(d: ChunkData) -> bool:
-				return d.unlocks_skill_id == &"",
+				return d.unlocks_skill == null,
 		)
 		if valid_pool.is_empty():
 			valid_pool = _all_chunks
@@ -124,7 +124,7 @@ func select_chunk_data(
 
 	var chosen: ChunkData = valid_pool[_rng.randi_range(0, valid_pool.size() - 1)]
 
-	if chosen.unlocks_skill_id != &"":
+	if chosen.unlocks_skill != null:
 		_chunks_since_skill_unlock = 0
 		_last_skill_score_threshold += SKILL_UNLOCK_SCORE_STEP
 	else:

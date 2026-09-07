@@ -18,7 +18,7 @@ metadata/_custom_type_script = "uid://si0x0kj8w7kf"
 
 [node name="UnlockDash" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_jj27o")
-unlocks_skill_id = &"dash"
+unlocks_skill = ExtResource("7_jj27o")
 
 [node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_567ft")]
 unique_name_in_owner = true

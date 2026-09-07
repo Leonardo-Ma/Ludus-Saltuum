@@ -18,7 +18,7 @@ metadata/_custom_type_script = "uid://si0x0kj8w7kf"
 [node name="UnlockDoubleJump" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_u651q")
 score_multiplier = 0.0
-unlocks_skill_id = &"double_jump"
+unlocks_skill = ExtResource("8_8mpxv")
 
 [node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_2e7yg")]
 unique_name_in_owner = true

@@ -15,8 +15,8 @@ enum Difficulty {
 @export var features: Array[ChunkFeature.Feature] = []
 
 @export_category("Skills")
-@export var unlocks_skill_id: StringName = &""
-@export var required_skill_ids: Array[StringName] = []
+@export var unlocks_skill: SkillDefinition
+@export var required_skill: Array[SkillDefinition] = []
 
 @onready var exit_trigger: Area3D = %ExitTrigger
 @onready var entrance_trigger: Area3D = %EntranceTrigger

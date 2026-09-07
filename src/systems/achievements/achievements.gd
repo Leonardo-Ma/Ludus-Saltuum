@@ -7,8 +7,9 @@ signal achievement_unlocked(key: StringName)
 const ACHIEVEMENT_REGISTRY_DATA: AchievementRegistryData = preload("uid://rvm76nrub6ue")
 const _SAVE_PATH: String = "user://achievements.cfg"
 const _SECTION: String = "unlocked"
-# TODO Should not be hardcoded
-const _ALL_SKILL_IDS: Array[StringName] = [&"dash", &"double_jump"] #, &"feather_fall"]
+
+const _SKILL_CATALOGUE: SkillCatalogue = preload("uid://6ygr0ieawafb")
+const _ALL_SKILLS: Array[SkillDefinition] = _SKILL_CATALOGUE.definitions
 
 var _achievement_keys: Dictionary = { } # Dictionary[StringName, AchievementDefinition]
 var _unlocked: Dictionary = { } # Dictionary[StringName, bool]
@@ -196,11 +197,11 @@ func _check_skill_completion() -> void:
 	if not is_instance_valid(_skills_controller):
 		return
 
-	var ids: Array[StringName] = _skills_controller.get_unlocked_ids()
+	var skills: Array[SkillDefinition] = _skills_controller.get_unlocked_skills()
 
-	if _ALL_SKILL_IDS.all(
-		func(id: StringName) -> bool:
-			return ids.has(id),
+	if _ALL_SKILLS.all(
+		func(skill: SkillDefinition) -> bool:
+			return skills.has(skill),
 	):
 		unlock(&"all_skills")
 

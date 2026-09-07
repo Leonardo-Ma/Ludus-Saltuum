@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="SkillCatalogue" format=3 uid="uid://6ygr0ieawafb"]
+
+[ext_resource type="Script" uid="uid://difrst13h47n5" path="res://src/entities/player/skills/skill_definition.gd" id="1_vsl35"]
+[ext_resource type="Script" uid="uid://b0c28qulnbi6r" path="res://src/entities/player/skills/skill_catalogue.gd" id="2_r0sgn"]
+[ext_resource type="Resource" uid="uid://dq338q84ai7to" path="res://src/entities/player/skills/active_skills/dash.tres" id="2_yb1kb"]
+[ext_resource type="Resource" uid="uid://dw6jynnbqeedp" path="res://src/entities/player/skills/active_skills/double_jump.tres" id="3_3cukp"]
+[ext_resource type="Resource" uid="uid://dcw2dwhnvq7ri" path="res://src/entities/player/skills/active_skills/feather_fall.tres" id="4_6kfjp"]
+
+[resource]
+script = ExtResource("2_r0sgn")
+definitions = Array[ExtResource("1_vsl35")]([ExtResource("2_yb1kb"), ExtResource("3_3cukp"), ExtResource("4_6kfjp")])
+metadata/_custom_type_script = "uid://b0c28qulnbi6r"

@@ -12,8 +12,8 @@ var has_checkpoint: bool = false
 
 var features: Array[ChunkFeature.Feature] = []
 
-var required_skill_ids: Array[StringName] = []
-var unlocks_skill_id: StringName = &""
+var required_skill: Array[SkillDefinition] = []
+var unlocks_skill: SkillDefinition
 
 var difficulty_points: int = 0
 var skill_points: int = 0

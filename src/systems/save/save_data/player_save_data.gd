@@ -9,4 +9,4 @@ extends Resource
 
 @export var health: int = 0
 
-@export var unlocked_skill_ids: Array[StringName] = []
+@export var unlocked_skills: Array[SkillDefinition] = []

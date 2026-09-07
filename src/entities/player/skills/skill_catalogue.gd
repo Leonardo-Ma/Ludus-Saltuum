@@ -1,4 +1,4 @@
-class_name SkillRegistryData
+class_name SkillCatalogue
 extends Resource
 
 @export var definitions: Array[SkillDefinition] = []

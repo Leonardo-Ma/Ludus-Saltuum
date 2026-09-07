@@ -176,8 +176,8 @@ func _load_chunk_metadata_from_disk() -> void:
 
 								data.scene_path = full_path
 								data.features = chunk.features.duplicate()
-								data.required_skill_ids = chunk.required_skill_ids.duplicate()
-								data.unlocks_skill_id = chunk.unlocks_skill_id
+								data.required_skill = chunk.required_skill.duplicate()
+								data.unlocks_skill = chunk.unlocks_skill
 								data.score_multiplier = chunk.score_multiplier
 
 								data.difficulty_points = _get_difficulty_points(chunk, data)
@@ -310,7 +310,7 @@ func _get_difficulty_points(chunk: LevelChunk, data: ChunkData) -> int:
 
 # TODO Double check this
 func _count_required_skills(data: ChunkData) -> int:
-	return data.required_skill_ids.size() * 2
+	return data.required_skill.size() * 2
 
 
 func _get_chunk_data_by_path(path: String) -> ChunkData:
@@ -390,8 +390,8 @@ func _disconnect_chunk_trigger(chunk: LevelChunk) -> void:
 
 
 func _get_random_valid_chunk(target_transform: Transform3D) -> LevelChunk:
-	var unlocked_ids: Array[StringName] = _player.skills_controller.get_unlocked_ids()
-	var chosen_data: ChunkData = _chunk_selector.select_chunk_data(target_transform, unlocked_ids, _player.economy_controller.score)
+	var unlocked_skills: Array[SkillDefinition] = _player.skills_controller.get_unlocked_skills()
+	var chosen_data: ChunkData = _chunk_selector.select_chunk_data(target_transform, unlocked_skills, _player.economy_controller.score)
 	var load_status: ResourceLoader.ThreadLoadStatus = ResourceLoader.load_threaded_get_status(chosen_data.scene_path)
 	var scene: PackedScene
 	if load_status == ResourceLoader.THREAD_LOAD_LOADED:

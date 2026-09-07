@@ -1,12 +1,14 @@
 ## Verifies ChunkSelector required-skill filtering, turn cooldown, and forced skill unlock
 extends Node
 
+const DASH: SkillDefinition = preload("uid://dq338q84ai7to")
 
-func _make_chunk(path: String, required: Array[StringName] = [], unlocks: StringName = &"", is_turn: bool = false) -> ChunkData:
+
+func _make_chunk(path: String, required: Array[SkillDefinition] = [], unlocks: SkillDefinition = null, is_turn: bool = false) -> ChunkData:
 	var data: ChunkData = ChunkData.new()
 	data.scene_path = path
-	data.required_skill_ids = required
-	data.unlocks_skill_id = unlocks
+	data.required_skill = required
+	data.unlocks_skill = unlocks
 	data.is_turn = is_turn
 	return data
 
@@ -28,7 +30,7 @@ func _test_filters_by_required_skills() -> void:
 	rng.seed = 1
 
 	var basic: ChunkData = _make_chunk("res://basic.tscn")
-	var dash_only: ChunkData = _make_chunk("res://dash.tscn", [&"dash"])
+	var dash_only: ChunkData = _make_chunk("res://dash.tscn", [DASH])
 	var selector: ChunkSelector = ChunkSelector.new(rng, [basic, dash_only])
 
 	for i: int in 10:
@@ -40,8 +42,8 @@ func _test_turn_cooldown() -> void:
 	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 	rng.seed = 2
 
-	var turn: ChunkData = _make_chunk("res://turn.tscn", [], &"", true)
-	var straight: ChunkData = _make_chunk("res://straight.tscn", [], &"", false)
+	var turn: ChunkData = _make_chunk("res://turn.tscn", [], null, true)
+	var straight: ChunkData = _make_chunk("res://straight.tscn", [], null, false)
 	var selector: ChunkSelector = ChunkSelector.new(rng, [turn, straight])
 	selector._chunks_since_turn = 0 # simulate a turn was just selected
 
@@ -55,7 +57,7 @@ func _test_forced_skill_unlock() -> void:
 	rng.seed = 3
 
 	var basic: ChunkData = _make_chunk("res://basic.tscn")
-	var unlock_dash: ChunkData = _make_chunk("res://unlock_dash.tscn", [], &"dash")
+	var unlock_dash: ChunkData = _make_chunk("res://unlock_dash.tscn", [], DASH)
 	var selector: ChunkSelector = ChunkSelector.new(rng, [basic, unlock_dash])
 	selector._chunks_since_skill_unlock = ChunkSelector.MIN_CHUNKS_BETWEEN_SKILLS
 
