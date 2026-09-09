@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://c32lde0fr367t"]
 
 [ext_resource type="Script" uid="uid://bdsm2smu5621i" path="res://src/environment/mechanics/teleport_portal/teleport_portal.gd" id="1_8s2yu"]
-[ext_resource type="Script" uid="uid://b7exmw368skvk" path="res://src/environment/mechanics/teleport_portal/portal_vfx/vfx_portal_controller.gd" id="2_50txy"]
-[ext_resource type="Shader" uid="uid://bruwthw7y7lf6" path="res://src/environment/mechanics/teleport_portal/portal_vfx/shader/portal_stencil.gdshader" id="3_5cgcm"]
-[ext_resource type="Shader" uid="uid://gkip6tmkfyi" path="res://src/environment/mechanics/teleport_portal/portal_vfx/shader/portal.gdshader" id="4_r5nat"]
-[ext_resource type="Shader" uid="uid://86dct2j811i6" path="res://src/environment/mechanics/teleport_portal/portal_vfx/shader/portal_glow.gdshader" id="5_1als3"]
+[ext_resource type="Script" uid="uid://b7exmw368skvk" path="res://src/environment/assets/portal_vfx/vfx_portal_controller.gd" id="2_50txy"]
+[ext_resource type="Shader" uid="uid://bruwthw7y7lf6" path="res://src/environment/assets/portal_vfx/shader/portal_stencil.gdshader" id="3_5cgcm"]
+[ext_resource type="Shader" uid="uid://gkip6tmkfyi" path="res://src/environment/assets/portal_vfx/shader/portal.gdshader" id="4_r5nat"]
+[ext_resource type="Shader" uid="uid://86dct2j811i6" path="res://src/environment/assets/portal_vfx/shader/portal_glow.gdshader" id="5_1als3"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_portal"]
 height = 1.8390381

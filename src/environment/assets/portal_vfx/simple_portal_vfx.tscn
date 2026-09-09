@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://dlxbhva4utv0e"]
 
-[ext_resource type="Script" uid="uid://b7exmw368skvk" path="res://src/environment/mechanics/teleport_portal/portal_vfx/vfx_portal_controller.gd" id="1_iut0w"]
-[ext_resource type="Shader" uid="uid://bruwthw7y7lf6" path="res://src/environment/mechanics/teleport_portal/portal_vfx/shader/portal_stencil.gdshader" id="2_0aopd"]
-[ext_resource type="Shader" uid="uid://gkip6tmkfyi" path="res://src/environment/mechanics/teleport_portal/portal_vfx/shader/portal.gdshader" id="3_sbj67"]
-[ext_resource type="Shader" uid="uid://86dct2j811i6" path="res://src/environment/mechanics/teleport_portal/portal_vfx/shader/portal_glow.gdshader" id="4_a3cqh"]
+[ext_resource type="Script" uid="uid://b7exmw368skvk" path="res://src/environment/assets/portal_vfx/vfx_portal_controller.gd" id="1_iut0w"]
+[ext_resource type="Shader" uid="uid://bruwthw7y7lf6" path="res://src/environment/assets/portal_vfx/shader/portal_stencil.gdshader" id="2_0aopd"]
+[ext_resource type="Shader" uid="uid://gkip6tmkfyi" path="res://src/environment/assets/portal_vfx/shader/portal.gdshader" id="3_sbj67"]
+[ext_resource type="Shader" uid="uid://86dct2j811i6" path="res://src/environment/assets/portal_vfx/shader/portal_glow.gdshader" id="4_a3cqh"]
 
 [sub_resource type="Gradient" id="Gradient_jsvbm"]
 
