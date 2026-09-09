@@ -36,8 +36,15 @@ const ATTACK_SOUNDS: Array[AudioStream] = [
 @export_subgroup("AI System")
 @export var ai_config: AIConfig
 
+## False when outside level chunk, requires static_id set in editor
+@export var is_procedurally_spawned: bool = true
+## Must be unique
+@export var static_id: StringName = &""
+
+## world_seed:chunk_seed:spawn_index for procedural instances, static_id otherwise
+var enemy_id: StringName = &""
+
 var goap_agent: GoapAgent = null
-var spawn_position: Vector3 # saved after chunk alignment; used for save/load matching
 var _damage_material: StandardMaterial3D
 var _damage_tween: Tween
 var _prev_health: int = 0
@@ -88,6 +95,12 @@ func _ready() -> void:
 		assert(navigation_controller, "NavigationController missing for " + name)
 		assert(perception_system, "Perception system missing for " + name)
 
+		if not is_procedurally_spawned:
+			assert(static_id != &"", "Enemy static_id not set on non-procedural instance " + name)
+			enemy_id = static_id
+		else:
+			_verify_procedural_id_assigned.call_deferred()
+
 		goap_agent = GoapAgent.new()
 		var goals: Array[GoapGoal] = ai_config.create_goals()
 		var actions: Array[GoapAction] = ai_config.create_actions()
@@ -102,8 +115,6 @@ func _ready() -> void:
 
 		assert(goap_agent != null, "NPCs must have GoapAgent. " + name)
 		add_to_group(Groups.ENEMIES)
-		# chunk is not yet aligned when _ready() fires
-		call_deferred("_record_spawn_position")
 
 
 ## Virtual method for subclasses to override instead of _ready()
@@ -139,8 +150,8 @@ func _on_death() -> void:
 	_on_death_complete()
 
 
-func _record_spawn_position() -> void:
-	spawn_position = global_position
+func _verify_procedural_id_assigned() -> void:
+	assert(enemy_id != &"", "LevelChunkManager did not assign enemy_id for " + name)
 
 #region Visual effects and animations
 func _setup_damage_feedback_visual_material() -> void:

@@ -82,6 +82,10 @@ navigation_mesh = SubResource("NavigationMesh_mi8ch")
 
 [node name="Barbarian" parent="Map/Platforms/NavigationRegion3D/GrassPlatform3" unique_id=280064195 instance=ExtResource("9_ocmcv")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 4.017614, 0)
+attack = SubResource("Resource_mlv6i")
+health = SubResource("Resource_tb146")
+is_procedurally_spawned = false
+static_id = &"tutorial_enemy_0"
 
 [node name="Checkpoint" parent="Map" unique_id=742215115 instance=ExtResource("12_lovvn")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -2.1004279, 4.115602, 12.484676)
@@ -98,6 +102,8 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 7.05
 
 [node name="GoldCoin" parent="Map/Collectibles" unique_id=1971537253 instance=ExtResource("13_jitvu")]
 transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0.99999976, 6.5044346, 23)
+is_procedurally_spawned = false
+static_id = &"tutorial_gold_0"
 
 [node name="Player" parent="." unique_id=922527968 instance=ExtResource("7_ss67u")]
 transform = Transform3D(1, 0, 6.3573026e-08, 0, 1, 0, -6.3573026e-08, 0, 1, -0.30705833, -6.731594, -66.83237)

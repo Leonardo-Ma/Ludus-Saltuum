@@ -136,10 +136,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 [node name="UnlockSkill" parent="SkillsUnlock/GrassPlatform" unique_id=707485280 instance=ExtResource("19_jlvjc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 5, 0)
 data = SubResource("Resource_4wb24")
+is_procedurally_spawned = false
+static_id = &"test_skill_0"
 
 [node name="UnlockSkill2" parent="SkillsUnlock/GrassPlatform" unique_id=1476480636 instance=ExtResource("19_jlvjc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 5, 0)
 data = SubResource("Resource_bud03")
+is_procedurally_spawned = false
+static_id = &"test_skill_1"
 
 [node name="EasterEggs" type="Node3D" parent="." unique_id=452354969]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
@@ -166,18 +170,28 @@ transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="Gigantify" parent="Collectibles/GrassPlatform2" unique_id=1374629069 instance=ExtResource("19_n72yh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 5, -1)
+is_procedurally_spawned = false
+static_id = &"test_potion_0"
 
 [node name="Shrink" parent="Collectibles/GrassPlatform2" unique_id=826481617 instance=ExtResource("20_7b0ha")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -5)
+is_procedurally_spawned = false
+static_id = &"test_potion_1"
 
 [node name="SpeedUp" parent="Collectibles/GrassPlatform2" unique_id=104397505 instance=ExtResource("21_65kr6")]
 transform = Transform3D(1.9868216e-08, 0, -1, 0, 1, 0, 1, 0, 1.9868216e-08, -1.5850968, 5.666667, -0.8068166)
+is_procedurally_spawned = false
+static_id = &"test_buff_0"
 
 [node name="GoldCoin" parent="Collectibles/GrassPlatform2" unique_id=1971537253 instance=ExtResource("22_jlvjc")]
 transform = Transform3D(1.9868216e-08, 0, -1, 0, 1, 0, 1, 0, 1.9868216e-08, -1.5850968, 5.666667, -4.8068166)
+is_procedurally_spawned = false
+static_id = &"test_gold_0"
 
 [node name="JumpUp" parent="Collectibles/GrassPlatform2" unique_id=1068009352 instance=ExtResource("23_oqqo4")]
 transform = Transform3D(1.9868216e-08, 0, -1, 0, 1, 0, 1, 0, 1.9868216e-08, -1.5850968, 5.666667, -2.8068147)
+is_procedurally_spawned = false
+static_id = &"test_buff_1"
 
 [node name="Car" type="Node3D" parent="." unique_id=521773801]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 4, -13)

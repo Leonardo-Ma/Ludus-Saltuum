@@ -32,7 +32,6 @@ const LEVEL_COMPLETE_SOUNDS: Array[AudioStream] = [
 
 var procedural_seed: int = 0
 
-var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var _all_chunks: Array[ChunkData] = []
 var _active_chunks: Array[LevelChunk] = []
 
@@ -42,6 +41,9 @@ var _chunk_selector: ChunkSelector
 var _chunk_exit_connections: Dictionary = { }
 
 var _current_chunk_index: int = 0
+var _next_chunk_key: int = 0
+## Persisted selection outcome per chunk_key, entries pruned once a chunk is permanently recycled
+var _chunk_key_to_scene_uid: Dictionary[int, String] = { }
 
 
 func _ready() -> void:
@@ -75,54 +77,53 @@ func get_procedural_seed() -> int:
 
 #region Saving and Loading
 func build_save_data(data: ChunkSaveData) -> void:
-	data.procedural_seed = get_procedural_seed()
-	var paths: Array[String] = []
-	var scored_indices: Array[int] = []
+	data.world_seed = get_procedural_seed()
+	var keys: Array[int] = []
+	var scored: Dictionary[int, bool] = { }
+	var uid_map: Dictionary[int, String] = { }
 
-	for i: int in _active_chunks.size():
-		var chunk: LevelChunk = _active_chunks[i]
-		paths.push_back(chunk.scene_file_path)
+	for chunk: LevelChunk in _active_chunks:
+		keys.push_back(chunk.chunk_key)
 		if chunk.has_meta("scored"):
-			scored_indices.push_back(i)
+			scored[chunk.chunk_key] = true
+		assert(_chunk_key_to_scene_uid.has(chunk.chunk_key), "ChunkManager: no persisted scene uid for active chunk_key %d" % chunk.chunk_key)
+		uid_map[chunk.chunk_key] = _chunk_key_to_scene_uid[chunk.chunk_key]
 
-	data.active_chunk_paths = paths
-	data.scored_chunk_indices = scored_indices
+	data.active_chunk_keys = keys
+	data.next_chunk_key = _next_chunk_key
+	data.scored_chunk_keys = scored
+	data.chunk_key_to_scene_uid = uid_map
 	data.chunk_selector_state = _chunk_selector.get_save_state()
 
 
 func apply_save_data(data: ChunkSaveData) -> void:
-	set_procedural_seed(data.procedural_seed)
-	_load_save_data(data.active_chunk_paths, data.scored_chunk_indices, data.chunk_selector_state)
+	set_procedural_seed(data.world_seed)
+	_chunk_key_to_scene_uid = data.chunk_key_to_scene_uid.duplicate()
+	_load_save_data(data.active_chunk_keys, data.next_chunk_key, data.scored_chunk_keys, data.chunk_selector_state)
 
 
 func reset_save_data() -> void:
 	clear_level()
 	_chunk_selector.reset()
+	_next_chunk_key = 0
+	_chunk_key_to_scene_uid.clear()
 
 
-func _load_save_data(active_chunk_paths: Array[String], scored_indices: Array[int], selector_state: Dictionary) -> void:
+func _load_save_data(active_chunk_keys: Array[int], saved_next_key: int, scored_keys: Dictionary[int, bool], selector_state: Dictionary) -> void:
 	var parent_world: Node = get_tree().root.get_node("Main")
 
 	clear_level()
 
 	assert(_chunk_selector != null, "_load_save_data called before metadata was loaded")
 	_chunk_selector.load_save_state(selector_state)
+	assert(not active_chunk_keys.is_empty(), "Save contains no active chunks in " + name)
 
-	assert(not active_chunk_paths.is_empty(), "Save contains no active chunks in " + name)
+	_next_chunk_key = saved_next_key
 
 	var next_spawn_transform: Transform3D = Transform3D()
 
-	for i: int in active_chunk_paths.size():
-		var path: String = active_chunk_paths[i]
-
-		var load_status: ResourceLoader.ThreadLoadStatus = ResourceLoader.load_threaded_get_status(path)
-		var scene: PackedScene
-		if load_status == ResourceLoader.THREAD_LOAD_LOADED:
-			scene = ResourceLoader.load_threaded_get(path) as PackedScene
-		else:
-			scene = load(path) as PackedScene
-		assert(scene != null, "ChunkManager: chunk scene not found '%s'" % path)
-		var chunk: LevelChunk = scene.instantiate() as LevelChunk
+	for chunk_key: int in active_chunk_keys:
+		var chunk: LevelChunk = _instantiate_persisted_chunk(chunk_key)
 
 		if chunk.get_parent() != null:
 			chunk.get_parent().remove_child(chunk)
@@ -132,11 +133,10 @@ func _load_save_data(active_chunk_paths: Array[String], scored_indices: Array[in
 
 		_align_chunk_to_transform(chunk, next_spawn_transform)
 
-		if scored_indices.has(i):
+		if scored_keys.has(chunk_key):
 			chunk.set_meta("scored", true)
 
 		_active_chunks.push_back(chunk)
-
 		_setup_chunk_trigger(chunk)
 
 		next_spawn_transform = chunk.exit_trigger.global_transform
@@ -175,6 +175,9 @@ func _load_chunk_metadata_from_disk() -> void:
 								data.is_turn = in_z.angle_to(out_z) > 0.1
 
 								data.scene_path = full_path
+								var resource_uid: int = ResourceLoader.get_resource_uid(full_path)
+								assert(resource_uid != ResourceUID.INVALID_ID, "ChunkManager: chunk scene has no UID in " + full_path)
+								data.scene_uid = ResourceUID.id_to_text(resource_uid)
 								data.features = chunk.features.duplicate()
 								data.required_skill = chunk.required_skill.duplicate()
 								data.unlocks_skill = chunk.unlocks_skill
@@ -191,7 +194,7 @@ func _load_chunk_metadata_from_disk() -> void:
 								chunk.free()
 				file_name = dir.get_next()
 	assert(_all_chunks.size() > 0, "No valid LevelChunks found in directories.")
-	_chunk_selector = ChunkSelector.new(_rng, _all_chunks)
+	_chunk_selector = ChunkSelector.new(_all_chunks)
 
 #endregion
 
@@ -206,7 +209,7 @@ func initialize_level() -> void:
 	var next_spawn_transform: Transform3D = Transform3D()
 
 	for i: int in range(CHUNK_SPAWN_AMOUNT):
-		var chunk_instance: LevelChunk = _get_random_valid_chunk(next_spawn_transform)
+		var chunk_instance: LevelChunk = _generate_new_chunk(next_spawn_transform)
 
 		# If chunk was pooled, it might already be in the tree, otherwise add it
 		if chunk_instance.get_parent() != parent_world:
@@ -249,7 +252,7 @@ func recycle_oldest_chunk() -> void:
 
 	var newest: LevelChunk = _active_chunks.back()
 	var target_transform: Transform3D = newest.get_node("%ExitTrigger").global_transform
-	var next_chunk: LevelChunk = _get_random_valid_chunk(target_transform)
+	var next_chunk: LevelChunk = _generate_new_chunk(target_transform)
 
 	if next_chunk.get_parent() != parent_world:
 		if next_chunk.get_parent() != null:
@@ -327,11 +330,25 @@ func _on_player_spawned(player: PlayerEntity) -> void:
 
 func _align_chunk_to_transform(chunk: LevelChunk, target_transform: Transform3D) -> void:
 	var entrance_node: Node3D = chunk.entrance_trigger
-
-	# Snap position and maintain the chunk native rotation
 	var rel_entrance: Transform3D = chunk.global_transform.affine_inverse() * entrance_node.global_transform
 	chunk.global_transform = target_transform * rel_entrance.affine_inverse()
-	_sync_chunk_spawn_positions(chunk)
+	_sync_chunk_spawn_ids(chunk)
+
+
+## Assigns deterministic collectible_id/enemy_id from chunk_seed + traversal-order spawn_index
+func _sync_chunk_spawn_ids(chunk: LevelChunk) -> void:
+	var seed_value: int = ProceduralId.chunk_seed(get_procedural_seed(), chunk.chunk_key)
+	var spawn_index: int = 0
+
+	for node: Node in chunk.find_children("*", "", true, false):
+		if node is Collectible:
+			(node as Collectible).collectible_id = ProceduralId.spawn_id(seed_value, spawn_index)
+			spawn_index += 1
+		elif node.is_in_group(Groups.ENEMIES):
+			(node as AggressiveEntity).enemy_id = ProceduralId.spawn_id(seed_value, spawn_index)
+			spawn_index += 1
+		elif node.is_in_group(Groups.PLAYERS):
+			node.spawn_position = node.global_position
 
 
 func _setup_chunk_trigger(chunk: LevelChunk) -> void:
@@ -389,26 +406,53 @@ func _disconnect_chunk_trigger(chunk: LevelChunk) -> void:
 	_chunk_exit_connections.erase(chunk_id)
 
 
-func _get_random_valid_chunk(target_transform: Transform3D) -> LevelChunk:
+## Picks and instantiates a chunk never generated before, persists the pick for this chunk_key
+func _generate_new_chunk(target_transform: Transform3D) -> LevelChunk:
+	var chunk_key: int = _next_chunk_key
+	_next_chunk_key += 1
+
 	var unlocked_skills: Array[SkillDefinition] = _player.skills_controller.get_unlocked_skills()
-	var chosen_data: ChunkData = _chunk_selector.select_chunk_data(target_transform, unlocked_skills, _player.economy_controller.score)
-	var load_status: ResourceLoader.ThreadLoadStatus = ResourceLoader.load_threaded_get_status(chosen_data.scene_path)
+	var chunk_seed: int = ProceduralId.chunk_seed(get_procedural_seed(), chunk_key)
+	var chosen_data: ChunkData = _chunk_selector.select_deterministic_chunk_data(
+		target_transform,
+		chunk_seed,
+		unlocked_skills,
+		_player.economy_controller.score,
+	)
+	_chunk_key_to_scene_uid[chunk_key] = chosen_data.scene_uid
+
+	var chunk: LevelChunk = _instantiate_chunk_data(chosen_data)
+	chunk.chunk_key = chunk_key
+
+	return chunk
+
+
+## Instantiates a chunk_key using its persisted pick, no filtering/RNG involved
+func _instantiate_persisted_chunk(chunk_key: int) -> LevelChunk:
+	assert(_chunk_key_to_scene_uid.has(chunk_key), "ChunkManager: no persisted scene uid for chunk_key %d" % chunk_key)
+	var chunk_data: ChunkData = _get_chunk_data_by_uid(_chunk_key_to_scene_uid[chunk_key])
+	assert(chunk_data != null, "ChunkManager: no chunk found for persisted uid at chunk_key %d" % chunk_key)
+	var chunk: LevelChunk = _instantiate_chunk_data(chunk_data)
+	chunk.chunk_key = chunk_key
+	return chunk
+
+
+func _instantiate_chunk_data(chunk_data: ChunkData) -> LevelChunk:
+	var load_status: ResourceLoader.ThreadLoadStatus = ResourceLoader.load_threaded_get_status(chunk_data.scene_path)
 	var scene: PackedScene
 	if load_status == ResourceLoader.THREAD_LOAD_LOADED:
-		scene = ResourceLoader.load_threaded_get(chosen_data.scene_path) as PackedScene
+		scene = ResourceLoader.load_threaded_get(chunk_data.scene_path) as PackedScene
 	else:
-		scene = load(chosen_data.scene_path) as PackedScene
+		scene = load(chunk_data.scene_path) as PackedScene
+	assert(scene != null, "ChunkManager: chunk scene not found '%s'" % chunk_data.scene_path)
 	return scene.instantiate() as LevelChunk
 
 
-# TODO Improve func name
-## Records spawn positions for collectibles and enemies after chunk alignment
-func _sync_chunk_spawn_positions(chunk: LevelChunk) -> void:
-	for node: Node in chunk.find_children("*", "", true, false):
-		if node is Collectible:
-			(node as Collectible).spawn_position = node.global_position
-		elif node.is_in_group(Groups.PLAYERS):
-			node.spawn_position = node.global_position
+func _get_chunk_data_by_uid(uid: String) -> ChunkData:
+	for data: ChunkData in _all_chunks:
+		if data.scene_uid == uid:
+			return data
+	return null
 
 
 func _on_load_requested(data: SaveData) -> void:

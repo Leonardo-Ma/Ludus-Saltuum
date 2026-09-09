@@ -25,5 +25,5 @@ func _child_ready() -> void:
 
 
 func _on_death_complete() -> void:
-	CombatEvents.enemy_killed.emit(spawn_position)
+	CombatEvents.enemy_killed.emit(enemy_id)
 	queue_free()

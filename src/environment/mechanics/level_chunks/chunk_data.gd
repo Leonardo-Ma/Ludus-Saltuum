@@ -3,6 +3,8 @@ class_name ChunkData
 extends RefCounted
 
 var scene_path: String
+## Resource UID text, stable persistence key independent of _all_chunks ordering
+var scene_uid: String = ""
 
 var entrance_transform: Transform3D
 

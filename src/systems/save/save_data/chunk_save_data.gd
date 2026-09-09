@@ -1,9 +1,10 @@
 class_name ChunkSaveData
 extends Resource
 
-@export var procedural_seed: int = 0
-
-@export var active_chunk_paths: Array[String] = []
+@export var world_seed: int = 0
+@export var active_chunk_keys: Array[int] = []
+@export var next_chunk_key: int = 0
+@export var scored_chunk_keys: Dictionary[int, bool] = { }
+## Which scene was picked for each active chunk_key at generation time
+@export var chunk_key_to_scene_uid: Dictionary[int, String] = { }
 @export var chunk_selector_state: Dictionary = { }
-
-@export var scored_chunk_indices: Array[int] = []

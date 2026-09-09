@@ -1,16 +1,12 @@
-# TODO Consider a different approach?
-## Tracks consumed collectibles / killed enemies for save/load
+## Tracks collected collectibles / killed enemies for save/load
 extends Node
 
-const _COLLECTIBLE_MATCH_SQ: float = 0.25
-const _ENEMY_MATCH_SQ: float = 0.25
-
-var _consumed_collectible_positions: Array[Vector3] = []
-var _killed_enemy_positions: Array[Vector3] = []
+var _collected_collectible_ids: Dictionary[StringName, bool] = { }
+var _killed_enemy_ids: Dictionary[StringName, bool] = { }
 
 
 func _ready() -> void:
-	CollectiblesEvents.collectible_consumed.connect(_on_collectible_consumed)
+	CollectiblesEvents.collectible_collected.connect(_on_collectible_collected)
 	CombatEvents.enemy_killed.connect(_on_enemy_killed)
 	ApplicationStateManager.main_menu_requested.connect(reset_save_data)
 
@@ -21,59 +17,61 @@ func _ready() -> void:
 	SaveManager.load_requested.connect(_on_load_requested)
 	SaveManager.reset_requested.connect(reset_save_data)
 
-
-## Builds world data for saving
-## @param data WorldSaveData resource to populate
+#region Save & Load & Reset
 func build_save_data(data: WorldSaveData) -> void:
-	data.collected_collectible_positions = _consumed_collectible_positions.duplicate()
-	data.killed_enemy_positions = _killed_enemy_positions.duplicate()
-
-
-## Applies world data when loading a save
-## @param data WorldSaveData resource to apply
-func apply_save_data(data: WorldSaveData) -> void:
-	_consumed_collectible_positions = data.collected_collectible_positions.duplicate()
-	_killed_enemy_positions = data.killed_enemy_positions.duplicate()
-	_disable_killed_enemies.call_deferred()
-	_disable_consumed_collectibles.call_deferred()
-
-
-func reset_save_data() -> void:
-	_consumed_collectible_positions.clear()
-	_killed_enemy_positions.clear()
+	data.collected_collectible_ids = _collected_collectible_ids.duplicate()
+	data.killed_enemy_ids = _killed_enemy_ids.duplicate()
 
 
 func _on_load_requested(data: SaveData) -> void:
 	apply_save_data(data.world)
 
 
-func _on_collectible_consumed(pos: Vector3) -> void:
-	_consumed_collectible_positions.append(pos)
+func reset_save_data() -> void:
+	_collected_collectible_ids.clear()
+	_killed_enemy_ids.clear()
 
 
-func _on_enemy_killed(pos: Vector3) -> void:
-	_killed_enemy_positions.append(pos)
+func apply_save_data(data: WorldSaveData) -> void:
+	_collected_collectible_ids = data.collected_collectible_ids.duplicate()
+	_killed_enemy_ids = data.killed_enemy_ids.duplicate()
+	_disable_killed_enemies.call_deferred()
+	_disable_collected_collectibles.call_deferred()
+
+#endregion
+
+#region Collectible
+func _disable_collected_collectibles() -> void:
+	for c: Node in get_tree().get_nodes_in_group(Groups.COLLECTIBLES):
+		var collectible: Collectible = c as Collectible
+		if collectible == null:
+			continue
+		if _collected_collectible_ids.has(collectible.collectible_id):
+			collectible.queue_free()
 
 
-# TODO BUG Improve this garbage
-func _disable_consumed_collectibles() -> void:
-	for pos: Vector3 in _consumed_collectible_positions:
-		for c: Node in get_tree().get_nodes_in_group(Groups.COLLECTIBLES):
-			var collectible: Collectible = c as Collectible
-			if collectible == null:
-				continue
-			if pos.distance_squared_to(collectible.spawn_position) < _COLLECTIBLE_MATCH_SQ:
-				collectible.queue_free()
-				break
+func is_collectible_collected(persistent_id: StringName) -> bool:
+	return _collected_collectible_ids.has(persistent_id)
 
 
-# TODO BUG Improve this garbage
+func _on_collectible_collected(id: StringName) -> void:
+	_collected_collectible_ids[id] = true
+#endregion
+
+#region Enemy
 func _disable_killed_enemies() -> void:
-	for pos: Vector3 in _killed_enemy_positions:
-		for enemy: Node in get_tree().get_nodes_in_group(Groups.ENEMIES):
-			var entity: AggressiveEntity = enemy as AggressiveEntity
-			if entity == null:
-				continue
-			if pos.distance_squared_to(entity.spawn_position) < _ENEMY_MATCH_SQ:
-				entity.queue_free()
-				break
+	for enemy: Node in get_tree().get_nodes_in_group(Groups.ENEMIES):
+		var entity: AggressiveEntity = enemy as AggressiveEntity
+		if entity == null:
+			continue
+		if _killed_enemy_ids.has(entity.enemy_id):
+			entity.queue_free()
+
+
+func is_enemy_killed(persistent_id: StringName) -> bool:
+	return _killed_enemy_ids.has(persistent_id)
+
+
+func _on_enemy_killed(id: StringName) -> void:
+	_killed_enemy_ids[id] = true
+#endregion

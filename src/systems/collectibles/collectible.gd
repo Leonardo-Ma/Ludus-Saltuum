@@ -4,13 +4,20 @@ extends Area3D
 @export var data: CollectibleData
 @export var respawn_delay: float = 5.0
 
-## set after chunk alignment via call_deferred
-var spawn_position: Vector3
+## False when outside level chunk, requires static_id set in editor
+@export var is_procedurally_spawned: bool = true
+## Must be unique
+@export var static_id: StringName = &""
+
+## world_seed:chunk_seed:spawn_index for procedural instances, static_id otherwise
+var collectible_id: StringName = &""
 
 var collect_sounds: Array[AudioStream] = []
 
 var float_tween: Tween
 var rot_tween: Tween
+
+var _collected: bool = false
 
 
 ## Children should override this instead of _ready()
@@ -25,26 +32,36 @@ func _ready() -> void:
 	add_to_group(Groups.COLLECTIBLES)
 	_child_ready()
 
-	# chunk may not be aligned yet when _ready() fires
-	_record_spawn_position.call_deferred()
+	if not is_procedurally_spawned:
+		assert(static_id != &"", "Collectible static_id not set on non-procedural instance " + name)
+		collectible_id = static_id
+	else:
+		_verify_procedural_id_assigned.call_deferred()
 
 	_setup_float_animation()
 
 
-# TODO This should be a data driven id check instead of position, even more while using procedural generation
-func _record_spawn_position() -> void:
-	spawn_position = global_position
+func _verify_procedural_id_assigned() -> void:
+	assert(collectible_id != &"", "LevelChunkManager did not assign collectible_id for " + name)
+
+
+func _apply_persistent_state() -> void:
+	if not is_instance_valid(self):
+		return
+
+	if WorldSaveController.is_collectible_collected(collectible_id):
+		_collected = true
+		queue_free()
 
 
 func _on_body_entered(body: Node3D) -> void:
 	if body.is_in_group(Groups.PLAYERS):
 		SoundManager.play_sound(collect_sounds.pick_random(), SoundManager.SoundCategory.SFX, global_position)
 		_apply_effect(body as PlayerEntity)
-		# TODO Refactor to be an exported bool instead
 		if data is StatusCollectible:
 			await _respawn_collectible()
 		else:
-			CollectiblesEvents.collectible_consumed.emit(spawn_position)
+			CollectiblesEvents.collectible_collected.emit(collectible_id)
 			queue_free()
 
 

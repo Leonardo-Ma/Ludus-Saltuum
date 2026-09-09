@@ -41,5 +41,5 @@ func remove_gold(amount: int) -> bool:
 	return true
 
 
-func _on_enemy_killed(_position: Vector3) -> void:
+func _on_enemy_killed(_entity_id: StringName) -> void:
 	add_score(5)

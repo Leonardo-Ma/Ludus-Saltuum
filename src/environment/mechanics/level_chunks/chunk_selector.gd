@@ -7,7 +7,6 @@ const MIN_CHUNKS_BETWEEN_SKILLS: int = 5
 const TURN_COOLDOWN_CHUNKS: int = 5
 const RECENT_CHUNK_HISTORY_SIZE: int = 10
 
-var _rng: RandomNumberGenerator
 var _all_chunks: Array[ChunkData]
 var _recent_chunk_paths: Array[String] = []
 var _chunks_since_turn: int = TURN_COOLDOWN_CHUNKS
@@ -15,8 +14,7 @@ var _last_skill_score_threshold: int = 0
 var _chunks_since_skill_unlock: int = MIN_CHUNKS_BETWEEN_SKILLS
 
 
-func _init(rng: RandomNumberGenerator, all_chunks: Array[ChunkData]) -> void:
-	_rng = rng
+func _init(all_chunks: Array[ChunkData]) -> void:
 	_all_chunks = all_chunks
 
 
@@ -27,9 +25,12 @@ func reset() -> void:
 	_last_skill_score_threshold = 0
 
 
-func select_chunk_data(
+## Filtering (skills, features, turn cooldown, forced unlock, recent-chunk avoidance) stays
+## runtime-dependent. Only the final pick among the filtered pool is a pure function of chunk_seed.
+func select_deterministic_chunk_data(
 	target_transform: Transform3D,
-	unlocked: Array[SkillDefinition],
+	chunk_seed: int,
+	unlocked_skills: Array[SkillDefinition],
 	current_score: int,
 	required_features: Array[ChunkFeature.Feature] = [],
 ) -> ChunkData:
@@ -48,7 +49,7 @@ func select_chunk_data(
 	# Only force unlock when there are skills the player doesn't yet have
 	var has_unlockable_skill: bool = _all_chunks.any(
 		func(d: ChunkData) -> bool:
-			return d.unlocks_skill != null and not unlocked.has(d.unlocks_skill),
+			return d.unlocks_skill != null and not unlocked_skills.has(d.unlocks_skill),
 	)
 	var force_skill_unlock: bool = (
 		has_unlockable_skill and current_score >= _last_skill_score_threshold + SKILL_UNLOCK_SCORE_STEP
@@ -67,7 +68,7 @@ func select_chunk_data(
 		if data.unlocks_skill != null:
 			if not force_skill_unlock:
 				continue
-			if unlocked.has(data.unlocks_skill):
+			if unlocked_skills.has(data.unlocks_skill):
 				continue
 		else:
 			if force_skill_unlock:
@@ -83,7 +84,7 @@ func select_chunk_data(
 		# --------------- required skills check ---------------
 		var missing: bool = data.required_skill.any(
 			func(skill: SkillDefinition) -> bool:
-				return not unlocked.has(skill),
+				return not unlocked_skills.has(skill),
 		)
 		if missing:
 			continue
@@ -122,7 +123,9 @@ func select_chunk_data(
 		if not non_last.is_empty():
 			valid_pool = non_last
 
-	var chosen: ChunkData = valid_pool[_rng.randi_range(0, valid_pool.size() - 1)]
+	var pick_rng: RandomNumberGenerator = RandomNumberGenerator.new()
+	pick_rng.seed = chunk_seed
+	var chosen: ChunkData = valid_pool[pick_rng.randi_range(0, valid_pool.size() - 1)]
 
 	if chosen.unlocks_skill != null:
 		_chunks_since_skill_unlock = 0
@@ -151,7 +154,6 @@ func get_save_state() -> Dictionary:
 		"chunks_since_turn": _chunks_since_turn,
 		"chunks_since_skill_unlock": _chunks_since_skill_unlock,
 		"last_skill_score_threshold": _last_skill_score_threshold,
-		"rng_state": _rng.state,
 	}
 
 
@@ -160,5 +162,3 @@ func load_save_state(state: Dictionary) -> void:
 	_chunks_since_turn = state.get("chunks_since_turn", 5)
 	_chunks_since_skill_unlock = state.get("chunks_since_skill_unlock", MIN_CHUNKS_BETWEEN_SKILLS)
 	_last_skill_score_threshold = state.get("last_skill_score_threshold", 0)
-	if state.has("rng_state"):
-		_rng.state = state["rng_state"]

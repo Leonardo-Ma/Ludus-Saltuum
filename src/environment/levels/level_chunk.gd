@@ -21,6 +21,9 @@ enum Difficulty {
 @onready var exit_trigger: Area3D = %ExitTrigger
 @onready var entrance_trigger: Area3D = %EntranceTrigger
 
+## Logical position in chunk sequence, world_seed + chunk_key reproduces chunk_seed deterministically
+var chunk_key: int = -1
+
 
 func _ready() -> void:
 	assert(%ExitTrigger != null, "ExitTrigger missing in " + self.name)
