@@ -2,17 +2,19 @@
 
 [ext_resource type="Script" uid="uid://dfapcpf4fli57" path="res://src/environment/levels/level_chunk.gd" id="1_siqpa"]
 [ext_resource type="PackedScene" uid="uid://cl6psv388cmbx" path="res://src/environment/levels/entrance_trigger.tscn" id="2_50y4p"]
+[ext_resource type="Script" uid="uid://difrst13h47n5" path="res://src/entities/player/skills/skill_definition.gd" id="2_beplj"]
 [ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_kl51u"]
+[ext_resource type="Resource" uid="uid://dw6jynnbqeedp" path="res://src/entities/player/skills/active_skills/double_jump.tres" id="3_sfx64"]
 [ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="5_nf6xl"]
 [ext_resource type="PackedScene" uid="uid://bb1l6ibw3ab5y" path="res://src/environment/levels/assets/platforms/static_platforms/hexagon_grass.tscn" id="5_wpoxf"]
 [ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint/checkpoint_flag.tscn" id="5_xufyi"]
 [ext_resource type="PackedScene" uid="uid://cvcxve456vw1e" path="res://src/environment/levels/assets/collectibles/speed_up/speed_up.tscn" id="6_xufyi"]
 
-[node name="MediumTemplate" type="Node3D" unique_id=1016321493]
+[node name="12DoubleJump" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_siqpa")
 difficulty = 1
 score_multiplier = 1.5
-required_skill_ids = Array[StringName]([&"double_jump"])
+required_skill = Array[ExtResource("2_beplj")]([ExtResource("3_sfx64")])
 
 [node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_50y4p")]
 unique_name_in_owner = true
