@@ -1,3 +1,4 @@
+class_name CollectiblesView
 extends MarginContainer
 
 # Dictionary to map collectible identifier (StringName) to its instantiated UI element (TextureRect)

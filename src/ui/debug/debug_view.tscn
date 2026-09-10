@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ceqteh34sypae"]
 
 [ext_resource type="Script" uid="uid://c6lqd8lydwydg" path="res://src/ui/debug/debug_label.gd" id="1_2eafd"]
-[ext_resource type="Script" uid="uid://4fw4r1uhtus1" path="res://src/ui/debug/debug_interface.gd" id="1_nofc5"]
+[ext_resource type="Script" uid="uid://4fw4r1uhtus1" path="res://src/ui/debug/debug_view.gd" id="1_nofc5"]
 
 [node name="DebugInterface" type="Control" unique_id=1005611581]
 visible = false

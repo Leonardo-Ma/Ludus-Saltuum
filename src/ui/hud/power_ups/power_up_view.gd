@@ -1,3 +1,4 @@
+class_name PowerUpView
 extends MarginContainer
 
 var _powerup_ui_elements: Dictionary = { }

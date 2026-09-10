@@ -1,5 +1,6 @@
 # TODO Double check this script
 ## View controller, bridge between UI and SkillsController
+class_name SkillsView
 extends Control
 
 @onready var _skills_container: GridContainer = %SkillsContainer
