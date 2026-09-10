@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cl6psv388cmbx" path="res://src/environment/levels/entrance_trigger.tscn" id="5_lkvch"]
 [ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="5_xyw6i"]
 [ext_resource type="PackedScene" uid="uid://0hwlnlpkbsjn" path="res://src/environment/levels/assets/platforms/static_platforms/grass_platform.tscn" id="6_71ha2"]
-[ext_resource type="PackedScene" uid="uid://bmhb7wjnaqbtx" path="res://src/environment/levels/assets/interactable/springs/spring.tscn" id="6_xyw6i"]
+[ext_resource type="PackedScene" uid="uid://bmhb7wjnaqbtx" path="res://src/environment/mechanics/spring/spring.tscn" id="6_xyw6i"]
 [ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="7_7cl11"]
 
 [node name="LevelChunk" type="Node3D" unique_id=1016321493]

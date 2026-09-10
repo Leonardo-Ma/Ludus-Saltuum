@@ -8,8 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://7ugwdowsimwr" path="res://src/environment/levels/assets/platforms/static_platforms/hexagon_stone.tscn" id="4_f7573"]
 [ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint/checkpoint_flag.tscn" id="5_4taiq"]
 [ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="5_kqh8w"]
-[ext_resource type="PackedScene" uid="uid://c5advesecca53" path="res://src/environment/levels/assets/ground_button/button_rounded.tscn" id="6_vglmt"]
-[ext_resource type="PackedScene" uid="uid://pngs12a0famd" path="res://src/environment/levels/assets/doors/large_door.tscn" id="7_hayea"]
+[ext_resource type="PackedScene" uid="uid://c5advesecca53" path="res://src/environment/mechanics/ground_button/button_rounded.tscn" id="6_vglmt"]
+[ext_resource type="PackedScene" uid="uid://pngs12a0famd" path="res://src/environment/mechanics/door/large_door.tscn" id="7_hayea"]
 
 [node name="11LongDash" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_6xsp5")

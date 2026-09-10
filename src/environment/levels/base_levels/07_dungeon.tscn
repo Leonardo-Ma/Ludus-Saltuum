@@ -12,8 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://bac4iokysa58j" path="res://src/environment/levels/assets/props/barrel.tscn" id="10_2vgsl"]
 [ext_resource type="PackedScene" uid="uid://bhvmo3w7rkqa3" path="res://src/environment/levels/assets/props/box.tscn" id="11_iqdsc"]
 [ext_resource type="PackedScene" uid="uid://dy7goxhejncoa" path="res://src/environment/levels/assets/props/torch.tscn" id="12_i8t3m"]
-[ext_resource type="PackedScene" uid="uid://c6on7cp5w028m" path="res://src/environment/levels/assets/traps/spikes/spikes.tscn" id="13_xegw8"]
-[ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/levels/assets/collectibles/coins/gold_coin.tscn" id="14_qm0tq"]
+[ext_resource type="PackedScene" uid="uid://c6on7cp5w028m" path="res://src/environment/mechanics/traps/spikes/spikes.tscn" id="13_xegw8"]
+[ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/mechanics/collectible/coin/gold_coin.tscn" id="14_qm0tq"]
 [ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="15_6mv47"]
 
 [sub_resource type="Resource" id="Resource_hy038"]

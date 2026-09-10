@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cmhy34flmgu50"]
 
 [ext_resource type="ArrayMesh" uid="uid://cel68jd7ltlp4" path="res://src/environment/small_platformer_kit_j_toastie/stone_platform.glb" id="1_8muna"]
-[ext_resource type="Script" uid="uid://dj22ulkgv3nd8" path="res://src/environment/levels/assets/platforms/disappearing_platforms/disappearing_platform.gd" id="1_n6vtp"]
+[ext_resource type="Script" uid="uid://dj22ulkgv3nd8" path="res://src/environment/mechanics/platform/disappearing/disappearing_platform.gd" id="1_n6vtp"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0fmxi"]
 albedo_color = Color(0.7764706, 0.26666668, 0.09019608, 0.60784316)

@@ -4,9 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://cl6psv388cmbx" path="res://src/environment/levels/entrance_trigger.tscn" id="2_yoy7s"]
 [ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_k52tl"]
 [ext_resource type="PackedScene" uid="uid://0hwlnlpkbsjn" path="res://src/environment/levels/assets/platforms/static_platforms/grass_platform.tscn" id="4_tlu6a"]
-[ext_resource type="PackedScene" uid="uid://pngs12a0famd" path="res://src/environment/levels/assets/doors/large_door.tscn" id="5_5dyr6"]
+[ext_resource type="PackedScene" uid="uid://pngs12a0famd" path="res://src/environment/mechanics/door/large_door.tscn" id="5_5dyr6"]
 [ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="5_yoy7s"]
-[ext_resource type="PackedScene" uid="uid://c5advesecca53" path="res://src/environment/levels/assets/ground_button/button_rounded.tscn" id="6_j3rqf"]
+[ext_resource type="PackedScene" uid="uid://c5advesecca53" path="res://src/environment/mechanics/ground_button/button_rounded.tscn" id="6_j3rqf"]
 
 [node name="LevelChunk" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_scc7e")

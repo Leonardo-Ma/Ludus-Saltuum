@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://bneqpm1wdlci3"]
 
-[ext_resource type="Script" uid="uid://c7ln8oql0y1ag" path="res://src/environment/levels/assets/platforms/moving_plaforms/moving_platform_orange.gd" id="1_mmuas"]
+[ext_resource type="Script" uid="uid://c7ln8oql0y1ag" path="res://src/environment/mechanics/platform/moving/moving_platform.gd" id="1_mmuas"]
 [ext_resource type="Texture2D" uid="uid://ccs62hofilq3i" path="res://src/environment/platformer_kit_kenney/texture/assets_colormap.png" id="1_xcpnr"]
 
 [sub_resource type="Curve3D" id="Curve3D_xcpnr"]
@@ -56,7 +56,7 @@ shadow_mesh = SubResource("ArrayMesh_idlar")
 [sub_resource type="BoxShape3D" id="BoxShape3D_1p1te"]
 size = Vector3(1, 0.3, 1)
 
-[node name="MovingPlatforMOrange" type="Node3D" unique_id=1340688729]
+[node name="MovingPlatformOrange" type="Node3D" unique_id=1340688729]
 script = ExtResource("1_mmuas")
 metadata/_edit_group_ = true
 

@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_ilkfj"]
 [ext_resource type="PackedScene" uid="uid://0hwlnlpkbsjn" path="res://src/environment/levels/assets/platforms/static_platforms/grass_platform.tscn" id="4_shvy7"]
 [ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="5_0v7le"]
-[ext_resource type="PackedScene" uid="uid://y5l0u6fifvpy" path="res://src/environment/levels/assets/interactable/tornado/tornado.tscn" id="6_3puk4"]
+[ext_resource type="PackedScene" uid="uid://y5l0u6fifvpy" path="res://src/environment/mechanics/hazard/tornado/tornado.tscn" id="6_3puk4"]
 [ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint/checkpoint_flag.tscn" id="7_e2ode"]
 
 [node name="21Tornado" type="Node3D" unique_id=1016321493]
