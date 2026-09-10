@@ -28,7 +28,7 @@ func _on_device_changed(device: InputManager.Device) -> void:
 	if device == InputManager.Device.KEYBOARD_MOUSE:
 		return
 
-	if not button.is_visible_in_tree():
+	if not button.is_visible_in_tree() or get_viewport().gui_get_focus_owner() != null:
 		return
 
 	await get_tree().process_frame
