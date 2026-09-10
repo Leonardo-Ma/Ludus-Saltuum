@@ -14,6 +14,8 @@ const CHUNK_DIRECTORIES: Array[String] = [
 	"res://src/environment/levels/skills/",
 ]
 # fmt:on
+## Version of current implementation, MUST be incremented if new version no longer compatible
+const GENERATION_VERSION: int = 1
 
 const CHUNK_SPAWN_AMOUNT: int = 10
 const CHUNK_INDEX_THAT_TRIGGERS_RECYCLING: int = 4
@@ -78,17 +80,17 @@ func get_procedural_seed() -> int:
 #region Saving and Loading
 func build_save_data(data: ChunkSaveData) -> void:
 	data.world_seed = get_procedural_seed()
+	data.generation_version = GENERATION_VERSION
+
 	var keys: Array[int] = []
 	var scored: Dictionary[int, bool] = { }
 	var uid_map: Dictionary[int, String] = { }
-
 	for chunk: LevelChunk in _active_chunks:
 		keys.push_back(chunk.chunk_key)
 		if chunk.has_meta("scored"):
 			scored[chunk.chunk_key] = true
 		assert(_chunk_key_to_scene_uid.has(chunk.chunk_key), "ChunkManager: no persisted scene uid for active chunk_key %d" % chunk.chunk_key)
 		uid_map[chunk.chunk_key] = _chunk_key_to_scene_uid[chunk.chunk_key]
-
 	data.active_chunk_keys = keys
 	data.next_chunk_key = _next_chunk_key
 	data.scored_chunk_keys = scored
@@ -97,6 +99,7 @@ func build_save_data(data: ChunkSaveData) -> void:
 
 
 func apply_save_data(data: ChunkSaveData) -> void:
+	assert(data.generation_version == GENERATION_VERSION, "ChunkManager: unsupported generation version %d in %s" % [data.generation_version, name])
 	set_procedural_seed(data.world_seed)
 	_chunk_key_to_scene_uid = data.chunk_key_to_scene_uid.duplicate()
 	_load_save_data(data.active_chunk_keys, data.next_chunk_key, data.scored_chunk_keys, data.chunk_selector_state)
@@ -335,18 +338,21 @@ func _align_chunk_to_transform(chunk: LevelChunk, target_transform: Transform3D)
 	_sync_chunk_spawn_ids(chunk)
 
 
-## Assigns deterministic collectible_id/enemy_id from chunk_seed + traversal-order spawn_index
+## Assigns deterministic collectible_id/enemy_id from chunk_seed + scene-local entity path
 func _sync_chunk_spawn_ids(chunk: LevelChunk) -> void:
 	var seed_value: int = ProceduralId.chunk_seed(get_procedural_seed(), chunk.chunk_key)
-	var spawn_index: int = 0
 
 	for node: Node in chunk.find_children("*", "", true, false):
 		if node is Collectible:
-			(node as Collectible).collectible_id = ProceduralId.spawn_id(seed_value, spawn_index)
-			spawn_index += 1
+			var collectible: Collectible = node as Collectible
+			if collectible.is_procedurally_spawned:
+				var scene_local_path: NodePath = chunk.get_path_to(collectible)
+				collectible.assign_procedural_id(seed_value, scene_local_path)
 		elif node.is_in_group(Groups.ENEMIES):
-			(node as AggressiveEntity).enemy_id = ProceduralId.spawn_id(seed_value, spawn_index)
-			spawn_index += 1
+			var enemy: AggressiveEntity = node as AggressiveEntity
+			if enemy.is_procedurally_spawned:
+				var scene_local_path: NodePath = chunk.get_path_to(enemy)
+				enemy.assign_procedural_id(seed_value, scene_local_path)
 		elif node.is_in_group(Groups.PLAYERS):
 			node.spawn_position = node.global_position
 

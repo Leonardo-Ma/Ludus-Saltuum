@@ -7,5 +7,5 @@ static func chunk_seed(world_seed: int, chunk_key: int) -> int:
 	return hash(PackedInt64Array([world_seed, chunk_key]))
 
 
-static func spawn_id(seed_value: int, spawn_index: int) -> StringName:
-	return StringName("%d:%d" % [seed_value, spawn_index])
+static func spawn_id(seed_value: int, scene_local_path: NodePath) -> StringName:
+	return StringName("%d:%s" % [seed_value, String(scene_local_path)])

@@ -9,7 +9,7 @@ extends Area3D
 ## Must be unique
 @export var static_id: StringName = &""
 
-## world_seed:chunk_seed:spawn_index for procedural instances, static_id otherwise
+var procedural_id: StringName = &""
 var collectible_id: StringName = &""
 
 var collect_sounds: Array[AudioStream] = []
@@ -35,19 +35,19 @@ func _ready() -> void:
 	if not is_procedurally_spawned:
 		assert(static_id != &"", "Collectible static_id not set on non-procedural instance " + name)
 		collectible_id = static_id
-	else:
-		_verify_procedural_id_assigned.call_deferred()
 
 	_setup_float_animation()
 
 
-func _verify_procedural_id_assigned() -> void:
-	assert(collectible_id != &"", "LevelChunkManager did not assign collectible_id for " + name)
+func assign_procedural_id(seed_value: int, scene_local_path: NodePath) -> void:
+	assert(is_procedurally_spawned, "Procedural id assigned to non-procedural collectible " + name)
+	procedural_id = StringName(scene_local_path)
+	collectible_id = ProceduralId.spawn_id(seed_value, scene_local_path)
+	assert(collectible_id != &"", "Collectible identity not assigned on " + name)
 
 
 func _apply_persistent_state() -> void:
-	if not is_instance_valid(self):
-		return
+	assert(collectible_id != &"", "Collectible identity not assigned on " + name)
 
 	if WorldSaveController.is_collectible_collected(collectible_id):
 		_collected = true

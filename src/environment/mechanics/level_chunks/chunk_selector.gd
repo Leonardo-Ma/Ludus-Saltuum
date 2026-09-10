@@ -8,7 +8,7 @@ const TURN_COOLDOWN_CHUNKS: int = 5
 const RECENT_CHUNK_HISTORY_SIZE: int = 10
 
 var _all_chunks: Array[ChunkData]
-var _recent_chunk_paths: Array[String] = []
+var _recent_chunk_scene_uids: Array[String] = []
 var _chunks_since_turn: int = TURN_COOLDOWN_CHUNKS
 var _last_skill_score_threshold: int = 0
 var _chunks_since_skill_unlock: int = MIN_CHUNKS_BETWEEN_SKILLS
@@ -19,14 +19,13 @@ func _init(all_chunks: Array[ChunkData]) -> void:
 
 
 func reset() -> void:
-	_recent_chunk_paths.clear()
+	_recent_chunk_scene_uids.clear()
 	_chunks_since_turn = TURN_COOLDOWN_CHUNKS
 	_chunks_since_skill_unlock = MIN_CHUNKS_BETWEEN_SKILLS
 	_last_skill_score_threshold = 0
 
 
-## Filtering (skills, features, turn cooldown, forced unlock, recent-chunk avoidance) stays
-## runtime-dependent. Only the final pick among the filtered pool is a pure function of chunk_seed.
+## Filtering by runtime state produces the valid pool; final selection is deterministic from chunk_seed
 func select_deterministic_chunk_data(
 	target_transform: Transform3D,
 	chunk_seed: int,
@@ -61,7 +60,7 @@ func select_deterministic_chunk_data(
 	print("\n==================== Chunk Selection Debug ====================")
 	print("Target Y: ", current_y, " | Chunks since turn: ", _chunks_since_turn, " | Last skill score unlock: ", _last_skill_score_threshold)
 	print("Force skill unlock: ", force_skill_unlock)
-	print("Recent paths: ", _recent_chunk_paths)
+	print("Recent paths: ", _recent_chunk_scene_uids)
 
 	for data: ChunkData in _all_chunks:
 		# --------------- skill unlock filtering ---------------
@@ -109,8 +108,9 @@ func select_deterministic_chunk_data(
 	# Avoid recent chunks
 	var non_recent: Array[ChunkData] = valid_pool.filter(
 		func(d: ChunkData) -> bool:
-			return not d.scene_path in _recent_chunk_paths,
+			return not d.scene_uid in _recent_chunk_scene_uids,
 	)
+
 	if not non_recent.is_empty():
 		print("  → Filtered out recent chunks, %d remain" % non_recent.size())
 		valid_pool = non_recent
@@ -118,8 +118,9 @@ func select_deterministic_chunk_data(
 		print("  → WARNING: All valid chunks were recent! Relaxing filter to exclude only last chunk")
 		var non_last: Array[ChunkData] = valid_pool.filter(
 			func(d: ChunkData) -> bool:
-				return _recent_chunk_paths.is_empty() or d.scene_path != _recent_chunk_paths.back(),
+				return _recent_chunk_scene_uids.is_empty() or d.scene_uid != _recent_chunk_scene_uids.back(),
 		)
+
 		if not non_last.is_empty():
 			valid_pool = non_last
 
@@ -141,16 +142,16 @@ func select_deterministic_chunk_data(
 	else:
 		_chunks_since_turn += 1
 
-	_recent_chunk_paths.push_back(chosen.scene_path)
-	if _recent_chunk_paths.size() > RECENT_CHUNK_HISTORY_SIZE:
-		_recent_chunk_paths.pop_front()
+	_recent_chunk_scene_uids.push_back(chosen.scene_uid)
+	if _recent_chunk_scene_uids.size() > RECENT_CHUNK_HISTORY_SIZE:
+		_recent_chunk_scene_uids.pop_front()
 
 	return chosen
 
 
 func get_save_state() -> Dictionary:
 	return {
-		"recent_chunk_paths": _recent_chunk_paths.duplicate(),
+		"recent_chunk_scene_uids": _recent_chunk_scene_uids.duplicate(),
 		"chunks_since_turn": _chunks_since_turn,
 		"chunks_since_skill_unlock": _chunks_since_skill_unlock,
 		"last_skill_score_threshold": _last_skill_score_threshold,
@@ -158,7 +159,7 @@ func get_save_state() -> Dictionary:
 
 
 func load_save_state(state: Dictionary) -> void:
-	_recent_chunk_paths = state.get("recent_chunk_paths", []).duplicate()
-	_chunks_since_turn = state.get("chunks_since_turn", 5)
+	_recent_chunk_scene_uids = state.get("recent_chunk_scene_uids", []).duplicate()
+	_chunks_since_turn = state.get("chunks_since_turn", TURN_COOLDOWN_CHUNKS)
 	_chunks_since_skill_unlock = state.get("chunks_since_skill_unlock", MIN_CHUNKS_BETWEEN_SKILLS)
 	_last_skill_score_threshold = state.get("last_skill_score_threshold", 0)

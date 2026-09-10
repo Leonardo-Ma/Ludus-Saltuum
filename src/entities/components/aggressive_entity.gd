@@ -40,8 +40,8 @@ const ATTACK_SOUNDS: Array[AudioStream] = [
 @export var is_procedurally_spawned: bool = true
 ## Must be unique
 @export var static_id: StringName = &""
-
-## world_seed:chunk_seed:spawn_index for procedural instances, static_id otherwise
+## Must be unique within this level chunk
+@export var procedural_id: StringName = &""
 var enemy_id: StringName = &""
 
 var goap_agent: GoapAgent = null
@@ -98,8 +98,7 @@ func _ready() -> void:
 		if not is_procedurally_spawned:
 			assert(static_id != &"", "Enemy static_id not set on non-procedural instance " + name)
 			enemy_id = static_id
-		else:
-			_verify_procedural_id_assigned.call_deferred()
+
 
 		goap_agent = GoapAgent.new()
 		var goals: Array[GoapGoal] = ai_config.create_goals()
@@ -150,8 +149,11 @@ func _on_death() -> void:
 	_on_death_complete()
 
 
-func _verify_procedural_id_assigned() -> void:
-	assert(enemy_id != &"", "LevelChunkManager did not assign enemy_id for " + name)
+func assign_procedural_id(seed_value: int, scene_local_path: NodePath) -> void:
+	assert(is_procedurally_spawned, "Procedural id assigned to non-procedural enemy " + name)
+	procedural_id = StringName(scene_local_path)
+	enemy_id = ProceduralId.spawn_id(seed_value, scene_local_path)
+	assert(enemy_id != &"", "Enemy identity not assigned on " + name)
 
 #region Visual effects and animations
 func _setup_damage_feedback_visual_material() -> void:
