@@ -32,21 +32,25 @@ func _on_player_spawned(player: PlayerEntity) -> void:
 		controller.resetted_skills.disconnect(_clear_all_slots)
 	controller.resetted_skills.connect(_clear_all_slots)
 
-	# Populate slots that are already unlocked (startup skills initialized
-	# before this HUD connected, or player respawned with skills retained)
-	for skill: BaseSkill in controller.get_skills_ordered():
+	var skills: Array[BaseSkill] = []
+	for definition: SkillDefinition in controller.get_unlocked_skills():
+		skills.append(controller.get_skill(definition))
+	skills.sort_custom(
+		func(a: BaseSkill, b: BaseSkill) -> bool:
+			return a.definition.hud_order < b.definition.hud_order,
+	)
+
+	for skill: BaseSkill in skills:
 		_bind_slot(skill)
 
 
-func _on_skill_unlocked(_hud_order: int, definition: SkillDefinition) -> void:
-	# Re-fetch the live skill node from the controller that emitted the signal
-	# The signal source is always the active SkillsController on the player
+func _on_skill_unlocked(definition: SkillDefinition) -> void:
 	var players: Array[Node] = get_tree().get_nodes_in_group(Groups.PLAYERS)
 	if players.is_empty():
 		return
+
 	var controller: SkillsController = (players[0] as PlayerEntity).skills_controller
-	var skill: BaseSkill = controller.get_skill(definition)
-	_bind_slot(skill)
+	_bind_slot(controller.get_skill(definition))
 	show()
 
 

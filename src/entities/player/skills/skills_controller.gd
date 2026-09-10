@@ -3,7 +3,7 @@ class_name SkillsController
 extends Node
 
 # TODO Refactor this to remove hud order, to be any order?
-signal skill_unlocked(hud_order: int, definition: SkillDefinition)
+signal skill_unlocked(definition: SkillDefinition)
 signal resetted_skills
 
 var is_sliding: bool = false
@@ -47,18 +47,7 @@ func unlock(definition: SkillDefinition) -> void:
 	skill.skills_controller = self
 	add_child(skill)
 	_skills[definition] = skill
-	skill_unlocked.emit(definition.hud_order, definition)
-
-
-func get_skills_ordered() -> Array[BaseSkill]:
-	var result: Array[BaseSkill] = []
-	for skill: BaseSkill in _skills.values():
-		result.append(skill)
-	result.sort_custom(
-		func(a: BaseSkill, b: BaseSkill) -> bool:
-			return a.definition.hud_order < b.definition.hud_order,
-	)
-	return result
+	skill_unlocked.emit(definition)
 
 
 func get_skill(definition: SkillDefinition) -> BaseSkill:
