@@ -19,10 +19,14 @@ var _skills_controller: SkillsController
 var _easter_egg_controller: EasterEggController
 var _score: int = 0
 
+var _backend: AchievementBackend
+
 
 func _ready() -> void:
 	if OS.has_feature("demo"):
 		return
+
+	configure_achievement_backend(SteamAchievementBackend.new())
 
 	var data: AchievementRegistryData = ACHIEVEMENT_REGISTRY_DATA
 	assert(data != null, "Achievements: achievement_registry_data.tres not found in " + name)
@@ -42,43 +46,37 @@ func _ready() -> void:
 	)
 
 
+func configure_achievement_backend(backend: AchievementBackend) -> void:
+	_backend = backend
+
+
 func unlock(key: StringName) -> void:
 	print_debug("Trying to unlock " + key + " achievement")
 	var definition: AchievementDefinition = _get_definition(key)
-
 	if not _unlocked.get(key, false):
 		_unlocked[key] = true
 		_save()
 		achievement_unlocked.emit(key)
-		print_debug("Unlocked achievement  " + key)
-
-	# TODO Move this to steam specific script
-	if Steam.isSteamRunning():
-		Steam.setAchievement(definition.steam_api_name)
-		Steam.storeStats()
-		print_debug("Unlocked achievement  " + key + " on steam")
+		print_debug("Unlocked " + key + " achievement")
+	if _backend.is_available():
+		_backend.unlock(definition)
+		print_debug("Also unlocked " + key + " achievement in " + str(_backend))
 
 #region Getters
 
 func is_unlocked(key: StringName) -> bool:
 	var definition: AchievementDefinition = _get_definition(key)
 
-	# TODO Move this to steam specific script
-	if Steam.isSteamRunning():
-		var result: Dictionary = Steam.getAchievement(definition.steam_api_name)
-		if result.get("ret", false):
-			return result.get("achieved", false)
-
+	if _backend.is_available():
+		return _backend.is_unlocked(definition)
 	return _unlocked.get(key, false)
 
 
 func get_display_name(key: StringName) -> String:
 	var definition: AchievementDefinition = _get_definition(key)
 
-	if Steam.isSteamRunning():
-		var steam_name: String = Steam.getAchievementDisplayAttribute(definition.steam_api_name, "name")
-		if steam_name != "":
-			return steam_name
+	if _backend.is_available():
+		return _backend.get_display_name(definition)
 
 	return definition.display_name
 
@@ -86,10 +84,8 @@ func get_display_name(key: StringName) -> String:
 func get_description(key: StringName) -> String:
 	var definition: AchievementDefinition = _get_definition(key)
 
-	if Steam.isSteamRunning():
-		var steam_desc: String = Steam.getAchievementDisplayAttribute(definition.steam_api_name, "desc")
-		if steam_desc != "":
-			return steam_desc
+	if _backend.is_available():
+		return _backend.get_description(definition)
 
 	return definition.description
 
@@ -97,26 +93,10 @@ func get_description(key: StringName) -> String:
 func get_icon(key: StringName, unlocked: bool) -> Texture2D:
 	var definition: AchievementDefinition = _get_definition(key)
 
-	if Steam.isSteamRunning():
-		return get_steam_icon(key)
+	if _backend.is_available():
+		return _backend.get_icon(definition)
 
 	return definition.icon_unlocked if unlocked else definition.icon_locked
-
-
-func get_steam_icon(key: StringName) -> Texture2D:
-	var definition: AchievementDefinition = _get_definition(key)
-	var icon_handle: int = Steam.getAchievementIcon(definition.steam_api_name)
-
-	if icon_handle == 0:
-		return null
-
-	var icon_size: Dictionary = Steam.getImageSize(icon_handle)
-	var icon_buffer: Dictionary = Steam.getImageRGBA(icon_handle)
-
-	var icon_image: Image = Image.create_from_data(icon_size.width, icon_size.height, false, Image.FORMAT_RGBA8, icon_buffer["buffer"])
-
-	var icon_texture: ImageTexture = ImageTexture.create_from_image(icon_image)
-	return icon_texture
 
 
 func get_all_keys() -> Array[StringName]:
@@ -239,5 +219,5 @@ func _load() -> void:
 	for key: String in config.get_section_keys(_SECTION):
 		_unlocked[StringName(key)] = config.get_value(_SECTION, key, false)
 
-# TODO Add a reset achievements that is tied to save and doesn't impact steam
+# TODO Add a reset achievements that is tied to save and doesn't impact steam / backend
 #endregion
