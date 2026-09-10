@@ -9,6 +9,8 @@ updates:
     schedule:
       interval: "weekly"
 
+    commit-message:
+      prefix: "Chore(Deps)"
 # Future:
   # # Enable version updates for Docker
   # - package-ecosystem: "docker"
