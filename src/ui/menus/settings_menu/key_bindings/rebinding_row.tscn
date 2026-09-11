@@ -37,6 +37,30 @@ custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="GamePadIconSpot" type="TextureRect" parent="MarginContainer/HBoxContainer/GamepadIconsContainer" unique_id=1933226816]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GamePadIconSpot2" type="TextureRect" parent="MarginContainer/HBoxContainer/GamepadIconsContainer" unique_id=1071287927]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GamePadIconSpot3" type="TextureRect" parent="MarginContainer/HBoxContainer/GamepadIconsContainer" unique_id=448713070]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GamePadIconSpot4" type="TextureRect" parent="MarginContainer/HBoxContainer/GamepadIconsContainer" unique_id=1411491604]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
 [node name="ResetButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1822327932]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 64)

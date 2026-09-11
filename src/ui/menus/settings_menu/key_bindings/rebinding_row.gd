@@ -97,19 +97,25 @@ func _refresh_icon() -> void:
 
 
 func _refresh_gamepad() -> void:
-	for child: Node in _gamepad_icons.get_children():
-		_gamepad_icons.remove_child(child)
-		child.free()
-	if not InputManager.is_gamepad_active():
-		return
+	var gamepad_events: Array[InputEvent] = []
+
 	for event: InputEvent in InputMap.action_get_events(_action):
-		var icon: Texture2D = _gamepad_icon_map.get_icon_for_event(event)
-		if icon == null:
+		if _gamepad_icon_map.get_icon_for_event(event) != null:
+			gamepad_events.append(event)
+
+	var icons: Array[TextureRect] = []
+	for child: Node in _gamepad_icons.get_children():
+		var icon: TextureRect = child as TextureRect
+		assert(icon != null, "Non-TextureRect child in " + _gamepad_icons.name)
+		icons.append(icon)
+
+	for index: int in icons.size():
+		var icon: TextureRect = icons[index]
+
+		if index >= gamepad_events.size() or not InputManager.is_gamepad_active():
+			icon.visible = false
+			icon.texture = null
 			continue
-		# TODO This rect should be set in the editor
-		var rect: TextureRect = TextureRect.new()
-		rect.texture = icon
-		rect.custom_minimum_size = Vector2(64, 64)
-		rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
-		rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		_gamepad_icons.add_child(rect)
+
+		icon.visible = true
+		icon.texture = _gamepad_icon_map.get_icon_for_event(gamepad_events[index])
