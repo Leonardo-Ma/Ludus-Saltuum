@@ -1,12 +1,14 @@
 [gd_scene format=3 uid="uid://c47168lpalyg1"]
 
-[ext_resource type="Script" uid="uid://bntbuf37m4n3r" path="res://src/ui/popups/skip_level_confirm.gd" id="1_fuo63"]
-[ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="1_wrsxo"]
-[ext_resource type="Texture2D" uid="uid://boj68sx67cn8w" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/fast_forward.png" id="2_p25wu"]
-[ext_resource type="Texture2D" uid="uid://r8ac5it4c01m" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/tick.png" id="2_xy647"]
-[ext_resource type="Texture2D" uid="uid://7p2j8n842i0a" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/cross.png" id="3_h6q6e"]
-[ext_resource type="Texture2D" uid="uid://bx6r2tioul5ru" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/6_buildings/flag.png" id="3_wrsxo"]
-[ext_resource type="PackedScene" uid="uid://b6ednpu0kwboc" path="res://src/ui/helpers/grab_focus_on_visible.tscn" id="4_h6q6e"]
+[ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="1_wb4d6"]
+[ext_resource type="Script" uid="uid://bntbuf37m4n3r" path="res://src/ui/popups/skip_level_confirm/skip_level_confirm.gd" id="2_b0vql"]
+[ext_resource type="Texture2D" uid="uid://boj68sx67cn8w" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/fast_forward.png" id="3_3rbd5"]
+[ext_resource type="Texture2D" uid="uid://bx6r2tioul5ru" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/6_buildings/flag.png" id="4_8fvus"]
+[ext_resource type="Texture2D" uid="uid://7p2j8n842i0a" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/cross.png" id="5_05fgn"]
+[ext_resource type="Script" uid="uid://bleu482wcy3s1" path="res://src/ui/popups/skip_level_confirm/no_button.gd" id="6_4ffmv"]
+[ext_resource type="PackedScene" uid="uid://b6ednpu0kwboc" path="res://src/ui/helpers/grab_focus_on_visible.tscn" id="7_7vqba"]
+[ext_resource type="Texture2D" uid="uid://r8ac5it4c01m" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/tick.png" id="8_y6hea"]
+[ext_resource type="Script" uid="uid://dtsfsipg77yyn" path="res://src/ui/popups/skip_level_confirm/yes_button.gd" id="9_y0n1s"]
 
 [node name="SkipLevelConfirm" type="Control" unique_id=574868389]
 layout_mode = 3
@@ -15,8 +17,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_wrsxo")
-script = ExtResource("1_fuo63")
+theme = ExtResource("1_wb4d6")
+script = ExtResource("2_b0vql")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1454334216]
 layout_mode = 1
@@ -66,7 +68,7 @@ text = "¿؟"
 modulate = Color(0.09803922, 0.5254902, 0.015686275, 1)
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-texture = ExtResource("2_p25wu")
+texture = ExtResource("3_3rbd5")
 expand_mode = 3
 stretch_mode = 5
 
@@ -74,7 +76,7 @@ stretch_mode = 5
 modulate = Color(0.09803922, 0.5254902, 0.015686275, 1)
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-texture = ExtResource("3_wrsxo")
+texture = ExtResource("4_8fvus")
 expand_mode = 3
 stretch_mode = 5
 
@@ -105,10 +107,11 @@ modulate = Color(0.6745098, 0, 0, 0.9411765)
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 theme_type_variation = &"DangerIconButton"
-icon = ExtResource("3_h6q6e")
+icon = ExtResource("5_05fgn")
 expand_icon = true
+script = ExtResource("6_4ffmv")
 
-[node name="GrabFocusOnVisible" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/NoButton" unique_id=494770207 instance=ExtResource("4_h6q6e")]
+[node name="GrabFocusOnVisible" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/NoButton" unique_id=494770207 instance=ExtResource("7_7vqba")]
 
 [node name="YesButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=111968559]
 unique_name_in_owner = true
@@ -116,5 +119,6 @@ modulate = Color(0, 0.36078432, 0, 0.7137255)
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 theme_type_variation = &"PrimaryIconButton"
-icon = ExtResource("2_xy647")
+icon = ExtResource("8_y6hea")
 expand_icon = true
+script = ExtResource("9_y0n1s")
