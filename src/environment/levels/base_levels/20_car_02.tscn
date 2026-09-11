@@ -71,7 +71,7 @@ transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 19.084568, 6.705943, 237.6
 [node name="CustomCheckpoint" type="Area3D" parent="Map" unique_id=356060010]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.058247, 1.8529024, 20.521873)
 script = ExtResource("10_2fx6d")
-should_save_checkpoint = false
+save_checkpoint_to_disk = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/CustomCheckpoint" unique_id=530936629]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
