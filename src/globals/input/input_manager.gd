@@ -27,9 +27,6 @@ func _ready() -> void:
 	for device_id: int in Input.get_connected_joypads():
 		_connected_gamepads[device_id] = _get_gamepad_device_type(device_id)
 
-	if not _connected_gamepads.is_empty():
-		MouseModeManager.request_mode(&"device", Input.MOUSE_MODE_HIDDEN) # Hidden allows to escape the game window
-
 
 func _on_joy_connection_changed(device_id: int, connected: bool) -> void:
 	if connected:
