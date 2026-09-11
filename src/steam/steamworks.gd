@@ -1,27 +1,44 @@
 extends Node
 
+const DEMO_APP_ID: int = 5131920
+const FULL_GAME_APP_ID: int = 4832410
+
+var steam_enabled: bool
+
 
 func _ready() -> void:
-	var is_steam_running: bool = Steam.isSteamRunning()
-
-	if !is_steam_running:
-		push_warning("Steam not running")
+	if not Engine.has_singleton("Steam"):
+		push_warning("Steam missing, canceling initialization")
+		# TODO Emit a signal error that triggers popup warning steam failed
+		steam_enabled = false
 		return
+
+	if not Steam.isSteamRunning():
+		push_warning("Steam not running")
+		# TODO Emit a signal error that triggers popup warning steam failed
+		steam_enabled = false
+		return
+
+	var try_init_steam: Dictionary
 
 	if OS.is_debug_build():
 		if OS.has_feature("demo"):
-			Steam.steamInitEx(5131920)
+			try_init_steam = Steam.steamInitEx(DEMO_APP_ID)
 		else:
-			Steam.steamInitEx(4832410)
+			try_init_steam = Steam.steamInitEx(FULL_GAME_APP_ID)
 
-	# TODO There are better ways to check as the game could have been family shared or free weekend...
-	#var is_valid_license: bool = Steam.userHasLicenseForApp(Steam.getSteamID(), Steam.getAppID())
-	#if !is_valid_license:
-	#	push_error("Player didn't purchase the game")
-	#	return
+	print("Steam initialization: %s" % try_init_steam)
+
+	if try_init_steam['status'] != Steam.STEAM_API_INIT_RESULT_OK:
+		push_warning("Failed to initialize Steam. Reason: %s" % try_init_steam.get('verbose'))
+		# TODO Emit a signal error that triggers popup warning steam failed
+		steam_enabled = false
+		return
+
 	var steam_player_name: String = Steam.getPersonaName()
 	print("Username: ", steam_player_name + "\n")
 
 
 func _process(_delta: float) -> void:
-	Steam.run_callbacks()
+	if steam_enabled:
+		Steam.run_callbacks()

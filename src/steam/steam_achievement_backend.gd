@@ -3,7 +3,7 @@ extends AchievementBackend
 
 
 func is_available() -> bool:
-	return Steam.isSteamRunning()
+	return SteamWorks.steam_enabled
 
 
 func unlock(definition: AchievementDefinition) -> void:

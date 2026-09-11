@@ -4,9 +4,7 @@ extends CloudSaveBackend
 
 
 func is_available() -> bool:
-	if !Steam.isSteamRunning():
-		return false
-	return Steam.isCloudEnabledForApp() and Steam.isCloudEnabledForAccount()
+	return SteamWorks.steam_enabled
 
 
 func upload(cloud_filename: String, local_path: String) -> bool:
