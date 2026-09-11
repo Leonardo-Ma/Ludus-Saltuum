@@ -18,8 +18,12 @@ var _hover_tween: Tween
 func _ready() -> void:
 	_original_modulate = modulate
 
-	mouse_entered.connect(_on_mouse_entered)
-	mouse_exited.connect(_on_mouse_exited)
+	mouse_entered.connect(_on_focused)
+	focus_entered.connect(_on_focused)
+
+	mouse_exited.connect(_on_exited)
+	focus_exited.connect(_on_exited)
+
 	pressed.connect(_on_pressed)
 
 	_button_ready()
@@ -39,7 +43,7 @@ func _on_pressed() -> void:
 @abstract func _button_pressed() -> void
 
 
-func _on_mouse_entered() -> void:
+func _on_focused() -> void:
 	if disabled:
 		return
 	if not InputManager.is_gamepad_active():
@@ -56,7 +60,7 @@ func _on_mouse_entered() -> void:
 	_hover_tween.parallel().tween_property(self, "modulate", modulate, 0.1)
 
 
-func _on_mouse_exited() -> void:
+func _on_exited() -> void:
 	if disabled:
 		return
 	if _hover_tween:
