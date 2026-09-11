@@ -14,16 +14,11 @@ var _cancel_actions: Dictionary[ApplicationStateManager.GameState, Callable] = {
 	ApplicationStateManager.GameState.MAIN_MENU_SETTINGS: ApplicationStateManager.request_close_settings,
 	ApplicationStateManager.GameState.SAVE_MENU: ApplicationStateManager.request_close_menu,
 	ApplicationStateManager.GameState.ACHIEVEMENTS_MENU: ApplicationStateManager.request_close_menu,
-	ApplicationStateManager.GameState.PLAYING: ApplicationStateManager.request_pause,
-	ApplicationStateManager.GameState.PAUSED: ApplicationStateManager.request_resume,
 }
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	ApplicationStateManager.state_changed.connect(_on_game_state_changed)
-	ApplicationStateManager.settings_opened.connect(_on_settings_opened)
-	ApplicationStateManager.settings_closed.connect(_on_settings_closed)
 
 
 func register_ui(ui: UIView) -> void:
@@ -31,30 +26,44 @@ func register_ui(ui: UIView) -> void:
 	_ui = ui
 	hud_visible = SettingsManager.hud_visible
 
+	ApplicationStateManager.state_changed.connect(_on_game_state_changed)
+	ApplicationStateManager.settings_opened.connect(_on_settings_opened)
+	ApplicationStateManager.settings_closed.connect(_on_settings_closed)
+
 
 # BUG Web version: ESC releases mouse and ignores this on first press but works on second ESC press.
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("toggle_hud"):
-		set_hud_visible(not hud_visible)
-		_get_ui().get_viewport().set_input_as_handled()
-		return
-
-	if not event.is_action_pressed("ui_cancel"):
-		return
-
-	if _get_ui().has_open_popup():
-		_get_ui().close_open_popup()
-		_get_ui().get_viewport().set_input_as_handled()
-		return
-
 	var current_state: ApplicationStateManager.GameState = ApplicationStateManager.get_current_state()
 	if current_state == ApplicationStateManager.GameState.MAIN_MENU:
 		return
 
-	var action: Callable = _cancel_actions.get(current_state, Callable())
-	if action.is_valid():
-		action.call()
-		_get_ui().get_viewport().set_input_as_handled()
+	if event.is_action_pressed("toggle_hud"):
+		set_hud_visible(not hud_visible)
+		_ui.get_viewport().set_input_as_handled()
+		return
+
+	if event.is_action_pressed("ui_cancel"):
+		if _ui.has_open_popup():
+			_ui.close_open_popup()
+			_ui.get_viewport().set_input_as_handled()
+			return
+
+		var action: Callable = _cancel_actions.get(current_state, Callable())
+		if action.is_valid():
+			action.call()
+			_ui.get_viewport().set_input_as_handled()
+
+	if event.is_action_pressed("pause"):
+		match current_state:
+			ApplicationStateManager.GameState.PLAYING:
+				ApplicationStateManager.request_pause()
+			ApplicationStateManager.GameState.PAUSED:
+				ApplicationStateManager.request_resume()
+			_:
+				return
+
+		_ui.get_viewport().set_input_as_handled()
+		return
 
 
 func set_hud_visible(visible: bool) -> void:
@@ -62,7 +71,7 @@ func set_hud_visible(visible: bool) -> void:
 	SettingsManager.hud_visible = visible
 	SettingsManager.save()
 	hud_visibility_changed.emit(visible)
-	_get_ui().set_hud_visible(visible)
+	_ui.set_hud_visible(visible)
 
 
 # TODO Check how the unused argument could be omitted without possible silent fails
@@ -98,8 +107,3 @@ func _on_settings_opened() -> void:
 
 func _on_settings_closed() -> void:
 	pass
-
-
-func _get_ui() -> UIView:
-	assert(_ui != null, "UIManager: no UIView registered")
-	return _ui
