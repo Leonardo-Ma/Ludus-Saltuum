@@ -109,9 +109,6 @@ icon = ExtResource("3_h6q6e")
 expand_icon = true
 
 [node name="GrabFocusOnVisible" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/NoButton" unique_id=494770207 instance=ExtResource("4_h6q6e")]
-layout_mode = 0
-offset_left = 250.0
-offset_right = 250.0
 
 [node name="YesButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=111968559]
 unique_name_in_owner = true
