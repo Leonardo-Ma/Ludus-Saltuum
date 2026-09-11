@@ -34,6 +34,8 @@ const LEVEL_COMPLETE_SOUNDS: Array[AudioStream] = [
 
 var procedural_seed: int = 0
 
+var _pending_new_game_seed: int = 0
+
 var _all_chunks: Array[ChunkData] = []
 var _active_chunks: Array[LevelChunk] = []
 
@@ -105,11 +107,17 @@ func apply_save_data(data: ChunkSaveData) -> void:
 	_load_save_data(data.active_chunk_keys, data.next_chunk_key, data.scored_chunk_keys, data.chunk_selector_state)
 
 
+func stage_new_game_seed(seed_value: int) -> void:
+	_pending_new_game_seed = seed_value
+
+
 func reset_save_data() -> void:
 	clear_level()
 	_chunk_selector.reset()
 	_next_chunk_key = 0
 	_chunk_key_to_scene_uid.clear()
+	set_procedural_seed(_pending_new_game_seed)
+	_pending_new_game_seed = 0
 
 
 func _load_save_data(active_chunk_keys: Array[int], saved_next_key: int, scored_keys: Dictionary[int, bool], selector_state: Dictionary) -> void:
