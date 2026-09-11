@@ -89,7 +89,7 @@ func _on_game_state_changed(new_state: ApplicationStateManager.GameState, previo
 		MouseModeManager.request_mode(&"gameplay", Input.MOUSE_MODE_CAPTURED)
 	else:
 		MouseModeManager.release(&"gameplay")
-		MouseModeManager.request_mode(&"menu", Input.MOUSE_MODE_VISIBLE)
+		MouseModeManager.release(&"menu")
 
 
 func _on_settings_opened() -> void:
