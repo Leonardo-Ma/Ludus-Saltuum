@@ -143,7 +143,7 @@ shape = SubResource("BoxShape3D_4hukf")
 [node name="CustomCheckpoint" type="Area3D" parent="Map" unique_id=1869592511]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.618908, 7.1016707, 136.71954)
 script = ExtResource("12_i8gww")
-should_save_checkpoint = false
+save_checkpoint_to_disk = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/CustomCheckpoint" unique_id=328411986]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)

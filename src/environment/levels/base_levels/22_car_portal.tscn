@@ -3,12 +3,12 @@
 [ext_resource type="Script" uid="uid://dfapcpf4fli57" path="res://src/environment/levels/level_chunk.gd" id="1_oyc53"]
 [ext_resource type="PackedScene" uid="uid://cl6psv388cmbx" path="res://src/environment/levels/entrance_trigger.tscn" id="2_m5l38"]
 [ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_jxtp2"]
-[ext_resource type="PackedScene" uid="uid://b73j2aliqwvvc" path="res://src/environment/mechanics/change_gameplay_state_area_3d.tscn" id="4_30k40"]
+[ext_resource type="PackedScene" uid="uid://b73j2aliqwvvc" path="res://src/environment/mechanics/gameplay_state_area/change_gameplay_state_area_3d.tscn" id="4_30k40"]
 [ext_resource type="PackedScene" uid="uid://c3c0sejgavc7h" path="res://src/entities/vehicles/car.tscn" id="5_uy0qx"]
 [ext_resource type="MeshLibrary" uid="uid://qivysvwq1h5d" path="res://src/environment/assets/kenney_city_kit_roads/race_library.tres" id="6_3u1mk"]
 [ext_resource type="PackedScene" uid="uid://dtuht3gos28nm" path="res://src/environment/mechanics/car/car_exit_zone.tscn" id="7_b3gi7"]
 [ext_resource type="PackedScene" uid="uid://0qrtv0g7tptr" path="res://src/environment/assets/kenney_city_kit_roads/scenes/construction_barrier.tscn" id="9_30k40"]
-[ext_resource type="PackedScene" uid="uid://c32lde0fr367t" path="res://src/environment/levels/assets/interactable/portal/portal.tscn" id="9_ewmlm"]
+[ext_resource type="PackedScene" uid="uid://c32lde0fr367t" path="res://src/environment/mechanics/portal/portal.tscn" id="9_ewmlm"]
 [ext_resource type="Script" uid="uid://jqe7b8io8fum" path="res://src/environment/mechanics/checkpoint/checkpoint.gd" id="10_uy0qx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bi0kh"]
@@ -95,7 +95,7 @@ transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 3)
 [node name="CustomCheckpoint" type="Area3D" parent="Maps" unique_id=1650116699]
 transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, -43.285557, 39.60166, 129.21954)
 script = ExtResource("10_uy0qx")
-should_save_checkpoint = false
+save_checkpoint_to_disk = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Maps/CustomCheckpoint" unique_id=214577116]
 transform = Transform3D(0.9999999, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, -2.9999924, 1.6666641, 0.49995422)

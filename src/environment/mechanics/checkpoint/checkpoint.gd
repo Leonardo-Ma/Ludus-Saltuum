@@ -10,7 +10,7 @@ const ACTIVATION_SOUNDS: Array[AudioStream] = [
 ]
 
 @export var is_active: bool = false
-@export var should_save_checkpoint: bool = true
+@export var save_checkpoint_to_disk: bool = true
 var parent_chunk: LevelChunk = null
 
 
