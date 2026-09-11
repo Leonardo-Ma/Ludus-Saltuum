@@ -17,23 +17,28 @@ const DEVICE_SWITCH_DELAY: float = 0.2
 var active_device: Device = Device.KEYBOARD_MOUSE
 var _pending_device: Device = Device.KEYBOARD_MOUSE
 var _switch_timer: SceneTreeTimer
+var _connected_gamepads: Dictionary[int, Device] = { }
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	Input.joy_connection_changed.connect(_on_joy_connection_changed)
 
-	if Input.get_connected_joypads().size() > 0:
+	for device_id: int in Input.get_connected_joypads():
+		_connected_gamepads[device_id] = _get_gamepad_device_type(device_id)
+
+	if not _connected_gamepads.is_empty():
 		MouseModeManager.request_mode(&"device", Input.MOUSE_MODE_HIDDEN) # Hidden allows to escape the game window
 
 
 func _on_joy_connection_changed(device_id: int, connected: bool) -> void:
 	if connected:
-		print_debug("Gamepad: ", Input.get_joy_name(device_id), " connected!")
+		_connected_gamepads[device_id] = _get_gamepad_device_type(device_id)
 		return
 
-	var still_connected: Array[int] = Input.get_connected_joypads()
-	if still_connected.size() == 0 and active_device != Device.KEYBOARD_MOUSE:
+	_connected_gamepads.erase(device_id)
+
+	if _connected_gamepads.is_empty() and active_device != Device.KEYBOARD_MOUSE:
 		active_device = Device.KEYBOARD_MOUSE
 		_apply_mouse_mode()
 		device_changed.emit(active_device)
@@ -49,12 +54,15 @@ func _input(event: InputEvent) -> void:
 	var new_device: Device = active_device
 
 	if event is InputEventJoypadButton:
-		new_device = _get_gamepad_device_type(event.device)
+		new_device = _connected_gamepads.get(event.device, Device.GAMEPAD_GENERIC)
 	elif event is InputEventJoypadMotion:
-		if absf(event.axis_value) >= AXIS_DEAD_ZONE:
-			new_device = _get_gamepad_device_type(event.device)
+		if absf(event.axis_value) < AXIS_DEAD_ZONE:
+			return
+		new_device = _connected_gamepads.get(event.device, Device.GAMEPAD_GENERIC)
 	elif event is InputEventKey or event is InputEventMouseButton or event is InputEventMouseMotion:
 		new_device = Device.KEYBOARD_MOUSE
+	else:
+		return
 
 	if new_device == active_device:
 		return
@@ -62,12 +70,17 @@ func _input(event: InputEvent) -> void:
 	_pending_device = new_device
 	if _switch_timer != null:
 		return
+
 	_switch_timer = get_tree().create_timer(DEVICE_SWITCH_DELAY)
 	_switch_timer.timeout.connect(_apply_device_switch)
 
 
 func _apply_device_switch() -> void:
 	_switch_timer = null
+
+	if _pending_device == active_device:
+		return
+
 	active_device = _pending_device
 	_apply_mouse_mode()
 	device_changed.emit(active_device)
@@ -80,6 +93,7 @@ func is_gamepad_active() -> bool:
 
 func _get_gamepad_device_type(device_id: int) -> Device:
 	var joy_name: String = Input.get_joy_name(device_id).to_lower()
+
 	if "xbox" in joy_name or "xinput" in joy_name or "x360" in joy_name:
 		return Device.GAMEPAD_XBOX
 	if "dualsense" in joy_name or "dualshock" in joy_name or "ps3" in joy_name or "ps4" in joy_name or "ps5" in joy_name or "playstation" in joy_name:
