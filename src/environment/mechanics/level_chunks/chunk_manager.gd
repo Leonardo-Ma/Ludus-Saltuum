@@ -7,13 +7,8 @@ signal level_loaded(checkpoint_data: CheckpointSaveData)
 
 signal chunk_recycled(recycled_chunk: LevelChunk)
 
-# BUG: TODO: Consider if there's better approach instead of hardcore path
-# fmt:off
-const CHUNK_DIRECTORIES: Array[String] = [
-	"res://src/environment/levels/base_levels/",
-	"res://src/environment/levels/skills/",
-]
-# fmt:on
+const CHUNK_CATALOG: ChunkCatalog = preload("uid://dwe2glcvgdfgs")
+
 ## Version of current implementation, MUST be incremented if new version no longer compatible
 const GENERATION_VERSION: int = 1
 
@@ -56,7 +51,8 @@ func _ready() -> void:
 		CHUNK_SPAWN_AMOUNT > CHUNK_INDEX_THAT_TRIGGERS_RECYCLING,
 		"CHUNK_SPAWN_AMOUNT (%d) must be > CHUNK_INDEX_THAT_TRIGGERS_RECYCLING (%d)" % [CHUNK_SPAWN_AMOUNT, CHUNK_INDEX_THAT_TRIGGERS_RECYCLING],
 	)
-	_load_chunk_metadata_from_disk()
+
+	_load_chunk_metadata_from_catalog()
 
 	# TODO Double check
 	set_procedural_seed(procedural_seed)
@@ -153,58 +149,49 @@ func _load_save_data(active_chunk_keys: Array[int], saved_next_key: int, scored_
 		next_spawn_transform = chunk.exit_trigger.global_transform
 
 
-func _load_chunk_metadata_from_disk() -> void:
-	for dir_path: String in CHUNK_DIRECTORIES:
-		var dir: DirAccess = DirAccess.open(dir_path)
-		if dir:
-			dir.list_dir_begin()
-			var file_name: String = dir.get_next()
-			while file_name != "":
-				if not dir.current_is_dir():
-					if file_name.ends_with(".tscn") or file_name.ends_with(".tscn.remap"):
-						var clean_name: String = file_name.trim_suffix(".remap")
-						var full_path: String = dir_path + clean_name
+func _load_chunk_metadata_from_catalog() -> void:
+	assert(CHUNK_CATALOG != null, "Chunk catalog missing in " + name)
+	assert(not CHUNK_CATALOG.chunks.is_empty(), "Chunk catalog has no level chunks in " + name)
 
-						# Sync load once at startup just to read the metadata/skills required.
-						# Ideally, this metadata would be in a separate Resource (.tres) to avoid loading the full scene.
-						var scene: PackedScene = load(full_path) as PackedScene
-						if scene:
-							var chunk: LevelChunk = scene.instantiate() as LevelChunk
-							if chunk:
-								var checkpoints: Array[Node] = chunk.find_children("*", "Checkpoint", true, false)
-								var data: ChunkData = ChunkData.new()
-								data.has_checkpoint = checkpoints.size() > 0
+	for scene: PackedScene in CHUNK_CATALOG.chunks:
+		var chunk: LevelChunk = scene.instantiate() as LevelChunk
+		assert(chunk != null, "Catalog scene is not a LevelChunk in " + name)
 
-								# Chunk is never added to the tree (only metadata), so
-								# @onready entrance_trigger/exit_trigger are never set. Need use get_node directly
-								var entrance_trigger: Node3D = chunk.get_node("%EntranceTrigger")
-								var exit_trigger: Node3D = chunk.get_node("%ExitTrigger")
-								data.height_shift = exit_trigger.position.y - entrance_trigger.position.y
-								data.entrance_transform = chunk.transform.affine_inverse() * entrance_trigger.transform
-								var in_z: Vector3 = entrance_trigger.transform.basis.z.normalized()
-								var out_z: Vector3 = exit_trigger.transform.basis.z.normalized()
-								data.is_turn = in_z.angle_to(out_z) > 0.1
+		var checkpoints: Array[Node] = chunk.find_children("*", "Checkpoint", true, false)
+		var data: ChunkData = ChunkData.new()
 
-								data.scene_path = full_path
-								var resource_uid: int = ResourceLoader.get_resource_uid(full_path)
-								assert(resource_uid != ResourceUID.INVALID_ID, "ChunkManager: chunk scene has no UID in " + full_path)
-								data.scene_uid = ResourceUID.id_to_text(resource_uid)
-								data.features = chunk.features.duplicate()
-								data.required_skill = chunk.required_skill.duplicate()
-								data.unlocks_skill = chunk.unlocks_skill
-								data.score_multiplier = chunk.score_multiplier
+		data.has_checkpoint = not checkpoints.is_empty()
 
-								data.difficulty_points = _get_difficulty_points(chunk, data)
-								data.skill_points = _count_required_skills(data)
+		var entrance_trigger: Node3D = chunk.get_node("%EntranceTrigger")
+		var exit_trigger: Node3D = chunk.get_node("%ExitTrigger")
 
-								_all_chunks.push_back(data)
+		data.height_shift = exit_trigger.position.y - entrance_trigger.position.y
+		data.entrance_transform = chunk.transform.affine_inverse() * entrance_trigger.transform
 
-								# Start async loading the scene so it's ready in memory when needed
-								ResourceLoader.load_threaded_request(full_path)
+		var in_z: Vector3 = entrance_trigger.transform.basis.z.normalized()
+		var out_z: Vector3 = exit_trigger.transform.basis.z.normalized()
+		data.is_turn = in_z.angle_to(out_z) > 0.1
 
-								chunk.free()
-				file_name = dir.get_next()
-	assert(_all_chunks.size() > 0, "No valid LevelChunks found in directories.")
+		data.scene_path = scene.resource_path
+
+		var resource_uid: int = ResourceLoader.get_resource_uid(data.scene_path)
+		assert(resource_uid != ResourceUID.INVALID_ID, "ChunkManager: chunk scene has no UID in " + data.scene_path)
+		data.scene_uid = ResourceUID.id_to_text(resource_uid)
+
+		data.features = chunk.features.duplicate()
+		data.required_skill = chunk.required_skill.duplicate()
+		data.unlocks_skill = chunk.unlocks_skill
+		data.score_multiplier = chunk.score_multiplier
+		data.difficulty_points = _get_difficulty_points(chunk, data)
+		data.skill_points = _count_required_skills(data)
+
+		_all_chunks.push_back(data)
+
+		ResourceLoader.load_threaded_request(data.scene_path)
+
+		chunk.free()
+
+	assert(not _all_chunks.is_empty(), "Chunk catalog contains no valid LevelChunks in " + name)
 	_chunk_selector = ChunkSelector.new(_all_chunks)
 
 #endregion

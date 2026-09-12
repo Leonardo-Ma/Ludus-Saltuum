@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="ChunkCatalog" format=3 uid="uid://dwe2glcvgdfgs"]
+
+[ext_resource type="PackedScene" uid="uid://dj2polxcruojl" path="res://src/environment/levels/base_levels/01_grass.tscn" id="1_wq4xx"]
+[ext_resource type="PackedScene" uid="uid://1lj71dcn61kr" path="res://src/environment/levels/base_levels/02_snow.tscn" id="2_8qeg5"]
+[ext_resource type="Script" uid="uid://hau260lr62rr" path="res://src/environment/mechanics/level_chunks/chunk_catalog.gd" id="2_wncme"]
+[ext_resource type="PackedScene" uid="uid://belvpob3bulra" path="res://src/environment/levels/base_levels/03_short_grass.tscn" id="3_nr33e"]
+[ext_resource type="PackedScene" uid="uid://pj23j5mj4bnh" path="res://src/environment/levels/base_levels/04_short_grass_right.tscn" id="4_6niur"]
+[ext_resource type="PackedScene" uid="uid://bwcg6dmv8ll13" path="res://src/environment/levels/base_levels/05_short_snow_right.tscn" id="5_rs6k2"]
+[ext_resource type="PackedScene" uid="uid://bcxcqpcblamc2" path="res://src/environment/levels/base_levels/06_short_snow_left.tscn" id="6_gvnec"]
+[ext_resource type="PackedScene" uid="uid://dokj03gad5hdg" path="res://src/environment/levels/base_levels/07_dungeon.tscn" id="7_bjkku"]
+[ext_resource type="PackedScene" uid="uid://bwkj1fixj1gvx" path="res://src/environment/levels/base_levels/08_moving_short.tscn" id="8_w776q"]
+[ext_resource type="PackedScene" uid="uid://b1vyhj45avhsj" path="res://src/environment/levels/base_levels/09_short_grass.tscn" id="9_1esbn"]
+[ext_resource type="PackedScene" uid="uid://dbk6we1ehloks" path="res://src/environment/levels/base_levels/10_long_obstacle.tscn" id="10_e3w0c"]
+[ext_resource type="PackedScene" uid="uid://c170bytojwce5" path="res://src/environment/levels/base_levels/11_long_dash.tscn" id="11_ow3bk"]
+[ext_resource type="PackedScene" uid="uid://bqfohqnnuqn66" path="res://src/environment/levels/base_levels/12_long_double_jump.tscn" id="12_fbmgc"]
+[ext_resource type="PackedScene" uid="uid://uitkxkwyw3qt" path="res://src/environment/levels/base_levels/13_short_door.tscn" id="13_sjsu4"]
+[ext_resource type="PackedScene" uid="uid://sxipwajvwib3" path="res://src/environment/levels/base_levels/14_falling_platform.tscn" id="14_x0tpc"]
+[ext_resource type="PackedScene" uid="uid://qtqyvexxh6xc" path="res://src/environment/levels/base_levels/15_falling_platform_fast.tscn" id="15_kiv24"]
+[ext_resource type="PackedScene" uid="uid://dhjojqogvnw7f" path="res://src/environment/levels/base_levels/16_spring.tscn" id="16_pryjj"]
+[ext_resource type="PackedScene" uid="uid://iuq6w78hibea" path="res://src/environment/levels/base_levels/17_car.tscn" id="17_gafub"]
+[ext_resource type="PackedScene" uid="uid://bcec1g8637xi4" path="res://src/environment/levels/base_levels/18_portal.tscn" id="18_yu2nk"]
+[ext_resource type="PackedScene" uid="uid://cya52wk4gftwt" path="res://src/environment/levels/base_levels/19_cave.tscn" id="19_mqvi4"]
+[ext_resource type="PackedScene" uid="uid://d3c4ybpfbndsk" path="res://src/environment/levels/base_levels/20_car_02.tscn" id="20_ryjy0"]
+[ext_resource type="PackedScene" uid="uid://bfell3kamfxsj" path="res://src/environment/levels/base_levels/21_tornado.tscn" id="21_kf7n4"]
+[ext_resource type="PackedScene" uid="uid://ls6v13d1btd6" path="res://src/environment/levels/base_levels/22_car_portal.tscn" id="22_rijed"]
+[ext_resource type="PackedScene" uid="uid://befbn27in7rt2" path="res://src/environment/levels/skills/dash.tscn" id="23_p16y7"]
+[ext_resource type="PackedScene" uid="uid://xgainugb6aw2" path="res://src/environment/levels/skills/double_jump.tscn" id="24_vfutg"]
+
+[resource]
+script = ExtResource("2_wncme")
+chunks = Array[PackedScene]([ExtResource("1_wq4xx"), ExtResource("2_8qeg5"), ExtResource("3_nr33e"), ExtResource("4_6niur"), ExtResource("5_rs6k2"), ExtResource("6_gvnec"), ExtResource("7_bjkku"), ExtResource("8_w776q"), ExtResource("9_1esbn"), ExtResource("10_e3w0c"), ExtResource("11_ow3bk"), ExtResource("12_fbmgc"), ExtResource("13_sjsu4"), ExtResource("14_x0tpc"), ExtResource("15_kiv24"), ExtResource("16_pryjj"), ExtResource("17_gafub"), ExtResource("18_yu2nk"), ExtResource("19_mqvi4"), ExtResource("20_ryjy0"), ExtResource("21_kf7n4"), ExtResource("22_rijed"), ExtResource("23_p16y7"), ExtResource("24_vfutg")])
+metadata/_custom_type_script = "uid://hau260lr62rr"
