@@ -1,3 +1,4 @@
+@icon("uid://bmdg7sc3tlyrv") # coins.png
 class_name GoldCollectible
 extends CollectibleData
 

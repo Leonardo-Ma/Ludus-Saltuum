@@ -1,3 +1,4 @@
+@icon("uid://ckymx5j2we16r") # arrow_speed.png
 extends Collectible
 
 

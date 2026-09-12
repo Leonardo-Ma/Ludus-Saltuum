@@ -1,3 +1,4 @@
+@icon("uid://01223baevlix")
 class_name PlayerMultiJumpSkill
 extends BaseSkill
 

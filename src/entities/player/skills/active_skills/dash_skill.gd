@@ -1,3 +1,4 @@
+@icon("uid://d4g1stey2kdtm") # character_move.pngd
 ## Unified dash skill for both ground and air movement
 class_name PlayerDashSkill
 extends BaseSkill

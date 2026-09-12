@@ -1,3 +1,4 @@
+@icon("uid://01223baevlix") # jump.png
 extends Collectible
 
 

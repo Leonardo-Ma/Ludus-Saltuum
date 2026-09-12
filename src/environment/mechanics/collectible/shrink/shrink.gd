@@ -1,3 +1,4 @@
+@icon("uid://ba8mk8t0mx82y") # potion.png
 extends Collectible
 
 
