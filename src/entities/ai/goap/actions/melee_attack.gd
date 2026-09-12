@@ -26,7 +26,7 @@ func get_effects() -> Dictionary:
 
 
 func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
-	_actor.navigation_controller.stop()
+	_actor.npc_movement_controller.stop()
 
 	var enemy_pos: Vector3 = _blackboard.get("enemy_position", _actor.global_position)
 	var direction: Vector3 = _actor.global_position.direction_to(enemy_pos)

@@ -30,7 +30,7 @@ func apply_knockback(impulse: Vector3) -> void:
 		if owner.is_in_group(Groups.PLAYERS):
 			owner.movement_controller.disable_movement(duration)
 		elif owner.is_in_group(Groups.ENEMIES):
-			owner.navigation_controller.disable_movement(duration)
+			owner.npc_movement_controller.disable_movement(duration)
 
 		set_physics_process(true)
 

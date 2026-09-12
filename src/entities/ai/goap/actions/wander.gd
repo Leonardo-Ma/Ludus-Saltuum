@@ -37,7 +37,7 @@ func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 
 	if current_time - _last_wander_end_time < int(WANDER_COOLDOWN * 1000.0):
 		if _wander_target_set:
-			_actor.navigation_controller.stop()
+			_actor.npc_movement_controller.stop()
 			_wander_target_set = false
 			_wander_timer = 0.0
 		return false
@@ -46,8 +46,8 @@ func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 		var random_offset: Vector3 = Vector3(randf_range(-WANDER_RADIUS, WANDER_RADIUS), 0, randf_range(-WANDER_RADIUS, WANDER_RADIUS))
 		var wander_target: Vector3 = actor_position + random_offset
 
-		_actor.navigation_controller.set_physics_process(true)
-		_actor.navigation_controller.update_target_location(wander_target)
+		_actor.npc_movement_controller.set_physics_process(true)
+		_actor.npc_movement_controller.update_target_location(wander_target)
 		_wander_target_set = true
 		_wander_timer = 0.0
 
@@ -55,7 +55,7 @@ func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 
 	if _wander_timer >= _wander_duration:
 		_last_wander_end_time = current_time
-		_actor.navigation_controller.stop()
+		_actor.npc_movement_controller.stop()
 		_wander_target_set = false
 		_wander_timer = 0.0
 		return true

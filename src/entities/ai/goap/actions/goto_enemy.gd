@@ -31,10 +31,10 @@ func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 	var enemy_position: Vector3 = _blackboard.get("enemy_position", Vector3.ZERO)
 	var enemy_in_melee_range: bool = _blackboard.get("enemy_in_melee_range", false)
 
-	_actor.navigation_controller.set_physics_process(true)
-	_actor.navigation_controller.update_target_location(enemy_position)
+	_actor.npc_movement_controller.set_physics_process(true)
+	_actor.npc_movement_controller.update_target_location(enemy_position)
 
 	if enemy_in_melee_range:
-		_actor.navigation_controller.set_physics_process(false)
+		_actor.npc_movement_controller.set_physics_process(false)
 		return true
 	return false

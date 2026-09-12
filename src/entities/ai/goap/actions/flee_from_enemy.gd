@@ -34,11 +34,11 @@ func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 	var flee_distance: float = 15.0
 	var flee_target: Vector3 = actor_position + flee_direction * flee_distance
 
-	_actor.navigation_controller.set_physics_process(true)
-	_actor.navigation_controller.update_target_location(flee_target)
+	_actor.npc_movement_controller.set_physics_process(true)
+	_actor.npc_movement_controller.update_target_location(flee_target)
 
 	if not enemy_nearby:
-		_actor.navigation_controller.set_physics_process(false)
+		_actor.npc_movement_controller.set_physics_process(false)
 		return true
 
 	return false

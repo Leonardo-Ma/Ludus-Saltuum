@@ -5,7 +5,7 @@ extends AggressiveEntity
 @export var startup_skills: Array[SkillDefinition] = []
 
 @onready var camera_controller: CameraController = %CamRoot
-@onready var movement_controller: MovementController = %MovementController
+@onready var player_movement_controller: PlayerMovementController = %PlayerMovementController
 @onready var input_controller: InputController = %InputController
 
 @onready var player_save_controller: PlayerSaveController = %PlayerSaveController
@@ -17,7 +17,7 @@ extends AggressiveEntity
 
 
 func _physics_process(delta: float) -> void:
-	movement_controller.move(self, delta)
+	player_movement_controller.move(delta)
 	move_and_slide()
 
 	# Apply physics collision with rigid bodies
@@ -35,7 +35,7 @@ func _physics_process(delta: float) -> void:
 func respawn(delay: float, target_transform: Transform3D, is_death: bool = false) -> void:
 	ControlledEntityEvents.player_respawning.emit(delay)
 
-	movement_controller.disable_movement(delay)
+	player_movement_controller.disable_movement(delay)
 	velocity = Vector3.ZERO
 
 	# Wait for the screen to fade in
@@ -94,7 +94,7 @@ func _child_ready() -> void:
 
 	health.damaged.connect(_on_damaged_vibration)
 	# TODO Also disable input controller, player can attack between death and respawn
-	health.died.connect(movement_controller.disable_movement.bind(5.0))
+	health.died.connect(player_movement_controller.disable_movement.bind(5.0))
 
 	ApplicationStateManager.state_changed.connect(_on_application_state_changed)
 
@@ -108,8 +108,7 @@ func _child_ready() -> void:
 
 func finish_load() -> void:
 	velocity = Vector3.ZERO
-	movement_controller.movement_enabled = true
-	movement_controller.disable_timer = 0.0
+	player_movement_controller.enable_movement()
 
 
 func _on_application_state_changed(new_state: ApplicationStateManager.GameState, _previous_state: ApplicationStateManager.GameState) -> void:

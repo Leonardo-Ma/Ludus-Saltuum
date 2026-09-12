@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://bvvk88q345vy4" path="res://src/entities/ai/goap/helpers/ai_config.gd" id="16_iqbar"]
 [ext_resource type="Script" uid="uid://cuefrffw4m4jh" path="res://src/entities/components/animation_controller.gd" id="17_ejhyg"]
 [ext_resource type="Script" uid="uid://cjc0pv560qqv1" path="res://src/entities/ai/goap/memories/base_memory.gd" id="18_h6n62"]
-[ext_resource type="Script" uid="uid://bccasf1g707qk" path="res://src/entities/components/navigation_controller.gd" id="19_nw04b"]
+[ext_resource type="Script" uid="uid://bccasf1g707qk" path="res://src/entities/components/npc_movement_controller.gd" id="19_nw04b"]
 [ext_resource type="Script" uid="uid://r2b3ysikxov0" path="res://src/entities/ai/perception/perception_system.gd" id="20_tbbw0"]
 [ext_resource type="Script" uid="uid://bll0orhps41m6" path="res://src/entities/components/combat/knockback_controller.gd" id="21_q7i4y"]
 [ext_resource type="Script" uid="uid://cpusxg43clwxv" path="res://src/entities/player/controller/vfx_controller.gd" id="22_ju7vx"]
@@ -79,7 +79,7 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 script = ExtResource("18_h6n62")
 
-[node name="NavigationController" type="Node" parent="Controllers" unique_id=1608642422]
+[node name="NPCMovementController" type="Node3D" parent="Controllers" unique_id=1768493993]
 unique_name_in_owner = true
 script = ExtResource("19_nw04b")
 

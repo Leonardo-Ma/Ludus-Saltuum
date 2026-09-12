@@ -31,9 +31,9 @@ func _physics_process(delta: float) -> void:
 		body.velocity *= damping_factor
 
 		if body.is_in_group(Groups.PLAYERS):
-			body.movement_controller.add_external_force(force)
+			body.player_movement_controller.add_external_force(force)
 		elif body.is_in_group(Groups.ENEMIES):
-			body.navigation_controller.add_external_force(force)
+			body.npc_movement_controller.add_external_force(force)
 
 		if body.velocity.length() > max_wind_speed:
 			body.velocity = body.velocity.normalized() * max_wind_speed

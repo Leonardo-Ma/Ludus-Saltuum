@@ -21,7 +21,7 @@ const PARAM_IS_DAMAGED_REQUEST: String = "parameters/is_damaged/request"
 
 func _ready() -> void:
 	if entity is PlayerEntity:
-		var movement_controller: MovementController = $%MovementController
+		var movement_controller: PlayerMovementController = $%PlayerMovementController
 		assert(movement_controller, "movement_controller missing for " + owner.name)
 #		movement_controller.move_stopped.connect(_on_move_stopped)
 		movement_controller.movement_direction_changed.connect(_on_movement_direction_changed)
@@ -30,9 +30,9 @@ func _ready() -> void:
 		movement_controller.landed.connect(_on_landed)
 #		magic_controller.casted.connect(_on_magic_casted)
 	elif entity is AggressiveEntity:
-		var navigation_controller: NavigationController = $%NavigationController
-		assert(navigation_controller, "navigation_controller missing for " + owner.name)
-		navigation_controller.movement_direction_changed.connect(_on_movement_direction_changed)
+		var npc_movement_controller: NPCMovementController = $%NPCMovementController
+		assert(npc_movement_controller, "npc_movement_controller missing for " + owner.name)
+		npc_movement_controller.movement_direction_changed.connect(_on_movement_direction_changed)
 	else:
 		assert(false, "Entity " + owner.name + "not supported but has animation controller")
 	_validate_animation_parameters()

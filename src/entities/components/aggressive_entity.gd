@@ -57,7 +57,7 @@ var _prev_health: int = 0
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var animation_tree: AnimationTree = %AnimationTree
 
-@onready var navigation_controller: NavigationController
+@onready var npc_movement_controller: NPCMovementController
 @onready var goap_controller: GoapMemory
 @onready var perception_system: PerceptionSystem
 
@@ -87,12 +87,12 @@ func _ready() -> void:
 	_child_ready()
 
 	if is_npc:
-		navigation_controller = $%NavigationController
+		npc_movement_controller = $%NPCMovementController
 		goap_controller = $%GoapController
 		perception_system = $%PerceptionSystem
 		assert(ai_config, "GOAP Not properly configured for " + name)
 		assert(goap_controller, "GoapController missing for " + name)
-		assert(navigation_controller, "NavigationController missing for " + name)
+		assert(npc_movement_controller, "NPCMovementController missing for " + name)
 		assert(perception_system, "Perception system missing for " + name)
 
 		if not is_procedurally_spawned:
@@ -110,7 +110,7 @@ func _ready() -> void:
 		goap_agent.init(self, goals, goap_controller, actions)
 		add_child(goap_agent)
 
-		navigation_controller.set_physics_process(false)
+		npc_movement_controller.set_physics_process(false)
 
 		assert(goap_agent != null, "NPCs must have GoapAgent. " + name)
 		add_to_group(Groups.ENEMIES)

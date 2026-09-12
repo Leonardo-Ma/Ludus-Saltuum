@@ -1,12 +1,15 @@
-class_name EnemyTemplate
 # TODO: Consider abstract class?
 ## Template Class intended to right click scene > make new inherited
 ## Basic functionality meant to be changed within the exported variables in inspector
 ## Specific functionality meant to be added here in inherited scene
+class_name EnemyTemplate
 extends AggressiveEntity
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	npc_movement_controller.move(delta)
+	move_and_slide()
+
 	# Apply physics collision with rigid bodies
 	for i: int in get_slide_collision_count():
 		var collision: KinematicCollision3D = get_slide_collision(i)

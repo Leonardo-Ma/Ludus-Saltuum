@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://ce8ig2j71kitw" path="res://src/entities/player/controller/camera_controller.gd" id="5_2wg8a"]
 [ext_resource type="Script" uid="uid://csig12422io62" path="res://src/entities/components/combat/hitbox.gd" id="5_w2bk0"]
 [ext_resource type="Script" uid="uid://wqopxvagomo6" path="res://src/entities/components/combat/hurtbox.gd" id="7_cdsl0"]
-[ext_resource type="Script" uid="uid://otpekb0jb3ab" path="res://src/entities/player/controller/movement_controller.gd" id="8_ebec5"]
+[ext_resource type="Script" uid="uid://otpekb0jb3ab" path="res://src/entities/player/controller/player_movement_controller.gd" id="8_ebec5"]
 [ext_resource type="Script" uid="uid://cuefrffw4m4jh" path="res://src/entities/components/animation_controller.gd" id="9_yllr7"]
 [ext_resource type="AnimationLibrary" uid="uid://vginonlwcip8" path="res://src/entities/animation/libraries/combat.res" id="10_qo2tj"]
 [ext_resource type="ArrayMesh" uid="uid://dhkwua5f8rp5r" path="res://src/entities/player/visual/mesh/arm_left.res" id="11_voi68"]
@@ -892,12 +892,11 @@ fov = 37.8493
 
 [node name="Controllers" type="Node" parent="." unique_id=1311379674]
 
-[node name="MovementController" type="Node3D" parent="Controllers" unique_id=51190727 node_paths=PackedStringArray("camera")]
+[node name="PlayerMovementController" type="Node3D" parent="Controllers" unique_id=51190727 node_paths=PackedStringArray("camera")]
 unique_name_in_owner = true
 editor_description = "Everything related to movement, emits signals to other controllers. Player physics process uses this"
 script = ExtResource("8_ebec5")
 camera = NodePath("../../CamRoot")
-movement = ExtResource("4_f610a")
 
 [node name="InputController" type="Node" parent="Controllers" unique_id=1804300917]
 unique_name_in_owner = true
