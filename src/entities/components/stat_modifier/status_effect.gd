@@ -18,12 +18,12 @@ enum StatusType {
 ## Optional tags
 @export var tags: Array[StringName] = []
 
-@export_group("Behavior")
+@export_category("Behavior")
 ## Duration in seconds. -1.0 for infinite duration (passives, equipment)
 @export var duration: float = -1.0
 @export var stack_mode: StackMode = StackMode.REPLACE
 
-@export_group("Stacks")
+@export_category("Stacks")
 ## Max number of concurrent stacks allowed if StackMode.STACK
 @export var max_stacks: int = 1
 ## Interval in seconds for the on_tick event to trigger if StackMode.STACK
