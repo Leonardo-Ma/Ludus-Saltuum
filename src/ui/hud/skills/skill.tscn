@@ -2,22 +2,44 @@
 
 [ext_resource type="Texture2D" uid="uid://bnq8if00xnf2p" path="res://src/icons/16x16/bomb.png" id="1_hwd1u"]
 [ext_resource type="Script" uid="uid://cgaxqb86skq7v" path="res://src/ui/hud/skills/hud_skill_slot.gd" id="2_slot"]
+[ext_resource type="Texture2D" uid="uid://c0tjkdmr7kj73" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/keyboard_ctrl_outline.png" id="3_ev6f6"]
 
 [node name="VBoxContainer" type="VBoxContainer" unique_id=1806796059]
-offset_right = 90.0
-offset_bottom = 111.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 72.0
+offset_bottom = 113.0
 script = ExtResource("2_slot")
 
-[node name="Skill" type="TextureRect" parent="." unique_id=1660509414]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1805098615]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="MarginContainer" unique_id=1537607538]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=905764905]
+custom_minimum_size = Vector2(65, 0)
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1668178338]
+layout_mode = 2
+
+[node name="Skill" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1660509414]
 unique_name_in_owner = true
 texture_filter = 1
-custom_minimum_size = Vector2(50, 64)
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
+size_flags_horizontal = 3
 texture = ExtResource("1_hwd1u")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CooldownProgress" type="TextureProgressBar" parent="Skill" unique_id=1920979956]
+[node name="CooldownProgress" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/HBoxContainer2/Skill" unique_id=1920979956]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -30,25 +52,27 @@ radial_initial_angle = 270.0
 nine_patch_stretch = true
 tint_progress = Color(0, 0, 0, 0.7)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1010434910]
-layout_mode = 2
-
-[node name="InputHint" type="Label" parent="HBoxContainer" unique_id=818338487]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(75, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 14
-text = "Double 
-W/A/S/D"
-horizontal_alignment = 1
-
-[node name="ChargeLabel" type="Label" parent="HBoxContainer" unique_id=252372805]
+[node name="ChargeLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=252372805]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
+size_flags_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 14
 text = "0"
 horizontal_alignment = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1010434910]
+layout_mode = 2
+
+[node name="SkillButtonIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1786510635]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 19
+size_flags_vertical = 19
+texture = ExtResource("3_ev6f6")
+expand_mode = 1
+stretch_mode = 5

@@ -9,7 +9,8 @@ var _tweens: Array[Tween] = []
 @onready var skill_icon: TextureRect = %Skill
 @onready var cooldown_progress: TextureProgressBar = %CooldownProgress
 @onready var charge_label: Label = %ChargeLabel
-@onready var input_hint: Label = %InputHint
+
+@onready var skill_button_icon: TextureRect = %SkillButtonIcon
 
 
 func setup(skill: BaseSkill) -> void:
@@ -18,9 +19,9 @@ func setup(skill: BaseSkill) -> void:
 	show()
 	skill_icon.texture = skill.definition.icon
 
-	var action: StringName = skill.definition.input_action
-	assert(InputMap.has_action(action), "HUDSkillSlot: input_action '%s' not in InputMap in %s" % [action, name])
-	input_hint.text = _get_action_key(action, action).to_upper()
+	var skill_input_action: StringName = skill.definition.input_action
+	assert(InputMap.has_action(skill_input_action), "HUDSkillSlot: input_action '%s' not in InputMap in %s" % [skill_input_action, name])
+	skill_button_icon.texture = KeyboardIconMap.get_action_icon(skill_input_action)
 
 	charge_label.hide()
 

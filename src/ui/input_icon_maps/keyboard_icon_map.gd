@@ -80,6 +80,20 @@ const MOUSE_MOTION_ICONS: Dictionary = {
 }
 
 
+static func get_action_icon(action: StringName) -> Texture2D:
+	if not InputMap.has_action(action):
+		return null
+
+	for event: InputEvent in InputMap.action_get_events(action):
+		if event is InputEventKey:
+			return get_keyboard_icon(event.physical_keycode)
+
+		if event is InputEventMouseButton:
+			return get_mouse_icon(event.button_index)
+
+	return get_mouse_motion_icon(action)
+
+
 static func get_keyboard_icon(key: Key) -> Texture2D:
 	return KEYBOARD_ICONS.get(key, null)
 

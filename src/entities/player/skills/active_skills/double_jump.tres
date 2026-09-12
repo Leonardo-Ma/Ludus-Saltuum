@@ -6,9 +6,8 @@
 
 [resource]
 script = ExtResource("2_8k36c")
-id = &"double_jump"
 skill_script = ExtResource("3_8k36c")
 icon = ExtResource("1_acl3c")
-input_action = &"double_jump"
+input_action = &"jump"
 hud_order = 1
 metadata/_custom_type_script = "uid://difrst13h47n5"

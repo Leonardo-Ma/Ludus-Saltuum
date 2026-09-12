@@ -6,7 +6,6 @@
 
 [resource]
 script = ExtResource("1_oqy2t")
-id = &"dash"
 skill_script = ExtResource("3_dacbw")
 icon = ExtResource("1_dacbw")
 input_action = &"dash"

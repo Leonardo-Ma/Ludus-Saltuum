@@ -8,16 +8,15 @@ extends Resource
 ## HUD icon
 @export var icon: Texture2D
 
-## Number of uses
 @export var max_charges: int = 1
 
-# TODO Reconsider this
 ## Input action name in Project Settings
-@export var input_action: StringName = &""
+@export_custom(PROPERTY_HINT_INPUT_NAME, "Input action string") var input_action: StringName
 
 ## HUD display order. Lower = Left
 ## Must be unique
 @export var hud_order: int = 0
 
+# TODO Change to enum?
 ## Tags for chunk selector filtering ("movement", "air", "ground", …)
 @export var tags: Array[StringName] = []
