@@ -12,17 +12,20 @@ signal landed
 const COYOTE_TIME: float = 0.05
 const DEADZONE: float = 0.3 # deadzone to prevent drift
 
-@export var camera: Node3D
+@export var camera: CameraController
+@export var movement: Movement
 
-var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
-var current_speed: float = 0.0
 var movement_enabled: bool = true
-
 var coyote_timer: float = 0.0
 var disable_timer: float = 0.0
 
 var _was_on_floor: bool = false
 var _external_force: Vector3 = Vector3.ZERO
+
+
+func _ready() -> void:
+	assert(camera != null, "Camera missing for " + owner.name)
+	assert(movement != null, "Movement missing for " + owner.name)
 
 
 ## This is executed by entity's _physics_process
@@ -46,8 +49,8 @@ func disable_movement(duration: float) -> void:
 func movement_logic(body: CharacterBody3D) -> void:
 	if not movement_enabled:
 		movement_direction_changed.emit(Vector2.ZERO, 0.0)
-		body.velocity.x = move_toward(body.velocity.x, 0, current_speed)
-		body.velocity.z = move_toward(body.velocity.z, 0, current_speed)
+		body.velocity.x = move_toward(body.velocity.x, 0.0, movement.speed)
+		body.velocity.z = move_toward(body.velocity.z, 0.0, movement.speed)
 		return
 
 	# Get raw input vector (works for keyboard and gamepad left stick)
@@ -67,14 +70,14 @@ func movement_logic(body: CharacterBody3D) -> void:
 		var direction: Vector3 = (cam_right * input_direction.x + cam_forward * input_direction.y).normalized()
 
 		# Speed scales with stick deflection (0..1); keyboard always produces 1.0
-		var speed_mult: float = input_length
-		current_speed = speed_mult * owner.movement.speed
+		var current_speed: float = input_length * movement.speed
+
 		# Clamp to allowed maximum
-		current_speed = clamp(current_speed, 0.0, owner.movement.speed)
+		current_speed = clamp(current_speed, 0.0, movement.speed)
 
 		# Calculate blend direction in body's local space (mesh is child of body with 0 rotation)
 		var local_direction: Vector3 = body.global_transform.basis.inverse() * direction
-		var speed_factor: float = current_speed / owner.movement.speed
+		var speed_factor: float = current_speed / movement.speed
 		var blend_direction: Vector2 = Vector2(local_direction.x, local_direction.z) * speed_factor
 
 		movement_direction_changed.emit(blend_direction, speed_factor)
@@ -86,8 +89,8 @@ func movement_logic(body: CharacterBody3D) -> void:
 		body.velocity.z = direction.z * current_speed
 	else:
 		movement_direction_changed.emit(Vector2.ZERO, 0.0)
-		body.velocity.x = move_toward(body.velocity.x, 0, current_speed)
-		body.velocity.z = move_toward(body.velocity.z, 0, current_speed)
+		body.velocity.x = move_toward(body.velocity.x, 0.0, movement.speed)
+		body.velocity.z = move_toward(body.velocity.z, 0.0, movement.speed)
 
 
 func jump_air_logic(body: CharacterBody3D, delta: float) -> void:
@@ -97,7 +100,7 @@ func jump_air_logic(body: CharacterBody3D, delta: float) -> void:
 		coyote_timer -= delta
 		if _was_on_floor:
 			in_air.emit()
-		body.velocity.y -= gravity * delta
+		body.velocity += body.get_gravity() * delta
 
 		# Jump cutting: if jump button is released while moving upwards, cut velocity
 		#if Input.is_action_just_released("jump") and body.velocity.y > 0.0:
@@ -114,7 +117,7 @@ func jump_air_logic(body: CharacterBody3D, delta: float) -> void:
 
 	# Ground jump, only when coyote time is still valid
 	if Input.is_action_just_pressed("jump") and coyote_timer > 0.0:
-		jump(owner.movement.jump_velocity, body)
+		jump(movement.jump_velocity, body)
 		jumped.emit()
 
 

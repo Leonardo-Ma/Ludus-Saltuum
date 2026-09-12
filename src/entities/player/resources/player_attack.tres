@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Attack" format=3 uid="uid://b100j3dnp13hl"]
+
+[ext_resource type="Script" uid="uid://cxqsapbic2imr" path="res://src/entities/components/combat/attack.gd" id="1_emoot"]
+
+[resource]
+script = ExtResource("1_emoot")
+type = 1
+damage = 10
+knockback_force = 3.0
+metadata/_custom_type_script = "uid://cxqsapbic2imr"
