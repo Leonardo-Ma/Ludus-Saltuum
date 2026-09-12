@@ -13,33 +13,32 @@ script = ExtResource("2_slot")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1805098615]
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 15
 
 [node name="Panel" type="Panel" parent="MarginContainer" unique_id=1537607538]
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=905764905]
-custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1668178338]
+[node name="SkillIconContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1668178338]
+custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
 
-[node name="Skill" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1660509414]
+[node name="Skill" type="TextureRect" parent="MarginContainer/VBoxContainer/SkillIconContainer" unique_id=1660509414]
 unique_name_in_owner = true
 texture_filter = 1
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(45, 40)
 layout_mode = 2
-size_flags_horizontal = 3
 texture = ExtResource("1_hwd1u")
 expand_mode = 1
 stretch_mode = 5
+metadata/_edit_group_ = true
 
-[node name="CooldownProgress" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/HBoxContainer2/Skill" unique_id=1920979956]
+[node name="CooldownProgress" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/SkillIconContainer/Skill" unique_id=1920979956]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -52,27 +51,48 @@ radial_initial_angle = 270.0
 nine_patch_stretch = true
 tint_progress = Color(0, 0, 0, 0.7)
 
-[node name="ChargeLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=252372805]
+[node name="ChargeLabel" type="Label" parent="MarginContainer/VBoxContainer/SkillIconContainer/Skill" unique_id=252372805]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 8
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -7.0
+offset_bottom = 17.0
+grow_horizontal = 0
+size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 12
 text = "0"
 horizontal_alignment = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1010434910]
+[node name="SkillButtonContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1010434910]
 layout_mode = 2
 
-[node name="SkillButtonIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1786510635]
+[node name="SkillButtonIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/SkillButtonContainer" unique_id=1786510635]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(35, 35)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
-size_flags_horizontal = 19
-size_flags_vertical = 19
+size_flags_vertical = 3
 texture = ExtResource("3_ev6f6")
-expand_mode = 1
+expand_mode = 3
 stretch_mode = 5
+
+[node name="SkillSufixLabel" type="Label" parent="MarginContainer/VBoxContainer/SkillButtonContainer/SkillButtonIcon" unique_id=831663033]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -12.0
+offset_bottom = 14.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 10
+text = "2x"
+horizontal_alignment = 3

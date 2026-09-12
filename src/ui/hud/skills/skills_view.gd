@@ -3,7 +3,7 @@
 class_name SkillsView
 extends Control
 
-@onready var _skills_container: GridContainer = %SkillsContainer
+@onready var _skills_container: Container = %SkillsContainer
 
 
 func _ready() -> void:

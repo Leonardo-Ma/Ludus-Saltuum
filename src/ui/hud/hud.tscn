@@ -490,40 +490,29 @@ stretch_mode = 5
 
 [node name="SkillsPanel" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=114191235]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(480, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 8
-
-[node name="Skills" type="Panel" parent="MarginContainer/HBoxContainer/SkillsPanel" unique_id=1095038458]
-self_modulate = Color(1, 1, 1, 0.5137255)
-custom_minimum_size = Vector2(0, 110)
-layout_mode = 2
-size_flags_vertical = 3
 script = ExtResource("7_8stm2")
 
-[node name="SkillsContainer" type="GridContainer" parent="MarginContainer/HBoxContainer/SkillsPanel/Skills" unique_id=1910653337]
+[node name="SkillsContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/SkillsPanel" unique_id=507336758]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-columns = 10
+layout_mode = 2
+theme_override_constants/separation = 10
 
-[node name="Skill" parent="MarginContainer/HBoxContainer/SkillsPanel/Skills/SkillsContainer" unique_id=1660509414 instance=ExtResource("13_gy4ue")]
+[node name="Skill" parent="MarginContainer/HBoxContainer/SkillsPanel/SkillsContainer" unique_id=1660509414 instance=ExtResource("13_gy4ue")]
 layout_mode = 2
 
-[node name="Skill2" parent="MarginContainer/HBoxContainer/SkillsPanel/Skills/SkillsContainer" unique_id=216017026 instance=ExtResource("13_gy4ue")]
+[node name="Skill2" parent="MarginContainer/HBoxContainer/SkillsPanel/SkillsContainer" unique_id=216017026 instance=ExtResource("13_gy4ue")]
 layout_mode = 2
 
-[node name="Skill3" parent="MarginContainer/HBoxContainer/SkillsPanel/Skills/SkillsContainer" unique_id=1030572130 instance=ExtResource("13_gy4ue")]
+[node name="Skill3" parent="MarginContainer/HBoxContainer/SkillsPanel/SkillsContainer" unique_id=1030572130 instance=ExtResource("13_gy4ue")]
 layout_mode = 2
 
-[node name="Skill4" parent="MarginContainer/HBoxContainer/SkillsPanel/Skills/SkillsContainer" unique_id=1027499728 instance=ExtResource("13_gy4ue")]
+[node name="Skill4" parent="MarginContainer/HBoxContainer/SkillsPanel/SkillsContainer" unique_id=1027499728 instance=ExtResource("13_gy4ue")]
 layout_mode = 2
 
-[node name="Skill5" parent="MarginContainer/HBoxContainer/SkillsPanel/Skills/SkillsContainer" unique_id=1545854112 instance=ExtResource("13_gy4ue")]
+[node name="Skill5" parent="MarginContainer/HBoxContainer/SkillsPanel/SkillsContainer" unique_id=1545854112 instance=ExtResource("13_gy4ue")]
 layout_mode = 2
 
 [node name="RightSideContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1899763402]
