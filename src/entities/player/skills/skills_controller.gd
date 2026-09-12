@@ -2,7 +2,6 @@
 class_name SkillsController
 extends Node
 
-# TODO Refactor this to remove hud order, to be any order?
 signal skill_unlocked(definition: SkillDefinition)
 signal resetted_skills
 
@@ -34,7 +33,6 @@ func reset() -> void:
 	resetted_skills.emit()
 
 
-# TODO BUG Double check this, something clearly wrong with this :(
 ## Replaces any existing skill
 func unlock(definition: SkillDefinition) -> void:
 	assert(definition.input_action != &"", "SkillsController: " + definition.resource_name + "is missing input_action in " + name)

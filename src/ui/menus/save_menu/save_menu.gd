@@ -34,6 +34,7 @@ func _on_save_changed(slot_index: int) -> void:
 
 
 func _on_save_file_item_play_requested(slot_index: int) -> void:
+	# TODO Check if same save version, if not same, migrate
 	if SaveManager.has_save(slot_index):
 		SaveManager.load_from_slot(slot_index)
 	else:
