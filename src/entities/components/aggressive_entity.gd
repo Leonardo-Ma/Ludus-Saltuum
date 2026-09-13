@@ -139,14 +139,21 @@ func _on_death() -> void:
 		print("Disabling GOAP agent ", goap_agent.name)
 		goap_agent.set_process(false)
 
+	await _death_animation()
+
+	disable_entity()
+	_on_death_complete()
+
+
+## Also used by save/load
+func disable_entity() -> void:
 	hitbox.set_deferred("monitoring", false)
 	hitbox.set_deferred("monitorable", false)
 	hurtbox.set_deferred("monitoring", false)
 	hurtbox.set_deferred("monitorable", false)
-
-	await _death_animation()
-
-	_on_death_complete()
+	visible = false
+	collision_shape.disabled = true
+	set_physics_process(false)
 
 
 func assign_procedural_id(seed_value: int, scene_local_path: NodePath) -> void:
@@ -154,6 +161,21 @@ func assign_procedural_id(seed_value: int, scene_local_path: NodePath) -> void:
 	procedural_id = StringName(scene_local_path)
 	enemy_id = ProceduralId.spawn_id(seed_value, scene_local_path)
 	assert(enemy_id != &"", "Enemy identity not assigned on " + name)
+
+
+## Used on world reset/load
+func revive() -> void:
+	health.reset()
+	scale = Vector3.ONE
+	visible = true
+	collision_shape.disabled = false
+	set_physics_process(true)
+	hitbox.set_deferred("monitoring", true)
+	hitbox.set_deferred("monitorable", true)
+	hurtbox.set_deferred("monitoring", true)
+	hurtbox.set_deferred("monitorable", true)
+	if goap_agent:
+		goap_agent.set_process(true)
 
 #region Visual effects and animations
 func _setup_damage_feedback_visual_material() -> void:

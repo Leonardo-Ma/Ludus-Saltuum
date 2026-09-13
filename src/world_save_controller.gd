@@ -29,25 +29,35 @@ func _on_load_requested(data: SaveData) -> void:
 
 func reset_save_data() -> void:
 	_collected_collectible_ids.clear()
+	_respawn_collectibles()
+
 	_killed_enemy_ids.clear()
+	_respawn_enemies()
 
 
 func apply_save_data(data: WorldSaveData) -> void:
 	_collected_collectible_ids = data.collected_collectible_ids.duplicate()
 	_killed_enemy_ids = data.killed_enemy_ids.duplicate()
-	_disable_killed_enemies.call_deferred()
 	_disable_collected_collectibles.call_deferred()
+	_disable_killed_enemies.call_deferred()
 
 #endregion
 
 #region Collectible
+func _respawn_collectibles() -> void:
+	for collectible: Collectible in get_tree().get_nodes_in_group(Groups.COLLECTIBLES):
+		if collectible.collected:
+			collectible.show()
+			collectible.monitoring = true
+
+
 func _disable_collected_collectibles() -> void:
 	for c: Node in get_tree().get_nodes_in_group(Groups.COLLECTIBLES):
 		var collectible: Collectible = c as Collectible
 		if collectible == null:
 			continue
 		if _collected_collectible_ids.has(collectible.collectible_id):
-			collectible.queue_free()
+			collectible.disable()
 
 
 func is_collectible_collected(persistent_id: StringName) -> bool:
@@ -59,13 +69,21 @@ func _on_collectible_collected(id: StringName) -> void:
 #endregion
 
 #region Enemy
+func _respawn_enemies() -> void:
+	for enemy: Node in get_tree().get_nodes_in_group(Groups.ENEMIES):
+		var entity: AggressiveEntity = enemy as AggressiveEntity
+		if entity == null or entity.is_procedurally_spawned:
+			continue
+		entity.revive()
+
+
 func _disable_killed_enemies() -> void:
 	for enemy: Node in get_tree().get_nodes_in_group(Groups.ENEMIES):
 		var entity: AggressiveEntity = enemy as AggressiveEntity
 		if entity == null:
 			continue
 		if _killed_enemy_ids.has(entity.enemy_id):
-			entity.queue_free()
+			entity.disable_entity()
 
 
 func is_enemy_killed(persistent_id: StringName) -> bool:

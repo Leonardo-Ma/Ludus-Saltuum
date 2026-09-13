@@ -1,9 +1,11 @@
 @abstract class_name Collectible
 extends Area3D
 
+@export_category("Core")
 @export var data: CollectibleData
 @export var respawn_delay: float = 5.0
 
+@export_category("Procedurally Generation")
 ## False when outside level chunk, requires static_id set in editor
 @export var is_procedurally_spawned: bool = true
 ## Must be unique
@@ -17,7 +19,7 @@ var collect_sounds: Array[AudioStream] = []
 var float_tween: Tween
 var rot_tween: Tween
 
-var _collected: bool = false
+var collected: bool = false
 
 
 ## Children should override this instead of _ready()
@@ -46,14 +48,6 @@ func assign_procedural_id(seed_value: int, scene_local_path: NodePath) -> void:
 	assert(collectible_id != &"", "Collectible identity not assigned on " + name)
 
 
-func _apply_persistent_state() -> void:
-	assert(collectible_id != &"", "Collectible identity not assigned on " + name)
-
-	if WorldSaveController.is_collectible_collected(collectible_id):
-		_collected = true
-		queue_free()
-
-
 func _on_body_entered(body: Node3D) -> void:
 	if body.is_in_group(Groups.PLAYERS):
 		SoundManager.play_sound(collect_sounds.pick_random(), SoundManager.SoundCategory.SFX, global_position)
@@ -62,11 +56,17 @@ func _on_body_entered(body: Node3D) -> void:
 			await _respawn_collectible()
 		else:
 			CollectiblesEvents.collectible_collected.emit(collectible_id)
-			queue_free()
+			disable()
 
 
 func _apply_effect(player: PlayerEntity) -> void:
 	data.apply_effect(player)
+
+
+func disable() -> void:
+	collected = true
+	hide()
+	set_deferred("monitoring", false)
 
 
 # TODO: Transform this into an exportable variable bool
