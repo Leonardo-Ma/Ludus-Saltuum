@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://bneqpm1wdlci3"]
 
 [ext_resource type="Script" uid="uid://c7ln8oql0y1ag" path="res://src/environment/mechanics/platform/moving/moving_platform.gd" id="1_mmuas"]
-[ext_resource type="Texture2D" uid="uid://ccs62hofilq3i" path="res://src/environment/platformer_kit_kenney/texture/assets_colormap.png" id="1_xcpnr"]
+[ext_resource type="Texture2D" uid="uid://ccs62hofilq3i" path="res://src/environment/assets/platformer_kit_kenney/texture/assets_colormap.png" id="1_xcpnr"]
 
 [sub_resource type="Curve3D" id="Curve3D_xcpnr"]
 closed = true

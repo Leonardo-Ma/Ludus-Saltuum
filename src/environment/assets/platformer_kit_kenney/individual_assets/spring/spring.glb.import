@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://boc45ppc0xq8h"
-path="res://.godot/imported/assets.glb-d5a8106ad9bd41943924ab335c584ed4.scn"
+uid="uid://cditexkva7aj5"
+path="res://.godot/imported/spring.glb-cdc52914d6d8f880e93dbf805d5825a5.scn"
 
 [deps]
 
-source_file="res://src/environment/platformer_kit_kenney/assets.glb"
-dest_files=["res://.godot/imported/assets.glb-d5a8106ad9bd41943924ab335c584ed4.scn"]
+source_file="res://src/environment/assets/platformer_kit_kenney/individual_assets/spring/spring.glb"
+dest_files=["res://.godot/imported/spring.glb-cdc52914d6d8f880e93dbf805d5825a5.scn"]
 
 [params]
 
@@ -40,7 +40,15 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={}
-gltf/naming_version=0
+_subresources={
+"materials": {
+"colormap": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://src/environment/assets/platformer_kit_kenney/individual_assets/spring/colormap.tres",
+"use_external/path": "uid://dt1cep4u5y2ro"
+}
+}
+}
+gltf/naming_version=2
 gltf/embedded_image_handling=1
 gltf/texture_map_mode=1

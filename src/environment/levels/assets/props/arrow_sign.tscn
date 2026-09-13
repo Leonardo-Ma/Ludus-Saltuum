@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://trd7ogx3xpwh"]
 
-[ext_resource type="ArrayMesh" uid="uid://tyfe5wwov3fl" path="res://src/environment/platformer_kit_kenney/individual_assets/arrow_sign.mesh" id="1_rqs0n"]
+[ext_resource type="ArrayMesh" uid="uid://tyfe5wwov3fl" path="res://src/environment/assets/platformer_kit_kenney/individual_assets/arrow_sign.mesh" id="1_rqs0n"]
 
 [node name="ArrowSign" type="Node3D" unique_id=975612369]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

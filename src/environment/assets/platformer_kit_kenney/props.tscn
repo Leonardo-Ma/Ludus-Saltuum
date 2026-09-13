@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://e3ruc4bt0rhr"]
 
-[ext_resource type="Texture2D" uid="uid://ccs62hofilq3i" path="res://src/environment/platformer_kit_kenney/texture/assets_colormap.png" id="1_ho5dm"]
+[ext_resource type="Texture2D" uid="uid://ccs62hofilq3i" path="res://src/environment/assets/platformer_kit_kenney/texture/assets_colormap.png" id="1_ho5dm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c0wah"]
 resource_name = "colormap"
@@ -1688,7 +1688,7 @@ shadow_mesh = SubResource("ArrayMesh_s5fbp")
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3l5hx"]
 points = PackedVector3Array(0.25766006, 0.3665344, -0.5081476, 0.5021173, 0.20374154, 0.5347476, 0.3391458, 0.20374154, 0.5347476, 0.5021173, 0.57848096, -0.44281352, -0.5081476, 0.513249, -0.27988666, -0.394028, -0.008147597, 0.46941352, 0.3879977, -0.008147597, 0.46941352, -0.394028, 0.3665918, -0.5081476, -0.5081476, 0.17112553, 0.5184141, -0.5081476, 0.48063296, -0.5081476, 0.5021173, 0.4806904, -0.5081476, -0.5081476, 0.26897353, 0.37161657, 0.3879977, 0.31766784, -0.39391506, -0.19852158, 0.56211555, -0.49181408, 0.5021173, 0.10595097, 0.48574704, -0.5081476, 0.10600838, 0.48574704, -0.394028, 0.31766784, -0.39391506, -0.5081476, 0.54586494, -0.45914704, 0.5021173, 0.2199921, 0.50208056, -0.5081476, 0.48063296, -0.18208972, 0.3879977, 0.0081603825, 0.42051506, -0.05186704, 0.18743354, 0.5347476, 0.48580033, 0.562173, -0.39391506, 0.25766006, 0.57848096, -0.47548056, -0.394028, 0.0081603825, 0.42051506, 0.3879977, 0.3665344, -0.5081476, -0.5081476, 0.30135983, 0.29015315, 0.27397698, 0.57848096, -0.45914704, 0.48442167, 0.56820565, -0.4741191, -0.394028, 0.35028383, -0.47548056, -0.5081476, 0.10600838, 0.50208056, 0.5021173, 0.43182382, -0.051727824)
 
-[node name="Scenery" type="Node3D" unique_id=1515490506]
+[node name="Props" type="Node3D" unique_id=1515490506]
 
 [node name="arrow" type="MeshInstance3D" parent="." unique_id=555693924]
 mesh = SubResource("ArrayMesh_y5rhp")

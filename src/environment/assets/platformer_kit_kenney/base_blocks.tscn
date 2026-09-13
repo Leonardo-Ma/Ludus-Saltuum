@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://hiu36af7jl5t"]
 
-[ext_resource type="Texture2D" uid="uid://ccs62hofilq3i" path="res://src/environment/platformer_kit_kenney/texture/assets_colormap.png" id="1_yxu4q"]
+[ext_resource type="Texture2D" uid="uid://ccs62hofilq3i" path="res://src/environment/assets/platformer_kit_kenney/texture/assets_colormap.png" id="1_yxu4q"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g7en4"]
 resource_name = "colormap.020"

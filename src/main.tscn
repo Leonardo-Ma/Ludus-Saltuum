@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://cwgqh61gpa36j" path="res://src/ui/ui.tscn" id="2_bx4na"]
 [ext_resource type="Environment" uid="uid://dsshmu8vrps28" path="res://src/environment/world_environment_settings.tres" id="3_ib8ht"]
-[ext_resource type="MeshLibrary" uid="uid://bdu2s5gh3xtei" path="res://src/environment/platformer_kit_kenney/mesh_libraries/base_blocks.meshlib" id="4_sta5p"]
-[ext_resource type="MeshLibrary" uid="uid://dk0v5pvpbvmsg" path="res://src/environment/platformer_kit_kenney/mesh_libraries/scenery.meshlib" id="5_sif16"]
+[ext_resource type="MeshLibrary" uid="uid://by71qqpgj2jui" path="res://src/environment/assets/platformer_kit_kenney/platformer_kit_kenney.tres" id="3_tb146"]
+[ext_resource type="MeshLibrary" uid="uid://dk0v5pvpbvmsg" path="res://src/environment/assets/platformer_kit_kenney/mesh_libraries/scenery.meshlib" id="5_sif16"]
 [ext_resource type="PackedScene" uid="uid://0hwlnlpkbsjn" path="res://src/environment/levels/assets/platforms/static_platforms/grass_platform.tscn" id="6_d7bab"]
 [ext_resource type="PackedScene" uid="uid://bhvmo3w7rkqa3" path="res://src/environment/levels/assets/props/box.tscn" id="7_ib8ht"]
 [ext_resource type="PackedScene" uid="uid://dwxbechemu2kl" path="res://src/entities/player/player.tscn" id="7_ss67u"]
@@ -44,7 +44,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, -52.7632)
 
 [node name="Floor" type="GridMap" parent="Map/Surface" unique_id=1033060690]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0372162, 0.9171803, 1.4500691)
-mesh_library = ExtResource("4_sta5p")
+mesh_library = ExtResource("3_tb146")
 cell_size = Vector3(0.5, 0.25, 0.5)
 cell_octant_size = 16
 collision_layer = 3

@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://c5advesecca53"]
 
-[ext_resource type="Texture2D" uid="uid://ccs62hofilq3i" path="res://src/environment/platformer_kit_kenney/texture/assets_colormap.png" id="1_4tcp1"]
+[ext_resource type="Texture2D" uid="uid://ccs62hofilq3i" path="res://src/environment/assets/platformer_kit_kenney/texture/assets_colormap.png" id="1_4tcp1"]
 [ext_resource type="Script" uid="uid://bwmq4qyc81wi0" path="res://src/environment/mechanics/ground_button/button.gd" id="2_tn8wv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uvo80"]

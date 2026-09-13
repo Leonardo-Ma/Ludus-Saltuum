@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://pngs12a0famd"]
 
 [ext_resource type="Script" uid="uid://b76oe6ep0722i" path="res://src/environment/mechanics/door/large_door.gd" id="1_aolhc"]
-[ext_resource type="Texture2D" uid="uid://ccs62hofilq3i" path="res://src/environment/platformer_kit_kenney/texture/assets_colormap.png" id="1_t46ni"]
+[ext_resource type="Texture2D" uid="uid://ccs62hofilq3i" path="res://src/environment/assets/platformer_kit_kenney/texture/assets_colormap.png" id="1_t46ni"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nr0o7"]
 resource_name = "colormap.102"
