@@ -166,7 +166,6 @@ func assign_procedural_id(seed_value: int, scene_local_path: NodePath) -> void:
 ## Used on world reset/load
 func revive() -> void:
 	health.reset()
-	scale = Vector3.ONE
 	visible = true
 	collision_shape.disabled = false
 	set_physics_process(true)
