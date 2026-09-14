@@ -5,6 +5,8 @@
 [resource]
 script = ExtResource("1_ggejc")
 scale_factor = 0.1
-duration = 10.0
+speed_multiplier = 0.4
+jump_multiplier = 0.6
+duration = 8.0
 stack_mode = 0
 metadata/_custom_type_script = "uid://c4ugtconyjoou"
