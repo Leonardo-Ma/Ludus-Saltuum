@@ -4,12 +4,12 @@ importer="ArrayMesh"
 importer_version=1
 type="ArrayMesh"
 uid="uid://oqwkdvedalca"
-path="res://.godot/imported/hexagon_grass_platform.glb-5f44715f0bafb4721f8a7689abebc2f3.res"
+path="res://.godot/imported/hexagon_grass_platform.glb-41005842741a675cb2514b07ad20b6a8.res"
 
 [deps]
 
-source_file="res://src/environment/small_platformer_kit_j_toastie/hexagon_grass_platform.glb"
-dest_files=["res://.godot/imported/hexagon_grass_platform.glb-5f44715f0bafb4721f8a7689abebc2f3.res"]
+source_file="res://src/environment/assets/small_platformer_kit_j_toastie/hexagon_grass_platform.glb"
+dest_files=["res://.godot/imported/hexagon_grass_platform.glb-41005842741a675cb2514b07ad20b6a8.res"]
 
 [params]
 
