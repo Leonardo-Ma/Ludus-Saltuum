@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bqlyqci0544p3"]
+
+[ext_resource type="Script" uid="uid://dclr7foqs0owl" path="res://src/systems/rotate_object.gd" id="1_p6if0"]
+[ext_resource type="ArrayMesh" uid="uid://cel68jd7ltlp4" path="res://src/environment/assets/small_platformer_kit_j_toastie/meshes/stone_platform.glb" id="2_kvqrg"]
+[ext_resource type="Shape3D" uid="uid://uwsqjid80a1o" path="res://src/environment/assets/small_platformer_kit_j_toastie/hexagon_collision_shape.tres" id="3_kvqrg"]
+
+[node name="RotatingPlatform" type="AnimatableBody3D" unique_id=129741558]
+transform = Transform3D(-0.8338829, 0, 0.5519354, 0, 1, 0, -0.5519354, 0, -0.8338829, 0, 0, 0)
+script = ExtResource("1_p6if0")
+spin_enabled = false
+platform_mesh = ExtResource("2_kvqrg")
+platform_shape = ExtResource("3_kvqrg")
+
+[node name="RotatingPlatformMesh" type="MeshInstance3D" parent="." unique_id=1081692882]
+unique_name_in_owner = true
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = ExtResource("2_kvqrg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1148461190]
+unique_name_in_owner = true
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+shape = ExtResource("3_kvqrg")

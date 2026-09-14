@@ -1,0 +1,344 @@
+[gd_scene format=3 uid="uid://ckoedr5ocmi8m"]
+
+[ext_resource type="Script" uid="uid://dfapcpf4fli57" path="res://src/environment/levels/level_chunk.gd" id="1_th5dm"]
+[ext_resource type="PackedScene" uid="uid://cl6psv388cmbx" path="res://src/environment/levels/entrance_trigger.tscn" id="2_q7d2a"]
+[ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_1y0sy"]
+[ext_resource type="PackedScene" uid="uid://0hwlnlpkbsjn" path="res://src/environment/levels/assets/platforms/static_platforms/grass_platform.tscn" id="4_e4d4p"]
+[ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="5_v2lf7"]
+[ext_resource type="PackedScene" uid="uid://bqlyqci0544p3" path="res://src/environment/levels/assets/platforms/rotating_platforms/rotating_platform.tscn" id="6_th5dm"]
+[ext_resource type="PackedScene" uid="uid://c6on7cp5w028m" path="res://src/environment/mechanics/traps/spikes/spikes.tscn" id="7_q7d2a"]
+
+[node name="24Spinning" type="Node3D" unique_id=1016321493]
+script = ExtResource("1_th5dm")
+features = Array[int]([9, 10])
+
+[node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_q7d2a")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 1)
+
+[node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_1y0sy")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 126.08301)
+
+[node name="GrassPlatform" parent="." unique_id=537577895 instance=ExtResource("4_e4d4p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 5)
+
+[node name="ArrowSign" parent="GrassPlatform" unique_id=975612369 instance=ExtResource("5_v2lf7")]
+transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, 3, 4, -3)
+
+[node name="GrassPlatform2" parent="." unique_id=1202947898 instance=ExtResource("4_e4d4p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 125)
+
+[node name="RotatingPlatform" parent="." unique_id=129741558 instance=ExtResource("6_th5dm")]
+transform = Transform3D(-4.0444546, 0, 2.938477, 0, 5, 0, -2.938477, 0, -4.0444546, 0, 0, 36)
+spin_enabled = true
+
+[node name="Spike4" parent="RotatingPlatform" unique_id=270935533 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(21.65063, 12.500006, 5.4639264e-07, 0, -1.0927847e-06, 25, 12.500006, -21.65063, -9.4637915e-07, -2.148893, 0.351, 4.282098)
+
+[node name="Spike5" parent="RotatingPlatform" unique_id=2024920262 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(21.65063, 12.500006, 5.4639264e-07, 0, -1.0927847e-06, 25, 12.500006, -21.65063, -9.4637915e-07, -2.667502, 0.351, 3.553287)
+
+[node name="Spike6" parent="RotatingPlatform" unique_id=1578593174 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(21.65063, 12.500006, 5.4639264e-07, 0, -1.0927847e-06, 25, 12.500006, -21.65063, -9.4637915e-07, -3.0922093, 0.351, 2.647873)
+
+[node name="Spike7" parent="RotatingPlatform" unique_id=1176492669 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(21.65063, 12.500006, 5.4639264e-07, 0, -1.0927847e-06, 25, 12.500006, -21.65063, -9.4637915e-07, -2.2091956, 0.351, 3.1173797)
+
+[node name="Spike8" parent="RotatingPlatform" unique_id=1843659647 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(21.65063, 12.500006, 5.4639264e-07, 0, -1.0927847e-06, 25, 12.500006, -21.65063, -9.4637915e-07, -1.3261821, 0.351, 3.5868864)
+
+[node name="Spike9" parent="RotatingPlatform" unique_id=1543937043 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(21.65063, 12.500006, 5.4639264e-07, 0, -1.0927847e-06, 25, 12.500006, -21.65063, -9.4637915e-07, -0.44316816, 0.351, 4.056394)
+
+[node name="Spike10" parent="RotatingPlatform" unique_id=295337074 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(21.65063, 12.500006, 5.4639264e-07, 0, -1.0927847e-06, 25, 12.500006, -21.65063, -9.4637915e-07, 0.5337467, 0.351, 4.349299)
+
+[node name="Spike12" parent="RotatingPlatform" unique_id=798513302 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(12.4999895, 21.650642, 9.4637954e-07, 0, -1.0927847e-06, 25, 21.650642, -12.4999895, -5.46392e-07, -2.4348087, 0.351, 1.9198351)
+
+[node name="Spike13" parent="RotatingPlatform" unique_id=260006757 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(12.4999895, 21.650642, 9.4637954e-07, 0, -1.0927847e-06, 25, 21.650642, -12.4999895, -5.46392e-07, -2.5195322, 0.351, 1.0293622)
+
+[node name="Spike32" parent="RotatingPlatform" unique_id=1304128767 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(12.4999895, 21.650642, 9.4637954e-07, 0, -1.0927847e-06, 25, 21.650642, -12.4999895, -5.46392e-07, -3.5188475, 0.35100004, 1.630672)
+
+[node name="Spike14" parent="RotatingPlatform" unique_id=753911284 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(12.4999895, 21.650642, 9.4637954e-07, 0, -1.0927847e-06, 25, 21.650642, -12.4999895, -5.46392e-07, -2.3286405, 0.351, 0.2025199)
+
+[node name="Spike15" parent="RotatingPlatform" unique_id=1381438463 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(12.4999895, 21.650642, 9.4637954e-07, 0, -1.0927847e-06, 25, 21.650642, -12.4999895, -5.46392e-07, -1.9046735, 0.351, 0.8810086)
+
+[node name="Spike20" parent="RotatingPlatform" unique_id=694381647 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470463, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470463, 24.14815, 1.0555491e-06, -4.0848484, 0.35100004, -0.48438025)
+
+[node name="Spike21" parent="RotatingPlatform" unique_id=1455796873 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470463, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470463, 24.14815, 1.0555491e-06, -3.3355868, 0.35100004, -0.085990906)
+
+[node name="Spike22" parent="RotatingPlatform" unique_id=1073978605 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470463, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470463, 24.14815, 1.0555491e-06, -4.1006875, 0.35100004, 0.14792347)
+
+[node name="Spike23" parent="RotatingPlatform" unique_id=131133631 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, -3.3336377, 0.35100004, -1.897202)
+
+[node name="Spike24" parent="RotatingPlatform" unique_id=2106502038 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, -2.584376, 0.35100004, -1.4988127)
+
+[node name="Spike25" parent="RotatingPlatform" unique_id=241024046 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, -3.3494768, 0.35100004, -1.2648983)
+
+[node name="Spike26" parent="RotatingPlatform" unique_id=1905646059 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, -1.2144041, 0.35100004, -0.77038574)
+
+[node name="Spike27" parent="RotatingPlatform" unique_id=277530139 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, -0.4651425, 0.35100004, -0.37199593)
+
+[node name="Spike28" parent="RotatingPlatform" unique_id=1129460448 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, -1.2302432, 0.35100004, -0.13808203)
+
+[node name="Spike16" parent="RotatingPlatform" unique_id=6437968 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(12.4999895, 21.650642, 9.4637954e-07, 0, -1.0927847e-06, 25, 21.650642, -12.4999895, -5.46392e-07, -1.3747146, 0.351, 1.7291203)
+
+[node name="Spike17" parent="RotatingPlatform" unique_id=405495029 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(12.4999895, 21.650642, 9.4637954e-07, 0, -1.0927847e-06, 25, 21.650642, -12.4999895, -5.46392e-07, -0.8447559, 0.351, 2.5772328)
+
+[node name="Spike19" parent="RotatingPlatform" unique_id=749124053 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(12.4999895, 21.650642, 9.4637954e-07, 0, -1.0927847e-06, 25, 21.650642, -12.4999895, -5.46392e-07, -0.14517617, 0.351, 3.3193538)
+
+[node name="Spike11" parent="RotatingPlatform" unique_id=1960008677 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(21.65063, 12.500006, 5.4639264e-07, 0, -1.0927847e-06, 25, 12.500006, -21.65063, -9.4637915e-07, -0.293267, 0.35100004, 1.6442556)
+
+[node name="Spike18" parent="RotatingPlatform" unique_id=269435871 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(21.65063, 12.500006, 5.4639264e-07, 0, -1.0927847e-06, 25, 12.500006, -21.65063, -9.4637915e-07, 0.58974695, 0.35100004, 2.1137633)
+
+[node name="Spike29" parent="RotatingPlatform" unique_id=1939981616 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(21.65063, 12.500006, 5.4639264e-07, 0, -1.0927847e-06, 25, 12.500006, -21.65063, -9.4637915e-07, 1.5666618, 0.35100004, 2.4066682)
+
+[node name="Spike30" parent="RotatingPlatform" unique_id=1646130172 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(12.4999895, 21.650642, 9.4637954e-07, 0, -1.0927847e-06, 25, 21.650642, -12.4999895, -5.46392e-07, 0.18815899, 0.35100004, 0.63460255)
+
+[node name="Spike31" parent="RotatingPlatform" unique_id=1254310926 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(12.4999895, 21.650642, 9.4637954e-07, 0, -1.0927847e-06, 25, 21.650642, -12.4999895, -5.46392e-07, 0.8877392, 0.35100004, 1.3767228)
+
+[node name="Spike33" parent="RotatingPlatform" unique_id=1119153072 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-17.677677, 17.677664, 7.727151e-07, 0, -1.0927847e-06, 25, 17.677664, 17.677677, 7.7271585e-07, -0.5401404, 0.35100004, -4.089103)
+
+[node name="Spike34" parent="RotatingPlatform" unique_id=467275770 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-17.677677, 17.677664, 7.727151e-07, 0, -1.0927847e-06, 25, 17.677664, 17.677677, 7.7271585e-07, -1.2221904, 0.35100004, -3.3576941)
+
+[node name="Spike35" parent="RotatingPlatform" unique_id=781319200 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-17.677677, 17.677664, 7.727151e-07, 0, -1.0927847e-06, 25, 17.677664, 17.677677, 7.7271585e-07, -1.7579594, 0.35100004, -2.4898753)
+
+[node name="Spike48" parent="RotatingPlatform" unique_id=448053440 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-12.500013, 21.650629, 9.46379e-07, 1.3609122e-14, -1.0927847e-06, 25, 21.650629, 12.500013, 5.463926e-07, 2.5511384, 0.35100004, 2.5594163)
+
+[node name="Spike49" parent="RotatingPlatform" unique_id=525032159 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-12.500013, 21.650629, 9.46379e-07, 1.3609122e-14, -1.0927847e-06, 25, 21.650629, 12.500013, 5.463926e-07, 3.3626494, 0.35100004, 2.3113132)
+
+[node name="Spike50" parent="RotatingPlatform" unique_id=1349827969 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-12.500013, 21.650629, 9.46379e-07, 1.3609122e-14, -1.0927847e-06, 25, 21.650629, 12.500013, 5.463926e-07, 2.0833087, 0.35100004, 1.0292144)
+
+[node name="Spike51" parent="RotatingPlatform" unique_id=604303553 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-12.500013, 21.650629, 9.46379e-07, 1.3609122e-14, -1.0927847e-06, 25, 21.650629, 12.500013, 5.463926e-07, 2.8948197, 0.35100004, 0.78110933)
+
+[node name="Spike52" parent="RotatingPlatform" unique_id=693429568 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-12.500013, 21.650629, 9.46379e-07, 1.3609122e-14, -1.0927847e-06, 25, 21.650629, 12.500013, 5.463926e-07, 2.5192132, 0.35100004, 1.4875202)
+
+[node name="Spike53" parent="RotatingPlatform" unique_id=1040427345 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-7.6293945e-06, 24.999998, 1.0927846e-06, 0, -1.0927847e-06, 25, 24.999998, 7.6293945e-06, 4.8316906e-13, 3.7798228, 0.35100004, -0.8392186)
+
+[node name="Spike54" parent="RotatingPlatform" unique_id=1803688328 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-7.6293945e-06, 24.999998, 1.0927846e-06, 0, -1.0927847e-06, 25, 24.999998, 7.6293945e-06, 4.8316906e-13, 2.7783985, 0.35100004, -0.50404215)
+
+[node name="Spike36" parent="RotatingPlatform" unique_id=572108942 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, 2.2232614, 0.35100004, -3.9475484)
+
+[node name="Spike37" parent="RotatingPlatform" unique_id=1242902987 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(1.5258789e-05, -25, -1.0927848e-06, 1.3609122e-14, -1.0927847e-06, 25, -25, -1.5258789e-05, -3.6948222e-13, 3.639731, 0.35100004, -2.8533883)
+
+[node name="Spike38" parent="RotatingPlatform" unique_id=1365169991 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(1.5258789e-05, -25, -1.0927848e-06, 1.3609122e-14, -1.0927847e-06, 25, -25, -1.5258789e-05, -3.6948222e-13, 3.0609922, 0.35100004, -2.2327685)
+
+[node name="Spike39" parent="RotatingPlatform" unique_id=284722859 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(1.5258789e-05, -25, -1.0927848e-06, 1.3609122e-14, -1.0927847e-06, 25, -25, -1.5258789e-05, -3.6948222e-13, 3.0330715, 0.35100004, -3.0323405)
+
+[node name="Spike40" parent="RotatingPlatform" unique_id=2058006135 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, 1.2668853, 0.35100004, -3.6551566)
+
+[node name="Spike41" parent="RotatingPlatform" unique_id=2145650253 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, 0.3105073, 0.35100004, -3.362762)
+
+[node name="Spike42" parent="RotatingPlatform" unique_id=1048702710 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, -0.5873904, 0.35100004, -2.8790965)
+
+[node name="Spike43" parent="RotatingPlatform" unique_id=1541943861 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-17.677677, 17.677664, 7.727151e-07, 0, -1.0927847e-06, 25, 17.677664, 17.677677, 7.7271585e-07, 1.0689588, 0.35100004, -2.588594)
+
+[node name="Spike44" parent="RotatingPlatform" unique_id=1651798747 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-17.677677, 17.677664, 7.727151e-07, 0, -1.0927847e-06, 25, 17.677664, 17.677677, 7.7271585e-07, 0.38690877, 0.35100004, -1.8571858)
+
+[node name="Spike45" parent="RotatingPlatform" unique_id=361393590 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-17.677677, 17.677664, 7.727151e-07, 0, -1.0927847e-06, 25, 17.677664, 17.677677, 7.7271585e-07, -0.14886045, 0.35100004, -0.989367)
+
+[node name="Spike46" parent="RotatingPlatform" unique_id=507491812 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, 1.9196057, 0.35100004, -1.8622537)
+
+[node name="Spike47" parent="RotatingPlatform" unique_id=131649431 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, 1.021709, 0.35100004, -1.3785868)
+
+[node name="RotatingPlatform2" parent="." unique_id=465836803 instance=ExtResource("6_th5dm")]
+transform = Transform3D(-4.0444546, 0, 2.938477, 0, 5, 0, -2.938477, 0, -4.0444546, 0, 0, 90)
+spin_enabled = true
+
+[node name="Spike4" parent="RotatingPlatform2" unique_id=2030931253 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(21.65063, 12.500006, 5.4639264e-07, 0, -1.0927847e-06, 25, 12.500006, -21.65063, -9.4637915e-07, -2.148893, 0.351, 4.282098)
+
+[node name="Spike5" parent="RotatingPlatform2" unique_id=287932825 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(21.65063, 12.500006, 5.4639264e-07, 0, -1.0927847e-06, 25, 12.500006, -21.65063, -9.4637915e-07, -2.667502, 0.351, 3.553287)
+
+[node name="Spike6" parent="RotatingPlatform2" unique_id=1503246534 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(21.65063, 12.500006, 5.4639264e-07, 0, -1.0927847e-06, 25, 12.500006, -21.65063, -9.4637915e-07, -3.0922093, 0.351, 2.647873)
+
+[node name="Spike7" parent="RotatingPlatform2" unique_id=1723718198 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(21.65063, 12.500006, 5.4639264e-07, 0, -1.0927847e-06, 25, 12.500006, -21.65063, -9.4637915e-07, -2.2091956, 0.351, 3.1173797)
+
+[node name="Spike8" parent="RotatingPlatform2" unique_id=1742490026 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(21.65063, 12.500006, 5.4639264e-07, 0, -1.0927847e-06, 25, 12.500006, -21.65063, -9.4637915e-07, -1.3261821, 0.351, 3.5868864)
+
+[node name="Spike9" parent="RotatingPlatform2" unique_id=591823770 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(21.65063, 12.500006, 5.4639264e-07, 0, -1.0927847e-06, 25, 12.500006, -21.65063, -9.4637915e-07, -0.44316816, 0.351, 4.056394)
+
+[node name="Spike10" parent="RotatingPlatform2" unique_id=1438863733 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(21.65063, 12.500006, 5.4639264e-07, 0, -1.0927847e-06, 25, 12.500006, -21.65063, -9.4637915e-07, 0.5337467, 0.351, 4.349299)
+
+[node name="Spike12" parent="RotatingPlatform2" unique_id=1777362757 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(12.4999895, 21.650642, 9.4637954e-07, 0, -1.0927847e-06, 25, 21.650642, -12.4999895, -5.46392e-07, -2.4348087, 0.351, 1.9198351)
+
+[node name="Spike13" parent="RotatingPlatform2" unique_id=71561572 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(12.4999895, 21.650642, 9.4637954e-07, 0, -1.0927847e-06, 25, 21.650642, -12.4999895, -5.46392e-07, -2.5195322, 0.351, 1.0293622)
+
+[node name="Spike32" parent="RotatingPlatform2" unique_id=1379171851 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(12.4999895, 21.650642, 9.4637954e-07, 0, -1.0927847e-06, 25, 21.650642, -12.4999895, -5.46392e-07, -3.5188475, 0.35100004, 1.630672)
+
+[node name="Spike14" parent="RotatingPlatform2" unique_id=1281879828 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(12.4999895, 21.650642, 9.4637954e-07, 0, -1.0927847e-06, 25, 21.650642, -12.4999895, -5.46392e-07, -2.3286405, 0.351, 0.2025199)
+
+[node name="Spike15" parent="RotatingPlatform2" unique_id=520473681 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(12.4999895, 21.650642, 9.4637954e-07, 0, -1.0927847e-06, 25, 21.650642, -12.4999895, -5.46392e-07, -1.9046735, 0.351, 0.8810086)
+
+[node name="Spike20" parent="RotatingPlatform2" unique_id=879634218 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470463, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470463, 24.14815, 1.0555491e-06, -4.0848484, 0.35100004, -0.48438025)
+
+[node name="Spike21" parent="RotatingPlatform2" unique_id=1956431447 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470463, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470463, 24.14815, 1.0555491e-06, -3.3355868, 0.35100004, -0.085990906)
+
+[node name="Spike22" parent="RotatingPlatform2" unique_id=352427475 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470463, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470463, 24.14815, 1.0555491e-06, -4.1006875, 0.35100004, 0.14792347)
+
+[node name="Spike23" parent="RotatingPlatform2" unique_id=832451903 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, -3.3336377, 0.35100004, -1.897202)
+
+[node name="Spike24" parent="RotatingPlatform2" unique_id=1171077859 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, -2.584376, 0.35100004, -1.4988127)
+
+[node name="Spike25" parent="RotatingPlatform2" unique_id=336831277 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, -3.3494768, 0.35100004, -1.2648983)
+
+[node name="Spike26" parent="RotatingPlatform2" unique_id=727068012 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, -1.2144041, 0.35100004, -0.77038574)
+
+[node name="Spike27" parent="RotatingPlatform2" unique_id=68447886 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, -0.4651425, 0.35100004, -0.37199593)
+
+[node name="Spike28" parent="RotatingPlatform2" unique_id=664803642 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, -1.2302432, 0.35100004, -0.13808203)
+
+[node name="Spike16" parent="RotatingPlatform2" unique_id=471273541 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(12.4999895, 21.650642, 9.4637954e-07, 0, -1.0927847e-06, 25, 21.650642, -12.4999895, -5.46392e-07, -1.3747146, 0.351, 1.7291203)
+
+[node name="Spike17" parent="RotatingPlatform2" unique_id=1532860434 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(12.4999895, 21.650642, 9.4637954e-07, 0, -1.0927847e-06, 25, 21.650642, -12.4999895, -5.46392e-07, -0.8447559, 0.351, 2.5772328)
+
+[node name="Spike19" parent="RotatingPlatform2" unique_id=1926058414 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(12.4999895, 21.650642, 9.4637954e-07, 0, -1.0927847e-06, 25, 21.650642, -12.4999895, -5.46392e-07, -0.14517617, 0.351, 3.3193538)
+
+[node name="Spike11" parent="RotatingPlatform2" unique_id=1172421378 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(21.65063, 12.500006, 5.4639264e-07, 0, -1.0927847e-06, 25, 12.500006, -21.65063, -9.4637915e-07, -0.293267, 0.35100004, 1.6442556)
+
+[node name="Spike18" parent="RotatingPlatform2" unique_id=1921253764 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(21.65063, 12.500006, 5.4639264e-07, 0, -1.0927847e-06, 25, 12.500006, -21.65063, -9.4637915e-07, 0.58974695, 0.35100004, 2.1137633)
+
+[node name="Spike29" parent="RotatingPlatform2" unique_id=21484333 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(21.65063, 12.500006, 5.4639264e-07, 0, -1.0927847e-06, 25, 12.500006, -21.65063, -9.4637915e-07, 1.5666618, 0.35100004, 2.4066682)
+
+[node name="Spike30" parent="RotatingPlatform2" unique_id=217200512 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(12.4999895, 21.650642, 9.4637954e-07, 0, -1.0927847e-06, 25, 21.650642, -12.4999895, -5.46392e-07, 0.18815899, 0.35100004, 0.63460255)
+
+[node name="Spike31" parent="RotatingPlatform2" unique_id=124514643 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(12.4999895, 21.650642, 9.4637954e-07, 0, -1.0927847e-06, 25, 21.650642, -12.4999895, -5.46392e-07, 0.8877392, 0.35100004, 1.3767228)
+
+[node name="Spike33" parent="RotatingPlatform2" unique_id=869061288 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-17.677677, 17.677664, 7.727151e-07, 0, -1.0927847e-06, 25, 17.677664, 17.677677, 7.7271585e-07, -0.5401404, 0.35100004, -4.089103)
+
+[node name="Spike34" parent="RotatingPlatform2" unique_id=2021155898 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-17.677677, 17.677664, 7.727151e-07, 0, -1.0927847e-06, 25, 17.677664, 17.677677, 7.7271585e-07, -1.2221904, 0.35100004, -3.3576941)
+
+[node name="Spike35" parent="RotatingPlatform2" unique_id=611635288 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-17.677677, 17.677664, 7.727151e-07, 0, -1.0927847e-06, 25, 17.677664, 17.677677, 7.7271585e-07, -1.7579594, 0.35100004, -2.4898753)
+
+[node name="Spike48" parent="RotatingPlatform2" unique_id=184442221 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-12.500013, 21.650629, 9.46379e-07, 1.3609122e-14, -1.0927847e-06, 25, 21.650629, 12.500013, 5.463926e-07, 2.5511384, 0.35100004, 2.5594163)
+
+[node name="Spike49" parent="RotatingPlatform2" unique_id=1330578434 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-12.500013, 21.650629, 9.46379e-07, 1.3609122e-14, -1.0927847e-06, 25, 21.650629, 12.500013, 5.463926e-07, 3.3626494, 0.35100004, 2.3113132)
+
+[node name="Spike50" parent="RotatingPlatform2" unique_id=531585770 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-12.500013, 21.650629, 9.46379e-07, 1.3609122e-14, -1.0927847e-06, 25, 21.650629, 12.500013, 5.463926e-07, 2.0833087, 0.35100004, 1.0292144)
+
+[node name="Spike51" parent="RotatingPlatform2" unique_id=851909683 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-12.500013, 21.650629, 9.46379e-07, 1.3609122e-14, -1.0927847e-06, 25, 21.650629, 12.500013, 5.463926e-07, 2.8948197, 0.35100004, 0.78110933)
+
+[node name="Spike52" parent="RotatingPlatform2" unique_id=917399028 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-12.500013, 21.650629, 9.46379e-07, 1.3609122e-14, -1.0927847e-06, 25, 21.650629, 12.500013, 5.463926e-07, 2.5192132, 0.35100004, 1.4875202)
+
+[node name="Spike53" parent="RotatingPlatform2" unique_id=1125869783 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-7.6293945e-06, 24.999998, 1.0927846e-06, 0, -1.0927847e-06, 25, 24.999998, 7.6293945e-06, 4.8316906e-13, 3.7798228, 0.35100004, -0.8392186)
+
+[node name="Spike54" parent="RotatingPlatform2" unique_id=1077368516 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-7.6293945e-06, 24.999998, 1.0927846e-06, 0, -1.0927847e-06, 25, 24.999998, 7.6293945e-06, 4.8316906e-13, 2.7783985, 0.35100004, -0.50404215)
+
+[node name="Spike36" parent="RotatingPlatform2" unique_id=1912640457 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, 2.2232614, 0.35100004, -3.9475484)
+
+[node name="Spike37" parent="RotatingPlatform2" unique_id=376177740 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(1.5258789e-05, -25, -1.0927848e-06, 1.3609122e-14, -1.0927847e-06, 25, -25, -1.5258789e-05, -3.6948222e-13, 3.639731, 0.35100004, -2.8533883)
+
+[node name="Spike38" parent="RotatingPlatform2" unique_id=935912311 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(1.5258789e-05, -25, -1.0927848e-06, 1.3609122e-14, -1.0927847e-06, 25, -25, -1.5258789e-05, -3.6948222e-13, 3.0609922, 0.35100004, -2.2327685)
+
+[node name="Spike39" parent="RotatingPlatform2" unique_id=1187298985 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(1.5258789e-05, -25, -1.0927848e-06, 1.3609122e-14, -1.0927847e-06, 25, -25, -1.5258789e-05, -3.6948222e-13, 3.0330715, 0.35100004, -3.0323405)
+
+[node name="Spike40" parent="RotatingPlatform2" unique_id=450473115 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, 1.2668853, 0.35100004, -3.6551566)
+
+[node name="Spike41" parent="RotatingPlatform2" unique_id=1558862245 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, 0.3105073, 0.35100004, -3.362762)
+
+[node name="Spike42" parent="RotatingPlatform2" unique_id=403269563 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, -0.5873904, 0.35100004, -2.8790965)
+
+[node name="Spike43" parent="RotatingPlatform2" unique_id=385120127 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-17.677677, 17.677664, 7.727151e-07, 0, -1.0927847e-06, 25, 17.677664, 17.677677, 7.7271585e-07, 1.0689588, 0.35100004, -2.588594)
+
+[node name="Spike44" parent="RotatingPlatform2" unique_id=905130406 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-17.677677, 17.677664, 7.727151e-07, 0, -1.0927847e-06, 25, 17.677664, 17.677677, 7.7271585e-07, 0.38690877, 0.35100004, -1.8571858)
+
+[node name="Spike45" parent="RotatingPlatform2" unique_id=479331519 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-17.677677, 17.677664, 7.727151e-07, 0, -1.0927847e-06, 25, 17.677664, 17.677677, 7.7271585e-07, -0.14886045, 0.35100004, -0.989367)
+
+[node name="Spike46" parent="RotatingPlatform2" unique_id=1476450458 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, 1.9196057, 0.35100004, -1.8622537)
+
+[node name="Spike47" parent="RotatingPlatform2" unique_id=980603265 instance=ExtResource("7_q7d2a")]
+transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, 1.021709, 0.35100004, -1.3785868)
