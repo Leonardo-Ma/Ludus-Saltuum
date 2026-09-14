@@ -4,12 +4,12 @@ importer="ArrayMesh"
 importer_version=1
 type="ArrayMesh"
 uid="uid://cel68jd7ltlp4"
-path="res://.godot/imported/stone_platform.glb-a71dcdb49edb7ecf0e2d76b086c269c4.res"
+path="res://.godot/imported/stone_platform.glb-33a1d919881f4842077f04046c082259.res"
 
 [deps]
 
-source_file="res://src/environment/assets/small_platformer_kit_j_toastie/stone_platform.glb"
-dest_files=["res://.godot/imported/stone_platform.glb-a71dcdb49edb7ecf0e2d76b086c269c4.res"]
+source_file="res://src/environment/assets/small_platformer_kit_j_toastie/meshes/stone_platform.glb"
+dest_files=["res://.godot/imported/stone_platform.glb-33a1d919881f4842077f04046c082259.res"]
 
 [params]
 
