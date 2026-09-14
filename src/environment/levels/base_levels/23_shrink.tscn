@@ -1,0 +1,265 @@
+[gd_scene format=3 uid="uid://dxptrkh1rq0dg"]
+
+[ext_resource type="Script" uid="uid://dfapcpf4fli57" path="res://src/environment/levels/level_chunk.gd" id="1_m56pa"]
+[ext_resource type="PackedScene" uid="uid://cl6psv388cmbx" path="res://src/environment/levels/entrance_trigger.tscn" id="2_qel8y"]
+[ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_sjtls"]
+[ext_resource type="PackedScene" uid="uid://0hwlnlpkbsjn" path="res://src/environment/levels/assets/platforms/static_platforms/grass_platform.tscn" id="4_dvbhv"]
+[ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="5_d20aq"]
+[ext_resource type="MeshLibrary" uid="uid://by71qqpgj2jui" path="res://src/environment/assets/platformer_kit_kenney/platformer_kit_kenney.tres" id="6_qel8y"]
+[ext_resource type="PackedScene" uid="uid://bfkyyb2wb7sqv" path="res://src/environment/assets/platformer_kit_kenney/individual_assets/props/pipe.tscn" id="7_d20aq"]
+[ext_resource type="PackedScene" uid="uid://cagbuvx8fhprc" path="res://src/environment/mechanics/collectible/shrink/shrink.tscn" id="7_sjtls"]
+[ext_resource type="PackedScene" uid="uid://dikssvyiromu2" path="res://src/environment/assets/platformer_kit_kenney/individual_assets/props/block_grass_large.tscn" id="8_sxbck"]
+[ext_resource type="PackedScene" uid="uid://dmon66hxg7che" path="res://src/environment/assets/platformer_kit_kenney/individual_assets/props/hedge.tscn" id="9_d20aq"]
+[ext_resource type="MeshLibrary" uid="uid://b73gxi8hvl7se" path="res://src/environment/assets/dungeon_assets/mesh_library/tiles.meshlib" id="9_wwser"]
+[ext_resource type="MeshLibrary" uid="uid://dm2e2ulk02vhj" path="res://src/environment/assets/dungeon_assets/mesh_library/dungeon.meshlib" id="10_p81wl"]
+[ext_resource type="PackedScene" uid="uid://c6on7cp5w028m" path="res://src/environment/mechanics/traps/spikes/spikes.tscn" id="11_p81wl"]
+[ext_resource type="PackedScene" uid="uid://nd1uo24vt6d5" path="res://src/entities/enemies/barbarian/barbarian.tscn" id="11_ylwg8"]
+[ext_resource type="Script" uid="uid://cxqsapbic2imr" path="res://src/entities/components/combat/attack.gd" id="12_pxg4a"]
+[ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="13_i38cn"]
+[ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/mechanics/collectible/coin/gold_coin.tscn" id="15_e2frn"]
+[ext_resource type="PackedScene" uid="uid://bmhb7wjnaqbtx" path="res://src/environment/mechanics/spring/spring.tscn" id="17_pxg4a"]
+[ext_resource type="PackedScene" uid="uid://bmhyh5jq7bbnk" path="res://src/environment/assets/dungeon_assets/individual_assets/alternating_floor.tscn" id="18_i38cn"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_xrfg7"]
+vertices = PackedVector3Array(-3.5530949, -1.6221902, 4.446905, -3.5530949, -1.6221902, 29.446905, 1.4469051, -1.6221902, 29.446905, 1.4469051, -1.6221902, 4.446905, 1.4469051, 0.37780976, 6.446905, 0.19690514, 0.37780976, 6.446905, -0.053094864, 0.37780976, 8.446905, 1.4469051, 0.37780976, 29.446905, -2.0530949, 0.37780976, 8.446905, -2.3030949, 0.37780976, 6.446905, -3.5530949, 0.37780976, 6.446905, -3.5530949, 0.37780976, 29.446905)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(5, 4, 6), PackedInt32Array(6, 4, 7), PackedInt32Array(9, 8, 10), PackedInt32Array(10, 8, 11), PackedInt32Array(8, 6, 11), PackedInt32Array(11, 6, 7)]
+
+[sub_resource type="Resource" id="Resource_i38cn"]
+resource_local_to_scene = true
+script = ExtResource("12_pxg4a")
+type = 1
+damage = 20
+metadata/_custom_type_script = "uid://cxqsapbic2imr"
+
+[sub_resource type="Resource" id="Resource_4dvnr"]
+resource_local_to_scene = true
+script = ExtResource("13_i38cn")
+max_health = 21
+health_regen = 2.0
+metadata/_custom_type_script = "uid://njkofl5g11k7"
+
+[sub_resource type="Resource" id="Resource_2m2o3"]
+resource_local_to_scene = true
+script = ExtResource("12_pxg4a")
+type = 1
+damage = 20
+metadata/_custom_type_script = "uid://cxqsapbic2imr"
+
+[sub_resource type="Resource" id="Resource_254t8"]
+resource_local_to_scene = true
+script = ExtResource("13_i38cn")
+max_health = 21
+health_regen = 2.0
+metadata/_custom_type_script = "uid://njkofl5g11k7"
+
+[sub_resource type="Resource" id="Resource_7g0i4"]
+resource_local_to_scene = true
+script = ExtResource("12_pxg4a")
+type = 1
+damage = 20
+metadata/_custom_type_script = "uid://cxqsapbic2imr"
+
+[sub_resource type="Resource" id="Resource_ivqjc"]
+resource_local_to_scene = true
+script = ExtResource("13_i38cn")
+max_health = 21
+health_regen = 2.0
+metadata/_custom_type_script = "uid://njkofl5g11k7"
+
+[node name="23Shrink" type="Node3D" unique_id=1016321493]
+script = ExtResource("1_m56pa")
+score_multiplier = 1.2
+features = Array[int]([1])
+
+[node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_qel8y")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+
+[node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_sjtls")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 67.64096)
+
+[node name="GrassPlatform" parent="." unique_id=537577895 instance=ExtResource("4_dvbhv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 4)
+
+[node name="ArrowSign" parent="GrassPlatform" unique_id=975612369 instance=ExtResource("5_d20aq")]
+transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, 3, 4, -2)
+
+[node name="Terrain" type="GridMap" parent="." unique_id=830388528]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+mesh_library = ExtResource("6_qel8y")
+cell_size = Vector3(1.5, 2, 1.5)
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(65535, 3, 1441811, 0, 3, 1441811, 0, 4, 1441811, 65535, 4, 1441811, 0, 5, 1441811, 65534, 3, 1441811, 65533, 3, 1441811, 65532, 5, 1441811, 65532, 4, 1441811, 65532, 3, 1441811, 65532, 6, 1441811, 65533, 6, 1441811, 0, 6, 1441811, 1, 3, 1441811, 1, 4, 1441811, 1, 5, 1441811, 1, 6, 1441811, 65534, 4, 1441811, 65533, 4, 1441811, 65533, 5, 1441811, 65534, 5, 1441811, 65534, 6, 1441811)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="HiddenPassage" type="Node3D" parent="Terrain" unique_id=589752737]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="Pipes" type="Node3D" parent="Terrain/HiddenPassage" unique_id=1368081250]
+
+[node name="Pipe" parent="Terrain/HiddenPassage/Pipes" unique_id=1422743538 instance=ExtResource("7_d20aq")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.7603246, 0.496863, 8.106756)
+
+[node name="Pipe2" parent="Terrain/HiddenPassage/Pipes" unique_id=455512648 instance=ExtResource("7_d20aq")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.7603246, 0.329911, 8.106756)
+
+[node name="Pipe3" parent="Terrain/HiddenPassage/Pipes" unique_id=534665235 instance=ExtResource("7_d20aq")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.7603246, 0.1658818, 8.106756)
+
+[node name="Pipe4" parent="Terrain/HiddenPassage/Pipes" unique_id=651550331 instance=ExtResource("7_d20aq")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.7603246, 0.0032297373, 8.106756)
+
+[node name="Pipe5" parent="Terrain/HiddenPassage/Pipes" unique_id=1019925002 instance=ExtResource("7_d20aq")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.7603246, -0.16434965, 8.106756)
+
+[node name="Pipe6" parent="Terrain/HiddenPassage/Pipes" unique_id=1280782744 instance=ExtResource("7_d20aq")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.7603246, -0.33357978, 8.106756)
+
+[node name="Pipe7" parent="Terrain/HiddenPassage/Pipes" unique_id=611407608 instance=ExtResource("7_d20aq")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.7603246, -0.5025642, 8.106756)
+
+[node name="GroundSurroundingPipes" type="Node3D" parent="Terrain/HiddenPassage" unique_id=1886430771]
+
+[node name="BlockGrassLarge" parent="Terrain/HiddenPassage/GroundSurroundingPipes" unique_id=1966703173 instance=ExtResource("8_sxbck")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -0.040172756, -0.098514795, 8.242081)
+
+[node name="BlockGrassLarge2" parent="Terrain/HiddenPassage/GroundSurroundingPipes" unique_id=1921643915 instance=ExtResource("8_sxbck")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -1.5018493, -0.098514795, 8.242081)
+
+[node name="BlockGrassLarge3" parent="Terrain/HiddenPassage/GroundSurroundingPipes" unique_id=715920688 instance=ExtResource("8_sxbck")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -0.7382912, -0.098514795, 8.861307)
+
+[node name="BlockGrassLarge4" parent="Terrain/HiddenPassage/GroundSurroundingPipes" unique_id=1460584185 instance=ExtResource("8_sxbck")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -0.7382912, -0.098514795, 7.310213)
+
+[node name="BlockGrassLarge5" parent="Terrain/HiddenPassage/GroundSurroundingPipes" unique_id=270577172 instance=ExtResource("8_sxbck")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -0.7382912, -0.098514795, 7.376484)
+
+[node name="Underground" type="Node3D" parent="Terrain/HiddenPassage" unique_id=130384576]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.04268217, 1.8164747)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="Terrain/HiddenPassage/Underground" unique_id=1219948061]
+navigation_mesh = SubResource("NavigationMesh_xrfg7")
+
+[node name="Floor" type="GridMap" parent="Terrain/HiddenPassage/Underground/NavigationRegion3D" unique_id=1415139837]
+mesh_library = ExtResource("9_wwser")
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(-65536, 4, 1441792, -1, 4, 1441792, -1, 5, 1441792, -2, 4, 1441792, -2, 5, 1441792, -2, 6, 1441792, -65536, 3, 1441792, -1, 7, 1441792, -2, 7, 1441792, -65536, 8, 1441792, -2, 8, 1441792, -2, 9, 1441792, -65536, 9, 1441792, -65536, 10, 1441792, -2, 10, 1441792, -2, 11, 1441792, -65536, 11, 1441792, -65536, 12, 1441792, -2, 12, 1441792, -65536, 2, 655360, -65536, 7, 1441792, -1, 8, 1441792, -1, 9, 1441792, -1, 10, 1441792, -1, 11, 1441792, -1, 12, 1441792, -65536, 6, 1441792, -65536, 5, 1441792, -1, 6, 1441792, 0, 3, 0, 65534, 3, 0, 65535, 4, 0, 0, 4, 0, 65534, 4, 0, 65534, 5, 0, 65535, 5, 0, 0, 5, 0, 0, 6, 0, 0, 8, 0, 0, 9, 0, 0, 7, 0, 65535, 6, 0, 65535, 7, 0, 65535, 8, 0, 65535, 9, 0, 65535, 10, 0, 65535, 11, 0, 65534, 10, 0, 65534, 9, 0, 65534, 8, 0, 65534, 7, 0, 65534, 6, 0, 65534, 11, 0, 65534, 12, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 65535, 12, 0, -1, 3, 655360, -2, 3, 655360, -1, 2, 655360, -2, 2, 655360, -65536, 13, 655360, -1, 13, 655360, -2, 13, 655360, -1, 14, 655360, -65536, 14, 655360, -2, 14, 655360, 65534, 13, 655360, 65535, 13, 655360, 0, 13, 655360, 0, 14, 655360, 65535, 14, 655360, 65534, 14, 655360, 65535, 2, 0, 65534, 2, 0, 0, 2, 0)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="Walls" type="GridMap" parent="Terrain/HiddenPassage/Underground" unique_id=1772553972]
+mesh_library = ExtResource("10_p81wl")
+cell_size = Vector3(0.5, 2, 2.1)
+data = {
+"cells": PackedInt32Array(-65532, 3, 1441853, -65532, 4, 1441853, -65532, 6, 1441853, -65532, 7, 1441853, -65532, 8, 1441853, -65532, 9, 1441853, -65532, 11, 1441853, -8, 3, 1048637, -8, 4, 983101, -8, 5, 1048637, -8, 6, 1310781, -8, 7, 1048637, -8, 8, 1048637, -8, 9, 1048637, -8, 10, 1048637, -8, 11, 1048637, -8, 2, 1048637, -4, 2, 61, -65536, 2, 61, -65532, 2, 1441853, -7, 2, 655421, -65532, 10, 1441853, -65532, 5, 1441853, -65533, 2, 61, -8, 12, 1048637, -8, 13, 1048637, -65532, 12, 1441853, -65532, 13, 1441853, -2, 13, 655417, -65534, 13, 57, -6, 13, 655417)
+}
+metadata/_editor_floor_ = Vector3(0, -1, 0)
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="Terrain/HiddenPassage/Underground/Walls" unique_id=1004465268]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.575, -0.94, 21.955)
+vertices = PackedVector3Array(-2.982, -1, 6, 2.497, -1, 6)
+affect_navigation_mesh = true
+
+[node name="Enemies" type="Node3D" parent="Terrain/HiddenPassage/Underground" unique_id=275318932]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.608631)
+
+[node name="Barbarian" parent="Terrain/HiddenPassage/Underground/Enemies" unique_id=280064195 instance=ExtResource("11_ylwg8")]
+transform = Transform3D(-0.5, 0, 4.371139e-08, 0, 0.5, 0, -4.371139e-08, 0, -0.5, 1, -1.8998601, 19)
+attack = SubResource("Resource_i38cn")
+health = SubResource("Resource_4dvnr")
+
+[node name="Barbarian2" parent="Terrain/HiddenPassage/Underground/Enemies" unique_id=1834568319 instance=ExtResource("11_ylwg8")]
+transform = Transform3D(-0.5, 0, 4.371139e-08, 0, 0.5, 0, -4.371139e-08, 0, -0.5, -2, -1.8998601, 19)
+attack = SubResource("Resource_2m2o3")
+health = SubResource("Resource_254t8")
+
+[node name="Barbarian3" parent="Terrain/HiddenPassage/Underground/Enemies" unique_id=2068789491 instance=ExtResource("11_ylwg8")]
+transform = Transform3D(-0.5, 0, 4.371139e-08, 0, 0.5, 0, -4.371139e-08, 0, -0.5, -2, -1.8998601, 21.5)
+attack = SubResource("Resource_7g0i4")
+health = SubResource("Resource_ivqjc")
+
+[node name="Traps" type="Node3D" parent="Terrain/HiddenPassage/Underground" unique_id=1102899370]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04268217, -1.8164747)
+
+[node name="Spike" parent="Terrain/HiddenPassage/Underground/Traps" unique_id=2024920262 instance=ExtResource("11_p81wl")]
+transform = Transform3D(100, 0, 0, 0, -4.3711384e-06, 99.99999, 0, -99.99999, -4.3711384e-06, 0.5426867, -1.9821467, 10.5)
+
+[node name="Spike2" parent="Terrain/HiddenPassage/Underground/Traps" unique_id=1986157946 instance=ExtResource("11_p81wl")]
+transform = Transform3D(100, 0, 0, 0, -4.3711384e-06, 99.99999, 0, -99.99999, -4.3711384e-06, -1.9573133, -1.9821467, 12)
+
+[node name="Spike3" parent="Terrain/HiddenPassage/Underground/Traps" unique_id=106544451 instance=ExtResource("11_p81wl")]
+transform = Transform3D(100, 0, 0, 0, -4.3711384e-06, 99.99999, 0, -99.99999, -4.3711384e-06, 0.0426867, -1.9821467, 13.5)
+
+[node name="Spike4" parent="Terrain/HiddenPassage/Underground/Traps" unique_id=1218685846 instance=ExtResource("11_p81wl")]
+transform = Transform3D(100, 0, 0, 0, -4.3711384e-06, 99.99999, 0, -99.99999, -4.3711384e-06, -1.9573133, -1.9821467, 15.5)
+
+[node name="Coins" type="Node3D" parent="Terrain/HiddenPassage/Underground" unique_id=1858988925]
+
+[node name="GoldCoin" parent="Terrain/HiddenPassage/Underground/Coins" unique_id=1971537253 instance=ExtResource("15_e2frn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -1.5, 6)
+
+[node name="GoldCoin2" parent="Terrain/HiddenPassage/Underground/Coins" unique_id=1945480528 instance=ExtResource("15_e2frn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -1.5, 6)
+
+[node name="GoldCoin3" parent="Terrain/HiddenPassage/Underground/Coins" unique_id=1483069778 instance=ExtResource("15_e2frn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1.5, 6)
+
+[node name="Shrink" parent="Terrain/HiddenPassage/Underground" unique_id=826481617 instance=ExtResource("7_sjtls")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.12525594, -1.5, 27.521336)
+respawn_delay = 4.0
+
+[node name="Spring" parent="Terrain/HiddenPassage/Underground" unique_id=2127770289 instance=ExtResource("17_pxg4a")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.6675185, -1.8903395, 28.065483)
+launch_velocity = 5.0
+
+[node name="ExitSurroundingPipes" type="Node3D" parent="Terrain/HiddenPassage/Underground" unique_id=2034776397]
+
+[node name="AlternatingFloor" parent="Terrain/HiddenPassage/Underground/ExitSurroundingPipes" unique_id=467793048 instance=ExtResource("18_i38cn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9115472, -0.0025641918, 7.491024)
+
+[node name="AlternatingFloor4" parent="Terrain/HiddenPassage/Underground/ExitSurroundingPipes" unique_id=1765524491 instance=ExtResource("18_i38cn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9115472, -0.0025641918, 5.087532)
+
+[node name="AlternatingFloor2" parent="Terrain/HiddenPassage/Underground/ExitSurroundingPipes" unique_id=866804624 instance=ExtResource("18_i38cn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9182394, -0.0025641918, 6.5540886)
+
+[node name="AlternatingFloor3" parent="Terrain/HiddenPassage/Underground/ExitSurroundingPipes" unique_id=1176710623 instance=ExtResource("18_i38cn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4344331, -0.0025641918, 6.9493313)
+
+[node name="Shrink" parent="." unique_id=1631227528 instance=ExtResource("7_sjtls")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 15)
+
+[node name="Props" type="Node3D" parent="." unique_id=1283562426]
+
+[node name="BottomWall" type="Node3D" parent="Props" unique_id=1994555142]
+
+[node name="hedge" parent="Props/BottomWall" unique_id=273137422 instance=ExtResource("9_d20aq")]
+transform = Transform3D(12, 0, 0, 0, 12, 0, 0, 0, 12, 1.1436505, 1.0734437, 18.011972)
+
+[node name="hedge4" parent="Props/BottomWall" unique_id=1466099562 instance=ExtResource("9_d20aq")]
+transform = Transform3D(-5.2453663e-07, 0, 12, 0, 12, 0, -12, 0, -5.2453663e-07, 1.6435065, 1.0734437, 15.305056)
+
+[node name="hedge2" parent="Props/BottomWall" unique_id=1822000396 instance=ExtResource("9_d20aq")]
+transform = Transform3D(12, 0, 0, 0, 12, 0, 0, 0, 12, -7.8563495, 1.0734437, 18.011972)
+
+[node name="hedge3" parent="Props/BottomWall" unique_id=181535807 instance=ExtResource("9_d20aq")]
+transform = Transform3D(-5.2453663e-07, 0, -12, 0, 12, 0, 12, 0, -5.2453663e-07, -7.8563495, 1.0734437, 14.466442)
+
+[node name="TopWall" type="Node3D" parent="Props" unique_id=1162561242]
+
+[node name="Hedge" parent="Props/TopWall" unique_id=2086108966 instance=ExtResource("9_d20aq")]
+transform = Transform3D(-12, 1.8119497e-06, 0, -1.8119497e-06, -12, 0, 0, 0, 12, -7.5286374, 9.892076, 18.241583)
+
+[node name="hedge8" parent="Props/TopWall" unique_id=801257137 instance=ExtResource("9_d20aq")]
+transform = Transform3D(5.2453674e-07, 1.0490733e-06, -12, -1.0490733e-06, -12, -1.0490733e-06, -12, 1.0490734e-06, -5.2453663e-07, -8.028494, 9.892076, 14.427677)
+
+[node name="hedge10" parent="Props/TopWall" unique_id=1551005665 instance=ExtResource("9_d20aq")]
+transform = Transform3D(-12, 1.8119497e-06, 0, -1.8119497e-06, -12, 0, 0, 0, 12, 1.4713626, 9.892076, 18.241583)
+
+[node name="hedge11" parent="Props/TopWall" unique_id=27727573 instance=ExtResource("9_d20aq")]
+transform = Transform3D(5.2453674e-07, 1.0490733e-06, 12, -1.0490733e-06, -12, 1.0490733e-06, 12, -1.0490734e-06, -5.2453663e-07, 1.4713626, 9.892076, 15.327293)

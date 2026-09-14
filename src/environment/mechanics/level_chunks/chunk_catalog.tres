@@ -25,8 +25,9 @@
 [ext_resource type="PackedScene" uid="uid://ls6v13d1btd6" path="res://src/environment/levels/base_levels/22_car_portal.tscn" id="22_rijed"]
 [ext_resource type="PackedScene" uid="uid://befbn27in7rt2" path="res://src/environment/levels/skills/dash.tscn" id="23_p16y7"]
 [ext_resource type="PackedScene" uid="uid://xgainugb6aw2" path="res://src/environment/levels/skills/double_jump.tscn" id="24_vfutg"]
+[ext_resource type="PackedScene" uid="uid://dxptrkh1rq0dg" path="res://src/environment/levels/base_levels/23_shrink.tscn" id="25_8qeg5"]
 
 [resource]
 script = ExtResource("2_wncme")
-chunks = Array[PackedScene]([ExtResource("1_wq4xx"), ExtResource("2_8qeg5"), ExtResource("3_nr33e"), ExtResource("4_6niur"), ExtResource("5_rs6k2"), ExtResource("6_gvnec"), ExtResource("7_bjkku"), ExtResource("8_w776q"), ExtResource("9_1esbn"), ExtResource("10_e3w0c"), ExtResource("11_ow3bk"), ExtResource("12_fbmgc"), ExtResource("13_sjsu4"), ExtResource("14_x0tpc"), ExtResource("15_kiv24"), ExtResource("16_pryjj"), ExtResource("17_gafub"), ExtResource("18_yu2nk"), ExtResource("19_mqvi4"), ExtResource("20_ryjy0"), ExtResource("21_kf7n4"), ExtResource("22_rijed"), ExtResource("23_p16y7"), ExtResource("24_vfutg")])
+chunks = Array[PackedScene]([ExtResource("1_wq4xx"), ExtResource("2_8qeg5"), ExtResource("3_nr33e"), ExtResource("4_6niur"), ExtResource("5_rs6k2"), ExtResource("6_gvnec"), ExtResource("7_bjkku"), ExtResource("8_w776q"), ExtResource("9_1esbn"), ExtResource("10_e3w0c"), ExtResource("11_ow3bk"), ExtResource("12_fbmgc"), ExtResource("13_sjsu4"), ExtResource("14_x0tpc"), ExtResource("15_kiv24"), ExtResource("16_pryjj"), ExtResource("17_gafub"), ExtResource("18_yu2nk"), ExtResource("19_mqvi4"), ExtResource("20_ryjy0"), ExtResource("21_kf7n4"), ExtResource("22_rijed"), ExtResource("23_p16y7"), ExtResource("24_vfutg"), ExtResource("25_8qeg5")])
 metadata/_custom_type_script = "uid://hau260lr62rr"
