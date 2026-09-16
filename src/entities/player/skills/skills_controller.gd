@@ -29,6 +29,9 @@ func _physics_process(_delta: float) -> void:
 
 
 func reset() -> void:
+	for skill: BaseSkill in _skills.values():
+		skill.queue_free()
+
 	_skills.clear()
 	resetted_skills.emit()
 
