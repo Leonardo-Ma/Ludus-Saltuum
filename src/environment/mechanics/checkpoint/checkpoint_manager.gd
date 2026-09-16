@@ -12,13 +12,13 @@ var _has_valid_position: bool = false
 
 
 func _ready() -> void:
-	LevelChunkManager.chunk_recycled.connect(_on_chunk_recycled)
+	ChunkManager.chunk_recycled.connect(_on_chunk_recycled)
 
 	SaveManager.save_requested.connect(
 		func(data: SaveData) -> void:
 			build_save_data(data.checkpoint),
 	)
-	LevelChunkManager.level_loaded.connect(_on_level_loaded)
+	ChunkManager.level_loaded.connect(_on_level_loaded)
 	SaveManager.reset_requested.connect(reset_checkpoint)
 
 
@@ -34,7 +34,7 @@ func on_checkpoint_activated(new_checkpoint: Checkpoint) -> void:
 	_active_checkpoint = new_checkpoint
 
 	if new_checkpoint.parent_chunk and is_instance_valid(new_checkpoint.parent_chunk):
-		_checkpoint_chunk_index = LevelChunkManager.get_active_chunks().find(new_checkpoint.parent_chunk)
+		_checkpoint_chunk_index = ChunkManager.get_active_chunks().find(new_checkpoint.parent_chunk)
 		assert(_checkpoint_chunk_index >= 0, "Checkpoint chunk missing in " + name)
 
 		_checkpoint_local_transform = (new_checkpoint.parent_chunk.global_transform.affine_inverse() * new_checkpoint.global_transform)
@@ -64,7 +64,7 @@ func get_respawn_transform() -> Transform3D:
 	if _checkpoint_chunk_index == -1:
 		return Transform3D(_checkpoint_local_transform.basis.orthonormalized(), _checkpoint_local_transform.origin)
 
-	var active_chunks: Array[LevelChunk] = LevelChunkManager.get_active_chunks()
+	var active_chunks: Array[LevelChunk] = ChunkManager.get_active_chunks()
 	assert(_checkpoint_chunk_index < active_chunks.size(), "Checkpoint chunk index out of range in " + name)
 
 	var transform: Transform3D = active_chunks[_checkpoint_chunk_index].global_transform * _checkpoint_local_transform
@@ -84,7 +84,7 @@ func has_active_checkpoint() -> bool:
 	if _checkpoint_chunk_index == -1:
 		return true
 
-	var active_chunks: Array[LevelChunk] = LevelChunkManager.get_active_chunks()
+	var active_chunks: Array[LevelChunk] = ChunkManager.get_active_chunks()
 	return _checkpoint_chunk_index < active_chunks.size()
 
 
@@ -103,7 +103,7 @@ func reset_checkpoint() -> void:
 
 
 func get_default_spawn_transform() -> Transform3D:
-	var chunks: Array[LevelChunk] = LevelChunkManager.get_active_chunks()
+	var chunks: Array[LevelChunk] = ChunkManager.get_active_chunks()
 	if chunks.is_empty(): # TODO Double check if this case should fallback to identity (0,0,0)
 		return Transform3D.IDENTITY
 
@@ -137,7 +137,7 @@ func apply_save_data(data: CheckpointSaveData) -> void:
 	_has_valid_position = true
 
 	if _checkpoint_chunk_index >= 0:
-		var active_chunks: Array[LevelChunk] = LevelChunkManager.get_active_chunks()
+		var active_chunks: Array[LevelChunk] = ChunkManager.get_active_chunks()
 		assert(_checkpoint_chunk_index < active_chunks.size(), "Checkpoint chunk index out of range in " + name)
 
 	checkpoint_loaded.emit(get_respawn_position())

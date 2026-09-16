@@ -286,7 +286,7 @@ func get_first_chunk_entrance_position() -> Vector3:
 
 ## Skips current chunk: marks scored, teleports player to its exit
 func skip_current_chunk(player: PlayerEntity) -> void:
-	assert(_current_chunk_index >= 0 and _current_chunk_index < _active_chunks.size(), "LevelChunkManager: no valid current chunk to skip in " + name)
+	assert(_current_chunk_index >= 0 and _current_chunk_index < _active_chunks.size(), "ChunkManager: no valid current chunk to skip in " + name)
 	var current_chunk: LevelChunk = _active_chunks[_current_chunk_index]
 	# Mark as scored without giving score since skipped
 	current_chunk.set_meta("scored", true)

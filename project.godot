@@ -43,7 +43,7 @@ UIManager="*uid://dbv6ox0nun76t"
 MusicManager="*uid://cdi31wa6jj2vh"
 InputManager="*uid://dkueywuxvkn4k"
 Achievements="*uid://mcfcqnskwnjw"
-LevelChunkManager="*uid://qsxf8ht6hmse"
+ChunkManager="*uid://qsxf8ht6hmse"
 CheckpointManager="*uid://cimfiv457vauf"
 
 [debug]
