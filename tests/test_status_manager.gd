@@ -27,12 +27,13 @@ func _ready() -> void:
 
 func _test_stack_mode_caps_at_max() -> void:
 	var status: TestStatus = TestStatus.new()
-	status.stack_mode = StatusEffect.StackMode.STACK
-	status.max_stacks = 2
-	status.duration = 5.0
+	var stack_mode: StatusEffect.StackMode = StatusEffect.StackMode.STACK
+	var max_stacks: int = 2
+	var duration: float = 5.0
+	var tick_interval: float = 1.0
 
-	var target: Node = Node.new()
-	var active: ActiveStatusEffect = ActiveStatusEffect.new(status, target)
+	var target: PlayerEntity = PlayerEntity.new()
+	var active: ActiveStatusEffect = ActiveStatusEffect.new(status, target, duration, stack_mode, max_stacks, tick_interval)
 
 	active.handle_reapplication()
 	assert(active.current_stacks == 2, "ActiveStatusEffect: expected 2 stacks, got %d" % active.current_stacks)
@@ -45,11 +46,13 @@ func _test_stack_mode_caps_at_max() -> void:
 
 func _test_replace_mode_resets_duration() -> void:
 	var status: TestStatus = TestStatus.new()
-	status.stack_mode = StatusEffect.StackMode.REPLACE
-	status.duration = 5.0
+	var stack_mode: StatusEffect.StackMode = StatusEffect.StackMode.REPLACE
+	var max_stacks: int = 2
+	var duration: float = 5.0
+	var tick_interval: float = 1.0
 
-	var target: Node = Node.new()
-	var active: ActiveStatusEffect = ActiveStatusEffect.new(status, target)
+	var target: PlayerEntity = PlayerEntity.new()
+	var active: ActiveStatusEffect = ActiveStatusEffect.new(status, target, duration, stack_mode, max_stacks, tick_interval)
 	active.remaining_time = 1.0
 
 	active.handle_reapplication()
@@ -60,11 +63,13 @@ func _test_replace_mode_resets_duration() -> void:
 
 func _test_add_duration_mode_extends_time() -> void:
 	var status: TestStatus = TestStatus.new()
-	status.stack_mode = StatusEffect.StackMode.ADD_DURATION
-	status.duration = 5.0
+	var stack_mode: StatusEffect.StackMode = StatusEffect.StackMode.ADD_DURATION
+	var max_stacks: int = 2
+	var duration: float = 5.0
+	var tick_interval: float = 1.0
 
-	var target: Node = Node.new()
-	var active: ActiveStatusEffect = ActiveStatusEffect.new(status, target)
+	var target: PlayerEntity = PlayerEntity.new()
+	var active: ActiveStatusEffect = ActiveStatusEffect.new(status, target, duration, stack_mode, max_stacks, tick_interval)
 	active.remaining_time = 2.0
 
 	active.handle_reapplication()

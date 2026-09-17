@@ -4,48 +4,65 @@ extends RefCounted
 signal expired(active_status: ActiveStatusEffect)
 
 var status: StatusEffect
-var target: Node
+var target: PlayerEntity
 var current_stacks: int = 1
-var remaining_time: float = 0.0
-var tick_timer: float = 0.0
+var remaining_time: float
+var tick_timer: float
+var duration: float
+var stack_mode: StatusEffect.StackMode
+var max_stacks: int
+var tick_interval: float
 
 
-func _init(_status: StatusEffect, _target: Node) -> void:
+func _init(
+	_status: StatusEffect,
+	_target: PlayerEntity,
+	_duration: float,
+	_stack_mode: StatusEffect.StackMode,
+	_max_stacks: int,
+	_tick_interval: float,
+) -> void:
 	status = _status
 	target = _target
-	remaining_time = status.duration
-	tick_timer = status.tick_interval
-	status.on_apply(target)
+	duration = _duration
+	stack_mode = _stack_mode
+	max_stacks = _max_stacks
+	tick_interval = _tick_interval
+	remaining_time = duration
+	tick_timer = tick_interval
+	status.on_apply(self)
 
 
 func process_time(delta: float) -> void:
-	# Process localized ticking to avoid spamming the main loop
-	if status.tick_interval > 0.0:
+	if tick_interval > 0.0:
 		tick_timer -= delta
 		if tick_timer <= 0.0:
-			status.on_tick(target, status.tick_interval)
-			tick_timer = status.tick_interval
+			status.on_tick(self, tick_interval)
+			tick_timer = tick_interval
 
-	# Process duration
-	if not status.is_infinite():
+	if not is_infinite():
 		remaining_time -= delta
 		if remaining_time <= 0.0:
 			expired.emit(self)
 
 
 func handle_reapplication() -> void:
-	match status.stack_mode:
+	match stack_mode:
 		StatusEffect.StackMode.STACK:
-			if current_stacks < status.max_stacks:
+			if current_stacks < max_stacks:
 				current_stacks += 1
 		StatusEffect.StackMode.REPLACE:
-			remaining_time = status.duration
+			remaining_time = duration
 		StatusEffect.StackMode.ADD_DURATION:
-			if not status.is_infinite():
-				remaining_time += status.duration
+			if not is_infinite():
+				remaining_time += duration
 		StatusEffect.StackMode.NONE:
 			pass
 
 
 func remove() -> void:
-	status.on_remove(target)
+	status.on_remove(self)
+
+
+func is_infinite() -> bool:
+	return duration < 0.0

@@ -16,21 +16,17 @@ func get_status_name() -> String:
 	return "ChangeSize"
 
 
-func on_apply(_target: Node) -> void:
-	var player: PlayerEntity = _target.owner as PlayerEntity
-	if player and not _target.has_meta("change_size_applied"):
-		var tween: Tween = player.get_tree().create_tween()
-		tween.tween_property(player, "scale", player.scale * scale_factor, 1.0)
-		player.movement.speed *= speed_multiplier
-		player.movement.jump_velocity *= jump_multiplier
-		_target.set_meta("change_size_applied", true)
+func on_apply(active_status: ActiveStatusEffect) -> void:
+	var player: PlayerEntity = active_status.target
+	var tween: Tween = player.get_tree().create_tween()
+	tween.tween_property(player, "scale", player.scale * scale_factor, 1.0)
+	player.movement.speed *= speed_multiplier
+	player.movement.jump_velocity *= jump_multiplier
 
 
-func on_remove(_target: Node) -> void:
-	var player: PlayerEntity = _target.owner as PlayerEntity
-	if player and _target.has_meta("change_size_applied"):
-		var tween: Tween = player.get_tree().create_tween()
-		tween.tween_property(player, "scale", player.scale / scale_factor, 1.0)
-		player.movement.speed /= speed_multiplier
-		player.movement.jump_velocity /= jump_multiplier
-		_target.remove_meta("change_size_applied")
+func on_remove(active_status: ActiveStatusEffect) -> void:
+	var player: PlayerEntity = active_status.target
+	var tween: Tween = player.get_tree().create_tween()
+	tween.tween_property(player, "scale", player.scale / scale_factor, 1.0)
+	player.movement.speed /= speed_multiplier
+	player.movement.jump_velocity /= jump_multiplier

@@ -8,6 +8,7 @@ enum StackMode {
 	REPLACE = 2, ## Refreshes duration to maximum
 	ADD_DURATION = 3, ## Extends existing time
 }
+
 enum StatusType {
 	BUFF = 0,
 	DEBUFF = 1,
@@ -17,17 +18,6 @@ enum StatusType {
 @export var type: StatusType = StatusType.NEUTRAL
 ## Optional tags
 @export var tags: Array[StringName] = []
-
-@export_category("Behavior")
-## Duration in seconds. -1.0 for infinite duration (passives, equipment)
-@export var duration: float = -1.0
-@export var stack_mode: StackMode = StackMode.REPLACE
-
-@export_category("Stacks")
-## Max number of concurrent stacks allowed if StackMode.STACK
-@export var max_stacks: int = 1
-## Interval in seconds for the on_tick event to trigger if StackMode.STACK
-@export var tick_interval: float = 1.0
 
 
 ## To be overridden
@@ -40,26 +30,23 @@ enum StatusType {
 #region Optional functions to be overridden
 
 ## Applies only once (a temporary buff or debuff)
-func on_apply(_target: Node) -> void:
+func on_apply(_active_status: ActiveStatusEffect) -> void:
 	pass
 
 
 ## When status runs out
-func on_remove(_target: Node) -> void:
+func on_remove(_active_status: ActiveStatusEffect) -> void:
 	pass
 
 
 ## Applies each interval on loop (damage over time (dot), heal over time(hot))
-func on_tick(_target: Node, _delta: float) -> void:
+func on_tick(_active_status: ActiveStatusEffect, _delta: float) -> void:
 	pass
 
 
 ## Dynamic status application, when a certain actions happens (see dispatch_event of status_manager.gd)
 ## Used in conditional status (thorns, life steal)
-func on_event(_target: Node, _event_name: StringName, _data: Dictionary) -> void:
+func on_event(_active_status: ActiveStatusEffect, _event_name: StringName, _data: Dictionary) -> void:
 	pass
 
-
-func is_infinite() -> bool:
-	return duration < 0.0
 #endregion

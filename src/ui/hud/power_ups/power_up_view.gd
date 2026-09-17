@@ -56,9 +56,10 @@ func _process(delta: float) -> void:
 		set_process(false)
 
 
-func _on_status_buff_collected(status_effect: StatusEffect, icon: Texture2D) -> void:
-	if status_effect == null:
-		return
+func _on_status_buff_collected(status_collectible: StatusCollectible) -> void:
+	var status_effect: StatusEffect = status_collectible.status_effect
+	var icon: Texture2D = status_collectible.icon
+	var duration: float = status_collectible.duration
 
 	var identifier: StringName = status_effect.get_id()
 	var ui_node: HBoxContainer = null
@@ -89,7 +90,7 @@ func _on_status_buff_collected(status_effect: StatusEffect, icon: Texture2D) -> 
 			icon_node.texture = icon
 		cooldown_progress = icon_node.get_node("CooldownProgress") as TextureProgressBar
 
-	var is_infinite: bool = status_effect.is_infinite()
+	var is_infinite: bool = duration < 0.0
 
 	if cooldown_progress:
 		if is_infinite:
@@ -111,12 +112,12 @@ func _on_status_buff_collected(status_effect: StatusEffect, icon: Texture2D) -> 
 
 			var tween: Tween = create_tween()
 			cooldown_progress.value = 0.0
-			tween.tween_property(cooldown_progress, "value", 100.0, status_effect.duration)
+			tween.tween_property(cooldown_progress, "value", 100.0, duration)
 
-			_active_trackers[identifier] = { "node": ui_node, "remaining_time": status_effect.duration, "is_infinite": is_infinite, "tween": tween }
+			_active_trackers[identifier] = { "node": ui_node, "remaining_time": duration, "is_infinite": is_infinite, "tween": tween }
 
 	if not _active_trackers.has(identifier):
-		_active_trackers[identifier] = { "node": ui_node, "remaining_time": status_effect.duration, "is_infinite": is_infinite }
+		_active_trackers[identifier] = { "node": ui_node, "remaining_time": duration, "is_infinite": is_infinite }
 
 	set_process(true)
 

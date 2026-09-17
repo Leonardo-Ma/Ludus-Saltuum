@@ -13,11 +13,12 @@ signal event_dispatched(event_name: StringName, data: Dictionary)
 
 var _active_statuses: Dictionary = { } # Dictionary[StringName, ActiveStatusEffect]
 
-var _target: Node = null
+var _target: AggressiveEntity
 
 
 func _ready() -> void:
-	_target = get_parent()
+	_target = get_owner() as AggressiveEntity
+	assert(_target != null, "StatusManager target is not AggressiveEntity: " + self.name)
 	for status: StatusEffect in permanent_statuses:
 		assert(status.resource_path.get_extension() == ".tres", "status " + name + " must be external .tres attached, not edited in editor inspector")
 		if status:
@@ -34,14 +35,20 @@ func _process(delta: float) -> void:
 		active.process_time(delta)
 
 
-func apply_status(status: StatusEffect) -> void:
+func apply_status(
+	status: StatusEffect,
+	duration: float = status.duration,
+	stack_mode: StatusEffect.StackMode = status.stack_mode,
+	max_stacks: int = status.max_stacks,
+	tick_interval: float = status.tick_interval,
+) -> void:
 	if _active_statuses.has(status.get_id()):
-		_active_statuses[status.get_id()].handle_reapplication()
+		var active_status: ActiveStatusEffect = _active_statuses[status.get_id()]
+		active_status.handle_reapplication()
 	else:
-		var new_active: ActiveStatusEffect = ActiveStatusEffect.new(status, _target)
+		var new_active: ActiveStatusEffect = ActiveStatusEffect.new(status, _target, duration, stack_mode, max_stacks, tick_interval)
 		new_active.expired.connect(_on_status_expired)
 		_active_statuses[status.get_id()] = new_active
-
 	statuses_changed.emit()
 
 
@@ -61,7 +68,7 @@ func _on_status_expired(active_status: ActiveStatusEffect) -> void:
 func dispatch_event(event_name: StringName, data: Dictionary) -> void:
 	for key: StringName in _active_statuses:
 		var active: ActiveStatusEffect = _active_statuses[key]
-		active.status.on_event(_target, event_name, data)
+		active.status.on_event(active, event_name, data)
 	event_dispatched.emit(event_name, data)
 
 
