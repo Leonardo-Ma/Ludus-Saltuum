@@ -33,6 +33,21 @@ func move(delta: float) -> void:
 	_apply_external_force()
 
 
+## After move_and_slide, called by entity
+func handle_collisions() -> void:
+	for i: int in owner.get_slide_collision_count():
+		var collision: KinematicCollision3D = owner.get_slide_collision(i)
+		var collider: Object = collision.get_collider()
+		if collider is RigidBody3D:
+			var push_force: float = _movement.speed * 0.1
+			var push_dir: Vector3 = -collision.get_normal()
+			# Push down or sideways, never up
+			if push_dir.y > 0.0:
+				push_dir.y = 0.0
+			if not push_dir.is_zero_approx():
+				(collider as RigidBody3D).apply_central_impulse(push_dir.normalized() * push_force)
+
+
 func disable_movement(duration: float) -> void:
 	movement_enabled = false
 	_disable_timer = maxf(_disable_timer, duration)
