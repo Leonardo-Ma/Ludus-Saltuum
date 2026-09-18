@@ -32,7 +32,7 @@ func _test_stack_mode_caps_at_max() -> void:
 	var duration: float = 5.0
 	var tick_interval: float = 1.0
 
-	var target: PlayerEntity = PlayerEntity.new()
+	var target: AggressiveEntity = PlayerEntity.new()
 	var active: ActiveStatusEffect = ActiveStatusEffect.new(status, target, duration, stack_mode, max_stacks, tick_interval)
 
 	active.handle_reapplication()
@@ -51,7 +51,7 @@ func _test_replace_mode_resets_duration() -> void:
 	var duration: float = 5.0
 	var tick_interval: float = 1.0
 
-	var target: PlayerEntity = PlayerEntity.new()
+	var target: AggressiveEntity = PlayerEntity.new()
 	var active: ActiveStatusEffect = ActiveStatusEffect.new(status, target, duration, stack_mode, max_stacks, tick_interval)
 	active.remaining_time = 1.0
 
@@ -68,7 +68,7 @@ func _test_add_duration_mode_extends_time() -> void:
 	var duration: float = 5.0
 	var tick_interval: float = 1.0
 
-	var target: PlayerEntity = PlayerEntity.new()
+	var target: AggressiveEntity = PlayerEntity.new()
 	var active: ActiveStatusEffect = ActiveStatusEffect.new(status, target, duration, stack_mode, max_stacks, tick_interval)
 	active.remaining_time = 2.0
 

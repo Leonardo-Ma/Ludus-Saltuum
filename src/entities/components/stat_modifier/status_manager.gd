@@ -37,18 +37,23 @@ func _process(delta: float) -> void:
 
 func apply_status(
 	status: StatusEffect,
-	duration: float = status.duration,
-	stack_mode: StatusEffect.StackMode = status.stack_mode,
-	max_stacks: int = status.max_stacks,
-	tick_interval: float = status.tick_interval,
+	duration: float = -1.0,
+	stack_mode: StatusEffect.StackMode = StatusEffect.StackMode.REPLACE,
+	max_stacks: int = 1,
+	tick_interval: float = 1.0,
 ) -> void:
 	if _active_statuses.has(status.get_id()):
 		var active_status: ActiveStatusEffect = _active_statuses[status.get_id()]
+		active_status.duration = duration
+		active_status.stack_mode = stack_mode
+		active_status.max_stacks = max_stacks
+		active_status.tick_interval = tick_interval
 		active_status.handle_reapplication()
 	else:
 		var new_active: ActiveStatusEffect = ActiveStatusEffect.new(status, _target, duration, stack_mode, max_stacks, tick_interval)
 		new_active.expired.connect(_on_status_expired)
 		_active_statuses[status.get_id()] = new_active
+
 	statuses_changed.emit()
 
 
