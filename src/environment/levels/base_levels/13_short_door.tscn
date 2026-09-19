@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="5_yoy7s"]
 [ext_resource type="PackedScene" uid="uid://c5advesecca53" path="res://src/environment/mechanics/ground_button/button_rounded.tscn" id="6_j3rqf"]
 
-[node name="LevelChunk" type="Node3D" unique_id=1016321493]
+[node name="13ShortDoor" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_scc7e")
 score_multiplier = 2.0
 

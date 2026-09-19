@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/mechanics/collectible/coin/gold_coin.tscn" id="6_00qwv"]
 [ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint/checkpoint_flag.tscn" id="6_udiej"]
 
-[node name="LevelChunk" type="Node3D" unique_id=1016321493]
+[node name="01Grass" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_27gmj")
 score_multiplier = 1.2
 

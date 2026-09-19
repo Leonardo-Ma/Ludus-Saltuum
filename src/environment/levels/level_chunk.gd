@@ -28,3 +28,4 @@ var chunk_key: int = -1
 func _ready() -> void:
 	assert(%ExitTrigger != null, "ExitTrigger missing in " + self.name)
 	assert(%EntranceTrigger != null, "EntranceTrigger missing in " + self.name)
+	assert(name != "LevelChunk", scene_file_path + " this level owner node's name wasn't changed from default template")

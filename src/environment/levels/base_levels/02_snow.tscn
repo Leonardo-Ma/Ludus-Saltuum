@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bmhb7wjnaqbtx" path="res://src/environment/mechanics/spring/spring.tscn" id="8_gabof"]
 [ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="9_gabof"]
 
-[node name="LevelChunk" type="Node3D" unique_id=1016321493]
+[node name="02Snow" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_5f7wu")
 score_multiplier = 1.4
 features = Array[int]([1])

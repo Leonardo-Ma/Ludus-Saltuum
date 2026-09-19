@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://0hwlnlpkbsjn" path="res://src/environment/levels/assets/platforms/static_platforms/grass_platform.tscn" id="6_lxs6o"]
 [ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="7_u05r0"]
 
-[node name="LevelChunk" type="Node3D" unique_id=1016321493]
+[node name="03ShortGrass" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_3dys7")
 score_multiplier = 0.3
 
