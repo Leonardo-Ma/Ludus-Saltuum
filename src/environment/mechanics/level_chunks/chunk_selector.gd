@@ -5,7 +5,7 @@ extends RefCounted
 const SKILL_UNLOCK_SCORE_STEP: int = 50
 const MIN_CHUNKS_BETWEEN_SKILLS: int = 5
 const TURN_COOLDOWN_CHUNKS: int = 5
-const RECENT_CHUNK_HISTORY_SIZE: int = 10
+const RECENT_CHUNK_HISTORY_SIZE: int = 15
 
 var _all_chunks: Array[ChunkData]
 var _recent_chunk_scene_uids: Array[String] = []

@@ -8,7 +8,8 @@ extends Node3D
 func _enter_tree() -> void:
 	if should_tests_be_executed:
 		return
-	var automatic_tests: Node = get_node("UnitTestAutomaticScripts")
+
+	var automatic_tests: Node = unit_test_automatic_scripts
 	for child: Node in automatic_tests.get_children():
 		automatic_tests.remove_child(child)
 		child.queue_free()

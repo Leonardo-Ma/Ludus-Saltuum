@@ -13,7 +13,7 @@ var _skills: Dictionary[SkillDefinition, BaseSkill] = { }
 @onready var entity: PlayerEntity = owner
 @onready var movement_controller: PlayerMovementController = %PlayerMovementController
 @onready var camera: Camera3D = %Camera3D
-@onready var _vfx_controller: VFXController = %VFXController
+@onready var vfx_controller: VFXController = %VFXController
 
 
 func _ready() -> void:
@@ -72,7 +72,7 @@ func set_unlocked_skills(skills: Array[SkillDefinition]) -> void:
 # TODO Reconsider where to place this
 ## Forwards ghost trail request to VFXController (used by dash/teleport skills).
 func spawn_ghost_trail(duration: float = 0.5, color: Color = Color(0.8, 1.0, 1.5, 0.4)) -> void:
-	_vfx_controller.spawn_ghost_trail(duration, color)
+	vfx_controller.spawn_ghost_trail(duration, color)
 
 
 ## Unlocks startup skills sorted by hud_order for consistent display order

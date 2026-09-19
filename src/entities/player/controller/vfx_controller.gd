@@ -11,6 +11,7 @@ func spawn_ghost_trail(duration: float = 0.5, color: Color = Color(0.8, 1.0, 1.5
 		return
 
 	var entity_model: Node = entity
+	# TODO BUG Remove hardcoded references
 	if entity.has_node("Visual/Rig_Medium"):
 		entity_model = entity.get_node("Visual/Rig_Medium")
 	elif entity.has_node("Visual"):

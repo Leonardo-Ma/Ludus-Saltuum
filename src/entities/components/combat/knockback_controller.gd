@@ -7,11 +7,11 @@ extends Node
 @export var min_velocity: float = 0.5
 
 var _current_knockback: Vector3 = Vector3.ZERO
-var _hurtbox: Hurtbox = null
+
+@onready var _hurtbox: Hurtbox = %Hurtbox
 
 
 func _ready() -> void:
-	_hurtbox = owner.get_node("%Hurtbox")
 	_hurtbox.knockback_received.connect(_on_knockback_received)
 
 	# Start inactive, only runs when knockback is applied

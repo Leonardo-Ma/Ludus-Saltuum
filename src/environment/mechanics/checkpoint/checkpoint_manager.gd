@@ -35,7 +35,7 @@ func on_checkpoint_activated(new_checkpoint: Checkpoint) -> void:
 
 	if new_checkpoint.parent_chunk and is_instance_valid(new_checkpoint.parent_chunk):
 		_checkpoint_chunk_index = ChunkManager.get_active_chunks().find(new_checkpoint.parent_chunk)
-		assert(_checkpoint_chunk_index >= 0, "Checkpoint chunk missing in " + name)
+		push_error(_checkpoint_chunk_index >= 0, "Checkpoint chunk missing in " + name)
 
 		_checkpoint_local_transform = (new_checkpoint.parent_chunk.global_transform.affine_inverse() * new_checkpoint.global_transform)
 	else:

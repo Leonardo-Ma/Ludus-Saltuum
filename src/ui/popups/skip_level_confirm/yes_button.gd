@@ -1,4 +1,4 @@
-## Empty on purpose to extend UIButton. So it applies effects.
+## NOTE Empty on purpose to extend UIButton. So it applies effects.
 ## Logic is in owner
 extends UIButton
 

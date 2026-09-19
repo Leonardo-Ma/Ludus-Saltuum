@@ -1,4 +1,3 @@
-# TODO Comment or document the exact key to the side of each entry
 class_name PlaystationMap
 extends GamepadMap
 
@@ -30,9 +29,13 @@ const L2_ICON: CompressedTexture2D = preload("uid://fv54oc8li7ql")
 const R2_ICON: CompressedTexture2D = preload("uid://d2kmi1yrbny0v")
 
 const _AXES: Dictionary = {
+	# Left stick horizontal
 	JoyAxis.JOY_AXIS_LEFT_X: LEFT_STICK_ICON,
+	# Left stick vertical
 	JoyAxis.JOY_AXIS_LEFT_Y: LEFT_STICK_ICON,
+	# Right stick horizontal
 	JoyAxis.JOY_AXIS_RIGHT_X: RIGHT_STICK_ICON,
+	# Right stick vertical
 	JoyAxis.JOY_AXIS_RIGHT_Y: RIGHT_STICK_ICON,
 	JoyAxis.JOY_AXIS_TRIGGER_LEFT: L2_ICON,
 	JoyAxis.JOY_AXIS_TRIGGER_RIGHT: R2_ICON,

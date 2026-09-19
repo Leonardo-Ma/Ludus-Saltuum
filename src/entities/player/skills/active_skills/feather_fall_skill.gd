@@ -43,6 +43,6 @@ func _physics_process(delta: float) -> void:
 
 
 func _update_feather_particles(active: bool) -> void:
-	var vfx: VFXController = skills_controller.get_node("%VFXController") as VFXController
+	var vfx: VFXController = skills_controller.vfx_controller
 	assert(vfx != null, "VFXController missing in " + name)
 	vfx.toggle_feather_fall(active, skills_controller.entity)

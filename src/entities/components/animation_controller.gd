@@ -15,7 +15,7 @@ const PARAM_ATTACK_ACTIVE: String = "parameters/attack/active"
 const PARAM_IS_ALIVE_TRANSITION: String = "parameters/is_alive/transition_request"
 const PARAM_IS_DAMAGED_REQUEST: String = "parameters/is_damaged/request"
 
-@onready var entity: CharacterBody3D = owner
+@onready var entity: AggressiveEntity = owner
 @onready var health: Health = entity.health
 
 
@@ -98,7 +98,7 @@ func _on_death() -> void:
 func _abort_attack() -> void:
 	self.set(PARAM_ATTACK_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
 	# The RESET reverts any animation based function or parameter to default state
-	entity.get_node("%AnimationPlayer").play("RESET")
+	entity.animation_player.play("RESET")
 
 
 func _validate_animation_parameters() -> void:

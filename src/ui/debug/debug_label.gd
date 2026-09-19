@@ -81,7 +81,7 @@ func _get_player_info_text() -> String:
 	var recently_damaged: String = "Yes" if _damage_indicator_timer > 0.0 else "No"
 	output += "Damaged: %s\n" % recently_damaged
 
-	output += "Movement blend position: %s\n" % player_entity.get_node("AnimationTree").get("parameters/movement/blend_position")
+	output += "Movement blend position: %s\n" % player_entity.animation_tree.get("parameters/movement/blend_position")
 	return output
 
 
