@@ -19,41 +19,6 @@ func _ready() -> void:
 
 	CollectiblesEvents.status_buff_collected.connect(_on_status_buff_collected)
 	ControlledEntityEvents.player_respawning.connect(_on_player_respawning)
-	set_process(false)
-
-
-func _process(delta: float) -> void:
-	var keys_to_remove: Array[StringName] = []
-
-	for identifier: StringName in _active_trackers:
-		var tracker: Dictionary = _active_trackers[identifier]
-		if tracker.is_infinite:
-			continue
-
-		tracker.remaining_time -= delta
-		if tracker.remaining_time <= 0.0:
-			tracker.node.hide()
-			keys_to_remove.append(identifier)
-		elif tracker.remaining_time <= 3.0 and not tracker.has("flash_tween"):
-			var icon_node: TextureRect = tracker.node.get_node("PowerUp") as TextureRect
-			if icon_node:
-				var flash_tween: Tween = create_tween().bind_node(icon_node).set_loops()
-				flash_tween.tween_property(icon_node, "modulate", Color(1.5, 1.5, 0.5, 1.0), 0.2)
-				flash_tween.tween_property(icon_node, "modulate", Color.WHITE, 0.2)
-				tracker["flash_tween"] = flash_tween
-
-	for key: StringName in keys_to_remove:
-		if _active_trackers[key].has("flash_tween"):
-			var flash_tween: Tween = _active_trackers[key]["flash_tween"]
-			if is_instance_valid(flash_tween):
-				flash_tween.kill()
-			var icon_node: TextureRect = _active_trackers[key].node.get_node("PowerUp") as TextureRect
-			if icon_node:
-				icon_node.modulate = Color.WHITE
-		_active_trackers.erase(key)
-
-	if _active_trackers.is_empty():
-		set_process(false)
 
 
 func _on_status_buff_collected(status_collectible: StatusCollectible) -> void:
@@ -62,75 +27,123 @@ func _on_status_buff_collected(status_collectible: StatusCollectible) -> void:
 	var duration: float = status_collectible.duration
 
 	var identifier: StringName = status_effect.get_id()
-	var ui_node: HBoxContainer = null
-
-	# If this powerup already tracked, use that, else use an empty space
-	if _powerup_ui_elements.has(identifier):
-		ui_node = _powerup_ui_elements[identifier]
-	else:
-		for key: Variant in _powerup_ui_elements.keys():
-			var candidate: HBoxContainer = _powerup_ui_elements[key]
-			# Only pick a candidate if it's hidden and not currently being tracked
-			if not candidate.visible and not _active_trackers.has(key):
-				_powerup_ui_elements.erase(key)
-				_powerup_ui_elements[identifier] = candidate
-				ui_node = candidate
-				break
+	var ui_node: HBoxContainer = _get_ui_node(identifier)
 
 	if ui_node == null:
-		assert(false, "Ran out of powerup UI elements in HUD")
+		assert(false, "Ran out of powerup UI elements in " + name)
 		return
 
-	ui_node.show()
-	var icon_node: TextureRect = ui_node.get_node("PowerUp") as TextureRect
-	var cooldown_progress: TextureProgressBar = null
+	if _active_trackers.has(identifier):
+		_kill_active_tweens(identifier)
 
-	if icon_node:
-		if icon:
-			icon_node.texture = icon
-		cooldown_progress = icon_node.get_node("CooldownProgress") as TextureProgressBar
+	ui_node.show()
+
+	var icon_node: TextureRect = ui_node.get_node("PowerUp") as TextureRect
+	assert(icon_node != null, "PowerUp missing icon child in " + ui_node.name)
+
+	if icon:
+		icon_node.texture = icon
+
+	var cooldown_progress: TextureProgressBar = icon_node.get_node("CooldownProgress") as TextureProgressBar
+	assert(cooldown_progress != null, "CooldownProgress missing in " + icon_node.name)
 
 	var is_infinite: bool = duration < 0.0
+	cooldown_progress.visible = not is_infinite
 
-	if cooldown_progress:
-		if is_infinite:
-			cooldown_progress.visible = false
-		else:
-			cooldown_progress.visible = true
-			cooldown_progress.texture_progress = icon_node.texture
+	if is_infinite:
+		_active_trackers[identifier] = { "node": ui_node, "icon_node": icon_node }
+		return
 
-			if _active_trackers.has(identifier):
-				if _active_trackers[identifier].has("tween"):
-					var old_tween: Tween = _active_trackers[identifier]["tween"]
-					if is_instance_valid(old_tween):
-						old_tween.kill()
-				if _active_trackers[identifier].has("flash_tween"):
-					var old_flash: Tween = _active_trackers[identifier]["flash_tween"]
-					if is_instance_valid(old_flash):
-						old_flash.kill()
-						icon_node.modulate = Color.WHITE
+	cooldown_progress.texture_progress = icon_node.texture
 
-			var tween: Tween = create_tween()
-			cooldown_progress.value = 0.0
-			tween.tween_property(cooldown_progress, "value", 100.0, duration)
+	var cooldown_tween: Tween = create_tween()
+	cooldown_progress.value = 0.0
+	cooldown_tween.tween_property(cooldown_progress, "value", 100.0, duration)
+	cooldown_tween.finished.connect(_on_cooldown_finished.bind(identifier))
 
-			_active_trackers[identifier] = { "node": ui_node, "remaining_time": duration, "is_infinite": is_infinite, "tween": tween }
+	var flash_tween: Tween = create_tween().bind_node(icon_node)
+	var flash_delay: float = maxf(duration - 3.0, 0.0)
 
+	flash_tween.tween_interval(flash_delay)
+	flash_tween.tween_property(icon_node, "modulate", Color(1.5, 1.5, 0.5, 1.0), 0.2)
+	flash_tween.tween_property(icon_node, "modulate", Color.WHITE, 0.2)
+	flash_tween.set_loops()
+
+	_active_trackers[identifier] = {
+		"node": ui_node,
+		"icon_node": icon_node,
+		"cooldown_progress": cooldown_progress,
+		"cooldown_tween": cooldown_tween,
+		"flash_tween": flash_tween,
+	}
+
+
+func _on_cooldown_finished(identifier: StringName) -> void:
 	if not _active_trackers.has(identifier):
-		_active_trackers[identifier] = { "node": ui_node, "remaining_time": duration, "is_infinite": is_infinite }
+		return
 
-	set_process(true)
+	_clear_tracker(identifier)
+	_active_trackers.erase(identifier)
 
 
 func _on_player_respawning(_duration: float) -> void:
 	for identifier: StringName in _active_trackers:
-		var tracker: Dictionary = _active_trackers[identifier]
-		for key: String in ["tween", "flash_tween"]:
-			if tracker.has(key) and is_instance_valid(tracker[key]):
-				(tracker[key] as Tween).kill()
-		(tracker.node as Control).hide()
-		var icon_node: TextureRect = tracker.node.get_node("PowerUp") as TextureRect
-		if icon_node:
-			icon_node.modulate = Color.WHITE
+		_clear_tracker(identifier)
+
 	_active_trackers.clear()
-	set_process(false)
+
+
+func _get_ui_node(identifier: StringName) -> HBoxContainer:
+	if _powerup_ui_elements.has(identifier):
+		return _powerup_ui_elements[identifier] as HBoxContainer
+
+	for key: StringName in _powerup_ui_elements:
+		var candidate: HBoxContainer = _powerup_ui_elements[key] as HBoxContainer
+		if not candidate.visible and not _active_trackers.has(key):
+			_powerup_ui_elements.erase(key)
+			_powerup_ui_elements[identifier] = candidate
+			return candidate
+
+	return null
+
+
+func _kill_active_tweens(identifier: StringName) -> void:
+	var tracker: Dictionary = _active_trackers[identifier]
+
+	if tracker.has("cooldown_tween"):
+		var cooldown_tween: Tween = tracker["cooldown_tween"] as Tween
+		if is_instance_valid(cooldown_tween):
+			cooldown_tween.kill()
+
+	if tracker.has("flash_tween"):
+		var flash_tween: Tween = tracker["flash_tween"] as Tween
+		if is_instance_valid(flash_tween):
+			flash_tween.kill()
+
+	var icon_node: TextureRect = tracker["icon_node"] as TextureRect
+	icon_node.modulate = Color.WHITE
+
+
+func _clear_tracker(identifier: StringName) -> void:
+	var tracker: Dictionary = _active_trackers[identifier]
+
+	if tracker.has("cooldown_tween"):
+		var cooldown_tween: Tween = tracker["cooldown_tween"] as Tween
+		if is_instance_valid(cooldown_tween):
+			cooldown_tween.kill()
+
+	if tracker.has("flash_tween"):
+		var flash_tween: Tween = tracker["flash_tween"] as Tween
+		if is_instance_valid(flash_tween):
+			flash_tween.kill()
+
+	var icon_node: TextureRect = tracker["icon_node"] as TextureRect
+	icon_node.modulate = Color.WHITE
+
+	var cooldown_progress: TextureProgressBar = tracker.get("cooldown_progress") as TextureProgressBar
+	if cooldown_progress != null:
+		cooldown_progress.value = 0.0
+		cooldown_progress.visible = false
+
+	var ui_node: HBoxContainer = tracker["node"] as HBoxContainer
+	ui_node.hide()
