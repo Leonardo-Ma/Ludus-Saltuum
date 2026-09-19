@@ -1,10 +1,9 @@
-# TODO Refactor to EnemyInRange
-class_name TrackEnemy
+class_name EnemyInRange
 extends GoapGoal
 
 
 func get_custom_class_name() -> String:
-	return "TrackEnemy"
+	return "EnemyInRange"
 
 
 func is_valid(_blackboard: Dictionary) -> bool:

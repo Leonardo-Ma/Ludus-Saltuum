@@ -1,10 +1,9 @@
-# TODO Refactor to ChaseEnemy
-class_name GotoEnemy
+class_name ChaseEnemy
 extends GoapAction
 
 
 func get_custom_class_name() -> String:
-	return "GotoEnemy"
+	return "ChaseEnemy"
 
 
 func is_valid(_blackboard: Dictionary) -> bool:

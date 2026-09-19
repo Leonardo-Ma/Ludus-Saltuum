@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://bvvk88q345vy4" path="res://src/entities/ai/goap/helpers/ai_config.gd" id="1_abc123"]
 [ext_resource type="Script" uid="uid://b7v4ao8jga5rg" path="res://src/entities/ai/goap/goals/flee.gd" id="2_def456"]
-[ext_resource type="Script" uid="uid://c5rs5bpioolo8" path="res://src/entities/ai/goap/goals/track_enemy.gd" id="3_ghi789"]
+[ext_resource type="Script" uid="uid://c5rs5bpioolo8" path="res://src/entities/ai/goap/goals/enemy_in_range.gd" id="3_ghi789"]
 [ext_resource type="Script" uid="uid://o8dqx6i7woqt" path="res://src/entities/ai/goap/goals/kill_enemy.gd" id="4_jkl012"]
 [ext_resource type="Script" uid="uid://8ib48sr624k3" path="res://src/entities/ai/goap/goals/wander.gd" id="5_mno345"]
 [ext_resource type="Script" uid="uid://v5kimqljxjc2" path="res://src/entities/ai/goap/actions/flee_from_enemy.gd" id="6_pqr678"]
-[ext_resource type="Script" uid="uid://dycviide8g017" path="res://src/entities/ai/goap/actions/goto_enemy.gd" id="7_stu901"]
+[ext_resource type="Script" uid="uid://dycviide8g017" path="res://src/entities/ai/goap/actions/chase_enemy.gd" id="7_stu901"]
 [ext_resource type="Script" uid="uid://8sv6xwujwxyk" path="res://src/entities/ai/goap/actions/melee_attack.gd" id="8_vwx234"]
 [ext_resource type="Script" uid="uid://djjmno7kihjpr" path="res://src/entities/ai/goap/actions/wander.gd" id="9_yza567"]
 
