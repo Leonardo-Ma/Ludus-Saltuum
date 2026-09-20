@@ -19,7 +19,6 @@
 [ext_resource type="Script" uid="uid://cjc0pv560qqv1" path="res://src/entities/ai/goap/memories/base_memory.gd" id="18_h6n62"]
 [ext_resource type="Script" uid="uid://bccasf1g707qk" path="res://src/entities/components/npc_movement_controller.gd" id="19_nw04b"]
 [ext_resource type="Script" uid="uid://r2b3ysikxov0" path="res://src/entities/ai/perception/perception_system.gd" id="20_tbbw0"]
-[ext_resource type="Script" uid="uid://bll0orhps41m6" path="res://src/entities/components/combat/knockback_controller.gd" id="21_q7i4y"]
 [ext_resource type="Script" uid="uid://cpusxg43clwxv" path="res://src/entities/player/controller/vfx_controller.gd" id="22_ju7vx"]
 [ext_resource type="Script" uid="uid://rpbdsks54nbp" path="res://src/entities/components/stat_modifier/status_manager.gd" id="23_o0y4x"]
 [ext_resource type="Script" uid="uid://csig12422io62" path="res://src/entities/components/combat/hitbox.gd" id="24_sx6k8"]
@@ -82,10 +81,6 @@ script = ExtResource("18_h6n62")
 [node name="NPCMovementController" type="Node3D" parent="Controllers" unique_id=1768493993]
 unique_name_in_owner = true
 script = ExtResource("19_nw04b")
-
-[node name="KnockbackController" type="Node" parent="Controllers" unique_id=2141613769]
-unique_name_in_owner = true
-script = ExtResource("21_q7i4y")
 
 [node name="VFXController" type="Node" parent="Controllers" unique_id=92317038]
 unique_name_in_owner = true

@@ -6,5 +6,4 @@
 script = ExtResource("1_emoot")
 type = 1
 damage = 10
-knockback_force = 3.0
 metadata/_custom_type_script = "uid://cxqsapbic2imr"
