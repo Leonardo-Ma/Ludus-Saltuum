@@ -3,7 +3,7 @@ class_name MouseModeManager
 extends Node
 
 ## Highest priority first; first source with an active request wins
-const _PRIORITY: Array[StringName] = [&"popup", &"shop", &"menu", &"gameplay", &"device"]
+const _PRIORITY: Array[StringName] = [&"popup", &"menu", &"gameplay", &"device"]
 
 static var _requests: Dictionary[StringName, Input.MouseMode] = { }
 
