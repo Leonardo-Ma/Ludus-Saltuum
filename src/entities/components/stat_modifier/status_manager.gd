@@ -30,8 +30,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	for key: StringName in _active_statuses:
-		var active: ActiveStatusEffect = _active_statuses[key]
+	for active: ActiveStatusEffect in _active_statuses.values():
 		active.process_time(delta)
 
 

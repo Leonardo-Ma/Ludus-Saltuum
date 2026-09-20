@@ -27,7 +27,7 @@ func _move(_delta: float) -> void:
 	var direction: Vector3 = _character_owner.global_position.direction_to(next_location)
 	direction.y = 0.0
 	direction = direction.normalized()
-	var new_velocity: Vector3 = direction * _movement.speed
+	var new_velocity: Vector3 = direction * _movement.get_speed()
 	if direction.length_squared() > 0.001:
 		var target_rotation_y: float = atan2(direction.x, direction.z)
 		_character_owner.global_rotation.y = lerp_angle(_character_owner.global_rotation.y, target_rotation_y, 0.15)

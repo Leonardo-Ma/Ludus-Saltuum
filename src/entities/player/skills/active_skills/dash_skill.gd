@@ -62,5 +62,5 @@ func _start_dash() -> void:
 	var forward: Vector3 = camera_basis * Vector3(input_vec.x, 0, input_vec.y)
 	forward.y = 0.0
 	forward = forward.normalized()
-	_dash_direction = forward * skills_controller.entity.movement.speed * dash_velocity_multiplier
+	_dash_direction = forward * skills_controller.entity.movement.get_speed() * dash_velocity_multiplier
 	skills_controller.movement_controller.disable_movement(dash_duration)

@@ -14,9 +14,9 @@ func get_status_name() -> String:
 
 func on_apply(active_status: ActiveStatusEffect) -> void:
 	var player: PlayerEntity = active_status.target
-	player.movement.jump_velocity += bonus_speed
+	player.movement.jump_bonus += bonus_speed
 
 
 func on_remove(active_status: ActiveStatusEffect) -> void:
 	var player: PlayerEntity = active_status.target
-	player.movement.jump_velocity -= bonus_speed
+	player.movement.jump_bonus -= bonus_speed

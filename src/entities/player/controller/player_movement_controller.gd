@@ -46,14 +46,14 @@ func movement_logic() -> void:
 		var direction: Vector3 = (cam_right * input_direction.x + cam_forward * input_direction.y).normalized()
 
 		# Speed scales with stick deflection (0..1); keyboard always produces 1.0
-		var current_speed: float = input_length * _movement.speed
+		var current_speed: float = input_length * _movement.get_speed()
 
 		# Clamp to allowed maximum
-		current_speed = clamp(current_speed, 0.0, _movement.speed)
+		current_speed = clamp(current_speed, 0.0, _movement.get_speed())
 
 		# Calculate blend direction in owner's local space (mesh is child of owner with 0 rotation)
 		var local_direction: Vector3 = owner.global_transform.basis.inverse() * direction
-		var speed_factor: float = current_speed / _movement.speed
+		var speed_factor: float = current_speed / _movement.get_speed()
 		var blend_direction: Vector2 = Vector2(local_direction.x, local_direction.z) * speed_factor
 
 		movement_direction_changed.emit(blend_direction, speed_factor)
@@ -65,8 +65,8 @@ func movement_logic() -> void:
 		owner.velocity.z = direction.z * current_speed
 	else:
 		movement_direction_changed.emit(Vector2.ZERO, 0.0)
-		owner.velocity.x = move_toward(owner.velocity.x, 0.0, _movement.speed)
-		owner.velocity.z = move_toward(owner.velocity.z, 0.0, _movement.speed)
+		owner.velocity.x = move_toward(owner.velocity.x, 0.0, _movement.get_speed())
+		owner.velocity.z = move_toward(owner.velocity.z, 0.0, _movement.get_speed())
 
 
 func jump_air_logic(delta: float) -> void:
@@ -93,7 +93,7 @@ func jump_air_logic(delta: float) -> void:
 
 	# Ground jump, only when coyote time is still valid
 	if Input.is_action_just_pressed("jump") and coyote_timer > 0.0:
-		jump(_movement.jump_velocity)
+		jump(_movement.get_jump_velocity())
 		jumped.emit()
 
 
