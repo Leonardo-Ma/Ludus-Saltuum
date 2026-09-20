@@ -1,4 +1,3 @@
-# TODO Rename to level_chunk_manager (same as autoload)
 # BUG TODO Improve this garbage
 ## Manages object pooling, async loading, and sequential connecting of procedural level chunks
 extends Node
