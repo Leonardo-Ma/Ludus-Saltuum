@@ -39,7 +39,7 @@ func handle_collisions() -> void:
 		var collision: KinematicCollision3D = owner.get_slide_collision(i)
 		var collider: Object = collision.get_collider()
 		if collider is RigidBody3D:
-			var push_force: float = _movement.speed * 0.1
+			var push_force: float = _movement.get_speed() * 0.1
 			var push_dir: Vector3 = -collision.get_normal()
 			# Push down or sideways, never up
 			if push_dir.y > 0.0:

@@ -94,6 +94,7 @@ func _on_player_respawning(_duration: float) -> void:
 	_active_trackers.clear()
 
 
+# TODO Refactor to remove this, must be static typed instead of traversing
 func _get_ui_node(identifier: StringName) -> HBoxContainer:
 	if _powerup_ui_elements.has(identifier):
 		return _powerup_ui_elements[identifier] as HBoxContainer
