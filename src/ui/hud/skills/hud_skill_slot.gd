@@ -1,4 +1,4 @@
-## View model for each skill UI, managed by skills interface
+## View model for each skill UI, managed by skills view
 class_name HUDSkillSlot
 extends VBoxContainer
 
@@ -10,7 +10,7 @@ var _tweens: Array[Tween] = []
 @onready var cooldown_progress: TextureProgressBar = %CooldownProgress
 @onready var charge_label: Label = %ChargeLabel
 
-@onready var skill_button_icon: TextureRect = %SkillButtonIcon
+@onready var skill_button_icon: PromptIcon = %SkillButtonIcon
 @onready var skill_sufix_label: Label = %SkillSufixLabel
 
 
@@ -22,7 +22,8 @@ func setup(skill: BaseSkill) -> void:
 
 	var skill_input_action: StringName = skill.definition.input_action
 	assert(InputMap.has_action(skill_input_action), "HUDSkillSlot: input_action '%s' not in InputMap in %s" % [skill_input_action, name])
-	skill_button_icon.texture = KeyboardIconMap.get_action_icon(skill_input_action)
+	skill_button_icon.action = skill_input_action
+	skill_button_icon.refresh()
 	skill_sufix_label.text = skill.definition.key_hint_suffix
 
 	charge_label.hide()

@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bnq8if00xnf2p" path="res://src/icons/16x16/bomb.png" id="1_hwd1u"]
 [ext_resource type="Script" uid="uid://cgaxqb86skq7v" path="res://src/ui/hud/skills/hud_skill_slot.gd" id="2_slot"]
 [ext_resource type="Texture2D" uid="uid://c0tjkdmr7kj73" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/keyboard_ctrl_outline.png" id="3_ev6f6"]
+[ext_resource type="Script" uid="uid://cj7q6x6qfonxd" path="res://src/ui/prompt_icon.gd" id="4_04ier"]
 
 [node name="VBoxContainer" type="VBoxContainer" unique_id=1806796059]
 offset_left = 10.0
@@ -80,6 +81,8 @@ size_flags_vertical = 3
 texture = ExtResource("3_ev6f6")
 expand_mode = 3
 stretch_mode = 5
+script = ExtResource("4_04ier")
+action = &"jump"
 
 [node name="SkillSufixLabel" type="Label" parent="MarginContainer/VBoxContainer/SkillButtonContainer/SkillButtonIcon" unique_id=831663033]
 unique_name_in_owner = true

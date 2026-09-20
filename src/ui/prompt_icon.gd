@@ -18,18 +18,18 @@ var _gamepad_icon_map: GamepadIconMap = GamepadIconMap.new()
 func _ready() -> void:
 	assert(action != &"", "Action not assigned in " + name)
 	assert(InputMap.has_action(action), "Wrong action in " + name)
-	_gamepad_icon_map.map_changed.connect(_refresh)
+	_gamepad_icon_map.map_changed.connect(refresh)
 	InputManager.device_changed.connect(_on_device_changed)
 	InputBindingManager.binding_changed.connect(_on_binding_changed)
-	_refresh()
+	refresh()
 
 
 func _on_binding_changed(changed_action: StringName) -> void:
 	if changed_action == action:
-		_refresh()
+		refresh()
 
 
-func _refresh() -> void:
+func refresh() -> void:
 	texture = _resolve()
 	visible = texture != null
 	if flavor_overlay != null:
