@@ -17,6 +17,7 @@ func _ready() -> void:
 			# re-assign keys when actual identifiers come in
 			_powerup_ui_elements[StringName(hbox.name)] = hbox
 
+	# TODO Change this to use status manager instead, so it is properly cleared upon clearing temporary status (in reset save for example)
 	CollectiblesEvents.status_buff_collected.connect(_on_status_buff_collected)
 	ControlledEntityEvents.player_respawning.connect(_on_player_respawning)
 

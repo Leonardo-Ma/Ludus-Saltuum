@@ -10,6 +10,7 @@ var _default_spawn_transform: Transform3D
 @onready var skills_controller: SkillsController = %SkillsController
 @onready var economy_controller: EconomyController = %EconomyController
 @onready var easter_egg_controller: EasterEggController = %EasterEggController
+@onready var status_manager: StatusManager = %StatusManager
 
 
 func _ready() -> void:
@@ -61,6 +62,7 @@ func reset_save_data() -> void:
 
 	player.health.reset()
 	player.skills_controller.reset()
+	player.status_manager.clear_temporary_statuses()
 
 	player.velocity = Vector3.ZERO
 	player.global_transform = _default_spawn_transform
