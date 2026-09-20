@@ -628,6 +628,14 @@ feather_fall={
 "location": 0,
 "echo": false,
 "script": null
+), Object(InputEventJoypadButton,
+"resource_local_to_scene": false,
+"resource_name": "",
+"device": -1,
+"button_index": 9,
+"pressure": 0.0,
+"pressed": true,
+"script": null
 )]
 }
 double_jump={

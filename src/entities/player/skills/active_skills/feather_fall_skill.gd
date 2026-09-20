@@ -39,7 +39,7 @@ func _physics_process(delta: float) -> void:
 		return
 	var body: CharacterBody3D = skills_controller.entity
 	if not body.is_on_floor() and body.velocity.y < 0.0:
-		body.velocity.y += (skills_controller.movement_controller.gravity * delta) * (1.0 - feather_fall_gravity_mult)
+		body.velocity.y -= (body.get_gravity().y * delta) * (1.0 - feather_fall_gravity_mult)
 
 
 func _update_feather_particles(active: bool) -> void:

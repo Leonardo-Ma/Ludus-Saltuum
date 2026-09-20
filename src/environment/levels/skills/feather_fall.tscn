@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://d288vfksn14us"]
+
+[ext_resource type="Script" uid="uid://dfapcpf4fli57" path="res://src/environment/levels/level_chunk.gd" id="1_5sol2"]
+[ext_resource type="PackedScene" uid="uid://cl6psv388cmbx" path="res://src/environment/levels/entrance_trigger.tscn" id="2_sdpub"]
+[ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_fvul6"]
+[ext_resource type="PackedScene" uid="uid://0hwlnlpkbsjn" path="res://src/environment/levels/assets/platforms/static_platforms/grass_platform.tscn" id="4_0mn2q"]
+[ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="5_kderw"]
+[ext_resource type="PackedScene" uid="uid://q51p6l6vw80h" path="res://src/environment/assets/kaykit_platformer/individual_assets/platform_6x2x1_blue2.tscn" id="6_w7e1s"]
+[ext_resource type="PackedScene" uid="uid://c32lde0fr367t" path="res://src/environment/mechanics/portal/portal.tscn" id="7_1plwh"]
+[ext_resource type="PackedScene" uid="uid://cfm0nge5vjc0d" path="res://src/environment/mechanics/collectible/unlock_skill/unlock_skill.tscn" id="7_qid52"]
+[ext_resource type="Resource" uid="uid://dcw2dwhnvq7ri" path="res://src/entities/player/skills/active_skills/feather_fall.tres" id="8_1plwh"]
+[ext_resource type="Script" uid="uid://si0x0kj8w7kf" path="res://src/systems/collectibles/collectibles_data/skill_collectible.gd" id="9_tb3fc"]
+
+[sub_resource type="Resource" id="Resource_2cebc"]
+script = ExtResource("9_tb3fc")
+definition = ExtResource("8_1plwh")
+metadata/_custom_type_script = "uid://si0x0kj8w7kf"
+
+[node name="FeatherFall" type="Node3D" unique_id=1016321493]
+script = ExtResource("1_5sol2")
+features = Array[int]([3])
+
+[node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_sdpub")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 1)
+
+[node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_fvul6")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 73.083)
+
+[node name="GrassPlatform" parent="." unique_id=537577895 instance=ExtResource("4_0mn2q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 5)
+
+[node name="ArrowSign" parent="GrassPlatform" unique_id=975612369 instance=ExtResource("5_kderw")]
+transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, 3, 4, -3)
+
+[node name="StaticBody3D" parent="." unique_id=1301643200 instance=ExtResource("6_w7e1s")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -2, 11)
+
+[node name="Portal" parent="StaticBody3D" unique_id=1766414310 node_paths=PackedStringArray("linked_portal") instance=ExtResource("7_1plwh")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1.5, 0)
+linked_portal = NodePath("../../StaticBody3D2/Portal2")
+
+[node name="StaticBody3D2" parent="." unique_id=425847379 instance=ExtResource("6_w7e1s")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 35, 17)
+
+[node name="Portal2" parent="StaticBody3D2" unique_id=1297199228 node_paths=PackedStringArray("linked_portal") instance=ExtResource("7_1plwh")]
+transform = Transform3D(1, 0, -1.7484555e-07, 0, 1, 0, 1.7484555e-07, 0, 1, 0, 1.25, -0.25)
+linked_portal = NodePath("../../StaticBody3D/Portal")
+
+[node name="StaticBody3D3" parent="." unique_id=1174003081 instance=ExtResource("6_w7e1s")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 36, 26)
+
+[node name="StaticBody3D4" parent="." unique_id=1302444424 instance=ExtResource("6_w7e1s")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 37, 36)
+
+[node name="UnlockSkill" parent="StaticBody3D4" unique_id=707485280 instance=ExtResource("7_qid52")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0)
+data = SubResource("Resource_2cebc")
+
+[node name="StaticBody3D5" parent="." unique_id=830230724 instance=ExtResource("6_w7e1s")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2, 67)

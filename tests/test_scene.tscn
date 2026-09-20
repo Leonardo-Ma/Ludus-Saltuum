@@ -34,6 +34,7 @@
 [ext_resource type="PackedScene" uid="uid://cvcxve456vw1e" path="res://src/environment/mechanics/collectible/speed_up/speed_up.tscn" id="21_65kr6"]
 [ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/mechanics/collectible/coin/gold_coin.tscn" id="22_jlvjc"]
 [ext_resource type="PackedScene" uid="uid://cyk7txgkpg83" path="res://src/environment/mechanics/collectible/jump_up/jump_up.tscn" id="23_oqqo4"]
+[ext_resource type="Resource" uid="uid://dcw2dwhnvq7ri" path="res://src/entities/player/skills/active_skills/feather_fall.tres" id="25_q7k03"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4hukf"]
 size = Vector3(20, 9, 20)
@@ -43,9 +44,14 @@ script = ExtResource("21_3omyl")
 definition = ExtResource("20_3omyl")
 metadata/_custom_type_script = "uid://si0x0kj8w7kf"
 
-[sub_resource type="Resource" id="Resource_bud03"]
+[sub_resource type="Resource" id="Resource_7adl8"]
 script = ExtResource("21_3omyl")
 definition = ExtResource("20_6yhsn")
+metadata/_custom_type_script = "uid://si0x0kj8w7kf"
+
+[sub_resource type="Resource" id="Resource_bud03"]
+script = ExtResource("21_3omyl")
+definition = ExtResource("25_q7k03")
 metadata/_custom_type_script = "uid://si0x0kj8w7kf"
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_buypi"]
@@ -149,9 +155,15 @@ static_id = &"test_skill_0"
 
 [node name="UnlockSkill2" parent="SkillsUnlock/GrassPlatform" unique_id=1476480636 instance=ExtResource("19_jlvjc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 5, 0)
-data = SubResource("Resource_bud03")
+data = SubResource("Resource_7adl8")
 is_procedurally_spawned = false
 static_id = &"test_skill_1"
+
+[node name="UnlockSkill3" parent="SkillsUnlock/GrassPlatform" unique_id=743930671 instance=ExtResource("19_jlvjc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 5, -3)
+data = SubResource("Resource_bud03")
+is_procedurally_spawned = false
+static_id = &"test_skill_2"
 
 [node name="EasterEggs" type="Node3D" parent="." unique_id=452354969]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)

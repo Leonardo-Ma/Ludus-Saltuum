@@ -1,12 +1,11 @@
 [gd_resource type="Resource" script_class="SkillDefinition" format=3 uid="uid://dcw2dwhnvq7ri"]
 
-[ext_resource type="Texture2D" uid="uid://6sr7ekalyi34" path="res://src/icons/16x16/ladder.png" id="1_morug"]
+[ext_resource type="Texture2D" uid="uid://cahb5jj7i2am0" path="res://src/icons/16x16/arrow_down.png" id="1_morug"]
 [ext_resource type="Script" uid="uid://difrst13h47n5" path="res://src/entities/player/skills/skill_definition.gd" id="2_s5y82"]
 [ext_resource type="Script" uid="uid://cr2gle2f31jc0" path="res://src/entities/player/skills/active_skills/feather_fall_skill.gd" id="3_s5y82"]
 
 [resource]
 script = ExtResource("2_s5y82")
-id = &"feather_fall"
 skill_script = ExtResource("3_s5y82")
 icon = ExtResource("1_morug")
 input_action = &"feather_fall"
