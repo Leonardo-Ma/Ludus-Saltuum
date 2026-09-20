@@ -1,28 +1,11 @@
-    https://kaylousberg.itch.io/kaykit-platformer	
+KayKit : Platformer Pack (1.0)
 
-	KayKit : Platformer Pack (1.0)
+Created/distributed by Kay Lousberg (www.kaylousberg.com)
+Creation date: 10/03/2025 12:00
 
-	Created/distributed by Kay Lousberg (www.kaylousberg.com)
-	Creation date: 10/03/2025 12:00
+------------------------------
 
-			------------------------------
+License: (Creative Commons Zero, CC0)
+http://creativecommons.org/publicdomain/zero/1.0/
 
-	License: (Creative Commons Zero, CC0)
-	http://creativecommons.org/publicdomain/zero/1.0/
-
-	This content is free to use in personal, educational and commercial projects.
-
-	Support me by crediting Kay Lousberg, www.kaylousberg.com (this is not mandatory, but would be appreciated)
-
-			------------------------------
-
-	This asset pack is here thanks to all the wonderful people who support KayKit on Patreon and those who buy EXTRA or SOURCE packs on itch.io.
-
-			------------------------------
-
-	Patreon:  http://patreon.com/kaylousberg
-
-	Follow here for updates:
-	http://twitter.com/KayLousberg
-	https://mastodon.gamedev.place/@Kay
-	http://twitter.com/KayLousberg
+This content is free to use in personal, educational and commercial projects.
