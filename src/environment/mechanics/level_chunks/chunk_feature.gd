@@ -14,6 +14,8 @@ enum Feature {
 	ENEMY = 8,
 	ROTATING_PLATFORM = 9,
 	SPIKES = 10,
+	GIGANTIFY = 11,
+	SHRINK = 12,
 }
 
 const FEATURE_NAME: Dictionary = {
@@ -25,4 +27,9 @@ const FEATURE_NAME: Dictionary = {
 	Feature.TORNADO: &"tornado",
 	Feature.MOVING_PLATFORM: &"moving_platform",
 	Feature.LAVA: &"lava",
+	Feature.ENEMY: &"enemy",
+	Feature.ROTATING_PLATFORM: &"rotating_platform",
+	Feature.SPIKES: &"spikes",
+	Feature.GIGANTIFY: &"gigantify",
+	Feature.SHRINK: &"shrink",
 }

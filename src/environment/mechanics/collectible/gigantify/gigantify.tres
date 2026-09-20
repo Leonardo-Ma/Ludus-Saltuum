@@ -4,8 +4,6 @@
 
 [resource]
 script = ExtResource("1_8xwuh")
-speed_multiplier = 0.5
-jump_multiplier = 0.5
-duration = 6.0
-stack_mode = 0
+speed_multiplier = 2.5
+jump_multiplier = 1.2
 metadata/_custom_type_script = "uid://c4ugtconyjoou"

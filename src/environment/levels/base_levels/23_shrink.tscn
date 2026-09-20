@@ -69,7 +69,7 @@ metadata/_custom_type_script = "uid://njkofl5g11k7"
 [node name="23Shrink" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_m56pa")
 score_multiplier = 1.2
-features = Array[int]([1])
+features = Array[int]([1, 12])
 
 [node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_qel8y")]
 unique_name_in_owner = true
