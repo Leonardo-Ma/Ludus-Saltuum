@@ -36,8 +36,8 @@ func _init(
 	stack_mode = _stack_mode
 	max_stacks = _max_stacks
 	tick_interval = _tick_interval
-	remaining_time = duration
-	tick_timer = tick_interval
+	remaining_time = _duration
+	tick_timer = _tick_interval
 	status.on_apply(self)
 
 
@@ -54,7 +54,6 @@ func process_time(delta: float) -> void:
 	if not is_infinite():
 		remaining_time -= delta
 		if remaining_time <= 0.0:
-			_expired = true
 			expired.emit(self)
 
 
