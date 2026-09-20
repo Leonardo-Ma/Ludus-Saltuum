@@ -35,7 +35,8 @@ func on_checkpoint_activated(new_checkpoint: Checkpoint) -> void:
 
 	if new_checkpoint.parent_chunk and is_instance_valid(new_checkpoint.parent_chunk):
 		_checkpoint_chunk_index = ChunkManager.get_active_chunks().find(new_checkpoint.parent_chunk)
-		push_error(_checkpoint_chunk_index >= 0, "Checkpoint chunk missing in " + name)
+		if _checkpoint_chunk_index < 0:
+			push_error("Checkpoint chunk missing in " + name)
 
 		_checkpoint_local_transform = (new_checkpoint.parent_chunk.global_transform.affine_inverse() * new_checkpoint.global_transform)
 	else:
@@ -107,7 +108,7 @@ func get_default_spawn_transform() -> Transform3D:
 	if chunks.is_empty(): # TODO Double check if this case should fallback to identity (0,0,0)
 		return Transform3D.IDENTITY
 
-	var entrance: Node3D = chunks[0].get_node("%EntranceTrigger")
+	var entrance: Node3D = chunks[0].entrance_trigger
 	return entrance.global_transform
 
 

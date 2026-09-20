@@ -249,7 +249,7 @@ func recycle_oldest_chunk() -> void:
 	_pool_chunk(oldest)
 
 	var newest: LevelChunk = _active_chunks.back()
-	var target_transform: Transform3D = newest.get_node("%ExitTrigger").global_transform
+	var target_transform: Transform3D = newest.exit_trigger.global_transform
 	var next_chunk: LevelChunk = _generate_new_chunk(target_transform)
 
 	if next_chunk.get_parent() != parent_world:
@@ -272,7 +272,7 @@ func get_active_chunks() -> Array[LevelChunk]:
 
 func get_chunk_entrance_position(chunk_index: int) -> Vector3:
 	assert(chunk_index >= 0 and chunk_index < _active_chunks.size(), "Chunk index out of range in " + name)
-	return (_active_chunks[chunk_index].get_node("%EntranceTrigger") as Node3D).global_position
+	return _active_chunks[chunk_index].entrance_trigger.global_position
 
 
 # TODO This may be useless, in current approach always returns 0 0 0 also
@@ -280,8 +280,8 @@ func get_first_chunk_entrance_position() -> Vector3:
 	print("Entrance empty? ", _active_chunks.is_empty())
 	if _active_chunks.is_empty():
 		return Vector3.ZERO
-	print("Entrance position:", (_active_chunks[0].get_node("%EntranceTrigger") as Area3D).global_position)
-	return (_active_chunks[0].get_node("%EntranceTrigger") as Area3D).global_position
+	print("Entrance position:", _active_chunks[0].entrance_trigger.global_position)
+	return _active_chunks[0].entrance_trigger.global_position
 
 
 ## Skips current chunk: marks scored, teleports player to its exit
