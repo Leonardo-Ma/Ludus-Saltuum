@@ -3,6 +3,8 @@
 class_name SkillsView
 extends Control
 
+const SKILL_CATALOGUE: SkillCatalogue = preload("uid://6ygr0ieawafb")
+
 @onready var _skills_container: Container = %SkillsContainer
 
 
@@ -32,16 +34,8 @@ func _on_player_spawned(player: PlayerEntity) -> void:
 		controller.resetted_skills.disconnect(_clear_all_slots)
 	controller.resetted_skills.connect(_clear_all_slots)
 
-	var skills: Array[BaseSkill] = []
 	for definition: SkillDefinition in controller.get_unlocked_skills():
-		skills.append(controller.get_skill(definition))
-	skills.sort_custom(
-		func(a: BaseSkill, b: BaseSkill) -> bool:
-			return a.definition.hud_order < b.definition.hud_order,
-	)
-
-	for skill: BaseSkill in skills:
-		_bind_slot(skill)
+		_bind_slot(controller.get_skill(definition))
 
 
 func _on_skill_unlocked(definition: SkillDefinition) -> void:
@@ -56,9 +50,9 @@ func _on_skill_unlocked(definition: SkillDefinition) -> void:
 
 func _bind_slot(skill: BaseSkill) -> void:
 	var slots: Array[Node] = _skills_container.get_children()
-	var hud_order: int = skill.definition.hud_order
-	assert(hud_order < slots.size(), "HUD: hud_order %d out of range (%d slots) in %s" % [hud_order, slots.size(), name])
-	(slots[hud_order] as HUDSkillSlot).setup(skill)
+	var slot_index: int = SKILL_CATALOGUE.get_order(skill.definition)
+	assert(slot_index < slots.size(), "HUD: skill order %d out of range (%d slots) in %s" % [slot_index, slots.size(), name])
+	(slots[slot_index] as HUDSkillSlot).setup(skill)
 
 
 func _clear_all_slots() -> void:

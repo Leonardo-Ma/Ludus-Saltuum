@@ -75,19 +75,10 @@ func spawn_ghost_trail(duration: float = 0.5, color: Color = Color(0.8, 1.0, 1.5
 	vfx_controller.spawn_ghost_trail(duration, color)
 
 
-## Unlocks startup skills sorted by hud_order for consistent display order
+## Unlocks startup skills
 func _initialize_from_entity() -> void:
-	if entity.startup_skills.is_empty():
-		return
-	var skills: Array[SkillDefinition] = []
-	for skill: SkillDefinition in entity.startup_skills:
-		skills.append(skill)
-	skills.sort_custom(
-		func(a: SkillDefinition, b: SkillDefinition) -> bool:
-			return a.hud_order < b.hud_order,
-	)
-	for skill: SkillDefinition in skills:
-		unlock(skill)
+	for definition: SkillDefinition in entity.startup_skills:
+		unlock(definition)
 
 
 func _on_landed() -> void:

@@ -9,5 +9,4 @@ script = ExtResource("2_s5y82")
 skill_script = ExtResource("3_s5y82")
 icon = ExtResource("1_morug")
 input_action = &"feather_fall"
-hud_order = 2
 metadata/_custom_type_script = "uid://difrst13h47n5"

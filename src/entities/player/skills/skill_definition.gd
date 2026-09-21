@@ -21,7 +21,3 @@ extends Resource
 ## Optional [br]
 ## To be shown after the skill input action icon (double jump = spacebar 2x(suffix to show must press twice))
 @export var key_hint_suffix: StringName
-
-## HUD display order. Lower = Left
-## Must be unique
-@export var hud_order: int = 0
