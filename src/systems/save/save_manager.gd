@@ -31,8 +31,12 @@ var _cloud_backend: CloudSaveBackend
 
 
 func _ready() -> void:
-	# TODO Move somewhere else
-	configure_cloud_backend(SteamCloudSaveBackend.new())
+	if SteamWorks.steam_enabled:
+		_cloud_backend = SteamCloudSaveBackend.new()
+	else:
+		# This is used so save manager doesn't care about cloud
+		# TODO Decouple cloud operations to a CloudSaveSyncService
+		_cloud_backend = NullCloudSaveBackend.new()
 
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	DirAccess.make_dir_recursive_absolute(SAVE_DIR)
@@ -48,11 +52,19 @@ func _ready() -> void:
 	_auto_timer.wait_time = AUTO_SAVE_INTERVAL
 	_auto_timer.timeout.connect(_on_auto_save)
 	add_child(_auto_timer)
-	_auto_timer.start()
 
 	# Saves to quick slot upon pause and quit
 	ApplicationStateManager.gameplay_paused.connect(_on_gameplay_paused)
 	ApplicationStateManager.quit_requested.connect(_on_quit_requested)
+
+	ApplicationStateManager.gameplay_started.connect(
+		func() -> void:
+			_auto_timer.start(),
+	)
+	ApplicationStateManager.gameplay_paused.connect(
+		func() -> void:
+			_auto_timer.pause(),
+	)
 
 
 func configure_cloud_backend(backend: CloudSaveBackend) -> void:
@@ -244,9 +256,10 @@ func _apply(data: SaveData) -> void:
 	load_requested.emit(data)
 
 
-# PLACEHOLDER
 func _migrate(data: SaveData) -> bool:
-	data.save_version = CURRENT_SAVE_VERSION
+	if data.save_version != CURRENT_SAVE_VERSION:
+		# TODO Add migration here in the future
+		return true
 	return true
 
 
@@ -322,7 +335,9 @@ func _on_quit_requested() -> void:
 	else:
 		push_warning("Saving on quit tried to save without active slot")
 
+#endregion
 
+#region Cloud
 func _sync_cloud_saves() -> void:
 	for i: int in range(TOTAL_SLOTS):
 		var cloud_name: String = _cloud_filename(i)

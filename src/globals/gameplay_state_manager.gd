@@ -35,7 +35,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	_play_time_seconds += delta
+	if ApplicationStateManager.is_gameplay_active:
+		_play_time_seconds += delta
 
 #region Getters and Setters
 func get_play_time() -> float:
@@ -113,6 +114,8 @@ func is_in_gameplay_mode() -> bool:
 
 
 func change_gameplay_state(new_mode: GameplayMode) -> void:
-	if _app_state_manager.get_current_state() != ApplicationStateManager.GameState.PLAYING:
-		push_error("Can only change gameplay mode during gameplay, current: " + str(_app_state_manager.get_current_state()))
+	assert(
+		_app_state_manager.get_current_state() == ApplicationStateManager.GameState.PLAYING,
+		"Can only change gameplay mode during gameplay, current: " + str(_app_state_manager.get_current_state()),
+	)
 	_change_mode(new_mode)
