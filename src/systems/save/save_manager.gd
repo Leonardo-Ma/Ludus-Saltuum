@@ -63,7 +63,7 @@ func _ready() -> void:
 	)
 	ApplicationStateManager.gameplay_paused.connect(
 		func() -> void:
-			_auto_timer.pause(),
+			_auto_timer.stop(),
 	)
 
 
