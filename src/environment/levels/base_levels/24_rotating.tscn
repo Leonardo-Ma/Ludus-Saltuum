@@ -18,7 +18,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 1)
 
 [node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_1y0sy")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 126.08301)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 129.08301)
 
 [node name="GrassPlatform" parent="." unique_id=537577895 instance=ExtResource("4_e4d4p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 5)
@@ -30,7 +30,7 @@ transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, 3, 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 125)
 
 [node name="RotatingPlatform" parent="." unique_id=129741558 instance=ExtResource("6_th5dm")]
-transform = Transform3D(-4.0444546, 0, 2.938477, 0, 5, 0, -2.938477, 0, -4.0444546, 0, 0, 36)
+transform = Transform3D(4.0444393, 0, 2.9384468, 0, 5, 0, -2.9384468, 0, 4.0444393, 0, 0, 36)
 spin_enabled = true
 
 [node name="Spike4" parent="RotatingPlatform" unique_id=270935533 instance=ExtResource("7_q7d2a")]
@@ -187,7 +187,7 @@ transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.09
 transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, 1.021709, 0.35100004, -1.3785868)
 
 [node name="RotatingPlatform2" parent="." unique_id=465836803 instance=ExtResource("6_th5dm")]
-transform = Transform3D(-4.0444546, 0, 2.938477, 0, 5, 0, -2.938477, 0, -4.0444546, 0, 0, 90)
+transform = Transform3D(4.0444393, 0, 2.9384468, 0, 5, 0, -2.9384468, 0, 4.0444393, 0, 0, 90)
 spin_enabled = true
 
 [node name="Spike4" parent="RotatingPlatform2" unique_id=2030931253 instance=ExtResource("7_q7d2a")]
