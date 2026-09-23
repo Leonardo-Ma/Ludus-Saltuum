@@ -12,6 +12,8 @@ var speed_bonus: float = 0.0
 var speed_multiplier: float = 1.0
 var jump_bonus: float = 0.0
 var jump_multiplier: float = 1.0
+## Applied to gravity only while falling
+var fall_gravity_multiplier: float = 1.0
 
 
 func get_speed() -> float:

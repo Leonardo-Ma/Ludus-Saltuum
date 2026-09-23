@@ -2,7 +2,7 @@
 class_name PlayerFeatherFallSkill
 extends BaseSkill
 
-@export var feather_fall_gravity_mult: float = 0.3
+@export_range(0.01, 1.0, 0.01) var feather_fall_gravity_mult: float = 0.3
 
 var _is_toggled: bool = false
 
@@ -12,10 +12,7 @@ func get_hud_mode() -> HUDMode:
 
 
 func on_landed() -> void:
-	if _is_toggled:
-		_is_toggled = false
-		toggled.emit(false)
-		_update_feather_particles(false)
+	_set_toggled(false)
 
 
 func process_input() -> void:
@@ -29,17 +26,26 @@ func process_input() -> void:
 	if body.is_on_floor():
 		return
 
-	_is_toggled = not _is_toggled
-	toggled.emit(_is_toggled)
-	_update_feather_particles(_is_toggled)
+	_set_toggled(not _is_toggled)
 
 
-func _physics_process(delta: float) -> void:
-	if not _is_toggled:
+func _exit_tree() -> void:
+	_set_toggled(false)
+
+
+func _set_toggled(active: bool) -> void:
+	if _is_toggled == active:
 		return
-	var body: CharacterBody3D = skills_controller.entity
-	if not body.is_on_floor() and body.velocity.y < 0.0:
-		body.velocity.y -= (body.get_gravity().y * delta) * (1.0 - feather_fall_gravity_mult)
+
+	_is_toggled = active
+	var movement: Movement = skills_controller.entity.movement
+	if active:
+		movement.fall_gravity_multiplier *= feather_fall_gravity_mult
+	else:
+		movement.fall_gravity_multiplier /= feather_fall_gravity_mult
+
+	toggled.emit(active)
+	_update_feather_particles(active)
 
 
 func _update_feather_particles(active: bool) -> void:
