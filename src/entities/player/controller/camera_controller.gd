@@ -33,16 +33,16 @@ func _ready() -> void:
 
 ## Call after settings changes
 func refresh_sensitivity_from_settings() -> void:
-	horizontal_sensibility = SettingsManager.mouse_sensitivity_horizontal
-	vertical_sensibility = SettingsManager.mouse_sensitivity_vertical
-	gamepad_look_sensitivity = SettingsManager.gamepad_sensitivity
+	horizontal_sensibility = SettingsManager.settings.camera.mouse_sensitivity_horizontal
+	vertical_sensibility = SettingsManager.settings.camera.mouse_sensitivity_vertical
+	gamepad_look_sensitivity = SettingsManager.settings.camera.gamepad_sensitivity
 
 
 ## Call after camera settings changes (FOV, spring arm distance, gamepad invert)
 func refresh_camera_from_settings() -> void:
-	_camera.fov = SettingsManager.camera_fov
-	_spring_arm.spring_length = SettingsManager.camera_distance
-	gamepad_look_invert_y = SettingsManager.gamepad_invert_y
+	_camera.fov = SettingsManager.settings.camera.camera_fov
+	_spring_arm.spring_length = SettingsManager.settings.camera.camera_distance
+	gamepad_look_invert_y = SettingsManager.settings.camera.gamepad_invert_y
 
 
 func set_active(active: bool) -> void:

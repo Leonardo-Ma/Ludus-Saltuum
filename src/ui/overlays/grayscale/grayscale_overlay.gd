@@ -13,7 +13,7 @@ func _ready() -> void:
 
 
 func _on_accessibility_settings_changed() -> void:
-	visible = SettingsManager.grayscale_enabled
+	visible = SettingsManager.settings.accessibility.grayscale_enabled
 
 
 # TODO Move this to shader warmup script in main scene
@@ -23,4 +23,4 @@ func _precompile_shader() -> void:
 	_overlay_rect.modulate.a = 0.0
 	await RenderingServer.frame_post_draw
 	_overlay_rect.modulate.a = 1.0
-	visible = SettingsManager.grayscale_enabled
+	visible = SettingsManager.settings.accessibility.grayscale_enabled

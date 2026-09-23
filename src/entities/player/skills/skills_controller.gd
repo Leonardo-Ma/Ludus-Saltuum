@@ -17,7 +17,7 @@ var _skills: Dictionary[SkillDefinition, BaseSkill] = { }
 
 
 func _ready() -> void:
-	base_fov = SettingsManager.camera_fov
+	base_fov = SettingsManager.settings.camera.camera_fov
 	movement_controller.landed.connect(_on_landed)
 	_initialize_from_entity()
 	SettingsManager.camera_settings_changed.connect(_on_camera_settings_changed)
@@ -89,4 +89,4 @@ func _on_landed() -> void:
 
 func _on_camera_settings_changed() -> void:
 	# TODO Probably should be a signal
-	base_fov = SettingsManager.camera_fov
+	base_fov = SettingsManager.settings.camera.camera_fov

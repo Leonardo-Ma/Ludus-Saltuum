@@ -31,7 +31,6 @@ func _ready() -> void:
 
 	combat.initialize(pool)
 	music.initialize(pool)
-	_load_volume_settings()
 
 
 func _create_subsystems() -> void:
@@ -68,10 +67,10 @@ func stop_music(fade_duration: float = 1.0) -> void:
 	music.stop(fade_duration)
 
 
+## Persistence in SettingsManager, this only drives AudioServer
 func set_category_volume(category: SoundCategory, volume_db: float) -> void:
 	var bus_name: String = _get_bus_for_category(category)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(bus_name), volume_db)
-	_save_volume_settings()
 
 
 func get_category_volume(category: SoundCategory) -> float:
@@ -98,26 +97,4 @@ func pause_all_sfx(paused: bool) -> void:
 func _get_bus_for_category(category: SoundCategory) -> String:
 	assert(BUS_NAMES.has(category), "SoundManager: unhandled SoundCategory in " + name)
 	return BUS_NAMES[category]
-
-
-func _load_volume_settings() -> void:
-	var config: ConfigFile = ConfigFile.new()
-	if config.load("user://audio_settings.cfg") == OK:
-		for category: int in SoundCategory.values():
-			if category == SoundCategory.UNASSIGNED:
-				continue
-			var bus: String = _get_bus_for_category(category as SoundCategory)
-			var volume: float = config.get_value("volumes", bus, 0.0)
-			AudioServer.set_bus_volume_db(AudioServer.get_bus_index(bus), volume)
-
-
-func _save_volume_settings() -> void:
-	var config: ConfigFile = ConfigFile.new()
-	for category: int in SoundCategory.values():
-		if category == SoundCategory.UNASSIGNED:
-			continue
-		var bus: String = _get_bus_for_category(category as SoundCategory)
-		var volume: float = AudioServer.get_bus_volume_db(AudioServer.get_bus_index(bus))
-		config.set_value("volumes", bus, volume)
-	config.save("user://audio_settings.cfg")
 #endregion

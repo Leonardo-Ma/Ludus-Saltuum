@@ -44,6 +44,6 @@ func _sync_selection() -> void:
 
 
 func _on_item_selected(index: int) -> void:
-	SettingsManager.window_mode = get_item_metadata(index)
-	SettingsManager.apply_video()
+	SettingsManager.settings.video.window_mode = get_item_metadata(index)
+	SettingsManager.apply_window()
 	SettingsManager.save()

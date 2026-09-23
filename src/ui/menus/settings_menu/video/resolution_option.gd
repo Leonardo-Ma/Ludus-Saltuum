@@ -36,11 +36,11 @@ func _on_video_settings_changed() -> void:
 
 
 func _update_selected_resolution() -> void:
-	var index: int = RESOLUTIONS.find(SettingsManager.resolution)
+	var index: int = RESOLUTIONS.find(SettingsManager.settings.video.windowed_size)
 	select(index)
 
 
 func _on_resolution_changed(index: int) -> void:
-	SettingsManager.resolution = RESOLUTIONS[index]
-	SettingsManager.apply_video()
+	SettingsManager.settings.video.windowed_size = RESOLUTIONS[index]
+	SettingsManager.apply_window()
 	SettingsManager.save()

@@ -2,20 +2,20 @@ extends HSlider
 
 
 func _ready() -> void:
-	value = SettingsManager.mouse_sensitivity_horizontal
+	value = SettingsManager.settings.camera.mouse_sensitivity_horizontal
 	value_changed.connect(_on_value_changed)
 	SettingsManager.settings_reset.connect(_on_settings_reset)
 
 
 func _on_value_changed(new_value: float) -> void:
-	SettingsManager.mouse_sensitivity_horizontal = new_value
-	SettingsManager.mouse_sensitivity_vertical = new_value
+	SettingsManager.settings.camera.mouse_sensitivity_horizontal = new_value
+	SettingsManager.settings.camera.mouse_sensitivity_vertical = new_value
 	SettingsManager.save()
 	_apply_to_active_player()
 
 
 func _on_settings_reset() -> void:
-	value = SettingsManager.mouse_sensitivity_horizontal
+	value = SettingsManager.settings.camera.mouse_sensitivity_horizontal
 
 
 func _apply_to_active_player() -> void:

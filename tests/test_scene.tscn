@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://bjgye0bmgf8gr" path="res://src/environment/mechanics/easter_egg/easter_egg.tscn" id="3_7cbxl"]
 [ext_resource type="Script" uid="uid://ch348xwtgj6fi" path="res://tests/test_goap_planner.gd" id="3_qcd5j"]
 [ext_resource type="PackedScene" uid="uid://0hwlnlpkbsjn" path="res://src/environment/levels/assets/platforms/static_platforms/grass_platform.tscn" id="4_8pr8v"]
-[ext_resource type="Script" uid="uid://cieb4svyd710l" path="res://tests/test_settings_defaults.gd" id="4_gk0a1"]
 [ext_resource type="PackedScene" uid="uid://d1xof7ah6ogjc" path="res://src/environment/assets/kenney_cave_kit/pre_made_rooms/room_large.tscn" id="5_2nij2"]
 [ext_resource type="Script" uid="uid://bw2y0ajm6l5s4" path="res://tests/test_status_manager.gd" id="5_nkw72"]
 [ext_resource type="PackedScene" uid="uid://bmhb7wjnaqbtx" path="res://src/environment/mechanics/spring/spring.tscn" id="6_8pr8v"]
@@ -72,9 +71,6 @@ script = ExtResource("2_nkw72")
 
 [node name="GoapPlanner" type="Node" parent="UnitTestAutomaticScripts" unique_id=19659933]
 script = ExtResource("3_qcd5j")
-
-[node name="SettingsDefaults" type="Node" parent="UnitTestAutomaticScripts" unique_id=539136708]
-script = ExtResource("4_gk0a1")
 
 [node name="StatusManager" type="Node" parent="UnitTestAutomaticScripts" unique_id=1563170890]
 script = ExtResource("5_nkw72")

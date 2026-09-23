@@ -22,94 +22,28 @@ enum SettingsSection {
 	KEY_BINDINGS = 7,
 }
 
-const _SECTION_NAMES: Dictionary[SettingsSection, String] = {
-	SettingsSection.NONE: "",
-	SettingsSection.GAMEPLAY: "gameplay",
-	SettingsSection.AUDIO: "audio",
-	SettingsSection.HUD: "hud",
-	SettingsSection.CAMERA: "camera",
-	SettingsSection.VIDEO: "video",
-	SettingsSection.ACCESSIBILITY: "accessibility",
-	SettingsSection.KEY_BINDINGS: "key_bindings",
-}
+const _SETTINGS_PATH: String = "user://settings.tres"
 
-const _CONFIG_PATH: String = "user://settings.cfg"
+## Seconds without size change before a window resize counts as finished
+const _WINDOW_RESIZE_SETTLE_TIME: float = 0.5
 
-const FPS_PRESETS: Array[int] = [30, 60, 90, 120, 144, 165, 240, 0] # 0 = Unlimited
+var settings: GameSettings = GameSettings.new()
 
-## Hardcoded project defaults, grouped by SettingsSection, used by reset_to_default()
-## Each inner key must mirror an existing var declaration above
-const _DEFAULTS: Dictionary = {
-	SettingsSection.GAMEPLAY:
-	# To be added options here
-	{ },
-	SettingsSection.AUDIO: { &"volume_global": 1.0, &"volume_music": 1.0, &"volume_effects": 1.0, &"volume_ui": 1.0 },
-	SettingsSection.HUD: { &"hud_visible": true },
-	SettingsSection.CAMERA: {
-		&"camera_fov": 75.0,
-		&"camera_distance": 3.0,
-		&"mouse_sensitivity_horizontal": 0.2,
-		&"mouse_sensitivity_vertical": 0.2,
-		&"gamepad_sensitivity": 120.0,
-		&"gamepad_invert_y": false,
-	},
-	SettingsSection.VIDEO: {
-		&"resolution": null, # Can't properly know what is the resolution
-		&"window_mode": DisplayServer.WINDOW_MODE_WINDOWED,
-		&"vsync_mode": DisplayServer.VSYNC_DISABLED,
-		&"fps_limit": 90,
-		&"brightness": 1.0,
-		#&"contrast": 1.0,
-		#&"saturation": 1.0,
-	},
-	SettingsSection.ACCESSIBILITY: { &"grayscale_enabled": false },
-	SettingsSection.KEY_BINDINGS:
-	# TODO This is necessary for tab management, but about defaults, need to check if
-	# godot saves default inputs
-	{ },
-}
-
-var volume_global: float = 1.0
-var volume_music: float = 1.0
-var volume_effects: float = 1.0
-var volume_ui: float = 1.0
-
-var hud_visible: bool = true
-
-var resolution: Vector2i = Vector2i(1920, 1080)
-
+## Not user-configurable, infrastructure the video settings are applied onto
 var environment: Environment = preload("uid://dsshmu8vrps28")
-var brightness: float = 1.0
-#var contrast: float = 1.0
-#var saturation: float = 1.0
-var vsync_mode: DisplayServer.VSyncMode = DisplayServer.VSYNC_DISABLED
-var fps_limit: int = 90
-var window_mode: DisplayServer.WindowMode = DisplayServer.WINDOW_MODE_WINDOWED
 
-var grayscale_enabled: bool = false
-
-## Camera FOV, in degrees
-var camera_fov: float = 75.0
-## SpringArm3D spring_length, in meters
-var camera_distance: float = 3.0
-var mouse_sensitivity_horizontal: float = 0.2
-var mouse_sensitivity_vertical: float = 0.2
-var gamepad_sensitivity: float = 120.0
-var gamepad_invert_y: bool = false
-
-var _config: ConfigFile = ConfigFile.new()
-
-var _section_to_apply_function: Dictionary[SettingsSection, Callable] = {
-	SettingsSection.GAMEPLAY: apply_gameplay,
-	SettingsSection.AUDIO: apply_audio,
-	SettingsSection.HUD: apply_hud,
-	SettingsSection.CAMERA: apply_camera,
-	SettingsSection.VIDEO: apply_video,
-	SettingsSection.ACCESSIBILITY: apply_accessibility,
-}
+var _resize_settle_timer: Timer
 
 
 func _ready() -> void:
+	# TODO Move timer to respective UI resize code?
+	_resize_settle_timer = Timer.new()
+	_resize_settle_timer.one_shot = true
+	_resize_settle_timer.wait_time = _WINDOW_RESIZE_SETTLE_TIME
+	_resize_settle_timer.process_mode = Node.PROCESS_MODE_ALWAYS
+	_resize_settle_timer.timeout.connect(_on_window_resize_settled)
+	add_child(_resize_settle_timer)
+
 	get_window().size_changed.connect(_on_window_size_changed)
 
 	_load()
@@ -121,6 +55,7 @@ func apply_all() -> void:
 	apply_audio()
 	apply_hud()
 	apply_camera()
+	apply_window()
 	apply_video()
 	apply_accessibility()
 
@@ -130,10 +65,10 @@ func apply_gameplay() -> void:
 
 
 func apply_audio() -> void:
-	SoundManager.set_category_volume(SoundManager.SoundCategory.GLOBAL, linear_to_db(volume_global))
-	SoundManager.set_category_volume(SoundManager.SoundCategory.MUSIC, linear_to_db(volume_music))
-	SoundManager.set_category_volume(SoundManager.SoundCategory.SFX, linear_to_db(volume_effects))
-	SoundManager.set_category_volume(SoundManager.SoundCategory.UI, linear_to_db(volume_ui))
+	SoundManager.set_category_volume(SoundManager.SoundCategory.GLOBAL, linear_to_db(settings.audio.volume_global) + settings.audio.VOLUME_DB_MAX)
+	SoundManager.set_category_volume(SoundManager.SoundCategory.MUSIC, linear_to_db(settings.audio.volume_music) + settings.audio.VOLUME_DB_MAX)
+	SoundManager.set_category_volume(SoundManager.SoundCategory.SFX, linear_to_db(settings.audio.volume_effects) + settings.audio.VOLUME_DB_MAX)
+	SoundManager.set_category_volume(SoundManager.SoundCategory.UI, linear_to_db(settings.audio.volume_ui) + settings.audio.VOLUME_DB_MAX)
 
 	audio_settings_changed.emit()
 
@@ -146,19 +81,24 @@ func apply_camera() -> void:
 	camera_settings_changed.emit()
 
 
-func apply_video() -> void:
-	DisplayServer.window_set_mode(window_mode)
+## Window mode and size only. Kept separate from video so brightness/vsync/fps changes don't interfere resize or force a mode/size reset
+func apply_window() -> void:
+	DisplayServer.window_set_mode(settings.video.window_mode)
 
-	if window_mode == DisplayServer.WINDOW_MODE_WINDOWED:
+	if settings.video.window_mode == DisplayServer.WINDOW_MODE_WINDOWED:
 		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
-		get_window().size = resolution
+		get_window().size = settings.video.windowed_size
 
-	environment.adjustment_brightness = brightness
-	#environment.adjustment_contrast = contrast
-	#environment.adjustment_saturation = saturation
-	DisplayServer.window_set_vsync_mode(vsync_mode)
+	video_settings_changed.emit()
 
-	Engine.max_fps = fps_limit
+
+func apply_video() -> void:
+	environment.adjustment_brightness = settings.video.brightness
+	#environment.adjustment_contrast = settings.video.contrast
+	#environment.adjustment_saturation = settings.video.saturation
+	DisplayServer.window_set_vsync_mode(settings.video.vsync_mode)
+
+	Engine.max_fps = settings.video.fps_limit
 
 	video_settings_changed.emit()
 
@@ -168,52 +108,66 @@ func apply_accessibility() -> void:
 
 
 func save() -> void:
-	for section: SettingsSection in _DEFAULTS:
-		for key: StringName in _DEFAULTS[section]:
-			_config.set_value(_SECTION_NAMES[section], key, get(key))
-
-	_config.save(_CONFIG_PATH)
+	var error: Error = ResourceSaver.save(settings, _SETTINGS_PATH)
+	assert(error == OK, "Failed to save settings in " + name)
 
 
-func _load() -> void:
-	if _config.load(_CONFIG_PATH) != OK:
-		resolution = get_window().size
-		return
-
-	for section: SettingsSection in _DEFAULTS:
-		for key: StringName in _DEFAULTS[section]:
-			set(key, (_config.get_value(_SECTION_NAMES[section], key, _DEFAULTS[section][key])))
-
-
-## Resets settings for [param section] to hardcoded default
-## Resets every section if section is [constant SettingsSection.NONE]
 func reset_to_default(section: SettingsSection = SettingsSection.NONE) -> void:
-	var sections_to_reset: Array = _DEFAULTS.keys() if section == SettingsSection.NONE else [section]
-	for target_section: SettingsSection in sections_to_reset:
-		assert(_DEFAULTS.has(target_section), "SettingsManager: no defaults for section " + str(target_section))
-		for key: StringName in _DEFAULTS[target_section]:
-			set(key, _DEFAULTS[target_section][key])
-	for target_section: SettingsSection in sections_to_reset:
-		_apply_section(target_section)
+	match section:
+		SettingsSection.NONE:
+			settings = GameSettings.new()
+			apply_all()
+		SettingsSection.GAMEPLAY:
+			settings.gameplay = GameplaySettings.new()
+			apply_gameplay()
+		SettingsSection.AUDIO:
+			settings.audio = AudioSettings.new()
+			apply_audio()
+		SettingsSection.HUD:
+			settings.hud = HUDSettings.new()
+			apply_hud()
+		SettingsSection.CAMERA:
+			settings.camera = CameraSettings.new()
+			apply_camera()
+		SettingsSection.VIDEO:
+			settings.video = VideoSettings.new()
+			apply_window()
+			apply_video()
+		SettingsSection.ACCESSIBILITY:
+			settings.accessibility = AccessibilitySettings.new()
+			apply_accessibility()
+		SettingsSection.KEY_BINDINGS:
+			settings.key_bindings = KeyBindingsSettings.new()
+
 	settings_reset.emit()
 	save()
 
 
-func _apply_section(section: SettingsSection) -> void:
-	var func_ref: Callable = _section_to_apply_function.get(section, Callable())
-	if func_ref.is_valid():
-		func_ref.call()
+func _load() -> void:
+	if not ResourceLoader.exists(_SETTINGS_PATH):
+		settings.video.windowed_size = get_window().size
+		return
+
+	var loaded_settings: Resource = ResourceLoader.load(_SETTINGS_PATH)
+	assert(loaded_settings is GameSettings, "Invalid settings resource in " + name)
+
+	settings = loaded_settings as GameSettings
+
+
+func _on_window_size_changed() -> void:
+	_resize_settle_timer.start()
 
 
 # TODO BUG This fails if windowed but maximized. Also doesn't properly recognize screen resolution limits
-func _on_window_size_changed() -> void:
-	if window_mode != DisplayServer.WINDOW_MODE_WINDOWED:
+## Commits and persists window size only once resizing stopped and window is actually windowed
+func _on_window_resize_settled() -> void:
+	if DisplayServer.window_get_mode() != DisplayServer.WINDOW_MODE_WINDOWED:
 		return
 
-	var new_resolution: Vector2i = get_window().size
-
-	if resolution == new_resolution:
+	var new_size: Vector2i = get_window().size
+	if settings.video.windowed_size == new_size:
 		return
 
-	resolution = new_resolution
+	settings.video.windowed_size = new_size
+	save()
 	video_settings_changed.emit()

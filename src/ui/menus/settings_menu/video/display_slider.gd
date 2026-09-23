@@ -25,11 +25,11 @@ func _ready() -> void:
 func _on_value_changed(new_value: float) -> void:
 	match property:
 		DisplayProperty.BRIGHTNESS:
-			SettingsManager.brightness = new_value
+			SettingsManager.settings.video.brightness = new_value
 		DisplayProperty.CONTRAST:
-			SettingsManager.contrast = new_value
+			SettingsManager.settings.video.contrast = new_value
 		DisplayProperty.SATURATION:
-			SettingsManager.saturation = new_value
+			SettingsManager.settings.video.saturation = new_value
 	SettingsManager.apply_video()
 	SettingsManager.save()
 
@@ -37,19 +37,19 @@ func _on_value_changed(new_value: float) -> void:
 func _get_saved_value() -> float:
 	match property:
 		DisplayProperty.BRIGHTNESS:
-			return SettingsManager.brightness
+			return SettingsManager.settings.video.brightness
 		DisplayProperty.CONTRAST:
-			return SettingsManager.contrast
+			return SettingsManager.settings.video.contrast
 		DisplayProperty.SATURATION:
-			return SettingsManager.saturation
+			return SettingsManager.settings.video.saturation
 	return 1.0
 
 
 func _on_settings_reset() -> void:
 	match property:
 		DisplayProperty.BRIGHTNESS:
-			value = SettingsManager.brightness
+			value = SettingsManager.settings.video.brightness
 		DisplayProperty.CONTRAST:
-			value = SettingsManager.contrast
+			value = SettingsManager.settings.video.contrast
 		DisplayProperty.SATURATION:
-			value = SettingsManager.saturation
+			value = SettingsManager.settings.video.saturation

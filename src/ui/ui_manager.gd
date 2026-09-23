@@ -24,7 +24,7 @@ func _ready() -> void:
 func register_ui(ui: UIView) -> void:
 	assert(_ui == null, "UIManager: UIView already registered")
 	_ui = ui
-	hud_visible = SettingsManager.hud_visible
+	hud_visible = SettingsManager.settings.hud.hud_visible
 
 	ApplicationStateManager.state_changed.connect(_on_game_state_changed)
 	ApplicationStateManager.settings_opened.connect(_on_settings_opened)
@@ -68,7 +68,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func set_hud_visible(visible: bool) -> void:
 	hud_visible = visible
-	SettingsManager.hud_visible = visible
+	SettingsManager.settings.hud.hud_visible = visible
 	SettingsManager.save()
 	hud_visibility_changed.emit(visible)
 	_ui.set_hud_visible(visible)

@@ -3,7 +3,7 @@ extends OptionButton
 
 
 func _ready() -> void:
-	for fps: int in SettingsManager.FPS_PRESETS:
+	for fps: int in SettingsManager.settings.video.FPS_PRESETS:
 		if fps == 0: # Unlimited label
 			add_item("9000+")
 		else:
@@ -15,7 +15,7 @@ func _ready() -> void:
 
 
 func _on_item_selected(index: int) -> void:
-	SettingsManager.fps_limit = SettingsManager.FPS_PRESETS[index]
+	SettingsManager.settings.video.fps_limit = SettingsManager.settings.video.FPS_PRESETS[index]
 	SettingsManager.apply_video()
 	SettingsManager.save()
 
@@ -25,5 +25,5 @@ func _on_settings_reset() -> void:
 
 
 func _update_selected() -> void:
-	var index: int = SettingsManager.FPS_PRESETS.find(SettingsManager.fps_limit)
+	var index: int = SettingsManager.settings.video.FPS_PRESETS.find(SettingsManager.settings.video.fps_limit)
 	select(index)
