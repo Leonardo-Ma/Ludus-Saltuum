@@ -14,7 +14,7 @@ class TestStatus:
 
 
 func _ready() -> void:
-	if not OS.is_debug_build():
+	if not OS.is_debug_build() or not owner.should_tests_be_executed:
 		queue_free()
 		return
 
