@@ -63,7 +63,6 @@ func _ready() -> void:
 	SaveManager.load_requested.connect(_on_load_requested)
 	SaveManager.reset_requested.connect(reset_save_data)
 	SaveManager.reset_finished.connect(initialize_level)
-	ControlledEntityEvents.player_finished_spawning.connect(_on_player_spawned)
 
 
 ## Try to fetch the global seed, else random
@@ -119,6 +118,9 @@ func _load_save_data(active_chunk_keys: Array[int], saved_next_key: int, scored_
 	var parent_world: Node = get_tree().root.get_node("Main")
 
 	clear_level()
+
+	_player = get_tree().get_first_node_in_group(Groups.PLAYERS)
+	assert(_player != null, "No player found for " + name)
 
 	assert(_chunk_selector != null, "_load_save_data called before metadata was loaded")
 	_chunk_selector.load_save_state(selector_state)
@@ -318,11 +320,6 @@ func _get_chunk_data_by_path(path: String) -> ChunkData:
 		if data.scene_path == path:
 			return data
 	return null
-
-
-func _on_player_spawned(player: PlayerEntity) -> void:
-	_player = player
-	initialize_level.call_deferred()
 
 
 func _align_chunk_to_transform(chunk: LevelChunk, target_transform: Transform3D) -> void:
