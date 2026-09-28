@@ -21,7 +21,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 1)
 
 [node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_tyk6i")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 104.083)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 111.083)
 
 [node name="MovingPlatformOrange" parent="." unique_id=36073028 instance=ExtResource("4_t3dyd")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, -3, 15.837997)
@@ -72,7 +72,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -0.10530996, 75)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -0.10530996, 85)
 
 [node name="GrassPlatform11" parent="." unique_id=308378800 instance=ExtResource("5_tyk6i")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.89469004, 94)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0.89469004, 94)
 
 [node name="SnowPlatform" parent="." unique_id=1825772833 instance=ExtResource("6_t3dyd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 100)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 106)

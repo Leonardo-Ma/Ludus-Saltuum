@@ -109,7 +109,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 66)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 79)
 
 [node name="SnowPlatform6" parent="." unique_id=167405810 instance=ExtResource("5_vev7o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 78)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 79)
 
 [node name="SnowPlatform7" parent="." unique_id=2048916552 instance=ExtResource("5_vev7o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 0, 98)
