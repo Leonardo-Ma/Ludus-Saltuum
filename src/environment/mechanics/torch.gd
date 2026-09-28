@@ -4,8 +4,8 @@ extends StaticBody3D
 
 const GLOW_SOUND: AudioStream = preload("uid://la63nm5wsh1u") # flame.ogg
 
-## If a button is assigned, torch will be disabled by default and only enabled when button is triggered
-@export var button: Area3D = null
+## If a area_trigger is assigned, torch will be disabled by default and only enabled when area_trigger is triggered
+@export var area_trigger: RedTorchTrigger = null
 @export var activation_delay: float = 0
 @export var light_color: Color = Color("#ffff67"):
 	set(value):
@@ -26,9 +26,9 @@ func _ready() -> void:
 	# Apply editor color at runtime
 	omni_light_3d.light_color = light_color
 
-	if button:
+	if area_trigger:
 		omni_light_3d.visible = false
-		button.button_toggled_on.connect(_on_triggered)
+		area_trigger.red_torch_triggered.connect(_on_triggered)
 
 
 func _on_triggered() -> void:
