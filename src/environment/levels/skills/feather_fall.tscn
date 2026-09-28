@@ -19,6 +19,7 @@ metadata/_custom_type_script = "uid://si0x0kj8w7kf"
 [node name="FeatherFall" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_5sol2")
 features = Array[int]([3])
+unlocks_skill = ExtResource("8_1plwh")
 
 [node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_sdpub")]
 unique_name_in_owner = true
