@@ -9,16 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://dtuht3gos28nm" path="res://src/environment/mechanics/car/car_exit_zone.tscn" id="7_b3gi7"]
 [ext_resource type="PackedScene" uid="uid://0qrtv0g7tptr" path="res://src/environment/assets/kenney_city_kit_roads/scenes/construction_barrier.tscn" id="9_30k40"]
 [ext_resource type="PackedScene" uid="uid://c32lde0fr367t" path="res://src/environment/mechanics/portal/portal.tscn" id="9_ewmlm"]
-[ext_resource type="Script" uid="uid://jqe7b8io8fum" path="res://src/environment/mechanics/checkpoint/checkpoint.gd" id="10_uy0qx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bi0kh"]
 size = Vector3(4, 3, 9)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ena13"]
-size = Vector3(154, 91, 139)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_3u1mk"]
-size = Vector3(3, 3, 8)
+size = Vector3(154, 91, 136)
 
 [node name="22CarPortal" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_oyc53")
@@ -32,7 +28,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 1)
 
 [node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_jxtp2")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 107, 15, 191)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 107, 4, 190)
 
 [node name="Car" parent="." unique_id=864995165 instance=ExtResource("5_uy0qx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.647183, 0.87317705, 2.8251863)
@@ -54,7 +50,7 @@ transform = Transform3D(-5, 0, 4.371139e-07, 0, 5, 0, -4.371139e-07, 0, -5, 5, 5
 linked_portal = NodePath("../../MapInSky/Portal2")
 
 [node name="MapInSky" type="GridMap" parent="Maps" unique_id=1432024438]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -46, 39, 95)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -46, 30, 95)
 mesh_library = ExtResource("6_3u1mk")
 cell_size = Vector3(10, 1, 10)
 cell_scale = 10.0
@@ -74,6 +70,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.241287, -29, 136.00224)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1, -1)
 shape = SubResource("BoxShape3D_bi0kh")
 
+[node name="Props" type="Node3D" parent="Maps/MapInSky" unique_id=762404912]
+transform = Transform3D(0.99999994, 0, -3.5527137e-15, 0, 0.99999994, 0, 3.5527137e-15, 0, 0.99999994, -58.999985, -30, 133.5)
+
+[node name="ConstructionBarrier" parent="Maps/MapInSky/Props" unique_id=427598426 instance=ExtResource("9_30k40")]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+
+[node name="ConstructionBarrier2" parent="Maps/MapInSky/Props" unique_id=134060736 instance=ExtResource("9_30k40")]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 3)
+
 [node name="ChangeGameplayStateArea3D3" parent="Maps" unique_id=820773515 node_paths=PackedStringArray("collision_shape_3d") instance=ExtResource("4_30k40")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6773186, 0, 1.8963776)
 target_gameplay_mode = 1
@@ -82,21 +87,3 @@ collision_shape_3d = NodePath("CollisionShape3D")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Maps/ChangeGameplayStateArea3D3" unique_id=1819597118]
 transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, 17.00293, 8.279297, 70.01731)
 shape = SubResource("BoxShape3D_ena13")
-
-[node name="Props" type="Node3D" parent="Maps" unique_id=762404912]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 87.5, 9, 154)
-
-[node name="ConstructionBarrier" parent="Maps/Props" unique_id=427598426 instance=ExtResource("9_30k40")]
-transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
-
-[node name="ConstructionBarrier2" parent="Maps/Props" unique_id=134060736 instance=ExtResource("9_30k40")]
-transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 3)
-
-[node name="CustomCheckpoint" type="Area3D" parent="Maps" unique_id=1650116699]
-transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, -43.285557, 39.60166, 129.21954)
-script = ExtResource("10_uy0qx")
-save_checkpoint_to_disk = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Maps/CustomCheckpoint" unique_id=214577116]
-transform = Transform3D(0.9999999, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, -2.9999924, 1.6666641, 0.49995422)
-shape = SubResource("BoxShape3D_3u1mk")

@@ -217,7 +217,7 @@ linked_portal = NodePath("../../HexagonGrassPlatform14/Portal10")
 portal_color = Color(0.6862745, 1, 0.6, 1)
 
 [node name="HexagonGrassPlatform14" parent="RightPath" unique_id=819496061 instance=ExtResource("9_fnf3c")]
-transform = Transform3D(-0.95259106, 0, -0.3042532, 0, 1, 0, 0.3042532, 0, -0.95259106, -11, 11, 138.8182)
+transform = Transform3D(-0.95259106, 0, -0.3042532, 0, 1, 0, 0.3042532, 0, -0.95259106, -12, 11, 137.8182)
 
 [node name="GoldCoin" parent="RightPath/HexagonGrassPlatform14" unique_id=960457945 instance=ExtResource("8_j5615")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.187088, 0)
@@ -234,6 +234,9 @@ transform = Transform3D(-0.95259106, 0, -0.3042532, 0, 1, 0, 0.3042532, 0, -0.95
 transform = Transform3D(0, 0, 0.9999999, 0, 1, 0, -0.9999999, 0, 0, -3.162033, 0, 0.039886475)
 linked_portal = NodePath("../../../LeftPath/HexagonGrassPlatform14/Portal12")
 portal_color = Color(0.8901961, 1, 0.36862746, 1)
+
+[node name="ArrowSign" parent="RightPath/HexagonGrassPlatform15" unique_id=1201188444 instance=ExtResource("5_x6but")]
+transform = Transform3D(0.51763815, 0, 1.9318516, 0, 2, 0, -1.9318516, 0, 0.51763815, 0, 0, 0)
 
 [node name="HexagonGrassPlatform16" parent="RightPath" unique_id=1060123941 instance=ExtResource("9_fnf3c")]
 transform = Transform3D(-0.7994945, 0, -0.60067314, 0, 1, 0, 0.60067314, 0, -0.7994945, -1, -2, 154.92302)

@@ -250,6 +250,20 @@ transform = Transform3D(12, 0, 0, 0, 12, 0, 0, 0, 12, -7.8563495, 1.0734437, 18.
 [node name="hedge3" parent="Props/BottomWall" unique_id=181535807 instance=ExtResource("9_d20aq")]
 transform = Transform3D(-5.2453663e-07, 0, -12, 0, 12, 0, 12, 0, -5.2453663e-07, -7.8563495, 1.0734437, 14.466442)
 
+[node name="BottomWall2" type="Node3D" parent="Props" unique_id=509610844]
+
+[node name="hedge" parent="Props/BottomWall2" unique_id=49570773 instance=ExtResource("9_d20aq")]
+transform = Transform3D(12, 0, 0, 0, 12, 0, 0, 0, 12, 0.96247196, 9.721608, 18.011972)
+
+[node name="hedge4" parent="Props/BottomWall2" unique_id=1461076997 instance=ExtResource("9_d20aq")]
+transform = Transform3D(-5.2453663e-07, 0, 12, 0, 12, 0, -12, 0, -5.2453663e-07, 1.462328, 9.721608, 15.305056)
+
+[node name="hedge2" parent="Props/BottomWall2" unique_id=1071179811 instance=ExtResource("9_d20aq")]
+transform = Transform3D(12, 0, 0, 0, 12, 0, 0, 0, 12, -8.037528, 9.721608, 18.011972)
+
+[node name="hedge3" parent="Props/BottomWall2" unique_id=1448460110 instance=ExtResource("9_d20aq")]
+transform = Transform3D(-5.2453663e-07, 0, -12, 0, 12, 0, 12, 0, -5.2453663e-07, -8.037528, 9.721608, 14.466442)
+
 [node name="TopWall" type="Node3D" parent="Props" unique_id=1162561242]
 
 [node name="Hedge" parent="Props/TopWall" unique_id=2086108966 instance=ExtResource("9_d20aq")]

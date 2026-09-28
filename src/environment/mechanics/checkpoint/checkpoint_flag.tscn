@@ -43,8 +43,8 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_spljq")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fiyed"]
-radius = 0.32080078
-height = 1.1123047
+radius = 0.871
+height = 1.742
 
 [node name="Checkpoint" type="Area3D" unique_id=742215115]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
@@ -57,3 +57,4 @@ mesh = SubResource("ArrayMesh_6gt4l")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1572224473]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.028926253, 0.5, 0.07394874)
 shape = SubResource("CapsuleShape3D_fiyed")
+debug_color = Color(1, 0.9882353, 0, 1)
