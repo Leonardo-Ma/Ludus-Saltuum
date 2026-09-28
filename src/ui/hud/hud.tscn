@@ -38,9 +38,6 @@
 [ext_resource type="Texture2D" uid="uid://bkufsmjm825nk" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/10_editing/undo.png" id="31_t5oo3"]
 [ext_resource type="Texture2D" uid="uid://8flurawndj1x" path="res://src/ui/assets/kenney_input-prompts/xbox_series_double/buttons/xbox_button_color_y_outline.png" id="32_754np"]
 [ext_resource type="Texture2D" uid="uid://boj68sx67cn8w" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/fast_forward.png" id="33_t5oo3"]
-[ext_resource type="Script" uid="uid://bsuawdnvruik5" path="res://src/ui/hud/music_player/music_player.gd" id="34_ulf7a"]
-[ext_resource type="Texture2D" uid="uid://cvw72qmip5r4d" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/music.png" id="35_58h30"]
-[ext_resource type="Texture2D" uid="uid://bhvk4bhxhicuj" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/user.png" id="36_u7jpa"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y13nm"]
 
@@ -518,50 +515,3 @@ layout_mode = 2
 [node name="RightSideContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1899763402]
 layout_mode = 2
 size_flags_horizontal = 10
-
-[node name="MusicPlayerPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer/RightSideContainer" unique_id=484157926]
-unique_name_in_owner = true
-layout_mode = 2
-script = ExtResource("34_ulf7a")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/RightSideContainer/MusicPlayerPanel" unique_id=1207655977]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightSideContainer/MusicPlayerPanel/VBoxContainer" unique_id=102472105]
-propagate_maximum_size = false
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/RightSideContainer/MusicPlayerPanel/VBoxContainer/HBoxContainer" unique_id=447482693]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-texture = ExtResource("35_58h30")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="SongTitle" type="Label" parent="MarginContainer/HBoxContainer/RightSideContainer/MusicPlayerPanel/VBoxContainer/HBoxContainer" unique_id=533547952]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 20
-text = "SONG_TITLE"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightSideContainer/MusicPlayerPanel/VBoxContainer" unique_id=1228158422]
-propagate_maximum_size = false
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/RightSideContainer/MusicPlayerPanel/VBoxContainer/HBoxContainer2" unique_id=583479127]
-layout_mode = 2
-texture = ExtResource("36_u7jpa")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="SongAuthor" type="Label" parent="MarginContainer/HBoxContainer/RightSideContainer/MusicPlayerPanel/VBoxContainer/HBoxContainer2" unique_id=78882761]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 20
-text = "SONG_AUTHOR"
-horizontal_alignment = 1
-vertical_alignment = 1

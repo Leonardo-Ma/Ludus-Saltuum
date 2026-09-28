@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://b5um7fr7mraye"]
+
+[ext_resource type="Script" uid="uid://bsuawdnvruik5" path="res://src/ui/hud/music_player/music_player.gd" id="1_hlham"]
+[ext_resource type="Texture2D" uid="uid://cvw72qmip5r4d" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/music.png" id="2_c233a"]
+[ext_resource type="Texture2D" uid="uid://bhvk4bhxhicuj" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/user.png" id="3_x22xg"]
+
+[node name="MusicPlayerPanel" type="PanelContainer" unique_id=255156635]
+size_flags_horizontal = 24
+size_flags_vertical = 16
+script = ExtResource("1_hlham")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=817310009]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=573307305]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=2113863208]
+propagate_maximum_size = false
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=24969219]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 18
+texture = ExtResource("2_c233a")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="SongTitle" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=2022213307]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(85, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 10
+text = "SONG_TITLE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1970523027]
+propagate_maximum_size = false
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1500383651]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 18
+texture = ExtResource("3_x22xg")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="SongAuthor" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=553044066]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(85, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 10
+text = "SONG_AUTHOR"
+horizontal_alignment = 1
+vertical_alignment = 1

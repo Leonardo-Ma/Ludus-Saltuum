@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://u2p8jay56jmx" path="res://src/ui/menus/open_settings.gd" id="6_577b3"]
 [ext_resource type="Texture2D" uid="uid://cluw1pjw0m0g0" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/settings.png" id="7_fclkf"]
 [ext_resource type="Texture2D" uid="uid://7p2j8n842i0a" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/cross.png" id="9_fclkf"]
+[ext_resource type="PackedScene" uid="uid://b5um7fr7mraye" path="res://src/ui/menus/music_player_panel.tscn" id="10_dx3ey"]
 [ext_resource type="Texture2D" uid="uid://b33inr4y306ek" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/1_game/trophy.png" id="11_dx3ey"]
 [ext_resource type="Script" uid="uid://dib4grxkxaany" path="res://src/ui/menus/main_menu/open_achievements.gd" id="12_0tjqn"]
 
@@ -74,6 +75,10 @@ icon = ExtResource("9_fclkf")
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("4_qmph6")
+
+[node name="MusicPlayerPanel" parent="MarginContainer" unique_id=255156635 instance=ExtResource("10_dx3ey")]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="AchievementsMargin" type="MarginContainer" parent="." unique_id=752959343]
 layout_mode = 1
