@@ -35,10 +35,10 @@ func select_deterministic_chunk_data(
 ) -> ChunkData:
 	if not required_features.is_empty():
 		var any_chunk_provides_features: bool = _all_chunks.any(
-			func(d: ChunkData) -> bool:
+			func(data: ChunkData) -> bool:
 				return required_features.all(
-					func(f: ChunkFeature.Feature) -> bool:
-						return d.features.has(f),
+					func(feature: ChunkFeature.Feature) -> bool:
+						return data.features.has(feature),
 				),
 		)
 		assert(any_chunk_provides_features, "ChunkSelector: no chunk provides all required_features %s" % [required_features])
@@ -47,8 +47,8 @@ func select_deterministic_chunk_data(
 
 	# Only force unlock when there are skills the player doesn't yet have
 	var has_unlockable_skill: bool = _all_chunks.any(
-		func(d: ChunkData) -> bool:
-			return d.unlocks_skill != null and not unlocked_skills.has(d.unlocks_skill),
+		func(data: ChunkData) -> bool:
+			return data.unlocks_skill != null and not unlocked_skills.has(data.unlocks_skill),
 	)
 	var force_skill_unlock: bool = (
 		has_unlockable_skill and current_score >= _last_skill_score_threshold + SKILL_UNLOCK_SCORE_STEP
@@ -63,33 +63,16 @@ func select_deterministic_chunk_data(
 	print("Recent paths: ", _recent_chunk_scene_uids)
 
 	for data: ChunkData in _all_chunks:
-		# --------------- skill unlock filtering ---------------
-		if data.unlocks_skill != null:
-			if not force_skill_unlock:
-				continue
-			if unlocked_skills.has(data.unlocks_skill):
-				continue
-		else:
-			if force_skill_unlock:
-				continue
-		# --------------- tag filtering ---------------
-		if not required_features.is_empty():
-			var missing_feature: bool = required_features.any(
-				func(feature: ChunkFeature.Feature) -> bool:
-					return not data.features.has(feature),
-			)
-			if missing_feature:
-				continue
-		# --------------- required skills check ---------------
-		var missing: bool = data.required_skill.any(
-			func(skill: SkillDefinition) -> bool:
-				return not unlocked_skills.has(skill),
-		)
-		if missing:
+		if not _passes_skill_unlock_filter(data, unlocked_skills, force_skill_unlock):
 			continue
 
-		# Prevent back-to-back turns
-		if data.is_turn and _chunks_since_turn < TURN_COOLDOWN_CHUNKS:
+		if not _passes_feature_filter(data, required_features):
+			continue
+
+		if not _passes_required_skill_filter(data, unlocked_skills):
+			continue
+
+		if not _passes_turn_filter(data):
 			continue
 
 		valid_pool.push_back(data)
@@ -98,28 +81,20 @@ func select_deterministic_chunk_data(
 
 	if valid_pool.is_empty():
 		print("  → EMERGENCY FALLBACK: using all basic chunks")
-		valid_pool = _all_chunks.filter(
-			func(d: ChunkData) -> bool:
-				return d.unlocks_skill == null,
-		)
+		valid_pool = _all_chunks.filter(_is_basic_chunk)
+
 		if valid_pool.is_empty():
 			valid_pool = _all_chunks
 
 	# Avoid recent chunks
-	var non_recent: Array[ChunkData] = valid_pool.filter(
-		func(d: ChunkData) -> bool:
-			return not d.scene_uid in _recent_chunk_scene_uids,
-	)
+	var non_recent: Array[ChunkData] = _filter_recent_chunks(valid_pool)
 
 	if not non_recent.is_empty():
 		print("  → Filtered out recent chunks, %d remain" % non_recent.size())
 		valid_pool = non_recent
 	else:
 		print("  → WARNING: All valid chunks were recent! Relaxing filter to exclude only last chunk")
-		var non_last: Array[ChunkData] = valid_pool.filter(
-			func(d: ChunkData) -> bool:
-				return _recent_chunk_scene_uids.is_empty() or d.scene_uid != _recent_chunk_scene_uids.back(),
-		)
+		var non_last: Array[ChunkData] = _filter_non_last_chunk(valid_pool)
 
 		if not non_last.is_empty():
 			valid_pool = non_last
@@ -148,7 +123,68 @@ func select_deterministic_chunk_data(
 
 	return chosen
 
+#region Filters
+func _passes_skill_unlock_filter(data: ChunkData, unlocked_skills: Array[SkillDefinition], force_skill_unlock: bool) -> bool:
+	# --------------- skill unlock filtering ---------------
+	if data.unlocks_skill != null:
+		if not force_skill_unlock:
+			return false
+		if unlocked_skills.has(data.unlocks_skill):
+			return false
+	else:
+		if force_skill_unlock:
+			return false
 
+	return true
+
+
+func _passes_feature_filter(data: ChunkData, required_features: Array[ChunkFeature.Feature]) -> bool:
+	# --------------- tag filtering ---------------
+	if required_features.is_empty():
+		return true
+
+	var missing_feature: bool = required_features.any(
+		func(feature: ChunkFeature.Feature) -> bool:
+			return not data.features.has(feature),
+	)
+
+	return not missing_feature
+
+
+func _passes_required_skill_filter(data: ChunkData, unlocked_skills: Array[SkillDefinition]) -> bool:
+	# --------------- required skills check ---------------
+	var missing: bool = data.required_skill.any(
+		func(skill: SkillDefinition) -> bool:
+			return not unlocked_skills.has(skill),
+	)
+
+	return not missing
+
+
+func _passes_turn_filter(data: ChunkData) -> bool:
+	# Prevent back-to-back turns
+	return not data.is_turn or _chunks_since_turn >= TURN_COOLDOWN_CHUNKS
+
+
+func _is_basic_chunk(data: ChunkData) -> bool:
+	return data.unlocks_skill == null
+
+
+func _filter_recent_chunks(valid_pool: Array[ChunkData]) -> Array[ChunkData]:
+	return valid_pool.filter(
+		func(data: ChunkData) -> bool:
+			return not data.scene_uid in _recent_chunk_scene_uids,
+	)
+
+
+func _filter_non_last_chunk(valid_pool: Array[ChunkData]) -> Array[ChunkData]:
+	return valid_pool.filter(
+		func(data: ChunkData) -> bool:
+			return _recent_chunk_scene_uids.is_empty() or data.scene_uid != _recent_chunk_scene_uids.back(),
+	)
+#endregion
+
+#region Save and Load
 func get_save_state() -> Dictionary:
 	return {
 		"recent_chunk_scene_uids": _recent_chunk_scene_uids.duplicate(),
@@ -163,3 +199,4 @@ func load_save_state(state: Dictionary) -> void:
 	_chunks_since_turn = state.get("chunks_since_turn", TURN_COOLDOWN_CHUNKS)
 	_chunks_since_skill_unlock = state.get("chunks_since_skill_unlock", MIN_CHUNKS_BETWEEN_SKILLS)
 	_last_skill_score_threshold = state.get("last_skill_score_threshold", 0)
+#endregion
