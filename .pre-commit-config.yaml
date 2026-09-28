@@ -278,9 +278,11 @@ repos:
         exclude: 'tests/'
 
   - repo: https://github.com/Leonardo-Ma/godot-gdscript-toolkit
-    rev: 2a4e74f851fddba44839d6b3bc34813f3c2cd75b # CI: Add gdragon to pre-commit
+    rev: b51800710f34184a91f24a66026c3299d1bb9cbd # CI: Add max complexity parameter for gdradon
     hooks:
       - id: gdradon
+        args: [--max-complexity=15]
+        exclude: 'tests/'
 
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
