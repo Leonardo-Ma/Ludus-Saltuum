@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://nd1uo24vt6d5" path="res://src/entities/enemies/barbarian/barbarian.tscn" id="9_ocmcv"]
 [ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint/checkpoint_flag.tscn" id="12_lovvn"]
 [ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/mechanics/collectible/coin/gold_coin.tscn" id="13_jitvu"]
+[ext_resource type="PackedScene" uid="uid://ddkudu1a3wgd7" path="res://src/shader_precompilation/shader_warmup.tscn" id="16_e7lu8"]
 [ext_resource type="PackedScene" uid="uid://cf5ku6le2d84s" path="res://src/environment/mechanics/floor_level_boundary/floor_level_boundary.tscn" id="16_tb146"]
 [ext_resource type="PackedScene" uid="uid://bxc67crvwseo8" path="res://tests/test_scene.tscn" id="54_mmgx3"]
 
@@ -112,3 +113,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -48, 0)
 
 [node name="TestScene" parent="." unique_id=564304661 instance=ExtResource("54_mmgx3")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, -11, -92)
+
+[node name="ShaderWarmup" parent="." unique_id=423066826 instance=ExtResource("16_e7lu8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -88)

@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://c4i1w0hbxd5be"]
+
+[ext_resource type="PackedScene" uid="uid://duwd61q8qmusj" path="res://src/entities/enemies/barbarian/barbarian.glb" id="1_q58jo"]
+[ext_resource type="ArrayMesh" uid="uid://dhkwua5f8rp5r" path="res://src/entities/player/visual/mesh/arm_left.res" id="2_ao4ph"]
+[ext_resource type="ArrayMesh" uid="uid://benf5fx77de3o" path="res://src/entities/player/visual/mesh/arm_right.res" id="3_f7l0o"]
+[ext_resource type="ArrayMesh" uid="uid://cdjq172y8xhry" path="res://src/entities/player/visual/mesh/body.tres" id="4_wd2ne"]
+[ext_resource type="ArrayMesh" uid="uid://58f33ypmjqr8" path="res://src/entities/player/visual/mesh/cape.res" id="5_klu52"]
+[ext_resource type="ArrayMesh" uid="uid://cq8w1o6r6it25" path="res://src/entities/player/visual/mesh/head.res" id="6_cvqc2"]
+[ext_resource type="ArrayMesh" uid="uid://b6n6u8ictwcg4" path="res://src/entities/player/visual/mesh/helmet.res" id="7_mpou5"]
+[ext_resource type="ArrayMesh" uid="uid://bbxcxuon1rpd0" path="res://src/entities/player/visual/mesh/helmet_visor.res" id="8_c5f5b"]
+[ext_resource type="ArrayMesh" uid="uid://cj5ru3q173elm" path="res://src/entities/player/visual/mesh/leg_left.res" id="9_f4bhc"]
+[ext_resource type="ArrayMesh" uid="uid://b5xmatpfh3mfq" path="res://src/entities/player/visual/mesh/leg_right.res" id="10_fr0re"]
+[ext_resource type="PackedScene" uid="uid://kyuwgo08oity" path="res://src/entities/vehicles/assets/kenney_car_kit/models/race.glb" id="11_f7l0o"]
+
+[node name="WarmupCharacters" type="Node3D" unique_id=1501445163]
+
+[node name="barbarian" parent="." unique_id=736245006 instance=ExtResource("1_q58jo")]
+
+[node name="knight" type="Node3D" parent="." unique_id=235523599]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="ArmLeft" type="MeshInstance3D" parent="knight" unique_id=1977357215]
+mesh = ExtResource("2_ao4ph")
+
+[node name="ArmRight" type="MeshInstance3D" parent="knight" unique_id=1594076461]
+mesh = ExtResource("3_f7l0o")
+
+[node name="Body" type="MeshInstance3D" parent="knight" unique_id=23403899]
+mesh = ExtResource("4_wd2ne")
+
+[node name="Cape" type="MeshInstance3D" parent="knight" unique_id=2009245478]
+mesh = ExtResource("5_klu52")
+
+[node name="Head" type="MeshInstance3D" parent="knight" unique_id=1238610634]
+mesh = ExtResource("6_cvqc2")
+
+[node name="Helmet" type="MeshInstance3D" parent="knight" unique_id=2081253135]
+mesh = ExtResource("7_mpou5")
+
+[node name="HelmetVisor" type="MeshInstance3D" parent="knight" unique_id=875309678]
+mesh = ExtResource("8_c5f5b")
+
+[node name="LegLeft" type="MeshInstance3D" parent="knight" unique_id=1770918216]
+mesh = ExtResource("9_f4bhc")
+
+[node name="LegRight" type="MeshInstance3D" parent="knight" unique_id=822269696]
+mesh = ExtResource("10_fr0re")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=302562613]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 38)
+
+[node name="race" parent="." unique_id=1633764418 instance=ExtResource("11_f7l0o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)

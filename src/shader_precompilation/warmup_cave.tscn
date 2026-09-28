@@ -1,0 +1,167 @@
+[gd_scene format=3 uid="uid://dqk1glfwidt7e"]
+
+[ext_resource type="ArrayMesh" uid="uid://dyoqkqjt6j5qo" path="res://src/environment/assets/kenney_cave_kit/models/corridor.glb" id="1_83yvb"]
+[ext_resource type="ArrayMesh" uid="uid://bnw76hx06qurg" path="res://src/environment/assets/kenney_cave_kit/models/corridor_corner.glb" id="2_pktlv"]
+[ext_resource type="ArrayMesh" uid="uid://5stnq837c8bp" path="res://src/environment/assets/kenney_cave_kit/models/corridor_end.glb" id="3_o65nl"]
+[ext_resource type="ArrayMesh" uid="uid://xou2jbyvwqxo" path="res://src/environment/assets/kenney_cave_kit/models/corridor_intersection.glb" id="4_ek384"]
+[ext_resource type="ArrayMesh" uid="uid://b85pm0l4eg85k" path="res://src/environment/assets/kenney_cave_kit/models/corridor_junction.glb" id="5_2e5ce"]
+[ext_resource type="ArrayMesh" uid="uid://ccdmrei7tkx88" path="res://src/environment/assets/kenney_cave_kit/models/corridor_transition.glb" id="6_34tc7"]
+[ext_resource type="ArrayMesh" uid="uid://b7ypqm3wptle4" path="res://src/environment/assets/kenney_cave_kit/models/corridor_wide.glb" id="7_c513y"]
+[ext_resource type="ArrayMesh" uid="uid://bxl6blh32ekqh" path="res://src/environment/assets/kenney_cave_kit/models/corridor_wide_corner.glb" id="8_2t32m"]
+[ext_resource type="ArrayMesh" uid="uid://bfgqjhf070g8a" path="res://src/environment/assets/kenney_cave_kit/models/corridor_wide_end.glb" id="9_yxyhe"]
+[ext_resource type="ArrayMesh" uid="uid://c0gigp4ccvkar" path="res://src/environment/assets/kenney_cave_kit/models/corridor_wide_intersection.glb" id="10_cst4d"]
+[ext_resource type="ArrayMesh" uid="uid://uieogquv4skn" path="res://src/environment/assets/kenney_cave_kit/models/corridor_wide_junction.glb" id="11_3vlee"]
+[ext_resource type="ArrayMesh" uid="uid://baj3j0jcuk7f8" path="res://src/environment/assets/kenney_cave_kit/models/gate.glb" id="12_6bm38"]
+[ext_resource type="ArrayMesh" uid="uid://cuh1x32hqjxh6" path="res://src/environment/assets/kenney_cave_kit/models/gate_metal_bars.glb" id="13_q54p8"]
+[ext_resource type="ArrayMesh" uid="uid://dv6j1xpgnncmm" path="res://src/environment/assets/kenney_cave_kit/models/gate_overhang.glb" id="14_trcgx"]
+[ext_resource type="ArrayMesh" uid="uid://ckqdtvdpqts2v" path="res://src/environment/assets/kenney_cave_kit/models/gate_rock.glb" id="15_e1cym"]
+[ext_resource type="ArrayMesh" uid="uid://b7fu5ce8ohl4h" path="res://src/environment/assets/kenney_cave_kit/models/ladder.glb" id="16_3gf1k"]
+[ext_resource type="ArrayMesh" uid="uid://645j3l16qipc" path="res://src/environment/assets/kenney_cave_kit/models/room_corner.glb" id="17_uq4b2"]
+[ext_resource type="ArrayMesh" uid="uid://brfdmgb21tsxk" path="res://src/environment/assets/kenney_cave_kit/models/room_large.glb" id="18_jdrmd"]
+[ext_resource type="ArrayMesh" uid="uid://r6lofo7dw86b" path="res://src/environment/assets/kenney_cave_kit/models/room_large_variation.glb" id="19_pyp62"]
+[ext_resource type="ArrayMesh" uid="uid://cka4etgqveats" path="res://src/environment/assets/kenney_cave_kit/models/room_small.glb" id="20_717h1"]
+[ext_resource type="ArrayMesh" uid="uid://cgx0apelxxsre" path="res://src/environment/assets/kenney_cave_kit/models/room_small_variation.glb" id="21_5johg"]
+[ext_resource type="ArrayMesh" uid="uid://dx3p6mi71f6kf" path="res://src/environment/assets/kenney_cave_kit/models/room_wide.glb" id="22_2jhvt"]
+[ext_resource type="ArrayMesh" uid="uid://bluaar7db3a60" path="res://src/environment/assets/kenney_cave_kit/models/room_wide_variation.glb" id="23_k8fma"]
+[ext_resource type="ArrayMesh" uid="uid://coqu7mhv5ko43" path="res://src/environment/assets/kenney_cave_kit/models/stairs.glb" id="24_hm2o2"]
+[ext_resource type="ArrayMesh" uid="uid://bysj23yux26ly" path="res://src/environment/assets/kenney_cave_kit/models/stairs_wide.glb" id="25_bkg3j"]
+[ext_resource type="ArrayMesh" uid="uid://bc0aaeb37stpe" path="res://src/environment/assets/kenney_cave_kit/models/template_corner.glb" id="26_wdl0x"]
+[ext_resource type="ArrayMesh" uid="uid://rrf7keh4ub8c" path="res://src/environment/assets/kenney_cave_kit/models/template_detail.glb" id="27_lasjn"]
+[ext_resource type="ArrayMesh" uid="uid://cjgsmp1puifck" path="res://src/environment/assets/kenney_cave_kit/models/template_floor.glb" id="28_ebmyx"]
+[ext_resource type="ArrayMesh" uid="uid://bm1bdmsui1cks" path="res://src/environment/assets/kenney_cave_kit/models/template_floor_big.glb" id="29_k8aov"]
+[ext_resource type="ArrayMesh" uid="uid://0mdosvyw7xgw" path="res://src/environment/assets/kenney_cave_kit/models/template_floor_detail.glb" id="30_j4var"]
+[ext_resource type="ArrayMesh" uid="uid://bqddy621dylfe" path="res://src/environment/assets/kenney_cave_kit/models/template_floor_detail_a.glb" id="31_asvip"]
+[ext_resource type="ArrayMesh" uid="uid://bjfaen17auggp" path="res://src/environment/assets/kenney_cave_kit/models/template_floor_layer.glb" id="32_8pxud"]
+[ext_resource type="ArrayMesh" uid="uid://s04xls0sgy0m" path="res://src/environment/assets/kenney_cave_kit/models/template_floor_layer_hole.glb" id="33_ifq74"]
+[ext_resource type="ArrayMesh" uid="uid://dv11y8u61tres" path="res://src/environment/assets/kenney_cave_kit/models/template_floor_layer_raised.glb" id="34_aje8m"]
+[ext_resource type="ArrayMesh" uid="uid://dncljlmtg0mld" path="res://src/environment/assets/kenney_cave_kit/models/template_wall.glb" id="35_fg08r"]
+[ext_resource type="ArrayMesh" uid="uid://24af5s8osm0u" path="res://src/environment/assets/kenney_cave_kit/models/template_wall_corner.glb" id="36_qgf11"]
+[ext_resource type="ArrayMesh" uid="uid://bj36h5b70m7py" path="res://src/environment/assets/kenney_cave_kit/models/template_wall_detail_a.glb" id="37_1b08k"]
+[ext_resource type="ArrayMesh" uid="uid://dd1lbfujxws5e" path="res://src/environment/assets/kenney_cave_kit/models/template_wall_half.glb" id="38_oqqv2"]
+[ext_resource type="ArrayMesh" uid="uid://b06tqjvlrrlkm" path="res://src/environment/assets/kenney_cave_kit/models/template_wall_stairs.glb" id="39_2cr0y"]
+[ext_resource type="ArrayMesh" uid="uid://645mrpmgp1al" path="res://src/environment/assets/kenney_cave_kit/models/template_wall_top.glb" id="40_kqcn3"]
+
+[node name="WarmupCave" type="Node3D" unique_id=1454396207]
+
+[node name="Cave" type="Node3D" parent="." unique_id=2053413109]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -17, 0, -5)
+
+[node name="Corridor" type="MeshInstance3D" parent="Cave" unique_id=513278441]
+mesh = ExtResource("1_83yvb")
+
+[node name="CorridorCorner" type="MeshInstance3D" parent="Cave" unique_id=1381700427]
+mesh = ExtResource("2_pktlv")
+
+[node name="CorridorEnd" type="MeshInstance3D" parent="Cave" unique_id=1214617049]
+mesh = ExtResource("3_o65nl")
+
+[node name="CorridorIntersection" type="MeshInstance3D" parent="Cave" unique_id=2144697637]
+mesh = ExtResource("4_ek384")
+
+[node name="CorridorJunction" type="MeshInstance3D" parent="Cave" unique_id=804503989]
+mesh = ExtResource("5_2e5ce")
+
+[node name="CorridorTransition" type="MeshInstance3D" parent="Cave" unique_id=1204104144]
+mesh = ExtResource("6_34tc7")
+
+[node name="CorridorWide" type="MeshInstance3D" parent="Cave" unique_id=602274673]
+mesh = ExtResource("7_c513y")
+
+[node name="CorridorWideCorner" type="MeshInstance3D" parent="Cave" unique_id=17958851]
+mesh = ExtResource("8_2t32m")
+
+[node name="CorridorWideEnd" type="MeshInstance3D" parent="Cave" unique_id=1689104079]
+mesh = ExtResource("9_yxyhe")
+
+[node name="CorridorWideIntersection" type="MeshInstance3D" parent="Cave" unique_id=402267926]
+mesh = ExtResource("10_cst4d")
+
+[node name="CorridorWideJunction" type="MeshInstance3D" parent="Cave" unique_id=1613964661]
+mesh = ExtResource("11_3vlee")
+
+[node name="Gate" type="MeshInstance3D" parent="Cave" unique_id=1946846518]
+mesh = ExtResource("12_6bm38")
+
+[node name="GateMetalBars" type="MeshInstance3D" parent="Cave" unique_id=143638567]
+mesh = ExtResource("13_q54p8")
+
+[node name="GateOverhang" type="MeshInstance3D" parent="Cave" unique_id=1276978717]
+mesh = ExtResource("14_trcgx")
+
+[node name="GateRock" type="MeshInstance3D" parent="Cave" unique_id=892698262]
+mesh = ExtResource("15_e1cym")
+
+[node name="Ladder" type="MeshInstance3D" parent="Cave" unique_id=763233254]
+mesh = ExtResource("16_3gf1k")
+
+[node name="RoomCorner" type="MeshInstance3D" parent="Cave" unique_id=681535522]
+mesh = ExtResource("17_uq4b2")
+
+[node name="RoomLarge" type="MeshInstance3D" parent="Cave" unique_id=1418692295]
+mesh = ExtResource("18_jdrmd")
+
+[node name="RoomLargeVariation" type="MeshInstance3D" parent="Cave" unique_id=562337229]
+mesh = ExtResource("19_pyp62")
+
+[node name="RoomSmall" type="MeshInstance3D" parent="Cave" unique_id=1902336139]
+mesh = ExtResource("20_717h1")
+
+[node name="RoomSmallVariation" type="MeshInstance3D" parent="Cave" unique_id=1003177639]
+mesh = ExtResource("21_5johg")
+
+[node name="RoomWide" type="MeshInstance3D" parent="Cave" unique_id=1679927547]
+mesh = ExtResource("22_2jhvt")
+
+[node name="RoomWideVariation" type="MeshInstance3D" parent="Cave" unique_id=170387898]
+mesh = ExtResource("23_k8fma")
+
+[node name="Stairs" type="MeshInstance3D" parent="Cave" unique_id=1372645295]
+mesh = ExtResource("24_hm2o2")
+
+[node name="StairsWide" type="MeshInstance3D" parent="Cave" unique_id=477180329]
+mesh = ExtResource("25_bkg3j")
+
+[node name="TemplateCorner" type="MeshInstance3D" parent="Cave" unique_id=185829069]
+mesh = ExtResource("26_wdl0x")
+
+[node name="TemplateDetail" type="MeshInstance3D" parent="Cave" unique_id=1432204996]
+mesh = ExtResource("27_lasjn")
+
+[node name="TemplateFloor" type="MeshInstance3D" parent="Cave" unique_id=446179627]
+mesh = ExtResource("28_ebmyx")
+
+[node name="TemplateFloorBig" type="MeshInstance3D" parent="Cave" unique_id=448141962]
+mesh = ExtResource("29_k8aov")
+
+[node name="TemplateFloorDetail" type="MeshInstance3D" parent="Cave" unique_id=527774023]
+mesh = ExtResource("30_j4var")
+
+[node name="TemplateFloorDetailA" type="MeshInstance3D" parent="Cave" unique_id=112838430]
+mesh = ExtResource("31_asvip")
+
+[node name="TemplateFloorLayer" type="MeshInstance3D" parent="Cave" unique_id=1532671609]
+mesh = ExtResource("32_8pxud")
+
+[node name="TemplateFloorLayerHole" type="MeshInstance3D" parent="Cave" unique_id=472363394]
+mesh = ExtResource("33_ifq74")
+
+[node name="TemplateFloorLayerRaised" type="MeshInstance3D" parent="Cave" unique_id=1599534596]
+mesh = ExtResource("34_aje8m")
+
+[node name="TemplateWall" type="MeshInstance3D" parent="Cave" unique_id=1579255979]
+mesh = ExtResource("35_fg08r")
+
+[node name="TemplateWallCorner" type="MeshInstance3D" parent="Cave" unique_id=1846895204]
+mesh = ExtResource("36_qgf11")
+
+[node name="TemplateWallDetailA" type="MeshInstance3D" parent="Cave" unique_id=1516418707]
+mesh = ExtResource("37_1b08k")
+
+[node name="TemplateWallHalf" type="MeshInstance3D" parent="Cave" unique_id=2083181683]
+mesh = ExtResource("38_oqqv2")
+
+[node name="TemplateWallStairs" type="MeshInstance3D" parent="Cave" unique_id=1684595561]
+mesh = ExtResource("39_2cr0y")
+
+[node name="TemplateWallTop" type="MeshInstance3D" parent="Cave" unique_id=1719423075]
+mesh = ExtResource("40_kqcn3")

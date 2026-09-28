@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://ddkudu1a3wgd7"]
+
+[ext_resource type="Script" uid="uid://dqltbgbw3oygl" path="res://src/systems/shader_warmup.gd" id="1_2j4rg"]
+[ext_resource type="PackedScene" uid="uid://c4i1w0hbxd5be" path="res://src/shader_precompilation/warmup_characters.tscn" id="4_c02ce"]
+[ext_resource type="PackedScene" uid="uid://dqk1glfwidt7e" path="res://src/shader_precompilation/warmup_cave.tscn" id="4_pl7wj"]
+[ext_resource type="PackedScene" uid="uid://ch6xkbkqy6t0n" path="res://src/shader_precompilation/warmup_environment.tscn" id="5_pl7wj"]
+[ext_resource type="Environment" uid="uid://cukvscwyyjgeh" path="res://src/environment/mechanics/cave/cave_environment.tres" id="5_xvycb"]
+[ext_resource type="Environment" uid="uid://dsshmu8vrps28" path="res://src/environment/world_environment_settings.tres" id="6_xvycb"]
+
+[node name="ShaderWarmup" type="Node3D" unique_id=1562072078]
+script = ExtResource("1_2j4rg")
+
+[node name="WarmupCharacters" parent="." unique_id=1501445163 instance=ExtResource("4_c02ce")]
+
+[node name="WarmupEnvironment" parent="." unique_id=135827922 instance=ExtResource("5_pl7wj")]
+
+[node name="WarmupCave" parent="." unique_id=1454396207 instance=ExtResource("4_pl7wj")]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=981024172]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 24)
+environment = ExtResource("5_xvycb")
+
+[node name="Camera3D2" type="Camera3D" parent="." unique_id=578620101]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 24)
+environment = ExtResource("6_xvycb")

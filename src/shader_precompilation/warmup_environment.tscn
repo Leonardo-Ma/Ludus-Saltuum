@@ -1,0 +1,121 @@
+[gd_scene format=3 uid="uid://ch6xkbkqy6t0n"]
+
+[ext_resource type="ArrayMesh" uid="uid://clxiq3vvpsxql" path="res://src/environment/assets/dungeon_assets/meshes/barrel_001.tres" id="1_xb7ty"]
+[ext_resource type="ArrayMesh" uid="uid://b7wauquydj40k" path="res://src/environment/assets/dungeon_assets/meshes/brick_wall_001.tres" id="2_muc8a"]
+[ext_resource type="ArrayMesh" uid="uid://qg0hyw8f1xr" path="res://src/environment/assets/dungeon_assets/meshes/floor_001.tres" id="3_56rs1"]
+[ext_resource type="ArrayMesh" uid="uid://dr6lpo255th1q" path="res://src/environment/assets/dungeon_assets/meshes/floor_002.tres" id="4_ror7x"]
+[ext_resource type="ArrayMesh" uid="uid://bduf3ad71475q" path="res://src/environment/assets/dungeon_assets/meshes/pillar_001.tres" id="5_gareu"]
+[ext_resource type="ArrayMesh" uid="uid://btvekqgxixsfp" path="res://src/environment/assets/dungeon_assets/meshes/stairs_001.tres" id="6_d5hlt"]
+[ext_resource type="ArrayMesh" uid="uid://qfvheoa57enc" path="res://src/environment/assets/dungeon_assets/meshes/stairs_handhail_001.tres" id="7_lguw2"]
+[ext_resource type="PackedScene" uid="uid://bbk6p2lpx40ke" path="res://src/environment/assets/kaykit_platformer/assets/platform_6x6x1_blue.fbx" id="8_muc8a"]
+[ext_resource type="ArrayMesh" uid="uid://bfpsvoork6gcg" path="res://src/environment/assets/kaykit_platformer/meshes/heart_blue.tres" id="9_ror7x"]
+[ext_resource type="ArrayMesh" uid="uid://bsnxh8ehccfp8" path="res://src/environment/assets/kaykit_platformer/meshes/power_blue.tres" id="10_gareu"]
+[ext_resource type="ArrayMesh" uid="uid://ct5us20stc7a0" path="res://src/environment/assets/kenney_city_kit_roads/meshes/bend.tres" id="51_gpq3i"]
+[ext_resource type="ArrayMesh" uid="uid://c7658b445u2m5" path="res://src/environment/assets/kenney_city_kit_roads/meshes/construction_barrier.tres" id="52_q01rd"]
+[ext_resource type="ArrayMesh" uid="uid://ddnt2i2w2bm1a" path="res://src/environment/assets/kenney_city_kit_roads/meshes/road_slant.tres" id="53_0uq31"]
+[ext_resource type="ArrayMesh" uid="uid://bqr7fp5jrjnte" path="res://src/environment/assets/kenney_city_kit_roads/meshes/road_slant_high.tres" id="54_y2pax"]
+[ext_resource type="ArrayMesh" uid="uid://c5trk6rk7c7cs" path="res://src/environment/assets/kenney_city_kit_roads/meshes/road_straight.tres" id="55_31uuh"]
+[ext_resource type="PackedScene" uid="uid://boc45ppc0xq8h" path="res://src/environment/assets/platformer_kit_kenney/assets.glb" id="56_q01rd"]
+[ext_resource type="PackedScene" uid="uid://dlxbhva4utv0e" path="res://src/environment/assets/portal_vfx/simple_portal_vfx.tscn" id="57_0uq31"]
+[ext_resource type="ArrayMesh" uid="uid://oqwkdvedalca" path="res://src/environment/assets/small_platformer_kit_j_toastie/meshes/hexagon_grass_platform.glb" id="58_31uuh"]
+[ext_resource type="ArrayMesh" uid="uid://cel68jd7ltlp4" path="res://src/environment/assets/small_platformer_kit_j_toastie/meshes/stone_platform.glb" id="59_8mys3"]
+[ext_resource type="PackedScene" uid="uid://cvmr8c7gfam3s" path="res://src/environment/assets/ultimate_rpg_items_bundle/potion_bottle_rounded.glb" id="60_1iob5"]
+[ext_resource type="PackedScene" uid="uid://db83w11lxrq6o" path="res://src/environment/assets/ultimate_rpg_items_bundle/potion_bottle_variation.glb" id="61_f0v1r"]
+[ext_resource type="ArrayMesh" uid="uid://ba500j1anql7i" path="res://src/environment/assets/tornado_soygus/tornado.obj" id="62_iwxdt"]
+[ext_resource type="ArrayMesh" uid="uid://c7wehlpvs22up" path="res://src/environment/assets/tornado_soygus/tornado2.obj" id="63_2fbd0"]
+
+[node name="WarmupEnvironment" type="Node3D" unique_id=135827922]
+
+[node name="Barrel001" type="MeshInstance3D" parent="." unique_id=1920502024]
+transform = Transform3D(100, 0, 0, 0, -4.371139e-06, 100, 0, -100, -4.371139e-06, -6, 0, 0)
+mesh = ExtResource("1_xb7ty")
+
+[node name="BrickWall001" type="MeshInstance3D" parent="." unique_id=1088102683]
+transform = Transform3D(100, 0, 0, 0, -4.371139e-06, 100, 0, -100, -4.371139e-06, 0, 2, 0)
+mesh = ExtResource("2_muc8a")
+
+[node name="Floor001" type="MeshInstance3D" parent="." unique_id=1713075723]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -3, 3, 0)
+mesh = ExtResource("3_56rs1")
+
+[node name="Floor002" type="MeshInstance3D" parent="." unique_id=1454806749]
+transform = Transform3D(100, 0, 0, 0, -4.371139e-06, 100, 0, -100, -4.371139e-06, 0, 0, 0)
+mesh = ExtResource("4_ror7x")
+
+[node name="Pillar001" type="MeshInstance3D" parent="." unique_id=1746480048]
+transform = Transform3D(100, 0, 0, 0, -4.371139e-06, 100, 0, -100, -4.371139e-06, -3, -2, 0)
+mesh = ExtResource("5_gareu")
+
+[node name="Stairs001" type="MeshInstance3D" parent="." unique_id=478939211]
+transform = Transform3D(100, 0, 0, 0, -4.371139e-06, 100, 0, -100, -4.371139e-06, -2, -3, 0)
+mesh = ExtResource("6_d5hlt")
+
+[node name="StairsHandhail001" type="MeshInstance3D" parent="." unique_id=1116046846]
+transform = Transform3D(-100, 1.509958e-05, 6.6002363e-13, 0, -4.371139e-06, 100, 1.509958e-05, 100, 4.371139e-06, 0, 0, 0)
+mesh = ExtResource("7_lguw2")
+
+[node name="platform_6x6x1_blue" parent="." unique_id=801518094 instance=ExtResource("8_muc8a")]
+transform = Transform3D(0.1, 0, 0, 0, -4.371139e-09, -0.1, 0, 0.1, -4.371139e-09, -9.500898, 2.3841858e-07, -0.22244596)
+
+[node name="HeartBlue" type="MeshInstance3D" parent="." unique_id=190757467]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.300867, 0, 0.4831543)
+mesh = ExtResource("9_ror7x")
+
+[node name="PowerBlue" type="MeshInstance3D" parent="." unique_id=1160431126]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.300867, 1, 0.4831543)
+mesh = ExtResource("10_gareu")
+
+[node name="Race" type="Node3D" parent="." unique_id=36514748]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 7, 0, 0)
+
+[node name="Bend" type="MeshInstance3D" parent="Race" unique_id=1056840873]
+mesh = ExtResource("51_gpq3i")
+
+[node name="ConstructionBarrier" type="MeshInstance3D" parent="Race" unique_id=294699169]
+mesh = ExtResource("52_q01rd")
+
+[node name="RoadSlant" type="MeshInstance3D" parent="Race" unique_id=1079506412]
+mesh = ExtResource("53_0uq31")
+
+[node name="RoadSlantHigh" type="MeshInstance3D" parent="Race" unique_id=170251939]
+mesh = ExtResource("54_y2pax")
+
+[node name="RoadStraight" type="MeshInstance3D" parent="Race" unique_id=1133103005]
+mesh = ExtResource("55_31uuh")
+
+[node name="PlatformerKitKenney" type="Node3D" parent="." unique_id=1302474823]
+
+[node name="assets" parent="PlatformerKitKenney" unique_id=737211043 instance=ExtResource("56_q01rd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -3, 0)
+
+[node name="Portal" type="Node3D" parent="." unique_id=110894245]
+
+[node name="SimplePortalVFX_01" parent="Portal" unique_id=98446428 instance=ExtResource("57_0uq31")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -2, 0)
+
+[node name="SmallPlatformerKitJToastie" type="Node3D" parent="." unique_id=1352078088]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, -2, 0)
+
+[node name="HexagonGrassPlatform" type="MeshInstance3D" parent="SmallPlatformerKitJToastie" unique_id=1775280297]
+mesh = ExtResource("58_31uuh")
+
+[node name="StonePlatform" type="MeshInstance3D" parent="SmallPlatformerKitJToastie" unique_id=1270380650]
+mesh = ExtResource("59_8mys3")
+
+[node name="UltimateRpgItemsBundle" type="Node3D" parent="." unique_id=1426675016]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, -1, 0)
+
+[node name="Root Scene" parent="UltimateRpgItemsBundle" unique_id=2075061375 instance=ExtResource("60_1iob5")]
+
+[node name="Root Scene2" parent="UltimateRpgItemsBundle" unique_id=345738484 instance=ExtResource("61_f0v1r")]
+
+[node name="TornadoSoygus" type="Node3D" parent="." unique_id=1329797346]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -5, 0)
+
+[node name="Tornado" type="MeshInstance3D" parent="TornadoSoygus" unique_id=497038141]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = ExtResource("62_iwxdt")
+
+[node name="Tornado2" type="MeshInstance3D" parent="TornadoSoygus" unique_id=10638898]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = ExtResource("63_2fbd0")
