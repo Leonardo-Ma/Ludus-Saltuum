@@ -21,6 +21,8 @@ func _ready() -> void:
 	if not players.is_empty():
 		_on_player_spawned(players[0])
 
+	GameplayStateManager.gameplay_mode_changed.connect(_on_gameplay_mode_changed)
+
 
 func _on_player_spawned(player: Node) -> void:
 	if health_resource:
@@ -70,12 +72,11 @@ func _on_health_changed(new_health: int) -> void:
 	self.health = new_health
 
 
-# TODO Maybe add a 'broken' shape bar style when dead?
 func _on_death() -> void:
 	self.health = 0.0
 	_on_death_visual_effect()
 
-
+#region VFX
 func _on_timer_timeout() -> void:
 	# Animate damagebar down to match current health
 	var tween: Tween = create_tween()
@@ -99,3 +100,13 @@ func _on_death_visual_effect() -> void:
 		func() -> void:
 			shatter_overlay.visible = false,
 	)
+#endregion
+
+
+# TODO Check better approach than ignores
+@warning_ignore("unused_parameter") # gdlint-ignore-next-line unused-argument
+func _on_gameplay_mode_changed(new_mode: GameplayStateManager.GameplayMode, previous_mode: GameplayStateManager.GameplayMode) -> void:
+	if new_mode == GameplayStateManager.GameplayMode.RACING:
+		visible = false
+	else:
+		visible = true

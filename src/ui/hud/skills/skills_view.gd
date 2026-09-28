@@ -20,6 +20,8 @@ func _ready() -> void:
 	if not players.is_empty():
 		_on_player_spawned(players[0] as PlayerEntity)
 
+	GameplayStateManager.gameplay_mode_changed.connect(_on_gameplay_mode_changed)
+
 
 func _on_player_spawned(player: PlayerEntity) -> void:
 	var controller: SkillsController = player.skills_controller
@@ -58,3 +60,12 @@ func _bind_slot(skill: BaseSkill) -> void:
 func _clear_all_slots() -> void:
 	for slot: Control in _skills_container.get_children():
 		(slot as HUDSkillSlot).cleanup()
+
+
+# TODO Check better approach than ignores
+@warning_ignore("unused_parameter") # gdlint-ignore-next-line unused-argument
+func _on_gameplay_mode_changed(new_mode: GameplayStateManager.GameplayMode, previous_mode: GameplayStateManager.GameplayMode) -> void:
+	if new_mode == GameplayStateManager.GameplayMode.RACING:
+		visible = false
+	else:
+		visible = true
