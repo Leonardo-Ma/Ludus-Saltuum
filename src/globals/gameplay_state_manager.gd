@@ -89,6 +89,8 @@ func _change_mode(new_mode: GameplayMode) -> void:
 	_on_mode_entered(_current_mode, _previous_mode)
 	gameplay_mode_changed.emit(_current_mode, _previous_mode)
 
+	print_debug("Gameplay state changed to ", new_mode)
+
 
 func _on_mode_entered(new_mode: GameplayMode, previous_mode: GameplayMode) -> void:
 	match new_mode:

@@ -7,7 +7,7 @@ const DASH_SOUND: AudioStream = preload("uid://vo301kuo1mby") # whoosh_2.wav
 
 var dash_velocity_multiplier: float = 5.0
 var dash_duration: float = 0.4
-var dash_cooldown: float = 1.0
+var dash_cooldown: float = 2.0
 
 var _dash_timer: float = 0.0
 var _dash_cooldown: float = 0.0
