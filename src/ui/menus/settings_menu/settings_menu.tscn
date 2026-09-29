@@ -375,6 +375,9 @@ category = 1
 [node name="SliderNumber" type="Label" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions/GlobalVolume" unique_id=1437650310]
 layout_mode = 2
 
+[node name="HSeparator" type="HSeparator" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions" unique_id=1689070524]
+layout_mode = 2
+
 [node name="MusicVolume" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions" unique_id=1678858717]
 layout_mode = 2
 
@@ -552,6 +555,9 @@ script = ExtResource("27_shv1y")
 [node name="CamDistanceNumber" type="Label" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions/CameraDistance" unique_id=2101679102]
 layout_mode = 2
 
+[node name="HSeparator" type="HSeparator" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions" unique_id=1211820478]
+layout_mode = 2
+
 [node name="MouseSensitivity" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions" unique_id=942196597]
 layout_mode = 2
 
@@ -585,7 +591,6 @@ script = ExtResource("29_fbymy")
 layout_mode = 2
 
 [node name="VideoOptions" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=697717083]
-visible = false
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -593,96 +598,125 @@ size_flags_vertical = 3
 metadata/_tab_index = 0
 metadata/_tab_name = ""
 
-[node name="Resolution" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions" unique_id=1126040003]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-theme_override_constants/separation = 40
-
-[node name="TextureRect" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions/Resolution" unique_id=1926409826]
-layout_mode = 2
-texture = ExtResource("10_863by")
-expand_mode = 2
-
-[node name="ResolutionOption" type="OptionButton" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions/Resolution" unique_id=1724809319]
-layout_mode = 2
-size_flags_horizontal = 3
-focus_neighbor_top = NodePath("../../../../../TabMarginContainer/TabContainer/VideoTab")
-focus_neighbor_bottom = NodePath("../../FullScreen/FullScreenOption")
-focus_next = NodePath("../../FullScreen/FullScreenOption")
-focus_previous = NodePath("../../../../../TabMarginContainer/TabContainer/VideoTab")
-theme_override_font_sizes/font_size = 32
-script = ExtResource("9_nxapy")
-
 [node name="FullScreen" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions" unique_id=244008932]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-theme_override_constants/separation = 40
+theme_override_constants/separation = 30
 
 [node name="TextureRect" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions/FullScreen" unique_id=533257910]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 texture = ExtResource("25_ha0b3")
-expand_mode = 2
+expand_mode = 3
 
 [node name="FullScreenOption" type="OptionButton" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions/FullScreen" unique_id=929539239]
 layout_mode = 2
-size_flags_horizontal = 3
-focus_neighbor_top = NodePath("../../Resolution/ResolutionOption")
-focus_neighbor_bottom = NodePath("../../../../../TabMarginContainer/TabContainer/VideoTab")
-focus_next = NodePath("../../../../../TabMarginContainer/TabContainer/VideoTab")
-focus_previous = NodePath("../../Resolution/ResolutionOption")
+size_flags_horizontal = 19
+focus_neighbor_left = NodePath("../../../../../TabMarginContainer/TabContainer/VideoTab")
+focus_neighbor_top = NodePath("../../../../../TabMarginContainer/TabContainer/VideoTab")
+focus_neighbor_right = NodePath("../../Resolution/ResolutionOption")
+focus_neighbor_bottom = NodePath("../../Resolution/ResolutionOption")
+focus_next = NodePath("../../Resolution/ResolutionOption")
+focus_previous = NodePath("../../../../../TabMarginContainer/TabContainer/VideoTab")
 theme = SubResource("Theme_4yx6g")
 theme_override_constants/icon_max_width = 80
+alignment = 1
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("12_dt2xc")
 windowed_icon = ExtResource("26_6geaa")
 maximized_icon = ExtResource("25_ha0b3")
 fullscreen_icon = ExtResource("27_6geaa")
 exclusive_fullscreen_icon = ExtResource("10_863by")
 
+[node name="Resolution" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions" unique_id=1126040003]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="TextureRect" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions/Resolution" unique_id=1926409826]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("10_863by")
+expand_mode = 3
+
+[node name="ResolutionOption" type="OptionButton" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions/Resolution" unique_id=1724809319]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../../FullScreen/FullScreenOption")
+focus_neighbor_top = NodePath("../../FullScreen/FullScreenOption")
+focus_neighbor_right = NodePath("../../FpsLimit/FpsLimitOption")
+focus_neighbor_bottom = NodePath("../../FpsLimit/FpsLimitOption")
+focus_next = NodePath("../../FpsLimit/FpsLimitOption")
+focus_previous = NodePath("../../FullScreen/FullScreenOption")
+theme_override_font_sizes/font_size = 32
+alignment = 1
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("9_nxapy")
+
+[node name="HSeparator" type="HSeparator" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions" unique_id=171553053]
+layout_mode = 2
+
 [node name="FpsLimit" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions" unique_id=677594519]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-theme_override_constants/separation = 40
+theme_override_constants/separation = 30
 
 [node name="TextureRect" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions/FpsLimit" unique_id=1827731191]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 texture = ExtResource("41_un64q")
-expand_mode = 2
+expand_mode = 3
 
 [node name="FpsLimitOption" type="OptionButton" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions/FpsLimit" unique_id=543148023]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../../Resolution/ResolutionOption")
 focus_neighbor_top = NodePath("../../Resolution/ResolutionOption")
-focus_neighbor_bottom = NodePath("../../../../../TabMarginContainer/TabContainer/VideoTab")
-focus_next = NodePath("../../../../../TabMarginContainer/TabContainer/VideoTab")
+focus_neighbor_right = NodePath("../../Brightness/BrightnessDisplaySlider")
+focus_neighbor_bottom = NodePath("../../Brightness/BrightnessDisplaySlider")
+focus_next = NodePath("../../Brightness/BrightnessDisplaySlider")
 focus_previous = NodePath("../../Resolution/ResolutionOption")
 theme = SubResource("Theme_4yx6g")
 theme_override_constants/icon_max_width = 80
+alignment = 1
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("41_txwea")
+
+[node name="HSeparator2" type="HSeparator" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions" unique_id=1157588967]
+layout_mode = 2
 
 [node name="Brightness" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions" unique_id=1274621875]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-theme_override_constants/separation = 40
+theme_override_constants/separation = 30
 
 [node name="TextureRect" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions/Brightness" unique_id=679808027]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 texture = ExtResource("28_ha0b3")
-expand_mode = 2
+expand_mode = 3
 
-[node name="DisplaySlider" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions/Brightness" unique_id=663037113 instance=ExtResource("28_863by")]
+[node name="BrightnessDisplaySlider" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/VideoOptions/Brightness" unique_id=663037113 instance=ExtResource("28_863by")]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+focus_neighbor_left = NodePath("../../FpsLimit/FpsLimitOption")
+focus_neighbor_top = NodePath("../../FpsLimit/FpsLimitOption")
+focus_neighbor_right = NodePath("../../../../ResetSettingsButton")
+focus_neighbor_bottom = NodePath("../../../../ResetSettingsButton")
+focus_next = NodePath("../../../../ResetSettingsButton")
+focus_previous = NodePath("../../FpsLimit/FpsLimitOption")
 min_value = 0.5
 max_value = 1.5
 step = 0.01
 value = 1.0
 
 [node name="AccessibilityOptions" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=1262244019]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 40

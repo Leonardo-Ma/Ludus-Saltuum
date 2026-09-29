@@ -49,7 +49,7 @@ func _ready() -> void:
 	_load()
 	apply_all()
 
-
+#region Apply and Reset
 func apply_all() -> void:
 	apply_gameplay()
 	apply_audio()
@@ -83,11 +83,14 @@ func apply_camera() -> void:
 
 ## Window mode and size only. Kept separate from video so brightness/vsync/fps changes don't interfere resize or force a mode/size reset
 func apply_window() -> void:
+	var window: Window = get_window()
 	DisplayServer.window_set_mode(settings.video.window_mode)
 
 	if settings.video.window_mode == DisplayServer.WINDOW_MODE_WINDOWED:
-		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
-		get_window().size = settings.video.windowed_size
+		window.borderless = false
+		window.size = settings.video.windowed_size
+	elif settings.video.window_mode == DisplayServer.WINDOW_MODE_MAXIMIZED:
+		window.borderless = false
 
 	video_settings_changed.emit()
 
@@ -105,11 +108,6 @@ func apply_video() -> void:
 
 func apply_accessibility() -> void:
 	accessibility_settings_changed.emit()
-
-
-func save() -> void:
-	var error: Error = ResourceSaver.save(settings, _SETTINGS_PATH)
-	assert(error == OK, "Failed to save settings in " + name)
 
 
 func reset_to_default(section: SettingsSection = SettingsSection.NONE) -> void:
@@ -141,17 +139,42 @@ func reset_to_default(section: SettingsSection = SettingsSection.NONE) -> void:
 
 	settings_reset.emit()
 	save()
+#endregion
+
+#region Video
+func set_windowed_size(size: Vector2i) -> void:
+	settings.video.windowed_size = size
+
+	if settings.video.window_mode == DisplayServer.WINDOW_MODE_WINDOWED:
+		get_window().size = size
+
+	save()
+	video_settings_changed.emit()
 
 
-func _load() -> void:
-	if not ResourceLoader.exists(_SETTINGS_PATH):
-		settings.video.windowed_size = get_window().size
-		return
+func get_windowed_resolutions() -> Array[Vector2i]:
+	var screen_size: Vector2i = DisplayServer.screen_get_size(get_window().current_screen)
+	var resolutions: Array[Vector2i] = []
 
-	var loaded_settings: Resource = ResourceLoader.load(_SETTINGS_PATH)
-	assert(loaded_settings is GameSettings, "Invalid settings resource in " + name)
+	for resolution: Vector2i in VideoSettings.WINDOWED_RESOLUTIONS:
+		if resolution.x <= screen_size.x and resolution.y <= screen_size.y:
+			resolutions.append(resolution)
 
-	settings = loaded_settings as GameSettings
+	var current_size: Vector2i = settings.video.windowed_size
+	if current_size.x > 0 and current_size.y > 0:
+		if current_size.x <= screen_size.x and current_size.y <= screen_size.y:
+			if not resolutions.has(current_size):
+				resolutions.append(current_size)
+
+	return resolutions
+
+
+func get_current_display_resolution() -> Vector2i:
+	return DisplayServer.screen_get_size(get_window().current_screen)
+
+
+func is_windowed_resolution_editable() -> bool:
+	return settings.video.window_mode == DisplayServer.WINDOW_MODE_WINDOWED
 
 
 func _on_window_size_changed() -> void:
@@ -171,3 +194,20 @@ func _on_window_resize_settled() -> void:
 	settings.video.windowed_size = new_size
 	save()
 	video_settings_changed.emit()
+#endregion
+
+#region Save and Load
+func save() -> void:
+	var error: Error = ResourceSaver.save(settings, _SETTINGS_PATH)
+	assert(error == OK, "Failed to save settings in " + name)
+
+
+func _load() -> void:
+	if not ResourceLoader.exists(_SETTINGS_PATH):
+		return
+
+	var loaded_settings: Resource = ResourceLoader.load(_SETTINGS_PATH)
+	assert(loaded_settings is GameSettings, "Invalid settings resource in " + name)
+
+	settings = loaded_settings as GameSettings
+#endregion
