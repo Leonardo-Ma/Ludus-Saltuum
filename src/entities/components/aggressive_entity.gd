@@ -128,7 +128,6 @@ func _ready() -> void:
 
 # TODO Disable navigation for GOAP, disable player controller
 # Maybe transform into abstract method to force override? Or use entity_enable_disable (player has but not npc)?
-# Player already overrides this
 func _on_death() -> void:
 	print(str(name) + " is dead, Jim!")
 
@@ -139,9 +138,8 @@ func _on_death() -> void:
 		print("Disabling GOAP agent ", goap_agent.name)
 		goap_agent.set_process(false)
 
-	await _death_animation()
-
 	disable_entity()
+	await _death_animation()
 	_on_death_complete()
 
 
@@ -151,7 +149,6 @@ func disable_entity() -> void:
 	hitbox.set_deferred("monitorable", false)
 	hurtbox.set_deferred("monitoring", false)
 	hurtbox.set_deferred("monitorable", false)
-	visible = false
 	collision_shape.disabled = true
 	set_physics_process(false)
 

@@ -50,6 +50,8 @@ func respawn(delay: float, target_transform: Transform3D, is_death: bool = false
 	hurtbox.set_deferred("monitorable", true)
 
 	ControlledEntityEvents.player_finished_respawning.emit()
+	# TODO This is needed because parent class unifies disable entity upon death for players and NPCs
+	entity_enable_disable(true)
 
 
 # TODO Maybe change this to a signal based to decouple?
