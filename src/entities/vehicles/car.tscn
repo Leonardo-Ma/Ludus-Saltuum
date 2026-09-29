@@ -344,6 +344,8 @@ max_pitch = 1.1
 max_volume_db = -16.0
 fade_speed = 8.0
 
-[node name="PortalController" type="Node" parent="." unique_id=819841798]
+[node name="Controllers" type="Node" parent="." unique_id=70698432]
+
+[node name="PortalController" type="Node" parent="Controllers" unique_id=819841798]
 unique_name_in_owner = true
 script = ExtResource("9_53hnt")

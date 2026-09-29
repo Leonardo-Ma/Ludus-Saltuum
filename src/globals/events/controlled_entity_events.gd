@@ -1,4 +1,4 @@
-# https://refactoring.guru/design-patterns/observer
+# TODO Maybe change this to be a controlled to be attached to possible controlled entities?
 extends Node
 
 #region Player

@@ -64,18 +64,20 @@ func _on_application_state_changed(new_state: ApplicationStateManager.GameState,
 			_change_mode(GameplayMode.NONE)
 
 
+## When entering gameplay, can restore previous gameplay mode or start with NONE
 func _on_application_state_entered_playing() -> void:
-	# When entering gameplay, we can restore previous gameplay mode or start with NONE
+	# NOTE Placeholder
 	pass
 
 
+## Gameplay mode remains active but paused
 func _on_application_state_entered_paused() -> void:
-	# Gameplay mode remains active but paused
+	# NOTE Placeholder
 	pass
 
 
+## Ensure cleanup when returning to main menu
 func _on_application_state_entered_main_menu() -> void:
-	# Ensure cleanup when returning to main menu
 	_change_mode(GameplayMode.NONE)
 
 
@@ -98,7 +100,7 @@ func _on_mode_entered(new_mode: GameplayMode, previous_mode: GameplayMode) -> vo
 			if previous_mode != GameplayMode.NONE:
 				gameplay_mode_ended.emit()
 
-
+#region Getters and Setters
 func get_current_mode() -> GameplayMode:
 	return _current_mode
 
@@ -121,3 +123,4 @@ func change_gameplay_state(new_mode: GameplayMode) -> void:
 		"Can only change gameplay mode during gameplay, current: " + str(_app_state_manager.get_current_state()),
 	)
 	_change_mode(new_mode)
+#endregion

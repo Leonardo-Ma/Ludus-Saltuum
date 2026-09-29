@@ -49,9 +49,9 @@ func assign_procedural_id(seed_value: int, scene_local_path: NodePath) -> void:
 
 
 func _on_body_entered(body: Node3D) -> void:
-	if body.is_in_group(Groups.PLAYERS):
+	if body.is_in_group(Groups.CONTROLLED):
 		SoundManager.play_sound(collect_sounds.pick_random(), SoundManager.SoundCategory.SFX, global_position)
-		_apply_effect(body as PlayerEntity)
+		_apply_effect(body)
 		if data is StatusCollectible:
 			await _respawn_collectible()
 		else:
@@ -59,7 +59,7 @@ func _on_body_entered(body: Node3D) -> void:
 			disable()
 
 
-func _apply_effect(player: PlayerEntity) -> void:
+func _apply_effect(player: Node3D) -> void:
 	data.apply_effect(player)
 
 

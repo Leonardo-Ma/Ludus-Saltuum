@@ -290,12 +290,13 @@ func get_first_chunk_entrance_position() -> Vector3:
 ## Skips current chunk: marks scored, teleports player to its exit
 func skip_current_chunk() -> void:
 	assert(_current_chunk_index >= 0 and _current_chunk_index < _active_chunks.size(), "ChunkManager: no valid current chunk to skip in " + name)
-	var entity: Node3D = ControlledEntityEvents.controlled_entity
 	var current_chunk: LevelChunk = _active_chunks[_current_chunk_index]
 	# Mark as scored without giving score since skipped
 	current_chunk.set_meta("scored", true)
-	_on_chunk_exit_reached(entity, current_chunk)
-	var target_transform: Transform3D = Transform3D(entity.global_basis.orthonormalized(), current_chunk.exit_trigger.global_position)
+	_on_chunk_exit_reached(_player, current_chunk)
+	var target_transform: Transform3D = Transform3D(_player.global_basis.orthonormalized(), current_chunk.exit_trigger.global_position)
+	# TODO Find better way than couple this
+	_player.vehicle_rider.exit_vehicle(_player.position)
 	ControlledEntityEvents.request_respawn(SKIP_LEVEL_RESPAWN_DELAY, target_transform)
 
 
@@ -368,6 +369,8 @@ func _on_chunk_exit_reached(body: Node3D, passed_chunk: LevelChunk) -> void:
 		return
 
 	_current_chunk_index = passed_index + 1
+
+	_player.status_manager.clear_temporary_statuses()
 
 	if not passed_chunk.has_meta("scored"):
 		passed_chunk.set_meta("scored", true)

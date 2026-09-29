@@ -20,7 +20,7 @@ func add_score(points: int) -> void:
 
 
 func remove_score(points: int) -> void:
-	assert(points <= -1, "Tried to remove more than -1")
+	assert(points > 0, "Tried to remove less than or 0")
 	score = maxi(0, score - points)
 	score_changed.emit(score)
 
