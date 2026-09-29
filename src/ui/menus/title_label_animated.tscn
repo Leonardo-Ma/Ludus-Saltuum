@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cmk8do3b2s784"]
+
+[ext_resource type="Shader" uid="uid://bxyyjpnd11ghq" path="res://src/ui/menus/main_menu/wave_label_effect.gdshader" id="1_vmhbl"]
+[ext_resource type="Texture2D" uid="uid://c38n7tbohbvyk" path="res://src/ui/assets/game_logo_no_background.png" id="2_p8ss7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vprs7"]
+shader = ExtResource("1_vmhbl")
+shader_parameter/amplitude = 0.015
+shader_parameter/speed = 3.0
+shader_parameter/frequency = 10.0
+
+[node name="TitleLabelAnimated" type="TextureRect" unique_id=1399787384]
+material = SubResource("ShaderMaterial_vprs7")
+custom_minimum_size = Vector2(32, 32)
+size_flags_horizontal = 4
+size_flags_vertical = 3
+texture = ExtResource("2_p8ss7")
+expand_mode = 3
+stretch_mode = 5

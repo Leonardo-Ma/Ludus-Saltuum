@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://b57tusshlvgh"]
+
+[ext_resource type="Script" uid="uid://c8jym7tws6ham" path="res://src/ui/menus/settings_menu/credits/helpers/credit_person_view.gd" id="1_awiou"]
+[ext_resource type="PackedScene" uid="uid://dmgstnjqxowov" path="res://src/ui/menus/settings_menu/credits/screens/credit_role_view.tscn" id="2_ye7pc"]
+
+[node name="CreditPersonView" type="VBoxContainer" unique_id=1428245042]
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 6
+script = ExtResource("1_awiou")
+role_scene = ExtResource("2_ye7pc")
+
+[node name="NameLabel" type="Label" parent="." unique_id=2009541463]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+
+[node name="RolesContainer" type="HBoxContainer" parent="." unique_id=1856042023]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6

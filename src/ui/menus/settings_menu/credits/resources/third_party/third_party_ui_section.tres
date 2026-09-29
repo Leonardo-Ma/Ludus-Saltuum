@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CreditSection" format=3 uid="uid://6ugboxvr3l18"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_2xf31"]
+[ext_resource type="Resource" uid="uid://bpd2k20g6w16o" path="res://src/ui/menus/settings_menu/credits/resources/third_party/ui/nieobi_game_icon_pack.tres" id="2_4nu8w"]
+[ext_resource type="Texture2D" uid="uid://oev7fcb0csud" path="res://src/icons/16x16/ui.png" id="3_2xf31"]
+[ext_resource type="Resource" uid="uid://bsuqrn8jo05xu" path="res://src/ui/menus/settings_menu/credits/resources/third_party/ui/justin_16x16_icon_pack.tres" id="3_4nu8w"]
+[ext_resource type="Script" uid="uid://bf7srgwryci82" path="res://src/ui/menus/settings_menu/credits/data/credit_person.gd" id="4_3ialy"]
+[ext_resource type="Script" uid="uid://ldfdxojlwwcl" path="res://src/ui/menus/settings_menu/credits/data/credit_section.gd" id="5_4p8ua"]
+
+[resource]
+script = ExtResource("5_4p8ua")
+display_name = "Third Party UI Assets"
+icon = ExtResource("3_2xf31")
+assets = Array[ExtResource("1_2xf31")]([ExtResource("2_4nu8w"), ExtResource("3_4nu8w")])
+metadata/_custom_type_script = "uid://ldfdxojlwwcl"

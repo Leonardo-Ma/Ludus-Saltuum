@@ -98,7 +98,10 @@ folder_colors={
 "res://src/ui/": "green",
 "res://src/ui/debug/": "gray",
 "res://src/ui/helpers/": "gray",
-"res://src/ui/input_icon_maps/": "purple"
+"res://src/ui/input_icon_maps/": "purple",
+"res://src/ui/menus/settings_menu/credits/data/": "gray",
+"res://src/ui/menus/settings_menu/credits/helpers/": "gray",
+"res://src/ui/menus/settings_menu/credits/resources/": "purple"
 }
 
 [filesystem]

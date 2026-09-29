@@ -48,6 +48,7 @@
 [ext_resource type="Script" uid="uid://bcmpf6o5c4dss" path="res://src/ui/menus/settings_menu/video/fps_limit_option.gd" id="41_txwea"]
 [ext_resource type="Texture2D" uid="uid://da5cj8yvrisle" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/mobile_data.png" id="41_un64q"]
 [ext_resource type="Script" uid="uid://c0x7j8wi6hylp" path="res://src/ui/menus/settings_menu/reset_settings_button.gd" id="42_u56sa"]
+[ext_resource type="PackedScene" uid="uid://c7t0doucinrlm" path="res://src/ui/menus/settings_menu/credits/credits_screen.tscn" id="46_1lg27"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ftg2j"]
 content_margin_top = 12.0
@@ -591,6 +592,7 @@ script = ExtResource("29_fbymy")
 layout_mode = 2
 
 [node name="VideoOptions" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=697717083]
+visible = false
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -735,38 +737,15 @@ expand_icon = true
 script = ExtResource("32_8tp0o")
 
 [node name="Credits" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=48341008]
-visible = false
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
+size_flags_horizontal = 3
 theme_override_constants/separation = 40
 metadata/_tab_index = 0
 metadata/_tab_name = ""
 
-[node name="UnderBuildingWarning" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/Credits" unique_id=1582432370]
+[node name="CreditsScreen" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/Credits" unique_id=319564374 instance=ExtResource("46_1lg27")]
 layout_mode = 2
-
-[node name="Warning" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/Credits/UnderBuildingWarning" unique_id=43189914]
-modulate = Color(1, 1, 0, 1)
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-texture = ExtResource("18_8l3q0")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="Hammer" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/Credits/UnderBuildingWarning" unique_id=1201153606]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-texture = ExtResource("19_sto7j")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="Saw" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/Credits/UnderBuildingWarning" unique_id=986587292]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-texture = ExtResource("20_txwea")
-expand_mode = 3
-stretch_mode = 5
+size_flags_vertical = 3
 
 [node name="Statistics" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=347035709]
 visible = false

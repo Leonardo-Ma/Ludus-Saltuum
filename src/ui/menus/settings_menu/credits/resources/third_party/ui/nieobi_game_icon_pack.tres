@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CreditAsset" format=3 uid="uid://bpd2k20g6w16o"]
+
+[ext_resource type="Texture2D" uid="uid://gfd0uy3kkxkn" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/1_game/controller.png" id="1_gpvp7"]
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="2_i3jnw"]
+
+[resource]
+script = ExtResource("2_i3jnw")
+display_name = "Game Icon Pack"
+creator_name = "Nieobie"
+creator_url = "https://nieobie.itch.io/"
+description = "800+ Rounded Free Icons (CC0)"
+origin_url = "https://nieobie.itch.io/free-icons"
+license_name = "CC0 1.0 Universal"
+license_url = "https://creativecommons.org/publicdomain/zero/1.0/"
+icon = ExtResource("1_gpvp7")
+metadata/_custom_type_script = "uid://cyq6hhrye61tb"

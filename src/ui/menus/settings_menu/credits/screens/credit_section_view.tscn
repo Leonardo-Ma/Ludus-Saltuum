@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://b1o8u6ohbpsd3"]
+
+[ext_resource type="Script" uid="uid://cu4tebx0pja7l" path="res://src/ui/menus/settings_menu/credits/helpers/credit_section_view.gd" id="1_jxr13"]
+[ext_resource type="PackedScene" uid="uid://b57tusshlvgh" path="res://src/ui/menus/settings_menu/credits/screens/credit_person_view.tscn" id="2_kvdps"]
+[ext_resource type="PackedScene" uid="uid://bfm1ux1aiwo3q" path="res://src/ui/menus/settings_menu/credits/screens/credit_asset_view.tscn" id="3_twa3p"]
+
+[node name="CreditSectionView" type="VBoxContainer" unique_id=594315147]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/separation = 10
+script = ExtResource("1_jxr13")
+person_scene = ExtResource("2_kvdps")
+asset_scene = ExtResource("3_twa3p")
+
+[node name="Header" type="HBoxContainer" parent="." unique_id=1256888275]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="Icon" type="TextureRect" parent="Header" unique_id=986798608]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TitleLabel" type="Label" parent="Header" unique_id=537852611]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/outline_size = 8
+
+[node name="PeopleContainer" type="VBoxContainer" parent="." unique_id=915398559]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+
+[node name="AssetsContainer" type="VBoxContainer" parent="." unique_id=1246236704]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="." unique_id=605894864]
+layout_mode = 2

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CreditRole" format=3 uid="uid://b4mooq82yefxw"]
+
+[ext_resource type="Texture2D" uid="uid://3dtwn3oo5666" path="res://src/icons/16x16/world.png" id="1_3hpt4"]
+[ext_resource type="Script" uid="uid://bid4f07k0ijlu" path="res://src/ui/menus/settings_menu/credits/data/credit_role.gd" id="2_ym2wg"]
+
+[resource]
+script = ExtResource("2_ym2wg")
+display_name = "Level Designer"
+icon = ExtResource("1_3hpt4")
+metadata/_custom_type_script = "uid://bid4f07k0ijlu"

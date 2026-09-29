@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://c7t0doucinrlm"]
+
+[ext_resource type="Script" uid="uid://cyx2n2q3grqrw" path="res://src/ui/menus/settings_menu/credits/credits_screen.gd" id="1_usa8h"]
+[ext_resource type="Resource" uid="uid://d34vd8pxmnfuf" path="res://src/ui/menus/settings_menu/credits/credits.tres" id="2_qbm07"]
+[ext_resource type="PackedScene" uid="uid://b1o8u6ohbpsd3" path="res://src/ui/menus/settings_menu/credits/screens/credit_section_view.tscn" id="3_pa4rq"]
+[ext_resource type="PackedScene" uid="uid://cmk8do3b2s784" path="res://src/ui/menus/title_label_animated.tscn" id="4_wfmfa"]
+
+[node name="CreditsScreen" type="Control" unique_id=319564374]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_usa8h")
+credits = ExtResource("2_qbm07")
+section_scene = ExtResource("3_pa4rq")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=833895757]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_right = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=354112689]
+layout_mode = 2
+
+[node name="TitleLabelAnimated" parent="MarginContainer/VBoxContainer" unique_id=1399787384 instance=ExtResource("4_wfmfa")]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 4
+expand_mode = 1
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=911288743]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer" unique_id=1802921244]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SectionsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer" unique_id=1156084187]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 24

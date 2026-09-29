@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CreditRole" format=3 uid="uid://byifdpijgnnqr"]
+
+[ext_resource type="Texture2D" uid="uid://28sm407p2u6k" path="res://src/icons/16x16/palette.png" id="1_dswgx"]
+[ext_resource type="Script" uid="uid://bid4f07k0ijlu" path="res://src/ui/menus/settings_menu/credits/data/credit_role.gd" id="2_wewuj"]
+
+[resource]
+script = ExtResource("2_wewuj")
+display_name = "UI Designer"
+icon = ExtResource("1_dswgx")
+metadata/_custom_type_script = "uid://bid4f07k0ijlu"

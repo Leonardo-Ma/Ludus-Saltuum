@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CreditPerson" format=3 uid="uid://becka80k44gqx"]
+
+[ext_resource type="Script" uid="uid://bid4f07k0ijlu" path="res://src/ui/menus/settings_menu/credits/data/credit_role.gd" id="1_ncb5w"]
+[ext_resource type="Resource" uid="uid://cdf1qjao68pbk" path="res://src/ui/menus/settings_menu/credits/resources/roles/developer.tres" id="2_qr3a0"]
+[ext_resource type="Resource" uid="uid://c7005ctgajk8b" path="res://src/ui/menus/settings_menu/credits/resources/roles/game_designer.tres" id="3_2udjn"]
+[ext_resource type="Resource" uid="uid://b4mooq82yefxw" path="res://src/ui/menus/settings_menu/credits/resources/roles/level_designer.tres" id="4_721hw"]
+[ext_resource type="Resource" uid="uid://dissaifb5i1vu" path="res://src/ui/menus/settings_menu/credits/resources/roles/qa.tres" id="5_lag66"]
+[ext_resource type="Resource" uid="uid://byifdpijgnnqr" path="res://src/ui/menus/settings_menu/credits/resources/roles/ui_designer.tres" id="6_j6pla"]
+[ext_resource type="Script" uid="uid://bf7srgwryci82" path="res://src/ui/menus/settings_menu/credits/data/credit_person.gd" id="7_nrxir"]
+
+[resource]
+script = ExtResource("7_nrxir")
+display_name = "Leonardo Filho"
+roles = Array[ExtResource("1_ncb5w")]([ExtResource("2_qr3a0"), ExtResource("3_2udjn"), ExtResource("4_721hw"), ExtResource("5_lag66"), ExtResource("6_j6pla")])
+metadata/_custom_type_script = "uid://bf7srgwryci82"

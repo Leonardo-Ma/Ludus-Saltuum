@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dmgstnjqxowov"]
+
+[ext_resource type="Script" uid="uid://dd7fpp66wpd1h" path="res://src/ui/menus/settings_menu/credits/helpers/credit_role_view.gd" id="1_1qmyn"]
+
+[node name="CreditRoleView" type="HBoxContainer" unique_id=374306981]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_1qmyn")
+
+[node name="Icon" type="TextureRect" parent="." unique_id=141898212]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="." unique_id=1912473801]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 14
+
+[node name="VSeparator" type="VSeparator" parent="." unique_id=88619072]
+layout_mode = 2
+size_flags_horizontal = 3

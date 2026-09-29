@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CreditSection" format=3 uid="uid://dop3flqrabvcn"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_imi05"]
+[ext_resource type="Texture2D" uid="uid://caimlin5xqtn1" path="res://src/icons/16x16/character.png" id="2_jikuu"]
+[ext_resource type="Script" uid="uid://bf7srgwryci82" path="res://src/ui/menus/settings_menu/credits/data/credit_person.gd" id="3_is3xd"]
+[ext_resource type="Resource" uid="uid://becka80k44gqx" path="res://src/ui/menus/settings_menu/credits/resources/first_party/people/leonardo_filho.tres" id="4_yj6ix"]
+[ext_resource type="Script" uid="uid://ldfdxojlwwcl" path="res://src/ui/menus/settings_menu/credits/data/credit_section.gd" id="5_jqb4l"]
+
+[resource]
+script = ExtResource("5_jqb4l")
+display_name = "First Party"
+icon = ExtResource("2_jikuu")
+people = Array[ExtResource("3_is3xd")]([ExtResource("4_yj6ix")])
+metadata/_custom_type_script = "uid://ldfdxojlwwcl"

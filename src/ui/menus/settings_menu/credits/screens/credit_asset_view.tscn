@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://bfm1ux1aiwo3q"]
+
+[ext_resource type="Script" uid="uid://bpou7peqr40q0" path="res://src/ui/menus/settings_menu/credits/helpers/credit_asset_view.gd" id="1_v6nfk"]
+[ext_resource type="Texture2D" uid="uid://caimlin5xqtn1" path="res://src/icons/16x16/character.png" id="2_q48yv"]
+[ext_resource type="Texture2D" uid="uid://b67f6pix0pidd" path="res://src/icons/16x16/dialogue.png" id="3_3ft3o"]
+[ext_resource type="Script" uid="uid://df1df0ty60jwb" path="res://src/ui/menus/settings_menu/credits/helpers/credit_link_button.gd" id="3_n5ucu"]
+[ext_resource type="Texture2D" uid="uid://bb58r4qkap6wi" path="res://src/icons/16x16/script.png" id="4_q48yv"]
+
+[node name="CreditAssetView" type="HBoxContainer" unique_id=1992606856]
+offset_right = 130.0
+offset_bottom = 81.0
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_constants/separation = 6
+script = ExtResource("1_v6nfk")
+
+[node name="VSeparator4" type="VSeparator" parent="." unique_id=1487428251]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="." unique_id=238014723]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Header" unique_id=2017143569]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AssetLabelButton" type="Button" parent="Header" unique_id=454975328]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+script = ExtResource("3_n5ucu")
+
+[node name="VSeparator4" type="VSeparator" parent="Header" unique_id=420771448]
+layout_mode = 2
+
+[node name="DescriptionIcon" type="TextureRect" parent="Header" unique_id=558934759]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("3_3ft3o")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DescriptionLabel" type="Label" parent="Header" unique_id=1758246113]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+
+[node name="VSeparator" type="VSeparator" parent="." unique_id=1895937198]
+layout_mode = 2
+
+[node name="Creator" type="HBoxContainer" parent="." unique_id=1083825442]
+layout_mode = 2
+
+[node name="PersonIcon" type="TextureRect" parent="Creator" unique_id=614134360]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("2_q48yv")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CreatorLabelButton" type="Button" parent="Creator" unique_id=1905949474]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+script = ExtResource("3_n5ucu")
+
+[node name="VSeparator2" type="VSeparator" parent="." unique_id=614962158]
+layout_mode = 2
+
+[node name="License" type="HBoxContainer" parent="." unique_id=1637442931]
+layout_mode = 2
+
+[node name="ScrollIcon" type="TextureRect" parent="License" unique_id=851840280]
+custom_minimum_size = Vector2(21, 21)
+layout_mode = 2
+texture = ExtResource("4_q48yv")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LicenseLabelButton" type="Button" parent="License" unique_id=1726682374]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 10
+script = ExtResource("3_n5ucu")
+
+[node name="VSeparator3" type="VSeparator" parent="." unique_id=1889009680]
+layout_mode = 2

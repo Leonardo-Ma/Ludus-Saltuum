@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CreditRole" format=3 uid="uid://cdf1qjao68pbk"]
+
+[ext_resource type="Script" uid="uid://bid4f07k0ijlu" path="res://src/ui/menus/settings_menu/credits/data/credit_role.gd" id="1_6b43q"]
+[ext_resource type="Texture2D" uid="uid://bgcef2dg8bwf" path="res://src/icons/16x16/computer.png" id="1_tnvam"]
+
+[resource]
+script = ExtResource("1_6b43q")
+display_name = "Developer"
+icon = ExtResource("1_tnvam")
+metadata/_custom_type_script = "uid://bid4f07k0ijlu"

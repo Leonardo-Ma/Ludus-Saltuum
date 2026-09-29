@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CreditRole" format=3 uid="uid://c7005ctgajk8b"]
+
+[ext_resource type="Texture2D" uid="uid://gfd0uy3kkxkn" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/1_game/controller.png" id="1_7sqo3"]
+[ext_resource type="Script" uid="uid://bid4f07k0ijlu" path="res://src/ui/menus/settings_menu/credits/data/credit_role.gd" id="2_r1igs"]
+
+[resource]
+script = ExtResource("2_r1igs")
+display_name = "Game Designer"
+icon = ExtResource("1_7sqo3")
+metadata/_custom_type_script = "uid://bid4f07k0ijlu"

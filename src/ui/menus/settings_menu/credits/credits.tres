@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CreditsData" format=3 uid="uid://d34vd8pxmnfuf"]
+
+[ext_resource type="Script" uid="uid://bglwhnwqqswcy" path="res://src/ui/menus/settings_menu/credits/data/credits_data.gd" id="1_li4b3"]
+[ext_resource type="Script" uid="uid://ldfdxojlwwcl" path="res://src/ui/menus/settings_menu/credits/data/credit_section.gd" id="2_gs4dt"]
+[ext_resource type="Resource" uid="uid://dop3flqrabvcn" path="res://src/ui/menus/settings_menu/credits/resources/first_party/first_party_section.tres" id="3_ic8a8"]
+[ext_resource type="Resource" uid="uid://6ugboxvr3l18" path="res://src/ui/menus/settings_menu/credits/resources/third_party/third_party_ui_section.tres" id="4_qkio2"]
+
+[resource]
+script = ExtResource("1_li4b3")
+sections = Array[ExtResource("2_gs4dt")]([ExtResource("3_ic8a8"), ExtResource("4_qkio2")])
+metadata/_custom_type_script = "uid://bglwhnwqqswcy"

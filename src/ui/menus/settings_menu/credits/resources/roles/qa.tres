@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CreditRole" format=3 uid="uid://dissaifb5i1vu"]
+
+[ext_resource type="Texture2D" uid="uid://t0g2m4upiw1x" path="res://src/icons/16x16/shield.png" id="1_fb6co"]
+[ext_resource type="Script" uid="uid://bid4f07k0ijlu" path="res://src/ui/menus/settings_menu/credits/data/credit_role.gd" id="2_3agwn"]
+
+[resource]
+script = ExtResource("2_3agwn")
+display_name = "QA"
+icon = ExtResource("1_fb6co")
+metadata/_custom_type_script = "uid://bid4f07k0ijlu"

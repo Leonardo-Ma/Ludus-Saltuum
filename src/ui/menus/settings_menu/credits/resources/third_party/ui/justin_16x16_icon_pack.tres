@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CreditAsset" format=3 uid="uid://bsuqrn8jo05xu"]
+
+[ext_resource type="Texture2D" uid="uid://bb58r4qkap6wi" path="res://src/icons/16x16/script.png" id="1_a1ylw"]
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="2_pmw11"]
+
+[resource]
+script = ExtResource("2_pmw11")
+display_name = "16x16 Icon Pack"
+creator_name = "Justin Arnold"
+creator_url = "https://zeromatrix.itch.io/"
+description = "400 colorful, application-oriented icons."
+origin_url = "https://zeromatrix.itch.io/rpgiab-icons"
+license_name = "CC BY 4.0"
+license_url = "https://creativecommons.org/licenses/by/4.0/"
+icon = ExtResource("1_a1ylw")
+metadata/_custom_type_script = "uid://cyq6hhrye61tb"
