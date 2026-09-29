@@ -20,5 +20,5 @@ func _on_body_entered(body: Node3D) -> void:
 
 
 func _on_body_exited(body: Node3D) -> void:
-	if body.is_in_group(Groups.CONTROLLED):
+	if body.is_in_group(Groups.CONTROLLED) and GameplayStateManager.is_in_mode(target_gameplay_mode):
 		GameplayStateManager.change_gameplay_state(GameplayStateManager.get_previous_mode())

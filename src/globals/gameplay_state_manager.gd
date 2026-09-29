@@ -35,7 +35,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if ApplicationStateManager.is_gameplay_active:
+	if ApplicationStateManager.is_gameplay_active():
 		_play_time_seconds += delta
 
 #region Getters and Setters
