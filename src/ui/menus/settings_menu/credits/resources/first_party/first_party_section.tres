@@ -8,7 +8,7 @@
 
 [resource]
 script = ExtResource("5_jqb4l")
-display_name = "First Party"
+display_name = "Internal Team"
 icon = ExtResource("2_jikuu")
 people = Array[ExtResource("3_is3xd")]([ExtResource("4_yj6ix")])
 metadata/_custom_type_script = "uid://ldfdxojlwwcl"

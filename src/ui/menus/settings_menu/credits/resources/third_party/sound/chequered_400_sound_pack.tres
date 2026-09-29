@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CreditAsset" format=3 uid="uid://45bax6t6an1f"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_1x0cw"]
+
+[resource]
+script = ExtResource("1_1x0cw")
+display_name = "400 Sounds Pack"
+creator_name = "Chequered Ink"
+creator_url = "https://ci.itch.io/"
+description = "Quickly inject some life into your games with our handy sound effects pack."
+origin_url = "https://ci.itch.io/400-sounds-pack"
+license_name = "Custom"
+license_url = "https://ci.itch.io/400-sounds-pack"
+metadata/_custom_type_script = "uid://cyq6hhrye61tb"

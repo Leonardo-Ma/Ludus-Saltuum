@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CreditAsset" format=3 uid="uid://csh4m805qra74"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_bk75i"]
+
+[resource]
+script = ExtResource("1_bk75i")
+display_name = "Portal VFX"
+creator_name = "Binbun"
+creator_url = "https://binbun3d.itch.io/"
+description = "A window to another world right in your hands!"
+origin_url = "https://binbun3d.itch.io/godot-portal-vfx"
+license_name = "CC0 1.0"
+license_url = "https://creativecommons.org/publicdomain/zero/1.0/"
+metadata/_custom_type_script = "uid://cyq6hhrye61tb"

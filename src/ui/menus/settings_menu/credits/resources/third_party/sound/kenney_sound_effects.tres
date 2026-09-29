@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CreditAsset" format=3 uid="uid://c4pbkxl5u00k4"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_vuroj"]
+
+[resource]
+script = ExtResource("1_vuroj")
+display_name = "51 UI Sound Effects"
+creator_name = "Kenney"
+creator_url = "https://kenney.nl/"
+description = "51 UI Sound Effects"
+origin_url = "https://opengameart.org/content/51-ui-sound-effects-buttons-switches-and-clicks"
+license_name = "CC0 1.0"
+license_url = "https://creativecommons.org/publicdomain/zero/1.0/"
+metadata/_custom_type_script = "uid://cyq6hhrye61tb"

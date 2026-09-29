@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CreditAsset" format=3 uid="uid://csw31m0yjjjwb"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_lof35"]
+[ext_resource type="Texture2D" uid="uid://bekjp455k4x1b" path="res://src/icons/third_party_icons/godot_logo.svg" id="1_yqirv"]
+
+[resource]
+script = ExtResource("1_lof35")
+display_name = "Godot Engine"
+creator_name = "Godot Engine contributors"
+creator_url = "https://godotengine.org/"
+description = "Your free, open‑source game engine."
+origin_url = "https://godotengine.org/"
+license_name = "MIT"
+license_url = "https://github.com/godotengine/godot?tab=MIT-1-ov-file"
+icon = ExtResource("1_yqirv")
+metadata/_custom_type_script = "uid://cyq6hhrye61tb"

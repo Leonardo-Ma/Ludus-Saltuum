@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CreditSection" format=3 uid="uid://dlfn26d550ony"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_q5j8f"]
+[ext_resource type="Texture2D" uid="uid://bmfp4ta55lmp2" path="res://src/icons/16x16/tools.png" id="2_7bpmu"]
+[ext_resource type="Resource" uid="uid://cgmaskkn68xai" path="res://src/ui/menus/settings_menu/credits/resources/third_party/props/ultimate_rpg_item_bundle.tres" id="2_q5j8f"]
+[ext_resource type="Script" uid="uid://bf7srgwryci82" path="res://src/ui/menus/settings_menu/credits/data/credit_person.gd" id="4_nylwj"]
+[ext_resource type="Script" uid="uid://ldfdxojlwwcl" path="res://src/ui/menus/settings_menu/credits/data/credit_section.gd" id="5_hrpfd"]
+
+[resource]
+script = ExtResource("5_hrpfd")
+display_name = "Third Party Prop Assets"
+icon = ExtResource("2_7bpmu")
+assets = Array[ExtResource("1_q5j8f")]([ExtResource("2_q5j8f")])
+metadata/_custom_type_script = "uid://ldfdxojlwwcl"

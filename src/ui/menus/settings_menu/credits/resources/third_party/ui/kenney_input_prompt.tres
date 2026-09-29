@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CreditAsset" format=3 uid="uid://dsb8gvj426dke"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_r0d5q"]
+
+[resource]
+script = ExtResource("1_r0d5q")
+display_name = "Input Prompts"
+creator_name = "Kenney"
+creator_url = "https://kenney.nl/"
+origin_url = "https://kenney.nl/assets/input-prompts"
+license_name = "CC0 1.0"
+license_url = "https://creativecommons.org/publicdomain/zero/1.0/"
+metadata/_custom_type_script = "uid://cyq6hhrye61tb"

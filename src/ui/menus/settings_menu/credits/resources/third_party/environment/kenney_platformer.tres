@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CreditAsset" format=3 uid="uid://brfseojxkg8et"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_k0bcd"]
+
+[resource]
+script = ExtResource("1_k0bcd")
+display_name = "Platformer Kit"
+creator_name = "Kenney"
+creator_url = "https://kenney.nl/"
+description = "Platformer Kit"
+origin_url = "https://kenney.nl/assets/platformer-kit"
+license_name = "CC0 1.0"
+license_url = "https://creativecommons.org/publicdomain/zero/1.0/"
+metadata/_custom_type_script = "uid://cyq6hhrye61tb"

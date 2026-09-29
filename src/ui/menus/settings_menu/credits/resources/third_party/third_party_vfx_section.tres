@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CreditSection" format=3 uid="uid://ctti5b7ngge3u"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_f4aoh"]
+[ext_resource type="Texture2D" uid="uid://bhbhlf4t28wyo" path="res://src/icons/16x16/glow.png" id="2_dw4ke"]
+[ext_resource type="Resource" uid="uid://csh4m805qra74" path="res://src/ui/menus/settings_menu/credits/resources/third_party/vfx/portal_vfx.tres" id="2_pvks7"]
+[ext_resource type="Resource" uid="uid://byya1ensoiyno" path="res://src/ui/menus/settings_menu/credits/resources/third_party/vfx/tornado.tres" id="3_q7vnx"]
+[ext_resource type="Script" uid="uid://bf7srgwryci82" path="res://src/ui/menus/settings_menu/credits/data/credit_person.gd" id="4_o8wbt"]
+[ext_resource type="Script" uid="uid://ldfdxojlwwcl" path="res://src/ui/menus/settings_menu/credits/data/credit_section.gd" id="5_melrg"]
+
+[resource]
+script = ExtResource("5_melrg")
+display_name = "Third Party VFX Assets"
+icon = ExtResource("2_dw4ke")
+assets = Array[ExtResource("1_f4aoh")]([ExtResource("2_pvks7"), ExtResource("3_q7vnx")])
+metadata/_custom_type_script = "uid://ldfdxojlwwcl"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CreditAsset" format=3 uid="uid://bltalgdm8tnf1"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_db1oa"]
+
+[resource]
+script = ExtResource("1_db1oa")
+display_name = "Bakcground Hill"
+creator_name = "Szadi art"
+creator_url = "https://szadiart.itch.io/"
+origin_url = "https://szadiart.itch.io/bakcground-hill"
+license_name = "Custom"
+license_url = "https://szadiart.itch.io/bakcground-hill"
+metadata/_custom_type_script = "uid://cyq6hhrye61tb"

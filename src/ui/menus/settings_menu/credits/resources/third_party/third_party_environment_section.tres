@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CreditSection" format=3 uid="uid://bfcgp2pg4kvcv"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_d72x0"]
+[ext_resource type="Resource" uid="uid://bgy60xm5d5pqv" path="res://src/ui/menus/settings_menu/credits/resources/third_party/environment/kay_kit_platformer_pack.tres" id="2_0xn32"]
+[ext_resource type="Texture2D" uid="uid://3dtwn3oo5666" path="res://src/icons/16x16/world.png" id="2_6qnbw"]
+[ext_resource type="Resource" uid="uid://brfseojxkg8et" path="res://src/ui/menus/settings_menu/credits/resources/third_party/environment/kenney_platformer.tres" id="3_qnpmp"]
+[ext_resource type="Resource" uid="uid://b1gcaouw8lv4u" path="res://src/ui/menus/settings_menu/credits/resources/third_party/environment/modular_low_poly_dungeon_pack.tres" id="4_7h4bd"]
+[ext_resource type="Script" uid="uid://bf7srgwryci82" path="res://src/ui/menus/settings_menu/credits/data/credit_person.gd" id="4_xllcl"]
+[ext_resource type="Script" uid="uid://ldfdxojlwwcl" path="res://src/ui/menus/settings_menu/credits/data/credit_section.gd" id="5_0dqfv"]
+[ext_resource type="Resource" uid="uid://c7j3wlj24d0sb" path="res://src/ui/menus/settings_menu/credits/resources/third_party/environment/j_toastie_small_platformer_kit.tres" id="5_pjifc"]
+[ext_resource type="Resource" uid="uid://egl4lshm3mxi" path="res://src/ui/menus/settings_menu/credits/resources/third_party/environment/kenney_cave_kit.tres" id="6_u3oda"]
+[ext_resource type="Resource" uid="uid://csvunpmi7ufc5" path="res://src/ui/menus/settings_menu/credits/resources/third_party/environment/kenney_city_roads.tres" id="7_r4xfe"]
+
+[resource]
+script = ExtResource("5_0dqfv")
+display_name = "Third Party Environment Assets"
+icon = ExtResource("2_6qnbw")
+assets = Array[ExtResource("1_d72x0")]([ExtResource("2_0xn32"), ExtResource("3_qnpmp"), ExtResource("4_7h4bd"), ExtResource("5_pjifc"), ExtResource("6_u3oda"), ExtResource("7_r4xfe")])
+metadata/_custom_type_script = "uid://ldfdxojlwwcl"

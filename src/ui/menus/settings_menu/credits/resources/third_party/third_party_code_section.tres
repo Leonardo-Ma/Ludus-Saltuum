@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CreditSection" format=3 uid="uid://x3qg5lulikqm"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_jn31q"]
+[ext_resource type="Resource" uid="uid://csw31m0yjjjwb" path="res://src/ui/menus/settings_menu/credits/resources/third_party/code_library/godot.tres" id="2_5a1xs"]
+[ext_resource type="Texture2D" uid="uid://bgcef2dg8bwf" path="res://src/icons/16x16/computer.png" id="2_oym4m"]
+[ext_resource type="Resource" uid="uid://coxghngjn6wnq" path="res://src/ui/menus/settings_menu/credits/resources/third_party/code_library/godotsteam.tres" id="3_1q4m8"]
+[ext_resource type="Script" uid="uid://bf7srgwryci82" path="res://src/ui/menus/settings_menu/credits/data/credit_person.gd" id="4_ey0er"]
+[ext_resource type="Script" uid="uid://ldfdxojlwwcl" path="res://src/ui/menus/settings_menu/credits/data/credit_section.gd" id="5_kkpn6"]
+
+[resource]
+script = ExtResource("5_kkpn6")
+display_name = "Third Party Code Libraries"
+icon = ExtResource("2_oym4m")
+assets = Array[ExtResource("1_jn31q")]([ExtResource("2_5a1xs"), ExtResource("3_1q4m8")])
+metadata/_custom_type_script = "uid://ldfdxojlwwcl"

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CreditAsset" format=3 uid="uid://coji127hsdy1s"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_atk44"]
+
+[resource]
+script = ExtResource("1_atk44")
+display_name = "KayKit - Character Pack"
+creator_name = "Kay Lousberg"
+creator_url = "http://kaylousberg.com/"
+description = "Bundle of characters assets."
+origin_url = "https://kaylousberg.itch.io/kaykit-adventurers"
+license_name = "CC0 1.0"
+license_url = "https://creativecommons.org/publicdomain/zero/1.0/"
+metadata/_custom_type_script = "uid://cyq6hhrye61tb"

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CreditAsset" format=3 uid="uid://coxghngjn6wnq"]
+
+[ext_resource type="Texture2D" uid="uid://dse2m7cbcow3d" path="res://src/icons/third_party_icons/godot_steam_logo.png" id="1_tnsux"]
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="2_705op"]
+
+[resource]
+script = ExtResource("2_705op")
+display_name = "Godotsteam"
+creator_name = "GP Garcia"
+creator_url = "https://codeberg.org/gramps"
+description = "An ecosystem of tools for Godot Engine and Valve's Steam.	"
+origin_url = "https://godotsteam.com/"
+license_name = "MIT"
+license_url = "https://codeberg.org/godotsteam/godotsteam/src/branch/godot4/license.md"
+icon = ExtResource("1_tnsux")
+metadata/_custom_type_script = "uid://cyq6hhrye61tb"

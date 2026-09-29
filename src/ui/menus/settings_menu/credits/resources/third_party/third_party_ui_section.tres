@@ -5,11 +5,14 @@
 [ext_resource type="Texture2D" uid="uid://oev7fcb0csud" path="res://src/icons/16x16/ui.png" id="3_2xf31"]
 [ext_resource type="Resource" uid="uid://bsuqrn8jo05xu" path="res://src/ui/menus/settings_menu/credits/resources/third_party/ui/justin_16x16_icon_pack.tres" id="3_4nu8w"]
 [ext_resource type="Script" uid="uid://bf7srgwryci82" path="res://src/ui/menus/settings_menu/credits/data/credit_person.gd" id="4_3ialy"]
+[ext_resource type="Resource" uid="uid://dsb8gvj426dke" path="res://src/ui/menus/settings_menu/credits/resources/third_party/ui/kenney_input_prompt.tres" id="4_4p8ua"]
 [ext_resource type="Script" uid="uid://ldfdxojlwwcl" path="res://src/ui/menus/settings_menu/credits/data/credit_section.gd" id="5_4p8ua"]
+[ext_resource type="Resource" uid="uid://bltalgdm8tnf1" path="res://src/ui/menus/settings_menu/credits/resources/third_party/ui/bakcground_hill.tres" id="5_i8elr"]
+[ext_resource type="Resource" uid="uid://cxihvs0ggjqc8" path="res://src/ui/menus/settings_menu/credits/resources/third_party/ui/kenney_fantasy_ui_border.tres" id="6_8dj6y"]
 
 [resource]
 script = ExtResource("5_4p8ua")
 display_name = "Third Party UI Assets"
 icon = ExtResource("3_2xf31")
-assets = Array[ExtResource("1_2xf31")]([ExtResource("2_4nu8w"), ExtResource("3_4nu8w")])
+assets = Array[ExtResource("1_2xf31")]([ExtResource("2_4nu8w"), ExtResource("3_4nu8w"), ExtResource("4_4p8ua"), ExtResource("5_i8elr"), ExtResource("6_8dj6y")])
 metadata/_custom_type_script = "uid://ldfdxojlwwcl"

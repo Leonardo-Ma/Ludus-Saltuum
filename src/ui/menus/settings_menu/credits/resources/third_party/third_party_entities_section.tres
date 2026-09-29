@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CreditSection" format=3 uid="uid://cdurw01lnk5v8"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_uk8yu"]
+[ext_resource type="Resource" uid="uid://p7utt4jj4e1n" path="res://src/ui/menus/settings_menu/credits/resources/third_party/entities/kay_kit_character_pack.tres" id="2_fckp6"]
+[ext_resource type="Texture2D" uid="uid://caimlin5xqtn1" path="res://src/icons/16x16/character.png" id="2_uk8yu"]
+[ext_resource type="Resource" uid="uid://dv8iahqlgv5mn" path="res://src/ui/menus/settings_menu/credits/resources/third_party/entities/kenney_car_kit.tres" id="3_d1hxf"]
+[ext_resource type="Script" uid="uid://bf7srgwryci82" path="res://src/ui/menus/settings_menu/credits/data/credit_person.gd" id="3_fckp6"]
+[ext_resource type="Script" uid="uid://ldfdxojlwwcl" path="res://src/ui/menus/settings_menu/credits/data/credit_section.gd" id="4_d1hxf"]
+
+[resource]
+script = ExtResource("4_d1hxf")
+display_name = "Third Party Entities Assets"
+icon = ExtResource("2_uk8yu")
+assets = Array[ExtResource("1_uk8yu")]([ExtResource("2_fckp6"), ExtResource("3_d1hxf")])
+metadata/_custom_type_script = "uid://ldfdxojlwwcl"

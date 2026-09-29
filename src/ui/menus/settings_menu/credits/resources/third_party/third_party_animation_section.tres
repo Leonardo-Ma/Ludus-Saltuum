@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CreditSection" format=3 uid="uid://ogetyt5p33je"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_jwjug"]
+[ext_resource type="Resource" uid="uid://coji127hsdy1s" path="res://src/ui/menus/settings_menu/credits/resources/third_party/animation/kay_kit_character_animations.tres" id="2_jwjug"]
+[ext_resource type="Texture2D" uid="uid://cu34e8n8130wv" path="res://src/icons/16x16/camera_move.png" id="2_uc88b"]
+[ext_resource type="Script" uid="uid://bf7srgwryci82" path="res://src/ui/menus/settings_menu/credits/data/credit_person.gd" id="4_gg05p"]
+[ext_resource type="Script" uid="uid://ldfdxojlwwcl" path="res://src/ui/menus/settings_menu/credits/data/credit_section.gd" id="5_ue5o5"]
+
+[resource]
+script = ExtResource("5_ue5o5")
+display_name = "Third Party Animation Assets"
+icon = ExtResource("2_uc88b")
+assets = Array[ExtResource("1_jwjug")]([ExtResource("2_jwjug")])
+metadata/_custom_type_script = "uid://ldfdxojlwwcl"

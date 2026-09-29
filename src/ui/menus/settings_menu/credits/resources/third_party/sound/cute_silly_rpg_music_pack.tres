@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CreditAsset" format=3 uid="uid://c3tbkb0caq40b"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_06ir6"]
+
+[resource]
+script = ExtResource("1_06ir6")
+display_name = "cute & silly rpg music pack"
+creator_name = "chajamakesmusic"
+creator_url = "https://chajamakesmusic.itch.io/"
+description = "8 Little songs."
+origin_url = "https://chajamakesmusic.itch.io/cute-and-silly-rpg-music-pack"
+license_name = "CC BY 4.0"
+license_url = "https://creativecommons.org/licenses/by/4.0/"
+metadata/_custom_type_script = "uid://cyq6hhrye61tb"

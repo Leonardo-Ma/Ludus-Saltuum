@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CreditAsset" format=3 uid="uid://cp72c1b4e0qi2"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_b33li"]
+
+[resource]
+script = ExtResource("1_b33li")
+display_name = "WobbleBoxx Workshop"
+creator_name = "WobbleBoxx"
+creator_url = "https://opengameart.org/users/wobbleboxx"
+description = "Small sound fx pack"
+origin_url = "https://opengameart.org/content/level-up-power-up-coin-get-13-sounds"
+license_name = "CC0 1.0"
+license_url = "https://creativecommons.org/publicdomain/zero/1.0/"
+metadata/_custom_type_script = "uid://cyq6hhrye61tb"

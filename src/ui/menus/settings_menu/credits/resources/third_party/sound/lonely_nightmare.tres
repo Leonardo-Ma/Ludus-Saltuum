@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CreditAsset" format=3 uid="uid://c471jkdl6ywps"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_ahw7s"]
+
+[resource]
+script = ExtResource("1_ahw7s")
+display_name = "Lonely Nightmare"
+creator_name = "Crow Shade"
+creator_url = "https://crowshade.itch.io/"
+description = "A collection of emotional, dark, and atmospheric music designed for indie horror games."
+origin_url = "https://crowshade.itch.io/melancholic-indie-horror-game-soundtrack-pack"
+license_name = "CC BY 4.0"
+license_url = "https://creativecommons.org/licenses/by/4.0/"
+metadata/_custom_type_script = "uid://cyq6hhrye61tb"

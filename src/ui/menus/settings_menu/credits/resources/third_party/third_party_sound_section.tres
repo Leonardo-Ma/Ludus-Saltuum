@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CreditSection" format=3 uid="uid://nbtioiwdgkw"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_f61cm"]
+[ext_resource type="Resource" uid="uid://45bax6t6an1f" path="res://src/ui/menus/settings_menu/credits/resources/third_party/sound/chequered_400_sound_pack.tres" id="2_m3w1x"]
+[ext_resource type="Texture2D" uid="uid://g0llqm8p77al" path="res://src/icons/16x16/music.png" id="2_xm4kk"]
+[ext_resource type="Resource" uid="uid://c4pbkxl5u00k4" path="res://src/ui/menus/settings_menu/credits/resources/third_party/sound/kenney_sound_effects.tres" id="3_ijs4j"]
+[ext_resource type="Resource" uid="uid://c3tbkb0caq40b" path="res://src/ui/menus/settings_menu/credits/resources/third_party/sound/cute_silly_rpg_music_pack.tres" id="4_bovl0"]
+[ext_resource type="Script" uid="uid://bf7srgwryci82" path="res://src/ui/menus/settings_menu/credits/data/credit_person.gd" id="4_rr6rw"]
+[ext_resource type="Resource" uid="uid://camunvf7vw646" path="res://src/ui/menus/settings_menu/credits/resources/third_party/sound/abstraction_music.tres" id="5_eyubk"]
+[ext_resource type="Script" uid="uid://ldfdxojlwwcl" path="res://src/ui/menus/settings_menu/credits/data/credit_section.gd" id="5_glqve"]
+[ext_resource type="Resource" uid="uid://c471jkdl6ywps" path="res://src/ui/menus/settings_menu/credits/resources/third_party/sound/lonely_nightmare.tres" id="6_evxk4"]
+[ext_resource type="Resource" uid="uid://cp72c1b4e0qi2" path="res://src/ui/menus/settings_menu/credits/resources/third_party/sound/wobbleboxx_sound_pack.tres" id="7_dcia7"]
+
+[resource]
+script = ExtResource("5_glqve")
+display_name = "Third Party Sound Assets"
+icon = ExtResource("2_xm4kk")
+assets = Array[ExtResource("1_f61cm")]([ExtResource("2_m3w1x"), ExtResource("3_ijs4j"), ExtResource("4_bovl0"), ExtResource("5_eyubk"), ExtResource("6_evxk4"), ExtResource("7_dcia7")])
+metadata/_custom_type_script = "uid://ldfdxojlwwcl"

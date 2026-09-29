@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CreditAsset" format=3 uid="uid://byya1ensoiyno"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_0706s"]
+
+[resource]
+script = ExtResource("1_0706s")
+display_name = "Tornado VFX"
+creator_name = "Soygus"
+creator_url = "https://soygus.itch.io/"
+description = "3 Tornado VFX effects, low-poly, stylized."
+origin_url = "https://soygus.itch.io/tornado-vfx-godot"
+license_name = "Custom"
+license_url = "https://soygus.itch.io/tornado-vfx-godot"
+metadata/_custom_type_script = "uid://cyq6hhrye61tb"

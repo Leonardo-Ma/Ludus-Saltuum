@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CreditAsset" format=3 uid="uid://cgmaskkn68xai"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_taj3y"]
+
+[resource]
+script = ExtResource("1_taj3y")
+display_name = "Ultimate RPG Items Bundle"
+creator_name = "Quaternius"
+creator_url = "https://quaternius.com/"
+description = "A bundle with 40+ RPG Models."
+origin_url = "https://poly.pizza/bundle/Ultimate-RPG-Items-Bundle-h8mhlZ0dG8"
+license_name = "CC0 1.0"
+license_url = "https://creativecommons.org/publicdomain/zero/1.0/"
+metadata/_custom_type_script = "uid://cyq6hhrye61tb"

@@ -11,6 +11,7 @@ extends HBoxContainer
 
 func setup(asset: CreditAsset) -> void:
 	icon.texture = asset.icon
+	icon.visible = asset.icon != null
 
 	asset_label_button.text = asset.display_name
 	creator_label_button.text = asset.creator_name

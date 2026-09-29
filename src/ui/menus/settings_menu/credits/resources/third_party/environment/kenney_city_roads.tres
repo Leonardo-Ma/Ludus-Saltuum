@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CreditAsset" format=3 uid="uid://csvunpmi7ufc5"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_lqtf8"]
+
+[resource]
+script = ExtResource("1_lqtf8")
+display_name = "City Kit (Roads)"
+creator_name = "Kenney"
+creator_url = "https://kenney.nl/"
+description = "City Kit (Roads)"
+origin_url = "https://kenney.nl/assets/city-kit-roads"
+license_name = "CC0 1.0"
+license_url = "https://creativecommons.org/publicdomain/zero/1.0/"
+metadata/_custom_type_script = "uid://cyq6hhrye61tb"
