@@ -21,9 +21,13 @@ const BUS_NAMES: Dictionary[SoundCategory, String] = {
 	SoundCategory.VEHICLE: "Vehicle",
 }
 
+const MIN_VOLUME_DB: float = -80.0
+
 var music: MusicController
 var combat: CombatPrioritySoundController
 var pool: SoundPool
+
+var _base_volume_db: Dictionary[SoundCategory, float] = { }
 
 
 func _ready() -> void:
@@ -76,6 +80,13 @@ func set_category_volume(category: SoundCategory, volume_db: float) -> void:
 func get_category_volume(category: SoundCategory) -> float:
 	var bus_name: String = _get_bus_for_category(category)
 	return AudioServer.get_bus_volume_db(AudioServer.get_bus_index(bus_name))
+
+
+## Slider 0..1 on squared taper, offset from bus layout volume
+func set_category_volume_linear(category: SoundCategory, slider_value: float) -> void:
+	if not _base_volume_db.has(category):
+		_base_volume_db[category] = get_category_volume(category)
+	set_category_volume(category, maxf(_base_volume_db[category] + linear_to_db(slider_value * slider_value), MIN_VOLUME_DB))
 
 
 func mute_all() -> void:

@@ -65,10 +65,10 @@ func apply_gameplay() -> void:
 
 
 func apply_audio() -> void:
-	SoundManager.set_category_volume(SoundManager.SoundCategory.GLOBAL, linear_to_db(settings.audio.volume_global) + settings.audio.VOLUME_DB_MAX)
-	SoundManager.set_category_volume(SoundManager.SoundCategory.MUSIC, linear_to_db(settings.audio.volume_music) + settings.audio.VOLUME_DB_MAX)
-	SoundManager.set_category_volume(SoundManager.SoundCategory.SFX, linear_to_db(settings.audio.volume_effects) + settings.audio.VOLUME_DB_MAX)
-	SoundManager.set_category_volume(SoundManager.SoundCategory.UI, linear_to_db(settings.audio.volume_ui) + settings.audio.VOLUME_DB_MAX)
+	SoundManager.set_category_volume_linear(SoundManager.SoundCategory.GLOBAL, settings.audio.volume_global)
+	SoundManager.set_category_volume_linear(SoundManager.SoundCategory.MUSIC, settings.audio.volume_music)
+	SoundManager.set_category_volume_linear(SoundManager.SoundCategory.SFX, settings.audio.volume_effects)
+	SoundManager.set_category_volume_linear(SoundManager.SoundCategory.UI, settings.audio.volume_ui)
 
 	audio_settings_changed.emit()
 

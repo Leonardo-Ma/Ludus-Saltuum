@@ -18,8 +18,7 @@ func _ready() -> void:
 
 
 func _on_volume_changed(new_value: float) -> void:
-	var db: float = linear_to_db(new_value) + SettingsManager.settings.audio.VOLUME_DB_MAX
-	SoundManager.set_category_volume(category, db)
+	SoundManager.set_category_volume_linear(category, new_value)
 	_write_to_manager(new_value)
 
 
