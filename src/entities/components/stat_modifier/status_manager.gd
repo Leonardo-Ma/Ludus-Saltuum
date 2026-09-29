@@ -3,6 +3,7 @@ class_name StatusManager
 extends Node
 
 signal statuses_changed
+signal status_removed(status_id: StringName)
 
 @export_category("Statuses")
 ## Statuses that are permanent/innate (like passives or racial bonuses)
@@ -61,6 +62,7 @@ func remove_status(status_id: StringName) -> void:
 		active.expired.disconnect(_on_status_expired)
 		active.remove()
 		_active_statuses.erase(status_id)
+		status_removed.emit(status_id)
 		statuses_changed.emit()
 
 

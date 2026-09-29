@@ -17,9 +17,12 @@ func _ready() -> void:
 			# re-assign keys when actual identifiers come in
 			_powerup_ui_elements[StringName(hbox.name)] = hbox
 
-	# TODO Change this to use status manager instead, so it is properly cleared upon clearing temporary status (in reset save for example)
 	CollectiblesEvents.status_buff_collected.connect(_on_status_buff_collected)
-	ControlledEntityEvents.player_respawning.connect(_on_player_respawning)
+	ControlledEntityEvents.player_finished_spawning.connect(_on_player_spawned)
+
+	var players: Array[Node] = get_tree().get_nodes_in_group(Groups.PLAYERS)
+	if not players.is_empty():
+		_on_player_spawned(players[0] as PlayerEntity)
 
 
 func _on_status_buff_collected(status_collectible: StatusCollectible) -> void:
@@ -60,7 +63,7 @@ func _on_status_buff_collected(status_collectible: StatusCollectible) -> void:
 	var cooldown_tween: Tween = create_tween()
 	cooldown_progress.value = 0.0
 	cooldown_tween.tween_property(cooldown_progress, "value", 100.0, duration)
-	cooldown_tween.finished.connect(_on_cooldown_finished.bind(identifier))
+	cooldown_tween.finished.connect(_on_status_ended.bind(identifier))
 
 	var flash_tween: Tween = create_tween().bind_node(icon_node)
 	var flash_delay: float = maxf(duration - 3.0, 0.0)
@@ -79,7 +82,7 @@ func _on_status_buff_collected(status_collectible: StatusCollectible) -> void:
 	}
 
 
-func _on_cooldown_finished(identifier: StringName) -> void:
+func _on_status_ended(identifier: StringName) -> void:
 	if not _active_trackers.has(identifier):
 		return
 
@@ -87,11 +90,9 @@ func _on_cooldown_finished(identifier: StringName) -> void:
 	_active_trackers.erase(identifier)
 
 
-func _on_player_respawning(_duration: float) -> void:
-	for identifier: StringName in _active_trackers:
-		_clear_tracker(identifier)
-
-	_active_trackers.clear()
+func _on_player_spawned(player: PlayerEntity) -> void:
+	if not player.status_manager.status_removed.is_connected(_on_status_ended):
+		player.status_manager.status_removed.connect(_on_status_ended)
 
 
 # TODO Refactor to remove this, must be static typed instead of traversing
