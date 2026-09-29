@@ -130,6 +130,10 @@ func _on_enter_area_body_entered(body: Node3D) -> void:
 		return
 	_driver = body as PlayerEntity
 
+	# TODO Double check
+	if not body.vehicle_rider.vehicle_exited.is_connected(exit):
+		_driver.vehicle_rider.vehicle_exited.connect(exit)
+
 	is_driven = true
 	enter_area.set_deferred("monitoring", false)
 	_driver.vehicle_rider.enter_vehicle(self)

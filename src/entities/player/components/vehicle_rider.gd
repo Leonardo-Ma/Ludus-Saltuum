@@ -4,7 +4,7 @@ class_name VehicleRider
 extends Node
 
 signal vehicle_entered
-signal vehicle_exited
+signal vehicle_exited(exit_position: Vector3)
 
 var is_in_vehicle: bool = false
 
@@ -55,7 +55,7 @@ func exit_vehicle(exit_position: Vector3) -> void:
 	_player.velocity = Vector3.ZERO
 	_vehicle = null
 	is_in_vehicle = false
-	vehicle_exited.emit()
+	vehicle_exited.emit(owner.position)
 
 #endregion
 
@@ -64,7 +64,7 @@ func _on_vehicle_entered() -> void:
 	_player.entity_enable_disable(false)
 
 
-func _on_vehicle_exited() -> void:
+func _on_vehicle_exited(_exit_position: Vector3) -> void:
 	_player.entity_enable_disable(true)
 
 
@@ -75,6 +75,6 @@ func _on_vehicle_tree_exiting() -> void:
 func _exit_vehicle_on_invalid() -> void:
 	_vehicle = null
 	is_in_vehicle = false
-	vehicle_exited.emit()
+	vehicle_exited.emit(owner.position)
 	_player.entity_enable_disable(true)
 #endregion
