@@ -39,10 +39,8 @@ func show_popup() -> void:
 
 
 func _on_yes_pressed() -> void:
-	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS)
-	assert(player != null, "SkipLevelConfirm: no player found in " + name)
-	ChunkManager.skip_current_chunk(player)
 	hide_popup()
+	ChunkManager.skip_current_chunk()
 
 
 func _on_no_pressed() -> void:

@@ -26,6 +26,8 @@ const LEVEL_COMPLETE_SOUNDS: Array[AudioStream] = [
 	preload("uid://b0bvycxcrnugp"), # chequered_ink/xylophone_level_complete.wa
 ]
 
+const SKIP_LEVEL_RESPAWN_DELAY: float = 1.0
+
 var procedural_seed: int = 0
 
 var _pending_new_game_seed: int = 0
@@ -286,14 +288,15 @@ func get_first_chunk_entrance_position() -> Vector3:
 
 
 ## Skips current chunk: marks scored, teleports player to its exit
-func skip_current_chunk(player: PlayerEntity) -> void:
+func skip_current_chunk() -> void:
 	assert(_current_chunk_index >= 0 and _current_chunk_index < _active_chunks.size(), "ChunkManager: no valid current chunk to skip in " + name)
+	var entity: Node3D = ControlledEntityEvents.controlled_entity
 	var current_chunk: LevelChunk = _active_chunks[_current_chunk_index]
 	# Mark as scored without giving score since skipped
 	current_chunk.set_meta("scored", true)
-	_on_chunk_exit_reached(player, current_chunk)
-	var exit_trigger: Node3D = current_chunk.exit_trigger
-	player.global_position = exit_trigger.global_position
+	_on_chunk_exit_reached(entity, current_chunk)
+	var target_transform: Transform3D = Transform3D(entity.global_basis.orthonormalized(), current_chunk.exit_trigger.global_position)
+	ControlledEntityEvents.request_respawn(SKIP_LEVEL_RESPAWN_DELAY, target_transform)
 
 
 # TODO This may be best be an enum/dict in level_chunk?
