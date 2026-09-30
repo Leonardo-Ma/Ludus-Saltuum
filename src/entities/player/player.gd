@@ -32,7 +32,7 @@ func respawn(delay: float, target_transform: Transform3D, is_death: bool = false
 	await get_tree().create_timer(delay / 2.0).timeout
 
 	global_position = target_transform.origin
-	global_rotation.y = target_transform.basis.get_euler().y
+	global_rotation.y = atan2(target_transform.basis.z.x, target_transform.basis.z.z)
 
 	status_manager.clear_temporary_statuses()
 

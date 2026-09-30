@@ -187,7 +187,7 @@ func respawn(delay: float, target_transform: Transform3D, is_death: bool = false
 	await get_tree().create_timer(delay / 2.0).timeout
 
 	global_position = target_transform.origin
-	rotation = Vector3(0.0, target_transform.basis.get_euler().y, 0.0)
+	global_rotation = Vector3(0.0, atan2(target_transform.basis.z.x, target_transform.basis.z.z), 0.0)
 	linear_velocity = Vector3.ZERO
 	angular_velocity = Vector3.ZERO
 
