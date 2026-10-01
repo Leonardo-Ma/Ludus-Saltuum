@@ -21,6 +21,9 @@
 [ext_resource type="PackedScene" uid="uid://c6on7cp5w028m" path="res://src/environment/mechanics/traps/spikes/spikes.tscn" id="16_ecor2"]
 [ext_resource type="Script" uid="uid://cxqsapbic2imr" path="res://src/entities/components/combat/attack.gd" id="17_3yyhr"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_w2gkj"]
+size = Vector3(123, 135, 50)
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xrfg7"]
 height = 5.345
 
@@ -46,9 +49,6 @@ metadata/_custom_type_script = "uid://cxqsapbic2imr"
 radius = 2.6132813
 height = 9.281372
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_w2gkj"]
-size = Vector3(112.08545, 135, 50)
-
 [node name="19Cave" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_de7ky")
 score_multiplier = 1.5
@@ -60,6 +60,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 
 [node name="Map" type="Node3D" parent="." unique_id=864257759]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -2)
+
+[node name="ChangeGameplayStateArea3D" parent="Map" unique_id=820773515 node_paths=PackedStringArray("collision_shape_3d") instance=ExtResource("8_lpvia")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -33, 0, 76)
+target_gameplay_mode = 2
+collision_shape_3d = NodePath("CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/ChangeGameplayStateArea3D" unique_id=306969996]
+shape = SubResource("BoxShape3D_w2gkj")
+debug_color = Color(0.37863603, 0.70196074, 0.06578518, 1)
+
+[node name="EnableDarkness" type="Area3D" parent="Map" unique_id=1987405358]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -33, 0, 76)
+script = ExtResource("10_12cvo")
+cave_environment = ExtResource("11_w2gkj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/EnableDarkness" unique_id=93477801]
+shape = SubResource("BoxShape3D_w2gkj")
+debug_color = Color(0.37863603, 0.70196074, 0.06578518, 1)
 
 [node name="RoomsSmall" type="GridMap" parent="Map" unique_id=2075401892]
 mesh_library = ExtResource("12_raejx")
@@ -319,24 +337,6 @@ text = "42"
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Map/EasterEgg" unique_id=113210453]
 transform = Transform3D(0.93301266, -0.25881913, 0.2500001, 0.25881913, -4.371139e-08, -0.9659258, 0.2500001, 0.9659258, 0.066987306, -0.7382202, -1.7881393e-07, 2.7549438)
 shape = SubResource("CapsuleShape3D_acljp")
-
-[node name="EnableDarkness" type="Area3D" parent="." unique_id=1987405358]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 11.162539)
-script = ExtResource("10_12cvo")
-cave_environment = ExtResource("11_w2gkj")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="EnableDarkness" unique_id=93477801]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.043, 64.093254, 2.2737368e-13)
-shape = SubResource("BoxShape3D_w2gkj")
-
-[node name="ChangeGameplayStateArea3D" parent="." unique_id=820773515 node_paths=PackedStringArray("collision_shape_3d") instance=ExtResource("8_lpvia")]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 11.162539)
-target_gameplay_mode = 2
-collision_shape_3d = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ChangeGameplayStateArea3D" unique_id=306969996]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.043, 63, 0)
-shape = SubResource("BoxShape3D_w2gkj")
 
 [node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_6e1j3")]
 unique_name_in_owner = true
