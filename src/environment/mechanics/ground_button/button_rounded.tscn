@@ -98,3 +98,6 @@ shape = SubResource("ConvexPolygonShape3D_knstw")
 [node name="ButtonBaseMesh" type="MeshInstance3D" parent="ButtonBase" unique_id=344330523]
 transform = Transform3D(1, 0, 0, 0, 0.27000004, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_kk13j")
+
+[node name="DisableTimer" type="Timer" parent="." unique_id=48574343]
+unique_name_in_owner = true
