@@ -86,7 +86,7 @@ _surfaces = [{
 }]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1hd0d"]
-size = Vector3(2.10619, 0.302456, 2.1061897)
+size = Vector3(2.106, 4, 2.106)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f7plw"]
 size = Vector3(0.017099548, 0.017099548, 0.0077169295)
@@ -100,6 +100,7 @@ attack = SubResource("Resource_1hd0d")
 metadata/_edit_group_ = true
 
 [node name="SpikeMesh" type="MeshInstance3D" parent="." unique_id=1359778599]
+unique_name_in_owner = true
 transform = Transform3D(1.0000005, 0, 0, 0, 1.0000007, -2.842171e-14, 0, 2.842171e-14, 1.0000007, -0.010496977, 0.010532235, -0.00637517)
 mesh = SubResource("ArrayMesh_cr444")
 
@@ -108,7 +109,7 @@ transform = Transform3D(0.010000002, 0, 0, 0, -4.3711412e-10, -0.010000005, 0, 0
 mesh = SubResource("ArrayMesh_1hd0d")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1206830811]
-transform = Transform3D(0.010000002, 0, 0, 0, -4.3711434e-10, -0.010000005, 0, 0.010000005, -4.3711434e-10, 0, 0, 0)
+transform = Transform3D(0.010000002, 0, 0, 0, -4.3711434e-10, -0.010000005, 0, 0.010000005, -4.3711434e-10, 0, 0, 0.01)
 shape = SubResource("BoxShape3D_1hd0d")
 
 [node name="Hitbox" type="Area3D" parent="." unique_id=1284920304]
