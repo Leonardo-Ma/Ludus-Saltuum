@@ -56,13 +56,8 @@ theme_override_constants/margin_bottom = 10
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer" unique_id=1713147350]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 3
-
-[node name="QuestionMark" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/HBoxContainer2" unique_id=907457364]
-modulate = Color(0.09803922, 0.5254902, 0.015686275, 1)
-layout_mode = 2
-theme_override_font_sizes/font_size = 100
-text = "¿؟"
 
 [node name="FastForward" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/HBoxContainer2" unique_id=668996646]
 modulate = Color(0.09803922, 0.5254902, 0.015686275, 1)
@@ -79,12 +74,6 @@ layout_mode = 2
 texture = ExtResource("4_8fvus")
 expand_mode = 3
 stretch_mode = 5
-
-[node name="QuestionMark2" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/HBoxContainer2" unique_id=693270482]
-modulate = Color(0.09803922, 0.5254902, 0.015686275, 1)
-layout_mode = 2
-theme_override_font_sizes/font_size = 100
-text = "?;"
 
 [node name="HSeparator" type="HSeparator" parent="PanelContainer/VBoxContainer" unique_id=1430027467]
 layout_mode = 2
