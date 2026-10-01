@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://blui2ox13a24b" path="res://src/ui/menus/background_parallax.tscn" id="3_tp1uf"]
 [ext_resource type="PackedScene" uid="uid://b6ednpu0kwboc" path="res://src/ui/helpers/grab_focus_on_visible.tscn" id="5_6y3kf"]
 [ext_resource type="Script" uid="uid://coi0r37wkdbpn" path="res://src/ui/menus/save_menu/return_button.gd" id="7_tp1uf"]
+[ext_resource type="Texture2D" uid="uid://d4mpox43403tw" path="res://src/icons/16x16/folder.png" id="8_tdy6s"]
+[ext_resource type="Script" uid="uid://ub8d45k5dxpl" path="res://src/ui/menus/save_menu/open_save_folder.gd" id="9_xy6o5"]
 
 [node name="SaveMenu" type="Control" unique_id=1667891420]
 layout_mode = 3
@@ -94,5 +96,17 @@ icon = ExtResource("3_41aul")
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("7_tp1uf")
+
+[node name="OpenSaveFolder" type="Button" parent="MarginContainer" unique_id=1649028367]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 8
+theme_type_variation = &"GenericIconButton"
+theme_override_constants/icon_max_width = 50
+icon = ExtResource("8_tdy6s")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("9_xy6o5")
 
 [editable path="MarginContainer/VBoxContainer/SaveSlotsContainer/SaveFileItem"]
