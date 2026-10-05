@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MusicPlaylist" format=3 uid="uid://cnm73dcurjv1r"]
+
+[ext_resource type="Script" uid="uid://bdo434suq7mly" path="res://src/sound/helpers/music_data/music_playlist.gd" id="1_se4y3"]
+[ext_resource type="Script" uid="uid://dolmnv7evenpp" path="res://src/sound/helpers/music_data/music_track.gd" id="2_hd48m"]
+[ext_resource type="Resource" uid="uid://cifh1gd1d2p6a" path="res://src/sound/helpers/resources/maze/tracks/sealed.tres" id="4_u01e1"]
+[ext_resource type="Resource" uid="uid://bexqx87vohv38" path="res://src/sound/helpers/resources/maze/tracks/ceiling_stars.tres" id="8_blg5l"]
+
+[resource]
+script = ExtResource("1_se4y3")
+tracks = Array[ExtResource("2_hd48m")]([ExtResource("8_blg5l"), ExtResource("4_u01e1")])
+metadata/_custom_type_script = "uid://bdo434suq7mly"

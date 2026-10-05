@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MusicTrack" format=3 uid="uid://bexqx87vohv38"]
+
+[ext_resource type="Script" uid="uid://dolmnv7evenpp" path="res://src/sound/helpers/music_data/music_track.gd" id="1_ahwg8"]
+[ext_resource type="AudioStream" uid="uid://be745nadwmqo1" path="res://src/sound/music/crow_shade/ceiling_stars.ogg" id="2_ahwg8"]
+
+[resource]
+script = ExtResource("1_ahwg8")
+key = "ceiling_stars"
+stream = ExtResource("2_ahwg8")
+song_name = "Ceiling Stars"
+author = "Crow Shade"
+album = "Lonely Nightmare"
+metadata/_custom_type_script = "uid://dolmnv7evenpp"

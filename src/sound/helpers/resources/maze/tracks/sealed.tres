@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MusicTrack" format=3 uid="uid://cifh1gd1d2p6a"]
+
+[ext_resource type="Script" uid="uid://dolmnv7evenpp" path="res://src/sound/helpers/music_data/music_track.gd" id="1_trdke"]
+[ext_resource type="AudioStream" uid="uid://r8vyt5mamaab" path="res://src/sound/music/crow_shade/sealed.ogg" id="2_trdke"]
+
+[resource]
+script = ExtResource("1_trdke")
+key = "sealed"
+stream = ExtResource("2_trdke")
+song_name = "Sealed"
+author = "Crow Shade"
+album = "Lonely Nightmare"
+metadata/_custom_type_script = "uid://dolmnv7evenpp"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MusicTrack" format=3 uid="uid://dvp01wuppulaw"]
+
+[ext_resource type="Script" uid="uid://dolmnv7evenpp" path="res://src/sound/helpers/music_data/music_track.gd" id="1_codu5"]
+[ext_resource type="AudioStream" uid="uid://cynalefhnsrfh" path="res://src/sound/music/abstraction/cloak_of_darkness_stage_1.ogg" id="2_codu5"]
+
+[resource]
+script = ExtResource("1_codu5")
+key = "cloak_of_darkness_stage_1"
+stream = ExtResource("2_codu5")
+song_name = "Cloak Of Darkness"
+author = "Abstraction"
+album = "music-loop-bundle-2025-q4"
+metadata/_custom_type_script = "uid://dolmnv7evenpp"

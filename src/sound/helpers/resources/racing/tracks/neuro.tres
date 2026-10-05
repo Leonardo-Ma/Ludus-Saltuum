@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MusicTrack" format=3 uid="uid://dhf76agxb4m4x"]
+
+[ext_resource type="Script" uid="uid://dolmnv7evenpp" path="res://src/sound/helpers/music_data/music_track.gd" id="1_n1oe1"]
+[ext_resource type="AudioStream" uid="uid://bdrsakrcg614f" path="res://src/sound/music/abstraction/neuro.ogg" id="2_n1oe1"]
+
+[resource]
+script = ExtResource("1_n1oe1")
+key = "neuro"
+stream = ExtResource("2_n1oe1")
+song_name = "Neuro"
+author = "Abstraction"
+album = "music-loop-bundle-2026-q1"
+metadata/_custom_type_script = "uid://dolmnv7evenpp"

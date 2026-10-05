@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="MusicPlaylist" format=3 uid="uid://dlcbgoiffyffq"]
+
+[ext_resource type="Script" uid="uid://bdo434suq7mly" path="res://src/sound/helpers/music_data/music_playlist.gd" id="1_nilxs"]
+[ext_resource type="Script" uid="uid://dolmnv7evenpp" path="res://src/sound/helpers/music_data/music_track.gd" id="2_103td"]
+[ext_resource type="Resource" uid="uid://c3hxqxmnirqsh" path="res://src/sound/helpers/resources/exploration/tracks/blossom.tres" id="3_n1tgv"]
+[ext_resource type="Resource" uid="uid://tumfk751plha" path="res://src/sound/helpers/resources/exploration/tracks/journey.tres" id="4_0gqx1"]
+[ext_resource type="Resource" uid="uid://cm4yjcc8rqse4" path="res://src/sound/helpers/resources/exploration/tracks/start.tres" id="5_8tpbe"]
+[ext_resource type="Resource" uid="uid://bjbp76q3pgsy0" path="res://src/sound/helpers/resources/exploration/tracks/regrowth_wip.tres" id="5_mq2w1"]
+[ext_resource type="Resource" uid="uid://jr223h3vxbmd" path="res://src/sound/helpers/resources/exploration/tracks/shop.tres" id="6_r2jlb"]
+[ext_resource type="Resource" uid="uid://dvekwhy3bo3qw" path="res://src/sound/helpers/resources/exploration/tracks/town.tres" id="8_1xdi8"]
+
+[resource]
+script = ExtResource("1_nilxs")
+tracks = Array[ExtResource("2_103td")]([ExtResource("3_n1tgv"), ExtResource("4_0gqx1"), ExtResource("5_mq2w1"), ExtResource("6_r2jlb"), ExtResource("5_8tpbe"), ExtResource("8_1xdi8")])
+metadata/_custom_type_script = "uid://bdo434suq7mly"

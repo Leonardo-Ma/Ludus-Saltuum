@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="MusicTrack" format=3 uid="uid://dvekwhy3bo3qw"]
+
+[ext_resource type="Script" uid="uid://dolmnv7evenpp" path="res://src/sound/helpers/music_data/music_track.gd" id="1_xcw34"]
+[ext_resource type="AudioStream" uid="uid://bbdc8a1gy34l" path="res://src/sound/music/chajamakesmusic/town.mp3" id="2_xcw34"]
+
+[resource]
+script = ExtResource("1_xcw34")
+key = "town"
+stream = ExtResource("2_xcw34")
+song_name = "Town"
+author = "chajamakesmusic"
+metadata/_custom_type_script = "uid://dolmnv7evenpp"

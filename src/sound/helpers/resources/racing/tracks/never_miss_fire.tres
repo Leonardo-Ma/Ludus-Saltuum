@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MusicTrack" format=3 uid="uid://cdrx04gva15ki"]
+
+[ext_resource type="Script" uid="uid://dolmnv7evenpp" path="res://src/sound/helpers/music_data/music_track.gd" id="1_75mtd"]
+[ext_resource type="AudioStream" uid="uid://d03gq72qvxvbv" path="res://src/sound/music/abstraction/never_miss_fire.ogg" id="2_1y7js"]
+
+[resource]
+script = ExtResource("1_75mtd")
+key = "never_miss_fire"
+stream = ExtResource("2_1y7js")
+song_name = "Never Miss Fire"
+author = "Abstraction"
+album = "music-loop-bundle-2026-q1"
+metadata/_custom_type_script = "uid://dolmnv7evenpp"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="MusicCatalog" format=3 uid="uid://c2prli518odbi"]
+
+[ext_resource type="Resource" uid="uid://dlcbgoiffyffq" path="res://src/sound/helpers/resources/exploration/exploration.tres" id="1_a3bfn"]
+[ext_resource type="Script" uid="uid://b4k574xs324rm" path="res://src/sound/helpers/music_data/music_catalog.gd" id="1_ap20h"]
+[ext_resource type="Resource" uid="uid://b77pq554sf3mh" path="res://src/sound/helpers/resources/main_menu/main_menu_playlist.tres" id="2_4qr1b"]
+[ext_resource type="Resource" uid="uid://cnm73dcurjv1r" path="res://src/sound/helpers/resources/maze/maze.tres" id="3_32egp"]
+[ext_resource type="Resource" uid="uid://555g0ojs7am7" path="res://src/sound/helpers/resources/racing/racing_playlist.tres" id="4_xsxt8"]
+
+[resource]
+script = ExtResource("1_ap20h")
+main_menu = ExtResource("2_4qr1b")
+exploration = ExtResource("1_a3bfn")
+racing = ExtResource("4_xsxt8")
+maze = ExtResource("3_32egp")
+metadata/_custom_type_script = "uid://b4k574xs324rm"

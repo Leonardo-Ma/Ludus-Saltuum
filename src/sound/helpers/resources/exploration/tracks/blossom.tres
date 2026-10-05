@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="MusicTrack" format=3 uid="uid://c3hxqxmnirqsh"]
+
+[ext_resource type="Script" uid="uid://dolmnv7evenpp" path="res://src/sound/helpers/music_data/music_track.gd" id="1_gwgdd"]
+[ext_resource type="AudioStream" uid="uid://cp0si1iqrye43" path="res://src/sound/music/chajamakesmusic/blossom.mp3" id="2_gwgdd"]
+
+[resource]
+script = ExtResource("1_gwgdd")
+key = "blossom"
+stream = ExtResource("2_gwgdd")
+song_name = "Blossom"
+author = "chajamakesmusic"
+metadata/_custom_type_script = "uid://dolmnv7evenpp"
