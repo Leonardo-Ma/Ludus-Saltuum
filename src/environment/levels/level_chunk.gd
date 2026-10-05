@@ -23,6 +23,8 @@ enum Difficulty {
 
 ## Logical position in chunk sequence, world_seed + chunk_key reproduces chunk_seed deterministically
 var chunk_key: int = -1
+## Player already beat and received points (Prevent backtracking)
+var is_scored: bool = false
 
 
 func _ready() -> void:

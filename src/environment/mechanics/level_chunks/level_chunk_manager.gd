@@ -85,7 +85,7 @@ func build_save_data(data: ChunkSaveData) -> void:
 	var uid_map: Dictionary[int, String] = { }
 	for chunk: LevelChunk in _active_chunks:
 		keys.push_back(chunk.chunk_key)
-		if chunk.has_meta("scored"):
+		if chunk.is_scored:
 			scored[chunk.chunk_key] = true
 		assert(_chunk_key_to_scene_uid.has(chunk.chunk_key), "ChunkManager: no persisted scene uid for active chunk_key %d" % chunk.chunk_key)
 		uid_map[chunk.chunk_key] = _chunk_key_to_scene_uid[chunk.chunk_key]
@@ -144,7 +144,7 @@ func _load_save_data(active_chunk_keys: Array[int], saved_next_key: int, scored_
 		_align_chunk_to_transform(chunk, next_spawn_transform)
 
 		if scored_keys.has(chunk_key):
-			chunk.set_meta("scored", true)
+			chunk.is_scored = true
 
 		_active_chunks.push_back(chunk)
 		_setup_chunk_trigger(chunk)
@@ -291,12 +291,16 @@ func get_first_chunk_entrance_position() -> Vector3:
 func skip_current_chunk() -> void:
 	assert(_current_chunk_index >= 0 and _current_chunk_index < _active_chunks.size(), "ChunkManager: no valid current chunk to skip in " + name)
 	var current_chunk: LevelChunk = _active_chunks[_current_chunk_index]
+
 	# Mark as scored without giving score since skipped
-	current_chunk.set_meta("scored", true)
+	current_chunk.is_scored = true
+
 	_on_chunk_exit_reached(_player, current_chunk)
 	var target_transform: Transform3D = Transform3D(_player.global_basis.orthonormalized(), current_chunk.exit_trigger.global_position)
+
 	# TODO Find better way than couple this
 	_player.vehicle_rider.exit_vehicle(_player.position)
+
 	ControlledEntityEvents.request_respawn(SKIP_LEVEL_RESPAWN_DELAY, target_transform)
 
 
@@ -372,8 +376,9 @@ func _on_chunk_exit_reached(body: Node3D, passed_chunk: LevelChunk) -> void:
 
 	_player.status_manager.clear_temporary_statuses()
 
-	if not passed_chunk.has_meta("scored"):
-		passed_chunk.set_meta("scored", true)
+	if not passed_chunk.is_scored:
+		passed_chunk.is_scored = true
+
 		AudioManager.play_sound(LEVEL_COMPLETE_SOUNDS.pick_random() as AudioStream, AudioManager.SoundBus.SFX, body.global_position)
 		var chunk_path: String = passed_chunk.scene_file_path
 		for data: ChunkData in _all_chunks:
@@ -387,13 +392,12 @@ func _on_chunk_exit_reached(body: Node3D, passed_chunk: LevelChunk) -> void:
 		recycle_oldest_chunk()
 
 
-# TODO This clearly doesn't pool >:(
+# TODO This clearly doesn't pool >:( It may not be necessary yet, as levels are simple
 func _pool_chunk(chunk: LevelChunk) -> void:
 	_disconnect_chunk_trigger(chunk)
 	chunk.entrance_trigger.set_deferred("monitoring", false)
 	chunk.entrance_trigger.set_deferred("monitorable", false)
-	if chunk.has_meta("scored"):
-		chunk.remove_meta("scored")
+	chunk.is_scored = false
 	chunk.queue_free()
 
 
