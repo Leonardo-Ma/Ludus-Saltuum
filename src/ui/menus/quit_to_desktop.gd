@@ -9,6 +9,6 @@ func _button_ready() -> void:
 
 
 func _button_pressed() -> void:
-	SoundManager.play_sound(SHUT_DOWN_SOUND, SoundManager.SoundCategory.UI)
+	AudioManager.play_ui_sound(SHUT_DOWN_SOUND)
 	await get_tree().create_timer(SHUTDOWN_DELAY).timeout
 	ApplicationStateManager.request_quit()

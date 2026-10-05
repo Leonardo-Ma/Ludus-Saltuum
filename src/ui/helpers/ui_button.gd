@@ -30,7 +30,7 @@ func _ready() -> void:
 
 
 func _on_pressed() -> void:
-	SoundManager.play_sound(POP_SOUNDS.pick_random(), SoundManager.SoundCategory.UI)
+	AudioManager.play_ui_sound(POP_SOUNDS.pick_random())
 
 	_button_pressed()
 
@@ -48,7 +48,7 @@ func _on_focused() -> void:
 		return
 	if not InputManager.is_gamepad_active():
 		grab_focus()
-	SoundManager.play_sound(HOVER_SOUND, SoundManager.SoundCategory.UI)
+	AudioManager.play_ui_sound(HOVER_SOUND)
 
 	pivot_offset = size / 2.0
 

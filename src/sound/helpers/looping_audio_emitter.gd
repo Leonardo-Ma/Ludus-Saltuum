@@ -9,7 +9,7 @@ extends AudioStreamPlayer3D
 ## Pitch at full intensity
 @export var max_pitch: float = 1.8
 ## Volume at zero intensity
-@export_range(-80, -30, 1) var min_volume_db: float = -80.0
+@export_range(-80, -15, 1) var min_volume_db: float = -80.0
 ## Volume at full intensity
 @export_range(-20, 6, 1) var max_volume_db: float = 0.0
 ## Intensity change per second

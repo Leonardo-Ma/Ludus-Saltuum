@@ -48,7 +48,7 @@ func _start_dash() -> void:
 	skills_controller.is_sliding = true
 	_dash_timer = dash_duration
 
-	SoundManager.play_sound(DASH_SOUND, SoundManager.SoundCategory.SFX)
+	AudioManager.play_sound(DASH_SOUND, AudioManager.SoundBus.SFX, skills_controller.entity.global_position)
 	skills_controller.spawn_ghost_trail(0.4)
 
 	_dash_cooldown = dash_cooldown

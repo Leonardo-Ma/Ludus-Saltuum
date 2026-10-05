@@ -28,7 +28,7 @@ func _on_surface_entered(body: Node3D) -> void:
 		return
 	char_body.velocity.y = launch_velocity
 	_play_squash()
-	SoundManager.play_sound(SPRING_SOUNDS.pick_random() as AudioStream, SoundManager.SoundCategory.SFX, body.global_position)
+	AudioManager.play_sound(SPRING_SOUNDS.pick_random() as AudioStream, AudioManager.SoundBus.SFX, body.global_position)
 
 
 func _play_squash() -> void:

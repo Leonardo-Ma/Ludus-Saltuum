@@ -374,7 +374,7 @@ func _on_chunk_exit_reached(body: Node3D, passed_chunk: LevelChunk) -> void:
 
 	if not passed_chunk.has_meta("scored"):
 		passed_chunk.set_meta("scored", true)
-		SoundManager.play_sound(LEVEL_COMPLETE_SOUNDS.pick_random() as AudioStream, SoundManager.SoundCategory.SFX, body.global_position)
+		AudioManager.play_sound(LEVEL_COMPLETE_SOUNDS.pick_random() as AudioStream, AudioManager.SoundBus.SFX, body.global_position)
 		var chunk_path: String = passed_chunk.scene_file_path
 		for data: ChunkData in _all_chunks:
 			if data.scene_path == chunk_path:

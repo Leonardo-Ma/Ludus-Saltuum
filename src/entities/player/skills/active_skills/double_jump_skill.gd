@@ -80,7 +80,7 @@ func _on_in_air() -> void:
 #region Visual and sound effects
 func _play_jump_feedback() -> void:
 	multi_jump_executed.emit()
-	SoundManager.play_sound(MULTI_JUMP_SOUNDS.pick_random(), SoundManager.SoundCategory.SFX)
+	AudioManager.play_sound(MULTI_JUMP_SOUNDS.pick_random(), AudioManager.SoundBus.SFX, skills_controller.entity.global_position)
 	skills_controller.spawn_ghost_trail(0.6)
 	_animate_jump_fov()
 

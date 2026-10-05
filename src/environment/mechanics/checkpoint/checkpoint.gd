@@ -31,7 +31,7 @@ func activate_checkpoint() -> void:
 
 	checkpoint_activated.emit(self)
 	CheckpointManager.on_checkpoint_activated(self)
-	SoundManager.play_sound(ACTIVATION_SOUNDS.pick_random(), SoundManager.SoundCategory.SFX, global_position)
+	AudioManager.play_sound(ACTIVATION_SOUNDS.pick_random(), AudioManager.SoundBus.SFX, global_position)
 
 	var tween: Tween = create_tween()
 	var original_scale: Vector3 = scale

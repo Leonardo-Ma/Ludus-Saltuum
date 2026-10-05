@@ -6,7 +6,7 @@ extends Container
 
 
 func _ready() -> void:
-	SoundManager.music.track_changed.connect(_on_track_changed)
+	MusicController.track_changed.connect(_on_track_changed)
 
 
 func _on_track_changed(track_name: String, author: String) -> void:

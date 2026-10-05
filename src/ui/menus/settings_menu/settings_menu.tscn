@@ -371,7 +371,7 @@ focus_next = NodePath("../../MusicVolume/MusicSlider")
 focus_previous = NodePath("../../../../../TabMarginContainer/TabContainer/AudioTab")
 theme_override_styles/slider = SubResource("StyleBoxFlat_ftg2j")
 script = ExtResource("5_nap5k")
-category = 1
+bus = 1
 
 [node name="SliderNumber" type="Label" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions/GlobalVolume" unique_id=1437650310]
 layout_mode = 2
@@ -398,7 +398,7 @@ focus_next = NodePath("../../EffectsVolume/EffectsSlider")
 focus_previous = NodePath("../../GlobalVolume/GlobalVolumeSlider")
 theme_override_styles/slider = SubResource("StyleBoxFlat_ftg2j")
 script = ExtResource("5_nap5k")
-category = 2
+bus = 2
 
 [node name="EffectsVolume" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions" unique_id=430440307]
 layout_mode = 2
@@ -419,7 +419,7 @@ focus_next = NodePath("../../UIVolume/UISlider")
 focus_previous = NodePath("../../MusicVolume/MusicSlider")
 theme_override_styles/slider = SubResource("StyleBoxFlat_ftg2j")
 script = ExtResource("5_nap5k")
-category = 3
+bus = 3
 
 [node name="UIVolume" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions" unique_id=1533792080]
 layout_mode = 2
@@ -440,7 +440,7 @@ focus_next = NodePath("../../../../../TabMarginContainer/TabContainer/AudioTab")
 focus_previous = NodePath("../../EffectsVolume/EffectsSlider")
 theme_override_styles/slider = SubResource("StyleBoxFlat_ftg2j")
 script = ExtResource("5_nap5k")
-category = 5
+bus = 5
 
 [node name="HudOptions" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=1253832284]
 visible = false
@@ -745,7 +745,6 @@ metadata/_tab_name = ""
 
 [node name="CreditsScreen" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/Credits" unique_id=319564374 instance=ExtResource("46_1lg27")]
 layout_mode = 2
-size_flags_vertical = 3
 
 [node name="Statistics" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=347035709]
 visible = false

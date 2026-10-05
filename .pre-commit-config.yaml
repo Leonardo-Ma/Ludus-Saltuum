@@ -144,7 +144,7 @@ repos:
         files: \.gd$
 
       - id: no-audio-server-direct
-        name: "ban using AudioServer directly | bypasses SoundManager | use SoundManager"
+        name: "ban using AudioServer directly | bypasses AudioManager | use AudioManager"
         language: pygrep
         entry: 'AudioServer\.(play_sound_once|play_sound|set_bus_volume_db|get_bus_volume_db)\('
         files: \.gd$

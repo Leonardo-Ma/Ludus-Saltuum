@@ -29,7 +29,7 @@ func _on_body_exited(body: Node3D) -> void:
 
 
 func _apply_darkness(player: PlayerEntity) -> void:
-	SoundManager.play_sound(THUNDER_SOUNDS.pick_random(), SoundManager.SoundCategory.SFX, player.global_position + Vector3(0, 5, 0))
+	AudioManager.play_sound(THUNDER_SOUNDS.pick_random(), AudioManager.SoundBus.SFX, player.global_position + Vector3(0, 5, 0))
 	var player_camera: Camera3D = player.camera_controller._camera
 
 	var dark_env: Environment = cave_environment.duplicate()

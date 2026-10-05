@@ -1,12 +1,12 @@
-## HSlider bound to SoundManager category bus. Set category in Inspector
+## HSlider bound to AudioManager category bus. Set category in Inspector
 extends HSlider
 
 @export_category("Audio")
-@export var category: SoundManager.SoundCategory
+@export var bus: AudioManager.SoundBus = AudioManager.SoundBus.UNASSIGNED
 
 
 func _ready() -> void:
-	assert(category != SoundManager.SoundCategory.UNASSIGNED, "VolumeSlider: category not set in " + name)
+	assert(bus != AudioManager.SoundBus.UNASSIGNED, "VolumeSlider: category not set in " + name)
 
 	min_value = 0.0
 	max_value = 1.0
@@ -18,45 +18,45 @@ func _ready() -> void:
 
 
 func _on_volume_changed(new_value: float) -> void:
-	SoundManager.set_category_volume_linear(category, new_value)
+	AudioManager.set_bus_volume_linear(bus, new_value)
 	_write_to_manager(new_value)
 
 
 func _get_saved_volume() -> float:
-	match category:
-		SoundManager.SoundCategory.GLOBAL:
-			return SettingsManager.settings.audio.volume_global
-		SoundManager.SoundCategory.MUSIC:
+	match bus:
+		AudioManager.SoundBus.MASTER:
+			return SettingsManager.settings.audio.volume_master
+		AudioManager.SoundBus.MUSIC:
 			return SettingsManager.settings.audio.volume_music
-		SoundManager.SoundCategory.SFX:
+		AudioManager.SoundBus.SFX:
 			return SettingsManager.settings.audio.volume_effects
-		SoundManager.SoundCategory.UI:
+		AudioManager.SoundBus.UI:
 			return SettingsManager.settings.audio.volume_ui
 		_:
 			return 1.0
 
 
 func _write_to_manager(new_value: float) -> void:
-	match category:
-		SoundManager.SoundCategory.GLOBAL:
-			SettingsManager.settings.audio.volume_global = new_value
-		SoundManager.SoundCategory.MUSIC:
+	match bus:
+		AudioManager.SoundBus.MASTER:
+			SettingsManager.settings.audio.volume_master = new_value
+		AudioManager.SoundBus.MUSIC:
 			SettingsManager.settings.audio.volume_music = new_value
-		SoundManager.SoundCategory.SFX:
+		AudioManager.SoundBus.SFX:
 			SettingsManager.settings.audio.volume_effects = new_value
-		SoundManager.SoundCategory.UI:
+		AudioManager.SoundBus.UI:
 			SettingsManager.settings.audio.volume_ui = new_value
 
 	SettingsManager.save()
 
 
 func _on_settings_reset() -> void:
-	match category:
-		SoundManager.SoundCategory.GLOBAL:
-			value = SettingsManager.settings.audio.volume_global
-		SoundManager.SoundCategory.MUSIC:
+	match bus:
+		AudioManager.SoundBus.MASTER:
+			value = SettingsManager.settings.audio.volume_master
+		AudioManager.SoundBus.MUSIC:
 			value = SettingsManager.settings.audio.volume_music
-		SoundManager.SoundCategory.SFX:
+		AudioManager.SoundBus.SFX:
 			value = SettingsManager.settings.audio.volume_effects
-		SoundManager.SoundCategory.UI:
+		AudioManager.SoundBus.UI:
 			value = SettingsManager.settings.audio.volume_ui

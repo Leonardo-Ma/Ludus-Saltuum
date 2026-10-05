@@ -188,7 +188,7 @@ func _on_damaged_effects_feedback(_attack: Attack) -> void:
 	if _damage_tween and _damage_tween.is_valid():
 		_damage_tween.kill()
 
-	SoundManager.play_combat_sound(DAMAGE_SOUNDS.pick_random(), global_position, 1)
+	AudioManager.play_sound(DAMAGE_SOUNDS.pick_random(), AudioManager.SoundBus.SFX, global_position)
 
 	_damage_material.albedo_color = Color(1.0, 1.0, 1.0, 0.5)
 	_damage_tween = create_tween()
@@ -218,7 +218,7 @@ func _on_health_changed(new_health: int) -> void:
 
 func play_attack_sound() -> void:
 	if ATTACK_SOUNDS.size() > 0:
-		SoundManager.play_combat_sound(ATTACK_SOUNDS.pick_random(), global_position)
+		AudioManager.play_sound(ATTACK_SOUNDS.pick_random(), AudioManager.SoundBus.SFX, global_position)
 
 
 func _get_all_mesh_instances(node: Node) -> Array[MeshInstance3D]:

@@ -36,4 +36,4 @@ func _on_triggered() -> void:
 		return
 	await get_tree().create_timer(activation_delay).timeout
 	omni_light_3d.visible = true
-	SoundManager.play_sound(GLOW_SOUND, SoundManager.SoundCategory.SFX, global_position)
+	AudioManager.play_sound(GLOW_SOUND, AudioManager.SoundBus.SFX, global_position)

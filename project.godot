@@ -34,13 +34,14 @@ CollectiblesEvents="*uid://mopgn76vdlwx"
 InputBindingManager="*uid://dogtu7flgoe45"
 SteamWorks="*uid://bj75q73hkheqo"
 PauseManager="*uid://ca4leb1u2kaje"
-SoundManager="*uid://c6aviitsw1wa"
+AudioManager="*uid://c6aviitsw1wa"
+MusicController="*uid://b64sk0gfflgoa"
 SaveManager="*uid://bld73yeq5e54m"
 WorldSaveController="*uid://docofyuxxrswe"
 ApplicationStateManager="*uid://brl6lt15dkb2j"
 GameplayStateManager="*uid://dswt442758rd1"
 UIManager="*uid://dbv6ox0nun76t"
-MusicManager="*uid://cdi31wa6jj2vh"
+MusicCoordinator="*uid://d0ocw3bd2dbd6"
 InputManager="*uid://dkueywuxvkn4k"
 Achievements="*uid://mcfcqnskwnjw"
 ChunkManager="*uid://qsxf8ht6hmse"
@@ -92,6 +93,7 @@ folder_colors={
 "res://src/icons/": "green",
 "res://src/sound/": "blue",
 "res://src/sound/helpers/": "gray",
+"res://src/sound/helpers/resources/": "purple",
 "res://src/steam/": "red",
 "res://src/systems/": "gray",
 "res://src/systems/save/save_data/": "gray",

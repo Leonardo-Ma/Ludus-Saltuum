@@ -16,9 +16,9 @@ func _ready() -> void:
 
 func open() -> void:
 	door.rotation.y = -90
-	SoundManager.play_sound(DOOR_OPEN, SoundManager.SoundCategory.SFX, global_position)
+	AudioManager.play_sound(DOOR_OPEN, AudioManager.SoundBus.SFX, global_position)
 
 
 func close() -> void:
 	door.rotation.y = 0
-	SoundManager.play_sound(DOOR_CLOSE, SoundManager.SoundCategory.SFX, global_position)
+	AudioManager.play_sound(DOOR_CLOSE, AudioManager.SoundBus.SFX, global_position)
