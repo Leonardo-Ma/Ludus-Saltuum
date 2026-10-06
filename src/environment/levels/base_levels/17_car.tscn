@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://dtuht3gos28nm" path="res://src/environment/mechanics/car/car_exit_zone.tscn" id="10_6nfv3"]
 [ext_resource type="Texture2D" uid="uid://c3jgn4iaiqy36" path="res://src/environment/assets/kenney_city_kit_roads/models/Textures/colormap.png" id="12_7bql8"]
 [ext_resource type="Script" uid="uid://jqe7b8io8fum" path="res://src/environment/mechanics/checkpoint/checkpoint.gd" id="12_i8gww"]
-[ext_resource type="PackedScene" uid="uid://b73j2aliqwvvc" path="res://src/environment/mechanics/gameplay_state_area/change_gameplay_state_area_3d.tscn" id="12_lsnar"]
 [ext_resource type="PackedScene" uid="uid://0qrtv0g7tptr" path="res://src/environment/assets/kenney_city_kit_roads/scenes/construction_barrier.tscn" id="13_i8gww"]
 [ext_resource type="ArrayMesh" uid="uid://ddnt2i2w2bm1a" path="res://src/environment/assets/kenney_city_kit_roads/meshes/road_slant.tres" id="13_lsnar"]
 [ext_resource type="ArrayMesh" uid="uid://bqr7fp5jrjnte" path="res://src/environment/assets/kenney_city_kit_roads/meshes/road_slant_high.tres" id="14_i8gww"]
@@ -102,9 +101,6 @@ size = Vector3(8, 5.17041, 3)
 [sub_resource type="BoxShape3D" id="BoxShape3D_41jj2"]
 size = Vector3(9, 3, 2)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_xrfg7"]
-size = Vector3(112.49707, 21.279297, 233.79254)
-
 [node name="17Car" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_cywjj")
 score_multiplier = 1.5
@@ -157,15 +153,6 @@ transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 
 [node name="ConstructionBarrier2" parent="Map/Props" unique_id=1484061832 instance=ExtResource("13_i8gww")]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, -4.000001)
-
-[node name="ChangeGameplayStateArea3D3" parent="Map" unique_id=1759714837 node_paths=PackedStringArray("collision_shape_3d") instance=ExtResource("12_lsnar")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6773186, 0, 1.8963776)
-target_gameplay_mode = 1
-collision_shape_3d = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/ChangeGameplayStateArea3D3" unique_id=2114616243]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7485352, 10.139648, 121.01987)
-shape = SubResource("BoxShape3D_xrfg7")
 
 [node name="Car" parent="." unique_id=977934045 instance=ExtResource("6_0dlys")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.647183, 0.87317705, 2.8251863)

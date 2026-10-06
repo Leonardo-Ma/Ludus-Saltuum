@@ -30,6 +30,9 @@ const REENTER_CAR_DELAY: int = 10
 @export_category("Core")
 @export var health: Health
 
+@export_category("Gameplay State")
+@export var driving_gameplay_mode: GameplayStateManager.GameplayMode = GameplayStateManager.GameplayMode.RACING
+
 var is_driven: bool = false
 
 var initial_level_position: Transform3D
@@ -69,6 +72,9 @@ func _ready() -> void:
 	enter_area.body_entered.connect(_on_enter_area_body_entered)
 
 	set_physics_process(false)
+
+	driving_started.connect(_on_driving_started)
+	driving_stopped.connect(_on_driving_stopped)
 
 
 func _physics_process(delta: float) -> void:
@@ -198,3 +204,14 @@ func respawn(delay: float, target_transform: Transform3D, is_death: bool = false
 		scale = Vector3.ONE
 
 	ControlledEntityEvents.player_finished_respawning.emit()
+
+
+@warning_ignore("unused_parameter") # gdlint-ignore-next-line unused-argument
+func _on_driving_started(driver: PlayerEntity) -> void:
+	GameplayStateManager.change_gameplay_state(driving_gameplay_mode)
+
+
+@warning_ignore("unused_parameter") # gdlint-ignore-next-line unused-argument
+func _on_driving_stopped(driver: PlayerEntity) -> void:
+	if GameplayStateManager.is_in_mode(driving_gameplay_mode):
+		GameplayStateManager.change_gameplay_state(GameplayStateManager.get_previous_mode())

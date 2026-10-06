@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://dfapcpf4fli57" path="res://src/environment/levels/level_chunk.gd" id="1_oyc53"]
 [ext_resource type="PackedScene" uid="uid://cl6psv388cmbx" path="res://src/environment/levels/entrance_trigger.tscn" id="2_m5l38"]
 [ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_jxtp2"]
-[ext_resource type="PackedScene" uid="uid://b73j2aliqwvvc" path="res://src/environment/mechanics/gameplay_state_area/change_gameplay_state_area_3d.tscn" id="4_30k40"]
 [ext_resource type="PackedScene" uid="uid://c3c0sejgavc7h" path="res://src/entities/vehicles/car.tscn" id="5_uy0qx"]
 [ext_resource type="MeshLibrary" uid="uid://qivysvwq1h5d" path="res://src/environment/assets/kenney_city_kit_roads/race_library.tres" id="6_3u1mk"]
 [ext_resource type="PackedScene" uid="uid://dtuht3gos28nm" path="res://src/environment/mechanics/car/car_exit_zone.tscn" id="7_b3gi7"]
@@ -12,9 +11,6 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bi0kh"]
 size = Vector3(4, 3, 9)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_ena13"]
-size = Vector3(154, 91, 136)
 
 [node name="22CarPortal" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_oyc53")
@@ -78,12 +74,3 @@ transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 
 [node name="ConstructionBarrier2" parent="Maps/MapInSky/Props" unique_id=134060736 instance=ExtResource("9_30k40")]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 3)
-
-[node name="ChangeGameplayStateArea3D3" parent="Maps" unique_id=820773515 node_paths=PackedStringArray("collision_shape_3d") instance=ExtResource("4_30k40")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6773186, 0, 1.8963776)
-target_gameplay_mode = 1
-collision_shape_3d = NodePath("CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Maps/ChangeGameplayStateArea3D3" unique_id=1819597118]
-transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, 17.00293, 8.279297, 70.01731)
-shape = SubResource("BoxShape3D_ena13")
