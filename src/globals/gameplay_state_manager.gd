@@ -15,26 +15,26 @@ enum GameplayMode {
 
 var _current_mode: GameplayMode = GameplayMode.NONE
 var _previous_mode: GameplayMode = GameplayMode.NONE
+var _suspended_mode: GameplayMode = GameplayMode.NONE
 var _is_initialized: bool = false
 
 var _play_time_seconds: float = 0.0
-
-@onready var _app_state_manager: ApplicationStateManager = ApplicationStateManager
 
 
 func _ready() -> void:
 	assert(not _is_initialized, "GameplayStateManager already initialized")
 	_is_initialized = true
 
-	_app_state_manager.state_changed.connect(_on_application_state_changed)
-
-	if _app_state_manager.is_in_state(ApplicationStateManager.GameState.PLAYING):
+	ApplicationStateManager.state_changed.connect(_on_application_state_changed)
+	if ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.PLAYING):
 		_on_application_state_entered_playing()
 
 	SaveManager.reset_requested.connect(reset_save_data)
 
 
 func _process(delta: float) -> void:
+	assert(ApplicationStateManager != null, "ApplicationStateManager missing in " + self.name)
+
 	if ApplicationStateManager.is_gameplay_active():
 		_play_time_seconds += delta
 
@@ -46,12 +46,36 @@ func get_play_time() -> float:
 func set_play_time(seconds: float) -> void:
 	_play_time_seconds = seconds
 
-#endregion
 
 func reset_save_data() -> void:
 	set_play_time(0.0)
 
 
+func get_current_mode() -> GameplayMode:
+	return _current_mode
+
+
+func get_previous_mode() -> GameplayMode:
+	return _previous_mode
+
+
+func is_in_mode(mode: GameplayMode) -> bool:
+	return _current_mode == mode
+
+
+func is_in_gameplay_mode() -> bool:
+	return _current_mode != GameplayMode.NONE
+
+
+func change_gameplay_state(new_mode: GameplayMode) -> void:
+	assert(
+		ApplicationStateManager.get_current_state() == ApplicationStateManager.GameState.PLAYING,
+		"Can only change gameplay mode during gameplay, current: " + str(ApplicationStateManager.get_current_state()),
+	)
+	_change_mode(new_mode)
+#endregion
+
+#region Private helpers
 func _on_application_state_changed(new_state: ApplicationStateManager.GameState, _previous_state: ApplicationStateManager.GameState) -> void:
 	match new_state:
 		ApplicationStateManager.GameState.PLAYING:
@@ -60,25 +84,48 @@ func _on_application_state_changed(new_state: ApplicationStateManager.GameState,
 			_on_application_state_entered_paused()
 		ApplicationStateManager.GameState.MAIN_MENU:
 			_on_application_state_entered_main_menu()
-		_:
-			_change_mode(GameplayMode.NONE)
+		ApplicationStateManager.GameState.SETTINGS:
+			_on_application_state_entered_temporary_menu()
+		ApplicationStateManager.GameState.SAVE_MENU:
+			_on_application_state_entered_temporary_menu()
+		ApplicationStateManager.GameState.ACHIEVEMENTS_MENU:
+			_on_application_state_entered_temporary_menu()
+		ApplicationStateManager.GameState.MAIN_MENU_SETTINGS:
+			_on_application_state_entered_temporary_menu()
 
 
-## When entering gameplay, can restore previous gameplay mode or start with NONE
+## Restores gameplay mode suspended by temporary application menus
 func _on_application_state_entered_playing() -> void:
-	# NOTE Placeholder
-	pass
+	_restore_suspended_mode()
 
 
-## Gameplay mode remains active but paused
+## Restores gameplay mode suspended by temporary application menus
 func _on_application_state_entered_paused() -> void:
-	# NOTE Placeholder
-	pass
+	_restore_suspended_mode()
 
 
-## Ensure cleanup when returning to main menu
-func _on_application_state_entered_main_menu() -> void:
+## Temporarily hides gameplay mode while preserving it for application-state return
+func _on_application_state_entered_temporary_menu() -> void:
+	if _current_mode == GameplayMode.NONE:
+		return
+
+	_suspended_mode = _current_mode
 	_change_mode(GameplayMode.NONE)
+
+
+## Clears gameplay state when returning to main menu
+func _on_application_state_entered_main_menu() -> void:
+	_suspended_mode = GameplayMode.NONE
+	_change_mode(GameplayMode.NONE)
+
+
+func _restore_suspended_mode() -> void:
+	if _suspended_mode == GameplayMode.NONE:
+		return
+
+	var restored_mode: GameplayMode = _suspended_mode
+	_suspended_mode = GameplayMode.NONE
+	_change_mode(restored_mode)
 
 
 func _change_mode(new_mode: GameplayMode) -> void:
@@ -99,28 +146,4 @@ func _on_mode_entered(new_mode: GameplayMode, previous_mode: GameplayMode) -> vo
 		GameplayMode.NONE:
 			if previous_mode != GameplayMode.NONE:
 				gameplay_mode_ended.emit()
-
-#region Getters and Setters
-func get_current_mode() -> GameplayMode:
-	return _current_mode
-
-
-func get_previous_mode() -> GameplayMode:
-	return _previous_mode
-
-
-func is_in_mode(mode: GameplayMode) -> bool:
-	return _current_mode == mode
-
-
-func is_in_gameplay_mode() -> bool:
-	return _current_mode != GameplayMode.NONE
-
-
-func change_gameplay_state(new_mode: GameplayMode) -> void:
-	assert(
-		_app_state_manager.get_current_state() == ApplicationStateManager.GameState.PLAYING,
-		"Can only change gameplay mode during gameplay, current: " + str(_app_state_manager.get_current_state()),
-	)
-	_change_mode(new_mode)
 #endregion
