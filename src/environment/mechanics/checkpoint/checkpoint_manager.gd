@@ -5,6 +5,8 @@ signal checkpoint_loaded(checkpoint_position: Vector3) # TODO Check if refactor 
 ## Unconditional, fires at the end of apply_save_data() regardless of a valid checkpoint
 signal load_applied
 
+const CHECKPOINT_RESPAWN_DELAY: float = 1.0
+
 var _active_checkpoint: Checkpoint = null
 var _checkpoint_chunk_index: int = -1
 var _checkpoint_local_transform: Transform3D = Transform3D.IDENTITY
@@ -114,6 +116,13 @@ func get_default_spawn_transform() -> Transform3D:
 
 func get_default_spawn_position() -> Vector3:
 	return get_default_spawn_transform().origin
+
+
+func respawn_at_required_checkpoint() -> void:
+	assert(_has_valid_position, "No required checkpoint found in " + name)
+
+	var respawn_transform: Transform3D = get_respawn_transform()
+	ControlledEntityEvents.request_respawn(CHECKPOINT_RESPAWN_DELAY, respawn_transform)
 
 #region Save and Load
 func build_save_data(data: CheckpointSaveData) -> void:

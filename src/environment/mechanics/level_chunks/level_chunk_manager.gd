@@ -151,6 +151,15 @@ func _load_save_data(active_chunk_keys: Array[int], saved_next_key: int, scored_
 
 		next_spawn_transform = chunk.exit_trigger.global_transform
 
+		_current_chunk_index = 0
+
+	for chunk: LevelChunk in _active_chunks:
+		if not scored_keys.has(chunk.chunk_key):
+			break
+		_current_chunk_index += 1
+
+	assert(_current_chunk_index < _active_chunks.size(), "ChunkManager: no current chunk found after loading in " + name)
+
 
 func _load_chunk_metadata_from_catalog() -> void:
 	assert(CHUNK_CATALOG != null, "Chunk catalog missing in " + name)
@@ -369,7 +378,18 @@ func _on_chunk_exit_reached(body: Node3D, passed_chunk: LevelChunk) -> void:
 		return
 
 	var passed_index: int = _active_chunks.find(passed_chunk)
-	if passed_index == -1 or passed_index < _current_chunk_index:
+	if passed_index == -1:
+		return
+
+	# Skipped a level
+	if passed_index > _current_chunk_index:
+		var skipped_chunk: LevelChunk = _active_chunks[_current_chunk_index]
+		var respawn_transform: Transform3D = skipped_chunk.entrance_trigger.global_transform
+		respawn_transform.basis = respawn_transform.basis.orthonormalized()
+		ControlledEntityEvents.request_respawn(SKIP_LEVEL_RESPAWN_DELAY, respawn_transform)
+		return
+
+	if passed_index < _current_chunk_index:
 		return
 
 	_current_chunk_index = passed_index + 1
@@ -380,6 +400,7 @@ func _on_chunk_exit_reached(body: Node3D, passed_chunk: LevelChunk) -> void:
 		passed_chunk.is_scored = true
 
 		AudioManager.play_sound(LEVEL_COMPLETE_SOUNDS.pick_random() as AudioStream, AudioManager.SoundBus.SFX, body.global_position)
+
 		var chunk_path: String = passed_chunk.scene_file_path
 		for data: ChunkData in _all_chunks:
 			if data.scene_path == chunk_path:
