@@ -35,7 +35,8 @@ const REENTER_CAR_DELAY: int = 10
 
 var is_driven: bool = false
 
-var initial_level_position: Transform3D
+## Local to parent, chunk is aligned after _ready so global would be stale
+var initial_local_transform: Transform3D
 
 var _driver: PlayerEntity = null
 
@@ -57,7 +58,7 @@ var _driver: PlayerEntity = null
 
 
 func _ready() -> void:
-	initial_level_position = global_transform
+	initial_local_transform = transform
 
 	assert(enter_area != null, "EnterArea missing in " + name)
 	assert(camera_anchor != null, "CameraAnchor missing in " + name)
@@ -137,8 +138,7 @@ func _on_enter_area_body_entered(body: Node3D) -> void:
 	_driver = body as PlayerEntity
 
 	# TODO Double check
-	if not body.vehicle_rider.vehicle_exited.is_connected(exit):
-		_driver.vehicle_rider.vehicle_exited.connect(exit)
+	_driver.vehicle_rider.vehicle_exited.connect(_on_vehicle_exited)
 
 	is_driven = true
 	enter_area.set_deferred("monitoring", false)
@@ -155,25 +155,29 @@ func _on_enter_area_body_entered(body: Node3D) -> void:
 	add_to_group(Groups.CONTROLLED)
 
 
+## Delegates only, reset runs in _on_vehicle_exited so every exit path converges
 func exit(exit_position: Vector3) -> void:
+	assert(is_driven, "Car not driven in " + name)
+	_driver.vehicle_rider.exit_vehicle(exit_position)
+
+
+func _on_vehicle_exited(_exit_position: Vector3) -> void:
 	assert(is_driven, "Car not driven in " + name)
 
 	set_physics_process(false)
 	set_process(false)
 
-	rotation = Vector3.ZERO
 	engine_force = 0.0
 	linear_velocity = Vector3.ZERO
 	angular_velocity = Vector3.ZERO
-	global_transform = initial_level_position
+	transform = initial_local_transform
 
 	camera.current = false
 
 	var driver: PlayerEntity = _driver
+	driver.vehicle_rider.vehicle_exited.disconnect(_on_vehicle_exited)
 	_driver = null
 	is_driven = false
-
-	driver.vehicle_rider.exit_vehicle(exit_position)
 
 	driving_stopped.emit(driver)
 	remove_from_group(Groups.CONTROLLED)
