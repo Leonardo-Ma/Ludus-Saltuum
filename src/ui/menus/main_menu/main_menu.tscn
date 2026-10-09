@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://bq1ecmltuj6nk" path="res://src/ui/menus/version_label.tscn" id="8_fpg57"]
 [ext_resource type="Texture2D" uid="uid://cluw1pjw0m0g0" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/settings.png" id="8_rq6ct"]
 [ext_resource type="Texture2D" uid="uid://7p2j8n842i0a" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/cross.png" id="10_rq6ct"]
-[ext_resource type="Script" uid="uid://lnlr2embnblu" path="res://src/ui/menus/main_menu/version_label.gd" id="13_cd13d"]
 [ext_resource type="PackedScene" uid="uid://dc4emcvac7toq" path="res://src/ui/prompt_icon.tscn" id="13_ridtu"]
 [ext_resource type="Texture2D" uid="uid://de308rriw58px" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/arrow_keys/keyboard_arrow_up_outline.png" id="14_ua5hf"]
 [ext_resource type="Texture2D" uid="uid://bfcny5u3eltby" path="res://src/ui/assets/kenney_input-prompts/generic_double/generic_joystick_horizontal.png" id="15_r4c6q"]
@@ -98,8 +97,7 @@ script = ExtResource("4_gdklf")
 
 [node name="VersionLabel" parent="." unique_id=854464690 instance=ExtResource("8_fpg57")]
 layout_mode = 1
-text = "X.X.X"
-script = ExtResource("13_cd13d")
+offset_top = -23.0
 
 [node name="GamepadPromptsMargin" type="MarginContainer" parent="." unique_id=186216965]
 custom_minimum_size = Vector2(138, 138)
