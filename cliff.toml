@@ -65,7 +65,9 @@ trim = true
 # An array of regex based postprocessors to modify the changelog.
 postprocessors = [
   # Replace the placeholder `<REPO>` with a URL.
-  { pattern = '<REPO>', replace = "https://github.com/Leonardo-Ma/Ludus-Saltuum" }, # replace repository URL
+  { pattern = '<REPO>', replace = "https://github.com/Leonardo-Ma/Ludus-Saltuum" },
+  # Keep exactly one trailing newline in generated changelog.
+  { pattern = '\n+$', replace = "\n" },
 ]
 
 [git]
