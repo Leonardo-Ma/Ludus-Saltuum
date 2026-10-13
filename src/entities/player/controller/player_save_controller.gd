@@ -32,7 +32,6 @@ func build_save_data(data: PlayerSaveData) -> void:
 	data.score = economy_controller.score
 	data.gold = economy_controller.gold
 
-	data.easter_eggs_found = easter_egg_controller.easter_eggs_found
 	data.found_easter_egg_names = []
 
 	# TODO Is this build or apply?
@@ -49,7 +48,6 @@ func apply_save_data(data: PlayerSaveData) -> void:
 	economy_controller.score_changed.emit(data.score)
 	economy_controller.gold_changed.emit(data.gold)
 
-	easter_egg_controller.easter_eggs_found = data.easter_eggs_found
 	easter_egg_controller.found_easter_eggs.clear()
 
 	for egg: EasterEgg.Name in data.found_easter_egg_names:
@@ -72,5 +70,4 @@ func reset_save_data() -> void:
 	economy_controller.score_changed.emit(economy_controller.score)
 	economy_controller.gold_changed.emit(economy_controller.gold)
 
-	easter_egg_controller.easter_eggs_found = 0
 	easter_egg_controller.found_easter_eggs.clear()

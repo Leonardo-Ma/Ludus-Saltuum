@@ -187,7 +187,7 @@ func _check_skill_completion() -> void:
 
 
 func _on_easter_egg_found(_easter_egg_name: EasterEgg.Name) -> void:
-	var easter_eggs_found: int = _easter_egg_controller.easter_eggs_found
+	var easter_eggs_found: int = _easter_egg_controller.found_easter_eggs.size()
 
 	if easter_eggs_found >= 1:
 		unlock(&"first_easter_egg")
