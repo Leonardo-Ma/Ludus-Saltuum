@@ -5,21 +5,20 @@
 [ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_6e1j3"]
 [ext_resource type="PackedScene" uid="uid://0hwlnlpkbsjn" path="res://src/environment/levels/assets/platforms/static_platforms/grass_platform.tscn" id="4_bjhch"]
 [ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="5_g04di"]
-[ext_resource type="MeshLibrary" uid="uid://b7d7lco4iovry" path="res://src/environment/assets/kenney_cave_kit/mesh_libraries/cave_floors.meshlib" id="6_og7uh"]
-[ext_resource type="MeshLibrary" uid="uid://dbm1usx123dkv" path="res://src/environment/assets/kenney_cave_kit/mesh_libraries/cave_walls.meshlib" id="7_2j6we"]
+[ext_resource type="MeshLibrary" uid="uid://d367b25goakfh" path="res://src/environment/assets/kenney_cave_kit/mesh_libraries/caves_small.tres" id="6_3yyhr"]
+[ext_resource type="MeshLibrary" uid="uid://crbydktsk4c55" path="res://src/environment/assets/kenney_cave_kit/mesh_libraries/caves_large.tres" id="7_bauo5"]
+[ext_resource type="MeshLibrary" uid="uid://dxoy3411xon0l" path="res://src/environment/assets/kenney_cave_kit/mesh_libraries/cave_walls.tres" id="8_he2lc"]
 [ext_resource type="PackedScene" uid="uid://b73j2aliqwvvc" path="res://src/environment/mechanics/gameplay_state_area/change_gameplay_state_area_3d.tscn" id="8_lpvia"]
 [ext_resource type="Script" uid="uid://7qulfimulpmy" path="res://src/environment/mechanics/cave/red_torch_trigger.gd" id="10_3yyhr"]
 [ext_resource type="Script" uid="uid://d1k4xc3spqrwq" path="res://src/environment/mechanics/cave/enable_darkness.gd" id="10_12cvo"]
 [ext_resource type="Environment" uid="uid://cukvscwyyjgeh" path="res://src/environment/mechanics/cave/cave_environment.tres" id="11_w2gkj"]
-[ext_resource type="MeshLibrary" uid="uid://ckg0cey8h3jup" path="res://src/environment/assets/kenney_cave_kit/mesh_libraries/cave_props.meshlib" id="12_blxea"]
-[ext_resource type="MeshLibrary" uid="uid://dwdx8xjd6wsq3" path="res://src/environment/assets/kenney_cave_kit/mesh_libraries/cave_rooms_small.meshlib" id="12_raejx"]
-[ext_resource type="MeshLibrary" uid="uid://bvrndis2kl3xm" path="res://src/environment/assets/kenney_cave_kit/mesh_libraries/cave_rooms_large.meshlib" id="13_raejx"]
 [ext_resource type="PackedScene" uid="uid://dy7goxhejncoa" path="res://src/environment/levels/assets/props/torch.tscn" id="13_ynq7h"]
 [ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/mechanics/collectible/coin/gold_coin.tscn" id="14_ynq7h"]
 [ext_resource type="PackedScene" uid="uid://bjgye0bmgf8gr" path="res://src/environment/mechanics/easter_egg/easter_egg.tscn" id="15_ykdc8"]
 [ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint/checkpoint_flag.tscn" id="16_a2riu"]
 [ext_resource type="PackedScene" uid="uid://c6on7cp5w028m" path="res://src/environment/mechanics/traps/spikes/spikes.tscn" id="16_ecor2"]
 [ext_resource type="Script" uid="uid://cxqsapbic2imr" path="res://src/entities/components/combat/attack.gd" id="17_3yyhr"]
+[ext_resource type="PackedScene" uid="uid://cvcxve456vw1e" path="res://src/environment/mechanics/collectible/speed_up/speed_up.tscn" id="19_ecor2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_w2gkj"]
 size = Vector3(123, 135, 50)
@@ -80,50 +79,41 @@ shape = SubResource("BoxShape3D_w2gkj")
 debug_color = Color(0.37863603, 0.70196074, 0.06578518, 1)
 
 [node name="RoomsSmall" type="GridMap" parent="Map" unique_id=2075401892]
-mesh_library = ExtResource("12_raejx")
+mesh_library = ExtResource("6_3yyhr")
 cell_size = Vector3(11, 1, 11)
 collision_mask = 11
 data = {
-"cells": PackedInt32Array(0, 1, 1441798, 1, 1, 1048576, 0, 2, 1441792, 1, 2, 1048576, 65535, 2, 0, 65534, 1, 1048576, 65534, 2, 1441792, 65533, 1, 655360, 65533, 2, 1048584, 65533, 3, 0, 65532, 2, 655360, 1, 3, 0, 0, 3, 655360, 0, 4, 0, 65531, 3, 655360, 65531, 5, 655366, 65532, 5, 0, 65531, 6, 0, 65530, 6, 655360, 65530, 7, 1441792, 65531, 7, 0, 524288, 4, 1310720, 524288, 3, 1179648, 524289, 3, 1310720, 524289, 2, 524288, 524288, 2, 131072, 524289, 1, 524288, 524288, 1, 524294, 589823, 1, 524294, 589823, 2, 1310720, 589822, 2, 131072, 589822, 1, 524288, 589821, 1, 1179648, 589821, 2, 524296, 589820, 2, 1179648, 589821, 3, 1310720, 589819, 3, 1179648, 589820, 5, 1310720, 589819, 5, 1310726, 589819, 6, 1310720, 589819, 7, 1310720, 589818, 7, 131072, 589818, 6, 1179648, 65535, 1, 1441798)
+"cells": PackedInt32Array(0, 1, 1, 1, 1, 1048576, 0, 2, 1441792, 1, 2, 1048576, 65535, 2, 0, 65534, 1, 1048576, 65534, 2, 1441792, 65533, 1, 655360, 65533, 2, 1, 65533, 3, 0, 65532, 2, 655360, 1, 3, 0, 0, 3, 655360, 0, 4, 0, 65531, 5, 1, 65531, 6, 0, 65530, 6, 655360, 65530, 7, 1441792, 65531, 7, 0, 524288, 4, 1310720, 524288, 3, 1179648, 524289, 3, 1310720, 524289, 2, 524288, 524288, 2, 131072, 524289, 1, 524288, 524288, 1, 1310721, 589823, 1, 1310721, 589823, 2, 1310720, 589822, 2, 131072, 589822, 1, 524288, 589821, 1, 1179648, 589821, 2, 131073, 589820, 2, 1179648, 589821, 3, 1310720, 589819, 5, 131073, 589819, 6, 1310720, 589819, 7, 1310720, 589818, 7, 131072, 589818, 6, 1179648, 65535, 1, 1)
 }
-metadata/_editor_floor_ = Vector3(0, 8, 0)
+metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="RoomsLarge" type="GridMap" parent="Map" unique_id=1044077658]
-mesh_library = ExtResource("13_raejx")
+mesh_library = ExtResource("7_bauo5")
 cell_size = Vector3(20, 1, 20)
 collision_mask = 11
 data = {
-"cells": PackedInt32Array(65535, 2, 655372, 65534, 2, 12, 65533, 2, 655370, 65532, 2, 1048578, 589823, 2, 524300, 589822, 2, 524300, 589821, 2, 524298, 589820, 2, 524290)
+"cells": PackedInt32Array(65535, 2, 3, 65534, 2, 3, 65533, 2, 2, 65532, 2, 1048576, 589823, 2, 524291, 589822, 2, 524291, 589821, 2, 131074, 589820, 2, 524288)
 }
 metadata/_editor_floor_ = Vector3(0, 8, 0)
 
-[node name="Floor" type="GridMap" parent="Map" unique_id=54067683]
-mesh_library = ExtResource("6_og7uh")
-cell_size = Vector3(4, 1, 4)
-collision_mask = 11
-metadata/_editor_floor_ = Vector3(0, 0, 0)
-
 [node name="WallsNorthSouth" type="GridMap" parent="Map" unique_id=823625883]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
-mesh_library = ExtResource("7_2j6we")
+mesh_library = ExtResource("8_he2lc")
 cell_size = Vector3(4, 1, 4)
 collision_mask = 11
 data = {
-"cells": PackedInt32Array(1, 2, 1441801, 65522, 14, 1048582, 65522, 15, 6, 65518, 15, 1441804, 65518, 16, 1441805, 65518, 17, 1048588, 65518, 18, 1048585, 65518, 10, 1048590, 589806, 10, 524302, 524289, 2, 1310729, 589810, 14, 131078, 589810, 15, 1179654, 589806, 15, 1310732, 589806, 17, 1179660, 589806, 16, 1310733, 589806, 18, 1179657)
+"cells": PackedInt32Array(1, 2, 3, 65522, 14, 5, 65522, 15, 6, 65518, 15, 1441804, 65518, 16, 1441805, 65518, 17, 1048588, 65518, 18, 1048585, 65518, 10, 1048590, 589806, 10, 524302, 524289, 2, 131075, 589810, 14, 524293, 589810, 15, 1179654, 589806, 15, 1179657, 589806, 17, 1179660, 589806, 16, 1179657, 589806, 18, 1179657, 65523, 10, 0, 589811, 10, 131072, 589806, 9, 524288, 65518, 9, 655360, 65520, 23, 655370, 589808, 23, 1179658, 589813, 14, 1179653, 65525, 14, 1048581)
 }
-metadata/_editor_floor_ = Vector3(0, 1, 0)
+metadata/_editor_floor_ = Vector3(8, 0, 0)
 
 [node name="WallsEastWest" type="GridMap" parent="Map" unique_id=1243316642]
-mesh_library = ExtResource("7_2j6we")
+mesh_library = ExtResource("8_he2lc")
 cell_size = Vector3(4, 1, 4)
 collision_mask = 11
 data = {
-"cells": PackedInt32Array(65515, 12, 655374, 65515, 14, 1048589, 65515, 16, 1048589, 65515, 18, 1048589, 65515, 20, 1441806, 65517, 20, 1048590, 65518, 22, 655372, 65520, 22, 7, 65521, 22, 7, 65522, 22, 7, 65523, 22, 7, 65524, 22, 7, 65526, 22, 12, 65527, 22, 13, 65529, 22, 655373, 65531, 22, 13, 65533, 22, 13, 65535, 22, 13, 1, 22, 1048590, 1, 24, 1441805, 1, 26, 1441805, 1, 28, 1441805, 1, 30, 1048589, 1, 32, 1441805, 1, 34, 14, 65535, 34, 655374, 589803, 12, 1179662, 589803, 14, 1310733, 589803, 16, 1310733, 589803, 18, 1310733, 589803, 20, 131086, 589805, 20, 524302, 589805, 22, 131086, 589806, 22, 131084, 589808, 22, 131079, 589809, 22, 131079, 589810, 22, 131079, 589811, 22, 131079, 589812, 22, 131079, 589817, 22, 524301, 589819, 22, 524301, 589821, 22, 524301, 589823, 22, 524301, 524289, 22, 524302, 524289, 24, 1310733, 524289, 26, 1310733, 524289, 28, 1310733, 524289, 30, 1310733, 524289, 32, 1310733, 524289, 34, 1310734, 589823, 34, 1179662, 65517, 22, 1441806, 65527, 9, 1441794, 589815, 9, 1179650, 65524, 9, 655366, 589812, 9, 1179654, 65526, 8, 0, 589814, 8, 131072, 589815, 22, 524301, 589814, 22, 524300, 65526, 13, 6, 589814, 13, 1310726)
+"cells": PackedInt32Array(65515, 12, 655370, 65515, 14, 1048585, 65515, 16, 1048585, 65515, 18, 1048585, 65515, 20, 1048585, 65517, 20, 1048590, 65518, 22, 655372, 65520, 22, 7, 65521, 22, 7, 65522, 22, 655363, 65523, 22, 7, 65524, 22, 7, 65526, 22, 9, 65527, 22, 9, 65529, 22, 655373, 65531, 22, 13, 65533, 22, 13, 65535, 22, 9, 1, 22, 1048586, 1, 24, 1441801, 1, 26, 1441801, 1, 28, 1441801, 1, 30, 1441801, 1, 32, 1441801, 1, 34, 10, 65535, 34, 655369, 589803, 12, 1179658, 589803, 14, 1179657, 589803, 16, 1179657, 589803, 18, 1179657, 589803, 20, 1179657, 589805, 20, 524302, 589805, 22, 131081, 589806, 22, 131084, 589808, 22, 131079, 589809, 22, 131079, 589810, 22, 524291, 589811, 22, 131079, 589812, 22, 131079, 589817, 22, 131081, 589819, 22, 131081, 524289, 26, 1310729, 524289, 28, 1310729, 524289, 30, 1310729, 524289, 32, 1310729, 524289, 34, 1310730, 589823, 34, 524297, 65517, 22, 655369, 65527, 9, 1441792, 589815, 9, 1179648, 65526, 8, 0, 589814, 8, 131072, 589815, 22, 131081, 65526, 13, 6, 589814, 13, 1310726, 65525, 15, 655375, 589813, 15, 131087, 65525, 22, 8, 65528, 22, 9, 65530, 22, 9, 65532, 22, 9, 65534, 22, 9, 65533, 34, 655370, 589821, 34, 1179658, 524289, 24, 1179657, 524289, 22, 524298, 589821, 22, 131081, 589813, 22, 524296, 589814, 22, 524297, 589823, 22, 131081, 65518, 20, 1048586, 65518, 18, 1048584, 65518, 16, 1048585, 65518, 15, 1048585, 589806, 18, 1179656, 589806, 19, 1179653, 65519, 22, 655369, 589803, 15, 1179657, 589803, 19, 1179657, 589803, 22, 131082, 589807, 22, 131081, 65515, 22, 1441802)
 }
-metadata/_editor_floor_ = Vector3(0, 1, 0)
-
-[node name="Props" type="GridMap" parent="Map" unique_id=362753108]
-mesh_library = ExtResource("12_blxea")
+metadata/_editor_floor_ = Vector3(0, 8, 0)
 
 [node name="Torches" type="Node3D" parent="Map" unique_id=1069717325]
 
@@ -267,7 +257,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 2, 79.73388)
 
 [node name="RedTorchTrigger" type="Area3D" parent="Map" unique_id=1706797072]
 unique_name_in_owner = true
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -41.091625, 0.1802187, 89.969345)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -45.091625, 0.1802187, 89.969345)
 script = ExtResource("10_3yyhr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/RedTorchTrigger" unique_id=1374760022]
@@ -340,7 +330,7 @@ shape = SubResource("CapsuleShape3D_acljp")
 
 [node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_6e1j3")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 5, 145)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 5, 144)
 
 [node name="GrassPlatform" parent="." unique_id=537577895 instance=ExtResource("4_bjhch")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 5)
@@ -350,3 +340,6 @@ transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, 3, 4
 
 [node name="Checkpoint" parent="." unique_id=742215115 instance=ExtResource("16_a2riu")]
 transform = Transform3D(-1.9318516, 0, -0.51763827, 0, 2, 0, 0.51763827, 0, -1.9318516, -50.923603, 0.23874676, 49.671375)
+
+[node name="SpeedUp" parent="." unique_id=707485280 instance=ExtResource("19_ecor2")]
+transform = Transform3D(-1.9318516, 0, -0.51763827, 0, 2, 0, 0.51763827, 0, -1.9318516, -76.9236, 2.2387466, 62.671375)
