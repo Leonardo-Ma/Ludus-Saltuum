@@ -9,14 +9,14 @@ data = PackedVector3Array(4.4358997, 0.099999994, -2.7127, 4.4969997, 0, -2.748,
 height = 0.25
 radius = 6.0
 
-[node name="RoomSmallVariation" type="StaticBody3D" unique_id=1290067127]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1373029615]
-shape = SubResource("ConcavePolygonShape3D_iuqmg")
-
-[node name="FloorCollisionShape3D" type="CollisionShape3D" parent="." unique_id=2014266967]
-shape = SubResource("CylinderShape3D_yu37n")
-
-[node name="RoomSmallVariation" type="MeshInstance3D" parent="." unique_id=869820829]
+[node name="RoomSmallVariation" type="MeshInstance3D" unique_id=869820829]
 mesh = ExtResource("1_yu37n")
 skeleton = NodePath("../..")
+
+[node name="RoomSmallVariation" type="StaticBody3D" parent="." unique_id=1290067127]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RoomSmallVariation" unique_id=1373029615]
+shape = SubResource("ConcavePolygonShape3D_iuqmg")
+
+[node name="FloorCollisionShape3D" type="CollisionShape3D" parent="RoomSmallVariation" unique_id=2014266967]
+shape = SubResource("CylinderShape3D_yu37n")

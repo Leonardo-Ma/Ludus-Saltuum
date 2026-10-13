@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://pvf414pcu1dt"]
+
+[ext_resource type="PackedScene" uid="uid://b8ijhwoi0geyf" path="res://src/environment/assets/kenney_cave_kit/pre_made_rooms/room_corner.tscn" id="1_u8na7"]
+[ext_resource type="PackedScene" uid="uid://cp1n6nn54y6i5" path="res://src/environment/assets/kenney_cave_kit/pre_made_rooms/room_small.tscn" id="2_4nqkj"]
+[ext_resource type="PackedScene" uid="uid://w1bqeo31t621" path="res://src/environment/assets/kenney_cave_kit/pre_made_rooms/room_small_variation.tscn" id="3_xvhr1"]
+
+[node name="Small" type="Node3D" unique_id=137039853]
+
+[node name="CaveRoomCorner" parent="." unique_id=2042932587 instance=ExtResource("1_u8na7")]
+
+[node name="CaveRoomSmall" parent="." unique_id=1457181042 instance=ExtResource("2_4nqkj")]
+
+[node name="CaveRoomSmallVariation" parent="." unique_id=869820829 instance=ExtResource("3_xvhr1")]

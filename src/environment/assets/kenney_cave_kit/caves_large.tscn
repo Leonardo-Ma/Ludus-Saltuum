@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://d2bvoxql10bpg"]
+
+[ext_resource type="PackedScene" uid="uid://d1xof7ah6ogjc" path="res://src/environment/assets/kenney_cave_kit/pre_made_rooms/room_large.tscn" id="1_r2c14"]
+[ext_resource type="PackedScene" uid="uid://ekr2ikk4gmul" path="res://src/environment/assets/kenney_cave_kit/pre_made_rooms/room_large_variation.tscn" id="2_ugao2"]
+[ext_resource type="PackedScene" uid="uid://phtn3aadqvsq" path="res://src/environment/assets/kenney_cave_kit/pre_made_rooms/room_wide.tscn" id="3_bdf05"]
+[ext_resource type="PackedScene" uid="uid://cxir04bmdfblb" path="res://src/environment/assets/kenney_cave_kit/pre_made_rooms/room_wide_variation.tscn" id="4_mgahf"]
+
+[node name="Large" type="Node3D" unique_id=1703965216]
+
+[node name="CaveRoomLarge" parent="." unique_id=1652877172 instance=ExtResource("1_r2c14")]
+
+[node name="CaveRoomLargeVariation" parent="." unique_id=462963117 instance=ExtResource("2_ugao2")]
+visible = false
+
+[node name="CaveRoomWide" parent="." unique_id=552332026 instance=ExtResource("3_bdf05")]
+visible = false
+
+[node name="CaveRoomWideVariation" parent="." unique_id=17468368 instance=ExtResource("4_mgahf")]
+visible = false

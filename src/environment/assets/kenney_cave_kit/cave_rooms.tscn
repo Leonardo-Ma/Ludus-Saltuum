@@ -1,31 +1,10 @@
 [gd_scene format=3 uid="uid://bssi88ct5a1j8"]
 
-[ext_resource type="PackedScene" uid="uid://b8ijhwoi0geyf" path="res://src/environment/assets/kenney_cave_kit/pre_made_rooms/room_corner.tscn" id="1_fpnda"]
-[ext_resource type="PackedScene" uid="uid://d1xof7ah6ogjc" path="res://src/environment/assets/kenney_cave_kit/pre_made_rooms/room_large.tscn" id="2_j0qfy"]
-[ext_resource type="PackedScene" uid="uid://ekr2ikk4gmul" path="res://src/environment/assets/kenney_cave_kit/pre_made_rooms/room_large_variation.tscn" id="3_3xq5x"]
-[ext_resource type="PackedScene" uid="uid://cp1n6nn54y6i5" path="res://src/environment/assets/kenney_cave_kit/pre_made_rooms/room_small.tscn" id="4_o1huh"]
-[ext_resource type="PackedScene" uid="uid://w1bqeo31t621" path="res://src/environment/assets/kenney_cave_kit/pre_made_rooms/room_small_variation.tscn" id="5_5hg8h"]
-[ext_resource type="PackedScene" uid="uid://phtn3aadqvsq" path="res://src/environment/assets/kenney_cave_kit/pre_made_rooms/room_wide.tscn" id="6_782on"]
-[ext_resource type="PackedScene" uid="uid://cxir04bmdfblb" path="res://src/environment/assets/kenney_cave_kit/pre_made_rooms/room_wide_variation.tscn" id="7_fr23v"]
+[ext_resource type="PackedScene" uid="uid://pvf414pcu1dt" path="res://src/environment/assets/kenney_cave_kit/caves_small.tscn" id="1_28ljy"]
+[ext_resource type="PackedScene" uid="uid://d2bvoxql10bpg" path="res://src/environment/assets/kenney_cave_kit/caves_large.tscn" id="2_ojcdl"]
 
 [node name="CaveRooms" type="Node3D" unique_id=332335120]
 
-[node name="CaveRoomCorner" parent="." unique_id=675568453 instance=ExtResource("1_fpnda")]
-visible = false
+[node name="Small" parent="." unique_id=137039853 instance=ExtResource("1_28ljy")]
 
-[node name="CaveRoomLarge" parent="." unique_id=1545787137 instance=ExtResource("2_j0qfy")]
-
-[node name="CaveRoomLargeVariation" parent="." unique_id=1747465929 instance=ExtResource("3_3xq5x")]
-visible = false
-
-[node name="CaveRoomSmall" parent="." unique_id=1109538277 instance=ExtResource("4_o1huh")]
-visible = false
-
-[node name="CaveRoomSmallVariation" parent="." unique_id=1290067127 instance=ExtResource("5_5hg8h")]
-visible = false
-
-[node name="CaveRoomWide" parent="." unique_id=1670016718 instance=ExtResource("6_782on")]
-visible = false
-
-[node name="CaveRoomWideVariation" parent="." unique_id=1290364261 instance=ExtResource("7_fr23v")]
-visible = false
+[node name="Large" parent="." unique_id=1703965216 instance=ExtResource("2_ojcdl")]
