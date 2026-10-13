@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MusicTrack" format=3 uid="uid://xao8r5pw7sga"]
+
+[ext_resource type="Script" uid="uid://dolmnv7evenpp" path="res://src/sound/helpers/music_data/music_track.gd" id="1_8eeey"]
+[ext_resource type="AudioStream" uid="uid://b01ff1xhb4yis" path="res://src/sound/music/crow_shade/lonely_nightmare.ogg" id="2_8eeey"]
+
+[resource]
+script = ExtResource("1_8eeey")
+key = "lonely_nightmare"
+stream = ExtResource("2_8eeey")
+song_name = "Lonely Nightmare"
+author = "Crow Shade"
+album = "Lonely Nightmare"
+metadata/_custom_type_script = "uid://dolmnv7evenpp"

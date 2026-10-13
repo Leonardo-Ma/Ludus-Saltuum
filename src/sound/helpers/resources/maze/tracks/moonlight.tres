@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MusicTrack" format=3 uid="uid://b64cs8q6bc7bg"]
+
+[ext_resource type="Script" uid="uid://dolmnv7evenpp" path="res://src/sound/helpers/music_data/music_track.gd" id="1_u8wpm"]
+[ext_resource type="AudioStream" uid="uid://fhn0c61j7w5s" path="res://src/sound/music/crow_shade/moonlight.ogg" id="2_u8wpm"]
+
+[resource]
+script = ExtResource("1_u8wpm")
+key = "moonlight"
+stream = ExtResource("2_u8wpm")
+song_name = "Moonlight"
+author = "Crow Shade"
+album = "Lonely Nightmare"
+metadata/_custom_type_script = "uid://dolmnv7evenpp"
