@@ -82,7 +82,7 @@ func _physics_process(delta: float) -> void:
 				set_disabled(true)
 				_cooldown_timer = cooldown_duration_seconds
 
-				AudioManager.play_sound(TELEPORT_SOUNDS.pick_random(), AudioManager.SoundBus.SFX, player.global_position)
+				AudioManager.play_sound(TELEPORT_SOUNDS.pick_random(), AudioManager.SoundBus.SFX, linked_portal.global_position)
 
 				var player_portal_controller: PortalController = player.portal_controller
 				await player_portal_controller.begin_portal_transition(linked_portal, player)
