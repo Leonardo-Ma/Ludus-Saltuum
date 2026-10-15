@@ -42,9 +42,11 @@ func _restore_slot(slot_index: int) -> void:
 
 	if backup["base"] != null:
 		var f: FileAccess = FileAccess.open(base, FileAccess.WRITE)
+		assert(f != null, "Failed to restore base save in " + self.name + ": " + base)
 		f.store_buffer(backup["base"])
 	if backup["bak"] != null:
 		var f: FileAccess = FileAccess.open(base + ".bak", FileAccess.WRITE)
+		assert(f != null, "Failed to restore backup save in " + self.name + ": " + base + ".bak")
 		f.store_buffer(backup["bak"])
 
 	SaveManager.save_changed.emit(slot_index)
