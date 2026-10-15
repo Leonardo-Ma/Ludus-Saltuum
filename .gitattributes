@@ -43,3 +43,6 @@ addons/** linguist-vendored=true
 *.anim filter=lfs diff=lfs merge=lfs -text
 *.mesh filter=lfs diff=lfs merge=lfs -text
 *.lmbake filter=lfs diff=lfs merge=lfs -text
+
+# Exclude docs/ from Git LFS
+docs/** -filter -diff -merge
