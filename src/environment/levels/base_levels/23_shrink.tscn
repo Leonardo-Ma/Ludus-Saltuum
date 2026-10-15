@@ -100,9 +100,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="Pipes" type="Node3D" parent="Terrain/HiddenPassage" unique_id=1368081250]
 
-[node name="Pipe" parent="Terrain/HiddenPassage/Pipes" unique_id=1422743538 instance=ExtResource("7_d20aq")]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.7603246, 0.496863, 8.106756)
-
 [node name="Pipe2" parent="Terrain/HiddenPassage/Pipes" unique_id=455512648 instance=ExtResource("7_d20aq")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.7603246, 0.329911, 8.106756)
 
