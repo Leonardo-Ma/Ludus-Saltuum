@@ -34,7 +34,8 @@ It took me about 5 months to release the demo. I applied a lot of what I learned
 # Summary
 Ludus Saltuum is a 3d low poly plataformer. The core game loop is a partially procedural endless runner around evolving player abilities and different mechanics.
 
-<video width="630" height="300" src="https://github.com/user-attachments/assets/7d917f31-5a65-4a7f-8d24-22adc9bdbf6b"></video>
+<!-- Main Trailer -->
+https://github.com/user-attachments/assets/0db6772a-a901-426f-bacd-5a95d307bf9f  
 
 ## Main Features:  
 - No text! Everything is presented by icons, images or sound!
