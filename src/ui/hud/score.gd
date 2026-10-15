@@ -4,8 +4,8 @@ extends HBoxContainer
 var _current_score: int = 0
 var _economy_controller: EconomyController
 
-@onready var _score_label: Label = %ScoreCounter as Label
-@onready var _score_icon: TextureRect = %ScoreIcon as TextureRect
+@onready var _score_label: Label = %ScoreCounter
+@onready var _score_icon: TextureRect = %ScoreIcon
 
 
 func setup(economy_controller: EconomyController) -> void:

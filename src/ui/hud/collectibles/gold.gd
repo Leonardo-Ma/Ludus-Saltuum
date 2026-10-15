@@ -4,8 +4,8 @@ extends HBoxContainer
 var _current_gold: int = 0
 var _economy_controller: EconomyController
 
-@onready var _gold_label: Label = %GoldCounter as Label
-@onready var _gold_icon: TextureRect = %GoldIcon as TextureRect
+@onready var _gold_label: Label = %GoldCounter
+@onready var _gold_icon: TextureRect = %GoldIcon
 
 
 func setup(economy_controller: EconomyController) -> void:
