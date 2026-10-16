@@ -46,6 +46,7 @@ InputManager="*uid://dkueywuxvkn4k"
 Achievements="*uid://mcfcqnskwnjw"
 ChunkManager="*uid://qsxf8ht6hmse"
 CheckpointManager="*uid://cimfiv457vauf"
+Talo="*res://addons/talo/talo_manager.gd"
 
 [debug]
 
@@ -64,7 +65,7 @@ window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godotsteam/plugin.cfg")
+enabled=PackedStringArray("res://addons/godotsteam/plugin.cfg", "res://addons/talo/plugin.cfg")
 
 [file_customization]
 
