@@ -6,6 +6,7 @@
 
 [resource]
 script = ExtResource("2_s5y82")
+id = &"feather_fall"
 skill_script = ExtResource("3_s5y82")
 icon = ExtResource("1_morug")
 input_action = &"feather_fall"

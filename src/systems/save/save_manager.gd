@@ -18,7 +18,7 @@ const MANUAL_SLOTS: int = 2
 const AUTO_SLOTS: int = 2
 const TOTAL_SLOTS: int = MANUAL_SLOTS + AUTO_SLOTS
 const AUTO_SAVE_INTERVAL: float = 120.0
-const CURRENT_SAVE_VERSION: int = 1
+const CURRENT_SAVE_VERSION: int = 2
 
 var _save_block_sources: Dictionary = { }
 
@@ -257,10 +257,17 @@ func _apply(data: SaveData) -> void:
 
 
 func _migrate(data: SaveData) -> bool:
-	if data.save_version != CURRENT_SAVE_VERSION:
-		# TODO Add migration here in the future
-		return true
-	return true
+	if data.save_version == 1:
+		_migrate_v1_to_v2(data)
+	return data.save_version == CURRENT_SAVE_VERSION
+
+
+## v1 stored skills as resource references, v2 stores SkillDefinition.id
+func _migrate_v1_to_v2(data: SaveData) -> void:
+	for definition: SkillDefinition in data.player.unlocked_skills:
+		data.player.unlocked_skill_ids.append(definition.id)
+	data.player.unlocked_skills.clear()
+	data.save_version = 2
 
 
 func _slot_path(slot_index: int) -> String:

@@ -3,6 +3,8 @@
 class_name PlayerSaveController
 extends Node
 
+const SKILL_CATALOGUE: SkillCatalogue = preload("uid://6ygr0ieawafb") # skill_catalogue.tres
+
 var _default_spawn_transform: Transform3D
 
 @onready var player: PlayerEntity = owner
@@ -27,7 +29,9 @@ func _ready() -> void:
 func build_save_data(data: PlayerSaveData) -> void:
 	data.health = clampi(player.health.current_health, 1, player.health.max_health)
 
-	data.unlocked_skills = skills_controller.get_unlocked_skills()
+	data.unlocked_skill_ids = []
+	for definition: SkillDefinition in skills_controller.get_unlocked_skills():
+		data.unlocked_skill_ids.append(definition.id)
 
 	data.score = economy_controller.score
 	data.gold = economy_controller.gold
@@ -41,7 +45,15 @@ func build_save_data(data: PlayerSaveData) -> void:
 
 func apply_save_data(data: PlayerSaveData) -> void:
 	player.health.current_health = data.health
-	player.skills_controller.set_unlocked_skills(data.unlocked_skills)
+
+	var skills: Array[SkillDefinition] = []
+	for skill_id: StringName in data.unlocked_skill_ids:
+		var definition: SkillDefinition = SKILL_CATALOGUE.find_by_id(skill_id)
+		if definition == null:
+			push_warning("Save references unknown skill '%s', skipped" % [skill_id])
+			continue
+		skills.append(definition)
+	skills_controller.set_unlocked_skills(skills)
 
 	economy_controller.score = data.score
 	economy_controller.gold = data.gold

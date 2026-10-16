@@ -1,0 +1,85 @@
+[gd_resource type="Resource" script_class="SaveData" format=3]
+
+[ext_resource type="Script" path="res://src/systems/save/save_data/checkpoint_save_data.gd" id="1_j5jft"]
+[ext_resource type="Script" path="res://src/systems/save/save_data/chunk_save_data.gd" id="2_yw7dy"]
+[ext_resource type="Script" path="res://src/systems/save/save_data/player_save_data.gd" id="3_bhd4n"]
+[ext_resource type="Script" path="res://src/entities/player/skills/skill_definition.gd" id="4_8ykrw"]
+[ext_resource type="Resource" path="res://src/entities/player/skills/active_skills/feather_fall.tres" id="5_u5luj"]
+[ext_resource type="Resource" path="res://src/entities/player/skills/active_skills/dash.tres" id="6_5s527"]
+[ext_resource type="Resource" path="res://src/entities/player/skills/active_skills/double_jump.tres" id="7_4krqt"]
+[ext_resource type="Script" path="res://src/systems/save/save_data.gd" id="8_a87iq"]
+[ext_resource type="Script" path="res://src/systems/save/save_data/world_save_data.gd" id="9_p6m37"]
+
+[sub_resource type="Resource" id="Resource_ts2p8"]
+script = ExtResource("1_j5jft")
+checkpoint_chunk_index = 4
+checkpoint_local_transform = Transform3D(1, 0, 3.5527137e-15, 0, 1, 0, -3.5527137e-15, 0, 1, 0, 5, 0)
+has_checkpoint_position = true
+
+[sub_resource type="Resource" id="Resource_qeqs3"]
+script = ExtResource("2_yw7dy")
+world_seed = 4802
+active_chunk_keys = Array[int]([104, 105, 106, 107, 108, 109, 110, 111, 112])
+next_chunk_key = 113
+scored_chunk_keys = Dictionary[int, bool]({
+104: true,
+105: true,
+106: true,
+107: true
+})
+chunk_key_to_scene_uid = Dictionary[int, String]({
+104: "uid://ls6v13d1btd6",
+105: "uid://dbk6we1ehloks",
+106: "uid://pj23j5mj4bnh",
+107: "uid://dhjojqogvnw7f",
+108: "uid://cya52wk4gftwt",
+109: "uid://sxipwajvwib3",
+110: "uid://bwkj1fixj1gvx",
+111: "uid://bqfohqnnuqn66",
+112: "uid://c170bytojwce5"
+})
+chunk_selector_state = {
+"chunks_since_skill_unlock": 118,
+"chunks_since_turn": 6,
+"last_skill_score_threshold": 0,
+"recent_chunk_scene_uids": Array[String](["uid://bwcg6dmv8ll13", "uid://1lj71dcn61kr", "uid://ckoedr5ocmi8m", "uid://belvpob3bulra", "uid://bfell3kamfxsj", "uid://qtqyvexxh6xc", "uid://ls6v13d1btd6", "uid://dbk6we1ehloks", "uid://pj23j5mj4bnh", "uid://dhjojqogvnw7f", "uid://cya52wk4gftwt", "uid://sxipwajvwib3", "uid://bwkj1fixj1gvx", "uid://bqfohqnnuqn66", "uid://c170bytojwce5"])
+}
+
+[sub_resource type="Resource" id="Resource_aueh0"]
+script = ExtResource("3_bhd4n")
+score = 480
+gold = 70
+found_easter_egg_names = Array[int]([1])
+health = 94
+unlocked_skills = Array[ExtResource("4_8ykrw")]([ExtResource("5_u5luj"), ExtResource("6_5s527"), ExtResource("7_4krqt")])
+
+[sub_resource type="Resource" id="Resource_ljqqs"]
+script = ExtResource("9_p6m37")
+collected_collectible_ids = Dictionary[StringName, bool]({
+&"1513512307:Terrain/HiddenPassage/Underground/Coins/GoldCoin": true,
+&"1513512307:Terrain/HiddenPassage/Underground/Coins/GoldCoin2": true,
+&"1513512307:Terrain/HiddenPassage/Underground/Coins/GoldCoin3": true,
+&"2625668067:LeftPath/HexagonGrassPlatform10/GoldCoin": true,
+&"2625668067:LeftPath/NavigationRegion3D/HexagonGrassPlatform11/GoldCoin": true,
+&"2679718137:StaticBody3D4/UnlockSkill": true,
+&"4144140776:Platforms/SnowBlock14/GoldCoin": true,
+&"4144140776:Platforms/SnowBlock22/GoldCoin": true,
+&"test_skill_0": true,
+&"test_skill_1": true,
+&"test_skill_2": true
+})
+killed_enemy_ids = Dictionary[StringName, bool]({
+&"2625668067:LeftPath/NavigationRegion3D/HexagonGrassPlatform11/Barbarian": true,
+&"2625668067:LeftPath/NavigationRegion3D/HexagonGrassPlatform11/Barbarian2": true,
+&"2625668067:LeftPath/NavigationRegion3D/HexagonGrassPlatform11/Barbarian3": true,
+&"498329466:Barbarian": true
+})
+
+[resource]
+script = ExtResource("8_a87iq")
+save_timestamp = 1791922923
+play_time_seconds = 3720.650720541152
+player = SubResource("Resource_aueh0")
+world = SubResource("Resource_ljqqs")
+chunks = SubResource("Resource_qeqs3")
+checkpoint = SubResource("Resource_ts2p8")

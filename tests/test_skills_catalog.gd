@@ -11,6 +11,7 @@ func _ready() -> void:
 
 	_test_all_skills_in_catalog()
 	_test_catalog_skills_exist_on_disk()
+	_test_skill_ids_valid_and_unique()
 	print("Skills catalog test completed.")
 	self.queue_free()
 
@@ -63,3 +64,11 @@ func _list_tres_files(dir: DirAccess) -> PackedStringArray:
 		file_name = dir.get_next()
 	dir.list_dir_end()
 	return files
+
+
+func _test_skill_ids_valid_and_unique() -> void:
+	var seen: Dictionary[StringName, bool] = { }
+	for def: SkillDefinition in SKILL_CATALOGUE.definitions:
+		assert(def.id != &"", "SkillsCatalogTest: '%s' has empty id" % def.resource_path)
+		assert(not seen.has(def.id), "SkillsCatalogTest: duplicate skill id '%s'" % def.id)
+		seen[def.id] = true
