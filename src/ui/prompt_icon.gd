@@ -2,6 +2,12 @@
 class_name PromptIcon
 extends TextureRect
 
+enum DeviceFilter {
+	ANY = 0,
+	KEYBOARD_MOUSE = 1,
+	GAMEPAD = 2,
+}
+
 @export_category("Prompt")
 ## Input action this icon represents (&"jump", &"dash", &"ui_accept" ...)
 @export var action: StringName
@@ -11,6 +17,10 @@ extends TextureRect
 @export var flavor_overlay: TextureRect
 ## Optional keyboard override texture
 @export var keyb_texture_override: Texture2D
+## Prompt hidden while active device doesn't match
+@export var device_filter: DeviceFilter = DeviceFilter.ANY
+## Hidden together with icon, releases its layout space (panel, box...)
+@export var linked_container: Control
 
 var _gamepad_icon_map: GamepadIconMap = GamepadIconMap.new()
 
@@ -34,9 +44,23 @@ func refresh() -> void:
 	visible = texture != null
 	if flavor_overlay != null:
 		flavor_overlay.visible = visible
+	if linked_container != null:
+		linked_container.visible = visible
+
+
+func _is_device_allowed() -> bool:
+	match device_filter:
+		DeviceFilter.KEYBOARD_MOUSE:
+			return not InputManager.is_gamepad_active()
+		DeviceFilter.GAMEPAD:
+			return InputManager.is_gamepad_active()
+	return true
 
 
 func _resolve() -> Texture2D:
+	if not _is_device_allowed():
+		return null
+
 	var events: Array[InputEvent] = InputMap.action_get_events(action)
 
 	if InputManager.is_gamepad_active():
