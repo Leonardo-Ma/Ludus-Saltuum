@@ -42,6 +42,7 @@ func _ready() -> void:
 	_test_has_conflict_detects_shared_keyboard_binding()
 	_test_reset_action_restores_default()
 	_test_binding_changed_signal()
+	_test_rebind_replaces_mouse_binding()
 
 	_restore_original_bindings()
 
@@ -101,6 +102,21 @@ func _test_rebind_replaces_keyboard_binding_only() -> void:
 	assert(_binding_changed_actions.has(_TEST_ACTION), "InputBindingManager: rebind did not emit binding_changed for '%s'" % _TEST_ACTION)
 
 	_restore_action(_TEST_ACTION)
+
+
+func _test_rebind_replaces_mouse_binding() -> void:
+	var mouse_event: InputEventMouseButton = InputEventMouseButton.new()
+	mouse_event.button_index = MOUSE_BUTTON_LEFT
+	InputMap.action_add_event(_OTHER_ACTION, mouse_event)
+
+	var new_key: InputEventKey = InputEventKey.new()
+	new_key.physical_keycode = KEY_Y
+
+	InputBindingManager.rebind(_OTHER_ACTION, new_key)
+
+	assert(InputBindingManager.get_mouse_event(_OTHER_ACTION) == null, "InputBindingManager: rebind left mouse binding on '%s'" % _OTHER_ACTION)
+
+	_restore_action(_OTHER_ACTION)
 
 
 func _restore_action(action: StringName) -> void:

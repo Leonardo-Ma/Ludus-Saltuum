@@ -52,13 +52,13 @@ func _ready() -> void:
 	_load()
 
 
-## Replaces the first keyboard binding for [param action] with [param event]
+## Replaces keyboard and mouse bindings for [param action] with [param event]
 ## Sets red if has conflicts. See [method has_conflict]
 ## Gamepad bindings are preserved
 func rebind(action: StringName, event: InputEvent) -> void:
 	assert(InputMap.has_action(action), "InputBindingManager: unknown action " + action)
 	assert(event is InputEventKey, "InputBindingManager: rebind only supports InputEventKey in " + name)
-	_remove_keyboard_bindings(action)
+	_remove_keyboard_mouse_bindings(action)
 	InputMap.action_add_event(action, event)
 	_save()
 	binding_changed.emit(action)
@@ -135,9 +135,9 @@ func _cache_defaults() -> void:
 		_defaults[action] = InputMap.action_get_events(action).duplicate()
 
 
-func _remove_keyboard_bindings(action: StringName) -> void:
+func _remove_keyboard_mouse_bindings(action: StringName) -> void:
 	for event: InputEvent in InputMap.action_get_events(action).duplicate():
-		if event is InputEventKey:
+		if event is InputEventKey or event is InputEventMouseButton:
 			InputMap.action_erase_event(action, event)
 
 
@@ -165,5 +165,5 @@ func _load() -> void:
 			event.keycode = (raw.get(&"logical", 0)) as Key
 		elif raw is int:
 			event.keycode = raw as Key
-		_remove_keyboard_bindings(action)
+		_remove_keyboard_mouse_bindings(action)
 		InputMap.action_add_event(action, event)
