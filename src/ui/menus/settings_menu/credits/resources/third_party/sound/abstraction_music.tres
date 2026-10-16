@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_6btt5")
-display_name = "Abstraction - Music Loop Bundle"
-creator_name = "ABSTRACTION"
+display_name = "Music Loop Bundle"
+creator_name = "Abstraction"
 creator_url = "https://abstractionmusic.com/"
 description = "Music sketchbook."
 origin_url = "https://tallbeard.itch.io/music-loop-bundle"
