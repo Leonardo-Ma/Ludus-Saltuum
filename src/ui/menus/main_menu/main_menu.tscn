@@ -121,6 +121,16 @@ layout_mode = 2
 [node name="NavigateMenu" type="HBoxContainer" parent="GamepadPromptsMargin/VBoxContainer" unique_id=1387612766]
 layout_mode = 2
 
+[node name="InstructionsPanel" type="PanelContainer" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu" unique_id=154940992]
+layout_mode = 2
+
+[node name="Movement" type="TextureRect" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu/InstructionsPanel" unique_id=710309187]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("15_r4c6q")
+expand_mode = 3
+stretch_mode = 5
+
 [node name="PromptsPanel" type="PanelContainer" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu" unique_id=1932705599]
 layout_mode = 2
 
@@ -171,18 +181,19 @@ action = &"ui_left"
 prefer_axis = true
 keyb_texture_override = ExtResource("19_rq6ct")
 
-[node name="InstructionsPanel" type="PanelContainer" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu" unique_id=154940992]
-layout_mode = 2
-
-[node name="Movement" type="TextureRect" parent="GamepadPromptsMargin/VBoxContainer/NavigateMenu/InstructionsPanel" unique_id=710309187]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-texture = ExtResource("15_r4c6q")
-expand_mode = 3
-stretch_mode = 5
-
 [node name="Confirm" type="HBoxContainer" parent="GamepadPromptsMargin/VBoxContainer" unique_id=1803517077]
 layout_mode = 2
+
+[node name="InstructionsPanel" type="PanelContainer" parent="GamepadPromptsMargin/VBoxContainer/Confirm" unique_id=1445397606]
+layout_mode = 2
+
+[node name="Confirm" type="TextureRect" parent="GamepadPromptsMargin/VBoxContainer/Confirm/InstructionsPanel" unique_id=1739677584]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("22_rq6ct")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="PromptsPanel" type="PanelContainer" parent="GamepadPromptsMargin/VBoxContainer/Confirm" unique_id=1052252939]
 layout_mode = 2
@@ -201,17 +212,6 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_mt6gl")
 action = &"ui_select"
-
-[node name="InstructionsPanel" type="PanelContainer" parent="GamepadPromptsMargin/VBoxContainer/Confirm" unique_id=1445397606]
-layout_mode = 2
-
-[node name="Confirm" type="TextureRect" parent="GamepadPromptsMargin/VBoxContainer/Confirm/InstructionsPanel" unique_id=1739677584]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("22_rq6ct")
-expand_mode = 3
-stretch_mode = 5
 
 [node name="AchievementsMargin" type="MarginContainer" parent="." unique_id=330617178]
 layout_mode = 1
