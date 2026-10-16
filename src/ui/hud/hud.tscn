@@ -24,17 +24,17 @@
 [ext_resource type="Texture2D" uid="uid://b1nromu08hj3y" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/letters/keyboard_s_outline.png" id="18_air4j"]
 [ext_resource type="Texture2D" uid="uid://cqww5kwjrck3d" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/letters/keyboard_d_outline.png" id="19_lb1pd"]
 [ext_resource type="Texture2D" uid="uid://cgiss7x7cle55" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/mouse/mouse_move.png" id="19_ljgop"]
-[ext_resource type="Texture2D" uid="uid://csdknf6h4kgqx" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/keyboard_i_outline.png" id="20_l5biy"]
-[ext_resource type="Texture2D" uid="uid://coayef6j1qmb2" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/keyboard_j_outline.png" id="21_yqmcv"]
 [ext_resource type="Texture2D" uid="uid://d1aopeglq7q3y" path="res://src/ui/assets/kenney_input-prompts/sticks/stick_right.png" id="22_t210l"]
-[ext_resource type="Texture2D" uid="uid://rafokuj28ues" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/keyboard_k_outline.png" id="22_ulf7a"]
-[ext_resource type="Texture2D" uid="uid://dxarxbxphus2j" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/keyboard_l_outline.png" id="23_58h30"]
 [ext_resource type="Texture2D" uid="uid://bx6r2tioul5ru" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/6_buildings/flag.png" id="23_lb1pd"]
 [ext_resource type="Script" uid="uid://bx8ndl4mu55c6" path="res://src/ui/hud/return_checkpoing_indicator.gd" id="25_air4j"]
 [ext_resource type="Texture2D" uid="uid://btbdty1xbpcap" path="res://src/ui/assets/kenney_input-prompts/flairs_double/flair_arrow_3.png" id="25_gcgkn"]
 [ext_resource type="Texture2D" uid="uid://ckvy8vbccihmw" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/12_misc/loading-dots.png" id="25_lb1pd"]
+[ext_resource type="Texture2D" uid="uid://hkpp00p7jfd2" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/letters/keyboard_i_outline.png" id="26_a7l5u"]
 [ext_resource type="Texture2D" uid="uid://csssgfxl235ik" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/visible.png" id="27_lb1pd"]
+[ext_resource type="Texture2D" uid="uid://walcivhha4of" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/letters/keyboard_j_outline.png" id="27_w7m8p"]
 [ext_resource type="Texture2D" uid="uid://dhb15ko0frh80" path="res://src/ui/assets/kenney_input-prompts/xbox_series_double/buttons/xbox_button_color_x_outline.png" id="28_58h30"]
+[ext_resource type="Texture2D" uid="uid://celbmqlc8of2m" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/letters/keyboard_k_outline.png" id="28_ou1av"]
+[ext_resource type="Texture2D" uid="uid://d4k815vsq1utu" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/letters/keyboard_l_outline.png" id="29_w7m8p"]
 [ext_resource type="Texture2D" uid="uid://bkufsmjm825nk" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/10_editing/undo.png" id="31_t5oo3"]
 [ext_resource type="Texture2D" uid="uid://8flurawndj1x" path="res://src/ui/assets/kenney_input-prompts/xbox_series_double/buttons/xbox_button_color_y_outline.png" id="32_754np"]
 [ext_resource type="Texture2D" uid="uid://boj68sx67cn8w" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/fast_forward.png" id="33_t5oo3"]
@@ -333,44 +333,54 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel" unique_id=1620165806]
 layout_mode = 2
 
-[node name="LookInputArrows" type="VBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer" unique_id=1613989915]
-visible = false
-layout_mode = 2
-
-[node name="Inputs" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer/LookInputArrows" unique_id=617171848]
-layout_mode = 2
-
-[node name="LookUp" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer/LookInputArrows/Inputs" unique_id=907172547 instance=ExtResource("11_i2hmd")]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("20_l5biy")
-action = &"look_up"
-
-[node name="Inputs2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer/LookInputArrows" unique_id=738449459]
-layout_mode = 2
-
-[node name="LookLeft" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer/LookInputArrows/Inputs2" unique_id=1677506419 instance=ExtResource("11_i2hmd")]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("21_yqmcv")
-action = &"look_left"
-
-[node name="LookDown" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer/LookInputArrows/Inputs2" unique_id=571420403 instance=ExtResource("11_i2hmd")]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("22_ulf7a")
-action = &"look_down"
-
-[node name="LookRight" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer/LookInputArrows/Inputs2" unique_id=1815944391 instance=ExtResource("11_i2hmd")]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("23_58h30")
-action = &"look_right"
-
 [node name="LookInputStick" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer" unique_id=1058298454]
 layout_mode = 2
 
-[node name="PromptIcon" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer/LookInputStick" unique_id=366111759 node_paths=PackedStringArray("flavor_overlay") instance=ExtResource("11_i2hmd")]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer/LookInputStick" unique_id=323349456]
+layout_mode = 2
+
+[node name="MoveInputArrows" type="VBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer/LookInputStick/HBoxContainer" unique_id=1461446905]
+layout_mode = 2
+
+[node name="Inputs" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer/LookInputStick/HBoxContainer/MoveInputArrows" unique_id=1209265895]
+layout_mode = 2
+
+[node name="MoveForward" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer/LookInputStick/HBoxContainer/MoveInputArrows/Inputs" unique_id=70064773 node_paths=PackedStringArray("linked_container") instance=ExtResource("11_i2hmd")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("26_a7l5u")
+action = &"look_up"
+device_filter = 1
+linked_container = NodePath("../..")
+
+[node name="Inputs2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer/LookInputStick/HBoxContainer/MoveInputArrows" unique_id=2059397255]
+layout_mode = 2
+
+[node name="MoveLeft" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer/LookInputStick/HBoxContainer/MoveInputArrows/Inputs2" unique_id=1264265615 node_paths=PackedStringArray("linked_container") instance=ExtResource("11_i2hmd")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("27_w7m8p")
+action = &"look_left"
+device_filter = 1
+linked_container = NodePath("../..")
+
+[node name="MoveBackward" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer/LookInputStick/HBoxContainer/MoveInputArrows/Inputs2" unique_id=763043389 node_paths=PackedStringArray("linked_container") instance=ExtResource("11_i2hmd")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("28_ou1av")
+action = &"look_down"
+device_filter = 1
+linked_container = NodePath("../..")
+
+[node name="MoveRight" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer/LookInputStick/HBoxContainer/MoveInputArrows/Inputs2" unique_id=1862045417 node_paths=PackedStringArray("linked_container") instance=ExtResource("11_i2hmd")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("29_w7m8p")
+action = &"look_right"
+device_filter = 1
+linked_container = NodePath("../..")
+
+[node name="PromptIcon" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer/LookInputStick/HBoxContainer" unique_id=366111759 node_paths=PackedStringArray("flavor_overlay") instance=ExtResource("11_i2hmd")]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("22_t210l")
@@ -378,8 +388,9 @@ action = &"look_left"
 prefer_axis = true
 flavor_overlay = NodePath("RoundedArrow")
 keyb_texture_override = ExtResource("19_ljgop")
+metadata/_edit_group_ = true
 
-[node name="RoundedArrow" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer/LookInputStick/PromptIcon" unique_id=809645122]
+[node name="RoundedArrow" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/LookAround/PromptsPanel/HBoxContainer/LookInputStick/HBoxContainer/PromptIcon" unique_id=809645122]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -415,6 +426,7 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("28_58h30")
 action = &"return_to_checkpoint"
+metadata/_edit_group_ = true
 
 [node name="ReturnCheckpoingProgress" type="TextureProgressBar" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/ReturnCheckpoint/PromptsPanel/X" unique_id=603943047]
 layout_mode = 1
