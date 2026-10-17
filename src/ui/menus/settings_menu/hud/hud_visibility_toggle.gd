@@ -9,8 +9,14 @@ func _ready() -> void:
 	button_pressed = UIManager.hud_visible
 	preview_hud.visible = UIManager.hud_visible
 	toggled.connect(_on_toggled)
+	UIManager.hud_visibility_changed.connect(_on_visibility_changed)
 
 
 func _on_toggled(toggled_on: bool) -> void:
 	UIManager.set_hud_visible(toggled_on)
 	preview_hud.visible = toggled_on
+
+
+func _on_visibility_changed(visibility: bool) -> void:
+	button_pressed = visibility
+	preview_hud.visible = visibility

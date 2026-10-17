@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://blui2ox13a24b" path="res://src/ui/menus/background_parallax.tscn" id="2_1lg27"]
 [ext_resource type="Script" uid="uid://c28r7m4rv68ob" path="res://src/ui/menus/settings_menu/options_tab_controller.gd" id="3_bx78x"]
 [ext_resource type="Theme" uid="uid://c3cx0udnofecq" path="res://src/ui/menus/settings_menu/tabs.tres" id="4_bx78x"]
-[ext_resource type="Texture2D" uid="uid://cqgd6g3oujuj" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/play.png" id="5_863by"]
 [ext_resource type="ButtonGroup" uid="uid://ctkeu7278wn6a" path="res://src/ui/menus/settings_menu/settings_button_group.tres" id="5_b1okk"]
 [ext_resource type="Script" uid="uid://dpc6wcewh3ft" path="res://src/ui/menus/settings_menu/audio/volume_slider.gd" id="5_nap5k"]
 [ext_resource type="Script" uid="uid://fqh0yt3oyuji" path="res://src/ui/menus/settings_menu/settings_tab_button.gd" id="6_jopjw"]
@@ -50,6 +49,9 @@
 [ext_resource type="Script" uid="uid://c0x7j8wi6hylp" path="res://src/ui/menus/settings_menu/reset_settings_button.gd" id="42_u56sa"]
 [ext_resource type="PackedScene" uid="uid://c7t0doucinrlm" path="res://src/ui/menus/settings_menu/credits/credits_screen.tscn" id="46_1lg27"]
 
+[sub_resource type="Theme" id="Theme_4yx6g"]
+PopupMenu/constants/icon_max_width = 80
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ftg2j"]
 content_margin_top = 12.0
 content_margin_bottom = 12.0
@@ -61,9 +63,6 @@ expand_margin_top = 4.0
 expand_margin_right = 4.0
 expand_margin_bottom = 4.0
 anti_aliasing = false
-
-[sub_resource type="Theme" id="Theme_4yx6g"]
-PopupMenu/constants/icon_max_width = 80
 
 [node name="SettingsMenu" type="Control" unique_id=1634997965]
 z_index = 1
@@ -110,149 +109,11 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="GameplayTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=818776271 node_paths=PackedStringArray("panel")]
-custom_minimum_size = Vector2(0, 64)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-focus_neighbor_left = NodePath("../CloseSettingsButton")
-focus_neighbor_right = NodePath("../AudioTab")
-focus_next = NodePath("../AudioTab")
-focus_previous = NodePath("../CloseSettingsButton")
-theme = ExtResource("4_bx78x")
-toggle_mode = true
-button_group = ExtResource("5_b1okk")
-icon = ExtResource("5_863by")
-icon_alignment = 1
-expand_icon = true
-script = ExtResource("6_jopjw")
-panel = NodePath("../../../VBoxContainer/Tabs/GameplayOptions")
-section = 1
-
-[node name="FocusOnVisible" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer/GameplayTab" unique_id=494770207 instance=ExtResource("7_8i7sm")]
-
-[node name="AudioTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1997371650 node_paths=PackedStringArray("panel")]
-custom_minimum_size = Vector2(0, 64)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-focus_neighbor_left = NodePath("../GameplayTab")
-focus_neighbor_right = NodePath("../HUDTab")
-focus_next = NodePath("../HUDTab")
-focus_previous = NodePath("../GameplayTab")
-theme = ExtResource("4_bx78x")
-toggle_mode = true
-button_group = ExtResource("5_b1okk")
-icon = ExtResource("7_6geaa")
-icon_alignment = 1
-expand_icon = true
-script = ExtResource("6_jopjw")
-panel = NodePath("../../../VBoxContainer/Tabs/AudioOptions")
-section = 2
-
-[node name="HUDTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=2090510106 node_paths=PackedStringArray("panel")]
-custom_minimum_size = Vector2(0, 64)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-focus_neighbor_left = NodePath("../AudioTab")
-focus_neighbor_right = NodePath("../CameraTab")
-focus_next = NodePath("../CameraTab")
-focus_previous = NodePath("../AudioTab")
-theme = ExtResource("4_bx78x")
-toggle_mode = true
-button_group = ExtResource("5_b1okk")
-icon = ExtResource("25_ha0b3")
-icon_alignment = 1
-expand_icon = true
-script = ExtResource("6_jopjw")
-panel = NodePath("../../../VBoxContainer/Tabs/HudOptions")
-section = 3
-
-[node name="CameraTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1020966248 node_paths=PackedStringArray("panel")]
-custom_minimum_size = Vector2(0, 64)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-focus_neighbor_left = NodePath("../HUDTab")
-focus_neighbor_right = NodePath("../VideoTab")
-focus_next = NodePath("../VideoTab")
-focus_previous = NodePath("../HUDTab")
-theme = ExtResource("4_bx78x")
-toggle_mode = true
-button_group = ExtResource("5_b1okk")
-icon = ExtResource("9_6geaa")
-icon_alignment = 1
-expand_icon = true
-script = ExtResource("6_jopjw")
-panel = NodePath("../../../VBoxContainer/Tabs/CameraOptions")
-section = 4
-
-[node name="VideoTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1382191094 node_paths=PackedStringArray("panel")]
-custom_minimum_size = Vector2(0, 64)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-focus_neighbor_left = NodePath("../CameraTab")
-focus_neighbor_right = NodePath("../AccessibilityTab")
-focus_next = NodePath("../AccessibilityTab")
-focus_previous = NodePath("../CameraTab")
-theme = ExtResource("4_bx78x")
-toggle_mode = true
-button_group = ExtResource("5_b1okk")
-icon = ExtResource("10_863by")
-icon_alignment = 1
-expand_icon = true
-script = ExtResource("6_jopjw")
-panel = NodePath("../../../VBoxContainer/Tabs/VideoOptions")
-section = 5
-
-[node name="AccessibilityTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1249037183 node_paths=PackedStringArray("panel")]
-custom_minimum_size = Vector2(0, 64)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-focus_neighbor_left = NodePath("../VideoTab")
-focus_neighbor_right = NodePath("../CreditsTab")
-focus_next = NodePath("../CreditsTab")
-focus_previous = NodePath("../VideoTab")
-theme = ExtResource("4_bx78x")
-toggle_mode = true
-button_group = ExtResource("5_b1okk")
-icon = ExtResource("11_6geaa")
-icon_alignment = 1
-expand_icon = true
-script = ExtResource("6_jopjw")
-panel = NodePath("../../../VBoxContainer/Tabs/AccessibilityOptions")
-section = 6
-
-[node name="CreditsTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1821142584 node_paths=PackedStringArray("panel")]
-custom_minimum_size = Vector2(0, 64)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-focus_neighbor_left = NodePath("../AccessibilityTab")
-focus_neighbor_right = NodePath("../KeyBindingsTab")
-focus_next = NodePath("../KeyBindingsTab")
-focus_previous = NodePath("../AccessibilityTab")
-theme = ExtResource("4_bx78x")
-toggle_mode = true
-button_group = ExtResource("5_b1okk")
-icon = ExtResource("12_6geaa")
-icon_alignment = 1
-expand_icon = true
-script = ExtResource("6_jopjw")
-panel = NodePath("../../../VBoxContainer/Tabs/Credits")
-
 [node name="KeyBindingsTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1774065017 node_paths=PackedStringArray("panel")]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
-focus_neighbor_left = NodePath("../CreditsTab")
-focus_neighbor_right = NodePath("../StatisticsTab")
-focus_next = NodePath("../StatisticsTab")
-focus_previous = NodePath("../CreditsTab")
 theme = ExtResource("4_bx78x")
 toggle_mode = true
 button_group = ExtResource("5_b1okk")
@@ -263,15 +124,102 @@ script = ExtResource("6_jopjw")
 panel = NodePath("../../../VBoxContainer/Tabs/KeyBindingsPanel")
 section = 7
 
+[node name="FocusOnVisible" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer/KeyBindingsTab" unique_id=494770207 instance=ExtResource("7_8i7sm")]
+
+[node name="VideoTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1382191094 node_paths=PackedStringArray("panel")]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme = ExtResource("4_bx78x")
+toggle_mode = true
+button_group = ExtResource("5_b1okk")
+icon = ExtResource("10_863by")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("6_jopjw")
+panel = NodePath("../../../VBoxContainer/Tabs/VideoOptions")
+section = 5
+
+[node name="AudioTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1997371650 node_paths=PackedStringArray("panel")]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme = ExtResource("4_bx78x")
+toggle_mode = true
+button_group = ExtResource("5_b1okk")
+icon = ExtResource("7_6geaa")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("6_jopjw")
+panel = NodePath("../../../VBoxContainer/Tabs/AudioOptions")
+section = 2
+
+[node name="CameraTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1020966248 node_paths=PackedStringArray("panel")]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme = ExtResource("4_bx78x")
+toggle_mode = true
+button_group = ExtResource("5_b1okk")
+icon = ExtResource("9_6geaa")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("6_jopjw")
+panel = NodePath("../../../VBoxContainer/Tabs/CameraOptions")
+section = 4
+
+[node name="HUDTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=2090510106 node_paths=PackedStringArray("panel")]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme = ExtResource("4_bx78x")
+toggle_mode = true
+button_group = ExtResource("5_b1okk")
+icon = ExtResource("25_ha0b3")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("6_jopjw")
+panel = NodePath("../../../VBoxContainer/Tabs/HudOptions")
+section = 3
+
+[node name="AccessibilityTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1249037183 node_paths=PackedStringArray("panel")]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme = ExtResource("4_bx78x")
+toggle_mode = true
+button_group = ExtResource("5_b1okk")
+icon = ExtResource("11_6geaa")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("6_jopjw")
+panel = NodePath("../../../VBoxContainer/Tabs/AccessibilityOptions")
+section = 6
+
 [node name="StatisticsTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1561313159 node_paths=PackedStringArray("panel")]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
-focus_neighbor_left = NodePath("../KeyBindingsTab")
-focus_neighbor_right = NodePath("../CloseSettingsButton")
-focus_next = NodePath("../CloseSettingsButton")
-focus_previous = NodePath("../KeyBindingsTab")
+theme = ExtResource("4_bx78x")
+toggle_mode = true
+button_group = ExtResource("5_b1okk")
+icon = ExtResource("12_6geaa")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("6_jopjw")
+panel = NodePath("../../../VBoxContainer/Tabs/Statistics")
+
+[node name="CreditsTab" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=1821142584 node_paths=PackedStringArray("panel")]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
 theme = ExtResource("4_bx78x")
 toggle_mode = true
 button_group = ExtResource("5_b1okk")
@@ -279,17 +227,13 @@ icon = ExtResource("14_6geaa")
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("6_jopjw")
-panel = NodePath("../../../VBoxContainer/Tabs/Statistics")
+panel = NodePath("../../../VBoxContainer/Tabs/Credits")
 
 [node name="CloseSettingsButton" type="Button" parent="RootContainer/SettingsContainer/TabMarginContainer/TabContainer" unique_id=2139607164]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
-focus_neighbor_left = NodePath("../StatisticsTab")
-focus_neighbor_right = NodePath("../GameplayTab")
-focus_next = NodePath("../GameplayTab")
-focus_previous = NodePath("../StatisticsTab")
 theme_type_variation = &"DangerIconButton"
 icon = ExtResource("15_6geaa")
 icon_alignment = 1
@@ -309,285 +253,9 @@ layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="GameplayOptions" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=1001225224]
+[node name="KeyBindingsPanel" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=600000001 instance=ExtResource("28_6geaa")]
 visible = false
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 3
-theme_override_constants/separation = 40
-metadata/_tab_index = 0
-metadata/_tab_name = ""
-
-[node name="UnderBuildingWarning" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/GameplayOptions" unique_id=1797323907]
-layout_mode = 2
-
-[node name="Warning" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/GameplayOptions/UnderBuildingWarning" unique_id=1593933829]
-modulate = Color(1, 1, 0, 1)
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-texture = ExtResource("18_8l3q0")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="Hammer" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/GameplayOptions/UnderBuildingWarning" unique_id=1342083432]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-texture = ExtResource("19_sto7j")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="Saw" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/GameplayOptions/UnderBuildingWarning" unique_id=102418772]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-texture = ExtResource("20_txwea")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="AudioOptions" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=1811562513]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 2
-theme_override_constants/separation = 40
-metadata/_tab_index = 0
-metadata/_tab_name = ""
-
-[node name="GlobalVolume" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions" unique_id=2028058448]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions/GlobalVolume" unique_id=977982703]
-layout_mode = 2
-texture = ExtResource("7_6geaa")
-expand_mode = 2
-
-[node name="GlobalVolumeSlider" type="HSlider" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions/GlobalVolume" unique_id=90230376]
-custom_minimum_size = Vector2(200, 60)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-focus_neighbor_top = NodePath("../../../../../TabMarginContainer/TabContainer/AudioTab")
-focus_neighbor_bottom = NodePath("../../MusicVolume/MusicSlider")
-focus_next = NodePath("../../MusicVolume/MusicSlider")
-focus_previous = NodePath("../../../../../TabMarginContainer/TabContainer/AudioTab")
-theme_override_styles/slider = SubResource("StyleBoxFlat_ftg2j")
-script = ExtResource("5_nap5k")
-bus = 1
-
-[node name="SliderNumber" type="Label" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions/GlobalVolume" unique_id=1437650310]
-layout_mode = 2
-
-[node name="HSeparator" type="HSeparator" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions" unique_id=1689070524]
-layout_mode = 2
-
-[node name="MusicVolume" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions" unique_id=1678858717]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions/MusicVolume" unique_id=1948026632]
-layout_mode = 2
-texture = ExtResource("20_6geaa")
-expand_mode = 2
-
-[node name="MusicSlider" type="HSlider" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions/MusicVolume" unique_id=1941083232]
-custom_minimum_size = Vector2(200, 60)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-focus_neighbor_top = NodePath("../../GlobalVolume/GlobalVolumeSlider")
-focus_neighbor_bottom = NodePath("../../EffectsVolume/EffectsSlider")
-focus_next = NodePath("../../EffectsVolume/EffectsSlider")
-focus_previous = NodePath("../../GlobalVolume/GlobalVolumeSlider")
-theme_override_styles/slider = SubResource("StyleBoxFlat_ftg2j")
-script = ExtResource("5_nap5k")
-bus = 2
-
-[node name="EffectsVolume" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions" unique_id=430440307]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions/EffectsVolume" unique_id=350975670]
-layout_mode = 2
-texture = ExtResource("21_6geaa")
-expand_mode = 2
-
-[node name="EffectsSlider" type="HSlider" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions/EffectsVolume" unique_id=425235765]
-custom_minimum_size = Vector2(200, 60)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-focus_neighbor_top = NodePath("../../MusicVolume/MusicSlider")
-focus_neighbor_bottom = NodePath("../../UIVolume/UISlider")
-focus_next = NodePath("../../UIVolume/UISlider")
-focus_previous = NodePath("../../MusicVolume/MusicSlider")
-theme_override_styles/slider = SubResource("StyleBoxFlat_ftg2j")
-script = ExtResource("5_nap5k")
-bus = 3
-
-[node name="UIVolume" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions" unique_id=1533792080]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions/UIVolume" unique_id=383704298]
-layout_mode = 2
-texture = ExtResource("10_863by")
-expand_mode = 2
-
-[node name="UISlider" type="HSlider" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions/UIVolume" unique_id=56946327]
-custom_minimum_size = Vector2(200, 60)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-focus_neighbor_top = NodePath("../../EffectsVolume/EffectsSlider")
-focus_neighbor_bottom = NodePath("../../../../../TabMarginContainer/TabContainer/AudioTab")
-focus_next = NodePath("../../../../../TabMarginContainer/TabContainer/AudioTab")
-focus_previous = NodePath("../../EffectsVolume/EffectsSlider")
-theme_override_styles/slider = SubResource("StyleBoxFlat_ftg2j")
-script = ExtResource("5_nap5k")
-bus = 5
-
-[node name="HudOptions" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=1253832284]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 40
-metadata/_tab_index = 0
-metadata/_tab_name = ""
-
-[node name="UnderBuildingWarning" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions" unique_id=1567566927]
-layout_mode = 2
-alignment = 1
-
-[node name="Warning" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions/UnderBuildingWarning" unique_id=979540154]
-modulate = Color(1, 1, 0, 1)
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-texture = ExtResource("18_8l3q0")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="Hammer" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions/UnderBuildingWarning" unique_id=1522570624]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-texture = ExtResource("19_sto7j")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="Saw" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions/UnderBuildingWarning" unique_id=1652405225]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-texture = ExtResource("20_txwea")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions" unique_id=1115121776]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="CheckButton" type="CheckButton" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions/VBoxContainer" unique_id=1057472892 node_paths=PackedStringArray("preview_hud")]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-button_pressed = true
-icon = ExtResource("22_863by")
-expand_icon = true
-script = ExtResource("21_lcw02")
-preview_hud = NodePath("../HUD")
-
-[node name="HUD" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions/VBoxContainer" unique_id=1333227325 instance=ExtResource("20_1ltwp")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-offset_transform_enabled = true
-offset_transform_scale = Vector2(0.3, 0.3)
-
-[node name="CameraOptions" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=412193868]
-visible = false
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 40
-metadata/_tab_index = 0
-metadata/_tab_name = ""
-
-[node name="FOV" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions" unique_id=1772714822]
-layout_mode = 2
-
-[node name="FOVIcon" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions/FOV" unique_id=1048582388]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("25_s445j")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="FOVSlider" type="HSlider" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions/FOV" unique_id=1768547499]
-custom_minimum_size = Vector2(200, 60)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-theme_override_styles/slider = SubResource("StyleBoxFlat_ftg2j")
-min_value = 50.0
-max_value = 110.0
-value = 50.0
-script = ExtResource("25_l2uj7")
-
-[node name="FOVSliderNumber" type="Label" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions/FOV" unique_id=1059771985]
-layout_mode = 2
-
-[node name="CameraDistance" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions" unique_id=2044699645]
-layout_mode = 2
-
-[node name="CamDistanceIcon" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions/CameraDistance" unique_id=1836024639]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("27_qmcbu")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="CamDistanceSlider" type="HSlider" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions/CameraDistance" unique_id=918271903]
-custom_minimum_size = Vector2(200, 60)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-theme_override_styles/slider = SubResource("StyleBoxFlat_ftg2j")
-min_value = 1.5
-max_value = 6.0
-step = 0.1
-value = 1.5
-script = ExtResource("27_shv1y")
-
-[node name="CamDistanceNumber" type="Label" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions/CameraDistance" unique_id=2101679102]
-layout_mode = 2
-
-[node name="HSeparator" type="HSeparator" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions" unique_id=1211820478]
-layout_mode = 2
-
-[node name="MouseSensitivity" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions" unique_id=942196597]
-layout_mode = 2
-
-[node name="MouseSensitivityIcon" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions/MouseSensitivity" unique_id=192685747 instance=ExtResource("28_7a06q")]
-layout_mode = 2
-texture = ExtResource("13_6geaa")
-action = &"look_left"
-prefer_axis = true
-keyb_texture_override = ExtResource("29_7a06q")
-
-[node name="MouseSensitivityIcon2" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions/MouseSensitivity" unique_id=1362566501]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("30_4qpmk")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="MouseSensitivitySlider" type="HSlider" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions/MouseSensitivity" unique_id=1056038527]
-custom_minimum_size = Vector2(200, 60)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-theme_override_styles/slider = SubResource("StyleBoxFlat_ftg2j")
-min_value = 0.05
-max_value = 1.0
-step = 0.01
-value = 0.05
-script = ExtResource("29_fbymy")
-
-[node name="MouseSensitivityNumber" type="Label" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions/MouseSensitivity" unique_id=1533446038]
+custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 
 [node name="VideoOptions" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=697717083]
@@ -716,6 +384,241 @@ max_value = 1.5
 step = 0.01
 value = 1.0
 
+[node name="AudioOptions" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=1811562513]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+theme_override_constants/separation = 40
+metadata/_tab_index = 0
+metadata/_tab_name = ""
+
+[node name="GlobalVolume" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions" unique_id=2028058448]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions/GlobalVolume" unique_id=977982703]
+layout_mode = 2
+texture = ExtResource("7_6geaa")
+expand_mode = 2
+
+[node name="GlobalVolumeSlider" type="HSlider" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions/GlobalVolume" unique_id=90230376]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/slider = SubResource("StyleBoxFlat_ftg2j")
+script = ExtResource("5_nap5k")
+bus = 1
+
+[node name="SliderNumber" type="Label" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions/GlobalVolume" unique_id=1437650310]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions" unique_id=1689070524]
+layout_mode = 2
+
+[node name="MusicVolume" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions" unique_id=1678858717]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions/MusicVolume" unique_id=1948026632]
+layout_mode = 2
+texture = ExtResource("20_6geaa")
+expand_mode = 2
+
+[node name="MusicSlider" type="HSlider" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions/MusicVolume" unique_id=1941083232]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/slider = SubResource("StyleBoxFlat_ftg2j")
+script = ExtResource("5_nap5k")
+bus = 2
+
+[node name="EffectsVolume" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions" unique_id=430440307]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions/EffectsVolume" unique_id=350975670]
+layout_mode = 2
+texture = ExtResource("21_6geaa")
+expand_mode = 2
+
+[node name="EffectsSlider" type="HSlider" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions/EffectsVolume" unique_id=425235765]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/slider = SubResource("StyleBoxFlat_ftg2j")
+script = ExtResource("5_nap5k")
+bus = 3
+
+[node name="UIVolume" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions" unique_id=1533792080]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions/UIVolume" unique_id=383704298]
+layout_mode = 2
+texture = ExtResource("10_863by")
+expand_mode = 2
+
+[node name="UISlider" type="HSlider" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/AudioOptions/UIVolume" unique_id=56946327]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/slider = SubResource("StyleBoxFlat_ftg2j")
+script = ExtResource("5_nap5k")
+bus = 5
+
+[node name="CameraOptions" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=412193868]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 40
+metadata/_tab_index = 0
+metadata/_tab_name = ""
+
+[node name="FOV" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions" unique_id=1772714822]
+layout_mode = 2
+
+[node name="FOVIcon" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions/FOV" unique_id=1048582388]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("25_s445j")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="FOVSlider" type="HSlider" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions/FOV" unique_id=1768547499]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/slider = SubResource("StyleBoxFlat_ftg2j")
+min_value = 50.0
+max_value = 110.0
+value = 50.0
+script = ExtResource("25_l2uj7")
+
+[node name="FOVSliderNumber" type="Label" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions/FOV" unique_id=1059771985]
+layout_mode = 2
+
+[node name="CameraDistance" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions" unique_id=2044699645]
+layout_mode = 2
+
+[node name="CamDistanceIcon" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions/CameraDistance" unique_id=1836024639]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("27_qmcbu")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="CamDistanceSlider" type="HSlider" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions/CameraDistance" unique_id=918271903]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/slider = SubResource("StyleBoxFlat_ftg2j")
+min_value = 1.5
+max_value = 6.0
+step = 0.1
+value = 1.5
+script = ExtResource("27_shv1y")
+
+[node name="CamDistanceNumber" type="Label" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions/CameraDistance" unique_id=2101679102]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions" unique_id=1211820478]
+layout_mode = 2
+
+[node name="MouseSensitivity" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions" unique_id=942196597]
+layout_mode = 2
+
+[node name="MouseSensitivityIcon" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions/MouseSensitivity" unique_id=192685747 instance=ExtResource("28_7a06q")]
+layout_mode = 2
+texture = ExtResource("13_6geaa")
+action = &"look_left"
+prefer_axis = true
+keyb_texture_override = ExtResource("29_7a06q")
+
+[node name="MouseSensitivityIcon2" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions/MouseSensitivity" unique_id=1362566501]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("30_4qpmk")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="MouseSensitivitySlider" type="HSlider" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions/MouseSensitivity" unique_id=1056038527]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/slider = SubResource("StyleBoxFlat_ftg2j")
+min_value = 0.05
+max_value = 1.0
+step = 0.01
+value = 0.05
+script = ExtResource("29_fbymy")
+
+[node name="MouseSensitivityNumber" type="Label" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/CameraOptions/MouseSensitivity" unique_id=1533446038]
+layout_mode = 2
+
+[node name="HudOptions" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=1253832284]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 40
+metadata/_tab_index = 0
+metadata/_tab_name = ""
+
+[node name="UnderBuildingWarning" type="HBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions" unique_id=1567566927]
+layout_mode = 2
+alignment = 1
+
+[node name="Warning" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions/UnderBuildingWarning" unique_id=979540154]
+modulate = Color(1, 1, 0, 1)
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = ExtResource("18_8l3q0")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Hammer" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions/UnderBuildingWarning" unique_id=1522570624]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = ExtResource("19_sto7j")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Saw" type="TextureRect" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions/UnderBuildingWarning" unique_id=1652405225]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = ExtResource("20_txwea")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions" unique_id=1115121776]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CheckButton" type="CheckButton" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions/VBoxContainer" unique_id=1057472892 node_paths=PackedStringArray("preview_hud")]
+custom_minimum_size = Vector2(100, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+button_pressed = true
+icon = ExtResource("22_863by")
+expand_icon = true
+script = ExtResource("21_lcw02")
+preview_hud = NodePath("../AspectRatioContainer/HUD")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions/VBoxContainer" unique_id=911404333]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HUD" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/HudOptions/VBoxContainer/AspectRatioContainer" unique_id=1333227325 instance=ExtResource("20_1ltwp")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.3, 0.3)
+
 [node name="AccessibilityOptions" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=1262244019]
 visible = false
 layout_mode = 2
@@ -734,17 +637,6 @@ size_flags_horizontal = 3
 icon = ExtResource("30_27c6e")
 expand_icon = true
 script = ExtResource("32_8tp0o")
-
-[node name="Credits" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=48341008]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 40
-metadata/_tab_index = 0
-metadata/_tab_name = ""
-
-[node name="CreditsScreen" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/Credits" unique_id=319564374 instance=ExtResource("46_1lg27")]
-layout_mode = 2
 
 [node name="Statistics" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=347035709]
 visible = false
@@ -780,9 +672,15 @@ texture = ExtResource("20_txwea")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="KeyBindingsPanel" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=600000001 instance=ExtResource("28_6geaa")]
+[node name="Credits" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=48341008]
 visible = false
-custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 40
+metadata/_tab_index = 0
+metadata/_tab_name = ""
+
+[node name="CreditsScreen" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs/Credits" unique_id=319564374 instance=ExtResource("46_1lg27")]
 layout_mode = 2
 
 [node name="ResetSettingsButton" type="Button" parent="RootContainer/SettingsContainer/VBoxContainer" unique_id=390727817 node_paths=PackedStringArray("tabs_controller")]

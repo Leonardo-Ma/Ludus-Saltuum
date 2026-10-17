@@ -81,4 +81,4 @@ func close_open_popup() -> void:
 
 
 func set_hud_visible(_hud_visible: bool) -> void:
-	_hud.visible = _hud_visible
+	_hud.visible = _hud_visible and ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.PLAYING)
