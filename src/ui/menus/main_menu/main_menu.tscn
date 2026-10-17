@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://cgiss7x7cle55" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/mouse/mouse_move.png" id="19_rq6ct"]
 [ext_resource type="Texture2D" uid="uid://bx4ijaov68u63" path="res://src/ui/assets/kenney_input-prompts/sticks/stick_left.png" id="19_ua5hf"]
 [ext_resource type="Texture2D" uid="uid://bgf4oeuykl8jh" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/mouse/mouse_left.png" id="20_rq6ct"]
+[ext_resource type="PackedScene" uid="uid://d3q3ykn5mbcww" path="res://src/ui/menus/feedback_form/feedback_form.tscn" id="22_ewdsk"]
 [ext_resource type="Texture2D" uid="uid://r8ac5it4c01m" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/tick.png" id="22_rq6ct"]
 [ext_resource type="Texture2D" uid="uid://b33inr4y306ek" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/1_game/trophy.png" id="23_ewdsk"]
 [ext_resource type="Script" uid="uid://dib4grxkxaany" path="res://src/ui/menus/main_menu/open_achievements.gd" id="23_mt6gl"]
@@ -212,6 +213,16 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_mt6gl")
 action = &"ui_select"
+
+[node name="FeedbackForm" parent="." unique_id=362427336 instance=ExtResource("22_ewdsk")]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -69.0
+offset_right = 150.0
+offset_bottom = 69.0
+grow_vertical = 2
 
 [node name="AchievementsMargin" type="MarginContainer" parent="." unique_id=330617178]
 layout_mode = 1

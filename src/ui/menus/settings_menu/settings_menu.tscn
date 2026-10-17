@@ -344,7 +344,6 @@ expand_mode = 3
 stretch_mode = 5
 
 [node name="AudioOptions" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=1811562513]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 2
@@ -737,6 +736,7 @@ expand_icon = true
 script = ExtResource("32_8tp0o")
 
 [node name="Credits" type="VBoxContainer" parent="RootContainer/SettingsContainer/VBoxContainer/Tabs" unique_id=48341008]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 40

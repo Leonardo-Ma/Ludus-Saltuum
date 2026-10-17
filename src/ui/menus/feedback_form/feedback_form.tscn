@@ -1,0 +1,124 @@
+[gd_scene format=3 uid="uid://d3q3ykn5mbcww"]
+
+[ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="1_r4egp"]
+[ext_resource type="ButtonGroup" uid="uid://by1ct6su341j7" path="res://src/ui/menus/main_menu/like_dislike_button_group.tres" id="2_22jhf"]
+[ext_resource type="Texture2D" uid="uid://bkj4jtanyiv4r" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/like.png" id="3_4jfm3"]
+[ext_resource type="Script" uid="uid://do71npc5pd5r" path="res://src/ui/menus/feedback_form/like_dislike_button.gd" id="4_uu858"]
+[ext_resource type="Texture2D" uid="uid://bwppanh2h2e48" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/dislike.png" id="5_45ag2"]
+[ext_resource type="Texture2D" uid="uid://diewtx8georr7" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/1_game/ghost.png" id="6_rkg45"]
+[ext_resource type="Script" uid="uid://cbl62wm44vr8d" path="res://src/ui/menus/feedback_form/player_avatar.gd" id="7_r4egp"]
+[ext_resource type="Script" uid="uid://sf0kwv6nmc8v" path="res://src/ui/menus/feedback_form/player_name.gd" id="8_22jhf"]
+[ext_resource type="Texture2D" uid="uid://b5ljlfb6157of" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/mail.png" id="9_l1tmm"]
+[ext_resource type="Script" uid="uid://c1v7f77nx1e87" path="res://src/ui/menus/feedback_form/send_feedback_button.gd" id="10_k80lp"]
+[ext_resource type="Texture2D" uid="uid://c4mcvjsf2mg5j" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/11_symbols/emoji-19.png" id="11_22jhf"]
+
+[node name="FeedbackForm" type="MarginContainer" unique_id=362427336]
+offset_right = 138.0
+offset_bottom = 138.0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme = ExtResource("1_r4egp")
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1994481735]
+custom_minimum_size = Vector2(150, 260)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=28626100]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1147172955]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="LikeButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=1758918915]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("2_22jhf")
+icon = ExtResource("3_4jfm3")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("4_uu858")
+
+[node name="DislikeButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=1381615632]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("2_22jhf")
+icon = ExtResource("5_45ag2")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("4_uu858")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer" unique_id=674200586]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="FeedbackTextInput" type="TextEdit" parent="PanelContainer/VBoxContainer/MarginContainer" unique_id=1974302123]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+wrap_mode = 1
+tab_input_mode = false
+
+[node name="HBoxContainer2" type="VBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=892291365]
+layout_mode = 2
+
+[node name="AnonymousFeedbackToggle" type="CheckButton" parent="PanelContainer/VBoxContainer/HBoxContainer2" unique_id=1066490562]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("6_rkg45")
+expand_icon = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2" unique_id=1572224199]
+layout_mode = 2
+alignment = 1
+
+[node name="PlayerAvatar" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=3840668]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("7_r4egp")
+
+[node name="PlayerName" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=2006259232]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+script = ExtResource("8_22jhf")
+
+[node name="SendFeedbackButton" type="Button" parent="PanelContainer/VBoxContainer" unique_id=788628566]
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+icon = ExtResource("9_l1tmm")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("10_k80lp")
+
+[node name="SucessOverlay" type="PanelContainer" parent="." unique_id=1831753313]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="HappyFace" type="TextureRect" parent="SucessOverlay" unique_id=2044343648]
+layout_mode = 2
+texture = ExtResource("11_22jhf")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SuccessOverlayTimer" type="Timer" parent="." unique_id=1060988608]
+unique_name_in_owner = true
+one_shot = true
