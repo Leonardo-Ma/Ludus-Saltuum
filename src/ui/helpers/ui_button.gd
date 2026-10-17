@@ -46,7 +46,7 @@ func _on_pressed() -> void:
 func _on_focused() -> void:
 	if disabled:
 		return
-	if not InputManager.is_gamepad_active():
+	if not InputManager.is_gamepad_active() and not has_focus():
 		grab_focus()
 	AudioManager.play_ui_sound(HOVER_SOUND)
 
