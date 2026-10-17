@@ -58,8 +58,17 @@ func _ready() -> void:
 func rebind(action: StringName, event: InputEvent) -> void:
 	assert(InputMap.has_action(action), "InputBindingManager: unknown action " + action)
 	assert(event is InputEventKey, "InputBindingManager: rebind only supports InputEventKey in " + name)
+
+	var physical_key: Key = (event as InputEventKey).physical_keycode
+	if physical_key == KEY_NONE:
+		return
+	var physical_event: InputEventKey = InputEventKey.new()
+	physical_event.physical_keycode = physical_key
+
 	_remove_keyboard_mouse_bindings(action)
-	InputMap.action_add_event(action, event)
+
+	InputMap.action_add_event(action, physical_event)
+
 	_save()
 	binding_changed.emit(action)
 
@@ -161,8 +170,11 @@ func _load() -> void:
 		var raw: Variant = config.get_value(_SECTION, action)
 		var event: InputEventKey = InputEventKey.new()
 		if raw is Dictionary:
-			event.physical_keycode = (raw.get(&"physical", 0)) as Key
-			event.keycode = (raw.get(&"logical", 0)) as Key
+			var physical: Key = (raw.get(&"physical", 0)) as Key
+			if physical != KEY_NONE:
+				event.physical_keycode = physical
+			else:
+				event.keycode = (raw.get(&"logical", 0)) as Key
 		elif raw is int:
 			event.keycode = raw as Key
 		_remove_keyboard_mouse_bindings(action)

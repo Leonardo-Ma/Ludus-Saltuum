@@ -88,8 +88,7 @@ func _refresh_icon() -> void:
 	var keyboard_event: InputEventKey = InputBindingManager.get_keyboard_event(_action)
 
 	if keyboard_event != null:
-		var key: Key = keyboard_event.physical_keycode if keyboard_event.physical_keycode != KEY_NONE else keyboard_event.keycode
-		_key_button.icon = KeyboardIconMap.get_keyboard_icon(key)
+		_key_button.icon = KeyboardIconMap.get_key_event_icon(keyboard_event)
 		return
 
 	var mouse_event: InputEventMouseButton = InputBindingManager.get_mouse_event(_action)

@@ -99,8 +99,7 @@ func _resolve_keyboard(events: Array[InputEvent]) -> Texture2D:
 		return keyb_texture_override
 	for event: InputEvent in events:
 		if event is InputEventKey:
-			var key: Key = event.physical_keycode if event.physical_keycode != KEY_NONE else event.keycode
-			var icon: Texture2D = KeyboardIconMap.get_keyboard_icon(key)
+			var icon: Texture2D = KeyboardIconMap.get_key_event_icon(event as InputEventKey)
 			if icon != null:
 				return icon
 

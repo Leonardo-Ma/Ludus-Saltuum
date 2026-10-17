@@ -86,7 +86,7 @@ static func get_action_icon(action: StringName) -> Texture2D:
 
 	for event: InputEvent in InputMap.action_get_events(action):
 		if event is InputEventKey:
-			return get_keyboard_icon(event.physical_keycode)
+			return get_key_event_icon(event as InputEventKey)
 
 		if event is InputEventMouseButton:
 			return get_mouse_icon(event.button_index)
@@ -104,3 +104,11 @@ static func get_mouse_icon(button: MouseButton) -> Texture2D:
 
 static func get_mouse_motion_icon(action: StringName) -> Texture2D:
 	return MOUSE_MOTION_ICONS.get(action, null)
+
+
+## Icon for key as printed on current layout
+static func get_key_event_icon(event: InputEventKey) -> Texture2D:
+	if event.physical_keycode == KEY_NONE:
+		return get_keyboard_icon(event.keycode)
+	var icon: Texture2D = get_keyboard_icon(DisplayServer.keyboard_get_keycode_from_physical(event.physical_keycode))
+	return icon if icon != null else get_keyboard_icon(event.physical_keycode)
