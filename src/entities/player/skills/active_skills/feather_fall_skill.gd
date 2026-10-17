@@ -7,26 +7,27 @@ extends BaseSkill
 var _is_toggled: bool = false
 
 
+func _ready() -> void:
+	skills_controller.movement_controller.in_air.connect(_update_feather_particles)
+
+
 func get_hud_mode() -> HUDMode:
 	return HUDMode.TOGGLE
 
 
 func on_landed() -> void:
-	_set_toggled(false)
+	_update_feather_particles()
 
 
 func process_input() -> void:
-	var body: CharacterBody3D = skills_controller.entity
 	if not Input.is_action_just_pressed(definition.input_action):
 		return
-	if skills_controller.is_sliding:
+	if _is_toggled:
+		_set_toggled(false)
 		return
-	if not skills_controller.movement_controller.movement_enabled:
+	if skills_controller.is_sliding or not skills_controller.movement_controller.movement_enabled:
 		return
-	if body.is_on_floor():
-		return
-
-	_set_toggled(not _is_toggled)
+	_set_toggled(true)
 
 
 func _exit_tree() -> void:
@@ -45,10 +46,10 @@ func _set_toggled(active: bool) -> void:
 		movement.fall_gravity_multiplier /= feather_fall_gravity_mult
 
 	toggled.emit(active)
-	_update_feather_particles(active)
+	_update_feather_particles()
 
 
-func _update_feather_particles(active: bool) -> void:
+func _update_feather_particles() -> void:
 	var vfx: VFXController = skills_controller.vfx_controller
 	assert(vfx != null, "VFXController missing in " + name)
-	vfx.toggle_feather_fall(active, skills_controller.entity)
+	vfx.toggle_feather_fall(_is_toggled and not skills_controller.entity.is_on_floor(), skills_controller.entity)
