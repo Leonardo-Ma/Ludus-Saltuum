@@ -154,13 +154,14 @@ func _on_player_spawned(player: PlayerEntity) -> void:
 
 	_score = _economy_controller.score
 
-	unlock(&"first_run")
 	_check_skill_completion()
 
 
 func _on_score_changed(score: int) -> void:
 	_score = score
 
+	if score >= 1:
+		unlock(&"first_run")
 	if score >= 100:
 		unlock(&"score_100")
 	if score >= 500:
