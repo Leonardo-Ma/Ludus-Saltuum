@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://b33inr4y306ek" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/1_game/trophy.png" id="11_dx3ey"]
 [ext_resource type="Script" uid="uid://dib4grxkxaany" path="res://src/ui/menus/main_menu/open_achievements.gd" id="12_0tjqn"]
 [ext_resource type="PackedScene" uid="uid://c530qg2t7m8ht" path="res://src/ui/menus/steam_wishlist_button.tscn" id="13_0tjqn"]
+[ext_resource type="PackedScene" uid="uid://d3q3ykn5mbcww" path="res://src/ui/menus/feedback_form/feedback_form.tscn" id="13_e1vfs"]
 
 [node name="PauseMenu" type="Control" unique_id=2117240021]
 layout_mode = 3
@@ -106,6 +107,16 @@ icon = ExtResource("11_dx3ey")
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("12_0tjqn")
+
+[node name="FeedbackForm" parent="." unique_id=362427336 instance=ExtResource("13_e1vfs")]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -69.0
+offset_right = 150.0
+offset_bottom = 69.0
+grow_vertical = 2
 
 [node name="SteamWishlistButton" parent="." unique_id=824114124 instance=ExtResource("13_0tjqn")]
 layout_mode = 1
