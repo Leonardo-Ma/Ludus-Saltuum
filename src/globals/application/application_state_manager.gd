@@ -47,6 +47,11 @@ func _ready() -> void:
 	_is_initialized = true
 
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT and not OS.is_debug_build():
+		request_pause_if_playing()
+
+
 func _change_state(new_state: GameState) -> void:
 	if _current_state == new_state:
 		return
@@ -202,3 +207,9 @@ func request_quit() -> void:
 func _on_settings_reset() -> void:
 	if is_in_settings():
 		SettingsManager.apply_all()
+
+
+## Pauses only from PLAYING, safe for external triggers (focus loss, Steam overlay, gamepad disconnect)
+func request_pause_if_playing() -> void:
+	if _current_state == GameState.PLAYING:
+		request_pause()

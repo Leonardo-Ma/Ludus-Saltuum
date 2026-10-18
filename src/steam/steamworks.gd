@@ -35,6 +35,8 @@ func _ready() -> void:
 
 	steam_enabled = true
 
+	Steam.overlay_toggled.connect(_on_overlay_toggled)
+
 	var steam_player_name: String = Steam.getPersonaName()
 	print("Username: ", steam_player_name + "\n")
 
@@ -42,3 +44,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if steam_enabled:
 		Steam.run_callbacks()
+
+
+func _on_overlay_toggled(active: bool, _user_initiated: bool, _app_id: int) -> void:
+	if active:
+		ApplicationStateManager.request_pause_if_playing()
