@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://do71npc5pd5r" path="res://src/ui/menus/feedback_form/like_dislike_button.gd" id="4_uu858"]
 [ext_resource type="Texture2D" uid="uid://bwppanh2h2e48" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/dislike.png" id="5_45ag2"]
 [ext_resource type="Texture2D" uid="uid://diewtx8georr7" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/1_game/ghost.png" id="6_rkg45"]
+[ext_resource type="Script" uid="uid://bid170uwndq5k" path="res://src/ui/menus/feedback_form/anonymous_feedback_toggle.gd" id="7_4jfm3"]
 [ext_resource type="Script" uid="uid://cbl62wm44vr8d" path="res://src/ui/menus/feedback_form/player_avatar.gd" id="7_r4egp"]
 [ext_resource type="Script" uid="uid://sf0kwv6nmc8v" path="res://src/ui/menus/feedback_form/player_name.gd" id="8_22jhf"]
 [ext_resource type="Texture2D" uid="uid://b5ljlfb6157of" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/mail.png" id="9_l1tmm"]
@@ -81,12 +82,14 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 icon = ExtResource("6_rkg45")
 expand_icon = true
+script = ExtResource("7_4jfm3")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2" unique_id=1572224199]
 layout_mode = 2
 alignment = 1
 
 [node name="PlayerAvatar" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=3840668]
+visible = false
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 expand_mode = 1
@@ -94,6 +97,7 @@ stretch_mode = 5
 script = ExtResource("7_r4egp")
 
 [node name="PlayerName" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=2006259232]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 11
 script = ExtResource("8_22jhf")

@@ -42,7 +42,7 @@ func _button_pressed() -> void:
 func _identify_feedback_player() -> void:
 	var current_alias: Variant = Talo.current_alias
 
-	if anonymous_feedback_toggle.button_pressed:
+	if anonymous_feedback_toggle.button_pressed or not SteamWorks.steam_enabled:
 		if current_alias != null and current_alias.service == "anonymous":
 			return
 
