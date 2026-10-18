@@ -22,6 +22,12 @@ static func release(source: StringName) -> void:
 static func _apply() -> void:
 	for source: StringName in _PRIORITY:
 		if _requests.has(source):
-			Input.mouse_mode = _requests[source]
+			var requested_mode: Input.MouseMode = _requests[source]
+
+			if OS.has_feature("web") and requested_mode == Input.MOUSE_MODE_CAPTURED:
+				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+			Input.mouse_mode = requested_mode
+
 			return
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

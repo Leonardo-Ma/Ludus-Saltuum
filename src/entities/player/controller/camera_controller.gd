@@ -53,10 +53,6 @@ func set_active(active: bool) -> void:
 # Handle camera x and y movement
 # TODO Confirm if this should be on _input instead of _unhandled_input
 func _input(event: InputEvent) -> void:
-	# TODO This shouldn't be here
-	if event.is_action_pressed("ui_cancel"):
-		release_mouse_requested.emit()
-
 	# TODO This probably should be in input controller?
 	if event.is_action_pressed("attack"): # Left mouse click
 		if not ApplicationStateManager.is_in_menu() and not PauseManager.is_paused():

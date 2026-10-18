@@ -8,6 +8,7 @@ signal hud_visibility_changed(visible: bool)
 var hud_visible: bool = true
 
 var _ui: UIView
+var _was_mouse_captured: bool = false
 
 var _cancel_actions: Dictionary[ApplicationStateManager.GameState, Callable] = {
 	ApplicationStateManager.GameState.SETTINGS: ApplicationStateManager.request_close_settings,
@@ -19,6 +20,25 @@ var _cancel_actions: Dictionary[ApplicationStateManager.GameState, Callable] = {
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	_was_mouse_captured = Input.mouse_mode == Input.MOUSE_MODE_CAPTURED
+
+	# Only need _process on Web to detect browser-forced mouse release (ESC)
+	set_process(OS.has_feature("web"))
+
+
+func _process(_delta: float) -> void:
+	_handle_web_input()
+
+
+func _handle_web_input() -> void:
+	var is_captured: bool = Input.mouse_mode == Input.MOUSE_MODE_CAPTURED
+
+	# Detect when browser releases mouse via ESC without Godot receiving the input event
+	if ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.PLAYING):
+		if _was_mouse_captured and not is_captured:
+			ApplicationStateManager.request_pause()
+
+	_was_mouse_captured = is_captured
 
 
 func register_ui(ui: UIView) -> void:
@@ -31,7 +51,6 @@ func register_ui(ui: UIView) -> void:
 	ApplicationStateManager.settings_closed.connect(_on_settings_closed)
 
 
-# BUG Web version: ESC releases mouse and ignores this on first press but works on second ESC press.
 func _unhandled_input(event: InputEvent) -> void:
 	var current_state: ApplicationStateManager.GameState = ApplicationStateManager.get_current_state()
 	if current_state == ApplicationStateManager.GameState.MAIN_MENU:
@@ -94,11 +113,21 @@ func _on_game_state_changed(new_state: ApplicationStateManager.GameState, previo
 			_ui.show_main_menu_settings()
 
 	if new_state == ApplicationStateManager.GameState.PLAYING:
+		_release_ui_focus()
 		MouseModeManager.release(&"menu")
 		MouseModeManager.request_mode(&"gameplay", Input.MOUSE_MODE_CAPTURED)
 	else:
 		MouseModeManager.release(&"gameplay")
 		MouseModeManager.release(&"menu")
+
+
+## NOTE Web only
+func _release_ui_focus() -> void:
+	# Clear focus to ensure mouse capture works correctly on next click
+	var viewport: Viewport = _ui.get_viewport()
+	var focus_owner: Control = viewport.gui_get_focus_owner()
+	if focus_owner:
+		focus_owner.release_focus()
 
 
 func _on_settings_opened() -> void:
