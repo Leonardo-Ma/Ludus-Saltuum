@@ -75,9 +75,9 @@ func _on_binding_changed(action: StringName) -> void:
 		_refresh_icon()
 
 
-func _on_device_changed(_device: InputManager.Device) -> void:
+func _on_device_changed(device: InputManager.Device) -> void:
 	_update_gamepad_visibility()
-	_refresh_gamepad()
+	_gamepad_icon_map.set_device(device)
 
 
 func _update_gamepad_visibility() -> void:
