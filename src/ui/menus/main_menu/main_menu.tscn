@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://r8ac5it4c01m" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/tick.png" id="22_rq6ct"]
 [ext_resource type="Texture2D" uid="uid://b33inr4y306ek" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/1_game/trophy.png" id="23_ewdsk"]
 [ext_resource type="Script" uid="uid://dib4grxkxaany" path="res://src/ui/menus/main_menu/open_achievements.gd" id="23_mt6gl"]
+[ext_resource type="PackedScene" uid="uid://c530qg2t7m8ht" path="res://src/ui/menus/steam_wishlist_button.tscn" id="25_cd13d"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mt6gl"]
 
@@ -250,3 +251,17 @@ icon = ExtResource("23_ewdsk")
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("23_mt6gl")
+
+[node name="SteamWishlistButton" parent="." unique_id=824114124 instance=ExtResource("25_cd13d")]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -52.0
+offset_right = 0.0
+offset_bottom = 52.0
+grow_horizontal = 0
+grow_vertical = 2

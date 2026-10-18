@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://c530qg2t7m8ht"]
+
+[ext_resource type="Texture2D" uid="uid://7c525ir0ehqi" path="res://src/icons/third_party_icons/steam_logo_black_icon.png" id="1_52fi6"]
+[ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="1_dexsd"]
+[ext_resource type="Texture2D" uid="uid://hc60m0tm0ggk" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/1_game/hearts.png" id="2_nd4bk"]
+[ext_resource type="Script" uid="uid://d34um6jl0p4n4" path="res://src/ui/menus/steam_wishlist_button.gd" id="3_43oat"]
+
+[node name="SteamWishlistMargin" type="MarginContainer" unique_id=824114124]
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_dexsd")
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="SteamWishlistButton" type="Button" parent="." unique_id=1333534137]
+custom_minimum_size = Vector2(70, 135)
+layout_mode = 2
+theme_type_variation = &"FlatButton"
+icon = ExtResource("2_nd4bk")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+script = ExtResource("3_43oat")
+
+[node name="SteamLogoIconBlack" type="TextureRect" parent="SteamWishlistButton" unique_id=1314351806]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -64.0
+offset_right = 32.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_52fi6")
+expand_mode = 1
+stretch_mode = 5
