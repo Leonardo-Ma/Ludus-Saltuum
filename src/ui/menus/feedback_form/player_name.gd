@@ -5,7 +5,7 @@ extends Label
 
 func _ready() -> void:
 	if SteamWorks.steam_enabled:
-		text = Steam.getPersonaName()
+		text = SteamWorks.get_persona_name()
 		visible = true
 		anonymous_feedback_toggle.toggled.connect(_on_anonymous_feedback)
 

@@ -49,7 +49,7 @@ func _identify_feedback_player() -> void:
 		await Talo.players.identify("anonymous", Talo.players.generate_identifier())
 		return
 
-	var identifier: String = Steam.getPersonaName()
+	var identifier: String = SteamWorks.get_persona_name()
 
 	if current_alias != null and current_alias.service == "username" and current_alias.identifier == identifier:
 		return

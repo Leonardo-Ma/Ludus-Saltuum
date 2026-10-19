@@ -11,15 +11,15 @@ func upload(cloud_filename: String, local_path: String) -> bool:
 	if not is_available():
 		return false
 	assert(FileAccess.file_exists(local_path), "SteamCloudSaveBackend: local file missing " + local_path)
-	return Steam.fileWrite(cloud_filename, FileAccess.get_file_as_bytes(local_path))
+	return SteamWorks.cloud_file_write(cloud_filename, FileAccess.get_file_as_bytes(local_path))
 
 
 func download(cloud_filename: String, local_path: String) -> bool:
-	if not is_available() or not Steam.fileExists(cloud_filename):
+	if not is_available() or not SteamWorks.cloud_file_exists(cloud_filename):
 		push_warning("Steam cloud download failed")
 		return false
-	var size: int = Steam.getFileSize(cloud_filename)
-	var result: Dictionary = Steam.fileRead(cloud_filename, size)
+	var size: int = SteamWorks.cloud_file_size(cloud_filename)
+	var result: Dictionary = SteamWorks.cloud_file_read(cloud_filename, size)
 	if not result.get("ret", false):
 		push_warning("Steam cloud download failed")
 		return false
@@ -33,14 +33,14 @@ func download(cloud_filename: String, local_path: String) -> bool:
 func delete(cloud_filename: String) -> bool:
 	if not is_available():
 		return false
-	if not Steam.fileExists(cloud_filename):
+	if not SteamWorks.cloud_file_exists(cloud_filename):
 		return true
-	return Steam.fileDelete(cloud_filename)
+	return SteamWorks.cloud_file_delete(cloud_filename)
 
 
 func remote_is_newer(cloud_filename: String, local_path: String) -> bool:
-	if not is_available() or not Steam.fileExists(cloud_filename):
+	if not is_available() or not SteamWorks.cloud_file_exists(cloud_filename):
 		return false
 	if not FileAccess.file_exists(local_path):
 		return true
-	return Steam.getFileTimestamp(cloud_filename) > FileAccess.get_modified_time(local_path)
+	return SteamWorks.cloud_file_timestamp(cloud_filename) > FileAccess.get_modified_time(local_path)

@@ -5,8 +5,8 @@ extends TextureRect
 
 func _ready() -> void:
 	if SteamWorks.steam_enabled:
-		Steam.avatar_loaded.connect(_on_loaded_avatar)
-		Steam.getPlayerAvatar(Steam.AVATAR_SMALL)
+		SteamWorks.avatar_loaded.connect(_on_loaded_avatar)
+		SteamWorks.request_small_avatar()
 		visible = true
 		anonymous_feedback_toggle.toggled.connect(_on_anonymous_feedback)
 

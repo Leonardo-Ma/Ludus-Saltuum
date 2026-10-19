@@ -125,6 +125,14 @@ repos:
         language: pygrep
         entry: '(change_scene_to_file|change_scene_to_packed|change_scene)\('
         files: \.gd$
+
+      - id: no-steam-singleton-outside-steamworks
+        name: "ban direct Steam singleton access outside SteamWorks facade"
+        language: pygrep
+        entry: '\bSteam\.'
+        files: \.gd$
+        exclude: '^src/steam/steamworks_desktop\.gd$'
+
         # ----------------------------------------------------------
         # UI
         # ----------------------------------------------------------
