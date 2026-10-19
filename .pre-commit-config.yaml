@@ -275,7 +275,7 @@ repos:
         stages: [commit-msg]
 
   - repo: https://github.com/GDQuest/GDScript-formatter
-    rev: 516c1d60875c99d5ed95aab5b8e21aa31d2c6740 # 0.27.0
+    rev: 99cfd93d4198c2ad8c18f1e0c739b4d8510c8867 # unreleased
     hooks:
       - id: gdscript-formatter
         language: rust
