@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cfm0nge5vjc0d" path="res://src/environment/mechanics/collectible/unlock_skill/unlock_skill.tscn" id="7_qid52"]
 [ext_resource type="Resource" uid="uid://dcw2dwhnvq7ri" path="res://src/entities/player/skills/active_skills/feather_fall.tres" id="8_1plwh"]
 [ext_resource type="Script" uid="uid://si0x0kj8w7kf" path="res://src/systems/collectibles/collectibles_data/skill_collectible.gd" id="9_tb3fc"]
+[ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/mechanics/collectible/coin/gold_coin.tscn" id="11_tb3fc"]
 
 [sub_resource type="Resource" id="Resource_2cebc"]
 script = ExtResource("9_tb3fc")
@@ -27,7 +28,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 1)
 
 [node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_fvul6")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 68.083)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 69.083)
 
 [node name="GrassPlatform" parent="." unique_id=537577895 instance=ExtResource("4_0mn2q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 5)
@@ -60,4 +61,46 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0)
 data = SubResource("Resource_2cebc")
 
 [node name="StaticBody3D5" parent="." unique_id=830230724 instance=ExtResource("6_w7e1s")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2, 62)
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 2, 63)
+
+[node name="Portal" parent="StaticBody3D5" unique_id=515399111 node_paths=PackedStringArray("linked_portal") instance=ExtResource("7_1plwh")]
+transform = Transform3D(-4.3711392e-08, 0, -1, 0, 1, 0, 1, 0, -4.3711392e-08, 2.7, 1, 0)
+linked_portal = NodePath("../../StaticBody3D2/Portal2")
+
+[node name="Coins" type="Node3D" parent="." unique_id=926859958]
+
+[node name="GoldCoin49" parent="Coins" unique_id=654427791 instance=ExtResource("11_tb3fc")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.9999998, 25, 51)
+
+[node name="GoldCoin51" parent="Coins" unique_id=188302378 instance=ExtResource("11_tb3fc")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2, 23, 53)
+
+[node name="GoldCoin53" parent="Coins" unique_id=589293722 instance=ExtResource("11_tb3fc")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2, 21, 55)
+
+[node name="GoldCoin55" parent="Coins" unique_id=2129530751 instance=ExtResource("11_tb3fc")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.0000002, 19, 57)
+
+[node name="GoldCoin61" parent="Coins" unique_id=1786404895 instance=ExtResource("11_tb3fc")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3, 25, 51)
+
+[node name="GoldCoin63" parent="Coins" unique_id=1254094304 instance=ExtResource("11_tb3fc")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3, 23, 53)
+
+[node name="GoldCoin65" parent="Coins" unique_id=1553083618 instance=ExtResource("11_tb3fc")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3, 21, 55)
+
+[node name="GoldCoin67" parent="Coins" unique_id=144502257 instance=ExtResource("11_tb3fc")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3, 19, 57)
+
+[node name="GoldCoin85" parent="Coins" unique_id=1259712727 instance=ExtResource("11_tb3fc")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, 25, 51)
+
+[node name="GoldCoin87" parent="Coins" unique_id=1607522460 instance=ExtResource("11_tb3fc")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, 23, 53)
+
+[node name="GoldCoin89" parent="Coins" unique_id=1144635263 instance=ExtResource("11_tb3fc")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, 21, 55)
+
+[node name="GoldCoin91" parent="Coins" unique_id=1416890339 instance=ExtResource("11_tb3fc")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, 19, 57)
