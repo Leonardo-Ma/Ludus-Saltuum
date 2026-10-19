@@ -57,7 +57,11 @@ size_flags_horizontal = 4
 theme_override_constants/separation = 40
 
 [node name="TitleLabelAnimated" parent="VBoxContainer" unique_id=1399787384 instance=ExtResource("3_ewdsk")]
+custom_minimum_size = Vector2(250, 100)
 layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+expand_mode = 1
 
 [node name="NewGame" type="Button" parent="VBoxContainer" unique_id=56652494]
 unique_name_in_owner = true
