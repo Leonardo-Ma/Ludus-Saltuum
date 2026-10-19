@@ -2,7 +2,10 @@
 # https://docs.godotengine.org/en/stable/engine_details/development/compiling/compiling_for_web.html#building-export-templates
 optimize ="size_extra"
 platform ="web"
+
+debug_symbols="no"
 target ="template_release"
+
 javascript_eval ="no"
 threads ="no"
 
