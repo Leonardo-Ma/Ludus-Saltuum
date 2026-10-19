@@ -5,7 +5,7 @@ const SHUTDOWN_DELAY: float = 0.4
 
 
 func _button_ready() -> void:
-	pass
+	visible = not OS.has_feature("web")
 
 
 func _button_pressed() -> void:

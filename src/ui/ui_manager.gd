@@ -41,6 +41,14 @@ func _handle_web_input() -> void:
 	_was_mouse_captured = is_captured
 
 
+func _input(event: InputEvent) -> void:
+	if not OS.has_feature("web") or not ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.PLAYING):
+		return
+
+	if event is InputEventMouseButton:
+		MouseModeManager.request_mode(&"gameplay", Input.MOUSE_MODE_CAPTURED)
+
+
 func register_ui(ui: UIView) -> void:
 	assert(_ui == null, "UIManager: UIView already registered")
 	_ui = ui

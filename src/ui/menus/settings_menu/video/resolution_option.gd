@@ -2,6 +2,8 @@ extends OptionButton
 
 
 func _ready() -> void:
+	disabled = OS.has_feature("web")
+
 	SettingsManager.video_settings_changed.connect(_on_video_settings_changed)
 	item_selected.connect(_on_resolution_changed)
 

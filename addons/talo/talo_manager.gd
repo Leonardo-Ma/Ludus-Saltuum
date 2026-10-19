@@ -72,6 +72,9 @@ func _init_socket() -> void:
 
 
 func _notification(what: int):
+	if OS.has_feature("web"): 
+		return
+
 	match what:
 		NOTIFICATION_WM_CLOSE_REQUEST:
 			_handle_quit()

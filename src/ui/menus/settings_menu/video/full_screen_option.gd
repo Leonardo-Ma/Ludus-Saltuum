@@ -10,6 +10,8 @@ var _last_mode: DisplayServer.WindowMode = DisplayServer.WINDOW_MODE_WINDOWED
 
 
 func _ready() -> void:
+	disabled = OS.has_feature("web")
+
 	_window_modes = [
 		{ &"icon": windowed_icon, &"mode": DisplayServer.WINDOW_MODE_WINDOWED },
 		{ &"icon": maximized_icon, &"mode": DisplayServer.WINDOW_MODE_MAXIMIZED },

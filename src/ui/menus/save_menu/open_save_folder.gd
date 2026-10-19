@@ -2,7 +2,8 @@ extends UIButton
 
 
 func _button_ready() -> void:
-	pass
+	if OS.has_feature("web"):
+		visible = false
 
 
 func _button_pressed() -> void:
