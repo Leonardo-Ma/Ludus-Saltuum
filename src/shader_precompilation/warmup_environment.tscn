@@ -10,19 +10,20 @@
 [ext_resource type="PackedScene" uid="uid://bbk6p2lpx40ke" path="res://src/environment/assets/kaykit_platformer/assets/platform_6x6x1_blue.fbx" id="8_muc8a"]
 [ext_resource type="ArrayMesh" uid="uid://bfpsvoork6gcg" path="res://src/environment/assets/kaykit_platformer/meshes/heart_blue.tres" id="9_ror7x"]
 [ext_resource type="ArrayMesh" uid="uid://bsnxh8ehccfp8" path="res://src/environment/assets/kaykit_platformer/meshes/power_blue.tres" id="10_gareu"]
+[ext_resource type="PackedScene" uid="uid://hjyor81fl58y" path="res://src/environment/assets/platformer_kit_kenney/alternative_blocks.tscn" id="16_n2jyx"]
+[ext_resource type="PackedScene" uid="uid://hiu36af7jl5t" path="res://src/environment/assets/platformer_kit_kenney/base_blocks.tscn" id="17_cvfe4"]
+[ext_resource type="PackedScene" uid="uid://ckne7ridb82tt" path="res://src/environment/assets/platformer_kit_kenney/moving_blocks.tscn" id="18_c3ayn"]
+[ext_resource type="PackedScene" uid="uid://y5l0u6fifvpy" path="res://src/environment/mechanics/hazard/tornado/tornado.tscn" id="24_i5bfq"]
 [ext_resource type="ArrayMesh" uid="uid://ct5us20stc7a0" path="res://src/environment/assets/kenney_city_kit_roads/meshes/bend.tres" id="51_gpq3i"]
 [ext_resource type="ArrayMesh" uid="uid://c7658b445u2m5" path="res://src/environment/assets/kenney_city_kit_roads/meshes/construction_barrier.tres" id="52_q01rd"]
 [ext_resource type="ArrayMesh" uid="uid://ddnt2i2w2bm1a" path="res://src/environment/assets/kenney_city_kit_roads/meshes/road_slant.tres" id="53_0uq31"]
 [ext_resource type="ArrayMesh" uid="uid://bqr7fp5jrjnte" path="res://src/environment/assets/kenney_city_kit_roads/meshes/road_slant_high.tres" id="54_y2pax"]
 [ext_resource type="ArrayMesh" uid="uid://c5trk6rk7c7cs" path="res://src/environment/assets/kenney_city_kit_roads/meshes/road_straight.tres" id="55_31uuh"]
-[ext_resource type="PackedScene" uid="uid://boc45ppc0xq8h" path="res://src/environment/assets/platformer_kit_kenney/assets.glb" id="56_q01rd"]
 [ext_resource type="PackedScene" uid="uid://dlxbhva4utv0e" path="res://src/environment/assets/portal_vfx/simple_portal_vfx.tscn" id="57_0uq31"]
 [ext_resource type="ArrayMesh" uid="uid://oqwkdvedalca" path="res://src/environment/assets/small_platformer_kit_j_toastie/meshes/hexagon_grass_platform.glb" id="58_31uuh"]
 [ext_resource type="ArrayMesh" uid="uid://cel68jd7ltlp4" path="res://src/environment/assets/small_platformer_kit_j_toastie/meshes/stone_platform.glb" id="59_8mys3"]
 [ext_resource type="PackedScene" uid="uid://cvmr8c7gfam3s" path="res://src/environment/assets/ultimate_rpg_items_bundle/potion_bottle_rounded.glb" id="60_1iob5"]
 [ext_resource type="PackedScene" uid="uid://db83w11lxrq6o" path="res://src/environment/assets/ultimate_rpg_items_bundle/potion_bottle_variation.glb" id="61_f0v1r"]
-[ext_resource type="ArrayMesh" uid="uid://ba500j1anql7i" path="res://src/environment/assets/tornado_soygus/tornado.obj" id="62_iwxdt"]
-[ext_resource type="ArrayMesh" uid="uid://c7wehlpvs22up" path="res://src/environment/assets/tornado_soygus/tornado2.obj" id="63_2fbd0"]
 
 [node name="WarmupEnvironment" type="Node3D" unique_id=135827922]
 
@@ -84,9 +85,15 @@ mesh = ExtResource("54_y2pax")
 mesh = ExtResource("55_31uuh")
 
 [node name="PlatformerKitKenney" type="Node3D" parent="." unique_id=1302474823]
-
-[node name="assets" parent="PlatformerKitKenney" unique_id=737211043 instance=ExtResource("56_q01rd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -3, 0)
+
+[node name="AlternativeBlocks" parent="PlatformerKitKenney" unique_id=1994067278 instance=ExtResource("16_n2jyx")]
+
+[node name="BaseBlocks" parent="PlatformerKitKenney" unique_id=179116225 instance=ExtResource("17_cvfe4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+
+[node name="MovingBlocks" parent="PlatformerKitKenney" unique_id=196292691 instance=ExtResource("18_c3ayn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8010406, -1, 0)
 
 [node name="Portal" type="Node3D" parent="." unique_id=110894245]
 
@@ -109,13 +116,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, -1, 0)
 
 [node name="Root Scene2" parent="UltimateRpgItemsBundle" unique_id=345738484 instance=ExtResource("61_f0v1r")]
 
-[node name="TornadoSoygus" type="Node3D" parent="." unique_id=1329797346]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -5, 0)
-
-[node name="Tornado" type="MeshInstance3D" parent="TornadoSoygus" unique_id=497038141]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-mesh = ExtResource("62_iwxdt")
-
-[node name="Tornado2" type="MeshInstance3D" parent="TornadoSoygus" unique_id=10638898]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-mesh = ExtResource("63_2fbd0")
+[node name="Tornado3" parent="." unique_id=483596124 instance=ExtResource("24_i5bfq")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -4.282321, -5, 0)
