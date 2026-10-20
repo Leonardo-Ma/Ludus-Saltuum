@@ -92,12 +92,12 @@ linked_portal = NodePath("../../GrassPlatform/Portal")
 portal_color = Color(1, 0, 0.5310993, 1)
 
 [node name="Portal3" parent="HexagonGrassPlatform" unique_id=803891312 node_paths=PackedStringArray("linked_portal") instance=ExtResource("6_3p00d")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3, 4.0808887, 0)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4, 4, 0)
 linked_portal = NodePath("../../LeftPath/HexagonGrassPlatform2/Portal5")
 portal_color = Color(0.7411765, 1, 0.49803922, 1)
 
 [node name="Portal4" parent="HexagonGrassPlatform" unique_id=1922228529 node_paths=PackedStringArray("linked_portal") instance=ExtResource("6_3p00d")]
-transform = Transform3D(0.25881916, 0, 0.96592593, 0, 1, 0, -0.96592593, 0, 0.25881916, -4, 4.0808887, 0)
+transform = Transform3D(0.25881916, 0, 0.96592593, 0, 1, 0, -0.96592593, 0, 0.25881916, -4, 4, 0)
 linked_portal = NodePath("../../RightPath/HexagonGrassPlatform3/Portal6")
 portal_color = Color(1, 0.2652319, 0.25777137, 1)
 
