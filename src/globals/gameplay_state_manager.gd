@@ -4,7 +4,6 @@
 extends Node
 
 signal gameplay_mode_changed(new_mode: GameplayMode, previous_mode: GameplayMode)
-signal gameplay_mode_ended
 
 enum GameplayMode {
 	NONE = 0,
@@ -25,18 +24,31 @@ func _ready() -> void:
 	assert(not _is_initialized, "GameplayStateManager already initialized")
 	_is_initialized = true
 
+	assert(
+		not ApplicationStateManager.state_changed.is_connected(_on_application_state_changed),
+		"GameplayStateManager already connected to ApplicationStateManager",
+	)
 	ApplicationStateManager.state_changed.connect(_on_application_state_changed)
-	if ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.PLAYING):
-		_on_application_state_entered_playing()
 
+	assert(not SaveManager.reset_requested.is_connected(reset_save_data), "GameplayStateManager already connected to SaveManager")
 	SaveManager.reset_requested.connect(reset_save_data)
+
+	if ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.MAIN_MENU):
+		_on_application_state_entered_main_menu()
+	elif ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.PLAYING):
+		_on_application_state_entered_playing()
+	elif ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.PAUSED):
+		_on_application_state_entered_paused()
+	else:
+		_on_application_state_entered_temporary_menu()
 
 
 func _process(delta: float) -> void:
-	assert(ApplicationStateManager != null, "ApplicationStateManager missing in " + self.name)
+	if not ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.PLAYING):
+		return
 
-	if ApplicationStateManager.is_gameplay_active():
-		_play_time_seconds += delta
+	_play_time_seconds += delta
+
 
 #region Getters and Setters
 func get_play_time() -> float:
@@ -44,6 +56,7 @@ func get_play_time() -> float:
 
 
 func set_play_time(seconds: float) -> void:
+	assert(is_finite(seconds) and seconds >= 0.0, "Invalid play time in " + self.name)
 	_play_time_seconds = seconds
 
 
@@ -69,11 +82,14 @@ func is_in_gameplay_mode() -> bool:
 
 func change_gameplay_state(new_mode: GameplayMode) -> void:
 	assert(
-		ApplicationStateManager.get_current_state() == ApplicationStateManager.GameState.PLAYING,
-		"Can only change gameplay mode during gameplay, current: " + str(ApplicationStateManager.get_current_state()),
+		ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.PLAYING),
+		"Can only change gameplay mode during PLAYING, current: " + str(ApplicationStateManager.get_current_state()),
 	)
+	assert(GameplayMode.values().has(new_mode), "Invalid gameplay mode in " + self.name + ": " + str(new_mode))
+
 	_change_mode(new_mode)
 #endregion
+
 
 #region Private helpers
 func _on_application_state_changed(new_state: ApplicationStateManager.GameState, _previous_state: ApplicationStateManager.GameState) -> void:
@@ -84,13 +100,10 @@ func _on_application_state_changed(new_state: ApplicationStateManager.GameState,
 			_on_application_state_entered_paused()
 		ApplicationStateManager.GameState.MAIN_MENU:
 			_on_application_state_entered_main_menu()
-		ApplicationStateManager.GameState.SETTINGS:
-			_on_application_state_entered_temporary_menu()
-		ApplicationStateManager.GameState.SAVE_MENU:
-			_on_application_state_entered_temporary_menu()
-		ApplicationStateManager.GameState.ACHIEVEMENTS_MENU:
-			_on_application_state_entered_temporary_menu()
-		ApplicationStateManager.GameState.MAIN_MENU_SETTINGS:
+		ApplicationStateManager.GameState.SETTINGS, \
+				ApplicationStateManager.GameState.SAVE_MENU, \
+				ApplicationStateManager.GameState.ACHIEVEMENTS_MENU, \
+				ApplicationStateManager.GameState.MAIN_MENU_SETTINGS:
 			_on_application_state_entered_temporary_menu()
 
 
@@ -99,16 +112,17 @@ func _on_application_state_entered_playing() -> void:
 	_restore_suspended_mode()
 
 
-## Restores gameplay mode suspended by temporary application menus
+## Preserves gameplay mode while gameplay is paused
 func _on_application_state_entered_paused() -> void:
 	_restore_suspended_mode()
 
 
-## Temporarily hides gameplay mode while preserving it for application-state return
+## Suspends active gameplay mode without discarding it
 func _on_application_state_entered_temporary_menu() -> void:
 	if _current_mode == GameplayMode.NONE:
 		return
 
+	assert(_suspended_mode == GameplayMode.NONE, "Gameplay mode already suspended in " + self.name)
 	_suspended_mode = _current_mode
 	_change_mode(GameplayMode.NONE)
 
@@ -135,15 +149,7 @@ func _change_mode(new_mode: GameplayMode) -> void:
 	_previous_mode = _current_mode
 	_current_mode = new_mode
 
-	_on_mode_entered(_current_mode, _previous_mode)
 	gameplay_mode_changed.emit(_current_mode, _previous_mode)
 
 	print_debug("Gameplay state changed to ", new_mode)
-
-
-func _on_mode_entered(new_mode: GameplayMode, previous_mode: GameplayMode) -> void:
-	match new_mode:
-		GameplayMode.NONE:
-			if previous_mode != GameplayMode.NONE:
-				gameplay_mode_ended.emit()
 #endregion
