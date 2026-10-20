@@ -75,6 +75,7 @@ grow_vertical = 2
 theme = ExtResource("1_rm7i6")
 
 [node name="BackgroundParallax" parent="." unique_id=501285105 instance=ExtResource("2_1lg27")]
+layout_mode = 1
 
 [node name="RootContainer" type="MarginContainer" parent="." unique_id=1480879839]
 layout_mode = 1

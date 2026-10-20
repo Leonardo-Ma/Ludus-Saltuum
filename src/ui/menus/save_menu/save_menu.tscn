@@ -21,6 +21,7 @@ theme = ExtResource("1_y5lmd")
 script = ExtResource("2_41aul")
 
 [node name="BackgroundParallax" parent="." unique_id=501285105 instance=ExtResource("3_tp1uf")]
+layout_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1624460650]
 layout_mode = 1

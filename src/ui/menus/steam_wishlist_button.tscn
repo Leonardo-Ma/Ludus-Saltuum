@@ -40,5 +40,5 @@ offset_right = 32.0
 grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("1_52fi6")
-expand_mode = 1
+expand_mode = 3
 stretch_mode = 5

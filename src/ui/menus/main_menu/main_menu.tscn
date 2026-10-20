@@ -39,6 +39,7 @@ grow_vertical = 2
 theme = ExtResource("1_cqtv1")
 
 [node name="BackgroundParallax" parent="." unique_id=501285105 instance=ExtResource("2_vprs7")]
+layout_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1452025231]
 unique_name_in_owner = true
@@ -57,11 +58,10 @@ size_flags_horizontal = 4
 theme_override_constants/separation = 40
 
 [node name="TitleLabelAnimated" parent="VBoxContainer" unique_id=1399787384 instance=ExtResource("3_ewdsk")]
-custom_minimum_size = Vector2(250, 100)
+custom_minimum_size = Vector2(200, 120)
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
-expand_mode = 1
 
 [node name="NewGame" type="Button" parent="VBoxContainer" unique_id=56652494]
 unique_name_in_owner = true
@@ -108,11 +108,12 @@ offset_top = -23.0
 [node name="GamepadPromptsMargin" type="MarginContainer" parent="." unique_id=186216965]
 custom_minimum_size = Vector2(138, 138)
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = -1
+anchor_top = 0.76500005
+anchor_right = 0.19100001
 anchor_bottom = 1.0
-offset_top = -152.0
-offset_right = 220.0
+offset_top = 0.27996826
+offset_right = -0.03201294
 grow_vertical = 0
 size_flags_horizontal = 0
 size_flags_vertical = 10
