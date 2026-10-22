@@ -123,6 +123,7 @@ func select_deterministic_chunk_data(
 
 	return chosen
 
+
 #region Filters
 func _passes_skill_unlock_filter(data: ChunkData, unlocked_skills: Array[SkillDefinition], force_skill_unlock: bool) -> bool:
 	# --------------- skill unlock filtering ---------------
@@ -183,6 +184,7 @@ func _filter_non_last_chunk(valid_pool: Array[ChunkData]) -> Array[ChunkData]:
 			return _recent_chunk_scene_uids.is_empty() or data.scene_uid != _recent_chunk_scene_uids.back(),
 	)
 #endregion
+
 
 #region Save and Load
 func get_save_state() -> Dictionary:

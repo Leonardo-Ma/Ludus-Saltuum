@@ -18,6 +18,7 @@ var _base_volume_db: Dictionary[SoundBus, float] = { }
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
+
 #region Public API
 
 func play_sound(sound: AudioStream, bus: SoundBus, position: Vector3) -> void:

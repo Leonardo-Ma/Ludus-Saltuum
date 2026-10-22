@@ -74,6 +74,7 @@ func _on_overlay_toggled(active: bool, _user_initiated: bool, _app_id: int) -> v
 	if active:
 		ApplicationStateManager.request_pause_if_playing()
 
+
 #region Cloud
 func cloud_file_write(filename: String, data: PackedByteArray) -> bool:
 	return Steam.fileWrite(filename, data)
@@ -98,6 +99,7 @@ func cloud_file_delete(filename: String) -> bool:
 func cloud_file_timestamp(filename: String) -> int:
 	return Steam.getFileTimestamp(filename)
 #endregion
+
 
 #region Achievements
 func set_achievement(api_name: String) -> bool:

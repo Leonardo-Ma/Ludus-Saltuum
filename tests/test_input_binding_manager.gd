@@ -73,10 +73,12 @@ func _restore_config_file() -> void:
 
 
 func _test_rebind_replaces_keyboard_binding_only() -> void:
-	var gamepad_before: Array[InputEvent] = (InputMap.action_get_events(_TEST_ACTION).filter(
+	var gamepad_before: Array[InputEvent] = (
+		InputMap.action_get_events(_TEST_ACTION).filter(
 			func(event: InputEvent) -> bool:
 				return event is InputEventJoypadButton,
-		))
+		)
+	)
 
 	var new_key: InputEventKey = InputEventKey.new()
 	new_key.physical_keycode = KEY_Y
@@ -87,10 +89,12 @@ func _test_rebind_replaces_keyboard_binding_only() -> void:
 
 	var keyboard_event: InputEventKey = (InputBindingManager.get_keyboard_event(_TEST_ACTION))
 
-	var gamepad_after: Array[InputEvent] = (InputMap.action_get_events(_TEST_ACTION).filter(
+	var gamepad_after: Array[InputEvent] = (
+		InputMap.action_get_events(_TEST_ACTION).filter(
 			func(event: InputEvent) -> bool:
 				return event is InputEventJoypadButton,
-		))
+		)
+	)
 
 	assert(keyboard_event != null, "InputBindingManager: rebind did not add keyboard event")
 

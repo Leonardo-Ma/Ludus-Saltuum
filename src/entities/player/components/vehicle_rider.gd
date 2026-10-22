@@ -35,6 +35,7 @@ func _setup_component_connections() -> void:
 	vehicle_entered.connect(_on_vehicle_entered)
 	vehicle_exited.connect(_on_vehicle_exited)
 
+
 #region Public API
 func enter_vehicle(player_car: PlayerCar) -> void:
 	assert(player_car != null, "VehicleRider: vehicle missing in " + name)
@@ -58,6 +59,7 @@ func exit_vehicle(exit_position: Vector3) -> void:
 	vehicle_exited.emit(owner.position)
 
 #endregion
+
 
 #region Private API
 func _on_vehicle_entered() -> void:

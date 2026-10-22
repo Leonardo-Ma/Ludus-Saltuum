@@ -49,6 +49,7 @@ func _ready() -> void:
 	_load()
 	apply_all()
 
+
 #region Apply and Reset
 func apply_all() -> void:
 	apply_gameplay()
@@ -141,6 +142,7 @@ func reset_to_default(section: SettingsSection = SettingsSection.NONE) -> void:
 	save()
 #endregion
 
+
 #region Video
 func set_windowed_size(size: Vector2i) -> void:
 	settings.video.windowed_size = size
@@ -195,6 +197,7 @@ func _on_window_resize_settled() -> void:
 	save()
 	video_settings_changed.emit()
 #endregion
+
 
 #region Save and Load
 func save() -> void:

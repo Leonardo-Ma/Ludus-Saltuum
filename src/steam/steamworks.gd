@@ -44,6 +44,7 @@ func activate_overlay_to_web_page(url: String) -> void:
 func _on_avatar_loaded(user_id: int, avatar_size: int, avatar_buffer: PackedByteArray) -> void:
 	avatar_loaded.emit(user_id, avatar_size, avatar_buffer)
 
+
 #region Cloud
 func cloud_file_write(filename: String, data: PackedByteArray) -> bool:
 	if not steam_enabled:
@@ -80,6 +81,7 @@ func cloud_file_timestamp(filename: String) -> int:
 		return 0
 	return _provider.cloud_file_timestamp(filename)
 #endregion
+
 
 #region Achievements
 func set_achievement(api_name: String) -> bool:

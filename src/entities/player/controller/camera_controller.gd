@@ -48,6 +48,7 @@ func refresh_camera_from_settings() -> void:
 func set_active(active: bool) -> void:
 	_camera.current = active
 
+
 #region Keyboard and mouse
 
 # Handle camera x and y movement
@@ -67,6 +68,7 @@ func _input(event: InputEvent) -> void:
 		rotation.x = _pitch
 
 #endregion
+
 
 #region Gamepad (right stick)
 func _process(delta: float) -> void:

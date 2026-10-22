@@ -77,6 +77,7 @@ func reset_save(slot_index: int) -> void:
 	reset_requested.emit()
 	reset_finished.emit()
 
+
 #region Save Load and Delete
 
 # TODO Change to a request save to slot
@@ -122,6 +123,7 @@ func delete_slot(slot_index: int) -> void:
 
 #endregion
 
+
 #region Public getters
 func has_save(slot_index: int) -> bool:
 	var base: String = _slot_path(slot_index)
@@ -155,10 +157,12 @@ func is_save_blocked() -> bool:
 
 #endregion
 
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("quick_save") and ApplicationStateManager.is_gameplay_active():
 		_save_to_active_slot(false)
 		get_viewport().set_input_as_handled()
+
 
 #region Private helpers
 func _on_auto_save() -> void:
@@ -343,6 +347,7 @@ func _on_quit_requested() -> void:
 		push_warning("Saving on quit tried to save without active slot")
 
 #endregion
+
 
 #region Cloud
 func _sync_cloud_saves() -> void:

@@ -62,6 +62,7 @@ func unlock(key: StringName) -> void:
 		_backend.unlock(definition)
 		print_debug("Also unlocked " + key + " achievement in " + str(_backend))
 
+
 #region Getters
 
 func is_unlocked(key: StringName) -> bool:
@@ -141,6 +142,7 @@ func _get_definition(key: StringName) -> AchievementDefinition:
 
 #endregion
 
+
 #region Unlocks
 
 func _on_player_spawned(player: PlayerEntity) -> void:
@@ -199,6 +201,7 @@ func _on_easter_egg_found(_easter_egg_name: EasterEgg.Name) -> void:
 	#unlock(&"third_easter_egg")
 
 #endregion
+
 
 #region Save and Load
 

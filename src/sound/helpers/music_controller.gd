@@ -52,6 +52,7 @@ func _create_music_players() -> void:
 	_current_player = _player_a
 	_staging_player = _player_b
 
+
 #region Public API
 
 func play(track: MusicTrack) -> void:
@@ -172,6 +173,7 @@ func get_current_track_author() -> String:
 	return _current_track.author
 
 #endregion
+
 
 #region Private helpers
 

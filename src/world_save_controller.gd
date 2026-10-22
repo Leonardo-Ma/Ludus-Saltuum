@@ -17,6 +17,7 @@ func _ready() -> void:
 	SaveManager.load_requested.connect(_on_load_requested)
 	SaveManager.reset_requested.connect(reset_save_data)
 
+
 #region Save & Load & Reset
 func build_save_data(data: WorldSaveData) -> void:
 	data.collected_collectible_ids = _collected_collectible_ids.duplicate()
@@ -43,6 +44,7 @@ func apply_save_data(data: WorldSaveData) -> void:
 
 #endregion
 
+
 #region Collectible
 func _respawn_collectibles() -> void:
 	for collectible: Collectible in get_tree().get_nodes_in_group(Groups.COLLECTIBLES):
@@ -67,6 +69,7 @@ func is_collectible_collected(persistent_id: StringName) -> bool:
 func _on_collectible_collected(id: StringName) -> void:
 	_collected_collectible_ids[id] = true
 #endregion
+
 
 #region Enemy
 func _respawn_enemies() -> void:

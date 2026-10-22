@@ -97,6 +97,7 @@ func cleanup() -> void:
 
 	hide()
 
+
 #region Skills slots animations
 
 #region Cooldowns
@@ -132,6 +133,7 @@ func _finish_cooldown() -> void:
 	cooldown_progress.value = 0.0
 
 #endregion
+
 
 func _update_charge_display(charges: int) -> void:
 	charge_label.text = str(charges)

@@ -68,6 +68,7 @@ func initialize_timer_callback(callback: Callable) -> void:
 	_timer_callback = callback
 	start_regeneration()
 
+
 #region Invulnerability
 func enable_invulnerability(duration: float = 0.0) -> void:
 	invulnerable = true
@@ -82,6 +83,7 @@ func disable_invulnerability() -> void:
 	invulnerability_changed.emit(false)
 
 #endregion
+
 
 #region Health Regeneration
 

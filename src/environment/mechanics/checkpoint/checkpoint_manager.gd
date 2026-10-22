@@ -124,6 +124,7 @@ func respawn_at_required_checkpoint() -> void:
 	var respawn_transform: Transform3D = get_respawn_transform()
 	ControlledEntityEvents.request_respawn(CHECKPOINT_RESPAWN_DELAY, respawn_transform)
 
+
 #region Save and Load
 func build_save_data(data: CheckpointSaveData) -> void:
 	data.has_checkpoint_position = _has_valid_position

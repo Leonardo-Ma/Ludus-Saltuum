@@ -99,7 +99,6 @@ func _ready() -> void:
 			assert(static_id != &"", "Enemy static_id not set on non-procedural instance " + name)
 			enemy_id = static_id
 
-
 		goap_agent = GoapAgent.new()
 		var goals: Array[GoapGoal] = ai_config.create_goals()
 		var actions: Array[GoapAction] = ai_config.create_actions()
@@ -173,6 +172,7 @@ func revive() -> void:
 	if goap_agent:
 		goap_agent.set_process(true)
 
+
 #region Visual effects and animations
 func _setup_damage_feedback_visual_material() -> void:
 	_damage_material = StandardMaterial3D.new()
@@ -230,6 +230,7 @@ func _get_all_mesh_instances(node: Node) -> Array[MeshInstance3D]:
 	return result
 
 #endregion
+
 
 ## Timer creation callback for Health resource (dependency injection)
 func _create_timer(duration: float, callback: Callable) -> void:

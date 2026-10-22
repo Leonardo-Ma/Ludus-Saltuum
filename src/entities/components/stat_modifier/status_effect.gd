@@ -27,6 +27,7 @@ enum StatusType {
 ## To be overridden (UI uses this)
 @abstract func get_status_name() -> String
 
+
 #region Optional functions to be overridden
 
 ## Applies only once (a temporary buff or debuff)

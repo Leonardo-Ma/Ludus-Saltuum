@@ -75,6 +75,7 @@ func set_procedural_seed(value: int) -> void:
 func get_procedural_seed() -> int:
 	return procedural_seed
 
+
 #region Saving and Loading
 func build_save_data(data: ChunkSaveData) -> void:
 	data.world_seed = get_procedural_seed()
@@ -207,6 +208,7 @@ func _load_chunk_metadata_from_catalog() -> void:
 	_chunk_selector = ChunkSelector.new(_all_chunks)
 
 #endregion
+
 
 ## Load chunks to be kept in memory, save them in active chunks
 func initialize_level() -> void:

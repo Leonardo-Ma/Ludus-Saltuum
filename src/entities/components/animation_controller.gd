@@ -23,12 +23,12 @@ func _ready() -> void:
 	if entity is PlayerEntity:
 		var movement_controller: PlayerMovementController = $%PlayerMovementController
 		assert(movement_controller, "movement_controller missing for " + owner.name)
-#		movement_controller.move_stopped.connect(_on_move_stopped)
+		#		movement_controller.move_stopped.connect(_on_move_stopped)
 		movement_controller.movement_direction_changed.connect(_on_movement_direction_changed)
 		movement_controller.jumped.connect(_on_jumped)
 		movement_controller.in_air.connect(_on_in_air)
 		movement_controller.landed.connect(_on_landed)
-#		magic_controller.casted.connect(_on_magic_casted)
+	#		magic_controller.casted.connect(_on_magic_casted)
 	elif entity is AggressiveEntity:
 		var npc_movement_controller: NPCMovementController = $%NPCMovementController
 		assert(npc_movement_controller, "npc_movement_controller missing for " + owner.name)

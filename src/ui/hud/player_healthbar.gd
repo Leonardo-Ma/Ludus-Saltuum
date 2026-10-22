@@ -76,6 +76,7 @@ func _on_death() -> void:
 	self.health = 0.0
 	_on_death_visual_effect()
 
+
 #region VFX
 func _on_timer_timeout() -> void:
 	# Animate damagebar down to match current health

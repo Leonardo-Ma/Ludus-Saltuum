@@ -77,6 +77,7 @@ func _on_in_air() -> void:
 	_jumps_remaining = definition.max_charges
 	charges_updated.emit(_jumps_remaining)
 
+
 #region Visual and sound effects
 func _play_jump_feedback() -> void:
 	multi_jump_executed.emit()
