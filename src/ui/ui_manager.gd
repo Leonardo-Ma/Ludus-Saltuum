@@ -59,6 +59,10 @@ func register_ui(ui: UIView) -> void:
 	ApplicationStateManager.settings_closed.connect(_on_settings_closed)
 
 
+func request_confirmation(icons: Array[CompressedTexture2D]) -> bool:
+	return await _ui.request_confirmation(icons)
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	var current_state: ApplicationStateManager.GameState = ApplicationStateManager.get_current_state()
 	if current_state == ApplicationStateManager.GameState.MAIN_MENU:

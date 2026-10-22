@@ -4,10 +4,12 @@
 class_name UIView
 extends CanvasLayer
 
+signal confirmation_finished(confirmed: bool)
+
 @onready var _menus: MenusView = %Menus
 @onready var _hud: Control = %HUD
 @onready var _overlays: Control = %Overlays
-@onready var _popups: Control = %Popups
+@onready var _popups: PopupsManager = %Popups
 
 
 func _ready() -> void:
@@ -22,6 +24,7 @@ func _ready() -> void:
 
 
 func show_main_menu() -> void:
+	_popups.close_all_popups()
 	_menus.visible = true
 	_menus.show_main_menu()
 	_hud.visible = false
@@ -30,6 +33,7 @@ func show_main_menu() -> void:
 
 
 func show_save_menu() -> void:
+	_popups.close_all_popups()
 	_menus.visible = true
 	_menus.show_save_menu()
 	_hud.visible = false
@@ -45,6 +49,7 @@ func show_game() -> void:
 
 
 func show_pause_menu() -> void:
+	_popups.close_all_popups()
 	_menus.visible = true
 	_menus.show_pause_menu()
 	_hud.visible = false
@@ -58,6 +63,7 @@ func show_settings() -> void:
 
 
 func show_achievements() -> void:
+	_popups.close_all_popups()
 	_menus.visible = true
 	_menus.show_achievements()
 	_hud.visible = false
@@ -78,6 +84,14 @@ func has_open_popup() -> bool:
 
 func close_open_popup() -> void:
 	_popups.close_open_popup()
+
+
+func request_confirmation(icons: Array[CompressedTexture2D]) -> bool:
+	if not _popups.open_confirmation(icons):
+		return false
+
+	var confirmed: bool = await _popups.confirmation_popup.choice_made
+	return confirmed
 
 
 func set_hud_visible(_hud_visible: bool) -> void:

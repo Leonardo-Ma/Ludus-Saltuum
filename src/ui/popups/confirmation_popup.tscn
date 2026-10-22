@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://cuc8y4bhxiujy"]
+
+[ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="1_7tf0b"]
+[ext_resource type="Script" uid="uid://17c8vgvjrx8q" path="res://src/ui/popups/confirmation_popup.gd" id="2_gfgh2"]
+[ext_resource type="Texture2D" uid="uid://7p2j8n842i0a" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/cross.png" id="3_4md6n"]
+[ext_resource type="PackedScene" uid="uid://5useb8yyafk3" path="res://src/ui/popups/confirmation_icon.tscn" id="3_gfgh2"]
+[ext_resource type="Script" uid="uid://bleu482wcy3s1" path="res://src/ui/popups/skip_level_confirm/no_button.gd" id="4_ljttp"]
+[ext_resource type="PackedScene" uid="uid://b6ednpu0kwboc" path="res://src/ui/helpers/grab_focus_on_visible.tscn" id="5_n63gk"]
+[ext_resource type="Texture2D" uid="uid://r8ac5it4c01m" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/tick.png" id="6_pw00l"]
+[ext_resource type="Script" uid="uid://dtsfsipg77yyn" path="res://src/ui/popups/skip_level_confirm/yes_button.gd" id="7_r7tm3"]
+
+[node name="GenericConfirmationPopup" type="Control" unique_id=300276930]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_7tf0b")
+script = ExtResource("2_gfgh2")
+icon_view_scene = ExtResource("3_gfgh2")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1375000533]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.27450982, 0.27450982, 0.27450982, 0.5529412)
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=418296549]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -258.0
+offset_top = -128.0
+offset_right = 258.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=349432221]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer" unique_id=1641015162]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="IconContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer" unique_id=114370865]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="ConfirmationIcon" parent="PanelContainer/VBoxContainer/MarginContainer/IconContainer" unique_id=766695688 instance=ExtResource("3_gfgh2")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/VBoxContainer" unique_id=1171659197]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer" unique_id=960310417]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer2" unique_id=1409632241]
+layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="NoButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=391341724]
+unique_name_in_owner = true
+modulate = Color(0.6745098, 0, 0, 0.9411765)
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_type_variation = &"DangerIconButton"
+icon = ExtResource("3_4md6n")
+expand_icon = true
+script = ExtResource("4_ljttp")
+
+[node name="GrabFocusOnVisible" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer/NoButton" unique_id=1305006327 instance=ExtResource("5_n63gk")]
+
+[node name="YesButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=1574569968]
+unique_name_in_owner = true
+modulate = Color(0, 0.36078432, 0, 0.7137255)
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_type_variation = &"PrimaryIconButton"
+icon = ExtResource("6_pw00l")
+expand_icon = true
+script = ExtResource("7_r7tm3")

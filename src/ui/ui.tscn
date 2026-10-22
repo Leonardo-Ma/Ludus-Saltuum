@@ -17,6 +17,12 @@ unique_name_in_owner = true
 visible = false
 mouse_filter = 2
 
+[node name="HUD" parent="." unique_id=1333227325 instance=ExtResource("3_dakun")]
+unique_name_in_owner = true
+visible = false
+z_index = 1
+mouse_filter = 2
+
 [node name="DebugInterface" parent="." unique_id=1832192178 instance=ExtResource("4_bi8hs")]
 unique_name_in_owner = true
 z_index = 2
@@ -24,19 +30,13 @@ mouse_filter = 2
 
 [node name="Menus" parent="." unique_id=217563089 instance=ExtResource("2_dakun")]
 unique_name_in_owner = true
-z_index = 100
-mouse_filter = 2
-
-[node name="HUD" parent="." unique_id=1333227325 instance=ExtResource("3_dakun")]
-unique_name_in_owner = true
-visible = false
-z_index = 1
+z_index = 4
 mouse_filter = 2
 
 [node name="Popups" parent="." unique_id=1969549540 instance=ExtResource("8_cx7gx")]
 unique_name_in_owner = true
 visible = false
-z_index = 3
+z_index = 5
 theme = ExtResource("8_t30i7")
 
 [node name="CenterScreenDot" type="ColorRect" parent="." unique_id=401992933]

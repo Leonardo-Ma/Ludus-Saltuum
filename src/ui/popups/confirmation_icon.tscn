@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://5useb8yyafk3"]
+
+[ext_resource type="Texture2D" uid="uid://bkj4jtanyiv4r" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/like.png" id="1_iaxk2"]
+[ext_resource type="Script" uid="uid://nm67u13ftsoy" path="res://src/ui/popups/confirmation_icon_base.gd" id="2_1868f"]
+
+[node name="ConfirmationIcon" type="TextureRect" unique_id=766695688]
+custom_minimum_size = Vector2(150, 150)
+texture = ExtResource("1_iaxk2")
+expand_mode = 3
+stretch_mode = 5
+script = ExtResource("2_1868f")

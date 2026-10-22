@@ -2,6 +2,8 @@
 ## Confirmation popup for skipping the current level chunk
 extends PopupTemplate
 
+@export var popups_view: PopupsManager
+
 # TODO Check if should move this to respective yes and no buttons
 @onready var _yes_button: Button = %YesButton
 @onready var _no_button: Button = %NoButton
@@ -12,36 +14,31 @@ func _ready() -> void:
 	hide()
 	_yes_button.pressed.connect(_on_yes_pressed)
 	_no_button.pressed.connect(_on_no_pressed)
-	ApplicationStateManager.gameplay_started.connect(hide_popup.bind())
-	ApplicationStateManager.gameplay_paused.connect(hide_popup.bind())
-	ApplicationStateManager.gameplay_resumed.connect(hide_popup.bind())
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if visible:
+	if not event.is_action_pressed("skip_level") or event.is_echo():
 		return
-	if not event.is_action_pressed("skip_level") or not ApplicationStateManager.is_gameplay_active():
+
+	if not ApplicationStateManager.is_gameplay_active():
 		return
-	show_popup()
-	get_viewport().set_input_as_handled()
+
+	if popups_view.request_open(self):
+		get_viewport().set_input_as_handled()
 
 
 func hide_popup() -> void:
 	hide()
-	PauseManager.release_pause("skip_level_popup")
-	MouseModeManager.release(&"popup")
 
 
 func show_popup() -> void:
-	show()
-	PauseManager.request_pause("skip_level_popup")
-	MouseModeManager.request_mode(&"popup", Input.MOUSE_MODE_VISIBLE)
+	popups_view.request_open(self)
 
 
 func _on_yes_pressed() -> void:
-	hide_popup()
+	popups_view.close_open_popup()
 	ChunkManager.skip_current_chunk()
 
 
 func _on_no_pressed() -> void:
-	hide_popup()
+	popups_view.close_open_popup()
