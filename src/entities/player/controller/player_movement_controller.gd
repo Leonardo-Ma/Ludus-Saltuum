@@ -28,6 +28,7 @@ func _move(delta: float) -> void:
 	jump_air_logic(delta)
 
 
+# TODO Possibly multiply by delta? This breaks any size change (shrink/gigantify) though
 func movement_logic() -> void:
 	# Get raw input vector (works for keyboard and gamepad left stick)
 	var input_direction: Vector2 = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
