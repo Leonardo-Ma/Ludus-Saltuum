@@ -29,8 +29,12 @@
 [ext_resource type="PackedScene" uid="uid://ckoedr5ocmi8m" path="res://src/environment/levels/base_levels/24_rotating.tscn" id="26_nr33e"]
 [ext_resource type="PackedScene" uid="uid://cd1xmdcwi66yx" path="res://src/environment/levels/base_levels/25_gigantify.tscn" id="27_6niur"]
 [ext_resource type="PackedScene" uid="uid://d288vfksn14us" path="res://src/environment/levels/skills/feather_fall.tscn" id="28_rs6k2"]
+[ext_resource type="PackedScene" uid="uid://ci2ehxlf55ngh" path="res://src/environment/levels/base_levels/26_moving.tscn" id="29_moving"]
+[ext_resource type="PackedScene" uid="uid://chbpvihxfqtbs" path="res://src/environment/levels/base_levels/27_multi_jump_feather_fall.tscn" id="30_bjkku"]
+[ext_resource type="PackedScene" uid="uid://8kvuuuffesxv" path="res://src/environment/levels/base_levels/28_rotating_shrink.tscn" id="31_w776q"]
+[ext_resource type="PackedScene" uid="uid://c6bmfoen5hhbk" path="res://src/environment/levels/base_levels/29_low_gravity.tscn" id="32_1esbn"]
 
 [resource]
 script = ExtResource("2_wncme")
-chunks = Array[PackedScene]([ExtResource("1_wq4xx"), ExtResource("2_8qeg5"), ExtResource("3_nr33e"), ExtResource("4_6niur"), ExtResource("5_rs6k2"), ExtResource("6_gvnec"), ExtResource("7_bjkku"), ExtResource("8_w776q"), ExtResource("9_1esbn"), ExtResource("10_e3w0c"), ExtResource("11_ow3bk"), ExtResource("12_fbmgc"), ExtResource("13_sjsu4"), ExtResource("14_x0tpc"), ExtResource("15_kiv24"), ExtResource("16_pryjj"), ExtResource("17_gafub"), ExtResource("18_yu2nk"), ExtResource("19_mqvi4"), ExtResource("20_ryjy0"), ExtResource("21_kf7n4"), ExtResource("22_rijed"), ExtResource("23_p16y7"), ExtResource("24_vfutg"), ExtResource("25_8qeg5"), ExtResource("26_nr33e"), ExtResource("27_6niur"), ExtResource("28_rs6k2")])
+chunks = Array[PackedScene]([ExtResource("1_wq4xx"), ExtResource("2_8qeg5"), ExtResource("3_nr33e"), ExtResource("4_6niur"), ExtResource("5_rs6k2"), ExtResource("6_gvnec"), ExtResource("7_bjkku"), ExtResource("8_w776q"), ExtResource("9_1esbn"), ExtResource("10_e3w0c"), ExtResource("11_ow3bk"), ExtResource("12_fbmgc"), ExtResource("13_sjsu4"), ExtResource("14_x0tpc"), ExtResource("15_kiv24"), ExtResource("16_pryjj"), ExtResource("17_gafub"), ExtResource("18_yu2nk"), ExtResource("19_mqvi4"), ExtResource("20_ryjy0"), ExtResource("21_kf7n4"), ExtResource("22_rijed"), ExtResource("23_p16y7"), ExtResource("24_vfutg"), ExtResource("25_8qeg5"), ExtResource("26_nr33e"), ExtResource("27_6niur"), ExtResource("28_rs6k2"), ExtResource("29_moving"), ExtResource("30_bjkku"), ExtResource("31_w776q"), ExtResource("32_1esbn")])
 metadata/_custom_type_script = "uid://hau260lr62rr"

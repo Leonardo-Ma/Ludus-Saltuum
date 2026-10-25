@@ -1,0 +1,352 @@
+[gd_scene format=3 uid="uid://8kvuuuffesxv"]
+
+[ext_resource type="Script" uid="uid://dfapcpf4fli57" path="res://src/environment/levels/level_chunk.gd" id="1_cjol6"]
+[ext_resource type="PackedScene" uid="uid://cl6psv388cmbx" path="res://src/environment/levels/entrance_trigger.tscn" id="2_ii0k6"]
+[ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_53e0i"]
+[ext_resource type="PackedScene" uid="uid://0hwlnlpkbsjn" path="res://src/environment/levels/assets/platforms/static_platforms/grass_platform.tscn" id="4_eesl1"]
+[ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="5_277rc"]
+[ext_resource type="PackedScene" uid="uid://7ugwdowsimwr" path="res://src/environment/levels/assets/platforms/static_platforms/hexagon_stone.tscn" id="6_pn2yr"]
+
+[node name="28RotatingShrink" type="Node3D" unique_id=1016321493]
+script = ExtResource("1_cjol6")
+features = Array[int]([9, 12])
+
+[node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_ii0k6")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 1)
+
+[node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_53e0i")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3, 45.083)
+
+[node name="GrassPlatform" parent="." unique_id=537577895 instance=ExtResource("4_eesl1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 5)
+
+[node name="ArrowSign" parent="GrassPlatform" unique_id=975612369 instance=ExtResource("5_277rc")]
+transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, 3, 4, -3)
+
+[node name="Floor" type="Node3D" parent="." unique_id=2050430381]
+
+[node name="HexagonStonePlatform" parent="Floor" unique_id=589657450 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09954322, 0, -0.008708989, 0, 0.1, 0, 0.008708989, 0, -0.09954322, 0, -1, 11)
+
+[node name="HexagonStonePlatform2" parent="Floor" unique_id=300224783 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.062204003, 0, 0.078201026, 0, 0.1, 0, -0.078201026, 0, -0.062204003, 0, -1, 9)
+
+[node name="HexagonStonePlatform3" parent="Floor" unique_id=2076229205 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09605273, 0, 0.027542576, 0, 0.1, 0, -0.027542576, 0, -0.09605273, 2, -1, 11)
+
+[node name="HexagonStonePlatform4" parent="Floor" unique_id=1087817518 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, 2, -1, 13)
+
+[node name="HexagonStonePlatform5" parent="Floor" unique_id=1104438506 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, 0, -1, 14)
+
+[node name="HexagonStonePlatform6" parent="Floor" unique_id=430188523 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.06422949, 0, -0.076545864, 0, 0.1, 0, 0.076545864, 0, -0.06422949, -4.18995, -1, 12.741422)
+
+[node name="HexagonStonePlatform7" parent="Floor" unique_id=1846612799 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09928134, 0, 0.011311602, 0, 0.1, 0, -0.011311602, 0, -0.09928134, -5.604163, -1, 11.327208)
+
+[node name="HexagonStonePlatform8" parent="Floor" unique_id=1781769507 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.08739508, 0, -0.048443995, 0, 0.1, 0, 0.048443995, 0, -0.08739508, -2.7757363, -1, 11.327208)
+
+[node name="HexagonStonePlatform9" parent="Floor" unique_id=632690455 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.06018039, 0, -0.079862006, 0, 0.099999994, 0, 0.079862006, 0, -0.06018039, -1.3615227, -1, 12.741422)
+
+[node name="HexagonStonePlatform10" parent="Floor" unique_id=2140611787 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.06018039, 0, -0.079862006, 0, 0.099999994, 0, 0.079862006, 0, -0.06018039, -2.0686295, -1, 14.862741)
+
+[node name="HexagonStonePlatform11" parent="Floor" unique_id=1180838562 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, 5, -1, 14)
+
+[node name="HexagonStonePlatform12" parent="Floor" unique_id=1749794038 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, 3, -1, 16)
+
+[node name="HexagonStonePlatform13" parent="Floor" unique_id=2052337044 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, 1, -1, 16)
+
+[node name="HexagonStonePlatform14" parent="Floor" unique_id=1115664132 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, -1, -1, 17)
+
+[node name="HexagonStonePlatform15" parent="Floor" unique_id=1928558846 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, -3, -1, 18)
+
+[node name="HexagonStonePlatform16" parent="Floor" unique_id=1572361208 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, 2, -1, 18)
+
+[node name="HexagonStonePlatform17" parent="Floor" unique_id=547387592 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, 0, -1, 20)
+
+[node name="HexagonStonePlatform18" parent="Floor" unique_id=2072230445 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, 4, -1, 20)
+
+[node name="HexagonStonePlatform19" parent="Floor" unique_id=2026078786 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, -2, -1, 20)
+
+[node name="HexagonStonePlatform20" parent="Floor" unique_id=1884455065 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.07986201, 0, -0.06018038, 0, 0.099999994, 0, 0.06018038, 0, 0.07986201, -10.434519, -1, 15.049021)
+
+[node name="HexagonStonePlatform21" parent="Floor" unique_id=2093163953 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.07986201, 0, -0.06018038, 0, 0.099999994, 0, 0.06018038, 0, 0.07986201, -9.020305, -1, 16.463234)
+
+[node name="HexagonStonePlatform22" parent="Floor" unique_id=291379217 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.07986201, 0, -0.06018038, 0, 0.099999994, 0, 0.06018038, 0, 0.07986201, -6.8989844, -1, 16.17034)
+
+[node name="HexagonStonePlatform23" parent="Floor" unique_id=1264438738 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.07986201, 0, -0.06018038, 0, 0.099999994, 0, 0.06018038, 0, 0.07986201, -4.777664, -1, 17.877447)
+
+[node name="HexagonStonePlatform24" parent="Floor" unique_id=1313765024 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.07986201, 0, -0.06018038, 0, 0.099999994, 0, 0.06018038, 0, 0.07986201, -8.313198, -1, 14.341913)
+
+[node name="HexagonStonePlatform25" parent="Floor" unique_id=406047895 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.07986201, 0, -0.06018038, 0, 0.099999994, 0, 0.06018038, 0, 0.07986201, -5.484771, -1, 14.341913)
+
+[node name="HexagonStonePlatform26" parent="Floor" unique_id=1026964394 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.07986201, 0, -0.06018038, 0, 0.099999994, 0, 0.06018038, 0, 0.07986201, -4.0705576, -1, 15.756126)
+
+[node name="HexagonStonePlatform27" parent="Floor" unique_id=2043247496 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, 5, -1, 22)
+
+[node name="HexagonStonePlatform28" parent="Floor" unique_id=179017038 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, 3, -1, 22)
+
+[node name="HexagonStonePlatform29" parent="Floor" unique_id=1592049197 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, 1, -1, 23)
+
+[node name="HexagonStonePlatform30" parent="Floor" unique_id=1208691238 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, -1, -1, 24)
+
+[node name="HexagonStonePlatform31" parent="Floor" unique_id=1238401083 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, 4, -1, 24)
+
+[node name="HexagonStonePlatform32" parent="Floor" unique_id=5060543 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, 2, -1, 26)
+
+[node name="HexagonStonePlatform33" parent="Floor" unique_id=1408599683 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, 6, -1, 26)
+
+[node name="HexagonStonePlatform34" parent="Floor" unique_id=1967014446 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, 4, -1, 28)
+
+[node name="HexagonStonePlatform35" parent="Floor" unique_id=321078209 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, 0, -1, 26)
+
+[node name="HexagonStonePlatform36" parent="Floor" unique_id=390014918 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.07986201, 0, -0.06018038, 0, 0.099999994, 0, 0.06018038, 0, 0.07986201, -7.0203047, -1, 22.463234)
+
+[node name="HexagonStonePlatform37" parent="Floor" unique_id=1355112412 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.07986201, 0, -0.06018038, 0, 0.099999994, 0, 0.06018038, 0, 0.07986201, -4.8989844, -1, 22.17034)
+
+[node name="HexagonStonePlatform38" parent="Floor" unique_id=1520067404 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.07986201, 0, -0.06018038, 0, 0.099999994, 0, 0.06018038, 0, 0.07986201, -4.8989844, -1, 20.17034)
+
+[node name="HexagonStonePlatform39" parent="Floor" unique_id=202774326 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.07986201, 0, -0.06018038, 0, 0.099999994, 0, 0.06018038, 0, 0.07986201, -2.7776642, -1, 23.877447)
+
+[node name="HexagonStonePlatform40" parent="Floor" unique_id=1905448867 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.07986201, 0, -0.06018038, 0, 0.099999994, 0, 0.06018038, 0, 0.07986201, -2.0705576, -1, 21.756126)
+
+[node name="HexagonStonePlatform41" parent="Floor" unique_id=1510287874 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.039072335, 0, 0.09204876, 0, 0.099999994, 0, -0.09204876, 0, -0.039072335, 2.5194707, -1, 29.72224)
+
+[node name="HexagonStonePlatform42" parent="Floor" unique_id=1856473250 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.039072335, 0, 0.09204876, 0, 0.099999994, 0, -0.09204876, 0, -0.039072335, 6.5194707, -1, 29.72224)
+
+[node name="HexagonStonePlatform43" parent="Floor" unique_id=1986165609 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.039072335, 0, 0.09204876, 0, 0.099999994, 0, -0.09204876, 0, -0.039072335, 2.0018325, -1, 27.79039)
+
+[node name="HexagonStonePlatform44" parent="Floor" unique_id=83626141 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.039072335, 0, 0.09204876, 0, 0.099999994, 0, -0.09204876, 0, -0.039072335, 0.39694834, -1, 29.791592)
+
+[node name="HexagonStonePlatform45" parent="Floor" unique_id=650102777 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.039072335, 0, 0.09204876, 0, 0.099999994, 0, -0.09204876, 0, -0.039072335, -3.276084, -1, 31.275156)
+
+[node name="HexagonStonePlatform46" parent="Floor" unique_id=1236099859 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.039072335, 0, 0.09204876, 0, 0.099999994, 0, -0.09204876, 0, -0.039072335, -3.276084, -1, 29.275156)
+
+[node name="HexagonStonePlatform47" parent="Floor" unique_id=760450008 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.039072335, 0, 0.09204876, 0, 0.099999994, 0, -0.09204876, 0, -0.039072335, -1.6030517, -1, 25.791592)
+
+[node name="HexagonStonePlatform48" parent="Floor" unique_id=1860225667 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.039072335, 0, 0.09204876, 0, 0.099999994, 0, -0.09204876, 0, -0.039072335, -3.276084, -1, 27.275156)
+
+[node name="HexagonStonePlatform49" parent="Floor" unique_id=11643539 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.03745997, 0, -0.09271661, 0, 0.099999994, 0, 0.09271661, 0, -0.03745997, 0.28728294, -1, 28.176754)
+
+[node name="HexagonStonePlatform50" parent="Floor" unique_id=660692827 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, -5, -1, 25)
+
+[node name="HexagonStonePlatform51" parent="Floor" unique_id=1777105623 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.039072335, 0, 0.09204876, 0, 0.099999994, 0, -0.09204876, 0, -0.039072335, -6.6030517, -1, 28.791592)
+
+[node name="HexagonStonePlatform52" parent="Floor" unique_id=199788883 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.039072335, 0, 0.09204876, 0, 0.099999994, 0, -0.09204876, 0, -0.039072335, -8.276084, -1, 29.275156)
+
+[node name="HexagonStonePlatform53" parent="Floor" unique_id=1382007251 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.039072335, 0, 0.09204876, 0, 0.099999994, 0, -0.09204876, 0, -0.039072335, -6.603052, -1, 24.791592)
+
+[node name="HexagonStonePlatform54" parent="Floor" unique_id=1323582481 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.07986201, 0, -0.06018038, 0, 0.099999994, 0, 0.06018038, 0, 0.07986201, -9.020305, -1, 21.463234)
+
+[node name="HexagonStonePlatform55" parent="Floor" unique_id=181781713 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.039072335, 0, 0.09204876, 0, 0.099999994, 0, -0.09204876, 0, -0.039072335, -8.603052, -1, 23.791592)
+
+[node name="HexagonStonePlatform56" parent="Floor" unique_id=1581774704 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.039072335, 0, 0.09204876, 0, 0.099999994, 0, -0.09204876, 0, -0.039072335, -8.276084, -1, 26.275156)
+
+[node name="HexagonStonePlatform57" parent="Floor" unique_id=777665169 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.03745997, 0, -0.09271661, 0, 0.099999994, 0, 0.09271661, 0, -0.03745997, -4.712717, -1, 27.176754)
+
+[node name="HexagonStonePlatform58" parent="Floor" unique_id=1503328938 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09902494, 0, -0.0139170075, 0, 0.1, 0, 0.0139170075, 0, -0.09902494, -7, -1, 18)
+
+[node name="HexagonStonePlatform59" parent="Floor" unique_id=1090175544 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.07986201, 0, -0.06018038, 0, 0.099999994, 0, 0.06018038, 0, 0.07986201, -9.020305, -1, 18.463234)
+
+[node name="HexagonStonePlatform60" parent="Floor" unique_id=1865815268 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.07986201, 0, -0.06018038, 0, 0.099999994, 0, 0.06018038, 0, 0.07986201, -9.898985, -1, 20.17034)
+
+[node name="HexagonStonePlatform61" parent="Floor" unique_id=1829759433 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.07986201, 0, -0.06018038, 0, 0.099999994, 0, 0.06018038, 0, 0.07986201, -7.0705576, -1, 19.756126)
+
+[node name="HexagonStonePlatform62" parent="Floor" unique_id=702103883 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.03745999, 0, 0.09271661, 0, 0.099999994, 0, -0.09271661, 0, 0.03745999, 2.119643, -1, 41.25801)
+
+[node name="HexagonStonePlatform63" parent="Floor" unique_id=1644382018 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.034175914, 0, 0.0938973, 0, 0.1, 0, -0.0938973, 0, -0.034175914, 5.304579, -1, 38.258698)
+
+[node name="HexagonStonePlatform64" parent="Floor" unique_id=59866366 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.059436813, 0, 0.08032436, 0, 0.1, 0, -0.08032436, 0, 0.059436813, 7.236431, -1, 37.74106)
+
+[node name="HexagonStonePlatform65" parent="Floor" unique_id=1108831322 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.0017438158, 0, 0.09990835, 0, 0.099999994, 0, -0.09990835, 0, 0.0017438158, 5.822217, -1, 40.19055)
+
+[node name="HexagonStonePlatform66" parent="Floor" unique_id=1406462489 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.039072327, 0, 0.09204875, 0, 0.09999999, 0, -0.09204875, 0, -0.039072327, 3.8903654, -1, 40.70819)
+
+[node name="HexagonStonePlatform67" parent="Floor" unique_id=1596842334 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.039072327, 0, 0.09204875, 0, 0.09999999, 0, -0.09204875, 0, -0.039072327, 2.4068015, -1, 39.035156)
+
+[node name="HexagonStonePlatform68" parent="Floor" unique_id=1491441867 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.03745999, 0, 0.09271661, 0, 0.099999994, 0, -0.09271661, 0, 0.03745999, -0.11240792, -1, 41.12404)
+
+[node name="HexagonStonePlatform69" parent="Floor" unique_id=1135081725 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.03745999, 0, 0.09271661, 0, 0.099999994, 0, -0.09271661, 0, 0.03745999, 0.021566868, -1, 38.891987)
+
+[node name="HexagonStonePlatform70" parent="Floor" unique_id=1345277959 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.03745999, 0, 0.09271661, 0, 0.099999994, 0, -0.09271661, 0, 0.03745999, 0.15554166, -1, 36.659935)
+
+[node name="HexagonStonePlatform71" parent="Floor" unique_id=282591613 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.03745999, 0, 0.09271661, 0, 0.099999994, 0, -0.09271661, 0, 0.03745999, -2.3444588, -1, 40.990063)
+
+[node name="HexagonStonePlatform72" parent="Floor" unique_id=980502475 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.03745999, 0, 0.09271661, 0, 0.099999994, 0, -0.09271661, 0, 0.03745999, -3.0765092, -1, 38.25801)
+
+[node name="HexagonStonePlatform73" parent="Floor" unique_id=1606852502 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.03745999, 0, 0.09271661, 0, 0.099999994, 0, -0.09271661, 0, 0.03745999, -5.0765095, -1, 41.722115)
+
+[node name="HexagonStonePlatform74" parent="Floor" unique_id=30225727 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.03745999, 0, 0.09271661, 0, 0.099999994, 0, -0.09271661, 0, 0.03745999, -2.0765092, -1, 36.525963)
+
+[node name="HexagonStonePlatform75" parent="Floor" unique_id=164091900 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09204875, 0, -0.03907234, 0, 0.099999994, 0, 0.03907234, 0, -0.09204875, 6.428424, -1, 31.696945)
+
+[node name="HexagonStonePlatform76" parent="Floor" unique_id=1184497089 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09204875, 0, -0.03907234, 0, 0.099999994, 0, 0.03907234, 0, -0.09204875, 4.4965725, -1, 32.214584)
+
+[node name="HexagonStonePlatform77" parent="Floor" unique_id=1776787659 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09204875, 0, -0.03907234, 0, 0.099999994, 0, 0.03907234, 0, -0.09204875, 4.4965725, -1, 30.214584)
+
+[node name="HexagonStonePlatform78" parent="Floor" unique_id=742076091 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09204875, 0, -0.03907234, 0, 0.099999994, 0, 0.03907234, 0, -0.09204875, 3.6895669, -1, 34.198147)
+
+[node name="HexagonStonePlatform79" parent="Floor" unique_id=805503083 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09204875, 0, -0.03907234, 0, 0.099999994, 0, 0.03907234, 0, -0.09204875, 1.1505077, -1, 35.18171)
+
+[node name="HexagonStonePlatform80" parent="Floor" unique_id=387206945 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09204875, 0, -0.03907234, 0, 0.099999994, 0, 0.03907234, 0, -0.09204875, 5.980137, -1, 33.887615)
+
+[node name="HexagonStonePlatform81" parent="Floor" unique_id=1692818178 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09204875, 0, -0.03907234, 0, 0.099999994, 0, 0.03907234, 0, -0.09204875, 4.5659227, -1, 36.337105)
+
+[node name="HexagonStonePlatform82" parent="Floor" unique_id=1542447993 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09204875, 0, -0.03907234, 0, 0.099999994, 0, 0.03907234, 0, -0.09204875, 2.6340716, -1, 36.854744)
+
+[node name="HexagonStonePlatform83" parent="Floor" unique_id=375009804 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.03745999, 0, 0.09271661, 0, 0.099999994, 0, -0.09271661, 0, 0.03745999, -7.3085604, -1, 41.58814)
+
+[node name="HexagonStonePlatform84" parent="Floor" unique_id=1373880367 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.03745999, 0, 0.09271661, 0, 0.099999994, 0, -0.09271661, 0, 0.03745999, -6.3085604, -1, 39.856087)
+
+[node name="HexagonStonePlatform85" parent="Floor" unique_id=1314741713 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.03745999, 0, 0.09271661, 0, 0.099999994, 0, -0.09271661, 0, 0.03745999, -6.1745853, -1, 37.62404)
+
+[node name="HexagonStonePlatform86" parent="Floor" unique_id=832769889 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.03745999, 0, 0.09271661, 0, 0.099999994, 0, -0.09271661, 0, 0.03745999, -6.040611, -1, 35.391987)
+
+[node name="HexagonStonePlatform87" parent="Floor" unique_id=1881594122 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.03745999, 0, 0.09271661, 0, 0.099999994, 0, -0.09271661, 0, 0.03745999, -8.540611, -1, 39.722115)
+
+[node name="HexagonStonePlatform88" parent="Floor" unique_id=1780331553 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.03745999, 0, 0.09271661, 0, 0.099999994, 0, -0.09271661, 0, 0.03745999, -9.272662, -1, 36.990063)
+
+[node name="HexagonStonePlatform89" parent="Floor" unique_id=1464860462 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.03745999, 0, 0.09271661, 0, 0.099999994, 0, -0.09271661, 0, 0.03745999, -11.272662, -1, 40.454163)
+
+[node name="HexagonStonePlatform90" parent="Floor" unique_id=71739103 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.03745999, 0, 0.09271661, 0, 0.099999994, 0, -0.09271661, 0, 0.03745999, -12.004713, -1, 37.722115)
+
+[node name="HexagonStonePlatform91" parent="Floor" unique_id=1082390160 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.03745999, 0, 0.09271661, 0, 0.099999994, 0, -0.09271661, 0, 0.03745999, -8.272661, -1, 35.25801)
+
+[node name="HexagonStonePlatform92" parent="Floor" unique_id=1624066846 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09204875, 0, -0.03907234, 0, 0.099999994, 0, 0.03907234, 0, -0.09204875, -1.6995798, -1, 30.946632)
+
+[node name="HexagonStonePlatform93" parent="Floor" unique_id=426875832 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09204875, 0, -0.03907234, 0, 0.099999994, 0, 0.03907234, 0, -0.09204875, -2.506586, -1, 32.9302)
+
+[node name="HexagonStonePlatform94" parent="Floor" unique_id=734051837 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09204875, 0, -0.03907234, 0, 0.099999994, 0, 0.03907234, 0, -0.09204875, -0.7745352, -1, 33.9302)
+
+[node name="HexagonStonePlatform95" parent="Floor" unique_id=584435311 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09204875, 0, -0.03907234, 0, 0.099999994, 0, 0.03907234, 0, -0.09204875, -5.0456448, -1, 33.91376)
+
+[node name="HexagonStonePlatform96" parent="Floor" unique_id=449162572 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09204875, 0, -0.03907234, 0, 0.099999994, 0, 0.03907234, 0, -0.09204875, -3.5620804, -1, 35.586792)
+
+[node name="HexagonStonePlatform97" parent="Floor" unique_id=1410553634 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.09925273, 0, -0.012186747, 0, 0.099999994, 0, 0.012186747, 0, 0.09925273, -12.755952, -1, 35.578815)
+
+[node name="HexagonStonePlatform98" parent="Floor" unique_id=2022449109 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.09925273, 0, -0.012186747, 0, 0.099999994, 0, 0.012186747, 0, 0.09925273, -10.824101, -1, 36.096455)
+
+[node name="HexagonStonePlatform99" parent="Floor" unique_id=67934544 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.09925273, 0, -0.012186747, 0, 0.099999994, 0, 0.012186747, 0, 0.09925273, -10.75475, -1, 31.97393)
+
+[node name="HexagonStonePlatform100" parent="Floor" unique_id=5718841 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.09925273, 0, -0.012186747, 0, 0.099999994, 0, 0.012186747, 0, 0.09925273, -9.470988, -1, 30.783264)
+
+[node name="HexagonStonePlatform101" parent="Floor" unique_id=1697088177 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.09925273, 0, -0.012186747, 0, 0.099999994, 0, 0.012186747, 0, 0.09925273, -7.2906485, -1, 33.97393)
+
+[node name="HexagonStonePlatform102" parent="Floor" unique_id=1237464920 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.09925273, 0, -0.012186747, 0, 0.099999994, 0, 0.012186747, 0, 0.09925273, -7.7389374, -1, 31.783264)
+
+[node name="HexagonStonePlatform103" parent="Floor" unique_id=2130472797 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.061564963, 0, 0.078799605, 0, 0.099999994, 0, -0.078799605, 0, -0.061564963, -10.301427, -1, 34.418427)
+
+[node name="HexagonStonePlatform104" parent="Floor" unique_id=1879482553 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.03745999, 0, 0.09271661, 0, 0.099999994, 0, -0.09271661, 0, 0.03745999, -4.906636, -1, 31.427887)
+
+[node name="HexagonStonePlatform105" parent="Floor" unique_id=528259238 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.061564963, 0, 0.078799605, 0, 0.099999994, 0, -0.078799605, 0, -0.061564963, -6.935402, -1, 30.588303)
+
+[node name="HexagonStonePlatform106" parent="Floor" unique_id=1474912243 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(0.03745999, 0, 0.09271661, 0, 0.099999994, 0, -0.09271661, 0, 0.03745999, 2.1555417, -1, 33.195835)
+
+[node name="HexagonStonePlatform107" parent="Floor" unique_id=141509193 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09204875, 0, -0.03907234, 0, 0.099999994, 0, 0.03907234, 0, -0.09204875, 2.7645218, -1, 31.214584)
+
+[node name="HexagonStonePlatform108" parent="Floor" unique_id=269581216 instance=ExtResource("6_pn2yr")]
+transform = Transform3D(-0.09204875, 0, -0.03907234, 0, 0.099999994, 0, 0.03907234, 0, -0.09204875, 0.6699705, -1, 32.256668)

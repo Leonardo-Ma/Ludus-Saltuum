@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://ci2ehxlf55ngh"]
+
+[ext_resource type="Script" uid="uid://dfapcpf4fli57" path="res://src/environment/levels/level_chunk.gd" id="1_f6lqh"]
+[ext_resource type="PackedScene" uid="uid://cl6psv388cmbx" path="res://src/environment/levels/entrance_trigger.tscn" id="2_a853u"]
+[ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_ykf6v"]
+[ext_resource type="PackedScene" uid="uid://0hwlnlpkbsjn" path="res://src/environment/levels/assets/platforms/static_platforms/grass_platform.tscn" id="4_qv3hh"]
+[ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="5_qk614"]
+[ext_resource type="PackedScene" uid="uid://bneqpm1wdlci3" path="res://src/environment/levels/assets/platforms/moving_plaforms/moving_platform_orange.tscn" id="6_i01ne"]
+
+[node name="26Moving" type="Node3D" unique_id=1016321493]
+script = ExtResource("1_f6lqh")
+features = Array[int]([6])
+
+[node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_a853u")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 1)
+
+[node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_ykf6v")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 96.083)
+
+[node name="GrassPlatform" parent="." unique_id=537577895 instance=ExtResource("4_qv3hh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 5)
+
+[node name="ArrowSign" parent="GrassPlatform" unique_id=975612369 instance=ExtResource("5_qk614")]
+transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, 3, 4, -3)
+
+[node name="MovingPlatformOrange" parent="." unique_id=1100000001 instance=ExtResource("6_i01ne")]
+transform = Transform3D(3.0000002, 0, 0, 0, 2.598076, 1.5000001, 0, -1.5, 2.5980763, 0, 1, 11.5)
+
+[node name="MovingPlatformOrange2" parent="." unique_id=1100000002 instance=ExtResource("6_i01ne")]
+transform = Transform3D(-9.3279006e-08, -1.5, -2.5980763, -6.5567086e-08, 2.598076, -1.5000001, 3.0000002, 1.0143262e-08, -1.1356553e-07, -2, 16.3, 45)
+
+[node name="MovingPlatformOrange3" parent="." unique_id=1100000003 instance=ExtResource("6_i01ne")]
+transform = Transform3D(1.5, 0, 2.5980766, 0, 3, 0, -2.5980766, 0, 1.5, -38.5, -2.4, 45.5)
+
+[node name="MovingPlatformOrange4" parent="." unique_id=1100000004 instance=ExtResource("6_i01ne")]
+transform = Transform3D(3.0000002, 0, 0, 0, 3, 0, 0, 0, 3.0000002, -5, -2, 60)

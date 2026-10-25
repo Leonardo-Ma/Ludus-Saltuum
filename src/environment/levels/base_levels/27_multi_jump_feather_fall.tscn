@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://chbpvihxfqtbs"]
+
+[ext_resource type="Script" uid="uid://dfapcpf4fli57" path="res://src/environment/levels/level_chunk.gd" id="1_qkjtd"]
+[ext_resource type="PackedScene" uid="uid://cl6psv388cmbx" path="res://src/environment/levels/entrance_trigger.tscn" id="2_3wrl1"]
+[ext_resource type="Script" uid="uid://difrst13h47n5" path="res://src/entities/player/skills/skill_definition.gd" id="2_787m4"]
+[ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_vw70o"]
+[ext_resource type="Resource" uid="uid://dw6jynnbqeedp" path="res://src/entities/player/skills/active_skills/double_jump.tres" id="3_ym71w"]
+[ext_resource type="Resource" uid="uid://dcw2dwhnvq7ri" path="res://src/entities/player/skills/active_skills/feather_fall.tres" id="4_an4we"]
+[ext_resource type="PackedScene" uid="uid://0hwlnlpkbsjn" path="res://src/environment/levels/assets/platforms/static_platforms/grass_platform.tscn" id="4_o51a5"]
+[ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="5_bqbeh"]
+[ext_resource type="PackedScene" uid="uid://q51p6l6vw80h" path="res://src/environment/assets/kaykit_platformer/individual_assets/platform_6x2x1_blue2.tscn" id="9_an4we"]
+[ext_resource type="PackedScene" uid="uid://c32lde0fr367t" path="res://src/environment/mechanics/portal/portal.tscn" id="10_at0dq"]
+[ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/mechanics/collectible/coin/gold_coin.tscn" id="11_8sqsm"]
+[ext_resource type="PackedScene" uid="uid://bb1l6ibw3ab5y" path="res://src/environment/levels/assets/platforms/static_platforms/hexagon_grass.tscn" id="11_at0dq"]
+[ext_resource type="PackedScene" uid="uid://bpdjybjlyk4kn" path="res://src/environment/levels/assets/skill_sign_reminder/skill_sign_reminder.tscn" id="12_y0gor"]
+
+[node name="27MultijumpFeatherFall" type="Node3D" unique_id=1016321493]
+script = ExtResource("1_qkjtd")
+required_skill = Array[ExtResource("2_787m4")]([ExtResource("3_ym71w"), ExtResource("4_an4we")])
+
+[node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_3wrl1")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 1)
+
+[node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_vw70o")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 5, 82.083)
+
+[node name="GrassPlatform" parent="." unique_id=537577895 instance=ExtResource("4_o51a5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 5)
+
+[node name="ArrowSign" parent="GrassPlatform" unique_id=975612369 instance=ExtResource("5_bqbeh")]
+transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, 3, 4, -3)
+
+[node name="StaticBody3D" parent="GrassPlatform" unique_id=1301643200 instance=ExtResource("9_an4we")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 12, 36)
+
+[node name="Portal" parent="GrassPlatform/StaticBody3D" unique_id=1766414310 node_paths=PackedStringArray("linked_portal") instance=ExtResource("10_at0dq")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1.5, 0)
+linked_portal = NodePath("../../StaticBody3D2/Portal2")
+
+[node name="StaticBody3D2" parent="GrassPlatform" unique_id=262199696 instance=ExtResource("9_an4we")]
+transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, 0, 29, 44)
+
+[node name="Portal2" parent="GrassPlatform/StaticBody3D2" unique_id=130708824 node_paths=PackedStringArray("linked_portal") instance=ExtResource("10_at0dq")]
+transform = Transform3D(1, 0, -1.7484555e-07, 0, 1, 0, 1.7484555e-07, 0, 1, 0, 1.5, 0)
+linked_portal = NodePath("../../StaticBody3D/Portal")
+
+[node name="StaticBody3D3" parent="GrassPlatform" unique_id=552711588 instance=ExtResource("9_an4we")]
+transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, -7, 29, 44)
+
+[node name="StaticBody3D5" parent="GrassPlatform" unique_id=917795214 instance=ExtResource("9_an4we")]
+transform = Transform3D(1.4142134, 0, -1.4142137, 0, 2, 0, 1.4142137, 0, 1.4142134, -58, 16, 44)
+
+[node name="GoldCoin" parent="GrassPlatform/StaticBody3D5" unique_id=1971537253 instance=ExtResource("11_8sqsm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35355377, 3, -0.35354996)
+
+[node name="GoldCoin2" parent="GrassPlatform/StaticBody3D5" unique_id=169477347 instance=ExtResource("11_8sqsm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7677612, 2.5, -0.35354996)
+
+[node name="StaticBody3D6" parent="GrassPlatform" unique_id=1586655006 instance=ExtResource("9_an4we")]
+transform = Transform3D(1.1830125, 0.4482877, -1.5490382, -1.0490382, 1.6730326, -0.31698725, 1.2247448, 0.9999999, 1.2247446, -47, 15, 55)
+
+[node name="StaticBody3D7" parent="GrassPlatform" unique_id=85238574 instance=ExtResource("9_an4we")]
+transform = Transform3D(-1.7320507, 0, 1.0000004, 0, 2, 0, -1.0000004, 0, -1.7320507, -16, 5, 66)
+
+[node name="StaticBody3D4" parent="GrassPlatform" unique_id=807615993 instance=ExtResource("9_an4we")]
+transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, -21, 29, 44)
+
+[node name="SkillSignReminder" parent="GrassPlatform/StaticBody3D4" unique_id=385017733 instance=ExtResource("12_y0gor")]
+transform = Transform3D(-5, 0, 7.5497906e-07, 0, 5, 0, -7.5497906e-07, 0, -5, -0.5, 1.5, 1.5)
+skill_reference = ExtResource("4_an4we")
+
+[node name="SkillSignReminder2" parent="GrassPlatform/StaticBody3D4" unique_id=1032328517 instance=ExtResource("12_y0gor")]
+transform = Transform3D(-5, 0, 7.5497906e-07, 0, 5, 0, -7.5497906e-07, 0, -5, 0.5, 1.5, 1.5)
+skill_reference = ExtResource("3_ym71w")
+
+[node name="HexagonGrassPlatform2" parent="." unique_id=351246465 instance=ExtResource("11_at0dq")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -2, 0, 19)
+
+[node name="SkillSignReminder" parent="." unique_id=1784756396 instance=ExtResource("12_y0gor")]
+transform = Transform3D(-5, 0, 7.54979e-07, 0, 5, 0, -7.54979e-07, 0, -5, 0, 2, 8)
+skill_reference = ExtResource("3_ym71w")
