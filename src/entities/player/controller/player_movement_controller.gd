@@ -77,7 +77,11 @@ func jump_air_logic(delta: float) -> void:
 		coyote_timer -= delta
 		if _was_on_floor:
 			in_air.emit()
-		var gravity_scale: float = _movement.fall_gravity_multiplier if owner.velocity.y < 0.0 else 1.0
+		var gravity_scale: float = _movement.gravity_multiplier
+
+		if owner.velocity.y < 0.0:
+			gravity_scale *= _movement.fall_gravity_multiplier
+
 		owner.velocity += owner.get_gravity() * gravity_scale * delta
 
 		# Jump cutting: if jump button is released while moving upwards, cut velocity

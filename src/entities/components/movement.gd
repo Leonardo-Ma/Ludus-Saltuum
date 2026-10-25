@@ -10,6 +10,7 @@ extends Resource
 ## Runtime only
 var speed_bonus: float = 0.0
 var speed_multiplier: float = 1.0
+var gravity_multiplier: float = 1.0
 var jump_bonus: float = 0.0
 var jump_multiplier: float = 1.0
 ## Applied to gravity only while falling
