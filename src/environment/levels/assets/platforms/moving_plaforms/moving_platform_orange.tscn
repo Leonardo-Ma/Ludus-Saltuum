@@ -1,14 +1,7 @@
 [gd_scene format=4 uid="uid://bneqpm1wdlci3"]
 
-[ext_resource type="Script" uid="uid://c7ln8oql0y1ag" path="res://src/environment/mechanics/platform/moving/moving_platform.gd" id="1_mmuas"]
 [ext_resource type="Texture2D" uid="uid://ccs62hofilq3i" path="res://src/environment/assets/platformer_kit_kenney/texture/assets_colormap.png" id="1_xcpnr"]
-
-[sub_resource type="Curve3D" id="Curve3D_xcpnr"]
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.012, 0, 0.01, 0, 0, 0, 0, 0, 0, 0, 0, 15),
-"tilts": PackedFloat32Array(0, 0)
-}
-point_count = 2
+[ext_resource type="PackedScene" uid="uid://q4ko45p348gy" path="res://src/environment/mechanics/moving_component/moving_component.tscn" id="2_2kpey"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4hukf"]
 size = Vector3(2.961914, 0.17523193, 2.9903564)
@@ -55,11 +48,35 @@ shadow_mesh = SubResource("ArrayMesh_idlar")
 [sub_resource type="BoxShape3D" id="BoxShape3D_1p1te"]
 size = Vector3(1, 0.3, 1)
 
-[node name="MovingPlatformOrange" type="Node3D" unique_id=1340688729]
-script = ExtResource("1_mmuas")
+[sub_resource type="Curve3D" id="Curve3D_xcpnr"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.012, 0, 0.01, 0, 0, 0, 0, 0, 0, -0.011826228, 0, 10.907984),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[node name="MovingPlatformOrange" type="AnimatableBody3D" unique_id=1239778399]
+transform = Transform3D(0.008670188, 0, 2.9999876, 0, 3, 0, -2.9999876, 0, 0.008670188, 0, 0, 0)
+sync_to_physics = false
 metadata/_edit_group_ = true
 
+[node name="SurfaceMovementDetection" type="Area3D" parent="." unique_id=478089236]
+unique_name_in_owner = true
+transform = Transform3D(0.00096335675, 0, -0.33333242, 0, 0.33333337, 0, 0.33333287, 0, 0.00096335536, -0.0005207948, 0.09998917, 0.007239123)
+
+[node name="PlatformSurface" type="CollisionShape3D" parent="SurfaceMovementDetection" unique_id=357140001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019042969, 0.6188287, -0.004821777)
+shape = SubResource("BoxShape3D_4hukf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=861958578]
+mesh = SubResource("ArrayMesh_8sfv0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1921458655]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+shape = SubResource("BoxShape3D_1p1te")
+
 [node name="Path3D" type="Path3D" parent="." unique_id=1536531067]
+transform = Transform3D(0.99999994, 0, 2.3283064e-10, 0, 1, 0, -2.3283064e-10, 0, 0.99999994, 0, 0, 0)
 curve = SubResource("Curve3D_xcpnr")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=1111835856]
@@ -68,26 +85,10 @@ transform = Transform3D(0.9999972, 0, 0, 0, 1, 0, 0, 0, 0.9999986, -0.012, 0, 0.
 rotation_mode = 0
 loop = false
 
-[node name="MovingPlatformOrange" type="AnimatableBody3D" parent="Path3D/PathFollow3D" unique_id=1239778399]
-transform = Transform3D(0.008670187, 0, 2.9999876, 0, 3, 0, -2.9999876, 0, 0.008670187, -0.00971273, -0.29996747, -0.011625156)
-sync_to_physics = false
-metadata/_edit_group_ = true
-
-[node name="SurfaceMovementDetection" type="Area3D" parent="Path3D/PathFollow3D/MovingPlatformOrange" unique_id=478089236]
-unique_name_in_owner = true
-transform = Transform3D(0.00096335675, 0, -0.33333242, 0, 0.33333337, 0, 0.33333287, 0, 0.00096335536, -0.0005207948, 0.09998917, 0.007239123)
-
-[node name="PlatformSurface" type="CollisionShape3D" parent="Path3D/PathFollow3D/MovingPlatformOrange/SurfaceMovementDetection" unique_id=357140001]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.019042969, 0.6188287, -0.004821777)
-shape = SubResource("BoxShape3D_4hukf")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D/MovingPlatformOrange" unique_id=861958578]
-mesh = SubResource("ArrayMesh_8sfv0")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Path3D/PathFollow3D/MovingPlatformOrange" unique_id=1921458655]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
-shape = SubResource("BoxShape3D_1p1te")
-
-[node name="ReturnDelay" type="Timer" parent="." unique_id=1107662681]
-unique_name_in_owner = true
-one_shot = true
+[node name="MovingComponent" parent="." unique_id=452120223 node_paths=PackedStringArray("moving_object", "path", "surface_detection") instance=ExtResource("2_2kpey")]
+moving_object = NodePath("..")
+path = NodePath("../Path3D")
+surface_detection = NodePath("../SurfaceMovementDetection")
+rotate_at_destination = false
+face_backward_when_returning = false
+use_model_front = false

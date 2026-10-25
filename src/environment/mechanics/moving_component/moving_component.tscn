@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://q4ko45p348gy"]
+
+[ext_resource type="Script" uid="uid://cvhv5qydd2sxa" path="res://src/environment/mechanics/moving_component/moving_component.gd" id="1_ehc7f"]
+
+[node name="MovingComponent" type="Node3D" unique_id=452120223 node_paths=PackedStringArray("path")]
+script = ExtResource("1_ehc7f")
+path = NodePath("")
+
+[node name="ReturnDelay" type="Timer" parent="." unique_id=346212525]
+unique_name_in_owner = true
+one_shot = true
