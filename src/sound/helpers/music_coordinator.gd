@@ -39,6 +39,8 @@ func _on_gameplay_mode_changed(new_mode: GameplayStateManager.GameplayMode, prev
 			MusicController.set_state(MusicController.MusicState.COMBAT)
 		GameplayStateManager.GameplayMode.MAZE:
 			MusicController.set_state(MusicController.MusicState.MAZE)
+		GameplayStateManager.GameplayMode.OUTER_SPACE:
+			MusicController.set_state(MusicController.MusicState.OUTER_SPACE)
 		GameplayStateManager.GameplayMode.NONE:
 			if previous_mode != GameplayStateManager.GameplayMode.NONE:
 				MusicController.set_state(MusicController.MusicState.EXPLORATION)

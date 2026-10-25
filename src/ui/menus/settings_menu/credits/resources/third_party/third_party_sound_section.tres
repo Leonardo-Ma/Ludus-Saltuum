@@ -10,10 +10,11 @@
 [ext_resource type="Script" uid="uid://ldfdxojlwwcl" path="res://src/ui/menus/settings_menu/credits/data/credit_section.gd" id="5_glqve"]
 [ext_resource type="Resource" uid="uid://c471jkdl6ywps" path="res://src/ui/menus/settings_menu/credits/resources/third_party/sound/lonely_nightmare.tres" id="6_evxk4"]
 [ext_resource type="Resource" uid="uid://cp72c1b4e0qi2" path="res://src/ui/menus/settings_menu/credits/resources/third_party/sound/wobbleboxx_sound_pack.tres" id="7_dcia7"]
+[ext_resource type="Resource" uid="uid://bxp0nto04c8p6" path="res://src/ui/menus/settings_menu/credits/resources/third_party/sound/alkakrab_30_sci_fi_tracks.tres" id="8_ijs4j"]
 
 [resource]
 script = ExtResource("5_glqve")
 display_name = "Third Party Sound Assets"
 icon = ExtResource("2_xm4kk")
-assets = Array[ExtResource("1_f61cm")]([ExtResource("2_m3w1x"), ExtResource("3_ijs4j"), ExtResource("4_bovl0"), ExtResource("5_eyubk"), ExtResource("6_evxk4"), ExtResource("7_dcia7")])
+assets = Array[ExtResource("1_f61cm")]([ExtResource("2_m3w1x"), ExtResource("3_ijs4j"), ExtResource("4_bovl0"), ExtResource("5_eyubk"), ExtResource("6_evxk4"), ExtResource("7_dcia7"), ExtResource("8_ijs4j")])
 metadata/_custom_type_script = "uid://ldfdxojlwwcl"

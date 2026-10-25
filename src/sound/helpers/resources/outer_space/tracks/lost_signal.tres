@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MusicTrack" format=3 uid="uid://bqavp6v1b6paq"]
+
+[ext_resource type="Script" uid="uid://dolmnv7evenpp" path="res://src/sound/helpers/music_data/music_track.gd" id="1_phwom"]
+[ext_resource type="AudioStream" uid="uid://1wr4fthiqei5" path="res://src/sound/music/alkakrab/lost_signal.ogg" id="2_phwom"]
+
+[resource]
+script = ExtResource("1_phwom")
+key = "lost_signal"
+stream = ExtResource("2_phwom")
+song_name = "Lost Signal"
+author = "Alkakrab"
+album = "30 Sci-fi Space Tracks"
+metadata/_custom_type_script = "uid://dolmnv7evenpp"

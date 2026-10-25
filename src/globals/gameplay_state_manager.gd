@@ -10,6 +10,7 @@ enum GameplayMode {
 	RACING = 1,
 	MAZE = 2,
 	COMBAT = 3,
+	OUTER_SPACE = 4,
 }
 
 var _current_mode: GameplayMode = GameplayMode.NONE

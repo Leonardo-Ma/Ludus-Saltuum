@@ -5,3 +5,4 @@ extends Resource
 @export var exploration: MusicPlaylist
 @export var racing: MusicPlaylist
 @export var maze: MusicPlaylist
+@export var outer_space: MusicPlaylist

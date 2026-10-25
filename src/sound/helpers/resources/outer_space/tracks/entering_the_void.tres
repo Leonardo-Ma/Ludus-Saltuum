@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MusicTrack" format=3 uid="uid://ddcfn6q4epufa"]
+
+[ext_resource type="Script" uid="uid://dolmnv7evenpp" path="res://src/sound/helpers/music_data/music_track.gd" id="1_piq5m"]
+[ext_resource type="AudioStream" uid="uid://gc53476xd62v" path="res://src/sound/music/alkakrab/entering_the_void.ogg" id="2_ovh3p"]
+
+[resource]
+script = ExtResource("1_piq5m")
+key = "entering_the_void"
+stream = ExtResource("2_ovh3p")
+song_name = "Entering the Void"
+author = "Alkakrab"
+album = "30 Sci-fi Space Tracks"
+metadata/_custom_type_script = "uid://dolmnv7evenpp"

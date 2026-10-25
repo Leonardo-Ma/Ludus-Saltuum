@@ -11,6 +11,7 @@ enum MusicState {
 	COMBAT = 3,
 	MAZE = 4,
 	SILENCE = 5,
+	OUTER_SPACE = 6,
 }
 
 const _MUTED_VOLUME_DB: float = -80.0
@@ -189,6 +190,8 @@ func _get_playlist(state: MusicState) -> MusicPlaylist:
 			return _music_catalog.combat
 		MusicState.MAZE:
 			return _music_catalog.maze
+		MusicState.OUTER_SPACE:
+			return _music_catalog.outer_space
 		MusicState.SILENCE:
 			return null
 

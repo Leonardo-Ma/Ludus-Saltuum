@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CreditAsset" format=3 uid="uid://bxp0nto04c8p6"]
+
+[ext_resource type="Script" uid="uid://cyq6hhrye61tb" path="res://src/ui/menus/settings_menu/credits/data/credit_asset.gd" id="1_2rokv"]
+
+[resource]
+script = ExtResource("1_2rokv")
+display_name = "30 Sci-fi Space Tracks"
+creator_name = "Alkakrab"
+creator_url = "https://alkakrab.itch.io/"
+description = "30 Sci-fi Space Tracks Music Pack"
+origin_url = "https://alkakrab.itch.io/sci-fi-music-pack-vol-3"
+license_name = "Custom"
+license_url = "https://alkakrab.itch.io/sci-fi-music-pack-vol-3"
+metadata/_custom_type_script = "uid://cyq6hhrye61tb"
