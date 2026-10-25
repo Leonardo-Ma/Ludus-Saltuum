@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bb1l6ibw3ab5y" path="res://src/environment/levels/assets/platforms/static_platforms/hexagon_grass.tscn" id="5_wpoxf"]
 [ext_resource type="PackedScene" uid="uid://bhbjsqv8pu1x8" path="res://src/environment/mechanics/checkpoint/checkpoint_flag.tscn" id="5_xufyi"]
 [ext_resource type="PackedScene" uid="uid://cvcxve456vw1e" path="res://src/environment/mechanics/collectible/speed_up/speed_up.tscn" id="6_xufyi"]
+[ext_resource type="PackedScene" uid="uid://bpdjybjlyk4kn" path="res://src/environment/levels/assets/skill_sign_reminder/skill_sign_reminder.tscn" id="8_sfx64"]
 
 [node name="12DoubleJump" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_siqpa")
@@ -29,6 +30,10 @@ transform = Transform3D(1.9318516, 0, 0.5176381, 0, 2, 0, -0.5176381, 0, 1.93185
 
 [node name="ArrowSign" parent="HexagonGrassPlatform4" unique_id=975612369 instance=ExtResource("5_nf6xl")]
 transform = Transform3D(0.044172764, 0.21272726, -1.9881654, 0.79390913, 1.8233091, 0.2127273, 1.8351462, -0.793909, -0.044172853, -1.9937152, 4.2629385, -0.74987173)
+
+[node name="SkillSignReminder" parent="HexagonGrassPlatform4" unique_id=385017733 instance=ExtResource("8_sfx64")]
+transform = Transform3D(-4.829631, 0, 1.2940958, 0, 4.9999995, 0, -1.2940958, 0, -4.829631, -1.4235059, 5, 5.3125963)
+skill_reference = ExtResource("3_sfx64")
 
 [node name="HexagonGrassPlatform5" parent="." unique_id=537577895 instance=ExtResource("5_wpoxf")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 34)

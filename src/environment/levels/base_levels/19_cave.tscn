@@ -4,13 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://cl6psv388cmbx" path="res://src/environment/levels/entrance_trigger.tscn" id="2_v2fea"]
 [ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_6e1j3"]
 [ext_resource type="PackedScene" uid="uid://0hwlnlpkbsjn" path="res://src/environment/levels/assets/platforms/static_platforms/grass_platform.tscn" id="4_bjhch"]
+[ext_resource type="Script" uid="uid://b78p5akinvqq3" path="res://src/environment/mechanics/environment_zone_3d.gd" id="4_he2lc"]
 [ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="5_g04di"]
 [ext_resource type="MeshLibrary" uid="uid://d367b25goakfh" path="res://src/environment/assets/kenney_cave_kit/mesh_libraries/caves_small.tres" id="6_3yyhr"]
 [ext_resource type="MeshLibrary" uid="uid://crbydktsk4c55" path="res://src/environment/assets/kenney_cave_kit/mesh_libraries/caves_large.tres" id="7_bauo5"]
 [ext_resource type="MeshLibrary" uid="uid://dxoy3411xon0l" path="res://src/environment/assets/kenney_cave_kit/mesh_libraries/cave_walls.tres" id="8_he2lc"]
 [ext_resource type="PackedScene" uid="uid://b73j2aliqwvvc" path="res://src/environment/mechanics/gameplay_state_area/change_gameplay_state_area_3d.tscn" id="8_lpvia"]
 [ext_resource type="Script" uid="uid://7qulfimulpmy" path="res://src/environment/mechanics/cave/red_torch_trigger.gd" id="10_3yyhr"]
-[ext_resource type="Script" uid="uid://d1k4xc3spqrwq" path="res://src/environment/mechanics/cave/enable_darkness.gd" id="10_12cvo"]
 [ext_resource type="Environment" uid="uid://cukvscwyyjgeh" path="res://src/environment/mechanics/cave/cave_environment.tres" id="11_w2gkj"]
 [ext_resource type="PackedScene" uid="uid://dy7goxhejncoa" path="res://src/environment/levels/assets/props/torch.tscn" id="13_ynq7h"]
 [ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/mechanics/collectible/coin/gold_coin.tscn" id="14_ynq7h"]
@@ -71,8 +71,9 @@ debug_color = Color(0.37863603, 0.70196074, 0.06578518, 1)
 
 [node name="EnableDarkness" type="Area3D" parent="Map" unique_id=1987405358]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -33, 0, 76)
-script = ExtResource("10_12cvo")
-cave_environment = ExtResource("11_w2gkj")
+script = ExtResource("4_he2lc")
+target_environment = ExtResource("11_w2gkj")
+play_thunder_on_enter = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/EnableDarkness" unique_id=93477801]
 shape = SubResource("BoxShape3D_w2gkj")

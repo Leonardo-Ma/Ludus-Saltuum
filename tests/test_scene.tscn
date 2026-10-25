@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://bxc67crvwseo8"]
 
-[ext_resource type="Script" uid="uid://d1k4xc3spqrwq" path="res://src/environment/mechanics/cave/enable_darkness.gd" id="1_coq8p"]
 [ext_resource type="Script" uid="uid://cntfnfgw6oknr" path="res://tests/test_scene.gd" id="1_qcd5j"]
 [ext_resource type="Script" uid="uid://cxi4v122jd7b6" path="res://tests/test_audio.gd" id="1_velq5"]
 [ext_resource type="Environment" uid="uid://cukvscwyyjgeh" path="res://src/environment/mechanics/cave/cave_environment.tres" id="2_2nij2"]
@@ -25,6 +24,7 @@
 [ext_resource type="Script" uid="uid://dgswdur1ppvew" path="res://tests/test_chunk_catalog.gd" id="12_7adl8"]
 [ext_resource type="Script" uid="uid://br3a5miv83qwb" path="res://tests/test_save_migration.gd" id="12_axgai"]
 [ext_resource type="PackedScene" uid="uid://c32lde0fr367t" path="res://src/environment/mechanics/portal/portal.tscn" id="13_4gito"]
+[ext_resource type="Script" uid="uid://b78p5akinvqq3" path="res://src/environment/mechanics/environment_zone_3d.gd" id="15_drftx"]
 [ext_resource type="PackedScene" uid="uid://cfm0nge5vjc0d" path="res://src/environment/mechanics/collectible/unlock_skill/unlock_skill.tscn" id="19_jlvjc"]
 [ext_resource type="PackedScene" uid="uid://bgrkv1kk52j1t" path="res://src/environment/mechanics/collectible/gigantify/gigantify.tscn" id="19_n72yh"]
 [ext_resource type="Resource" uid="uid://dw6jynnbqeedp" path="res://src/entities/player/skills/active_skills/double_jump.tres" id="20_3omyl"]
@@ -35,6 +35,9 @@
 [ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/mechanics/collectible/coin/gold_coin.tscn" id="22_jlvjc"]
 [ext_resource type="PackedScene" uid="uid://cyk7txgkpg83" path="res://src/environment/mechanics/collectible/jump_up/jump_up.tscn" id="23_oqqo4"]
 [ext_resource type="Resource" uid="uid://dcw2dwhnvq7ri" path="res://src/entities/player/skills/active_skills/feather_fall.tres" id="25_q7k03"]
+[ext_resource type="Script" uid="uid://cqo4vne1iqdw4" path="res://src/systems/collectibles/collectibles_data/status_collectible.gd" id="29_drftx"]
+[ext_resource type="Resource" uid="uid://bfr78paglfbvw" path="res://src/environment/mechanics/collectible/gigantify/gigantify.tres" id="30_hqcre"]
+[ext_resource type="Resource" uid="uid://b86rvjt6lasya" path="res://src/environment/mechanics/collectible/shrink/shrink.tres" id="32_kdkg8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4hukf"]
 size = Vector3(20, 9, 20)
@@ -57,6 +60,18 @@ metadata/_custom_type_script = "uid://si0x0kj8w7kf"
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_buypi"]
 radius = 2.6132813
 height = 9.281372
+
+[sub_resource type="Resource" id="Resource_prcxa"]
+script = ExtResource("29_drftx")
+status_effect = ExtResource("30_hqcre")
+duration = 5.0
+metadata/_custom_type_script = "uid://cqo4vne1iqdw4"
+
+[sub_resource type="Resource" id="Resource_op4js"]
+script = ExtResource("29_drftx")
+status_effect = ExtResource("32_kdkg8")
+duration = 5.0
+metadata/_custom_type_script = "uid://cqo4vne1iqdw4"
 
 [node name="TestScene" type="Node3D" unique_id=564304661]
 script = ExtResource("1_qcd5j")
@@ -106,8 +121,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14)
 
 [node name="EnableDarkness" type="Area3D" parent="CaveDarkness/RoomLarge" unique_id=403007969]
-script = ExtResource("1_coq8p")
-cave_environment = ExtResource("2_2nij2")
+script = ExtResource("15_drftx")
+target_environment = ExtResource("2_2nij2")
+play_thunder_on_enter = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CaveDarkness/RoomLarge/EnableDarkness" unique_id=1004502724]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 3.5, 0)
@@ -190,11 +206,13 @@ transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="Gigantify" parent="Collectibles/GrassPlatform2" unique_id=1374629069 instance=ExtResource("19_n72yh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 5, -1)
+data = SubResource("Resource_prcxa")
 is_procedurally_spawned = false
 static_id = &"test_potion_0"
 
 [node name="Shrink" parent="Collectibles/GrassPlatform2" unique_id=826481617 instance=ExtResource("20_7b0ha")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -5)
+data = SubResource("Resource_op4js")
 is_procedurally_spawned = false
 static_id = &"test_potion_1"
 
