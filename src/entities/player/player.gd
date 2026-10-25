@@ -14,6 +14,7 @@ extends AggressiveEntity
 @onready var portal_controller: PortalController = %PortalController
 @onready var economy_controller: EconomyController = %EconomyController
 @onready var easter_egg_controller: EasterEggController = %EasterEggController
+@onready var environment_transition_controller: EnvironmentTransitionController = %EnvironmentTransitionController
 
 
 func _physics_process(delta: float) -> void:
