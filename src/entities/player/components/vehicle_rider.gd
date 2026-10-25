@@ -1,3 +1,4 @@
+## TODO Consider moving this to be instantiated by vehicle logic instead of being a player controller
 ## Handles vehicle entry/exit logic [br]
 ## Makes player follow vehicle global transform
 class_name VehicleRider

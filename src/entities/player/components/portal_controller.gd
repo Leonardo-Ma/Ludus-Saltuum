@@ -1,3 +1,4 @@
+## TODO Consider moving this to be instantiated by portal logic instead of being a player controller
 class_name PortalController
 extends Node
 
