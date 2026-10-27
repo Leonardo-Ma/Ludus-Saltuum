@@ -77,7 +77,6 @@ func _process(delta: float) -> void:
 		var h: float = look_input.x * gamepad_look_sensitivity * delta
 		var v: float = -look_input.y * gamepad_look_sensitivity * delta * (1.0 if gamepad_look_invert_y else -1.0)
 		player.rotate_y(deg_to_rad(-h))
-		cam_root.rotate_x(deg_to_rad(v))
 
 		# Limit vertical camera rotation
 		_pitch = clamp(_pitch + deg_to_rad(v), deg_to_rad(-85), deg_to_rad(45))
