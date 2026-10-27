@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dnxuslvw54lnx"
-path="res://.godot/imported/spaceship_quaternius.glb-0caa688790fc3e06c9eaddf6be6fafa5.scn"
+path="res://.godot/imported/spaceship_quaternius.glb-3476ddd6575a3e1ec5cb1d2205809dd8.scn"
 
 [deps]
 
-source_file="res://src/environment/levels/assets/outer_space/spaceship_quaternius.glb"
-dest_files=["res://.godot/imported/spaceship_quaternius.glb-0caa688790fc3e06c9eaddf6be6fafa5.scn"]
+source_file="res://src/environment/levels/assets/outer_space/spaceship/spaceship_quaternius.glb"
+dest_files=["res://.godot/imported/spaceship_quaternius.glb-3476ddd6575a3e1ec5cb1d2205809dd8.scn"]
 
 [params]
 
