@@ -45,6 +45,7 @@ var _loop_direction: float = 1.0
 var _current_progress: float = 0.0
 var _start_position: Vector3
 var _path_start_transform: Transform3D
+var _initialized: bool = false
 
 @onready var _return_delay: Timer = %ReturnDelay
 
@@ -59,8 +60,6 @@ func _ready() -> void:
 	if moving_object is AnimatableBody3D:
 		moving_object.sync_to_physics = false
 
-	_start_position = moving_object.global_position
-	_path_start_transform = path.global_transform
 	_current_progress = 0.0
 
 	_return_delay.one_shot = true
@@ -72,6 +71,9 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if not _initialized:
+		initialize_start_transforms()
+
 	_prune_invalid_players()
 
 	if loop:
@@ -183,13 +185,17 @@ func _move_back_and_forth(delta: float) -> void:
 	_update_orientation(delta, direction_sign)
 
 
+## Captures initial global transform of moving object and path
+func initialize_start_transforms() -> void:
+	_start_position = moving_object.global_position
+	_path_start_transform = path.global_transform
+	_initialized = true
+
+
 ## Updates global position of moving object relative to path curve offset
 func _apply_path_position() -> void:
-	var current_local_pos: Vector3 = path.curve.sample_baked(_current_progress)
-	var start_local_pos: Vector3 = path.curve.sample_baked(0.0)
-	var path_offset: Vector3 = _path_start_transform.basis * (current_local_pos - start_local_pos)
-
-	moving_object.global_position = _start_position + path_offset
+	var local_offset: Vector3 = path.curve.sample_baked(_current_progress) - path.curve.sample_baked(0.0)
+	moving_object.global_position = _start_position + (_path_start_transform.basis * local_offset)
 
 
 ## Smoothly rotates moving object toward path tangent vector
