@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://c6bmfoen5hhbk"]
+
+[ext_resource type="Script" uid="uid://dfapcpf4fli57" path="res://src/environment/levels/level_chunk.gd" id="1_oth25"]
+[ext_resource type="PackedScene" uid="uid://cl6psv388cmbx" path="res://src/environment/levels/entrance_trigger.tscn" id="2_rodbx"]
+[ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_7xq1x"]
+[ext_resource type="PackedScene" uid="uid://c7tmf6rofuw1j" path="res://src/environment/mechanics/gravity_field/gravity_field.tscn" id="4_wkeqr"]
+[ext_resource type="PackedScene" uid="uid://b73j2aliqwvvc" path="res://src/environment/mechanics/gameplay_state_area/change_gameplay_state_area_3d.tscn" id="5_xbjk5"]
+[ext_resource type="Script" uid="uid://b78p5akinvqq3" path="res://src/environment/mechanics/environment_zone_3d.gd" id="6_upyos"]
+[ext_resource type="Environment" uid="uid://dajjvm7dcqc5h" path="res://src/environment/mechanics/outer_space/outer_space_environment.tres" id="7_b17fi"]
+[ext_resource type="PackedScene" uid="uid://5vtkdn6juj00" path="res://src/environment/levels/assets/outer_space/spaceship/spaceship.tscn" id="8_a1yvg"]
+[ext_resource type="PackedScene" uid="uid://c8f86k2vkvgrb" path="res://src/environment/levels/assets/outer_space/planet/planet.tscn" id="9_dk2sp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j6rds"]
+size = Vector3(63, 63, 111)
+
+[node name="29LowGravitySpace" type="Node3D" unique_id=1016321493]
+script = ExtResource("1_oth25")
+min_score = 100
+
+[node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_rodbx")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 1)
+
+[node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_7xq1x")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 5, 117.083)
+
+[node name="ChangeGameplayArea3D" type="Node3D" parent="." unique_id=2046542953]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 56)
+metadata/_edit_group_ = true
+
+[node name="GravityField" parent="ChangeGameplayArea3D" unique_id=524471518 instance=ExtResource("4_wkeqr")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ChangeGameplayArea3D/GravityField" unique_id=1902299526]
+shape = SubResource("BoxShape3D_j6rds")
+
+[node name="ChangeGameplayStateArea3D" parent="ChangeGameplayArea3D" unique_id=820773515 node_paths=PackedStringArray("collision_shape_3d") instance=ExtResource("5_xbjk5")]
+target_gameplay_mode = 4
+collision_shape_3d = NodePath("CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ChangeGameplayArea3D/ChangeGameplayStateArea3D" unique_id=514715794]
+shape = SubResource("BoxShape3D_j6rds")
+
+[node name="EnvironmentZone3D" type="Area3D" parent="ChangeGameplayArea3D" unique_id=1010143322]
+script = ExtResource("6_upyos")
+target_environment = ExtResource("7_b17fi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ChangeGameplayArea3D/EnvironmentZone3D" unique_id=1865363613]
+shape = SubResource("BoxShape3D_j6rds")
+
+[node name="Spaceship" parent="." unique_id=1529605816 instance=ExtResource("8_a1yvg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 14)
+
+[node name="Spaceship2" parent="." unique_id=980919739 instance=ExtResource("8_a1yvg")]
+transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, -6, 14, 26)
+
+[node name="Spaceship3" parent="." unique_id=167027941 instance=ExtResource("8_a1yvg")]
+transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, -11, 5, 42)
+
+[node name="Spaceship4" parent="." unique_id=190007953 instance=ExtResource("8_a1yvg")]
+transform = Transform3D(0.86602545, 0, 0.5, 0, 1, 0, -0.5, 0, 0.86602545, 1, 5, 56)
+
+[node name="Planet" parent="." unique_id=1610659076 instance=ExtResource("9_dk2sp")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.052380323, 0, 2.3739614)
+
+[node name="Planet2" parent="." unique_id=166663824 instance=ExtResource("9_dk2sp")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.052380323, 0, 94.37396)

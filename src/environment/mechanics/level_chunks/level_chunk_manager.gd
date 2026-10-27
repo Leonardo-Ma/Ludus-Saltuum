@@ -195,6 +195,7 @@ func _load_chunk_metadata_from_catalog() -> void:
 		data.required_skill = chunk.required_skill.duplicate()
 		data.unlocks_skill = chunk.unlocks_skill
 		data.score_multiplier = chunk.score_multiplier
+		data.min_score = chunk.min_score
 		data.difficulty_points = _get_difficulty_points(chunk, data)
 		data.skill_points = _count_required_skills(data)
 

@@ -7,6 +7,10 @@ enum Difficulty {
 	HARD = 2,
 }
 
+@export_category("Availability")
+## Chunk selectable only once score reaches this value
+@export_range(0, 10000, 1, "or_greater", "suffix:score") var min_score: int = 0
+
 @export_category("Difficulty")
 @export var difficulty: Difficulty = Difficulty.EASY
 @export var score_multiplier: float = 1.0

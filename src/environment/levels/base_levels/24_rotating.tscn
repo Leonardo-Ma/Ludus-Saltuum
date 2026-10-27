@@ -10,6 +10,7 @@
 
 [node name="24Spinning" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_th5dm")
+min_score = 40
 features = Array[int]([9, 10])
 
 [node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_q7d2a")]
@@ -30,7 +31,7 @@ transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, 3, 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 125)
 
 [node name="RotatingPlatform" parent="." unique_id=129741558 instance=ExtResource("6_th5dm")]
-transform = Transform3D(-4.9305634, 0, -0.8250824, 0, 5, 0, 0.8250824, 0, -4.9305634, 0, 0, 36)
+transform = Transform3D(4.6185713, 0, 1.9130651, 0, 5, 0, -1.9130651, 0, 4.6185713, 0, 0, 36)
 spin_enabled = true
 
 [node name="Spike4" parent="RotatingPlatform" unique_id=270935533 instance=ExtResource("7_q7d2a")]
@@ -187,7 +188,7 @@ transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.09
 transform = Transform3D(-24.14815, 6.470462, 2.8283324e-07, 3.0767415e-14, -1.0927847e-06, 25, 6.470462, 24.14815, 1.0555491e-06, 1.021709, 0.35100004, -1.3785868)
 
 [node name="RotatingPlatform2" parent="." unique_id=465836803 instance=ExtResource("6_th5dm")]
-transform = Transform3D(-4.9305634, 0, -0.8250824, 0, 5, 0, 0.8250824, 0, -4.9305634, 0, 0, 90)
+transform = Transform3D(4.6185713, 0, 1.9130651, 0, 5, 0, -1.9130651, 0, 4.6185713, 0, 0, 90)
 spin_enabled = true
 
 [node name="Spike4" parent="RotatingPlatform2" unique_id=2030931253 instance=ExtResource("7_q7d2a")]

@@ -20,3 +20,4 @@ var unlocks_skill: SkillDefinition
 var difficulty_points: int = 0
 var skill_points: int = 0
 var score_multiplier: float = 1.0
+var min_score: int = 0

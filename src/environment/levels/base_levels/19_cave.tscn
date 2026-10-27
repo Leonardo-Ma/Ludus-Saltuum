@@ -50,6 +50,7 @@ height = 9.281372
 
 [node name="19Cave" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_de7ky")
+min_score = 400
 score_multiplier = 1.5
 features = Array[int]([4])
 

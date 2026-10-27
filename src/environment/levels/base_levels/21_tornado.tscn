@@ -10,6 +10,7 @@
 
 [node name="21Tornado" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_lml15")
+min_score = 150
 difficulty = 1
 score_multiplier = 1.5
 features = Array[int]([5])
@@ -23,7 +24,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 159)
 
 [node name="GrassPlatform" parent="." unique_id=537577895 instance=ExtResource("4_shvy7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 4)
 
 [node name="ArrowSign" parent="GrassPlatform" unique_id=975612369 instance=ExtResource("5_0v7le")]
 transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, 3, 4, -2)

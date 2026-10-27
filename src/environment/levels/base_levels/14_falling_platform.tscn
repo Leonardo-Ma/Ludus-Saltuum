@@ -10,6 +10,7 @@
 
 [node name="14FallingPlatform" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_2qulf")
+min_score = 60
 difficulty = 1
 score_multiplier = 1.5
 features = Array[int]([2])

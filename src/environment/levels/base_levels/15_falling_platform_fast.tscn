@@ -11,6 +11,7 @@
 
 [node name="15FallingPlatform" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_wcxhf")
+min_score = 150
 difficulty = 1
 score_multiplier = 1.5
 features = Array[int]([2])

@@ -10,7 +10,7 @@
 
 [node name="13ShortDoor" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_scc7e")
-score_multiplier = 2.0
+min_score = 30
 
 [node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_yoy7s")]
 unique_name_in_owner = true

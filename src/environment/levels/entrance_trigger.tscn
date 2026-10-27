@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://jqe7b8io8fum" path="res://src/environment/mechanics/checkpoint/checkpoint.gd" id="1_6uqxa"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4vxvf"]
-size = Vector3(80, 100, 2)
+size = Vector3(132, 100, 2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_arch"]
 size = Vector3(10, 10, 1)

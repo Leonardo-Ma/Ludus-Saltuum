@@ -32,7 +32,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 16)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -3, 17)
 
 [node name="GrassPlatform5" parent="." unique_id=1321168641 instance=ExtResource("6_71ha2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -3, 26)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -3, 27)
 
 [node name="Spring" parent="GrassPlatform5" unique_id=2127770289 instance=ExtResource("6_xyw6i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6585464, 4, 0.384943)

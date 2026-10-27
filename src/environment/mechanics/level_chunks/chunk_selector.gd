@@ -75,13 +75,19 @@ func select_deterministic_chunk_data(
 		if not _passes_turn_filter(data):
 			continue
 
+		if not _passes_min_score_filter(data, current_score):
+			continue
+
 		valid_pool.push_back(data)
 
 	print("Pool size: %d, total available: %d" % [valid_pool.size(), _all_chunks.size()])
 
 	if valid_pool.is_empty():
 		print("  → EMERGENCY FALLBACK: using all basic chunks")
-		valid_pool = _all_chunks.filter(_is_basic_chunk)
+		valid_pool = _all_chunks.filter(
+			func(data: ChunkData) -> bool:
+				return _is_basic_chunk(data) and _passes_min_score_filter(data, current_score),
+		)
 
 		if valid_pool.is_empty():
 			valid_pool = _all_chunks
@@ -183,6 +189,10 @@ func _filter_non_last_chunk(valid_pool: Array[ChunkData]) -> Array[ChunkData]:
 		func(data: ChunkData) -> bool:
 			return _recent_chunk_scene_uids.is_empty() or data.scene_uid != _recent_chunk_scene_uids.back(),
 	)
+
+
+func _passes_min_score_filter(data: ChunkData, current_score: int) -> bool:
+	return current_score >= data.min_score
 #endregion
 
 

@@ -9,7 +9,7 @@
 
 [node name="03ShortGrass" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_3dys7")
-score_multiplier = 0.3
+score_multiplier = 0.8
 
 [node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("5_cnlp5")]
 unique_name_in_owner = true

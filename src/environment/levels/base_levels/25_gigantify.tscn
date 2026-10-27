@@ -19,7 +19,7 @@ metadata/_custom_type_script = "uid://cqo4vne1iqdw4"
 
 [node name="25Gigantify" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_gyp8h")
-score_multiplier = 0.1
+score_multiplier = 0.5
 features = Array[int]([11])
 
 [node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_hwmuk")]
@@ -28,7 +28,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 
 [node name="ExitTrigger" parent="." unique_id=133090523 instance=ExtResource("3_7kv3n")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 56)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 56)
 
 [node name="GrassPlatform" parent="." unique_id=537577895 instance=ExtResource("4_q3vtr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 4)

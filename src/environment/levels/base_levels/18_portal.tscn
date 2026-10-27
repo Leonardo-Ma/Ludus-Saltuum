@@ -61,6 +61,7 @@ metadata/_custom_type_script = "uid://njkofl5g11k7"
 
 [node name="18Portal" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_byynh")
+min_score = 70
 score_multiplier = 1.5
 features = Array[int]([3])
 

@@ -9,6 +9,7 @@
 
 [node name="26Moving" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_f6lqh")
+min_score = 200
 features = Array[int]([6])
 
 [node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_a853u")]

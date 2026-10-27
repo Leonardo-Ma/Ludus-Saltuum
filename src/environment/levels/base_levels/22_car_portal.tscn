@@ -14,6 +14,7 @@ size = Vector3(4, 3, 9)
 
 [node name="22CarPortal" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_oyc53")
+min_score = 220
 difficulty = 1
 score_multiplier = 1.5
 features = Array[int]([0, 3])

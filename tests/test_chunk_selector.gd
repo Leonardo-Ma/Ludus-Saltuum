@@ -4,12 +4,19 @@ extends Node
 const DASH: SkillDefinition = preload("uid://dq338q84ai7to")
 
 
-func _make_chunk(path: String, required: Array[SkillDefinition] = [], unlocks: SkillDefinition = null, is_turn: bool = false) -> ChunkData:
+func _make_chunk(
+	path: String,
+	required: Array[SkillDefinition] = [],
+	unlocks: SkillDefinition = null,
+	is_turn: bool = false,
+	min_score: int = 0,
+) -> ChunkData:
 	var data: ChunkData = ChunkData.new()
 	data.scene_path = path
 	data.required_skill = required
 	data.unlocks_skill = unlocks
 	data.is_turn = is_turn
+	data.min_score = min_score
 	return data
 
 
@@ -21,6 +28,7 @@ func _ready() -> void:
 	_test_filters_by_required_skills()
 	_test_turn_cooldown()
 	_test_forced_skill_unlock()
+	_test_filters_by_min_score()
 	print("ChunkSelector test completed.")
 	self.queue_free()
 
@@ -55,3 +63,17 @@ func _test_forced_skill_unlock() -> void:
 	var chosen: ChunkData = selector.select_deterministic_chunk_data(Transform3D(), 0, [], ChunkSelector.SKILL_UNLOCK_SCORE_STEP)
 	assert(chosen.scene_path == "res://unlock_dash.tscn", "ChunkSelector: expected forced skill unlock chunk once score threshold reached")
 	assert(selector._chunks_since_skill_unlock == 0, "ChunkSelector: _chunks_since_skill_unlock not reset after skill unlock chunk chosen")
+
+
+func _test_filters_by_min_score() -> void:
+	var basic: ChunkData = _make_chunk("res://basic.tscn")
+	var gated: ChunkData = _make_chunk("res://gated.tscn", [], null, false, 100)
+	var selector: ChunkSelector = ChunkSelector.new([basic, gated])
+
+	for i: int in 10:
+		var chosen: ChunkData = selector.select_deterministic_chunk_data(Transform3D(), i, [], 99)
+		assert(chosen.scene_path == "res://basic.tscn", "ChunkSelector: selected chunk below min_score")
+
+	var first: ChunkData = selector.select_deterministic_chunk_data(Transform3D(), 0, [], 100)
+	var second: ChunkData = selector.select_deterministic_chunk_data(Transform3D(), 1, [], 100)
+	assert(first == gated or second == gated, "ChunkSelector: chunk at min_score never selectable")

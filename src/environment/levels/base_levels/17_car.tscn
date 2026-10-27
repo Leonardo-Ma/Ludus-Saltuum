@@ -103,6 +103,7 @@ size = Vector3(9, 3, 2)
 
 [node name="17Car" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_cywjj")
+min_score = 80
 score_multiplier = 1.5
 features = Array[int]([0])
 
