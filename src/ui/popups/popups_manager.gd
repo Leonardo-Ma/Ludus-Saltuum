@@ -94,16 +94,24 @@ func _on_application_state_changed(_new_state: ApplicationStateManager.GameState
 
 
 func _restore_previous_focus() -> void:
+	var target: Control = _previous_focus_owner
+	_previous_focus_owner = null
+
 	await get_tree().process_frame
 
-	if not is_instance_valid(_previous_focus_owner):
+	if has_open_popup() or not is_instance_valid(target) or not target.is_visible_in_tree():
 		return
 
-	if not _previous_focus_owner.is_visible_in_tree():
-		return
+	if not _can_take_focus(target):
+		target = target.find_next_valid_focus()
 
-	if _previous_focus_owner.focus_mode == Control.FOCUS_NONE:
-		return
+	if target != null and _can_take_focus(target):
+		target.grab_focus()
 
-	_previous_focus_owner.grab_focus()
-	_previous_focus_owner = null
+
+func _can_take_focus(control: Control) -> bool:
+	if control.focus_mode == Control.FOCUS_NONE:
+		return false
+
+	var button: BaseButton = control as BaseButton
+	return button == null or not button.disabled
