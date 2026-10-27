@@ -316,13 +316,15 @@ action = &"move_right"
 [node name="MoveInputStick" type="VBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Move/PromptsPanel/HBoxContainer" unique_id=1017354544]
 layout_mode = 2
 
-[node name="Stick" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Move/PromptsPanel/HBoxContainer/MoveInputStick" unique_id=688084930 instance=ExtResource("11_i2hmd")]
+[node name="Stick" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/Move/PromptsPanel/HBoxContainer/MoveInputStick" unique_id=688084930 node_paths=PackedStringArray("linked_container") instance=ExtResource("11_i2hmd")]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("16_s7scb")
 action = &"move_left"
 prefer_axis = true
 keyb_texture_override = SubResource("CompressedTexture2D_t210l")
+device_filter = 2
+linked_container = NodePath("..")
 
 [node name="LookAround" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer" unique_id=2078266502]
 layout_mode = 2
