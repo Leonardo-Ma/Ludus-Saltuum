@@ -1,19 +1,24 @@
-#######################################
-## Entity animation controller
-## To be attached to AnimationTree
-## This acts as a signal listener from other nodes to change animation
-#######################################
+# TODO Remake this garbage :(
+class_name PlayerAnimationController
 extends Node
 
+## Entity animation controller [br]
+## To be attached to AnimationTree [br]
+## This acts as a signal listener from other nodes to change animation [br]
+
+# TODO Improve these names and remove magic string
 const PARAM_MOVEMENT_BLEND_POSITION: String = "parameters/movement/blend_position"
 const PARAM_IN_AIR_STATE_TRANSITION: String = "parameters/in_air_state/transition_request"
 const PARAM_IN_AIR_STATE_CURRENT: String = "parameters/in_air_state/current_state"
 const PARAM_IS_JUMPING_REQUEST: String = "parameters/is_jumping/request"
-const PARAM_ATTACK_TRANSITION: String = "parameters/attack_transition/transition_request"
+const PARAM_ATTACK_TRANSITION: String = "parameters/melee_attack/transition_request"
+const PARAM_MELEE_ATTACK_TRANSITION: String = "parameters/melee_attack/transition_request"
 const PARAM_ATTACK_REQUEST: String = "parameters/attack/request"
 const PARAM_ATTACK_ACTIVE: String = "parameters/attack/active"
 const PARAM_IS_ALIVE_TRANSITION: String = "parameters/is_alive/transition_request"
 const PARAM_IS_DAMAGED_REQUEST: String = "parameters/is_damaged/request"
+
+const MELEE_ATTACKS: Array = ["1h_slice_diagonal", "1h_slice_horizontal", "1h_stab"]
 
 @onready var entity: AggressiveEntity = owner
 @onready var health: Health = entity.health
@@ -39,11 +44,11 @@ func _ready() -> void:
 	entity.melee_attacked.connect(_on_melee_attack)
 	health.damaged.connect(_on_damaged)
 	health.died.connect(_on_death)
-	#health.revived.connect(_on_revived)
+	health.revived.connect(_on_revived)
 
 # Only if multiple idle animations (Need to create new connection in tree)
 #func _on_move_stopped() -> void:
-#	self.set("parameters/moving/transition_request", "idle")
+#	set("parameters/moving/transition_request", "idle")
 
 
 # BUG If player uses shift + movement, strafe animation gets stuck if: shift + a/d + w  then releasing w
@@ -53,50 +58,49 @@ func _ready() -> void:
 ## Y axis: backward (-0.6 walk, -1.0 run) to forward (0.6 walk, 1.0 run)
 ## The direction vector is already scaled by speed_factor in the movement controller
 func _on_movement_direction_changed(direction: Vector2, _speed_factor: float) -> void:
-	self.set(PARAM_MOVEMENT_BLEND_POSITION, direction)
+	set(PARAM_MOVEMENT_BLEND_POSITION, direction)
 
 
 func _on_jumped() -> void:
-	self.set(PARAM_IN_AIR_STATE_TRANSITION, "air")
-	self.set(PARAM_IS_JUMPING_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+	set(PARAM_IN_AIR_STATE_TRANSITION, "air")
+	set(PARAM_IS_JUMPING_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
 
 func _on_in_air() -> void:
-	self.set(PARAM_IN_AIR_STATE_TRANSITION, "air")
+	set(PARAM_IN_AIR_STATE_TRANSITION, "air")
 	# TODO Consider input buffering, so if you attack when about to hit ground, it triggers attack
 	_abort_attack()
 
 
 func _on_landed() -> void:
-	self.set(PARAM_IN_AIR_STATE_TRANSITION, "ground")
+	set(PARAM_IN_AIR_STATE_TRANSITION, "ground")
 
 
 func _on_melee_attack() -> void:
-	if self.get(PARAM_IN_AIR_STATE_CURRENT) != "ground" or self.get(PARAM_ATTACK_ACTIVE) == true:
+	if get(PARAM_IN_AIR_STATE_CURRENT) != "ground" or get(PARAM_ATTACK_ACTIVE) == true:
 		return
-	self.set(PARAM_ATTACK_TRANSITION, "melee_attack")
-	self.set(PARAM_ATTACK_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
-#func _on_magic_casted() -> void:
-#	self.set(PARAM_ATTACK_TRANSITION, "magic_attack")
-#	self.set(PARAM_ATTACK_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+	set(PARAM_MELEE_ATTACK_TRANSITION, MELEE_ATTACKS.pick_random())
+
+	set(PARAM_ATTACK_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
 
 func _on_damaged(_attack: Attack) -> void:
-	self.set(PARAM_IS_ALIVE_TRANSITION, "damaged")
-	self.set(PARAM_IS_DAMAGED_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+	set(PARAM_IS_ALIVE_TRANSITION, "damaged")
+	set(PARAM_IS_DAMAGED_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
 
 func _on_death() -> void:
-	self.set(PARAM_IS_ALIVE_TRANSITION, "dead")
+	set(PARAM_IS_ALIVE_TRANSITION, "dead")
 
-# TODO Add new revive animation and state
-#func _on_revived() -> void:
-#	self.set(PARAM_IS_ALIVE_TRANSITION, "alive")
+
+func _on_revived() -> void:
+	set(PARAM_IS_ALIVE_TRANSITION, "respawn")
+	set(PARAM_IS_DAMAGED_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
 
 func _abort_attack() -> void:
-	self.set(PARAM_ATTACK_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
+	set(PARAM_ATTACK_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
 	# The RESET reverts any animation based function or parameter to default state
 	entity.animation_player.play("RESET")
 
@@ -108,9 +112,10 @@ func _validate_animation_parameters() -> void:
 		PARAM_IN_AIR_STATE_TRANSITION,
 		PARAM_IS_JUMPING_REQUEST,
 		PARAM_ATTACK_REQUEST,
+		PARAM_MELEE_ATTACK_TRANSITION,
 		PARAM_IS_DAMAGED_REQUEST,
 		PARAM_IS_ALIVE_TRANSITION,
 	]
 
 	for param: String in required_parameters:
-		assert(self.get(param) != null, "Missing animation parameter: " + param + " in " + owner.name)
+		assert(get(param) != null, "Missing animation parameter: " + param + " in " + owner.name)

@@ -610,9 +610,9 @@ parameters/in_air_state/current_state = "ground"
 parameters/in_air_state/transition_request = ""
 parameters/in_air_state/current_index = 0
 parameters/in_air_state/observer = null
-parameters/is_alive/current_state = "dead"
-parameters/is_alive/transition_request = "damaged"
-parameters/is_alive/current_index = 0
+parameters/is_alive/current_state = "respawn"
+parameters/is_alive/transition_request = ""
+parameters/is_alive/current_index = 2
 parameters/is_alive/observer = null
 parameters/is_damaged/active = false
 parameters/is_damaged/internal_active = false
@@ -624,6 +624,10 @@ parameters/is_jumping/request = 0
 parameters/is_jumping/observer = null
 parameters/movement/blend_position = Vector2(0, 0)
 parameters/movement/observer = null
+parameters/melee_attack/current_state = "1h_stab"
+parameters/melee_attack/transition_request = ""
+parameters/melee_attack/current_index = 2
+parameters/melee_attack/observer = null
 script = ExtResource("9_yllr7")
 
 [node name="Visual" type="Node3D" parent="." unique_id=1015939177]

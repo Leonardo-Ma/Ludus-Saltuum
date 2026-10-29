@@ -216,6 +216,7 @@ func _on_health_changed(new_health: int) -> void:
 	_prev_health = new_health
 
 
+# NOTE Used in animation player
 func play_attack_sound() -> void:
 	if ATTACK_SOUNDS.size() > 0:
 		AudioManager.play_sound(ATTACK_SOUNDS.pick_random(), AudioManager.SoundBus.SFX, global_position)
