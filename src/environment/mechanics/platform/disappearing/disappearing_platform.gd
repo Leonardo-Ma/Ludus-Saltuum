@@ -29,7 +29,7 @@ func _on_character_step(body: Node3D) -> void:
 	surface.set_deferred("monitoring", false)
 	await _play_vanish_effect(float(fade_out_seconds))
 	disable()
-	await get_tree().create_timer(fade_in_seconds).timeout
+	await get_tree().create_timer(fade_in_seconds, false).timeout
 	surface.set_deferred("monitoring", true)
 	body_collision.disabled = false # collision before visual — no texture visible yet
 	await _play_appear_effect(float(fade_in_seconds))
