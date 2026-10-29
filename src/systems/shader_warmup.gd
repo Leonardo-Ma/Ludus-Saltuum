@@ -4,6 +4,12 @@ extends Node3D
 
 @onready var _sub_viewport: SubViewport = SubViewport.new()
 @onready var _material_mesh: MeshInstance3D = MeshInstance3D.new()
+@onready var _camera: Camera3D = %Camera3D
+
+## Canvas shaders compiled at startup instead of first use to avoid stutter
+@export var canvas_shaders: Array[Shader] = []
+## Environments compiled at startup instead of first use
+@export var environments: Array[Environment] = []
 
 
 func _ready() -> void:
@@ -13,6 +19,8 @@ func _ready() -> void:
 	_setup_material_mesh()
 
 	await _warmup_scenes()
+	await _warmup_canvas_shaders()
+	await _warmup_environments()
 
 	_sub_viewport.queue_free()
 
@@ -58,6 +66,25 @@ func _warmup_scenes() -> void:
 
 		scene_instance.reparent(original_parent, false)
 		scene_instance.global_transform = original_transform
+
+
+func _warmup_canvas_shaders() -> void:
+	for shader: Shader in canvas_shaders:
+		var material: ShaderMaterial = ShaderMaterial.new()
+		material.shader = shader
+		var rect: ColorRect = ColorRect.new()
+		rect.size = Vector2(_sub_viewport.size)
+		rect.material = material
+		_sub_viewport.add_child(rect)
+		await _render_frame()
+		rect.queue_free()
+
+
+func _warmup_environments() -> void:
+	for environment: Environment in environments:
+		_camera.environment = environment
+		await _render_frame()
+	_camera.environment = null
 
 
 func _render_frame() -> void:
