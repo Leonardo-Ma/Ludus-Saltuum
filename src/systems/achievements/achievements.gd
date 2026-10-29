@@ -51,16 +51,16 @@ func configure_achievement_backend(backend: AchievementBackend) -> void:
 
 
 func unlock(key: StringName) -> void:
-	print_debug("Trying to unlock " + key + " achievement")
-	var definition: AchievementDefinition = _get_definition(key)
 	if not _unlocked.get(key, false):
+		print_debug("Trying to unlock " + key + " achievement")
 		_unlocked[key] = true
 		_save()
 		achievement_unlocked.emit(key)
 		print_debug("Unlocked " + key + " achievement")
-	if _backend.is_available():
-		_backend.unlock(definition)
-		print_debug("Also unlocked " + key + " achievement in " + str(_backend))
+		if _backend.is_available():
+			var definition: AchievementDefinition = _get_definition(key)
+			_backend.unlock(definition)
+			print_debug("Also unlocked " + key + " achievement in " + str(_backend))
 
 
 #region Getters
@@ -170,8 +170,8 @@ func _on_score_changed(score: int) -> void:
 		unlock(&"score_500")
 	if score >= 2000:
 		unlock(&"score_2000")
-	if score >= 5000:
-		unlock(&"score_5000")
+	#if score >= 5000:
+	#	unlock(&"score_5000")
 	if score >= 10000:
 		unlock(&"score_10000")
 

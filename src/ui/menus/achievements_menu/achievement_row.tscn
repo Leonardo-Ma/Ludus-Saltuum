@@ -22,9 +22,30 @@ layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer" unique_id=1426600585]
 layout_mode = 2
-theme_override_constants/separation = 8
 
-[node name="NameLabel" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=1560232332]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=454378778]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Icon" type="TextureRect" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer" unique_id=1921146503]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("2_qf6my")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=558830160]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="NameLabel" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer2" unique_id=1560232332]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 propagate_maximum_size = true
@@ -34,16 +55,16 @@ text = "EXAMPLE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DescriptionLabel" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=1625609370]
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=1562060077]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="DescriptionLabel" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer3" unique_id=1625609370]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "EXAMPLE"
-
-[node name="Icon" type="TextureRect" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=1921146503]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-texture = ExtResource("2_qf6my")
-expand_mode = 1
-stretch_mode = 5
+horizontal_alignment = 1

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://mvr72dhxlaux" path="res://src/ui/overlays/overlays.gd" id="1_0angg"]
 [ext_resource type="Shader" uid="uid://job7divx3qp" path="res://src/ui/overlays/grayscale/grayscale.gdshader" id="2_fysoe"]
 [ext_resource type="Script" uid="uid://ddttyvdbetggu" path="res://src/ui/overlays/grayscale/grayscale_overlay.gd" id="3_b3qka"]
+[ext_resource type="PackedScene" uid="uid://bapvsqksml318" path="res://src/ui/overlays/achievement_toast/achievement_toast.tscn" id="4_b3qka"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tacig"]
 shader = ExtResource("2_fysoe")
@@ -51,3 +52,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="AchievementToast" parent="." unique_id=131548610 instance=ExtResource("4_b3qka")]
+visible = false
+layout_mode = 1
+offset_left = -200.0
+offset_top = -74.0

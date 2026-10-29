@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://bapvsqksml318"]
+
+[ext_resource type="Script" uid="uid://bt6l4787ym077" path="res://src/ui/overlays/achievement_toast/achievement_toast.gd" id="1_2smk6"]
+
+[node name="AchievementToast" type="PanelContainer" unique_id=131548610]
+custom_minimum_size = Vector2(200, 60)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("1_2smk6")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=995884375]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer" unique_id=308988524]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="AchievementIcon" type="TextureRect" parent="HBoxContainer/MarginContainer" unique_id=1324045317]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1177786976]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="HBoxContainer/VBoxContainer" unique_id=394837927]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="DescriptionLabel" type="Label" parent="HBoxContainer/VBoxContainer" unique_id=1067579037]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_alignment = 1
