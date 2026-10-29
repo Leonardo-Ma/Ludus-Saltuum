@@ -29,7 +29,7 @@ func _button_pressed() -> void:
 	_is_submitting = true
 
 	var feedback_text: String = feedback_text_input.text
-	var feedback_props: Dictionary[String, String] = gather_analytics()
+	var feedback_props: Dictionary[String, String] = _gather_analytics()
 
 	await _identify_feedback_player()
 
@@ -74,9 +74,10 @@ func _show_success_overlay() -> void:
 
 func _on_success_overlay_timer_timeout() -> void:
 	sucess_overlay.hide()
+	_clear_fields()
 
 
-func gather_analytics() -> Dictionary[String, String]:
+func _gather_analytics() -> Dictionary[String, String]:
 	var feedback_props: Dictionary[String, String]
 
 	var game_version: String = str(ProjectSettings.get_setting("application/config/version"))
@@ -103,3 +104,9 @@ func gather_analytics() -> Dictionary[String, String]:
 	feedback_props["platform"] = platform
 
 	return feedback_props
+
+
+func _clear_fields() -> void:
+	feedback_text_input.text = ""
+	like_button.button_pressed = false
+	dislike_button.button_pressed = false
