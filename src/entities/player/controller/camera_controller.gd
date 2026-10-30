@@ -62,6 +62,7 @@ func _input(event: InputEvent) -> void:
 	var player_is_using_mouse: bool = event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
 	if player_is_using_mouse:
 		# TODO Smooth the camera rotation (maybe lerp()?)
+		# BUG Different screen size is impacting with sensibility
 		player.rotate_y(deg_to_rad(-event.relative.x * horizontal_sensibility))
 		# Limit vertical camera rotation
 		_pitch = clamp(_pitch + deg_to_rad(-event.relative.y * vertical_sensibility), deg_to_rad(-85), deg_to_rad(45))

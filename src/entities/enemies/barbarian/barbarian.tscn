@@ -664,6 +664,18 @@ parameters/is_jumping/request = 0
 parameters/is_jumping/observer = null
 parameters/movement/blend_position = Vector2(0, 0)
 parameters/movement/observer = null
+parameters/melee_attack/current_state = ""
+parameters/melee_attack/transition_request = ""
+parameters/melee_attack/current_index = -1
+parameters/melee_attack/observer = null
+parameters/death/current_state = ""
+parameters/death/transition_request = ""
+parameters/death/current_index = -1
+parameters/death/observer = null
+parameters/damaged/current_state = ""
+parameters/damaged/transition_request = ""
+parameters/damaged/current_index = -1
+parameters/damaged/observer = null
 
 [node name="Rig_Medium" type="Node3D" parent="Visual" parent_id_path=PackedInt32Array(977755737) index="0" unique_id=704702845]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)

@@ -20,11 +20,11 @@ func _ready() -> void:
 	_target = get_owner() as AggressiveEntity
 	assert(_target != null, "StatusManager target is not AggressiveEntity: " + self.name)
 	for status: StatusEffect in permanent_statuses:
-		assert(status.resource_path.get_extension() == ".tres", "status " + name + " must be external .tres attached, not edited in editor inspector")
+		assert(status.resource_path.get_extension() == "tres", "status " + name + " must be external .tres attached, not edited in editor inspector")
 		if status:
 			apply_status(status)
 	for status: StatusEffect in initial_statuses:
-		assert(status.resource_path.get_extension() == ".tres", "status " + name + " must be external .tres attached, not edited in editor inspector")
+		assert(status.resource_path.get_extension() == "tres", "status " + name + " must be external .tres attached, not edited in editor inspector")
 		if status:
 			apply_status(status)
 

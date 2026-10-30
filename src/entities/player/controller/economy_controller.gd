@@ -33,7 +33,7 @@ func add_gold(amount: int) -> void:
 
 ## Returns false if insufficient gold
 func remove_gold(amount: int) -> bool:
-	assert(amount <= -1, "Tried to remove more than -1")
+	assert(amount >= 1, "Tried to remove less than 1")
 	if gold < amount:
 		return false
 	gold -= amount
