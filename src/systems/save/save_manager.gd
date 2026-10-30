@@ -14,6 +14,7 @@ signal reset_requested
 signal reset_finished
 
 const SAVE_DIR: String = "user://saves/"
+const FIRST_MANUAL_SLOT: int = 0
 const MANUAL_SLOTS: int = 2
 const AUTO_SLOTS: int = 2
 const TOTAL_SLOTS: int = MANUAL_SLOTS + AUTO_SLOTS

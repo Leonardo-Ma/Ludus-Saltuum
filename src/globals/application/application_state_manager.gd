@@ -129,13 +129,16 @@ func is_paused() -> bool:
 	return _current_state == GameState.PAUSED
 
 
-func request_new_game() -> void:
+func request_start_game() -> void:
 	assert(_current_state == GameState.MAIN_MENU, "Can only start new game from MAIN_MENU, current: " + str(_current_state))
 	_change_state(GameState.SAVE_MENU)
 
 
 func request_play_from_save() -> void:
-	assert(_current_state == GameState.SAVE_MENU, "Can only start gameplay from SAVE_MENU, current: " + str(_current_state))
+	assert(
+		_current_state in [GameState.SAVE_MENU, GameState.MAIN_MENU],
+		"Can only start gameplay from SAVE_MENU or MAIN_MENU, current: " + str(_current_state),
+	)
 	_change_state(GameState.PLAYING)
 
 

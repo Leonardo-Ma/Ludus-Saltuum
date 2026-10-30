@@ -6,4 +6,9 @@ func _button_ready() -> void:
 
 
 func _button_pressed() -> void:
-	ApplicationStateManager.request_new_game()
+	if SaveManager.has_any_save():
+		ApplicationStateManager.request_start_game()
+		return
+
+	SaveManager.initialize_new_save(SaveManager.FIRST_MANUAL_SLOT)
+	ApplicationStateManager.request_play_from_save()
