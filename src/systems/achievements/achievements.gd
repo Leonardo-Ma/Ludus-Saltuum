@@ -39,9 +39,8 @@ func _ready() -> void:
 
 	ControlledEntityEvents.player_finished_spawning.connect(_on_player_spawned)
 
-	@warning_ignore("unused_parameter")
 	CollectiblesEvents.skill_collected.connect(
-		func(skill_definition: SkillDefinition) -> void:
+		func(_skill_definition: SkillDefinition) -> void:
 			_check_skill_completion(),
 	)
 

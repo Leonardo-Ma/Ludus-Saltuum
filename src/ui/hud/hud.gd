@@ -22,7 +22,6 @@ func setup(player: PlayerEntity) -> void:
 	player_healthbar.setup(player)
 
 
-@warning_ignore("unused_parameter")
 func _on_gameplay_changed(new_mode: GameplayStateManager.GameplayMode, _previous_mode: GameplayStateManager.GameplayMode) -> void:
 	if new_mode == GameplayStateManager.GameplayMode.RACING:
 		skills_panel.hide()

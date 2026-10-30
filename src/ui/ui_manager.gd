@@ -105,9 +105,7 @@ func set_hud_visible(visible: bool) -> void:
 	_ui.set_hud_visible(visible)
 
 
-# TODO Check how the unused argument could be omitted without possible silent fails
-@warning_ignore("unused_parameter") # gdlint-ignore-next-line unused-argument
-func _on_game_state_changed(new_state: ApplicationStateManager.GameState, previous_state: ApplicationStateManager.GameState) -> void:
+func _on_game_state_changed(new_state: ApplicationStateManager.GameState, _previous_state: ApplicationStateManager.GameState) -> void:
 	match new_state:
 		ApplicationStateManager.GameState.MAIN_MENU:
 			_ui.show_main_menu()

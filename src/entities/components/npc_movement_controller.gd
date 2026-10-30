@@ -17,8 +17,6 @@ func _child_ready() -> void:
 	set_physics_process(false)
 
 
-# TODO Check better approach than ignores
-@warning_ignore("unused_parameter") # gdlint-ignore-next-line unused-argument
 func _move(_delta: float) -> void:
 	if _navigation_agent.is_navigation_finished():
 		stop()
