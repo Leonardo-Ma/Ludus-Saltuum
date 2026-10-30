@@ -48,15 +48,11 @@ func _ready() -> void:
 	_sync_cloud_saves()
 	_next_auto_slot = _find_next_auto_slot()
 
-	_auto_timer = Timer.new()
-	_auto_timer.name = "AutoSaveTimer"
-	_auto_timer.wait_time = AUTO_SAVE_INTERVAL
-	_auto_timer.timeout.connect(_on_auto_save)
-	add_child(_auto_timer)
+	_setup_auto_save_timer()
 
 	# Saves to quick slot upon pause and quit
-	ApplicationStateManager.gameplay_paused.connect(_on_gameplay_paused)
-	ApplicationStateManager.quit_requested.connect(_on_quit_requested)
+	ApplicationStateManager.gameplay_paused.connect(_save_to_active_slot.bind(false))
+	ApplicationStateManager.quit_requested.connect(_save_to_active_slot.bind(true))
 
 	ApplicationStateManager.gameplay_started.connect(
 		func() -> void:
@@ -83,7 +79,9 @@ func initialize_new_save(slot_index: int) -> void:
 
 # TODO Change to a request save to slot
 func _save_to_active_slot(force: bool) -> void:
-	assert(_active_slot_index != -1, "SaveManager: no active slot set in " + name)
+	if _active_slot_index == -1:
+		push_warning("Tried saving without active slot")
+		return
 	_write_slot(_active_slot_index, false, force)
 
 
@@ -142,6 +140,32 @@ func has_any_save() -> bool:
 		if has_save(i):
 			return true
 	return false
+
+
+##  if empty slot, it wins
+func get_oldest_slot(first_slot: int, slot_count: int) -> int:
+	var oldest_slot: int = first_slot
+	var oldest_timestamp: float = INF
+	for slot: int in range(first_slot, first_slot + slot_count):
+		var data: SaveData = get_slot_data(slot)
+		if data == null:
+			return slot
+		if data.save_timestamp < oldest_timestamp:
+			oldest_timestamp = data.save_timestamp
+			oldest_slot = slot
+	return oldest_slot
+
+
+## -1 if none
+func get_latest_slot() -> int:
+	var latest_slot: int = -1
+	var latest_timestamp: int = -1
+	for slot: int in range(TOTAL_SLOTS):
+		var data: SaveData = get_slot_data(slot)
+		if data != null and data.save_timestamp > latest_timestamp:
+			latest_timestamp = data.save_timestamp
+			latest_slot = slot
+	return latest_slot
 
 
 ## Blocks saving while [param source] is mid-transition (respawn, load...)
@@ -319,33 +343,24 @@ func _cleanup_stale_temp_files() -> void:
 
 
 func _find_next_auto_slot() -> int:
-	var oldest_index: int = 0
-	var oldest_timestamp: float = INF
-	for i: int in range(AUTO_SLOTS):
-		var slot: int = MANUAL_SLOTS + i
-		var data: SaveData = get_slot_data(slot)
-		if data == null:
-			return i
-		if data.save_timestamp < oldest_timestamp:
-			oldest_timestamp = data.save_timestamp
-			oldest_index = i
-	return oldest_index
+	return get_oldest_slot(MANUAL_SLOTS, AUTO_SLOTS) - MANUAL_SLOTS
+
+
+func _setup_auto_save_timer() -> void:
+	_auto_timer = Timer.new()
+	_auto_timer.name = "AutoSaveTimer"
+	_auto_timer.wait_time = AUTO_SAVE_INTERVAL
+	_auto_timer.timeout.connect(_on_auto_save)
+	add_child(_auto_timer)
+
+	ApplicationStateManager.gameplay_started.connect(_auto_timer.start)
+	ApplicationStateManager.gameplay_resumed.connect(_auto_timer.start)
+	ApplicationStateManager.gameplay_paused.connect(_auto_timer.stop)
 
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		ApplicationStateManager.request_quit()
-
-
-func _on_gameplay_paused() -> void:
-	_save_to_active_slot(false)
-
-
-func _on_quit_requested() -> void:
-	if _active_slot_index != -1:
-		_save_to_active_slot(true)
-	else:
-		push_warning("Saving on quit tried to save without active slot")
 
 #endregion
 
