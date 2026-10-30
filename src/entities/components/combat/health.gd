@@ -51,7 +51,6 @@ func take_damage(attack: Attack) -> void:
 		schedule_regeneration()
 
 
-# Revived warns HUD
 func reset() -> void:
 	var was_dead: bool = current_health <= 0
 	current_health = max_health

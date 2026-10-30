@@ -1,15 +1,16 @@
 # TODO Refactor to decouple from player spawn
-## [img]res://docs/diagrams/saving/saving.drawio.png[/img] [br]
-## Slot save system: slots 2 manual, 2 auto
-## Write to .tmp → rename to .tres, keep .bak of previous good save
 extends Node
+
+## [img]res://docs/diagrams/saving/saving.drawio.png[/img] [br]
+## Slot save system: slots 2 manual, 2 auto [br]
+## Write to .tmp → rename to .tres, keep .bak of previous good save
 
 ## Every system should trigger internal save
 signal save_requested(data: SaveData)
 ## Every system should trigger internal load
 signal load_requested(data: SaveData)
 signal save_changed(slot_index: int)
-## Every system should reset for new game
+## Every system should restore defaults for new game
 signal reset_requested
 signal reset_finished
 
@@ -47,7 +48,6 @@ func _ready() -> void:
 	_sync_cloud_saves()
 	_next_auto_slot = _find_next_auto_slot()
 
-	# TODO Change this to only start when gameplay active maybe?
 	_auto_timer = Timer.new()
 	_auto_timer.name = "AutoSaveTimer"
 	_auto_timer.wait_time = AUTO_SAVE_INTERVAL
