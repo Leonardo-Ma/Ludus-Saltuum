@@ -628,6 +628,14 @@ parameters/melee_attack/current_state = "1h_stab"
 parameters/melee_attack/transition_request = ""
 parameters/melee_attack/current_index = 2
 parameters/melee_attack/observer = null
+parameters/death/current_state = ""
+parameters/death/transition_request = "death_a"
+parameters/death/current_index = -1
+parameters/death/observer = null
+parameters/damaged/current_state = ""
+parameters/damaged/transition_request = ""
+parameters/damaged/current_index = -1
+parameters/damaged/observer = null
 script = ExtResource("9_yllr7")
 
 [node name="Visual" type="Node3D" parent="." unique_id=1015939177]

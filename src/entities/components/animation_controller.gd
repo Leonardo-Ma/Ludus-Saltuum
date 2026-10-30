@@ -16,9 +16,13 @@ const PARAM_MELEE_ATTACK_TRANSITION: String = "parameters/melee_attack/transitio
 const PARAM_ATTACK_REQUEST: String = "parameters/attack/request"
 const PARAM_ATTACK_ACTIVE: String = "parameters/attack/active"
 const PARAM_IS_ALIVE_TRANSITION: String = "parameters/is_alive/transition_request"
+const PARAM_DEATH_TRANSITION: String = "parameters/death/transition_request"
 const PARAM_IS_DAMAGED_REQUEST: String = "parameters/is_damaged/request"
+const PARAM_DAMAGED_TRANSITION: String = "parameters/damaged/transition_request"
 
-const MELEE_ATTACKS: Array = ["1h_slice_diagonal", "1h_slice_horizontal", "1h_stab"]
+const MELEE_ATTACK_ANIMATIONS: Array = ["1h_slice_diagonal", "1h_slice_horizontal", "1h_stab"]
+const DAMAGED_ANIMATIONS: Array = ["hit_a", "hit_b"]
+const DEATH_ANIMATIONS: Array = ["death_a", "death_b"]
 
 @onready var entity: AggressiveEntity = owner
 @onready var health: Health = entity.health
@@ -80,18 +84,21 @@ func _on_melee_attack() -> void:
 	if get(PARAM_IN_AIR_STATE_CURRENT) != "ground" or get(PARAM_ATTACK_ACTIVE) == true:
 		return
 
-	set(PARAM_MELEE_ATTACK_TRANSITION, MELEE_ATTACKS.pick_random())
+	set(PARAM_MELEE_ATTACK_TRANSITION, MELEE_ATTACK_ANIMATIONS.pick_random())
 
 	set(PARAM_ATTACK_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
 
 func _on_damaged(_attack: Attack) -> void:
 	set(PARAM_IS_ALIVE_TRANSITION, "damaged")
+	set(PARAM_DAMAGED_TRANSITION, DAMAGED_ANIMATIONS.pick_random())
 	set(PARAM_IS_DAMAGED_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
 
 func _on_death() -> void:
 	set(PARAM_IS_ALIVE_TRANSITION, "dead")
+	set(PARAM_DEATH_TRANSITION, DEATH_ANIMATIONS.pick_random())
+	set(PARAM_IS_DAMAGED_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
 
 func _on_revived() -> void:
@@ -107,13 +114,14 @@ func _abort_attack() -> void:
 
 func _validate_animation_parameters() -> void:
 	var required_parameters: Array[String] = [
-		#"parameters/moving/transition_request",
 		PARAM_MOVEMENT_BLEND_POSITION,
 		PARAM_IN_AIR_STATE_TRANSITION,
 		PARAM_IS_JUMPING_REQUEST,
 		PARAM_ATTACK_REQUEST,
 		PARAM_MELEE_ATTACK_TRANSITION,
 		PARAM_IS_DAMAGED_REQUEST,
+		PARAM_DEATH_TRANSITION,
+		PARAM_DAMAGED_TRANSITION,
 		PARAM_IS_ALIVE_TRANSITION,
 	]
 
