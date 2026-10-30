@@ -35,6 +35,9 @@ func respawn(delay: float, target_transform: Transform3D, is_death: bool = false
 	global_position = target_transform.origin
 	global_rotation.y = atan2(target_transform.basis.z.x, target_transform.basis.z.z)
 
+	player_movement_controller.enable_movement()
+	player_movement_controller.disable_movement(delay / 2.0)
+
 	status_manager.clear_temporary_statuses()
 
 	if is_death:
@@ -87,7 +90,7 @@ func _child_ready() -> void:
 
 	health.damaged.connect(_on_damaged_vibration)
 	# TODO Also disable input controller, player can attack between death and respawn
-	health.died.connect(player_movement_controller.disable_movement.bind(5.0))
+	health.died.connect(player_movement_controller.disable_movement.bind(INF))
 
 	ApplicationStateManager.state_changed.connect(_on_application_state_changed)
 
