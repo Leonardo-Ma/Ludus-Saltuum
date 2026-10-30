@@ -64,11 +64,11 @@ func exit_vehicle(exit_position: Vector3) -> void:
 
 #region Private API
 func _on_vehicle_entered() -> void:
-	_player.entity_enable_disable(false)
+	_player.set_state(PlayerEntity.PlayerState.IN_VEHICLE)
 
 
 func _on_vehicle_exited(_exit_position: Vector3) -> void:
-	_player.entity_enable_disable(true)
+	_player.set_state(PlayerEntity.PlayerState.ACTIVE)
 
 
 func _on_vehicle_tree_exiting() -> void:
@@ -79,5 +79,4 @@ func _exit_vehicle_on_invalid() -> void:
 	_vehicle = null
 	is_in_vehicle = false
 	vehicle_exited.emit(owner.position)
-	_player.entity_enable_disable(true)
 #endregion

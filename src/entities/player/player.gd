@@ -1,8 +1,16 @@
 class_name PlayerEntity
 extends AggressiveEntity
 
+enum PlayerState {
+	INACTIVE = 0, ## Not playing (menus)
+	ACTIVE = 1,
+	IN_VEHICLE = 2,
+}
+
 @export_category("Skills")
 @export var startup_skills: Array[SkillDefinition] = []
+
+var state: PlayerState = PlayerState.INACTIVE
 
 @onready var camera_controller: CameraController = %CamRoot
 @onready var player_movement_controller: PlayerMovementController = %PlayerMovementController
@@ -55,27 +63,29 @@ func respawn(delay: float, target_transform: Transform3D, is_death: bool = false
 
 	ControlledEntityEvents.player_finished_respawning.emit()
 	# TODO This is needed because parent class unifies disable entity upon death for players and NPCs
-	entity_enable_disable(true)
+	set_state(PlayerState.ACTIVE)
 
 
 # TODO Maybe change this to a signal based to decouple?
-# TODO Improve name
-func entity_enable_disable(toggle: bool) -> void:
-	if toggle == true:
+## Re-applies when unchanged, respawn relies on it to undo disable_entity()
+func set_state(new_state: PlayerState) -> void:
+	state = new_state
+	var is_active: bool = new_state == PlayerState.ACTIVE
+	if is_active:
 		ControlledEntityEvents.set_controlled_entity(self)
 		add_to_group(Groups.CONTROLLED)
 	else:
 		remove_from_group(Groups.CONTROLLED)
-	skills_controller.set_physics_process(toggle)
-	set_collision_layer_value(1, toggle)
-	collision_shape.set_deferred("disabled", not toggle)
-	hurtbox.set_deferred("monitoring", toggle)
-	hurtbox.set_deferred("monitorable", toggle)
-	hitbox.set_deferred("monitoring", toggle)
-	hitbox.set_deferred("monitorable", toggle)
-	camera_controller.set_active(toggle)
-	set_physics_process(toggle)
-	visible = toggle
+	skills_controller.set_physics_process(is_active)
+	set_collision_layer_value(1, is_active)
+	collision_shape.set_deferred("disabled", not is_active)
+	hurtbox.set_deferred("monitoring", is_active)
+	hurtbox.set_deferred("monitorable", is_active)
+	hitbox.set_deferred("monitoring", is_active)
+	hitbox.set_deferred("monitorable", is_active)
+	camera_controller.set_active(is_active)
+	set_physics_process(is_active)
+	visible = is_active
 
 
 func _child_ready() -> void:
@@ -94,10 +104,7 @@ func _child_ready() -> void:
 
 	ApplicationStateManager.state_changed.connect(_on_application_state_changed)
 
-	if ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.PLAYING):
-		entity_enable_disable(true)
-	else:
-		entity_enable_disable(false)
+	_on_application_state_changed(ApplicationStateManager.get_current_state(), ApplicationStateManager.get_previous_state())
 
 	ControlledEntityEvents.player_finished_spawning.emit(self)
 
@@ -109,9 +116,9 @@ func finish_load() -> void:
 
 func _on_application_state_changed(new_state: ApplicationStateManager.GameState, _previous_state: ApplicationStateManager.GameState) -> void:
 	# TODO Double check this
-	if vehicle_rider.is_in_vehicle:
+	if state == PlayerState.IN_VEHICLE:
 		return
-	entity_enable_disable(new_state == ApplicationStateManager.GameState.PLAYING)
+	set_state(PlayerState.ACTIVE if new_state == ApplicationStateManager.GameState.PLAYING else PlayerState.INACTIVE)
 
 
 ## Receives from input controller, goes to animation controller for attack

@@ -126,7 +126,7 @@ func _ready() -> void:
 
 
 # TODO Disable navigation for GOAP, disable player controller
-# Maybe transform into abstract method to force override? Or use entity_enable_disable (player has but not npc)?
+# Maybe transform into abstract method to force override? Or use set_state (player has but not npc)?
 func _on_death() -> void:
 	print(str(name) + " is dead, Jim!")
 
