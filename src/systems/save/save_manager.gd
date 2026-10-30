@@ -71,7 +71,7 @@ func configure_cloud_backend(backend: CloudSaveBackend) -> void:
 	_cloud_backend = backend
 
 
-func reset_save(slot_index: int) -> void:
+func initialize_new_save(slot_index: int) -> void:
 	_active_slot_index = slot_index
 	_next_auto_slot = 0
 	reset_requested.emit()

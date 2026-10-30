@@ -39,7 +39,7 @@ func _on_save_file_item_play_requested(slot_index: int) -> void:
 			# TODO Open a version error popup, make backup and possibly delete save
 			return
 	else:
-		SaveManager.reset_save(slot_index)
+		SaveManager.initialize_new_save(slot_index)
 
 	ApplicationStateManager.request_play_from_save()
 

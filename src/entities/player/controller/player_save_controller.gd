@@ -23,7 +23,7 @@ func _ready() -> void:
 			build_save_data(data.player),
 	)
 	# Loading is triggered by game load manager
-	SaveManager.reset_requested.connect(reset_save_data)
+	SaveManager.reset_requested.connect(initialize_new_save_data)
 
 
 func build_save_data(data: PlayerSaveData) -> void:
@@ -66,7 +66,7 @@ func apply_save_data(data: PlayerSaveData) -> void:
 		easter_egg_controller.found_easter_eggs[egg] = true
 
 
-func reset_save_data() -> void:
+func initialize_new_save_data() -> void:
 	if player.vehicle_rider.is_in_vehicle:
 		player.vehicle_rider.vehicle.exit(player.global_position)
 

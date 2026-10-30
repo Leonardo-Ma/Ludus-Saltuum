@@ -31,8 +31,8 @@ func _ready() -> void:
 	)
 	ApplicationStateManager.state_changed.connect(_on_application_state_changed)
 
-	assert(not SaveManager.reset_requested.is_connected(reset_save_data), "GameplayStateManager already connected to SaveManager")
-	SaveManager.reset_requested.connect(reset_save_data)
+	assert(not SaveManager.reset_requested.is_connected(initialize_new_save_data), "GameplayStateManager already connected to SaveManager")
+	SaveManager.reset_requested.connect(initialize_new_save_data)
 
 	if ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.MAIN_MENU):
 		_on_application_state_entered_main_menu()
@@ -61,7 +61,7 @@ func set_play_time(seconds: float) -> void:
 	_play_time_seconds = seconds
 
 
-func reset_save_data() -> void:
+func initialize_new_save_data() -> void:
 	set_play_time(0.0)
 
 

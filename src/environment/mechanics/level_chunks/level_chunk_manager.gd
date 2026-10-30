@@ -63,7 +63,7 @@ func _ready() -> void:
 			build_save_data(data.chunks),
 	)
 	SaveManager.load_requested.connect(_on_load_requested)
-	SaveManager.reset_requested.connect(reset_save_data)
+	SaveManager.reset_requested.connect(initialize_new_save_data)
 	SaveManager.reset_finished.connect(initialize_level)
 
 
@@ -108,7 +108,7 @@ func stage_new_game_seed(seed_value: int) -> void:
 	_pending_new_game_seed = seed_value
 
 
-func reset_save_data() -> void:
+func initialize_new_save_data() -> void:
 	clear_level()
 	_chunk_selector.reset()
 	_next_chunk_key = 0
