@@ -25,57 +25,57 @@ func _ready() -> void:
 
 func show_main_menu() -> void:
 	_popups.close_all_popups()
-	_menus.visible = true
+	_menus.show()
 	_menus.show_main_menu()
-	_hud.visible = false
-	_overlays.visible = false
-	_popups.visible = false
+	_hud.hide()
+	_overlays.hide()
+	_popups.hide()
 
 
 func show_save_menu() -> void:
 	_popups.close_all_popups()
-	_menus.visible = true
+	_menus.show()
 	_menus.show_save_menu()
-	_hud.visible = false
-	_overlays.visible = false
-	_popups.visible = false
+	_hud.hide()
+	_overlays.hide()
+	_popups.hide()
 
 
 func show_game() -> void:
-	_menus.visible = false
+	_menus.hide()
 	_hud.visible = UIManager.hud_visible
-	_overlays.visible = true
-	_popups.visible = true
+	_overlays.show()
+	_popups.show()
 
 
 func show_pause_menu() -> void:
 	_popups.close_all_popups()
-	_menus.visible = true
+	_menus.show()
 	_menus.show_pause_menu()
-	_hud.visible = false
-	_overlays.visible = false
-	_popups.visible = false
+	_hud.hide()
+	_overlays.hide()
+	_popups.hide()
 
 
 func show_settings() -> void:
-	_menus.visible = true
+	_menus.show()
 	_menus.show_settings()
 
 
 func show_achievements() -> void:
 	_popups.close_all_popups()
-	_menus.visible = true
+	_menus.show()
 	_menus.show_achievements()
-	_hud.visible = false
-	_overlays.visible = false
-	_popups.visible = false
+	_hud.hide()
+	_overlays.hide()
+	_popups.hide()
 
 
 func show_main_menu_settings() -> void:
-	_menus.visible = true
+	_menus.show()
 	_menus.show_main_menu_settings()
-	_hud.visible = false
-	_overlays.visible = false
+	_hud.hide()
+	_overlays.hide()
 
 
 func has_open_popup() -> bool:

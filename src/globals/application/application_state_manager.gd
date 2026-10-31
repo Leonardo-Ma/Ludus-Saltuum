@@ -55,7 +55,7 @@ func _notification(what: int) -> void:
 func _change_state(new_state: GameState) -> void:
 	if _current_state == new_state:
 		return
-	assert(_is_valid_transition(_current_state, new_state), "Invalid state transition from " + str(_current_state) + " to " + str(new_state))
+	assert(_is_valid_transition(_current_state, new_state), "Invalid state transition from " + GameState.find_key(_current_state) + " to " + GameState.find_key(new_state))
 
 	if _current_state in _RETURNABLE_STATES and new_state not in _RETURNABLE_STATES:
 		_menu_return_state = _current_state
@@ -76,29 +76,32 @@ func _on_state_entered(new_state: GameState, previous_state: GameState) -> void:
 		GameState.MAIN_MENU:
 			PauseManager.request_pause("gameplay")
 			main_menu_opened.emit()
-
+		
 		GameState.PLAYING:
 			PauseManager.release_pause("gameplay")
 			if previous_state == GameState.PAUSED:
 				gameplay_resumed.emit()
 			else:
 				gameplay_started.emit()
-
+		
 		GameState.PAUSED:
 			PauseManager.request_pause("gameplay")
 			gameplay_paused.emit()
-
+		
 		GameState.SETTINGS:
 			settings_opened.emit()
-
+		
 		GameState.SAVE_MENU:
 			pass
-
+		
 		GameState.ACHIEVEMENTS_MENU:
 			pass
-
+		
 		GameState.MAIN_MENU_SETTINGS:
 			settings_opened.emit()
+		
+		_:
+			assert(false, "Missing a transition logic for " + GameState.find_key(new_state))
 
 
 func get_current_state() -> GameState:
@@ -132,25 +135,25 @@ func is_paused() -> bool:
 func request_play_from_save() -> void:
 	assert(
 		_current_state in [GameState.SAVE_MENU, GameState.MAIN_MENU],
-		"Can only start gameplay from SAVE_MENU or MAIN_MENU, current: " + str(_current_state),
+		"Can only start gameplay from SAVE_MENU or MAIN_MENU, current: " + GameState.find_key(_current_state),
 	)
 	_change_state(GameState.PLAYING)
 
 
 func request_pause() -> void:
-	assert(_current_state == GameState.PLAYING, "Can only pause from PLAYING, current: " + str(_current_state))
+	assert(_current_state == GameState.PLAYING, "Can only pause from PLAYING, current: " + GameState.find_key(_current_state))
 	_change_state(GameState.PAUSED)
 
 
 func request_resume() -> void:
-	assert(_current_state == GameState.PAUSED, "Can only resume from PAUSED, current: " + str(_current_state))
+	assert(_current_state == GameState.PAUSED, "Can only resume from PAUSED, current: " + GameState.find_key(_current_state))
 	_change_state(GameState.PLAYING)
 
 
 func request_settings() -> void:
 	assert(
 		_current_state in [GameState.PLAYING, GameState.PAUSED, GameState.MAIN_MENU, GameState.MAIN_MENU_SETTINGS],
-		"Can only open settings from gameplay or main menu, current: " + str(_current_state),
+		"Can only open settings from gameplay or main menu, current: " + GameState.find_key(_current_state),
 	)
 
 	if _current_state == GameState.MAIN_MENU:
@@ -162,7 +165,7 @@ func request_settings() -> void:
 
 
 func request_close_settings() -> void:
-	assert(is_in_settings(), "Not in settings state, current: " + str(_current_state))
+	assert(is_in_settings(), "Not in settings state, current: " + GameState.find_key(_current_state))
 	_change_state(_menu_return_state)
 	settings_closed.emit()
 
@@ -170,7 +173,7 @@ func request_close_settings() -> void:
 func request_close_menu() -> void:
 	assert(
 		_current_state in [GameState.SETTINGS, GameState.SAVE_MENU, GameState.ACHIEVEMENTS_MENU, GameState.MAIN_MENU_SETTINGS],
-		"Not in a closable menu state, current: " + str(_current_state),
+		"Not in a closable menu state, current: " + GameState.find_key(_current_state),
 	)
 	_change_state(_menu_return_state)
 
@@ -184,7 +187,7 @@ func request_main_menu() -> void:
 func request_save_menu() -> void:
 	assert(
 		_current_state in [GameState.MAIN_MENU, GameState.PAUSED],
-		"Can only open save menu from MAIN_MENU or PAUSED, current: " + str(_current_state),
+		"Can only open save menu from MAIN_MENU or PAUSED, current: " + GameState.find_key(_current_state),
 	)
 	_change_state(GameState.SAVE_MENU)
 
@@ -192,7 +195,7 @@ func request_save_menu() -> void:
 func request_achievements_menu() -> void:
 	assert(
 		_current_state in [GameState.MAIN_MENU, GameState.PAUSED],
-		"Can only open achievements from MAIN_MENU or PAUSED, current: " + str(_current_state),
+		"Can only open achievements from MAIN_MENU or PAUSED, current: " + GameState.find_key(_current_state),
 	)
 	_change_state(GameState.ACHIEVEMENTS_MENU)
 
