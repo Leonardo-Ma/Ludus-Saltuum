@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cqn880fmg3p7l" path="res://src/ui/menus/pause_menu/pause_menu.tscn" id="6_rygc3"]
 [ext_resource type="PackedScene" uid="uid://bxslugfiis2aq" path="res://src/ui/menus/save_menu/save_menu.tscn" id="7_l4a2c"]
 [ext_resource type="PackedScene" uid="uid://cq45qxe1wamq0" path="res://src/ui/menus/achievements_menu/achievements_menu.tscn" id="8_l1kup"]
+[ext_resource type="PackedScene" uid="uid://bya3c2ljquxqm" path="res://src/ui/menus/cosmetics_menu/cosmetics_menu.tscn" id="8_qendv"]
 
 [node name="Menus" type="Control" unique_id=217563089]
 editor_description = "The menus will be instantiated as child of this node (Main menu, options, pause...)"
@@ -40,6 +41,11 @@ visible = false
 layout_mode = 1
 
 [node name="AchievementsMenu" parent="." unique_id=507852908 instance=ExtResource("8_l1kup")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[node name="CosmeticsMenu" parent="." unique_id=1586382864 instance=ExtResource("8_qendv")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1

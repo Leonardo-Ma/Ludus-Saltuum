@@ -121,9 +121,11 @@ func _on_game_state_changed(new_state: ApplicationStateManager.GameState, _previ
 			_ui.show_achievements()
 		ApplicationStateManager.GameState.MAIN_MENU_SETTINGS:
 			_ui.show_main_menu_settings()
+		ApplicationStateManager.GameState.COSMETICS_MENU:
+			_ui.show_cosmetics_menu()
 		_:
 			assert(false, "missing open menu function here for " + ApplicationStateManager.GameState.find_key(new_state))
-	
+
 	if new_state == ApplicationStateManager.GameState.PLAYING:
 		_release_ui_focus()
 		MouseModeManager.release(&"menu")

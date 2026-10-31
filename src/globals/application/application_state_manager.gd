@@ -11,6 +11,7 @@ signal gameplay_resumed
 signal settings_opened
 signal settings_closed
 signal main_menu_opened
+signal cosmetics_opened
 signal quit_requested
 
 enum GameState {
@@ -21,19 +22,28 @@ enum GameState {
 	SAVE_MENU = 4,
 	ACHIEVEMENTS_MENU = 5,
 	MAIN_MENU_SETTINGS = 6,
+	COSMETICS_MENU = 7,
 }
 
 const _VALID_TRANSITIONS: Dictionary = {
 	GameState.MAIN_MENU: [GameState.PLAYING, GameState.MAIN_MENU_SETTINGS, GameState.SAVE_MENU, GameState.ACHIEVEMENTS_MENU],
 	GameState.PLAYING: [GameState.PAUSED, GameState.MAIN_MENU, GameState.SETTINGS],
-	GameState.PAUSED: [GameState.PLAYING, GameState.MAIN_MENU, GameState.SETTINGS, GameState.SAVE_MENU, GameState.ACHIEVEMENTS_MENU],
+	GameState.PAUSED: [
+		GameState.PLAYING,
+		GameState.MAIN_MENU,
+		GameState.SETTINGS,
+		GameState.SAVE_MENU,
+		GameState.ACHIEVEMENTS_MENU,
+		GameState.COSMETICS_MENU,
+	],
 	GameState.SETTINGS: [GameState.PLAYING, GameState.PAUSED, GameState.MAIN_MENU, GameState.MAIN_MENU_SETTINGS],
 	GameState.SAVE_MENU: [GameState.PLAYING, GameState.PAUSED, GameState.MAIN_MENU],
 	GameState.ACHIEVEMENTS_MENU: [GameState.PAUSED, GameState.MAIN_MENU],
 	GameState.MAIN_MENU_SETTINGS: [GameState.MAIN_MENU, GameState.SETTINGS],
+	GameState.COSMETICS_MENU: [GameState.PAUSED],
 }
 
-const _RETURNABLE_STATES: Array[GameState] = [GameState.PLAYING, GameState.PAUSED, GameState.MAIN_MENU]
+const _RETURNABLE_STATES: Array[GameState] = [GameState.PLAYING, GameState.PAUSED, GameState.MAIN_MENU, GameState.COSMETICS_MENU]
 
 var _current_state: GameState = GameState.MAIN_MENU
 var _previous_state: GameState = GameState.MAIN_MENU
@@ -55,7 +65,10 @@ func _notification(what: int) -> void:
 func _change_state(new_state: GameState) -> void:
 	if _current_state == new_state:
 		return
-	assert(_is_valid_transition(_current_state, new_state), "Invalid state transition from " + GameState.find_key(_current_state) + " to " + GameState.find_key(new_state))
+	assert(
+		_is_valid_transition(_current_state, new_state),
+		"Invalid state transition from " + GameState.find_key(_current_state) + " to " + GameState.find_key(new_state),
+	)
 
 	if _current_state in _RETURNABLE_STATES and new_state not in _RETURNABLE_STATES:
 		_menu_return_state = _current_state
@@ -76,30 +89,33 @@ func _on_state_entered(new_state: GameState, previous_state: GameState) -> void:
 		GameState.MAIN_MENU:
 			PauseManager.request_pause("gameplay")
 			main_menu_opened.emit()
-		
+
 		GameState.PLAYING:
 			PauseManager.release_pause("gameplay")
 			if previous_state == GameState.PAUSED:
 				gameplay_resumed.emit()
 			else:
 				gameplay_started.emit()
-		
+
 		GameState.PAUSED:
 			PauseManager.request_pause("gameplay")
 			gameplay_paused.emit()
-		
+
 		GameState.SETTINGS:
 			settings_opened.emit()
-		
+
 		GameState.SAVE_MENU:
 			pass
-		
+
 		GameState.ACHIEVEMENTS_MENU:
 			pass
-		
+
 		GameState.MAIN_MENU_SETTINGS:
 			settings_opened.emit()
-		
+
+		GameState.COSMETICS_MENU:
+			cosmetics_opened.emit()
+
 		_:
 			assert(false, "Missing a transition logic for " + GameState.find_key(new_state))
 
@@ -172,7 +188,8 @@ func request_close_settings() -> void:
 
 func request_close_menu() -> void:
 	assert(
-		_current_state in [GameState.SETTINGS, GameState.SAVE_MENU, GameState.ACHIEVEMENTS_MENU, GameState.MAIN_MENU_SETTINGS],
+		_current_state
+		in [GameState.SETTINGS, GameState.SAVE_MENU, GameState.ACHIEVEMENTS_MENU, GameState.COSMETICS_MENU, GameState.MAIN_MENU_SETTINGS],
 		"Not in a closable menu state, current: " + GameState.find_key(_current_state),
 	)
 	_change_state(_menu_return_state)
@@ -198,6 +215,20 @@ func request_achievements_menu() -> void:
 		"Can only open achievements from MAIN_MENU or PAUSED, current: " + GameState.find_key(_current_state),
 	)
 	_change_state(GameState.ACHIEVEMENTS_MENU)
+
+
+func request_cosmetics_menu() -> void:
+	assert(
+		_current_state in [GameState.PAUSED, GameState.PLAYING],
+		"Can only open cosmetics from PAUSED or PLAYING, current: " + GameState.find_key(_current_state),
+	)
+	_change_state(GameState.COSMETICS_MENU)
+
+
+func request_close_cosmetics() -> void:
+	assert(_current_state == GameState.COSMETICS_MENU, "Not in cosmetics menu, current: " + GameState.find_key(_current_state))
+	# TODO Probably better to just hide (pop the stack)
+	_change_state(GameState.PAUSED)
 
 
 func request_quit() -> void:

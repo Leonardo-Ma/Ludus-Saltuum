@@ -1,0 +1,135 @@
+[gd_scene format=3 uid="uid://bya3c2ljquxqm"]
+
+[ext_resource type="PackedScene" uid="uid://blui2ox13a24b" path="res://src/ui/menus/background_parallax.tscn" id="1_4teoe"]
+[ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="1_obccg"]
+[ext_resource type="Script" uid="uid://c28r7m4rv68ob" path="res://src/ui/menus/settings_menu/options_tab_controller.gd" id="2_obccg"]
+[ext_resource type="Theme" uid="uid://c3cx0udnofecq" path="res://src/ui/menus/settings_menu/tabs.tres" id="3_cehrh"]
+[ext_resource type="ButtonGroup" uid="uid://ctkeu7278wn6a" path="res://src/ui/menus/settings_menu/settings_button_group.tres" id="4_7r6fy"]
+[ext_resource type="Texture2D" uid="uid://eajxvr72e3t1" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/3_gear/shirt.png" id="6_keov0"]
+[ext_resource type="Script" uid="uid://fqh0yt3oyuji" path="res://src/ui/menus/settings_menu/settings_tab_button.gd" id="6_w47b2"]
+[ext_resource type="PackedScene" uid="uid://b6ednpu0kwboc" path="res://src/ui/helpers/grab_focus_on_visible.tscn" id="7_ut1kn"]
+[ext_resource type="Texture2D" uid="uid://b0mjdtfcu0v1r" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/3_gear/sword.png" id="9_hkthm"]
+[ext_resource type="Script" uid="uid://1kp6g0xawmbn" path="res://src/ui/menus/cosmetics_menu/close_cosmetics_button.gd" id="11_4ghdm"]
+[ext_resource type="Texture2D" uid="uid://7p2j8n842i0a" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/cross.png" id="15_8m3rb"]
+
+[node name="CosmeticsMenu" type="Control" unique_id=1586382864]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_obccg")
+
+[node name="BackgroundParallax" parent="." unique_id=1100812988 instance=ExtResource("1_4teoe")]
+layout_mode = 1
+
+[node name="RootContainer" type="MarginContainer" parent="." unique_id=1485975668]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Panel" type="Panel" parent="RootContainer" unique_id=277349937]
+self_modulate = Color(1, 1, 1, 0.7294118)
+layout_mode = 2
+
+[node name="CosmeticsContainer" type="VBoxContainer" parent="RootContainer" unique_id=13842065 node_paths=PackedStringArray("tab_container")]
+layout_mode = 2
+script = ExtResource("2_obccg")
+tab_container = NodePath("TabMarginContainer/TabContainer")
+
+[node name="TabMarginContainer" type="MarginContainer" parent="RootContainer/CosmeticsContainer" unique_id=1743113942]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TabContainer" type="HBoxContainer" parent="RootContainer/CosmeticsContainer/TabMarginContainer" unique_id=1813689878]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="CostumesTab" type="Button" parent="RootContainer/CosmeticsContainer/TabMarginContainer/TabContainer" unique_id=1797839700 node_paths=PackedStringArray("panel")]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme = ExtResource("3_cehrh")
+toggle_mode = true
+button_group = ExtResource("4_7r6fy")
+icon = ExtResource("6_keov0")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("6_w47b2")
+panel = NodePath("../../../VBoxContainer/Tabs/CostumesTab")
+
+[node name="FocusOnVisible" parent="RootContainer/CosmeticsContainer/TabMarginContainer/TabContainer/CostumesTab" unique_id=1305006327 instance=ExtResource("7_ut1kn")]
+
+[node name="WeaponsTab" type="Button" parent="RootContainer/CosmeticsContainer/TabMarginContainer/TabContainer" unique_id=180984817 node_paths=PackedStringArray("panel")]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme = ExtResource("3_cehrh")
+toggle_mode = true
+button_group = ExtResource("4_7r6fy")
+icon = ExtResource("9_hkthm")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("6_w47b2")
+panel = NodePath("../../../VBoxContainer/Tabs/CostumesTab")
+section = 5
+
+[node name="CloseCosmeticsButton" type="Button" parent="RootContainer/CosmeticsContainer/TabMarginContainer/TabContainer" unique_id=2033943172]
+custom_minimum_size = Vector2(96, 64)
+layout_mode = 2
+size_flags_vertical = 0
+theme_type_variation = &"DangerIconButton"
+icon = ExtResource("15_8m3rb")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("11_4ghdm")
+
+[node name="HSeparator" type="HSeparator" parent="RootContainer/CosmeticsContainer" unique_id=2032984576]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RootContainer/CosmeticsContainer" unique_id=1261171809]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Tabs" type="BoxContainer" parent="RootContainer/CosmeticsContainer/VBoxContainer" unique_id=445087998]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="CostumesTab" type="VBoxContainer" parent="RootContainer/CosmeticsContainer/VBoxContainer/Tabs" unique_id=1601643246]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_tab_index = 0
+metadata/_tab_name = ""
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RootContainer/CosmeticsContainer/VBoxContainer/Tabs/CostumesTab" unique_id=345095319]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="WeaponsTab" type="VBoxContainer" parent="RootContainer/CosmeticsContainer/VBoxContainer/Tabs" unique_id=1823561650]
+visible = false
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+metadata/_tab_index = 0
+metadata/_tab_name = ""

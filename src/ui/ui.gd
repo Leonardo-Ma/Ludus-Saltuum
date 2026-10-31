@@ -78,6 +78,13 @@ func show_main_menu_settings() -> void:
 	_overlays.hide()
 
 
+func show_cosmetics_menu() -> void:
+	_menus.show()
+	_menus.show_cosmetics_menu()
+	_hud.hide()
+	_overlays.hide()
+
+
 func has_open_popup() -> bool:
 	return _popups.has_open_popup()
 

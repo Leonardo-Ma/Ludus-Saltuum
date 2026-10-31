@@ -14,6 +14,8 @@
 [ext_resource type="Script" uid="uid://dib4grxkxaany" path="res://src/ui/menus/main_menu/open_achievements.gd" id="12_0tjqn"]
 [ext_resource type="PackedScene" uid="uid://c530qg2t7m8ht" path="res://src/ui/menus/steam_wishlist_button.tscn" id="13_0tjqn"]
 [ext_resource type="PackedScene" uid="uid://d3q3ykn5mbcww" path="res://src/ui/menus/feedback_form/feedback_form.tscn" id="13_e1vfs"]
+[ext_resource type="Texture2D" uid="uid://eajxvr72e3t1" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/3_gear/shirt.png" id="15_mcocw"]
+[ext_resource type="Script" uid="uid://xkom8ouwqgt4" path="res://src/ui/menus/pause_menu/cosmetics_button.gd" id="16_qsf2t"]
 
 [node name="PauseMenu" type="Control" unique_id=2117240021]
 layout_mode = 3
@@ -25,6 +27,7 @@ grow_vertical = 2
 theme = ExtResource("1_tb8x8")
 
 [node name="BackgroundParallax" parent="." unique_id=501285105 instance=ExtResource("2_0tjqn")]
+layout_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=272702114]
 layout_mode = 1
@@ -41,7 +44,7 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1757805895]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 6
 theme_override_constants/separation = 40
 alignment = 1
 metadata/_edit_use_anchors_ = true
@@ -78,9 +81,15 @@ icon_alignment = 1
 expand_icon = true
 script = ExtResource("4_qmph6")
 
-[node name="MusicPlayerPanel" parent="MarginContainer" unique_id=255156635 instance=ExtResource("10_dx3ey")]
+[node name="MusicPlayerPanel" parent="." unique_id=255156635 instance=ExtResource("10_dx3ey")]
 unique_name_in_owner = true
-layout_mode = 2
+layout_mode = 0
+offset_left = 1020.0
+offset_top = 25.0
+offset_right = 1127.0
+offset_bottom = 61.0
+size_flags_horizontal = 8
+size_flags_vertical = 0
 
 [node name="AchievementsMargin" type="MarginContainer" parent="." unique_id=752959343]
 layout_mode = 1
@@ -131,3 +140,22 @@ offset_right = 0.0
 offset_bottom = 52.0
 grow_horizontal = 0
 grow_vertical = 2
+
+[node name="CosmeticsButton" type="Button" parent="." unique_id=1968441196]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.29000002
+anchor_top = 0.42700002
+anchor_right = 0.37300003
+anchor_bottom = 0.57600003
+offset_left = -0.08001709
+offset_top = 0.3039856
+offset_right = 0.30395508
+offset_bottom = -0.24801636
+theme_type_variation = &"GenericIconButton"
+icon = ExtResource("15_mcocw")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("16_qsf2t")
+metadata/_edit_use_anchors_ = true
