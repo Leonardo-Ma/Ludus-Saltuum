@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://n1strmrhwjlu" path="res://src/ui/hud/skills/skills_view.gd" id="7_8stm2"]
 [ext_resource type="PackedScene" uid="uid://4dnhjq8r5f03" path="res://src/ui/hud/power_ups/powerup.tscn" id="7_qtkbr"]
 [ext_resource type="Script" uid="uid://cb1h0wlra5gti" path="res://src/ui/hud/power_ups/power_up_view.gd" id="7_raafm"]
-[ext_resource type="PackedScene" uid="uid://dc4emcvac7toq" path="res://src/ui/prompt_icon.tscn" id="11_i2hmd"]
+[ext_resource type="PackedScene" uid="uid://dc4emcvac7toq" path="res://src/ui/menus/shared/prompt_icon.tscn" id="11_i2hmd"]
 [ext_resource type="Texture2D" uid="uid://bfcny5u3eltby" path="res://src/ui/assets/kenney_input-prompts/generic_double/generic_joystick_horizontal.png" id="12_g2kha"]
 [ext_resource type="Texture2D" uid="uid://bgf4oeuykl8jh" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/mouse/mouse_left.png" id="12_tvn8q"]
 [ext_resource type="Texture2D" uid="uid://cn5mglaiekqhk" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/keyboard_space_outline.png" id="12_xy2nf"]

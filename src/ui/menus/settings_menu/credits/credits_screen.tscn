@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cyx2n2q3grqrw" path="res://src/ui/menus/settings_menu/credits/credits_screen.gd" id="1_usa8h"]
 [ext_resource type="Resource" uid="uid://d34vd8pxmnfuf" path="res://src/ui/menus/settings_menu/credits/credits.tres" id="2_qbm07"]
 [ext_resource type="PackedScene" uid="uid://b1o8u6ohbpsd3" path="res://src/ui/menus/settings_menu/credits/screens/credit_section_view.tscn" id="3_pa4rq"]
-[ext_resource type="PackedScene" uid="uid://cmk8do3b2s784" path="res://src/ui/menus/title_label_animated.tscn" id="4_wfmfa"]
+[ext_resource type="PackedScene" uid="uid://cmk8do3b2s784" path="res://src/ui/menus/shared/title_label_animated.tscn" id="4_wfmfa"]
 
 [node name="CreditsScreen" type="Control" unique_id=319564374]
 layout_mode = 3

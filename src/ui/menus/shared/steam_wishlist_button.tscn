@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://7c525ir0ehqi" path="res://src/icons/third_party_icons/steam_logo_black_icon.png" id="1_52fi6"]
 [ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="1_dexsd"]
 [ext_resource type="Texture2D" uid="uid://hc60m0tm0ggk" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/1_game/hearts.png" id="2_nd4bk"]
-[ext_resource type="Script" uid="uid://d34um6jl0p4n4" path="res://src/ui/menus/steam_wishlist_button.gd" id="3_43oat"]
+[ext_resource type="Script" uid="uid://d34um6jl0p4n4" path="res://src/ui/menus/shared/steam_wishlist_button.gd" id="3_43oat"]
 
 [node name="SteamWishlistMargin" type="MarginContainer" unique_id=824114124]
 offset_right = 40.0

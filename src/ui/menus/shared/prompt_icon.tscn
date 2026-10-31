@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dc4emcvac7toq"]
 
-[ext_resource type="Script" uid="uid://cj7q6x6qfonxd" path="res://src/ui/prompt_icon.gd" id="1_ojmjs"]
+[ext_resource type="Script" uid="uid://cj7q6x6qfonxd" path="res://src/ui/menus/shared/prompt_icon.gd" id="1_ojmjs"]
 
 [node name="PromptIcon" type="TextureRect" unique_id=192685747]
 anchors_preset = 15
