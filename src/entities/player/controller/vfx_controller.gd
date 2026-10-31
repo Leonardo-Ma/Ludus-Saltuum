@@ -1,7 +1,9 @@
+# TODO Consider configure vfxs in the editor, maybe as an exported scene?
 class_name VFXController
 extends Node
 
 var _feather_particles: GPUParticles3D
+var _trails: Dictionary[StringName, GPUParticles3D] = { }
 
 @onready var entity: CharacterBody3D = owner as CharacterBody3D
 
@@ -61,6 +63,52 @@ func toggle_feather_fall(active: bool, target: Node3D = null) -> void:
 
 	if _feather_particles:
 		_feather_particles.emitting = active
+
+
+func set_trail(id: StringName, active: bool, color: Color, rise_acceleration: float = 0.0) -> void:
+	if active and not _trails.has(id):
+		var trail: GPUParticles3D = _create_trail(color, rise_acceleration)
+		entity.add_child(trail)
+		_trails[id] = trail
+
+	if _trails.has(id):
+		_trails[id].emitting = active
+
+
+func _create_trail(color: Color, rise_acceleration: float) -> GPUParticles3D:
+	var particles: GPUParticles3D = GPUParticles3D.new()
+	particles.amount = 32
+	particles.lifetime = 0.5
+	particles.local_coords = false
+	particles.position = Vector3(0.0, 0.1, 0.0)
+	particles.visibility_aabb = AABB(Vector3(-8.0, -3.0, -8.0), Vector3(16.0, 6.0, 16.0))
+
+	var fade: Gradient = Gradient.new()
+	fade.set_color(0, color)
+	fade.set_color(1, Color(color, 0.0))
+	var ramp: GradientTexture1D = GradientTexture1D.new()
+	ramp.gradient = fade
+
+	var process_material: ParticleProcessMaterial = ParticleProcessMaterial.new()
+	process_material.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_SPHERE
+	process_material.emission_sphere_radius = 0.15
+	process_material.gravity = Vector3(0.0, rise_acceleration, 0.0)
+	process_material.scale_min = 0.8
+	process_material.scale_max = 1.2
+	process_material.color_ramp = ramp
+	particles.process_material = process_material
+
+	var quad: QuadMesh = QuadMesh.new()
+	quad.size = Vector2(0.25, 0.25)
+	var quad_material: StandardMaterial3D = StandardMaterial3D.new()
+	quad_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	quad_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	quad_material.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+	quad_material.vertex_color_use_as_albedo = true
+	quad.material = quad_material
+	particles.draw_pass_1 = quad
+
+	return particles
 
 
 func _collect_sub_meshes(node: Node, arr: Array[MeshInstance3D]) -> void:

@@ -23,6 +23,7 @@ var state: PlayerState = PlayerState.INACTIVE
 @onready var economy_controller: EconomyController = %EconomyController
 @onready var easter_egg_controller: EasterEggController = %EasterEggController
 @onready var environment_transition_controller: EnvironmentTransitionController = %EnvironmentTransitionController
+@onready var vfx_controller: VFXController = %VFXController
 
 
 func _physics_process(delta: float) -> void:
