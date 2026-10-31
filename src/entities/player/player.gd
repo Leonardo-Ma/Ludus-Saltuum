@@ -38,7 +38,7 @@ func respawn(delay: float, target_transform: Transform3D, is_death: bool = false
 	velocity = Vector3.ZERO
 
 	# Wait for the screen to fade in
-	await get_tree().create_timer(delay / 2.0).timeout
+	await get_tree().create_timer(delay).timeout
 
 	global_position = target_transform.origin
 	global_rotation.y = atan2(target_transform.basis.z.x, target_transform.basis.z.z)
