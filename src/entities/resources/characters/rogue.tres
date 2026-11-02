@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CharacterEntityAsset" format=3 uid="uid://bki4s7nheq5kh"]
+
+[ext_resource type="Script" uid="uid://dxpdc7nvj48k7" path="res://src/entities/data/character_entity_asset.gd" id="1_ja3hd"]
+[ext_resource type="PackedScene" uid="uid://qo6ie0si4q0" path="res://src/entities/meshes/friendly/rogue.glb" id="1_kdvt3"]
+
+[resource]
+script = ExtResource("1_ja3hd")
+character_id = &"character.rogue"
+character_name = "Rogue"
+character_mesh = ExtResource("1_kdvt3")
+metadata/_custom_type_script = "uid://dxpdc7nvj48k7"

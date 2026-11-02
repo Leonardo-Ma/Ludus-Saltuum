@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c4i1w0hbxd5be"]
 
-[ext_resource type="PackedScene" uid="uid://duwd61q8qmusj" path="res://src/entities/enemies/barbarian/barbarian.glb" id="1_q58jo"]
+[ext_resource type="PackedScene" uid="uid://duwd61q8qmusj" path="res://src/entities/meshes/friendly/barbarian.glb" id="1_q58jo"]
 [ext_resource type="ArrayMesh" uid="uid://dhkwua5f8rp5r" path="res://src/entities/player/visual/mesh/arm_left.res" id="2_ao4ph"]
 [ext_resource type="ArrayMesh" uid="uid://benf5fx77de3o" path="res://src/entities/player/visual/mesh/arm_right.res" id="3_f7l0o"]
 [ext_resource type="ArrayMesh" uid="uid://cdjq172y8xhry" path="res://src/entities/player/visual/mesh/body.tres" id="4_wd2ne"]

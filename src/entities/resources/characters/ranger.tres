@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CharacterEntityAsset" format=3 uid="uid://b0qrs6n5261tg"]
+
+[ext_resource type="PackedScene" uid="uid://c5kimsyae2pkq" path="res://src/entities/meshes/friendly/ranger.glb" id="1_7xfjp"]
+[ext_resource type="Script" uid="uid://dxpdc7nvj48k7" path="res://src/entities/data/character_entity_asset.gd" id="2_mwoyi"]
+
+[resource]
+script = ExtResource("2_mwoyi")
+character_id = &"character.ranger"
+character_name = "Ranger"
+character_mesh = ExtResource("1_7xfjp")
+character_price = 120
+metadata/_custom_type_script = "uid://dxpdc7nvj48k7"

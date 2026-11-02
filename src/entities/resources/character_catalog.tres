@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CharacterEntityCatalog" format=3 uid="uid://b2bfyxo1s4qql"]
+
+[ext_resource type="Script" uid="uid://dxpdc7nvj48k7" path="res://src/entities/data/character_entity_asset.gd" id="1_ygapf"]
+[ext_resource type="Resource" uid="uid://c3n684po0joc4" path="res://src/entities/resources/characters/barbarian.tres" id="2_fdnqi"]
+[ext_resource type="Resource" uid="uid://bh2tx4elmljs8" path="res://src/entities/resources/characters/druid.tres" id="3_0nbhv"]
+[ext_resource type="Resource" uid="uid://c6f3xuf0j77dc" path="res://src/entities/resources/characters/knight.tres" id="4_y02ns"]
+[ext_resource type="Resource" uid="uid://cq06jgmjen48" path="res://src/entities/resources/characters/mage.tres" id="5_wy4tu"]
+[ext_resource type="Resource" uid="uid://b0qrs6n5261tg" path="res://src/entities/resources/characters/ranger.tres" id="6_ewk65"]
+[ext_resource type="Resource" uid="uid://bki4s7nheq5kh" path="res://src/entities/resources/characters/rogue.tres" id="7_eltun"]
+[ext_resource type="Script" uid="uid://dpo8ecd0mmenb" path="res://src/entities/data/character_entity_catalog.gd" id="8_5aspg"]
+
+[resource]
+script = ExtResource("8_5aspg")
+characters = Array[ExtResource("1_ygapf")]([ExtResource("2_fdnqi"), ExtResource("3_0nbhv"), ExtResource("4_y02ns"), ExtResource("5_wy4tu"), ExtResource("6_ewk65"), ExtResource("7_eltun")])
+metadata/_custom_type_script = "uid://dpo8ecd0mmenb"

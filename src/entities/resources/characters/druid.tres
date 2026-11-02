@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CharacterEntityAsset" format=3 uid="uid://bh2tx4elmljs8"]
+
+[ext_resource type="PackedScene" uid="uid://bsoq2ldtrk7er" path="res://src/entities/meshes/friendly/druid.glb" id="1_8kkam"]
+[ext_resource type="Script" uid="uid://dxpdc7nvj48k7" path="res://src/entities/data/character_entity_asset.gd" id="2_hbmjq"]
+
+[resource]
+script = ExtResource("2_hbmjq")
+character_id = &"character.druid"
+character_name = "Druid"
+character_mesh = ExtResource("1_8kkam")
+character_price = 250
+metadata/_custom_type_script = "uid://dxpdc7nvj48k7"

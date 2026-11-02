@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CharacterEntityAsset" format=3 uid="uid://c3n684po0joc4"]
+
+[ext_resource type="Script" uid="uid://dxpdc7nvj48k7" path="res://src/entities/data/character_entity_asset.gd" id="1_ufl3t"]
+[ext_resource type="PackedScene" uid="uid://duwd61q8qmusj" path="res://src/entities/meshes/friendly/barbarian.glb" id="1_xc4h3"]
+
+[resource]
+script = ExtResource("1_ufl3t")
+character_id = &"character.barbarian"
+character_name = "Barbarian"
+character_mesh = ExtResource("1_xc4h3")
+character_price = 90
+metadata/_custom_type_script = "uid://dxpdc7nvj48k7"
