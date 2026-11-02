@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://duwd61q8qmusj"
-path="res://.godot/imported/barbarian.glb-8645b7cee60065ddfd0321e020a9b28e.scn"
+uid="uid://b5egp2g6uxrmn"
+path="res://.godot/imported/necromancer.glb-e1a51c0e72fc9653e46c184059231212.scn"
 
 [deps]
 
-source_file="res://src/entities/enemies/barbarian/barbarian.glb"
-dest_files=["res://.godot/imported/barbarian.glb-8645b7cee60065ddfd0321e020a9b28e.scn"]
+source_file="res://src/entities/meshes/enemy/necromancer.glb"
+dest_files=["res://.godot/imported/necromancer.glb-e1a51c0e72fc9653e46c184059231212.scn"]
 
 [params]
 
@@ -33,7 +33,7 @@ meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
-animation/trimming=true
+animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
@@ -41,6 +41,6 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={}
-gltf/naming_version=0
+gltf/naming_version=2
 gltf/embedded_image_handling=1
 gltf/texture_map_mode=1
