@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://otpekb0jb3ab" path="res://src/entities/player/controller/player_movement_controller.gd" id="8_ebec5"]
 [ext_resource type="Script" uid="uid://cuefrffw4m4jh" path="res://src/entities/components/animation_controller.gd" id="9_yllr7"]
 [ext_resource type="AnimationLibrary" uid="uid://vginonlwcip8" path="res://src/entities/animation/libraries/combat.res" id="10_qo2tj"]
+[ext_resource type="Script" uid="uid://cdw0xeo616qlp" path="res://src/entities/player/visual.gd" id="11_f610a"]
 [ext_resource type="ArrayMesh" uid="uid://dhkwua5f8rp5r" path="res://src/entities/player/visual/mesh/arm_left.res" id="11_voi68"]
 [ext_resource type="AnimationLibrary" uid="uid://qw3lmf4rabqb" path="res://src/entities/animation/libraries/general.res" id="11_wjvoe"]
 [ext_resource type="AnimationLibrary" uid="uid://dfypubq6ngr7a" path="res://src/entities/animation/libraries/movement.res" id="12_gxh5t"]
@@ -33,7 +34,9 @@
 [ext_resource type="Script" uid="uid://cpusxg43clwxv" path="res://src/entities/player/controller/vfx_controller.gd" id="31_gxh5t"]
 [ext_resource type="Script" uid="uid://c0nepvcaq5dga" path="res://src/entities/player/environment_transition_controller.gd" id="31_xm7nl"]
 [ext_resource type="Script" uid="uid://5or2vf5kpdix" path="res://src/entities/player/components/vehicle_rider.gd" id="32_vehiclerider"]
+[ext_resource type="Script" uid="uid://grgmrh5nfxle" path="res://src/entities/player/controller/cosmetics_controller.gd" id="32_xm7nl"]
 [ext_resource type="Script" uid="uid://bkp1xy01pk8yn" path="res://src/entities/player/components/portal_controller.gd" id="33_portalcontroller"]
+[ext_resource type="Resource" uid="uid://b2bfyxo1s4qql" path="res://src/entities/resources/character_catalog.tres" id="34_lacky"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_wjvoe"]
 height = 1.0117772
@@ -583,6 +586,7 @@ is_npc = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=680952906]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.542, 0)
+visible = false
 shape = SubResource("CylinderShape3D_wjvoe")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=53237414]
@@ -641,8 +645,10 @@ script = ExtResource("9_yllr7")
 [node name="Visual" type="Node3D" parent="." unique_id=1015939177]
 unique_name_in_owner = true
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+script = ExtResource("11_f610a")
 
 [node name="Rig_Medium" type="Node3D" parent="Visual" unique_id=713750166]
+unique_name_in_owner = true
 
 [node name="Skeleton3D" type="Skeleton3D" parent="Visual/Rig_Medium" unique_id=142026482]
 bones/0/name = "root"
@@ -856,11 +862,13 @@ skin = SubResource("Skin_lhorl")
 skeleton = NodePath("..")
 
 [node name="Knight_Helmet" type="MeshInstance3D" parent="Visual/Rig_Medium/Skeleton3D" unique_id=207059209]
+visible = false
 mesh = ExtResource("16_0cri1")
 skin = SubResource("Skin_lhorl")
 skeleton = NodePath("..")
 
 [node name="Knight_HelmetVisor" type="MeshInstance3D" parent="Visual/Rig_Medium/Skeleton3D" unique_id=1388024901]
+visible = false
 mesh = ExtResource("17_bw0fr")
 skin = SubResource("Skin_lhorl")
 skeleton = NodePath("..")
@@ -946,6 +954,11 @@ script = ExtResource("31_45rvh")
 unique_name_in_owner = true
 script = ExtResource("31_xm7nl")
 
+[node name="CosmeticsController" type="Node" parent="Controllers" unique_id=973579251]
+unique_name_in_owner = true
+script = ExtResource("32_xm7nl")
+character_catalog = ExtResource("34_lacky")
+
 [node name="Status" type="Node" parent="." unique_id=1830557303]
 
 [node name="StatusManager" type="Node" parent="Status" unique_id=972557881]
@@ -967,6 +980,7 @@ disabled = true
 
 [node name="Hurtbox" type="Area3D" parent="." unique_id=379449344]
 unique_name_in_owner = true
+visible = false
 collision_layer = 0
 collision_mask = 32768
 script = ExtResource("7_cdsl0")

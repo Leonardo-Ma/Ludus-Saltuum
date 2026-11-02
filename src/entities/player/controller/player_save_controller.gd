@@ -13,6 +13,7 @@ var _default_spawn_transform: Transform3D
 @onready var economy_controller: EconomyController = %EconomyController
 @onready var easter_egg_controller: EasterEggController = %EasterEggController
 @onready var status_manager: StatusManager = %StatusManager
+@onready var cosmetics_controller: CosmeticsController = %CosmeticsController
 
 
 func _ready() -> void:
@@ -22,7 +23,7 @@ func _ready() -> void:
 		func(data: SaveData) -> void:
 			build_save_data(data.player),
 	)
-	# Loading is triggered by game load manager
+	# NOTE Loading is triggered by game load manager
 	SaveManager.reset_requested.connect(initialize_new_save_data)
 
 
@@ -35,6 +36,8 @@ func build_save_data(data: PlayerSaveData) -> void:
 
 	data.score = economy_controller.score
 	data.gold = economy_controller.gold
+	data.owned_cosmetic_ids = cosmetics_controller.get_owned_ids()
+	data.equipped_character_id = cosmetics_controller.get_equipped_character_id()
 
 	data.found_easter_egg_names = []
 
@@ -60,8 +63,10 @@ func apply_save_data(data: PlayerSaveData) -> void:
 	economy_controller.score_changed.emit(data.score)
 	economy_controller.gold_changed.emit(data.gold)
 
-	easter_egg_controller.found_easter_eggs.clear()
+	cosmetics_controller.set_owned_ids(data.owned_cosmetic_ids)
+	cosmetics_controller.set_equipped_character_id(data.equipped_character_id)
 
+	easter_egg_controller.found_easter_eggs.clear()
 	for egg: EasterEgg.Name in data.found_easter_egg_names:
 		easter_egg_controller.found_easter_eggs[egg] = true
 
@@ -81,5 +86,8 @@ func initialize_new_save_data() -> void:
 	economy_controller.gold = 0
 	economy_controller.score_changed.emit(economy_controller.score)
 	economy_controller.gold_changed.emit(economy_controller.gold)
+
+	cosmetics_controller.reset()
+	cosmetics_controller.set_equipped_character_id(CosmeticsController.DEFAULT_CHARACTER_ID)
 
 	easter_egg_controller.found_easter_eggs.clear()
