@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://dstk1gxgucy3t"]
+
+[ext_resource type="Script" uid="uid://blrdd8k6b76eh" path="res://src/ui/menus/cosmetics_menu/cosmetic_card.gd" id="1_h1l4x"]
+[ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="1_mgobh"]
+[ext_resource type="Texture2D" uid="uid://bmdg7sc3tlyrv" path="res://src/icons/16x16/coins.png" id="2_hlo15"]
+[ext_resource type="Environment" uid="uid://dsshmu8vrps28" path="res://src/environment/world_environment_settings.tres" id="3_k5mty"]
+[ext_resource type="PackedScene" uid="uid://be0irpnf8gbb" path="res://src/ui/menus/cosmetics_menu/cosmetic_preview.tscn" id="3_pf6m2"]
+[ext_resource type="Script" uid="uid://bukngg3g2rqfr" path="res://src/ui/menus/cosmetics_menu/buy_cosmetic.gd" id="7_3q51y"]
+[ext_resource type="Texture2D" uid="uid://dtv1qvjg5f6xo" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/user_check.png" id="7_ampx7"]
+
+[sub_resource type="World3D" id="World3D_pf6m2"]
+environment = ExtResource("3_k5mty")
+
+[node name="CosmeticCard" type="VBoxContainer" unique_id=1595548576]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -61.5
+offset_right = 61.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme = ExtResource("1_mgobh")
+script = ExtResource("1_h1l4x")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1060716034]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer" unique_id=1027726925]
+self_modulate = Color(1, 1, 1, 0.39215687)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer" unique_id=597705090]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=1550612032]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="MarginContainer/PanelContainer/VBoxContainer/SubViewportContainer" unique_id=800031720]
+own_world_3d = true
+world_3d = SubResource("World3D_pf6m2")
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(150, 200)
+render_target_update_mode = 4
+
+[node name="CosmeticPreview" parent="MarginContainer/PanelContainer/VBoxContainer/SubViewportContainer/SubViewport" unique_id=1221664186 instance=ExtResource("3_pf6m2")]
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=206970817]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="BuyCosmetic" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/MarginContainer" unique_id=1076993776]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "999"
+icon = ExtResource("2_hlo15")
+expand_icon = true
+script = ExtResource("7_3q51y")
+
+[node name="OwnershipTextureRect" type="TextureRect" parent="MarginContainer/PanelContainer/VBoxContainer/MarginContainer" unique_id=1190351228]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("7_ampx7")
+expand_mode = 3
+stretch_mode = 5
