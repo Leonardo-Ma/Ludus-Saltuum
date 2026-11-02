@@ -3,11 +3,9 @@
 [ext_resource type="Script" uid="uid://bc20xmwfj68dg" path="res://src/ui/hud/player_healthbar.gd" id="1_jreyb"]
 [ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="1_up44w"]
 [ext_resource type="Script" uid="uid://c1nea7ynodcea" path="res://src/ui/hud/hud.gd" id="2_6kydk"]
-[ext_resource type="Script" uid="uid://c30uhilu8tn5v" path="res://src/ui/hud/score.gd" id="2_cl4jo"]
-[ext_resource type="Texture2D" uid="uid://b2ggug31fd52y" path="res://src/icons/16x16/star.png" id="3_ndnj2"]
 [ext_resource type="Shader" uid="uid://cxr7fnjchd78d" path="res://src/ui/hud/healthbar_shatter.gdshader" id="4_a7l5u"]
-[ext_resource type="Script" uid="uid://ckmipf2d40cqd" path="res://src/ui/hud/collectibles/gold.gd" id="5_4u0hr"]
-[ext_resource type="Texture2D" uid="uid://bmdg7sc3tlyrv" path="res://src/icons/16x16/coins.png" id="6_d5ccl"]
+[ext_resource type="PackedScene" uid="uid://bgc5cfaenuqdj" path="res://src/ui/shared/score.tscn" id="5_58h30"]
+[ext_resource type="PackedScene" uid="uid://dpycc3rysdgp2" path="res://src/ui/shared/gold.tscn" id="6_u7jpa"]
 [ext_resource type="Script" uid="uid://n1strmrhwjlu" path="res://src/ui/hud/skills/skills_view.gd" id="7_8stm2"]
 [ext_resource type="PackedScene" uid="uid://4dnhjq8r5f03" path="res://src/ui/hud/power_ups/powerup.tscn" id="7_qtkbr"]
 [ext_resource type="Script" uid="uid://cb1h0wlra5gti" path="res://src/ui/hud/power_ups/power_up_view.gd" id="7_raafm"]
@@ -144,43 +142,13 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 16
 
-[node name="Score" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/HBoxContainer" unique_id=554377692]
+[node name="Score" parent="MarginContainer/HBoxContainer/LeftSideContainer/HBoxContainer" unique_id=1464153600 instance=ExtResource("5_58h30")]
 unique_name_in_owner = true
 layout_mode = 2
-script = ExtResource("2_cl4jo")
 
-[node name="ScoreIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/HBoxContainer/Score" unique_id=374341339]
-unique_name_in_owner = true
-texture_filter = 1
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-texture = ExtResource("3_ndnj2")
-stretch_mode = 5
-
-[node name="ScoreCounter" type="Label" parent="MarginContainer/HBoxContainer/LeftSideContainer/HBoxContainer/Score" unique_id=1880561012]
+[node name="Gold" parent="MarginContainer/HBoxContainer/LeftSideContainer/HBoxContainer" unique_id=694921832 instance=ExtResource("6_u7jpa")]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "99999"
-
-[node name="Gold" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer/HBoxContainer" unique_id=1130707200]
-unique_name_in_owner = true
-layout_mode = 2
-script = ExtResource("5_4u0hr")
-
-[node name="GoldIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/HBoxContainer/Gold" unique_id=1130038257]
-unique_name_in_owner = true
-texture_filter = 1
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-texture = ExtResource("6_d5ccl")
-stretch_mode = 5
-
-[node name="GoldCounter" type="Label" parent="MarginContainer/HBoxContainer/LeftSideContainer/HBoxContainer/Gold" unique_id=1020301352]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "99999"
 
 [node name="PowerUps" type="MarginContainer" parent="MarginContainer/HBoxContainer/LeftSideContainer" unique_id=1788304339]
 unique_name_in_owner = true

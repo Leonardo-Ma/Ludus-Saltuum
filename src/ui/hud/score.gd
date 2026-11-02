@@ -2,27 +2,29 @@
 extends HBoxContainer
 
 var _current_score: int = 0
-var _economy_controller: EconomyController
 
 @onready var _score_label: Label = %ScoreCounter
 @onready var _score_icon: TextureRect = %ScoreIcon
 
 
-func setup(economy_controller: EconomyController) -> void:
-	_economy_controller = economy_controller
+func _ready() -> void:
+	ControlledEntityEvents.player_finished_spawning.connect(_on_player_finished_spawning)
+
+
+func _on_player_finished_spawning(player: Node3D) -> void:
+	var _economy_controller: EconomyController = player.economy_controller
 
 	_current_score = _economy_controller.score
 
-	if not _economy_controller.score_changed.is_connected(_on_score_changed):
-		_economy_controller.score_changed.connect(_on_score_changed)
+	_economy_controller.score_changed.connect(_on_score_changed)
 
-	_update_ui(_current_score)
+	_update_ui()
 
 
 func _on_score_changed(new_score: int) -> void:
 	var score_diff: int = new_score - _current_score
 	_current_score = new_score
-	_update_ui(new_score)
+	_update_ui()
 
 	var target_color: Color = Color.WHITE
 	if score_diff > 0:
@@ -33,9 +35,8 @@ func _on_score_changed(new_score: int) -> void:
 	_play_score_animation(target_color)
 
 
-func _update_ui(score: int) -> void:
-	if _score_label:
-		_score_label.text = str(score)
+func _update_ui() -> void:
+	_score_label.text = str(_current_score)
 
 
 func _play_score_animation(target_color: Color) -> void:

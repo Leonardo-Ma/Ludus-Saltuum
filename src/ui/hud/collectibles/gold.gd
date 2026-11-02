@@ -2,27 +2,29 @@
 extends HBoxContainer
 
 var _current_gold: int = 0
-var _economy_controller: EconomyController
 
 @onready var _gold_label: Label = %GoldCounter
 @onready var _gold_icon: TextureRect = %GoldIcon
 
 
-func setup(economy_controller: EconomyController) -> void:
-	_economy_controller = economy_controller
+func _ready() -> void:
+	ControlledEntityEvents.player_finished_spawning.connect(_on_player_finished_spawning)
+
+
+func _on_player_finished_spawning(player: Node3D) -> void:
+	var _economy_controller: EconomyController = player.economy_controller
 
 	_current_gold = _economy_controller.gold
 
-	if not _economy_controller.gold_changed.is_connected(_on_gold_changed):
-		_economy_controller.gold_changed.connect(_on_gold_changed)
+	_economy_controller.gold_changed.connect(_on_gold_changed)
 
-	_update_ui(_current_gold)
+	_update_label()
 
 
 func _on_gold_changed(new_gold: int) -> void:
 	var gold_diff: int = new_gold - _current_gold
 	_current_gold = new_gold
-	_update_ui(new_gold)
+	_update_label()
 
 	var target_color: Color = Color.WHITE
 	if gold_diff > 0:
@@ -33,9 +35,8 @@ func _on_gold_changed(new_gold: int) -> void:
 	_play_gold_animation(target_color)
 
 
-func _update_ui(gold: int) -> void:
-	if _gold_label:
-		_gold_label.text = str(gold)
+func _update_label() -> void:
+	_gold_label.text = str(_current_gold)
 
 
 func _play_gold_animation(target_color: Color) -> void:

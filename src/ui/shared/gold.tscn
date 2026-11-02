@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dpycc3rysdgp2"]
+
+[ext_resource type="Script" uid="uid://ckmipf2d40cqd" path="res://src/ui/hud/collectibles/gold.gd" id="1_015so"]
+[ext_resource type="Texture2D" uid="uid://bmdg7sc3tlyrv" path="res://src/icons/16x16/coins.png" id="2_chsv5"]
+
+[node name="Gold" type="HBoxContainer" unique_id=694921832]
+custom_minimum_size = Vector2(120, 0)
+script = ExtResource("1_015so")
+
+[node name="GoldIcon" type="TextureRect" parent="." unique_id=708937075]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_chsv5")
+stretch_mode = 5
+
+[node name="GoldCounter" type="Label" parent="." unique_id=1104212475]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "99999"
