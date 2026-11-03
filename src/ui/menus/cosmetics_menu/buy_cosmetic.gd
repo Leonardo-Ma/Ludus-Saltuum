@@ -7,7 +7,6 @@ var _player: PlayerEntity
 
 @onready var _cosmetic: CharacterEntityAsset = owner.chosen_character
 @onready var _price: int = _cosmetic.character_price
-@onready var _ownership_icon: TextureRect = %OwnershipTextureRect
 
 
 func _button_ready() -> void:
@@ -34,19 +33,36 @@ func _button_pressed() -> void:
 
 func _update_button() -> void:
 	_player = _get_player()
+	# TODO Find better way
+	if not _player.cosmetics_controller.equipped_character_changed.is_connected(_on_equipped_character_changed):
+		_player.cosmetics_controller.equipped_character_changed.connect(_on_equipped_character_changed)
 
 	var cosmetic_id: StringName = _cosmetic.character_id
 	var already_owned: bool = _player.cosmetics_controller.owns(cosmetic_id)
 	var is_equipped: bool = _player.cosmetics_controller.get_equipped_character_id() == cosmetic_id
 	var can_afford: bool = _player.economy_controller.gold >= _price
 
-	_ownership_icon.visible = already_owned
+	var font_color: Color = Color.LIGHT_CORAL if not can_afford else Color.WHITE
+
+	add_theme_color_override("font_color", font_color)
+	add_theme_color_override("font_disabled_color", font_color)
+
 	if is_equipped:
-		_ownership_icon.texture = equipped_texture
+		icon = equipped_texture
+		text = ""
+		icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	elif already_owned:
-		_ownership_icon.texture = owned_texture
+		icon = owned_texture
+		text = ""
+		icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	else:
+		text = str(_price)
 
 	disabled = is_equipped or (not already_owned and not can_afford)
+
+
+func _on_equipped_character_changed(_character_asset: CharacterEntityAsset) -> void:
+	_update_button()
 
 
 func _get_player() -> PlayerEntity:
