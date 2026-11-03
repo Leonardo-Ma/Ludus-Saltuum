@@ -651,6 +651,7 @@ script = ExtResource("11_f610a")
 unique_name_in_owner = true
 
 [node name="Skeleton3D" type="Skeleton3D" parent="Visual/Rig_Medium" unique_id=142026482]
+unique_name_in_owner = true
 bones/0/name = "root"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 2.3841855e-07, 0, 1, 0, -2.3841855e-07, 0, 1, 0, 0, 0)
@@ -862,13 +863,11 @@ skin = SubResource("Skin_lhorl")
 skeleton = NodePath("..")
 
 [node name="Knight_Helmet" type="MeshInstance3D" parent="Visual/Rig_Medium/Skeleton3D" unique_id=207059209]
-visible = false
 mesh = ExtResource("16_0cri1")
 skin = SubResource("Skin_lhorl")
 skeleton = NodePath("..")
 
 [node name="Knight_HelmetVisor" type="MeshInstance3D" parent="Visual/Rig_Medium/Skeleton3D" unique_id=1388024901]
-visible = false
 mesh = ExtResource("17_bw0fr")
 skin = SubResource("Skin_lhorl")
 skeleton = NodePath("..")

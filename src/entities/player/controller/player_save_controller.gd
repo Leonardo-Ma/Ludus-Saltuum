@@ -48,6 +48,7 @@ func build_save_data(data: PlayerSaveData) -> void:
 
 func apply_save_data(data: PlayerSaveData) -> void:
 	player.health.current_health = data.health
+	player.health.start_regeneration()
 
 	var skills: Array[SkillDefinition] = []
 	for skill_id: StringName in data.unlocked_skill_ids:

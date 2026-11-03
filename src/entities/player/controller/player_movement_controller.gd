@@ -53,7 +53,7 @@ func movement_logic() -> void:
 		current_speed = clamp(current_speed, 0.0, _movement.get_speed())
 
 		# Calculate blend direction in owner's local space (mesh is child of owner with 0 rotation)
-		var local_direction: Vector3 = owner.global_transform.basis.inverse() * direction
+		var local_direction: Vector3 = owner.global_transform.basis.orthonormalized().inverse() * direction
 		var speed_factor: float = current_speed / _movement.get_speed()
 		var blend_direction: Vector2 = Vector2(local_direction.x, local_direction.z) * speed_factor
 
