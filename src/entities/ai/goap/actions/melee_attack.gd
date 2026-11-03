@@ -1,8 +1,8 @@
 class_name MeleeAttack
 extends GoapAction
 
-var _attack_cooldown: float = 1.8
-var _last_attack_time: int = 0
+const ATTACK_COOLDOWN: float = 1.8
+var _cooldown_timer: SceneTreeTimer = null
 
 
 func get_custom_class_name() -> String:
@@ -37,10 +37,8 @@ func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 		var target_rotation_y: float = atan2(direction.x, direction.z)
 		_actor.global_rotation.y = lerp_angle(_actor.global_rotation.y, target_rotation_y, 10.0 * _delta)
 
-	var current_time: int = Time.get_ticks_msec()
-
-	if current_time - _last_attack_time >= int(_attack_cooldown * 1000.0):
+	if _cooldown_timer == null or _cooldown_timer.time_left <= 0.0:
 		_actor.melee_attacked.emit()
-		_last_attack_time = current_time
+		_cooldown_timer = _actor.get_tree().create_timer(ATTACK_COOLDOWN, false)
 		return true
 	return false
