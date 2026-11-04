@@ -12,6 +12,8 @@ enum PlayerState {
 
 var state: PlayerState = PlayerState.INACTIVE
 
+@onready var visual: CharacterVisual = %Visual
+
 @onready var camera_controller: CameraController = %CamRoot
 @onready var player_movement_controller: PlayerMovementController = %PlayerMovementController
 @onready var input_controller: InputController = %InputController
@@ -103,6 +105,9 @@ func _child_ready() -> void:
 	health.damaged.connect(_on_damaged_vibration)
 	# TODO Also disable input controller, player can attack between death and respawn
 	health.died.connect(player_movement_controller.disable_movement.bind(INF))
+
+	# TODO Move this to VFX controller?
+	visual.meshes_replaced.connect(_setup_damage_feedback_visual_material)
 
 	ApplicationStateManager.state_changed.connect(_on_application_state_changed)
 

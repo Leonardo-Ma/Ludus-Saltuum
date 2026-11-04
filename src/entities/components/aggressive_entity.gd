@@ -74,6 +74,7 @@ func _ready() -> void:
 	assert(health and health.current_health > 0, "Health property incorrect for " + name)
 	assert(movement, "Movement incorrect for " + name)
 
+	# TODO Move this to VFX controller?
 	_setup_damage_feedback_visual_material()
 
 	_prev_health = health.current_health

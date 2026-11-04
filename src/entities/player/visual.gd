@@ -3,6 +3,8 @@ extends Node3D
 
 ## Replaces character meshes while preserving animation rig
 
+signal meshes_replaced
+
 @onready var _skeleton: Skeleton3D = %Skeleton3D
 @onready var _cosmetics_controller: CosmeticsController = %CosmeticsController
 
@@ -57,6 +59,7 @@ func replace_character_visual(character_scene: PackedScene) -> void:
 		mesh.skeleton = mesh.get_path_to(_skeleton)
 
 	character_instance.queue_free()
+	meshes_replaced.emit()
 
 
 func _validate_skeleton(source_skeleton: Skeleton3D) -> void:
