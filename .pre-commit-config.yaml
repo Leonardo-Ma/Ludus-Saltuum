@@ -321,5 +321,6 @@ repos:
     rev: 57b21406f092110c18776e39b0bda50d37c945c8 # v2.4.3
     hooks:
       - id: codespell
+        args: ["--ignore-words", "third_party_lib/.codespell_ignore_words.txt"]
         stages: [pre-commit, commit-msg]
         exclude: '\.(tscn|tres|res)$|CHANGELOG.md'
