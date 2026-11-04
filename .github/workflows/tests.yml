@@ -6,10 +6,12 @@ on:
       - main
       - next
     paths-ignore:
-      - 'CHANGELOG.md'  # Don't run CI for changelog only commits
+      - 'CHANGELOG.md'
+      - '.pre-commit-config.yaml'
   pull_request:
     paths-ignore:
       - 'CHANGELOG.md'
+      - '.pre-commit-config.yaml'
 
 permissions:
   contents: read
