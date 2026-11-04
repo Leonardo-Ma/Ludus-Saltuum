@@ -15,6 +15,7 @@ var _cancel_actions: Dictionary[ApplicationStateManager.GameState, Callable] = {
 	ApplicationStateManager.GameState.MAIN_MENU_SETTINGS: ApplicationStateManager.request_close_settings,
 	ApplicationStateManager.GameState.SAVE_MENU: ApplicationStateManager.request_close_menu,
 	ApplicationStateManager.GameState.ACHIEVEMENTS_MENU: ApplicationStateManager.request_close_menu,
+	ApplicationStateManager.GameState.COSMETICS_MENU: ApplicationStateManager.request_close_cosmetics,
 }
 
 
