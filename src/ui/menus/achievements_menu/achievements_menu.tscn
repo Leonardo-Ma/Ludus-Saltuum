@@ -20,8 +20,10 @@ size_flags_vertical = 3
 theme = ExtResource("1_vfc0r")
 script = ExtResource("1_uj6k7")
 _row_scene = ExtResource("2_uj6k7")
+state = 5
 
 [node name="BackgroundParallax" parent="." unique_id=501285105 instance=ExtResource("3_vfc0r")]
+layout_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1423341351]
 layout_mode = 1
@@ -59,7 +61,6 @@ expand_icon = true
 script = ExtResource("5_8gaqd")
 
 [node name="GrabFocusOnVisible" parent="MarginContainer/ScrollContainer/VBoxContainer/CloseAchievementsButton" unique_id=494770207 instance=ExtResource("6_x0cl8")]
-layout_mode = 0
 
 [node name="RowsContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=869183067]
 unique_name_in_owner = true

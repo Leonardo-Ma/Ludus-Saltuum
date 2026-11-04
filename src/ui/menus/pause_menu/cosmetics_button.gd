@@ -6,4 +6,4 @@ func _button_ready() -> void:
 
 
 func _button_pressed() -> void:
-	ApplicationStateManager.request_cosmetics_menu()
+	ApplicationStateManager.request_open_menu(ApplicationStateManager.GameState.COSMETICS_MENU)

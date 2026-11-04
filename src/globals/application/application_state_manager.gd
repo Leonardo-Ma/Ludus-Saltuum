@@ -1,5 +1,6 @@
-## Application state machine; Coordinates UI, pause, settings, main menu, and quit
+## Application state machine; Coordinates UI, pause, menus, and quit
 ## Handles high-level application states, not gameplay-specific modes
+## Root states (MAIN_MENU, PLAYING, PAUSED) via request_*, overlay menus stack on top via request_open_menu, pop via request_close_menu
 ## Emits signals for state transitions
 extends Node
 
@@ -8,10 +9,9 @@ signal main_menu_requested
 signal gameplay_started
 signal gameplay_paused
 signal gameplay_resumed
-signal settings_opened
-signal settings_closed
+signal menu_opened(menu: GameState)
+signal menu_closed(menu: GameState)
 signal main_menu_opened
-signal cosmetics_opened
 signal quit_requested
 
 enum GameState {
@@ -21,33 +21,22 @@ enum GameState {
 	SETTINGS = 3,
 	SAVE_MENU = 4,
 	ACHIEVEMENTS_MENU = 5,
-	MAIN_MENU_SETTINGS = 6,
-	COSMETICS_MENU = 7,
+	COSMETICS_MENU = 6,
 }
 
-const _VALID_TRANSITIONS: Dictionary = {
-	GameState.MAIN_MENU: [GameState.PLAYING, GameState.MAIN_MENU_SETTINGS, GameState.SAVE_MENU, GameState.ACHIEVEMENTS_MENU],
-	GameState.PLAYING: [GameState.PAUSED, GameState.MAIN_MENU, GameState.SETTINGS],
-	GameState.PAUSED: [
-		GameState.PLAYING,
-		GameState.MAIN_MENU,
-		GameState.SETTINGS,
-		GameState.SAVE_MENU,
-		GameState.ACHIEVEMENTS_MENU,
-		GameState.COSMETICS_MENU,
-	],
-	GameState.SETTINGS: [GameState.PLAYING, GameState.PAUSED, GameState.MAIN_MENU, GameState.MAIN_MENU_SETTINGS],
-	GameState.SAVE_MENU: [GameState.PLAYING, GameState.PAUSED, GameState.MAIN_MENU],
-	GameState.ACHIEVEMENTS_MENU: [GameState.PAUSED, GameState.MAIN_MENU],
-	GameState.MAIN_MENU_SETTINGS: [GameState.MAIN_MENU, GameState.SETTINGS],
+## Overlay menu to states it can be opened from
+## New menu = new enum value + new entry
+const _MENU_ORIGINS: Dictionary[GameState, Array] = {
+	GameState.SETTINGS: [GameState.MAIN_MENU, GameState.PAUSED],
+	GameState.SAVE_MENU: [GameState.MAIN_MENU, GameState.PAUSED],
+	GameState.ACHIEVEMENTS_MENU: [GameState.MAIN_MENU, GameState.PAUSED],
 	GameState.COSMETICS_MENU: [GameState.PAUSED],
 }
 
-const _RETURNABLE_STATES: Array[GameState] = [GameState.PLAYING, GameState.PAUSED, GameState.MAIN_MENU, GameState.COSMETICS_MENU]
-
 var _current_state: GameState = GameState.MAIN_MENU
 var _previous_state: GameState = GameState.MAIN_MENU
-var _menu_return_state: GameState = GameState.MAIN_MENU
+## States below current overlay menu, last = return target
+var _menu_stack: Array[GameState] = []
 
 var _is_initialized: bool = false
 
@@ -62,29 +51,19 @@ func _notification(what: int) -> void:
 		request_pause_if_playing()
 
 
-func _change_state(new_state: GameState) -> void:
-	if _current_state == new_state:
-		return
-	assert(
-		_is_valid_transition(_current_state, new_state),
-		"Invalid state transition from " + GameState.find_key(_current_state) + " to " + GameState.find_key(new_state),
-	)
-
-	if _current_state in _RETURNABLE_STATES and new_state not in _RETURNABLE_STATES:
-		_menu_return_state = _current_state
-
+func _apply_state(new_state: GameState) -> void:
 	_previous_state = _current_state
 	_current_state = new_state
 
-	_on_state_entered(_current_state, _previous_state)
-	state_changed.emit(_current_state, _previous_state)
+
+func _change_root_state(new_state: GameState) -> void:
+	_menu_stack.clear()
+	_apply_state(new_state)
+	_on_root_state_entered(new_state, _previous_state)
+	state_changed.emit(new_state, _previous_state)
 
 
-func _is_valid_transition(from_state: GameState, to_state: GameState) -> bool:
-	return _VALID_TRANSITIONS.get(from_state, []).has(to_state)
-
-
-func _on_state_entered(new_state: GameState, previous_state: GameState) -> void:
+func _on_root_state_entered(new_state: GameState, previous_state: GameState) -> void:
 	match new_state:
 		GameState.MAIN_MENU:
 			PauseManager.request_pause("gameplay")
@@ -101,23 +80,8 @@ func _on_state_entered(new_state: GameState, previous_state: GameState) -> void:
 			PauseManager.request_pause("gameplay")
 			gameplay_paused.emit()
 
-		GameState.SETTINGS:
-			settings_opened.emit()
-
-		GameState.SAVE_MENU:
-			pass
-
-		GameState.ACHIEVEMENTS_MENU:
-			pass
-
-		GameState.MAIN_MENU_SETTINGS:
-			settings_opened.emit()
-
-		GameState.COSMETICS_MENU:
-			cosmetics_opened.emit()
-
 		_:
-			assert(false, "Missing a transition logic for " + GameState.find_key(new_state))
+			assert(false, "Not a root state: " + GameState.find_key(new_state))
 
 
 func get_current_state() -> GameState:
@@ -136,12 +100,16 @@ func is_gameplay_active() -> bool:
 	return _current_state in [GameState.PLAYING, GameState.PAUSED]
 
 
+func is_in_overlay_menu() -> bool:
+	return _MENU_ORIGINS.has(_current_state)
+
+
 func is_in_menu() -> bool:
-	return _current_state in [GameState.MAIN_MENU, GameState.SETTINGS, GameState.SAVE_MENU, GameState.ACHIEVEMENTS_MENU, GameState.MAIN_MENU_SETTINGS]
+	return _current_state == GameState.MAIN_MENU or is_in_overlay_menu()
 
 
 func is_in_settings() -> bool:
-	return _current_state in [GameState.SETTINGS, GameState.MAIN_MENU_SETTINGS]
+	return _current_state == GameState.SETTINGS
 
 
 func is_paused() -> bool:
@@ -153,82 +121,40 @@ func request_play_from_save() -> void:
 		_current_state in [GameState.SAVE_MENU, GameState.MAIN_MENU],
 		"Can only start gameplay from SAVE_MENU or MAIN_MENU, current: " + GameState.find_key(_current_state),
 	)
-	_change_state(GameState.PLAYING)
+	_change_root_state(GameState.PLAYING)
 
 
 func request_pause() -> void:
 	assert(_current_state == GameState.PLAYING, "Can only pause from PLAYING, current: " + GameState.find_key(_current_state))
-	_change_state(GameState.PAUSED)
+	_change_root_state(GameState.PAUSED)
 
 
 func request_resume() -> void:
 	assert(_current_state == GameState.PAUSED, "Can only resume from PAUSED, current: " + GameState.find_key(_current_state))
-	_change_state(GameState.PLAYING)
-
-
-func request_settings() -> void:
-	assert(
-		_current_state in [GameState.PLAYING, GameState.PAUSED, GameState.MAIN_MENU, GameState.MAIN_MENU_SETTINGS],
-		"Can only open settings from gameplay or main menu, current: " + GameState.find_key(_current_state),
-	)
-
-	if _current_state == GameState.MAIN_MENU:
-		_change_state(GameState.MAIN_MENU_SETTINGS)
-	elif _current_state == GameState.MAIN_MENU_SETTINGS:
-		_change_state(GameState.SETTINGS)
-	else:
-		_change_state(GameState.SETTINGS)
-
-
-func request_close_settings() -> void:
-	assert(is_in_settings(), "Not in settings state, current: " + GameState.find_key(_current_state))
-	_change_state(_menu_return_state)
-	settings_closed.emit()
-
-
-func request_close_menu() -> void:
-	assert(
-		_current_state
-		in [GameState.SETTINGS, GameState.SAVE_MENU, GameState.ACHIEVEMENTS_MENU, GameState.COSMETICS_MENU, GameState.MAIN_MENU_SETTINGS],
-		"Not in a closable menu state, current: " + GameState.find_key(_current_state),
-	)
-	_change_state(_menu_return_state)
+	_change_root_state(GameState.PLAYING)
 
 
 func request_main_menu() -> void:
 	assert(_current_state != GameState.MAIN_MENU, "Already in MAIN_MENU")
 	main_menu_requested.emit()
-	_change_state(GameState.MAIN_MENU)
+	_change_root_state(GameState.MAIN_MENU)
 
 
-func request_save_menu() -> void:
-	assert(
-		_current_state in [GameState.MAIN_MENU, GameState.PAUSED],
-		"Can only open save menu from MAIN_MENU or PAUSED, current: " + GameState.find_key(_current_state),
-	)
-	_change_state(GameState.SAVE_MENU)
+func request_open_menu(menu: GameState) -> void:
+	assert(_MENU_ORIGINS.has(menu), "Not an overlay menu: " + GameState.find_key(menu))
+	assert(_current_state in _MENU_ORIGINS[menu], "Cannot open " + GameState.find_key(menu) + " from " + GameState.find_key(_current_state))
+	_menu_stack.push_back(_current_state)
+	_apply_state(menu)
+	state_changed.emit(menu, _previous_state)
+	menu_opened.emit(menu)
 
 
-func request_achievements_menu() -> void:
-	assert(
-		_current_state in [GameState.MAIN_MENU, GameState.PAUSED],
-		"Can only open achievements from MAIN_MENU or PAUSED, current: " + GameState.find_key(_current_state),
-	)
-	_change_state(GameState.ACHIEVEMENTS_MENU)
-
-
-func request_cosmetics_menu() -> void:
-	assert(
-		_current_state in [GameState.PAUSED, GameState.PLAYING],
-		"Can only open cosmetics from PAUSED or PLAYING, current: " + GameState.find_key(_current_state),
-	)
-	_change_state(GameState.COSMETICS_MENU)
-
-
-func request_close_cosmetics() -> void:
-	assert(_current_state == GameState.COSMETICS_MENU, "Not in cosmetics menu, current: " + GameState.find_key(_current_state))
-	# TODO Probably better to just hide (pop the stack)
-	_change_state(GameState.PAUSED)
+func request_close_menu() -> void:
+	assert(is_in_overlay_menu(), "Not in an overlay menu, current: " + GameState.find_key(_current_state))
+	var closed_menu: GameState = _current_state
+	_apply_state(_menu_stack.pop_back())
+	state_changed.emit(_current_state, _previous_state)
+	menu_closed.emit(closed_menu)
 
 
 func request_quit() -> void:

@@ -1,6 +1,6 @@
 ## Row count and order are data-driven, so instancing happens in code
 class_name AchievementsMenu
-extends Control
+extends MenuScreen
 
 @export var _row_scene: PackedScene
 @onready var _rows_container: VBoxContainer = %RowsContainer

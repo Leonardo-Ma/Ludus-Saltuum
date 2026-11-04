@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://7p2j8n842i0a" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/cross.png" id="3_41aul"]
 [ext_resource type="PackedScene" uid="uid://blui2ox13a24b" path="res://src/ui/menus/shared/background_parallax.tscn" id="3_tp1uf"]
 [ext_resource type="PackedScene" uid="uid://b6ednpu0kwboc" path="res://src/ui/helpers/grab_focus_on_visible.tscn" id="5_6y3kf"]
-[ext_resource type="Script" uid="uid://coi0r37wkdbpn" path="res://src/ui/menus/save_menu/return_button.gd" id="7_tp1uf"]
+[ext_resource type="Script" uid="uid://djxnnbvmilpar" path="res://src/ui/menus/shared/close_menu_button.gd" id="7_xy6o5"]
 [ext_resource type="Texture2D" uid="uid://d4mpox43403tw" path="res://src/icons/16x16/folder.png" id="8_tdy6s"]
 [ext_resource type="Script" uid="uid://ub8d45k5dxpl" path="res://src/ui/menus/save_menu/open_save_folder.gd" id="9_xy6o5"]
 
@@ -19,6 +19,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_y5lmd")
 script = ExtResource("2_41aul")
+state = 4
 
 [node name="BackgroundParallax" parent="." unique_id=501285105 instance=ExtResource("3_tp1uf")]
 layout_mode = 1
@@ -96,7 +97,7 @@ theme_type_variation = &"DangerIconButton"
 icon = ExtResource("3_41aul")
 icon_alignment = 1
 expand_icon = true
-script = ExtResource("7_tp1uf")
+script = ExtResource("7_xy6o5")
 
 [node name="OpenSaveFolder" type="Button" parent="MarginContainer" unique_id=1649028367]
 custom_minimum_size = Vector2(64, 64)

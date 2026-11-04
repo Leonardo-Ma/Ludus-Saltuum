@@ -12,7 +12,12 @@ var _player: PlayerEntity
 func _button_ready() -> void:
 	text = str(_price)
 
-	ApplicationStateManager.cosmetics_opened.connect(_update_button)
+	ApplicationStateManager.menu_opened.connect(_on_menu_opened)
+
+
+func _on_menu_opened(menu: ApplicationStateManager.GameState) -> void:
+	if menu == ApplicationStateManager.GameState.COSMETICS_MENU:
+		_update_button()
 
 
 func _button_pressed() -> void:

@@ -1,6 +1,6 @@
 ## Populates and refreshes all save file item slots on open
 class_name SaveMenu
-extends Control
+extends MenuScreen
 
 @onready var _slot_items: Array[Node] = %SaveSlotsContainer.get_children()
 

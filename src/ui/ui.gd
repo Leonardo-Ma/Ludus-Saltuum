@@ -4,8 +4,6 @@
 class_name UIView
 extends CanvasLayer
 
-signal confirmation_finished(confirmed: bool)
-
 @onready var _menus: MenusView = %Menus
 @onready var _hud: Control = %HUD
 @onready var _overlays: Control = %Overlays
@@ -22,67 +20,17 @@ func _ready() -> void:
 			child.name + " is missing CanvasItem > Ordering > Z Index. All children of UI must have manual screen ordering set",
 		)
 
-
-func show_main_menu() -> void:
-	_popups.close_all_popups()
-	_menus.show()
-	_menus.show_main_menu()
-	_hud.hide()
-	_overlays.hide()
-	_popups.hide()
+	present(ApplicationStateManager.get_current_state())
 
 
-func show_save_menu() -> void:
-	_popups.close_all_popups()
-	_menus.show()
-	_menus.show_save_menu()
-	_hud.hide()
-	_overlays.hide()
-	_popups.hide()
-
-
-func show_game() -> void:
-	_menus.hide()
-	_hud.visible = UIManager.hud_visible
-	_overlays.show()
-	_popups.show()
-
-
-func show_pause_menu() -> void:
-	_popups.close_all_popups()
-	_menus.show()
-	_menus.show_pause_menu()
-	_hud.hide()
-	_overlays.hide()
-	_popups.hide()
-
-
-func show_settings() -> void:
-	_menus.show()
-	_menus.show_settings()
-
-
-func show_achievements() -> void:
-	_popups.close_all_popups()
-	_menus.show()
-	_menus.show_achievements()
-	_hud.hide()
-	_overlays.hide()
-	_popups.hide()
-
-
-func show_main_menu_settings() -> void:
-	_menus.show()
-	_menus.show_main_menu_settings()
-	_hud.hide()
-	_overlays.hide()
-
-
-func show_cosmetics_menu() -> void:
-	_menus.show()
-	_menus.show_cosmetics_menu()
-	_hud.hide()
-	_overlays.hide()
+## Menus show screen registered for state, HUD / overlays / popups only while playing
+## Open popups are closed by PopupsManager on state change
+func present(state: ApplicationStateManager.GameState) -> void:
+	var is_playing: bool = state == ApplicationStateManager.GameState.PLAYING
+	_menus.show_screen(state)
+	_hud.visible = is_playing and UIManager.hud_visible
+	_overlays.visible = is_playing
+	_popups.visible = is_playing
 
 
 func has_open_popup() -> bool:

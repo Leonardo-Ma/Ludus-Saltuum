@@ -21,14 +21,6 @@ func _on_game_state_changed(new_state: ApplicationStateManager.GameState, previo
 		ApplicationStateManager.GameState.PAUSED:
 			# Keep music playing but could lower volume if desired
 			pass
-		ApplicationStateManager.GameState.SETTINGS:
-			pass
-		ApplicationStateManager.GameState.SAVE_MENU:
-			pass
-		ApplicationStateManager.GameState.ACHIEVEMENTS_MENU:
-			pass
-		ApplicationStateManager.GameState.MAIN_MENU_SETTINGS:
-			pass
 
 
 func _on_gameplay_mode_changed(new_mode: GameplayStateManager.GameplayMode, previous_mode: GameplayStateManager.GameplayMode) -> void:
@@ -54,11 +46,3 @@ func _synchronize_current_game_state() -> void:
 			MusicController.set_state(MusicController.MusicState.EXPLORATION)
 		ApplicationStateManager.GameState.PAUSED:
 			MusicController.set_state(MusicController.MusicState.EXPLORATION)
-		ApplicationStateManager.GameState.SETTINGS:
-			pass
-		ApplicationStateManager.GameState.SAVE_MENU:
-			pass
-		ApplicationStateManager.GameState.ACHIEVEMENTS_MENU:
-			pass
-		ApplicationStateManager.GameState.MAIN_MENU_SETTINGS:
-			pass

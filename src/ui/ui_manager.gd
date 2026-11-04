@@ -10,14 +10,6 @@ var hud_visible: bool = true
 var _ui: UIView
 var _was_mouse_captured: bool = false
 
-var _cancel_actions: Dictionary[ApplicationStateManager.GameState, Callable] = {
-	ApplicationStateManager.GameState.SETTINGS: ApplicationStateManager.request_close_settings,
-	ApplicationStateManager.GameState.MAIN_MENU_SETTINGS: ApplicationStateManager.request_close_settings,
-	ApplicationStateManager.GameState.SAVE_MENU: ApplicationStateManager.request_close_menu,
-	ApplicationStateManager.GameState.ACHIEVEMENTS_MENU: ApplicationStateManager.request_close_menu,
-	ApplicationStateManager.GameState.COSMETICS_MENU: ApplicationStateManager.request_close_cosmetics,
-}
-
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -56,8 +48,6 @@ func register_ui(ui: UIView) -> void:
 	hud_visible = SettingsManager.settings.hud.hud_visible
 
 	ApplicationStateManager.state_changed.connect(_on_game_state_changed)
-	ApplicationStateManager.settings_opened.connect(_on_settings_opened)
-	ApplicationStateManager.settings_closed.connect(_on_settings_closed)
 
 
 func request_confirmation(icons: Array[CompressedTexture2D]) -> bool:
@@ -80,10 +70,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			_ui.get_viewport().set_input_as_handled()
 			return
 
-		var action: Callable = _cancel_actions.get(current_state, Callable())
-		if action.is_valid():
-			action.call()
+		if ApplicationStateManager.is_in_overlay_menu():
+			ApplicationStateManager.request_close_menu()
 			_ui.get_viewport().set_input_as_handled()
+			return
 
 	if event.is_action_pressed("pause"):
 		match current_state:
@@ -107,25 +97,7 @@ func set_hud_visible(visible: bool) -> void:
 
 
 func _on_game_state_changed(new_state: ApplicationStateManager.GameState, _previous_state: ApplicationStateManager.GameState) -> void:
-	match new_state:
-		ApplicationStateManager.GameState.MAIN_MENU:
-			_ui.show_main_menu()
-		ApplicationStateManager.GameState.PLAYING:
-			_ui.show_game()
-		ApplicationStateManager.GameState.PAUSED:
-			_ui.show_pause_menu()
-		ApplicationStateManager.GameState.SETTINGS:
-			_ui.show_settings()
-		ApplicationStateManager.GameState.SAVE_MENU:
-			_ui.show_save_menu()
-		ApplicationStateManager.GameState.ACHIEVEMENTS_MENU:
-			_ui.show_achievements()
-		ApplicationStateManager.GameState.MAIN_MENU_SETTINGS:
-			_ui.show_main_menu_settings()
-		ApplicationStateManager.GameState.COSMETICS_MENU:
-			_ui.show_cosmetics_menu()
-		_:
-			assert(false, "missing open menu function here for " + ApplicationStateManager.GameState.find_key(new_state))
+	_ui.present(new_state)
 
 	if new_state == ApplicationStateManager.GameState.PLAYING:
 		_release_ui_focus()
@@ -143,11 +115,3 @@ func _release_ui_focus() -> void:
 	var focus_owner: Control = viewport.gui_get_focus_owner()
 	if focus_owner:
 		focus_owner.release_focus()
-
-
-func _on_settings_opened() -> void:
-	pass
-
-
-func _on_settings_closed() -> void:
-	pass

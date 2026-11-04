@@ -101,10 +101,7 @@ func _on_application_state_changed(new_state: ApplicationStateManager.GameState,
 			_on_application_state_entered_paused()
 		ApplicationStateManager.GameState.MAIN_MENU:
 			_on_application_state_entered_main_menu()
-		ApplicationStateManager.GameState.SETTINGS, \
-				ApplicationStateManager.GameState.SAVE_MENU, \
-				ApplicationStateManager.GameState.ACHIEVEMENTS_MENU, \
-				ApplicationStateManager.GameState.MAIN_MENU_SETTINGS:
+		_:
 			_on_application_state_entered_temporary_menu()
 
 

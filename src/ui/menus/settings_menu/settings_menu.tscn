@@ -2,6 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="1_rm7i6"]
 [ext_resource type="PackedScene" uid="uid://blui2ox13a24b" path="res://src/ui/menus/shared/background_parallax.tscn" id="2_1lg27"]
+[ext_resource type="Script" uid="uid://r82p4rgc7q12" path="res://src/ui/menus/settings_menu/settings_menu.gd" id="2_rm7i6"]
 [ext_resource type="Script" uid="uid://c28r7m4rv68ob" path="res://src/ui/menus/settings_menu/options_tab_controller.gd" id="3_bx78x"]
 [ext_resource type="Theme" uid="uid://c3cx0udnofecq" path="res://src/ui/menus/settings_menu/tabs.tres" id="4_bx78x"]
 [ext_resource type="ButtonGroup" uid="uid://ctkeu7278wn6a" path="res://src/ui/menus/settings_menu/settings_button_group.tres" id="5_b1okk"]
@@ -73,6 +74,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_rm7i6")
+script = ExtResource("2_rm7i6")
+state = 3
 
 [node name="BackgroundParallax" parent="." unique_id=501285105 instance=ExtResource("2_1lg27")]
 layout_mode = 1
