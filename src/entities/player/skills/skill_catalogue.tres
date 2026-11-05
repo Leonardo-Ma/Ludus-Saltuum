@@ -5,8 +5,9 @@
 [ext_resource type="Resource" uid="uid://dq338q84ai7to" path="res://src/entities/player/skills/active_skills/dash.tres" id="2_yb1kb"]
 [ext_resource type="Resource" uid="uid://dw6jynnbqeedp" path="res://src/entities/player/skills/active_skills/double_jump.tres" id="3_3cukp"]
 [ext_resource type="Resource" uid="uid://dcw2dwhnvq7ri" path="res://src/entities/player/skills/active_skills/feather_fall.tres" id="4_6kfjp"]
+[ext_resource type="Resource" uid="uid://bqq32jxlbtgpc" path="res://src/entities/player/skills/active_skills/fireball.tres" id="5_3cukp"]
 
 [resource]
 script = ExtResource("2_r0sgn")
-definitions = Array[ExtResource("1_vsl35")]([ExtResource("2_yb1kb"), ExtResource("3_3cukp"), ExtResource("4_6kfjp")])
+definitions = Array[ExtResource("1_vsl35")]([ExtResource("2_yb1kb"), ExtResource("3_3cukp"), ExtResource("4_6kfjp"), ExtResource("5_3cukp")])
 metadata/_custom_type_script = "uid://b0c28qulnbi6r"

@@ -5,7 +5,9 @@
 [ext_resource type="Resource" uid="uid://kgbc8eki2sxi" path="res://src/entities/player/resources/player_health.tres" id="3_xm7nl"]
 [ext_resource type="Resource" uid="uid://dq7ekml454vq1" path="res://src/entities/player/resources/player_movement.tres" id="4_f610a"]
 [ext_resource type="Script" uid="uid://ce8ig2j71kitw" path="res://src/entities/player/controller/camera_controller.gd" id="5_2wg8a"]
+[ext_resource type="PackedScene" uid="uid://c4jq7s82wru52" path="res://src/entities/vfx/elemental_magic_fx/projectile/fire_projectile.tscn" id="5_i78gy"]
 [ext_resource type="Script" uid="uid://csig12422io62" path="res://src/entities/components/combat/hitbox.gd" id="5_w2bk0"]
+[ext_resource type="Script" uid="uid://b14wamm35ys53" path="res://src/entities/components/combat/projectile_attack.gd" id="6_ts1rd"]
 [ext_resource type="AnimationLibrary" uid="uid://d0b53v2ggy8ma" path="res://src/entities/animation/libraries/magic.res" id="7_akx0o"]
 [ext_resource type="Script" uid="uid://wqopxvagomo6" path="res://src/entities/components/combat/hurtbox.gd" id="7_cdsl0"]
 [ext_resource type="Script" uid="uid://otpekb0jb3ab" path="res://src/entities/player/controller/player_movement_controller.gd" id="8_ebec5"]
@@ -38,6 +40,13 @@
 [ext_resource type="Script" uid="uid://grgmrh5nfxle" path="res://src/entities/player/controller/cosmetics_controller.gd" id="32_xm7nl"]
 [ext_resource type="Script" uid="uid://bkp1xy01pk8yn" path="res://src/entities/player/components/portal_controller.gd" id="33_portalcontroller"]
 [ext_resource type="Resource" uid="uid://b2bfyxo1s4qql" path="res://src/entities/resources/character_catalog.tres" id="34_lacky"]
+
+[sub_resource type="Resource" id="Resource_drftx"]
+script = ExtResource("6_ts1rd")
+projectile_scene = ExtResource("5_i78gy")
+type = 2
+damage = 20
+metadata/_custom_type_script = "uid://b14wamm35ys53"
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_wjvoe"]
 height = 1.0117772
@@ -582,6 +591,7 @@ script = ExtResource("1_tpvn4")
 attack = ExtResource("2_45rvh")
 health = ExtResource("3_xm7nl")
 movement = ExtResource("4_f610a")
+projectile_attack = SubResource("Resource_drftx")
 is_npc = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=680952906]

@@ -35,6 +35,7 @@
 [ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/mechanics/collectible/coin/gold_coin.tscn" id="22_jlvjc"]
 [ext_resource type="PackedScene" uid="uid://cyk7txgkpg83" path="res://src/environment/mechanics/collectible/jump_up/jump_up.tscn" id="23_oqqo4"]
 [ext_resource type="Resource" uid="uid://dcw2dwhnvq7ri" path="res://src/entities/player/skills/active_skills/feather_fall.tres" id="25_q7k03"]
+[ext_resource type="Resource" uid="uid://bqq32jxlbtgpc" path="res://src/entities/player/skills/active_skills/fireball.tres" id="26_drftx"]
 [ext_resource type="Script" uid="uid://cqo4vne1iqdw4" path="res://src/systems/collectibles/collectibles_data/status_collectible.gd" id="29_drftx"]
 [ext_resource type="Resource" uid="uid://bfr78paglfbvw" path="res://src/environment/mechanics/collectible/gigantify/gigantify.tres" id="30_hqcre"]
 [ext_resource type="Resource" uid="uid://b86rvjt6lasya" path="res://src/environment/mechanics/collectible/shrink/shrink.tres" id="32_kdkg8"]
@@ -52,9 +53,14 @@ script = ExtResource("21_3omyl")
 definition = ExtResource("20_6yhsn")
 metadata/_custom_type_script = "uid://si0x0kj8w7kf"
 
-[sub_resource type="Resource" id="Resource_bud03"]
+[sub_resource type="Resource" id="Resource_2a6xp"]
 script = ExtResource("21_3omyl")
 definition = ExtResource("25_q7k03")
+metadata/_custom_type_script = "uid://si0x0kj8w7kf"
+
+[sub_resource type="Resource" id="Resource_bud03"]
+script = ExtResource("21_3omyl")
+definition = ExtResource("26_drftx")
 metadata/_custom_type_script = "uid://si0x0kj8w7kf"
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_buypi"]
@@ -140,7 +146,7 @@ transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, 8
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -7)
 
 [node name="GrassPlatform" parent="InteractableAndHazards" unique_id=1453246228 instance=ExtResource("4_8pr8v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 9)
 
 [node name="Spring" parent="InteractableAndHazards/GrassPlatform" unique_id=2127770289 instance=ExtResource("6_8pr8v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 4, 0)
@@ -155,13 +161,13 @@ transform = Transform3D(100, 0, 0, 0, -4.3711384e-06, 99.99999, 0, -99.99999, -4
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 3, 4.365982, -4)
 
 [node name="MovingPlatforMOrange" parent="InteractableAndHazards" unique_id=1340688729 instance=ExtResource("9_oo8pe")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -8, 0, -2)
+transform = Transform3D(-2.1855695e-07, 0, -5, 0, 5, 0, 5, 0, -2.1855695e-07, -8, 0, -1)
 
 [node name="SkillsUnlock" type="Node3D" parent="." unique_id=220838827]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 4)
 
 [node name="GrassPlatform" parent="SkillsUnlock" unique_id=856525069 instance=ExtResource("4_8pr8v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -17)
 
 [node name="UnlockSkill" parent="SkillsUnlock/GrassPlatform" unique_id=707485280 instance=ExtResource("19_jlvjc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 5, 0)
@@ -177,9 +183,15 @@ static_id = &"test_skill_1"
 
 [node name="UnlockSkill3" parent="SkillsUnlock/GrassPlatform" unique_id=743930671 instance=ExtResource("19_jlvjc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 5, -3)
-data = SubResource("Resource_bud03")
+data = SubResource("Resource_2a6xp")
 is_procedurally_spawned = false
 static_id = &"test_skill_2"
+
+[node name="UnlockSkill4" parent="SkillsUnlock/GrassPlatform" unique_id=735560010 instance=ExtResource("19_jlvjc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 5, -3)
+data = SubResource("Resource_bud03")
+is_procedurally_spawned = false
+static_id = &"test_skill_3"
 
 [node name="EasterEggs" type="Node3D" parent="." unique_id=452354969]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)

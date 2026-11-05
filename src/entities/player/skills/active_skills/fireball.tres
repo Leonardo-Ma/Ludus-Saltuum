@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="FireballSkillDefinition" format=3 uid="uid://bqq32jxlbtgpc"]
+
+[ext_resource type="Texture2D" uid="uid://30j2m7htdawq" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/4_nature/meteor.png" id="1_lufoh"]
+[ext_resource type="Script" uid="uid://8dqfdfouxh5t" path="res://src/entities/player/skills/fireball_skill_definition.gd" id="1_vrjpe"]
+[ext_resource type="PackedScene" uid="uid://c4jq7s82wru52" path="res://src/entities/vfx/elemental_magic_fx/projectile/fire_projectile.tscn" id="1_w4rgo"]
+[ext_resource type="Script" uid="uid://d3eiq4cbxadpa" path="res://src/entities/player/skills/active_skills/fireball_skill.gd" id="3_lufoh"]
+
+[resource]
+script = ExtResource("1_vrjpe")
+projectile_scene = ExtResource("1_w4rgo")
+id = &"fireball"
+skill_script = ExtResource("3_lufoh")
+icon = ExtResource("1_lufoh")
+input_action = &"fireball"
+metadata/_custom_type_script = "uid://8dqfdfouxh5t"
