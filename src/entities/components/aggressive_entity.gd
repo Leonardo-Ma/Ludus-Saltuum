@@ -7,6 +7,8 @@ extends CharacterBody3D
 
 @warning_ignore("unused_signal")
 signal melee_attacked
+@warning_ignore("unused_signal")
+signal magic_casted
 
 ## When damaged, called by code
 const DAMAGE_SOUNDS: Array[AudioStream] = [
@@ -25,6 +27,8 @@ const ATTACK_SOUNDS: Array[AudioStream] = [
 @export var attack: Attack
 @export var health: Health
 @export var movement: Movement
+## Null when entity has no ranged attack
+@export var projectile_attack: ProjectileAttack
 
 @export_group("Is NPC?")
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var is_npc: bool = true

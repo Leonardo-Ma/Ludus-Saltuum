@@ -15,6 +15,8 @@ const PARAM_ATTACK_TRANSITION: String = "parameters/melee_attack/transition_requ
 const PARAM_MELEE_ATTACK_TRANSITION: String = "parameters/melee_attack/transition_request"
 const PARAM_ATTACK_REQUEST: String = "parameters/attack/request"
 const PARAM_ATTACK_ACTIVE: String = "parameters/attack/active"
+const PARAM_MAGIC_ATTACK_REQUEST: String = "parameters/magic_attack/request"
+const PARAM_MAGIC_ATTACK_ACTIVE: String = "parameters/magic_attack/active"
 const PARAM_IS_ALIVE_TRANSITION: String = "parameters/is_alive/transition_request"
 const PARAM_DEATH_TRANSITION: String = "parameters/death/transition_request"
 const PARAM_IS_DAMAGED_REQUEST: String = "parameters/is_damaged/request"
@@ -46,6 +48,7 @@ func _ready() -> void:
 		assert(false, "Entity " + owner.name + "not supported but has animation controller")
 	_validate_animation_parameters()
 	entity.melee_attacked.connect(_on_melee_attack)
+	entity.magic_casted.connect(_on_magic_casted)
 	health.damaged.connect(_on_damaged)
 	health.died.connect(_on_death)
 	health.revived.connect(_on_revived)
@@ -89,6 +92,13 @@ func _on_melee_attack() -> void:
 	set(PARAM_ATTACK_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
 
+func _on_magic_casted() -> void:
+	if get(PARAM_MAGIC_ATTACK_ACTIVE) == true:
+		return
+
+	set(PARAM_MAGIC_ATTACK_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+
+
 func _on_damaged(_attack: Attack) -> void:
 	set(PARAM_IS_ALIVE_TRANSITION, "damaged")
 	set(PARAM_DAMAGED_TRANSITION, DAMAGED_ANIMATIONS.pick_random())
@@ -119,6 +129,8 @@ func _validate_animation_parameters() -> void:
 		PARAM_IS_JUMPING_REQUEST,
 		PARAM_ATTACK_REQUEST,
 		PARAM_MELEE_ATTACK_TRANSITION,
+		PARAM_MAGIC_ATTACK_REQUEST,
+		PARAM_MAGIC_ATTACK_ACTIVE,
 		PARAM_IS_DAMAGED_REQUEST,
 		PARAM_DEATH_TRANSITION,
 		PARAM_DAMAGED_TRANSITION,
