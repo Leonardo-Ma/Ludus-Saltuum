@@ -10,8 +10,6 @@ var _player: PlayerEntity
 
 
 func _button_ready() -> void:
-	text = str(_price)
-
 	ApplicationStateManager.menu_opened.connect(_on_menu_opened)
 
 
