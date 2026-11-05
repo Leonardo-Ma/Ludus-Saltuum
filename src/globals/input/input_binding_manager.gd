@@ -6,32 +6,13 @@ signal binding_changed(action: StringName)
 const _SAVE_PATH: String = "user://key_bindings.cfg"
 const _SECTION: String = "bindings"
 
-## In display order
-const REBINDABLE_ACTIONS: Array[StringName] = [
-	&"move_left",
-	&"move_right",
-	&"move_forward",
-	&"move_backward",
-	&"jump",
-	&"crouch",
-	&"attack",
-	#&"interact",
-	#&"ui_accept",
-	#&"ui_cancel",
-	&"return_to_checkpoint",
-	&"look_left",
-	&"look_right",
-	&"look_up",
-	&"look_down",
-]
-
-const REBINDABLE_ACTIONS_ICONS: Dictionary[StringName, Array] = {
+## In display order, value = icons shown in key bindings row
+const REBINDABLE_ACTIONS: Dictionary[StringName, Array] = {
 	&"move_left": [Icons.CHARACTER_MOVEMENT, Icons.ARROW_LEFT],
 	&"move_right": [Icons.CHARACTER_MOVEMENT, Icons.ARROW_RIGHT],
 	&"move_forward": [Icons.CHARACTER_MOVEMENT, Icons.ARROW_UP],
 	&"move_backward": [Icons.CHARACTER_MOVEMENT, Icons.ARROW_DOWN],
 	&"jump": [Icons.JUMP],
-	&"crouch": [Icons.CHARACTER_MOVEMENT, Icons.ARROW_DOWN],
 	&"attack": [Icons.ATTACK],
 	#&"interact": [ , ],
 	#&"ui_accept": [ , ],
@@ -49,7 +30,6 @@ var _defaults: Dictionary = { }
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	assert(REBINDABLE_ACTIONS.size() == REBINDABLE_ACTIONS_ICONS.size(), "Each action should have an icon.")
 	_cache_defaults()
 	_load()
 
@@ -108,10 +88,7 @@ func _keys_match(a: InputEventKey, b: InputEventKey) -> bool:
 
 ## Resets rebindable action to project default
 func reset_action(action: StringName) -> void:
-	assert(_defaults.has(action), "InputBindingManager: no default cached for " + action)
-	InputMap.action_erase_events(action)
-	for event: InputEvent in _defaults[action]:
-		InputMap.action_add_event(action, event)
+	_restore_default_events(action)
 	_save()
 	binding_changed.emit(action)
 
@@ -119,7 +96,26 @@ func reset_action(action: StringName) -> void:
 func reset_all() -> void:
 	print_debug("Key bindings reset to default")
 	for action: StringName in REBINDABLE_ACTIONS:
-		reset_action(action)
+		_restore_default_events(action)
+	_save()
+	for action: StringName in REBINDABLE_ACTIONS:
+		binding_changed.emit(action)
+
+
+func _restore_default_events(action: StringName) -> void:
+	assert(_defaults.has(action), "InputBindingManager: no default cached for " + action)
+	InputMap.action_erase_events(action)
+	for event: InputEvent in _defaults[action]:
+		InputMap.action_add_event(action, event)
+
+
+func _get_key_codes(events: Array) -> Array[int]:
+	var codes: Array[int] = []
+	for event: InputEvent in events:
+		var key_event: InputEventKey = event as InputEventKey
+		if key_event != null:
+			codes.append(key_event.physical_keycode if key_event.physical_keycode != KEY_NONE else key_event.keycode)
+	return codes
 
 
 ## Returns first mouse [InputEventMouseButton] for [param action], or null if none
@@ -156,7 +152,7 @@ func _save() -> void:
 	var config: ConfigFile = ConfigFile.new()
 	for action: StringName in REBINDABLE_ACTIONS:
 		var event: InputEventKey = get_keyboard_event(action)
-		if event == null:
+		if event == null or _get_key_codes(InputMap.action_get_events(action)) == _get_key_codes(_defaults[action]):
 			continue
 		(config.set_value(_SECTION, action, { &"physical": int(event.physical_keycode), &"logical": int(event.keycode) }))
 	config.save(_SAVE_PATH)

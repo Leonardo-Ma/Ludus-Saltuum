@@ -21,7 +21,7 @@ var _gamepad_icon_map: GamepadIconMap = GamepadIconMap.new()
 
 
 func setup(action: StringName) -> void:
-	for action_icon: CompressedTexture2D in InputBindingManager.REBINDABLE_ACTIONS_ICONS[action]:
+	for action_icon: CompressedTexture2D in InputBindingManager.REBINDABLE_ACTIONS[action]:
 		var new_icon_scene: Node = _ACTION_ICON_SCENE.instantiate()
 		new_icon_scene.texture = action_icon
 
