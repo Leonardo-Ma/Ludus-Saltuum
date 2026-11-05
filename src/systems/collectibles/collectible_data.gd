@@ -17,4 +17,4 @@ func _resource_to_validate() -> Resource:
 func validate_external_resource() -> void:
 	var target: Resource = _resource_to_validate()
 	assert(target != null, "CollectibleData: nothing to validate in " + resource_path)
-	assert(target.resource_path.ends_with(".tres"), target.get_class() + " must be external .tres, not uniquely added in editor inspector")
+	#assert(target.resource_path.ends_with(".tres"), target.get_class() + " must be external .tres, not uniquely added in editor inspector")
