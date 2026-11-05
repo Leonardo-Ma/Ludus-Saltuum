@@ -1,0 +1,9 @@
+[gd_resource type="AnimationNodeBlendTree" format=3 uid="uid://dwe10ethf8r5s"]
+
+[ext_resource type="AnimationNodeBlendTree" uid="uid://basam7g1dbev2" path="res://src/entities/animation/libraries/base_medium_animation_blend_tree.tres" id="1_u6ys1"]
+
+[resource]
+graph_offset = Vector2(-400.62674, -235.90813)
+nodes/AnimationNodeBlendTree/node = ExtResource("1_u6ys1")
+nodes/AnimationNodeBlendTree/position = Vector2(-240, 160)
+node_connections = [&"output", 0, &"AnimationNodeBlendTree"]

@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://nd1uo24vt6d5"]
 
 [ext_resource type="PackedScene" uid="uid://cq301lp0jblvc" path="res://src/entities/enemies/enemy_template.tscn" id="1_4frua"]
+[ext_resource type="AnimationLibrary" uid="uid://d0b53v2ggy8ma" path="res://src/entities/animation/libraries/magic.res" id="4_lmes7"]
 [ext_resource type="AnimationLibrary" uid="uid://vginonlwcip8" path="res://src/entities/animation/libraries/combat.res" id="5_0ifyg"]
 [ext_resource type="Texture2D" uid="uid://d0qopgxxjomc5" path="res://src/entities/enemies/barbarian/barbarian_barbarian_texture.png" id="5_18ttt"]
 [ext_resource type="AnimationLibrary" uid="uid://qw3lmf4rabqb" path="res://src/entities/animation/libraries/general.res" id="6_q7dfg"]
@@ -632,8 +633,9 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 unique_name_in_owner = true
 root_node = NodePath("../Visual")
 libraries/ = SubResource("AnimationLibrary_f35k1")
-libraries/combat = ExtResource("5_0ifyg")
+libraries/1h_combat = ExtResource("5_0ifyg")
 libraries/general = ExtResource("6_q7dfg")
+libraries/magic = ExtResource("4_lmes7")
 libraries/movement = ExtResource("7_0ektb")
 libraries/movement_advanced = ExtResource("19_2rf2y")
 autoplay = &"RESET"
@@ -676,6 +678,10 @@ parameters/damaged/current_state = ""
 parameters/damaged/transition_request = ""
 parameters/damaged/current_index = -1
 parameters/damaged/observer = null
+parameters/magic_attack/active = false
+parameters/magic_attack/internal_active = false
+parameters/magic_attack/request = 0
+parameters/magic_attack/observer = null
 
 [node name="Rig_Medium" type="Node3D" parent="Visual" parent_id_path=PackedInt32Array(977755737) index="0" unique_id=704702845]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)

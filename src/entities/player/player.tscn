@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://dq7ekml454vq1" path="res://src/entities/player/resources/player_movement.tres" id="4_f610a"]
 [ext_resource type="Script" uid="uid://ce8ig2j71kitw" path="res://src/entities/player/controller/camera_controller.gd" id="5_2wg8a"]
 [ext_resource type="Script" uid="uid://csig12422io62" path="res://src/entities/components/combat/hitbox.gd" id="5_w2bk0"]
+[ext_resource type="AnimationLibrary" uid="uid://d0b53v2ggy8ma" path="res://src/entities/animation/libraries/magic.res" id="7_akx0o"]
 [ext_resource type="Script" uid="uid://wqopxvagomo6" path="res://src/entities/components/combat/hurtbox.gd" id="7_cdsl0"]
 [ext_resource type="Script" uid="uid://otpekb0jb3ab" path="res://src/entities/player/controller/player_movement_controller.gd" id="8_ebec5"]
 [ext_resource type="Script" uid="uid://cuefrffw4m4jh" path="res://src/entities/components/animation_controller.gd" id="9_yllr7"]
@@ -593,8 +594,9 @@ shape = SubResource("CylinderShape3D_wjvoe")
 unique_name_in_owner = true
 root_node = NodePath("../Visual")
 libraries/ = SubResource("AnimationLibrary_wjvoe")
-libraries/combat = ExtResource("10_qo2tj")
+libraries/1h_combat = ExtResource("10_qo2tj")
 libraries/general = ExtResource("11_wjvoe")
+libraries/magic = ExtResource("7_akx0o")
 libraries/movement = ExtResource("12_gxh5t")
 libraries/movement_advanced = ExtResource("13_lxeum")
 autoplay = &"RESET"
@@ -640,6 +642,10 @@ parameters/damaged/current_state = ""
 parameters/damaged/transition_request = ""
 parameters/damaged/current_index = -1
 parameters/damaged/observer = null
+parameters/magic_attack/active = false
+parameters/magic_attack/internal_active = false
+parameters/magic_attack/request = 0
+parameters/magic_attack/observer = null
 script = ExtResource("9_yllr7")
 
 [node name="Visual" type="Node3D" parent="." unique_id=1015939177]
