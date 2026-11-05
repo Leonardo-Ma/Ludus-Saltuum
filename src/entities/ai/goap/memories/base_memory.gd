@@ -22,6 +22,7 @@ func init(actor: Node) -> void:
 		"enemy_alive": false,
 		"enemy_nearby": false,
 		"enemy_in_melee_range": false,
+		"enemy_in_ranged_range": false,
 		"enemy_position": Vector3(),
 		"in_combat": false,
 		"low_health": false,
@@ -56,6 +57,7 @@ func _refresh_blackboard() -> void:
 	if not best_target_data:
 		_blackboard["position"] = actor_pos
 		_blackboard["enemy_in_melee_range"] = false
+		_blackboard["enemy_in_ranged_range"] = false
 		_blackboard["enemy_nearby"] = false
 		_blackboard["enemy_alive"] = false
 		_blackboard["in_combat"] = false
@@ -84,13 +86,17 @@ func _refresh_blackboard() -> void:
 	var enemy_nearby: bool = distance_to_last_known_squared < NEARBY_RANGE_SQUARED
 
 	var enemy_alive: bool = current_target.health.current_health > 0.0
-	var in_combat: bool = in_melee_range and enemy_alive
+
+	var projectile_attack: ProjectileAttack = (_actor as AggressiveEntity).projectile_attack
+	var in_ranged_range: bool = projectile_attack != null and true_distance_squared <= projectile_attack.max_range * projectile_attack.max_range
+	var in_combat: bool = (in_melee_range or in_ranged_range) and enemy_alive
 
 	_blackboard["enemy_position"] = enemy_pos
 	_blackboard["position"] = actor_pos
 	_blackboard["enemy_in_melee_range"] = in_melee_range
 	_blackboard["enemy_nearby"] = enemy_nearby
 	_blackboard["enemy_alive"] = enemy_alive
+	_blackboard["enemy_in_ranged_range"] = in_ranged_range
 	_blackboard["in_combat"] = in_combat
 	_blackboard["low_health"] = _is_low_health()
 	_blackboard["is_wandering"] = false
