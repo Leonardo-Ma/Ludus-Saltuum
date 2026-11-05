@@ -1,21 +1,20 @@
+extends SaveController
+
 ## Tracks collected collectibles / killed enemies for save/load
-extends Node
 
 var _collected_collectible_ids: Dictionary[StringName, bool] = { }
 var _killed_enemy_ids: Dictionary[StringName, bool] = { }
 
 
-func _ready() -> void:
+func _child_ready() -> void:
 	CollectiblesEvents.collectible_collected.connect(_on_collectible_collected)
 	CombatEvents.enemy_killed.connect(_on_enemy_killed)
 	ApplicationStateManager.main_menu_requested.connect(initialize_new_save_data)
-
-	SaveManager.save_requested.connect(
-		func(data: SaveData) -> void:
-			build_save_data(data.world),
-	)
 	SaveManager.load_requested.connect(_on_load_requested)
-	SaveManager.reset_requested.connect(initialize_new_save_data)
+
+
+func _on_save_requested(data: SaveData) -> void:
+	build_save_data(data.world)
 
 
 #region Save & Load & Reset

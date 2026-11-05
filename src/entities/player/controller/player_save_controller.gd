@@ -1,7 +1,6 @@
 # TODO It may be necessary to defer load data to after player has spawned? Maybe only in a multiplayer scenario though
-## Player save controller component
 class_name PlayerSaveController
-extends Node
+extends SaveController
 
 const SKILL_CATALOGUE: SkillCatalogue = preload("uid://6ygr0ieawafb") # skill_catalogue.tres
 
@@ -16,15 +15,14 @@ var _default_spawn_transform: Transform3D
 @onready var cosmetics_controller: CosmeticsController = %CosmeticsController
 
 
-func _ready() -> void:
+func _child_ready() -> void:
 	assert(player != null, "Player owner missing in " + name)
 	_default_spawn_transform = player.global_transform
-	SaveManager.save_requested.connect(
-		func(data: SaveData) -> void:
-			build_save_data(data.player),
-	)
 	# NOTE Loading is triggered by game load manager
-	SaveManager.reset_requested.connect(initialize_new_save_data)
+
+
+func _on_save_requested(data: SaveData) -> void:
+	build_save_data(data.player)
 
 
 func build_save_data(data: PlayerSaveData) -> void:
