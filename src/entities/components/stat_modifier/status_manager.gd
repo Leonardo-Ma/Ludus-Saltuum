@@ -1,4 +1,4 @@
-@icon("uid://b2ggug31fd52y") # star.png
+@icon("uid://8oobpjog6je2") #five_pointed_star.png
 class_name StatusManager
 extends Node
 

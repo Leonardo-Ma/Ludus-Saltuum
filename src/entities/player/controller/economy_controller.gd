@@ -1,3 +1,4 @@
+@icon("uid://d18fwefho3cib") # usd.png
 ## Score and gold
 class_name EconomyController
 extends Node

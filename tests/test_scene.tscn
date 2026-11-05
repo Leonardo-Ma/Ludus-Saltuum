@@ -81,7 +81,7 @@ status_effect = ExtResource("32_kdkg8")
 duration = 5.0
 metadata/_custom_type_script = "uid://cqo4vne1iqdw4"
 
-[sub_resource type="Resource" id="Resource_ampx7"]
+[sub_resource type="Resource" id="Resource_e2jay"]
 script = ExtResource("37_8jou4")
 amount = 5000
 metadata/_custom_type_script = "uid://jk4f3mtctg5r"
@@ -245,7 +245,7 @@ static_id = &"test_buff_0"
 
 [node name="GoldCoin" parent="Collectibles/GrassPlatform2" unique_id=1971537253 instance=ExtResource("22_jlvjc")]
 transform = Transform3D(1.9868216e-08, 0, -1, 0, 1, 0, 1, 0, 1.9868216e-08, -1.5850968, 5.666667, -4.8068166)
-data = SubResource("Resource_ampx7")
+data = SubResource("Resource_e2jay")
 is_procedurally_spawned = false
 static_id = &"test_gold_0"
 

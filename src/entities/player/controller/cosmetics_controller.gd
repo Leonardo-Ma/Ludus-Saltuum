@@ -1,3 +1,4 @@
+@icon("uid://eajxvr72e3t1") # shirt.png
 class_name CosmeticsController
 extends Node
 
