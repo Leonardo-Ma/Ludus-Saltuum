@@ -22,6 +22,8 @@ const TOTAL_SLOTS: int = MANUAL_SLOTS + AUTO_SLOTS
 const AUTO_SAVE_INTERVAL: float = 120.0
 const CURRENT_SAVE_VERSION: int = 2
 
+const CORRUPT_SUFFIX: String = ".corrupt_"
+
 var _save_block_sources: Dictionary = { }
 
 var _next_auto_slot: int = 0
@@ -97,7 +99,8 @@ func load_from_slot(slot_index: int) -> bool:
 	assert(has_save(slot_index), "Slot index " + str(slot_index) + " doesn't have save")
 
 	var data: SaveData = _load_slot_resource(slot_index)
-	assert(data != null, "SaveData missing for slot " + str(slot_index) + " in " + name)
+	if data == null:
+		return false
 
 	if data.save_version != CURRENT_SAVE_VERSION:
 		if not _migrate(data):
@@ -312,7 +315,20 @@ func _load_slot_resource(slot_index: int) -> SaveData:
 	if FileAccess.file_exists(bak):
 		push_error("SaveManager: slot %d corrupt, loading backup" % slot_index)
 		data = ResourceLoader.load(bak) as SaveData
+	if data == null:
+		_quarantine_slot(slot_index)
 	return data
+
+
+## Renames unreadable slot files to slot_N.tres.corrupt_<unix time>, never deletes
+func _quarantine_slot(slot_index: int) -> void:
+	var base: String = _slot_path(slot_index)
+	var stamp: int = int(Time.get_unix_time_from_system())
+	for suffix: String in ["", ".bak"]:
+		var path: String = base + suffix
+		if FileAccess.file_exists(path):
+			_safe_rename(path, "%s%s%d" % [path, CORRUPT_SUFFIX, stamp])
+	save_changed.emit(slot_index)
 
 
 func _safe_remove(path: String) -> bool:
