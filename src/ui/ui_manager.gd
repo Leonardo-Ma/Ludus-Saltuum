@@ -75,6 +75,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			_ui.get_viewport().set_input_as_handled()
 			return
 
+		if current_state == ApplicationStateManager.GameState.PAUSED:
+			ApplicationStateManager.request_resume()
+			_ui.get_viewport().set_input_as_handled()
+			return
+
 	if event.is_action_pressed("pause"):
 		match current_state:
 			ApplicationStateManager.GameState.PLAYING:
