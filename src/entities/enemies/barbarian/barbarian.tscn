@@ -682,6 +682,12 @@ parameters/magic_attack/active = false
 parameters/magic_attack/internal_active = false
 parameters/magic_attack/request = 0
 parameters/magic_attack/observer = null
+parameters/stance/current_state = "standing"
+parameters/stance/transition_request = ""
+parameters/stance/current_index = 0
+parameters/stance/observer = null
+parameters/crouch_movement/blend_position = Vector2(0, 0)
+parameters/crouch_movement/observer = null
 
 [node name="Rig_Medium" type="Node3D" parent="Visual" parent_id_path=PackedInt32Array(977755737) index="0" unique_id=704702845]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)

@@ -7,13 +7,17 @@ extends EntityMovementController
 signal jumped # emitted only in first ground jump
 signal in_air
 signal landed
+signal crouch_toggled(active: bool)
 
 const COYOTE_TIME: float = 0.05
 const DEADZONE: float = 0.3 # gamepad joystick deadzone to prevent drift
+const CROUCH_SPEED_MULTIPLIER: float = 0.5
 
 @export var camera: CameraController
 
 var coyote_timer: float = 0.0
+
+var is_crouching: bool = false
 
 var _was_on_floor: bool = false
 
@@ -24,6 +28,7 @@ func _child_ready() -> void:
 
 func _move(delta: float) -> void:
 	if movement_enabled:
+		_crouch_logic()
 		movement_logic()
 	jump_air_logic(delta)
 
@@ -108,3 +113,16 @@ func jump_air_logic(delta: float) -> void:
 func jump(velocity_y: float) -> void:
 	owner.velocity.y = velocity_y
 	coyote_timer = 0.0
+
+
+func _crouch_logic() -> void:
+	if Input.is_action_just_pressed("crouch") and owner.is_on_floor():
+		_set_crouching(not is_crouching)
+
+
+func _set_crouching(active: bool) -> void:
+	if is_crouching == active:
+		return
+	is_crouching = active
+	_movement.speed_multiplier *= CROUCH_SPEED_MULTIPLIER if active else 1.0 / CROUCH_SPEED_MULTIPLIER
+	crouch_toggled.emit(active)

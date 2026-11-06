@@ -13,6 +13,7 @@ const REBINDABLE_ACTIONS: Dictionary[StringName, Array] = {
 	&"move_forward": [Icons.CHARACTER_MOVEMENT, Icons.ARROW_UP],
 	&"move_backward": [Icons.CHARACTER_MOVEMENT, Icons.ARROW_DOWN],
 	&"jump": [Icons.JUMP],
+	&"crouch": [Icons.CHARACTER_MOVEMENT, Icons.ARROW_DOWN],
 	&"attack": [Icons.ATTACK],
 	#&"interact": [ , ],
 	#&"ui_accept": [ , ],

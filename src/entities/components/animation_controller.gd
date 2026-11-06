@@ -6,8 +6,10 @@ extends Node
 ## To be attached to AnimationTree [br]
 ## This acts as a signal listener from other nodes to change animation [br]
 
-# TODO Improve these names and remove magic string
+# TODO Improve these names and remove magic strings
 const PARAM_MOVEMENT_BLEND_POSITION: String = "parameters/movement/blend_position"
+const PARAM_STANCE_TRANSITION: String = "parameters/stance/transition_request"
+const PARAM_CROUCH_MOVEMENT_BLEND_POSITION: String = "parameters/crouch_movement/blend_position"
 const PARAM_IN_AIR_STATE_TRANSITION: String = "parameters/in_air_state/transition_request"
 const PARAM_IN_AIR_STATE_CURRENT: String = "parameters/in_air_state/current_state"
 const PARAM_IS_JUMPING_REQUEST: String = "parameters/is_jumping/request"
@@ -39,7 +41,8 @@ func _ready() -> void:
 		movement_controller.jumped.connect(_on_jumped)
 		movement_controller.in_air.connect(_on_in_air)
 		movement_controller.landed.connect(_on_landed)
-	#		magic_controller.casted.connect(_on_magic_casted)
+		movement_controller.crouch_toggled.connect(_on_crouch_toggled)
+		movement_controller.movement_direction_changed.connect(_on_player_movement_direction_changed)
 	elif entity is AggressiveEntity:
 		var npc_movement_controller: NPCMovementController = $%NPCMovementController
 		assert(npc_movement_controller, "npc_movement_controller missing for " + owner.name)
@@ -122,6 +125,14 @@ func _abort_attack() -> void:
 	entity.animation_player.play("RESET")
 
 
+func _on_player_movement_direction_changed(direction: Vector2, _speed_factor: float) -> void:
+	set(PARAM_CROUCH_MOVEMENT_BLEND_POSITION, direction)
+
+
+func _on_crouch_toggled(active: bool) -> void:
+	set(PARAM_STANCE_TRANSITION, "crouching" if active else "standing")
+
+
 func _validate_animation_parameters() -> void:
 	var required_parameters: Array[String] = [
 		PARAM_MOVEMENT_BLEND_POSITION,
@@ -136,6 +147,9 @@ func _validate_animation_parameters() -> void:
 		PARAM_DAMAGED_TRANSITION,
 		PARAM_IS_ALIVE_TRANSITION,
 	]
+
+	if entity is PlayerEntity:
+		required_parameters.append_array([PARAM_STANCE_TRANSITION, PARAM_CROUCH_MOVEMENT_BLEND_POSITION])
 
 	for param: String in required_parameters:
 		assert(get(param) != null, "Missing animation parameter: " + param + " in " + owner.name)
