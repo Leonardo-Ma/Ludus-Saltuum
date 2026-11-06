@@ -18,7 +18,7 @@ func _child_ready() -> void:
 
 
 func _move(_delta: float) -> void:
-	if _navigation_agent.is_navigation_finished():
+	if not is_physics_processing() or _navigation_agent.is_navigation_finished():
 		stop()
 		return
 	var next_location: Vector3 = _navigation_agent.get_next_path_position()

@@ -33,6 +33,7 @@ func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 		"projectile_attack missing in " + _actor.name,
 	)
 	entity.npc_movement_controller.stop()
+	entity.goap_controller.force_refresh_blackboard()
 
 	var enemy_position: Vector3 = _blackboard.get("enemy_position", entity.global_position)
 	var direction: Vector3 = entity.global_position.direction_to(enemy_position)
