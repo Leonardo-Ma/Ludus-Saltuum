@@ -16,12 +16,16 @@ func _on_area_entered(hitbox: Hitbox) -> void:
 	if hitbox == null:
 		return
 	var attacker: Node = hitbox.get_parent()
+	var attack_used: Attack = attacker.attack
 
+	# TODO DECOUPLE THIS FROM HURTBOX D:
 	# Projectile attack don't hit caster it
 	var projectile: Projectile = attacker as Projectile
-	if projectile != null and projectile.shooter == owner:
-		return
+	if projectile != null:
+		if projectile.shooter == owner:
+			return
 
-	var attack_used: Attack = attacker.attack
+		projectile.queue_free()
+
 	owner.health.take_damage(attack_used)
 	print(owner.name, " Hurt by ", hitbox.owner.name, " For ", attack_used.damage)

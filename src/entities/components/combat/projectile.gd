@@ -11,7 +11,6 @@ var _time_left: float = 0.0
 
 
 func _ready() -> void:
-	body_entered.connect(_on_body_entered)
 	set_physics_process(false)
 
 
@@ -21,7 +20,10 @@ func launch(projectile_attack: ProjectileAttack, new_shooter: AggressiveEntity, 
 	shooter = new_shooter
 	_velocity = direction * projectile_attack.projectile_speed
 	_time_left = projectile_attack.projectile_lifetime
-	look_at(global_position + direction)
+
+	if not direction.is_zero_approx():
+		look_at(global_position + direction)
+
 	set_physics_process(true)
 
 
@@ -31,9 +33,3 @@ func _physics_process(delta: float) -> void:
 	_time_left -= delta
 	if _time_left <= 0.0:
 		queue_free()
-
-
-func _on_body_entered(body: Node3D) -> void:
-	if body == shooter:
-		return
-	queue_free()
