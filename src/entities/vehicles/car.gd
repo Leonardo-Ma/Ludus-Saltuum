@@ -81,8 +81,8 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	assert(is_driven, "Car not driven in " + name)
 
-	var forward: bool = Input.is_action_pressed("move_forward")
-	var backward: bool = Input.is_action_pressed("move_backward")
+	var forward: bool = Input.is_action_pressed("move_forward") or Input.is_action_pressed("vehicle_accelerate")
+	var backward: bool = Input.is_action_pressed("move_backward") or Input.is_action_pressed("vehicle_brake")
 
 	#var speed: float = linear_velocity.length()
 	var forward_speed: float = -global_basis.z.dot(linear_velocity)

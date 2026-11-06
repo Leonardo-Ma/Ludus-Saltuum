@@ -27,7 +27,7 @@ var _gamepad_icon_map: GamepadIconMap = GamepadIconMap.new()
 
 func _ready() -> void:
 	assert(action != &"", "Action not assigned in " + name)
-	assert(InputMap.has_action(action), "Wrong action in " + name)
+	assert(InputMap.has_action(action), "Wrong action name/unexistent in " + name)
 	_gamepad_icon_map.map_changed.connect(refresh)
 	InputManager.device_changed.connect(_on_device_changed)
 	InputBindingManager.binding_changed.connect(_on_binding_changed)
