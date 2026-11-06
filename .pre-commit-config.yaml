@@ -243,6 +243,13 @@ repos:
         entry: '^extends Button$'
         files: \.gd$
         exclude: ^src/ui/helpers/ui_button.gd$
+
+      - id: no-mouse-mode-outside-manager
+        name: "ban setting mouse mode directly | bypasses priority arbitration | use MouseModeManager.request_mode/release"
+        language: pygrep
+        entry: '(\bInput\.mouse_mode\s*=(?!=)|\bInput\.set_mouse_mode\(|\bDisplayServer\.mouse_set_mode\()'
+        files: \.gd$
+        exclude: ^(src/globals/input/mouse_mode_manager\.gd|tests/)
       # ----------------------------------------------------------
       # Legacy Godot syntax
       # ----------------------------------------------------------
