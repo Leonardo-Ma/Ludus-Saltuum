@@ -2,7 +2,7 @@
 ## Manages object pooling, async loading, and sequential connecting of procedural level chunks
 extends Node
 
-signal level_loaded(checkpoint_data: CheckpointSaveData)
+signal level_loaded()
 
 signal chunk_recycled(recycled_chunk: LevelChunk)
 
@@ -58,15 +58,8 @@ func _ready() -> void:
 	# TODO Double check
 	set_procedural_seed(procedural_seed)
 
-	SaveManager.save_requested.connect(
-		func(data: SaveData) -> void:
-			build_save_data(data.chunks),
-	)
-	SaveManager.load_requested.connect(_on_load_requested)
-	SaveManager.reset_requested.connect(initialize_new_save_data)
-	SaveManager.reset_finished.connect(initialize_level)
 
-
+#region Level State
 ## Try to fetch the global seed, else random
 func set_procedural_seed(value: int) -> void:
 	procedural_seed = value if value != 0 else Time.get_ticks_msec()
@@ -74,34 +67,6 @@ func set_procedural_seed(value: int) -> void:
 
 func get_procedural_seed() -> int:
 	return procedural_seed
-
-
-#region Saving and Loading
-func build_save_data(data: ChunkSaveData) -> void:
-	data.world_seed = get_procedural_seed()
-	data.generation_version = GENERATION_VERSION
-
-	var keys: Array[int] = []
-	var scored: Dictionary[int, bool] = { }
-	var uid_map: Dictionary[int, String] = { }
-	for chunk: LevelChunk in _active_chunks:
-		keys.push_back(chunk.chunk_key)
-		if chunk.is_scored:
-			scored[chunk.chunk_key] = true
-		assert(_chunk_key_to_scene_uid.has(chunk.chunk_key), "ChunkManager: no persisted scene uid for active chunk_key %d" % chunk.chunk_key)
-		uid_map[chunk.chunk_key] = _chunk_key_to_scene_uid[chunk.chunk_key]
-	data.active_chunk_keys = keys
-	data.next_chunk_key = _next_chunk_key
-	data.scored_chunk_keys = scored
-	data.chunk_key_to_scene_uid = uid_map
-	data.chunk_selector_state = _chunk_selector.get_save_state()
-
-
-func apply_save_data(data: ChunkSaveData) -> void:
-	assert(data.generation_version == GENERATION_VERSION, "ChunkManager: unsupported generation version %d in %s" % [data.generation_version, name])
-	set_procedural_seed(data.world_seed)
-	_chunk_key_to_scene_uid = data.chunk_key_to_scene_uid.duplicate()
-	_load_save_data(data.active_chunk_keys, data.next_chunk_key, data.scored_chunk_keys, data.chunk_selector_state)
 
 
 func stage_new_game_seed(seed_value: int) -> void:
@@ -115,51 +80,6 @@ func initialize_new_save_data() -> void:
 	_chunk_key_to_scene_uid.clear()
 	set_procedural_seed(_pending_new_game_seed)
 	_pending_new_game_seed = 0
-
-
-func _load_save_data(active_chunk_keys: Array[int], saved_next_key: int, scored_keys: Dictionary[int, bool], selector_state: Dictionary) -> void:
-	var parent_world: Node = get_tree().root.get_node("Main")
-
-	clear_level()
-
-	_player = get_tree().get_first_node_in_group(Groups.PLAYERS)
-	assert(_player != null, "No player found for " + name)
-
-	assert(_chunk_selector != null, "_load_save_data called before metadata was loaded")
-	_chunk_selector.load_save_state(selector_state)
-	assert(not active_chunk_keys.is_empty(), "Save contains no active chunks in " + name)
-
-	_next_chunk_key = saved_next_key
-
-	var next_spawn_transform: Transform3D = Transform3D()
-
-	for chunk_key: int in active_chunk_keys:
-		var chunk: LevelChunk = _instantiate_persisted_chunk(chunk_key)
-
-		if chunk.get_parent() != null:
-			chunk.get_parent().remove_child(chunk)
-		parent_world.add_child(chunk)
-		chunk.process_mode = Node.PROCESS_MODE_INHERIT
-		chunk.visible = true
-
-		_align_chunk_to_transform(chunk, next_spawn_transform)
-
-		if scored_keys.has(chunk_key):
-			chunk.is_scored = true
-
-		_active_chunks.push_back(chunk)
-		_setup_chunk_trigger(chunk)
-
-		next_spawn_transform = chunk.exit_trigger.global_transform
-
-		_current_chunk_index = 0
-
-	for chunk: LevelChunk in _active_chunks:
-		if not scored_keys.has(chunk.chunk_key):
-			break
-		_current_chunk_index += 1
-
-	assert(_current_chunk_index < _active_chunks.size(), "ChunkManager: no current chunk found after loading in " + name)
 
 
 func _load_chunk_metadata_from_catalog() -> void:
@@ -207,6 +127,86 @@ func _load_chunk_metadata_from_catalog() -> void:
 
 	assert(not _all_chunks.is_empty(), "Chunk catalog contains no valid LevelChunks in " + name)
 	_chunk_selector = ChunkSelector.new(_all_chunks)
+
+
+func get_next_chunk_key() -> int:
+	return _next_chunk_key
+
+
+func get_chunk_selector_state() -> Dictionary:
+	return _chunk_selector.get_save_state()
+
+
+func get_chunk_scene_uid(chunk_key: int) -> String:
+	assert(_chunk_key_to_scene_uid.has(chunk_key), "ChunkManager: no persisted scene uid for active chunk_key %d" % chunk_key)
+	return _chunk_key_to_scene_uid[chunk_key]
+
+
+func reset_level_state() -> void:
+	clear_level()
+	_chunk_selector.reset()
+	_next_chunk_key = 0
+	_chunk_key_to_scene_uid.clear()
+	set_procedural_seed(_pending_new_game_seed)
+	_pending_new_game_seed = 0
+
+
+## Replaces active chunks with persisted ones, emits level_loaded when done
+func restore_level(
+	world_seed: int,
+	active_chunk_keys: Array[int],
+	saved_next_key: int,
+	scored_keys: Dictionary[int, bool],
+	key_to_scene_uid: Dictionary[int, String],
+	selector_state: Dictionary,
+) -> void:
+	set_procedural_seed(world_seed)
+	_chunk_key_to_scene_uid = key_to_scene_uid.duplicate()
+
+	var parent_world: Node = get_tree().root.get_node("Main")
+
+	clear_level()
+
+	_player = get_tree().get_first_node_in_group(Groups.PLAYERS)
+	assert(_player != null, "No player found for " + name)
+
+	assert(_chunk_selector != null, "restore_level called before metadata was loaded")
+	_chunk_selector.load_save_state(selector_state)
+	assert(not active_chunk_keys.is_empty(), "Save contains no active chunks in " + name)
+
+	_next_chunk_key = saved_next_key
+
+	var next_spawn_transform: Transform3D = Transform3D()
+
+	for chunk_key: int in active_chunk_keys:
+		var chunk: LevelChunk = _instantiate_persisted_chunk(chunk_key)
+
+		if chunk.get_parent() != null:
+			chunk.get_parent().remove_child(chunk)
+		parent_world.add_child(chunk)
+		chunk.process_mode = Node.PROCESS_MODE_INHERIT
+		chunk.visible = true
+
+		_align_chunk_to_transform(chunk, next_spawn_transform)
+
+		if scored_keys.has(chunk_key):
+			chunk.is_scored = true
+
+		_active_chunks.push_back(chunk)
+		_setup_chunk_trigger(chunk)
+
+		next_spawn_transform = chunk.exit_trigger.global_transform
+
+		_current_chunk_index = 0
+
+	for chunk: LevelChunk in _active_chunks:
+		if not scored_keys.has(chunk.chunk_key):
+			break
+		_current_chunk_index += 1
+
+	assert(_current_chunk_index < _active_chunks.size(), "ChunkManager: no current chunk found after loading in " + name)
+
+	level_loaded.emit()
 
 #endregion
 
@@ -262,6 +262,7 @@ func recycle_oldest_chunk() -> void:
 
 	_current_chunk_index = maxi(_current_chunk_index - 1, 0)
 	_pool_chunk(oldest)
+	_chunk_key_to_scene_uid.erase(oldest.chunk_key)
 
 	var newest: LevelChunk = _active_chunks.back()
 	var target_transform: Transform3D = newest.exit_trigger.global_transform
@@ -484,8 +485,3 @@ func _get_chunk_data_by_uid(uid: String) -> ChunkData:
 		if data.scene_uid == uid:
 			return data
 	return null
-
-
-func _on_load_requested(data: SaveData) -> void:
-	apply_save_data(data.chunks)
-	level_loaded.emit(data.checkpoint)

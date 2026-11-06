@@ -8,7 +8,7 @@ var _load_applied: bool = false
 
 func _ready() -> void:
 	SaveManager.load_requested.connect(_on_load_requested)
-	CheckpointManager.load_applied.connect(_on_checkpoint_load_applied)
+	CheckpointSaveController.load_applied.connect(_on_checkpoint_load_applied)
 	ControlledEntityEvents.player_finished_spawning.connect(_on_player_finished_spawning)
 
 

@@ -2,8 +2,6 @@ extends Node
 
 signal checkpoint_activated(checkpoint_position: Vector3)
 signal checkpoint_loaded(checkpoint_position: Vector3) # TODO Check if refactor needed elsewhere to use this instead
-## Unconditional, fires at the end of apply_save_data() regardless of a valid checkpoint
-signal load_applied
 
 const CHECKPOINT_RESPAWN_DELAY: float = 1.0
 
@@ -15,17 +13,6 @@ var _has_valid_position: bool = false
 
 func _ready() -> void:
 	ChunkManager.chunk_recycled.connect(_on_chunk_recycled)
-
-	SaveManager.save_requested.connect(
-		func(data: SaveData) -> void:
-			build_save_data(data.checkpoint),
-	)
-	ChunkManager.level_loaded.connect(_on_level_loaded)
-	SaveManager.reset_requested.connect(reset_checkpoint)
-
-
-func _on_level_loaded(data: CheckpointSaveData) -> void:
-	apply_save_data(data)
 
 
 # TODO Improve this
@@ -125,25 +112,22 @@ func respawn_at_required_checkpoint() -> void:
 	ControlledEntityEvents.request_respawn(CHECKPOINT_RESPAWN_DELAY, respawn_transform)
 
 
-#region Save and Load
-func build_save_data(data: CheckpointSaveData) -> void:
-	data.has_checkpoint_position = _has_valid_position
-
-	if not data.has_checkpoint_position:
-		return
-
-	data.checkpoint_chunk_index = _checkpoint_chunk_index
-	data.checkpoint_local_transform = _checkpoint_local_transform
+#region Save state access
+func has_checkpoint_state() -> bool:
+	return _has_valid_position
 
 
-func apply_save_data(data: CheckpointSaveData) -> void:
-	if not data.has_checkpoint_position:
-		reset_checkpoint()
-		load_applied.emit()
-		return
+func get_checkpoint_chunk_index() -> int:
+	return _checkpoint_chunk_index
 
-	_checkpoint_chunk_index = data.checkpoint_chunk_index
-	_checkpoint_local_transform = data.checkpoint_local_transform
+
+func get_checkpoint_local_transform() -> Transform3D:
+	return _checkpoint_local_transform
+
+
+func restore_checkpoint(chunk_index: int, local_transform: Transform3D) -> void:
+	_checkpoint_chunk_index = chunk_index
+	_checkpoint_local_transform = local_transform
 	_active_checkpoint = null
 	_has_valid_position = true
 
@@ -152,5 +136,4 @@ func apply_save_data(data: CheckpointSaveData) -> void:
 		assert(_checkpoint_chunk_index < active_chunks.size(), "Checkpoint chunk index out of range in " + name)
 
 	checkpoint_loaded.emit(get_respawn_position())
-	load_applied.emit()
 #endregion
