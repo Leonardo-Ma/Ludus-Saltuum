@@ -98,6 +98,6 @@ func _get_gamepad_device_type(device_id: int) -> Device:
 
 func _apply_mouse_mode() -> void:
 	if active_device != Device.KEYBOARD_MOUSE:
-		MouseModeManager.request_mode(&"device", Input.MOUSE_MODE_HIDDEN)
+		MouseModeManager.request_mode(MouseModeManager.Source.DEVICE, Input.MOUSE_MODE_HIDDEN)
 	else:
-		MouseModeManager.release(&"device")
+		MouseModeManager.release(MouseModeManager.Source.DEVICE)

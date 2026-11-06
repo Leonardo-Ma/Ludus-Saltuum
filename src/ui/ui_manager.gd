@@ -39,7 +39,7 @@ func _input(event: InputEvent) -> void:
 		return
 
 	if event is InputEventMouseButton:
-		MouseModeManager.request_mode(&"gameplay", Input.MOUSE_MODE_CAPTURED)
+		MouseModeManager.request_mode(MouseModeManager.Source.GAMEPLAY, Input.MOUSE_MODE_CAPTURED)
 
 
 func register_ui(ui: UIView) -> void:
@@ -106,11 +106,11 @@ func _on_game_state_changed(new_state: ApplicationStateManager.GameState, _previ
 
 	if new_state == ApplicationStateManager.GameState.PLAYING:
 		_release_ui_focus()
-		MouseModeManager.release(&"menu")
-		MouseModeManager.request_mode(&"gameplay", Input.MOUSE_MODE_CAPTURED)
+		MouseModeManager.release(MouseModeManager.Source.MENU)
+		MouseModeManager.request_mode(MouseModeManager.Source.GAMEPLAY, Input.MOUSE_MODE_CAPTURED)
 	else:
-		MouseModeManager.release(&"gameplay")
-		MouseModeManager.release(&"menu")
+		MouseModeManager.release(MouseModeManager.Source.GAMEPLAY)
+		MouseModeManager.release(MouseModeManager.Source.MENU)
 
 
 ## NOTE Web only

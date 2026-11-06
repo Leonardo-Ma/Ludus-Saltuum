@@ -33,12 +33,12 @@ func _on_capture_mouse_requested() -> void:
 		print_debug(name + " failed to capture mouse")
 		return
 
-	MouseModeManager.request_mode(&"gameplay", Input.MOUSE_MODE_CAPTURED)
+	MouseModeManager.request_mode(MouseModeManager.Source.GAMEPLAY, Input.MOUSE_MODE_CAPTURED)
 	print_debug("Mouse captured by " + name)
 
 
 func _on_release_mouse_requested() -> void:
-	MouseModeManager.release(&"gameplay")
+	MouseModeManager.release(MouseModeManager.Source.GAMEPLAY)
 	print_debug("Mouse released by " + name)
 
 

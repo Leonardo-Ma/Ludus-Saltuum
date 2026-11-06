@@ -60,7 +60,7 @@ func _open_popup(popup: PopupTemplate) -> bool:
 	visible = true
 	_active_popup = popup
 	PauseManager.request_pause("active_popup")
-	MouseModeManager.request_mode(&"popup", Input.MOUSE_MODE_VISIBLE)
+	MouseModeManager.request_mode(MouseModeManager.Source.POPUP, Input.MOUSE_MODE_VISIBLE)
 	_previous_focus_owner = get_viewport().gui_get_focus_owner()
 
 	popup.show()
@@ -74,7 +74,7 @@ func close_open_popup() -> void:
 	var popup: PopupTemplate = _active_popup
 	_active_popup = null
 	PauseManager.release_pause("active_popup")
-	MouseModeManager.release(&"popup")
+	MouseModeManager.release(MouseModeManager.Source.POPUP)
 	popup.hide_popup()
 	_restore_previous_focus.call_deferred()
 	visible = _was_visible_before_popup
