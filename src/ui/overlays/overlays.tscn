@@ -4,6 +4,7 @@
 [ext_resource type="Shader" uid="uid://job7divx3qp" path="res://src/ui/overlays/grayscale/grayscale.gdshader" id="2_fysoe"]
 [ext_resource type="Script" uid="uid://ddttyvdbetggu" path="res://src/ui/overlays/grayscale/grayscale_overlay.gd" id="3_b3qka"]
 [ext_resource type="PackedScene" uid="uid://bapvsqksml318" path="res://src/ui/overlays/achievement_toast/achievement_toast.tscn" id="4_b3qka"]
+[ext_resource type="PackedScene" uid="uid://bsp3atnitrd0x" path="res://src/ui/overlays/low_health/low_health_overlay.tscn" id="5_3ci0o"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tacig"]
 shader = ExtResource("2_fysoe")
@@ -58,3 +59,6 @@ visible = false
 layout_mode = 1
 offset_left = -200.0
 offset_top = -74.0
+
+[node name="LowHealthOverlay" parent="." unique_id=1348396716 instance=ExtResource("5_3ci0o")]
+layer = 200

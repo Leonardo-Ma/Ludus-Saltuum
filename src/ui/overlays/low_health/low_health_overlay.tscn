@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bsp3atnitrd0x"]
+
+[ext_resource type="Shader" uid="uid://m7q6b1o24sb8" path="res://src/ui/overlays/low_health/low_health_overlay.gdshader" id="1_1iiee"]
+[ext_resource type="Script" uid="uid://yen154hmrome" path="res://src/ui/overlays/low_health/low_health_overlay.gd" id="1_xhl1d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xhl1d"]
+shader = ExtResource("1_1iiee")
+shader_parameter/vein_color = Color(1, 0.251, 0.251, 1)
+shader_parameter/vignette_color = Color(0.65, 0, 0, 1)
+shader_parameter/intensity = 0.12
+shader_parameter/vein_width = 0.010000000475
+shader_parameter/pulse_speed = 1.0
+shader_parameter/edge_depth = 0.2000000095
+shader_parameter/vignette_strength = 0.350000016625
+shader_parameter/vein_strength = 0.70000003325
+
+[node name="LowHealthOverlay" type="ColorRect" unique_id=1348396716]
+material = SubResource("ShaderMaterial_xhl1d")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xhl1d")
