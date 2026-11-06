@@ -1,6 +1,7 @@
-## Steam implementation of CloudSaveBackend
 class_name SteamCloudSaveBackend
 extends CloudSaveBackend
+
+## Steam implementation of CloudSaveBackend
 
 
 func is_available() -> bool:
@@ -44,3 +45,18 @@ func remote_is_newer(cloud_filename: String, local_path: String) -> bool:
 	if not FileAccess.file_exists(local_path):
 		return true
 	return SteamWorks.cloud_file_timestamp(cloud_filename) > FileAccess.get_modified_time(local_path)
+
+
+## Mostly used in case of save corruption to block redownload corrupted file
+func rename(cloud_filename: String, new_cloud_filename: String) -> bool:
+	if not is_available() or not SteamWorks.cloud_file_exists(cloud_filename):
+		return false
+	var size: int = SteamWorks.cloud_file_size(cloud_filename)
+	var result: Dictionary = SteamWorks.cloud_file_read(cloud_filename, size)
+	if not result.get("ret", false):
+		push_warning("Steam cloud rename failed reading " + cloud_filename)
+		return false
+	if not SteamWorks.cloud_file_write(new_cloud_filename, result.get("buf", PackedByteArray())):
+		push_warning("Steam cloud rename failed writing " + new_cloud_filename)
+		return false
+	return SteamWorks.cloud_file_delete(cloud_filename)

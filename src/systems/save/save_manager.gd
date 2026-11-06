@@ -328,6 +328,9 @@ func _quarantine_slot(slot_index: int) -> void:
 		var path: String = base + suffix
 		if FileAccess.file_exists(path):
 			_safe_rename(path, "%s%s%d" % [path, CORRUPT_SUFFIX, stamp])
+	# TODO Study cloud cleanup if too many files
+	var cloud_name: String = _cloud_filename(slot_index)
+	_cloud_backend.rename(cloud_name, "%s%s%d" % [cloud_name, CORRUPT_SUFFIX, stamp])
 	save_changed.emit(slot_index)
 
 
