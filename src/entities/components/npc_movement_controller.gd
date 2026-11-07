@@ -18,7 +18,7 @@ func _child_ready() -> void:
 
 
 func _move(_delta: float) -> void:
-	if not is_physics_processing() or _navigation_agent.is_navigation_finished():
+	if not is_physics_processing() or _navigation_agent.is_navigation_finished() or not _is_on_navigation_mesh():
 		stop()
 		return
 	var next_location: Vector3 = _navigation_agent.get_next_path_position()
@@ -57,3 +57,14 @@ func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
 func _on_navigation_agent_3d_target_reached() -> void:
 	_character_owner.velocity = Vector3.ZERO
 	movement_direction_changed.emit(Vector2.ZERO, 0.0)
+
+
+func _is_on_navigation_mesh() -> bool:
+	var map: RID = _navigation_agent.get_navigation_map()
+
+	if not map.is_valid():
+		return false
+
+	var closest_point: Vector3 = NavigationServer3D.map_get_closest_point(map, _character_owner.global_position)
+
+	return _character_owner.global_position.distance_to(closest_point) < 0.5
