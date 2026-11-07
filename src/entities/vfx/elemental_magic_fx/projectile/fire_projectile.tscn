@@ -40,6 +40,7 @@ noise = SubResource("FastNoiseLite_a01x7")
 seamless = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w2eh1"]
+resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_af3q5")
 shader_parameter/primary_color = Color(1, 0.70980394, 0.30588236, 1)
@@ -74,6 +75,7 @@ radius = 0.13
 height = 2.6
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6drxn"]
+resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("3_wk10t")
 shader_parameter/primary_color = Color(1, 0.70980394, 0.30588236, 1)
@@ -93,6 +95,7 @@ radius = 0.14
 height = 3.6
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fentt"]
+resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("4_uwdnr")
 shader_parameter/primary_color = Color(1, 0.70980394, 0.30588236, 1)
@@ -114,6 +117,7 @@ radius = 0.35
 height = 3.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7ww1h"]
+resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("5_o8a47")
 shader_parameter/primary_color = Color(1, 0.70980394, 0.30588236, 1)
