@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://g3ljixmbinog" path="res://src/entities/components/combat/projectile.gd" id="1_bihce"]
 [ext_resource type="Script" uid="uid://dby5w2xoa4d6i" path="res://src/entities/vfx/elemental_magic_fx/projectile/elemental_projectile.gd" id="1_jt6ou"]
+[ext_resource type="AudioStream" uid="uid://c2vu88bd5elgf" path="res://src/sound/sfx/spells/fireball/tom_music/firebuff_1.ogg" id="2_7dlw6"]
 [ext_resource type="Shader" uid="uid://h4jyuoqmwv72" path="res://src/entities/vfx/elemental_magic_fx/projectile/projectile_core.gdshader" id="2_af3q5"]
 [ext_resource type="Shader" uid="uid://vk25fwhfd03s" path="res://src/entities/vfx/elemental_magic_fx/projectile/projectile_tail.gdshader" id="3_wk10t"]
 [ext_resource type="Shader" uid="uid://cmndq008y74gx" path="res://src/entities/vfx/elemental_magic_fx/projectile/projectile_streaks.gdshader" id="4_uwdnr"]
@@ -369,6 +370,7 @@ _data = {
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 collision_mask = 11
 script = ExtResource("1_bihce")
+sound_effect = ExtResource("2_7dlw6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1534462126]
 transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0.14770508)

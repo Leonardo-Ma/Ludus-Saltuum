@@ -3,6 +3,8 @@ extends Area3D
 
 ## Straight-line mover, damage dealt by Hitbox child through attack
 
+@export var sound_effect: AudioStreamOggVorbis
+
 var attack: Attack
 var shooter: AggressiveEntity
 
@@ -25,6 +27,8 @@ func launch(projectile_attack: ProjectileAttack, new_shooter: AggressiveEntity, 
 		look_at(global_position + direction)
 
 	set_physics_process(true)
+
+	AudioManager.play_sound(sound_effect, AudioManager.SoundBus.SFX, global_position)
 
 
 func _physics_process(delta: float) -> void:
