@@ -41,6 +41,7 @@
 [ext_resource type="Resource" uid="uid://bfr78paglfbvw" path="res://src/environment/mechanics/collectible/gigantify/gigantify.tres" id="30_hqcre"]
 [ext_resource type="Resource" uid="uid://b86rvjt6lasya" path="res://src/environment/mechanics/collectible/shrink/shrink.tres" id="32_kdkg8"]
 [ext_resource type="Script" uid="uid://br86pfw0o8am4" path="res://src/systems/collectibles/collectibles_data/gold_collectible.gd" id="37_8jou4"]
+[ext_resource type="PackedScene" uid="uid://7utmh1t8nlt6" path="res://src/environment/assets/kaykit_platformer/individual_assets/conveyor_belt.tscn" id="42_yi36b"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4hukf"]
 size = Vector3(20, 9, 20)
@@ -268,3 +269,9 @@ linked_portal = NodePath("../Portal2")
 [node name="Portal2" parent="Car/RoadStraight" unique_id=1329018002 node_paths=PackedStringArray("linked_portal") instance=ExtResource("13_4gito")]
 transform = Transform3D(2.6226822e-08, 0, 0.2, 0, 0.2, 0, -0.2, 0, 2.6226822e-08, -0.40000004, 0, 5.2453657e-08)
 linked_portal = NodePath("../Portal")
+
+[node name="ConveyorBelt" parent="." unique_id=528125921 instance=ExtResource("42_yi36b")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -20, 2, -16)
+
+[node name="ConveyorBelt2" parent="." unique_id=278366536 instance=ExtResource("42_yi36b")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -27, 2, -16)
