@@ -1,6 +1,7 @@
+extends Node
+
 ## Coordinates music state, track selection, playback, and crossfades
 ## References music catalog resource
-extends Node
 
 signal track_changed(track_name: String, author: String)
 
@@ -15,16 +16,11 @@ enum MusicState {
 }
 
 const _MUTED_VOLUME_DB: float = -80.0
-const _MUSIC_BUS_NAME: String = "Music"
-const _MUSIC_CATALOG: MusicCatalog = preload("uid://c2prli518odbi")
-
-var _music_catalog: MusicCatalog = _MUSIC_CATALOG
+const _MUSIC_CATALOG: MusicCatalog = preload("uid://c2prli518odbi") # music_catalog.tres
 
 var _current_state: MusicState = MusicState.SILENCE
 var _current_track: MusicTrack
 
-var _player_a: AudioStreamPlayer
-var _player_b: AudioStreamPlayer
 var _current_player: AudioStreamPlayer
 var _staging_player: AudioStreamPlayer
 
@@ -33,25 +29,9 @@ var _crossfade_duration: float = 1.0
 
 
 func _ready() -> void:
-	_create_music_players()
 	process_mode = Node.PROCESS_MODE_ALWAYS
-
-
-func _create_music_players() -> void:
-	assert(_player_a == null, "Music players already initialized in " + name)
-
-	_player_a = AudioStreamPlayer.new()
-	_player_a.bus = _MUSIC_BUS_NAME
-	_player_a.volume_db = _MUTED_VOLUME_DB
-	add_child(_player_a)
-
-	_player_b = AudioStreamPlayer.new()
-	_player_b.bus = _MUSIC_BUS_NAME
-	_player_b.volume_db = _MUTED_VOLUME_DB
-	add_child(_player_b)
-
-	_current_player = _player_a
-	_staging_player = _player_b
+	_current_player = _create_music_player()
+	_staging_player = _create_music_player()
 
 
 #region Public API
@@ -64,9 +44,7 @@ func play(track: MusicTrack) -> void:
 		return
 
 	_stop_fade()
-
-	if _current_player.finished.is_connected(_on_track_finished):
-		_current_player.finished.disconnect(_on_track_finished)
+	_disconnect_finished()
 
 	var old_player: AudioStreamPlayer = _current_player
 	_current_player = _staging_player
@@ -89,10 +67,7 @@ func play(track: MusicTrack) -> void:
 	_fade_tween = create_tween()
 	_fade_tween.tween_property(_current_player, "volume_db", 0.0, _crossfade_duration)
 	_fade_tween.parallel().tween_property(_staging_player, "volume_db", _MUTED_VOLUME_DB, _crossfade_duration)
-	_fade_tween.tween_callback(
-		func() -> void:
-			_staging_player.stop(),
-	)
+	_fade_tween.tween_callback(_staging_player.stop)
 
 
 ## Changes current music state and optionally selects track by resource name
@@ -101,14 +76,10 @@ func set_state(new_state: MusicState, track_key: String = "") -> void:
 		return
 
 	if new_state == MusicState.SILENCE:
-		_current_state = new_state
-		_current_track = null
 		stop()
 		return
 
 	var playlist: MusicPlaylist = _get_playlist(new_state)
-	assert(playlist != null, "Music playlist missing for state in " + name)
-
 	var track: MusicTrack
 
 	if not track_key.is_empty():
@@ -126,29 +97,24 @@ func set_state(new_state: MusicState, track_key: String = "") -> void:
 
 func stop(fade_duration: float = 1.0) -> void:
 	_stop_fade()
+	_disconnect_finished()
 
-	if _current_player.finished.is_connected(_on_track_finished):
-		_current_player.finished.disconnect(_on_track_finished)
+	_current_state = MusicState.SILENCE
+	_current_track = null
 
 	_staging_player.stop()
 	_staging_player.volume_db = _MUTED_VOLUME_DB
 
 	if not _current_player.playing:
-		_current_track = null
 		return
 
 	if fade_duration <= 0.0:
 		_current_player.stop()
-		_current_track = null
 		return
 
 	_fade_tween = create_tween()
 	_fade_tween.tween_property(_current_player, "volume_db", _MUTED_VOLUME_DB, fade_duration)
-	_fade_tween.tween_callback(
-		func() -> void:
-			_current_player.stop()
-			_current_track = null,
-	)
+	_fade_tween.tween_callback(_current_player.stop)
 
 
 func set_crossfade_duration(duration: float) -> void:
@@ -178,40 +144,48 @@ func get_current_track_author() -> String:
 
 #region Private helpers
 
+func _create_music_player() -> AudioStreamPlayer:
+	var player: AudioStreamPlayer = AudioStreamPlayer.new()
+	player.bus = AudioManager.BUS_NAMES[AudioManager.SoundBus.MUSIC]
+	player.volume_db = _MUTED_VOLUME_DB
+	add_child(player)
+	return player
+
+
 func _get_playlist(state: MusicState) -> MusicPlaylist:
+	var playlist: MusicPlaylist
+
 	match state:
 		MusicState.MAIN_MENU:
-			return _music_catalog.main_menu
+			playlist = _MUSIC_CATALOG.main_menu
 		MusicState.EXPLORATION:
-			return _music_catalog.exploration
+			playlist = _MUSIC_CATALOG.exploration
 		MusicState.RACING:
-			return _music_catalog.racing
+			playlist = _MUSIC_CATALOG.racing
 		MusicState.COMBAT:
-			return _music_catalog.combat
+			playlist = _MUSIC_CATALOG.combat
 		MusicState.MAZE:
-			return _music_catalog.maze
+			playlist = _MUSIC_CATALOG.maze
 		MusicState.OUTER_SPACE:
-			return _music_catalog.outer_space
-		MusicState.SILENCE:
-			return null
+			playlist = _MUSIC_CATALOG.outer_space
+		_:
+			assert(false, "Unsupported music state in " + name)
 
-	assert(false, "Unsupported music state in " + name)
-	return null
+	assert(playlist != null, "Music playlist not assigned in catalog for " + MusicState.find_key(state) + " in " + name)
+	return playlist
 
 
 func _on_track_finished() -> void:
 	var playlist: MusicPlaylist = _get_playlist(_current_state)
-
-	if playlist == null:
-		_current_track = null
-		return
-
 	var next_track: MusicTrack = playlist.pick_next_track(_current_track)
-
-	if next_track == null:
-		return
+	assert(next_track != null, "No music tracks available for state in " + name)
 
 	play(next_track)
+
+
+func _disconnect_finished() -> void:
+	if _current_player.finished.is_connected(_on_track_finished):
+		_current_player.finished.disconnect(_on_track_finished)
 
 
 func _stop_fade() -> void:
