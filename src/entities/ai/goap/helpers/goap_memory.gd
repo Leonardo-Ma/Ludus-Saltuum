@@ -4,9 +4,9 @@
 @abstract class_name GoapMemory
 extends Node
 
-const MIN_TICKS_BETWEEN_UPDATES: int = 10
-const MAX_TICKS_BETWEEN_UPDATES: int = 20
-var _ticks_until_update: int = 0
+const MIN_SECONDS_BETWEEN_UPDATES: float = 0.17
+const MAX_SECONDS_BETWEEN_UPDATES: float = 0.33
+var _seconds_until_update: float = 0.0
 
 @warning_ignore("unused_private_class_variable")
 var _actor: Node = null
@@ -22,18 +22,20 @@ var _blackboard: Dictionary = { }
 @abstract func _refresh_blackboard() -> void
 
 
-## Called every GoapAgent tick. Throttles _refresh_blackboard() to a random interval
-func update_blackboard() -> void:
-	_ticks_until_update -= 1
-	if _ticks_until_update > 0:
-		return
+## Called every GoapAgent tick [br]
+## Throttles _refresh_blackboard() to a random interval, returns true when refreshed
+func update_blackboard(delta: float) -> bool:
+	_seconds_until_update -= delta
+	if _seconds_until_update > 0.0:
+		return false
 	_refresh_blackboard()
-	_ticks_until_update = randi_range(MIN_TICKS_BETWEEN_UPDATES, MAX_TICKS_BETWEEN_UPDATES)
+	_seconds_until_update = randf_range(MIN_SECONDS_BETWEEN_UPDATES, MAX_SECONDS_BETWEEN_UPDATES)
+	return true
 
 
 ## Used for urgent reactions (flee, use potion...)
 func force_refresh_blackboard() -> void:
-	_ticks_until_update = 0
+	_seconds_until_update = 0.0
 
 
 func get_blackboard() -> Dictionary:

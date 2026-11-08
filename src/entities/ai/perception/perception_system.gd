@@ -4,12 +4,14 @@ extends Node
 
 signal perception_updated(detections: Array)
 
+const UPDATE_JITTER: float = 0.25
+
 var debug_mode: bool = false
 
 var config: PerceptionConfig
 var known_entities: Dictionary = { } # Node3D -> KnownEntityData
 var _visual_processor: VisualProcessor
-var _last_update_time: float = 0.0
+var _next_update_time: float = 0.0
 var _owner_node: Node3D
 var _debug_node: PerceptionDebug
 
@@ -29,6 +31,7 @@ func _ready() -> void:
 		config = PerceptionConfig.new()
 
 	_visual_processor = VisualProcessor.new(config.visual)
+	_next_update_time = Time.get_ticks_msec() / 1000.0 + randf_range(0.0, config.update_interval)
 
 	if debug_mode:
 		_debug_node = PerceptionDebug.new()
@@ -41,14 +44,13 @@ func _process(_delta: float) -> void:
 		return
 
 	var current_time: float = Time.get_ticks_msec() / 1000.0
-	if current_time - _last_update_time < config.update_interval:
+	if current_time < _next_update_time:
 		return
 
-	_last_update_time = current_time
+	_next_update_time = current_time + config.update_interval * randf_range(1.0 - UPDATE_JITTER, 1.0 + UPDATE_JITTER)
 	_process_perception()
 
 
-# TODO Create target groups, remove player being only target
 func _process_perception() -> void:
 	var current_detections: Array[DetectionResult] = []
 	for group: String in owner.target_groups:
@@ -57,13 +59,6 @@ func _process_perception() -> void:
 				continue
 			if _purge_if_dead(target):
 				continue
-
-			# Additional health validation to not detect dead bodies
-			if target.has_method("get_health") or "health" in target:
-				var target_health: Health = target.get_health() if target.has_method("get_health") else target.get("health")
-				if target_health and target_health.current_health <= 0.0:
-					known_entities.erase(target)
-					continue
 
 			var detection: DetectionResult = _visual_processor.detect(_owner_node, target as Node3D)
 			if detection.is_detected:

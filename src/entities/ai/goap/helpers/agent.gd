@@ -3,6 +3,8 @@ class_name GoapAgent
 extends Node
 
 const GOAL_SWITCH_DELAY: float = 0.1
+const MIN_REPLAN_DELAY: float = 0.1
+const MAX_REPLAN_DELAY: float = 0.25
 
 var _goals: Array[GoapGoal]
 var _current_goal: GoapGoal
@@ -15,17 +17,29 @@ var _goap_memory: GoapMemory
 ## Per-entity action planner
 var _action_planner: GoapActionPlanner
 var _goal_switch_cooldown: float = 0.0
+var _replan_cooldown: float = 0.0
 var _sorted_goals_cache: Array[GoapGoal] = [] # Cache for performance
 
 
 # For ever frame, is current goal still highest priority?
 # if not request the action planner a new plan for new highest priority
 func _process(delta: float) -> void:
-	_goap_memory.update_blackboard()
 	_goal_switch_cooldown -= delta
+	_replan_cooldown -= delta
 
+	var blackboard_refreshed: bool = _goap_memory.update_blackboard(delta)
 	var blackboard: Dictionary = _goap_memory.get_blackboard()
 
+	if blackboard_refreshed or (_current_plan.is_empty() and _replan_cooldown <= 0.0):
+		_evaluate_goals(blackboard)
+		if _current_plan.is_empty():
+			_replan_cooldown = randf_range(MIN_REPLAN_DELAY, MAX_REPLAN_DELAY)
+
+	if not _current_plan.is_empty():
+		_follow_plan(delta, blackboard)
+
+
+func _evaluate_goals(blackboard: Dictionary) -> void:
 	var current_valid: bool = _is_current_valid(blackboard)
 
 	var best_goal: GoapGoal = _get_best_goal()
@@ -47,9 +61,6 @@ func _process(delta: float) -> void:
 
 	if needs_new_plan:
 		_try_get_new_plan(blackboard)
-
-	if not _current_plan.is_empty():
-		_follow_plan(delta, blackboard)
 
 
 func _is_current_valid(blackboard: Dictionary) -> bool:
