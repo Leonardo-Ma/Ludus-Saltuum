@@ -17,10 +17,10 @@ func _populate() -> void:
 	for child: Node in _rows_container.get_children():
 		_rows_container.remove_child(child)
 		child.queue_free()
-	for key: StringName in Achievements.get_sorted_keys():
+	for id: AchievementDefinition.Id in Achievements.get_sorted_ids():
 		var row: AchievementRow = _row_scene.instantiate() as AchievementRow
 		_rows_container.add_child(row)
-		row.setup(key, Achievements.get_display_name(key), Achievements.get_description(key))
+		row.setup(id, Achievements.get_display_name(id), Achievements.get_description(id))
 
 
 func _on_visibility_changed() -> void:
@@ -28,6 +28,6 @@ func _on_visibility_changed() -> void:
 		_populate()
 
 
-func _on_achievement_unlocked(_key: StringName) -> void:
+func _on_achievement_unlocked(_id: AchievementDefinition.Id) -> void:
 	if visible:
 		_populate()

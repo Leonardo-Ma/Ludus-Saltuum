@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("3_tvoll")
-key = &"score_500"
+id = 3
 steam_api_name = "ACH_SCORE_500"
 display_name = "500!"
 description = "Seasoned explorer!"

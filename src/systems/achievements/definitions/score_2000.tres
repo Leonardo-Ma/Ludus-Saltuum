@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("3_lyvin")
-key = &"score_2000"
+id = 4
 steam_api_name = "ACH_SCORE_2000"
 display_name = "2.000!"
 description = "Expert!"

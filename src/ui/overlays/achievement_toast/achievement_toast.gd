@@ -5,7 +5,7 @@ extends PanelContainer
 const FADE_DURATION: float = 0.4
 const VISIBLE_DURATION: float = 3.0
 
-var _queue: Array[StringName] = []
+var _queue: Array[AchievementDefinition.Id] = []
 var _is_showing: bool = false
 
 @onready var _icon: TextureRect = %AchievementIcon
@@ -22,7 +22,7 @@ func _ready() -> void:
 	Achievements.achievement_unlocked.connect(_on_achievement_unlocked)
 
 
-func _on_achievement_unlocked(key: StringName) -> void:
+func _on_achievement_unlocked(key: AchievementDefinition.Id) -> void:
 	_queue.push_back(key)
 	if not _is_showing:
 		_show_next()
@@ -34,7 +34,7 @@ func _show_next() -> void:
 		return
 
 	_is_showing = true
-	var key: StringName = _queue.pop_front()
+	var key: AchievementDefinition.Id = _queue.pop_front()
 	_name_label.text = Achievements.get_display_name(key)
 	_description_label.text = Achievements.get_description(key)
 	_icon.texture = Achievements.get_icon(key, true)

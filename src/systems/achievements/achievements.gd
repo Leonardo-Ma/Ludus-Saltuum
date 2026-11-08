@@ -1,8 +1,8 @@
-# https://godotsteam.com/tutorials/stats_achievements/
-## Tracks achievement unlock state, uses Steam as source when running, else local save
 extends Node
 
-signal achievement_unlocked(key: StringName)
+## Tracks achievement unlock state, uses Steam as source when running, else local save
+
+signal achievement_unlocked(id: AchievementDefinition.Id)
 
 const ACHIEVEMENT_REGISTRY_DATA: AchievementRegistryData = preload("uid://rvm76nrub6ue")
 const _SAVE_PATH: String = "user://achievements.cfg"
@@ -11,8 +11,8 @@ const _SECTION: String = "unlocked"
 const _SKILL_CATALOGUE: SkillCatalogue = preload("uid://6ygr0ieawafb")
 const _ALL_SKILLS: Array[SkillDefinition] = _SKILL_CATALOGUE.definitions
 
-var _achievement_keys: Dictionary = { } # Dictionary[StringName, AchievementDefinition]
-var _unlocked: Dictionary = { } # Dictionary[StringName, bool]
+var _definitions: Dictionary[AchievementDefinition.Id, AchievementDefinition] = { }
+var _unlocked: Dictionary[AchievementDefinition.Id, bool] = { }
 
 var _economy_controller: EconomyController
 var _skills_controller: SkillsController
@@ -32,8 +32,9 @@ func _ready() -> void:
 	assert(data != null, "Achievements: achievement_registry_data.tres not found in " + name)
 
 	for definition: AchievementDefinition in data.definitions:
-		assert(definition.key != &"", "Achievements: a definition has an empty key in " + name)
-		_achievement_keys[definition.key] = definition
+		assert(definition.id != AchievementDefinition.Id.UNDEFINED, "Achievements: a definition has UNDEFINED id in " + name)
+		assert(not _definitions.has(definition.id), "Achievements: duplicate id " + _id_to_key(definition.id) + " in " + name)
+		_definitions[definition.id] = definition
 
 	_load()
 
@@ -49,31 +50,31 @@ func configure_achievement_backend(backend: AchievementBackend) -> void:
 	_backend = backend
 
 
-func unlock(key: StringName) -> void:
-	if not _unlocked.get(key, false):
-		print_debug("Trying to unlock " + key + " achievement")
-		_unlocked[key] = true
+func unlock(id: AchievementDefinition.Id) -> void:
+	if not _unlocked.get(id, false):
+		print_debug("Trying to unlock " + _id_to_key(id) + " achievement")
+		_unlocked[id] = true
 		_save()
-		achievement_unlocked.emit(key)
-		print_debug("Unlocked " + key + " achievement")
+		achievement_unlocked.emit(id)
+		print_debug("Unlocked " + _id_to_key(id) + " achievement")
 		if _backend.is_available():
-			var definition: AchievementDefinition = _get_definition(key)
+			var definition: AchievementDefinition = _get_definition(id)
 			_backend.unlock(definition)
-			print_debug("Also unlocked " + key + " achievement in " + str(_backend))
+			print_debug("Also unlocked " + _id_to_key(id) + " achievement in " + str(_backend))
 
 
 #region Getters
 
-func is_unlocked(key: StringName) -> bool:
-	var definition: AchievementDefinition = _get_definition(key)
+func is_unlocked(id: AchievementDefinition.Id) -> bool:
+	var definition: AchievementDefinition = _get_definition(id)
 
 	if _backend.is_available():
 		return _backend.is_unlocked(definition)
-	return _unlocked.get(key, false)
+	return _unlocked.get(id, false)
 
 
-func get_display_name(key: StringName) -> String:
-	var definition: AchievementDefinition = _get_definition(key)
+func get_display_name(id: AchievementDefinition.Id) -> String:
+	var definition: AchievementDefinition = _get_definition(id)
 
 	if _backend.is_available():
 		return _backend.get_display_name(definition)
@@ -81,8 +82,8 @@ func get_display_name(key: StringName) -> String:
 	return definition.display_name
 
 
-func get_description(key: StringName) -> String:
-	var definition: AchievementDefinition = _get_definition(key)
+func get_description(id: AchievementDefinition.Id) -> String:
+	var definition: AchievementDefinition = _get_definition(id)
 
 	if _backend.is_available():
 		return _backend.get_description(definition)
@@ -90,8 +91,8 @@ func get_description(key: StringName) -> String:
 	return definition.description
 
 
-func get_icon(key: StringName, unlocked: bool) -> Texture2D:
-	var definition: AchievementDefinition = _get_definition(key)
+func get_icon(id: AchievementDefinition.Id, unlocked: bool) -> Texture2D:
+	var definition: AchievementDefinition = _get_definition(id)
 
 	if _backend.is_available():
 		return _backend.get_icon(definition)
@@ -99,17 +100,17 @@ func get_icon(key: StringName, unlocked: bool) -> Texture2D:
 	return definition.icon_unlocked if unlocked else definition.icon_locked
 
 
-func get_all_keys() -> Array[StringName]:
-	var keys: Array[StringName] = []
+func get_all_ids() -> Array[AchievementDefinition.Id]:
+	var ids: Array[AchievementDefinition.Id] = []
 
-	for key: StringName in _achievement_keys:
-		keys.append(key)
+	for id: AchievementDefinition.Id in _definitions:
+		ids.append(id)
 
-	return keys
+	return ids
 
 
-func get_progress_ratio(key: StringName) -> float:
-	var definition: AchievementDefinition = _get_definition(key)
+func get_progress_ratio(id: AchievementDefinition.Id) -> float:
+	var definition: AchievementDefinition = _get_definition(id)
 
 	if definition.unlock_threshold <= 0:
 		return 0.0
@@ -118,13 +119,13 @@ func get_progress_ratio(key: StringName) -> float:
 
 
 ## Sorted unlocked first, locked ordered closest to unlock second
-func get_sorted_keys() -> Array[StringName]:
-	var keys: Array[StringName] = get_all_keys()
-	keys.sort_custom(_compare_unlock_priority)
-	return keys
+func get_sorted_ids() -> Array[AchievementDefinition.Id]:
+	var ids: Array[AchievementDefinition.Id] = get_all_ids()
+	ids.sort_custom(_compare_unlock_priority)
+	return ids
 
 
-func _compare_unlock_priority(a: StringName, b: StringName) -> bool:
+func _compare_unlock_priority(a: AchievementDefinition.Id, b: AchievementDefinition.Id) -> bool:
 	var a_unlocked: bool = is_unlocked(a)
 	var b_unlocked: bool = is_unlocked(b)
 
@@ -134,10 +135,10 @@ func _compare_unlock_priority(a: StringName, b: StringName) -> bool:
 	return not a_unlocked and get_progress_ratio(a) > get_progress_ratio(b)
 
 
-func _get_definition(key: StringName) -> AchievementDefinition:
-	assert(_achievement_keys.has(key), "Achievements: unknown key '%s' in %s. Check AchievementRegistryData list" % [key, name])
+func _get_definition(id: AchievementDefinition.Id) -> AchievementDefinition:
+	assert(_definitions.has(id), "Achievements: unknown id '%s' in %s. Check AchievementRegistryData list" % [_id_to_key(id), name])
 
-	return _achievement_keys[key]
+	return _definitions[id]
 
 #endregion
 
@@ -162,17 +163,17 @@ func _on_score_changed(score: int) -> void:
 	_score = score
 
 	if score >= 1:
-		unlock(&"first_run")
+		unlock(AchievementDefinition.Id.FIRST_RUN)
 	if score >= 100:
-		unlock(&"score_100")
+		unlock(AchievementDefinition.Id.SCORE_100)
 	if score >= 500:
-		unlock(&"score_500")
+		unlock(AchievementDefinition.Id.SCORE_500)
 	if score >= 2000:
-		unlock(&"score_2000")
+		unlock(AchievementDefinition.Id.SCORE_2000)
 	#if score >= 5000:
 	#	unlock(&"score_5000")
 	if score >= 10000:
-		unlock(&"score_10000")
+		unlock(AchievementDefinition.Id.SCORE_10000)
 
 
 func _check_skill_completion() -> void:
@@ -185,14 +186,14 @@ func _check_skill_completion() -> void:
 		func(skill: SkillDefinition) -> bool:
 			return skills.has(skill),
 	):
-		unlock(&"all_skills")
+		unlock(AchievementDefinition.Id.ALL_SKILLS)
 
 
 func _on_easter_egg_found(_easter_egg_name: EasterEgg.Name) -> void:
 	var easter_eggs_found: int = _easter_egg_controller.found_easter_eggs.size()
 
 	if easter_eggs_found >= 1:
-		unlock(&"first_easter_egg")
+		unlock(AchievementDefinition.Id.FIRST_EASTER_EGG)
 
 	#if easter_eggs_found >= 2:
 	#unlock(&"second_easter_egg")
@@ -207,8 +208,8 @@ func _on_easter_egg_found(_easter_egg_name: EasterEgg.Name) -> void:
 func _save() -> void:
 	var config: ConfigFile = ConfigFile.new()
 
-	for key: StringName in _unlocked:
-		config.set_value(_SECTION, key, _unlocked[key])
+	for id: AchievementDefinition.Id in _unlocked:
+		config.set_value(_SECTION, _id_to_key(id), _unlocked[id])
 
 	config.save(_SAVE_PATH)
 
@@ -220,7 +221,15 @@ func _load() -> void:
 		return
 
 	for key: String in config.get_section_keys(_SECTION):
-		_unlocked[StringName(key)] = config.get_value(_SECTION, key, false)
+		var member: String = key.to_upper()
+		if not AchievementDefinition.Id.has(member):
+			continue
+		var id: AchievementDefinition.Id = AchievementDefinition.Id[member] as AchievementDefinition.Id
+		_unlocked[id] = config.get_value(_SECTION, key, false)
+
+
+func _id_to_key(id: AchievementDefinition.Id) -> String:
+	return str(AchievementDefinition.Id.find_key(id)).to_lower()
 
 # TODO Add a reset achievements that is tied to save and doesn't impact steam / backend
 #endregion

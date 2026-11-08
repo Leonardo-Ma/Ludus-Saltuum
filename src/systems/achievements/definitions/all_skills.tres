@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("3_w5oh3")
-key = &"all_skills"
+id = 7
 steam_api_name = "ACH_ALL_SKILLS"
 display_name = "Skill Master"
 description = "All skills unlocked! For now!"

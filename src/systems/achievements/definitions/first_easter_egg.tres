@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("3_3fys4")
-key = &"first_easter_egg"
+id = 6
 steam_api_name = "ACH_FIRST_EASTER"
 display_name = "1 Easter egg!"
 description = "1"

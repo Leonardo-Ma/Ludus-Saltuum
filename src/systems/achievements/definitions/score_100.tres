@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("1_m67hm")
-key = &"score_100"
+id = 2
 steam_api_name = "ACH_SCORE_100"
 display_name = "100!"
 description = "Getting Started!"
