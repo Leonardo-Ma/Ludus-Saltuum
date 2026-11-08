@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://ddttyvdbetggu" path="res://src/ui/overlays/grayscale/grayscale_overlay.gd" id="3_b3qka"]
 [ext_resource type="PackedScene" uid="uid://bapvsqksml318" path="res://src/ui/overlays/achievement_toast/achievement_toast.tscn" id="4_b3qka"]
 [ext_resource type="PackedScene" uid="uid://bsp3atnitrd0x" path="res://src/ui/overlays/low_health/low_health_overlay.tscn" id="5_3ci0o"]
+[ext_resource type="PackedScene" uid="uid://dqfohd0kkv7ym" path="res://src/ui/overlays/cosmetic_available/cosmetic_available_overlay.tscn" id="6_s544n"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tacig"]
 shader = ExtResource("2_fysoe")
@@ -61,4 +62,13 @@ offset_left = -200.0
 offset_top = -74.0
 
 [node name="LowHealthOverlay" parent="." unique_id=1348396716 instance=ExtResource("5_3ci0o")]
-layer = 200
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="CosmeticAvailableOverlay" parent="." unique_id=1027948758 instance=ExtResource("6_s544n")]
+visible = false
+layout_mode = 1

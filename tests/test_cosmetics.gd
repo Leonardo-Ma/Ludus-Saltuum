@@ -29,6 +29,7 @@ func _ready() -> void:
 	_test_reset()
 	_test_owned_ids_survive_save_slot()
 	_test_legacy_save_without_cosmetics()
+	_test_cheapest_unowned_price()
 
 	_restore_slot()
 
@@ -218,3 +219,18 @@ func _restore_slot() -> void:
 		f.store_buffer(_slot_backup["bak"])
 
 	SaveManager.save_changed.emit(TEST_SLOT)
+
+
+func _test_cheapest_unowned_price() -> void:
+	var controller: CosmeticsController = _make_controller()
+
+	assert(controller.get_cheapest_unowned_price() == 90, "CosmeticsController: cheapest price should be barbarian 90")
+
+	controller.acquire(&"character.barbarian")
+	assert(controller.get_cheapest_unowned_price() == 120, "CosmeticsController: cheapest price should be ranger 120")
+
+	for character_id: StringName in [&"character.ranger", &"character.druid", &"character.mage"]:
+		controller.acquire(character_id)
+	assert(controller.get_cheapest_unowned_price() == CosmeticsController.NO_PRICE, "CosmeticsController: free or owned characters counted")
+
+	controller.free()

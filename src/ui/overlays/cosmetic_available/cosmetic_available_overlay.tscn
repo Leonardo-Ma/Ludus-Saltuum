@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://dqfohd0kkv7ym"]
+
+[ext_resource type="Script" uid="uid://dxtln5h731uf6" path="res://src/ui/overlays/cosmetic_available_overlay.gd" id="1_8g1pi"]
+[ext_resource type="Texture2D" uid="uid://cwejxclveih44" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/pause.png" id="2_8ss4w"]
+[ext_resource type="PackedScene" uid="uid://dc4emcvac7toq" path="res://src/ui/menus/shared/prompt_icon.tscn" id="3_knmme"]
+[ext_resource type="Texture2D" uid="uid://bqulx5utcm8jk" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/keyboard_escape_outline.png" id="4_knmme"]
+
+[node name="CosmeticAvailableOverlay" type="PanelContainer" unique_id=2126949261]
+custom_minimum_size = Vector2(160, 60)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -79.0
+offset_top = -74.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("1_8g1pi")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=703770228]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer" unique_id=1298952697]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="PauseInstruction" type="TextureRect" parent="HBoxContainer/MarginContainer" unique_id=1903300661]
+layout_mode = 2
+texture = ExtResource("2_8ss4w")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1636740417]
+layout_mode = 2
+
+[node name="PausePrompt" parent="HBoxContainer/VBoxContainer" unique_id=192685747 instance=ExtResource("3_knmme")]
+layout_mode = 2
+texture = ExtResource("4_knmme")
+action = &"pause"
