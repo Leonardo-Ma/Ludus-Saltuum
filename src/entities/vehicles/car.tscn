@@ -338,7 +338,7 @@ stream = ExtResource("7_mvrra")
 max_distance = 50.0
 script = ExtResource("6_mvrra")
 min_pitch = 0.7
-max_pitch = 1.1
+max_pitch = 0.9
 max_volume_db = -14.0
 fade_speed = 8.0
 
