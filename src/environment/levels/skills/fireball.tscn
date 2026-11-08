@@ -220,6 +220,8 @@ metadata/_custom_type_script = "uid://si0x0kj8w7kf"
 [node name="Fireball" type="Node3D" unique_id=1016321493]
 script = ExtResource("1_pdx5g")
 score_multiplier = 1.5
+features = Array[int]([8])
+unlocks_skill = ExtResource("25_dgbcr")
 
 [node name="EntranceTrigger" parent="." unique_id=398426260 instance=ExtResource("2_mxovo")]
 unique_name_in_owner = true
