@@ -5,7 +5,7 @@ class_name NPCMovementController
 extends EntityMovementController
 
 @onready var _navigation_agent: NavigationAgent3D = %NavigationAgent3D
-@onready var _character_owner: AggressiveEntity = owner as AggressiveEntity
+@onready var _character_owner: NPCEntity = owner
 
 
 func _child_ready() -> void:

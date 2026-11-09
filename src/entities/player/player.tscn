@@ -592,7 +592,6 @@ attack = ExtResource("2_45rvh")
 health = ExtResource("3_xm7nl")
 movement = ExtResource("4_f610a")
 projectile_attack = SubResource("Resource_drftx")
-is_npc = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=680952906]
 unique_name_in_owner = true

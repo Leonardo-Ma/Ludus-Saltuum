@@ -43,7 +43,7 @@ func _ready() -> void:
 		movement_controller.landed.connect(_on_landed)
 		movement_controller.crouch_toggled.connect(_on_crouch_toggled)
 		movement_controller.movement_direction_changed.connect(_on_player_movement_direction_changed)
-	elif entity is AggressiveEntity:
+	elif entity is NPCEntity:
 		var npc_movement_controller: NPCMovementController = $%NPCMovementController
 		assert(npc_movement_controller, "npc_movement_controller missing for " + owner.name)
 		npc_movement_controller.movement_direction_changed.connect(_on_movement_direction_changed)

@@ -27,7 +27,7 @@ func get_effects() -> Dictionary:
 
 
 func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
-	var entity: AggressiveEntity = _actor as AggressiveEntity
+	var entity: NPCEntity = _actor
 	assert(
 		entity != null and entity.projectile_attack != null and entity.projectile_attack.projectile_scene != null,
 		"projectile_attack missing in " + _actor.name,
@@ -51,7 +51,7 @@ func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 	return true
 
 
-func _spawn_projectile(entity: AggressiveEntity, enemy_position: Vector3) -> void:
+func _spawn_projectile(entity: NPCEntity, enemy_position: Vector3) -> void:
 	var projectile_attack: ProjectileAttack = entity.projectile_attack
 	var projectile: Projectile = projectile_attack.projectile_scene.instantiate() as Projectile
 	assert(projectile != null, "projectile_scene root must be Projectile in " + entity.name)

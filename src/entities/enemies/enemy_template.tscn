@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cq301lp0jblvc"]
 
-[ext_resource type="Script" uid="uid://du716c0fj4ubp" path="res://src/entities/enemies/enemy_template.gd" id="1_ejhyg"]
+[ext_resource type="Script" uid="uid://dkh5m525rjidn" path="res://src/entities/components/npc_entity.gd" id="1_cqc8c"]
 [ext_resource type="Resource" uid="uid://cue70vb5xfvur" path="res://src/entities/enemies/resources/base_enemy_attack.tres" id="2_d3c46"]
 [ext_resource type="Resource" uid="uid://blu7iavd60pbx" path="res://src/entities/enemies/resources/base_enemy_health.tres" id="3_ejhyg"]
 [ext_resource type="Resource" uid="uid://11dvy0ydxiej" path="res://src/entities/enemies/resources/base_enemy_movement.tres" id="4_d3c46"]
@@ -52,12 +52,12 @@ radius = 0.3
 [node name="AggressiveEntity" type="CharacterBody3D" unique_id=280064195]
 collision_layer = 2
 collision_mask = 11
-script = ExtResource("1_ejhyg")
+script = ExtResource("1_cqc8c")
+perception_config = SubResource("Resource_k6n52")
+ai_config = SubResource("Resource_f7hab")
 attack = ExtResource("2_d3c46")
 health = ExtResource("3_ejhyg")
 movement = ExtResource("4_d3c46")
-perception_config = SubResource("Resource_k6n52")
-ai_config = SubResource("Resource_f7hab")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1263244351]
 unique_name_in_owner = true

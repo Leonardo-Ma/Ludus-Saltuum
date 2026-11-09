@@ -10,8 +10,8 @@ const NEARBY_RANGE_SQUARED: float = 225.0 # 15.0 * 15.0
 
 func init(actor: Node) -> void:
 	_actor = actor
-	var entity: AggressiveEntity = _actor as AggressiveEntity
-	assert(entity != null, "BaseMemory: actor must be AggressiveEntity in " + name)
+	var entity: NPCEntity = _actor
+	assert(entity != null, "BaseMemory: actor must be NPCEntity in " + name)
 	entity.health.damaged.connect(
 		func(_attack: Attack) -> void:
 			force_refresh_blackboard(),
@@ -31,7 +31,7 @@ func init(actor: Node) -> void:
 
 
 func _get_health_percentage() -> float:
-	var health: Health = (_actor as AggressiveEntity).health
+	var health: Health = (_actor as NPCEntity).health
 	if health == null or health.max_health <= 0:
 		return 1.0
 
@@ -87,7 +87,7 @@ func _refresh_blackboard() -> void:
 
 	var enemy_alive: bool = current_target.health.current_health > 0.0
 
-	var projectile_attack: ProjectileAttack = (_actor as AggressiveEntity).projectile_attack
+	var projectile_attack: ProjectileAttack = _actor.projectile_attack
 	var in_ranged_range: bool = projectile_attack != null and true_distance_squared <= projectile_attack.max_range * projectile_attack.max_range
 	var in_combat: bool = (in_melee_range or in_ranged_range) and enemy_alive
 

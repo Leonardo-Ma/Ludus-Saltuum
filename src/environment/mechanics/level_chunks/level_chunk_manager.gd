@@ -361,7 +361,7 @@ func _sync_chunk_spawn_ids(chunk: LevelChunk) -> void:
 				var scene_local_path: NodePath = chunk.get_path_to(collectible)
 				collectible.assign_procedural_id(seed_value, scene_local_path)
 		elif node.is_in_group(Groups.ENEMIES):
-			var enemy: AggressiveEntity = node as AggressiveEntity
+			var enemy: NPCEntity = node
 			if enemy.is_procedurally_spawned:
 				var scene_local_path: NodePath = chunk.get_path_to(enemy)
 				enemy.assign_procedural_id(seed_value, scene_local_path)

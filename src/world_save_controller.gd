@@ -73,7 +73,7 @@ func _on_collectible_collected(id: StringName) -> void:
 #region Enemy
 func _respawn_enemies() -> void:
 	for enemy: Node in get_tree().get_nodes_in_group(Groups.ENEMIES):
-		var entity: AggressiveEntity = enemy as AggressiveEntity
+		var entity: NPCEntity = enemy
 		if entity == null or entity.is_procedurally_spawned:
 			continue
 		entity.revive()
@@ -81,7 +81,7 @@ func _respawn_enemies() -> void:
 
 func _disable_killed_enemies() -> void:
 	for enemy: Node in get_tree().get_nodes_in_group(Groups.ENEMIES):
-		var entity: AggressiveEntity = enemy as AggressiveEntity
+		var entity: NPCEntity = enemy
 		if entity == null:
 			continue
 		if _killed_enemy_ids.has(entity.enemy_id):

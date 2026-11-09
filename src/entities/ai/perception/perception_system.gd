@@ -20,7 +20,7 @@ func _ready() -> void:
 	_owner_node = self.owner as Node3D
 	assert(_owner_node != null, "PerceptionSystem must be a child of a Node3D in " + self.name)
 
-	var entity: AggressiveEntity = _owner_node as AggressiveEntity
+	var entity: NPCEntity = _owner_node
 	if entity:
 		if entity.perception_config:
 			config = entity.perception_config

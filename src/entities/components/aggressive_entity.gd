@@ -1,9 +1,8 @@
-# TODO Consider extending a base (non-aggressive) entity? (note: that would probably be way worse)
-# subclass sandbox https://www.youtube.com/watch?v=oIrvZDDWxhU&t=50s - GDQuest Five Must Have Code Patterns for Your Godot Game
-## Generic abstract class for entities that take damage and attack
-## Refer to subclass sandbox https://gameprogrammingpatterns.com/subclass-sandbox.html
 @abstract class_name AggressiveEntity
 extends CharacterBody3D
+
+## Generic abstract class for entities that take damage and attack [br]
+## Refer to subclass sandbox https://gameprogrammingpatterns.com/subclass-sandbox.html
 
 @warning_ignore("unused_signal")
 signal melee_attacked
@@ -30,25 +29,6 @@ const ATTACK_SOUNDS: Array[AudioStream] = [
 ## Null when entity has no ranged attack
 @export var projectile_attack: ProjectileAttack
 
-@export_group("Is NPC?")
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var is_npc: bool = true
-@export_subgroup("Perception System")
-@export var perception_config: PerceptionConfig
-@export var target_groups: Array[String] = [Groups.PLAYERS]
-@export var debug_perception: bool = false
-
-@export_subgroup("AI System")
-@export var ai_config: AIConfig
-
-## False when outside level chunk, requires static_id set in editor
-@export var is_procedurally_spawned: bool = true
-## Must be unique
-@export var static_id: StringName = &""
-## Must be unique within this level chunk
-@export var procedural_id: StringName = &""
-var enemy_id: StringName = &""
-
-var goap_agent: GoapAgent = null
 var _damage_material: StandardMaterial3D
 var _damage_tween: Tween
 var _prev_health: int = 0
@@ -60,10 +40,6 @@ var _prev_health: int = 0
 @onready var status_manager: StatusManager = %StatusManager
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var animation_tree: AnimationTree = %AnimationTree
-
-@onready var npc_movement_controller: NPCMovementController
-@onready var goap_controller: GoapMemory
-@onready var perception_system: PerceptionSystem
 
 
 ## Children should override _child_ready instead of this
@@ -91,34 +67,6 @@ func _ready() -> void:
 
 	_child_ready()
 
-	if is_npc:
-		npc_movement_controller = $%NPCMovementController
-		goap_controller = $%GoapController
-		perception_system = $%PerceptionSystem
-		assert(ai_config, "GOAP Not properly configured for " + name)
-		assert(goap_controller, "GoapController missing for " + name)
-		assert(npc_movement_controller, "NPCMovementController missing for " + name)
-		assert(perception_system, "Perception system missing for " + name)
-
-		if not is_procedurally_spawned:
-			assert(static_id != &"", "Enemy static_id not set on non-procedural instance " + name)
-			enemy_id = static_id
-
-		goap_agent = GoapAgent.new()
-		var goals: Array[GoapGoal] = ai_config.create_goals()
-		var actions: Array[GoapAction] = ai_config.create_actions()
-
-		goap_agent.name = name
-		print("Registering GOAP agent: ", goap_agent.name)
-
-		goap_agent.init(self, goals, goap_controller, actions)
-		add_child(goap_agent)
-
-		npc_movement_controller.set_physics_process(false)
-
-		assert(goap_agent != null, "NPCs must have GoapAgent. " + name)
-		add_to_group(Groups.ENEMIES)
-
 
 ## Virtual method for subclasses to override instead of _ready()
 @abstract func _child_ready() -> void
@@ -130,6 +78,16 @@ func _ready() -> void:
 @abstract func _on_death_complete() -> void
 
 
+## Hook for subclasses to react on death, before disable_entity() runs
+func _on_dying() -> void:
+	pass
+
+
+## Hook for subclasses to react on revive
+func _on_revived() -> void:
+	pass
+
+
 # TODO Disable navigation for GOAP, disable player controller
 # Maybe transform into abstract method to force override? Or use set_state (player has but not npc)?
 func _on_death() -> void:
@@ -138,9 +96,7 @@ func _on_death() -> void:
 	if _damage_tween and _damage_tween.is_valid():
 		_damage_tween.kill()
 
-	if goap_agent:
-		print("Disabling GOAP agent ", goap_agent.name)
-		goap_agent.set_process(false)
+	_on_dying()
 
 	disable_entity()
 	await _death_animation()
@@ -157,13 +113,6 @@ func disable_entity() -> void:
 	set_physics_process(false)
 
 
-func assign_procedural_id(seed_value: int, scene_local_path: NodePath) -> void:
-	assert(is_procedurally_spawned, "Procedural id assigned to non-procedural enemy " + name)
-	procedural_id = StringName(scene_local_path)
-	enemy_id = ProceduralId.spawn_id(seed_value, scene_local_path)
-	assert(enemy_id != &"", "Enemy identity not assigned on " + name)
-
-
 ## Used on world reset/load
 func revive() -> void:
 	health.reset()
@@ -174,8 +123,7 @@ func revive() -> void:
 	hitbox.set_deferred("monitorable", true)
 	hurtbox.set_deferred("monitoring", true)
 	hurtbox.set_deferred("monitorable", true)
-	if goap_agent:
-		goap_agent.set_process(true)
+	_on_revived()
 
 
 #region Visual effects and animations
