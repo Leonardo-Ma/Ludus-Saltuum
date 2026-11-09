@@ -18,7 +18,7 @@ func _on_parent_visibility_changed() -> void:
 	if not button.is_visible_in_tree():
 		return
 
-	if InputManager.is_gamepad_active():
+	if InputManager.is_focus_navigation_active():
 		await get_tree().process_frame
 		button.grab_focus()
 		print_debug(button.name, " Has focus")

@@ -18,6 +18,7 @@ var active_device: Device = Device.KEYBOARD_MOUSE
 var _pending_device: Device = Device.KEYBOARD_MOUSE
 var _switch_timer: SceneTreeTimer
 var _connected_gamepads: Dictionary[int, Device] = { }
+var _keyboard_navigating: bool = false
 
 
 func _ready() -> void:
@@ -46,6 +47,11 @@ func _on_joy_connection_changed(device_id: int, connected: bool) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.is_pressed():
+		_keyboard_navigating = true
+	elif event is InputEventMouseButton or event is InputEventMouseMotion:
+		_keyboard_navigating = false
+
 	var new_device: Device = active_device
 
 	if event is InputEventJoypadButton:
@@ -84,6 +90,11 @@ func _apply_device_switch() -> void:
 
 func is_gamepad_active() -> bool:
 	return active_device != Device.KEYBOARD_MOUSE
+
+
+## True for gamepad or after last keyboard/mouse input was a key press
+func is_focus_navigation_active() -> bool:
+	return is_gamepad_active() or _keyboard_navigating
 
 
 func _get_gamepad_device_type(device_id: int) -> Device:
