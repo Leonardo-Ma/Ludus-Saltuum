@@ -1,8 +1,7 @@
-# https://www.youtube.com/watch?v=JWjzSn95bM0 GDQuest - How to Code Melee Attacks in Godot: Hitboxes and Hurtboxes
-# https://www.youtube.com/watch?v=y3faMdIb2II Bitlytic - Maximize Your Game Development Potential with Classes in Godot (class_name is OP)
-## Upon colliding with a hitbox, triggers take damage from colliding entity, passing own attack
 class_name Hurtbox
 extends Area3D
+
+## Upon colliding with a hitbox, triggers take damage from colliding entity, passing own attack
 
 
 func _ready() -> void:
@@ -13,19 +12,12 @@ func _ready() -> void:
 
 
 func _on_area_entered(hitbox: Hitbox) -> void:
-	if hitbox == null:
+	if hitbox == null or hitbox.ignored_entity == owner:
 		return
 	var attacker: Node = hitbox.get_parent()
 	var attack_used: Attack = attacker.attack
 
-	# TODO DECOUPLE THIS FROM HURTBOX D:
-	# Projectile attack don't hit caster it
-	var projectile: Projectile = attacker as Projectile
-	if projectile != null:
-		if projectile.shooter == owner:
-			return
-
-		projectile.queue_free()
-
 	owner.health.take_damage(attack_used)
+	hitbox.hit_landed.emit(self)
+
 	print(owner.name, " Hurt by ", hitbox.owner.name, " For ", attack_used.damage)

@@ -1,7 +1,15 @@
-# https://www.youtube.com/watch?v=JWjzSn95bM0 - How to Code Melee Attacks in Godot: Hitboxes and Hurtboxes
-## Used to check when a hurtbox has collided
 class_name Hitbox
 extends Area3D
+
+## Used to check when a hurtbox has collided
+
+## Emitted by Hurtbox after damage applied
+@warning_ignore("unused_signal")
+signal hit_landed(hurtbox: Hurtbox)
+
+## Optional variable set when a hurtbox should ignore this hit [br]
+## Example: Ranged attack shouldn't hit caster
+var ignored_entity: Node3D
 
 
 func _ready() -> void:

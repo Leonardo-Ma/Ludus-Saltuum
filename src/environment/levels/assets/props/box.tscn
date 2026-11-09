@@ -45,6 +45,8 @@ shadow_mesh = SubResource("ArrayMesh_4t74e")
 
 [node name="Box" type="RigidBody3D" unique_id=1345912249]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+collision_layer = 8
+collision_mask = 0
 mass = 0.5
 metadata/_edit_group_ = true
 
