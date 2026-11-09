@@ -33,6 +33,6 @@ func _process(_delta: float) -> void:
 		label_text += str(owner.goap_agent._current_goal.get_custom_class_name()) + "\n"
 
 	if owner.goap_agent._current_goal:
-		label_text += "Current goal: " + owner.goap_agent._current_goal.get_custom_class_name()
+		label_text += "Current action: " + owner.goap_agent._current_plan[owner.goap_agent._current_plan_step].get_custom_class_name()
 
 	self.text = label_text
