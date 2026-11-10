@@ -7,6 +7,7 @@ data = PackedVector3Array(-0.5, 0, -0.5, -0.5, 0.02, -0.5, -0.5, 0.01, -0.399999
 
 [node name="RoadSlantHigh" type="StaticBody3D" unique_id=477667701]
 transform = Transform3D(-4.371139e-07, 0, -10, 0, 10, 0, 10, 0, -4.371139e-07, 0, 0, 0)
+collision_mask = 0
 
 [node name="RoadSlantHighMesh" type="MeshInstance3D" parent="." unique_id=1937299687]
 mesh = ExtResource("1_q3i31")

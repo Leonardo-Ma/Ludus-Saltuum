@@ -27,6 +27,11 @@
 [ext_resource type="Resource" uid="uid://bqq32jxlbtgpc" path="res://src/entities/player/skills/active_skills/fireball.tres" id="25_dgbcr"]
 [ext_resource type="Script" uid="uid://si0x0kj8w7kf" path="res://src/systems/collectibles/collectibles_data/skill_collectible.gd" id="26_4520b"]
 
+[sub_resource type="Resource" id="Resource_jkhx3"]
+script = ExtResource("22_km4k4")
+available_actions = Array[Script]([ExtResource("13_4520b"), ExtResource("14_qniw8"), ExtResource("15_17lco"), ExtResource("16_iyue6"), ExtResource("17_bkt38")])
+available_goals = Array[Script]([ExtResource("18_keii4"), ExtResource("19_81m0y"), ExtResource("20_bq2xu"), ExtResource("21_bnj4v")])
+
 [sub_resource type="Resource" id="Resource_5mkjx"]
 resource_local_to_scene = true
 script = ExtResource("23_osrxr")
@@ -52,11 +57,6 @@ projectile_scene = ExtResource("11_0ob4r")
 type = 2
 damage = 30
 metadata/_custom_type_script = "uid://b14wamm35ys53"
-
-[sub_resource type="Resource" id="Resource_jkhx3"]
-script = ExtResource("22_km4k4")
-available_actions = Array[Script]([ExtResource("13_4520b"), ExtResource("14_qniw8"), ExtResource("15_17lco"), ExtResource("16_iyue6"), ExtResource("17_bkt38")])
-available_goals = Array[Script]([ExtResource("18_keii4"), ExtResource("19_81m0y"), ExtResource("20_bq2xu"), ExtResource("21_bnj4v")])
 
 [sub_resource type="Resource" id="Resource_dgbcr"]
 resource_local_to_scene = true
@@ -251,57 +251,69 @@ transform = Transform3D(0.13711588, 0, -4.9981194, 0, 5.000002, 0, 4.9981194, 0,
 
 [node name="SkeletonMage" parent="HexagonStonePlatform/LeftSideEntrance/WallStraight" unique_id=280064195 instance=ExtResource("8_2mg1o")]
 transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, -0.5366845, 0.8999814, 1.4305115e-06)
+collision_layer = 2
+collision_mask = 11
+ai_config = SubResource("Resource_jkhx3")
 attack = SubResource("Resource_5mkjx")
 health = SubResource("Resource_0ob4r")
 movement = SubResource("Resource_osrxr")
 projectile_attack = SubResource("Resource_evelk")
-ai_config = SubResource("Resource_jkhx3")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/LeftSideEntrance/WallStraight" unique_id=1062805800 instance=ExtResource("8_2mg1o")]
 transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, 0.46331525, 0.8999814, 1.4305115e-06)
+collision_layer = 2
+collision_mask = 11
+ai_config = SubResource("Resource_jkhx3")
 attack = SubResource("Resource_dgbcr")
 health = SubResource("Resource_4520b")
 movement = SubResource("Resource_osrxr")
 projectile_attack = SubResource("Resource_evelk")
-ai_config = SubResource("Resource_jkhx3")
 
 [node name="WallStraight2" parent="HexagonStonePlatform/LeftSideEntrance" unique_id=2110368786 instance=ExtResource("24_5mkjx")]
 transform = Transform3D(0.1371159, 0, -4.998119, 0, 5.000002, 0, 4.998119, 0, 0.1371159, 11.514812, 1.82, 19.657322)
 
 [node name="SkeletonMage" parent="HexagonStonePlatform/LeftSideEntrance/WallStraight2" unique_id=1461613197 instance=ExtResource("8_2mg1o")]
 transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, -0.5366845, 0.8999814, 1.4305115e-06)
+collision_layer = 2
+collision_mask = 11
+ai_config = SubResource("Resource_jkhx3")
 attack = SubResource("Resource_qniw8")
 health = SubResource("Resource_17lco")
 movement = SubResource("Resource_osrxr")
 projectile_attack = SubResource("Resource_evelk")
-ai_config = SubResource("Resource_jkhx3")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/LeftSideEntrance/WallStraight2" unique_id=69921404 instance=ExtResource("8_2mg1o")]
 transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, 0.46331525, 0.8999814, 1.4305115e-06)
+collision_layer = 2
+collision_mask = 11
+ai_config = SubResource("Resource_jkhx3")
 attack = SubResource("Resource_iyue6")
 health = SubResource("Resource_bkt38")
 movement = SubResource("Resource_osrxr")
 projectile_attack = SubResource("Resource_evelk")
-ai_config = SubResource("Resource_jkhx3")
 
 [node name="WallStraight3" parent="HexagonStonePlatform/LeftSideEntrance" unique_id=778881268 instance=ExtResource("24_5mkjx")]
 transform = Transform3D(0.1371159, 0, -4.998119, 0, 5.000002, 0, 4.998119, 0, 0.1371159, 11.774687, 1.82, 28.801544)
 
 [node name="SkeletonMage" parent="HexagonStonePlatform/LeftSideEntrance/WallStraight3" unique_id=888371605 instance=ExtResource("8_2mg1o")]
 transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, -0.5366845, 0.8999814, 1.4305115e-06)
+collision_layer = 2
+collision_mask = 11
+ai_config = SubResource("Resource_jkhx3")
 attack = SubResource("Resource_keii4")
 health = SubResource("Resource_81m0y")
 movement = SubResource("Resource_osrxr")
 projectile_attack = SubResource("Resource_evelk")
-ai_config = SubResource("Resource_jkhx3")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/LeftSideEntrance/WallStraight3" unique_id=1439446807 instance=ExtResource("8_2mg1o")]
 transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, 0.46331525, 0.8999814, 1.4305115e-06)
+collision_layer = 2
+collision_mask = 11
+ai_config = SubResource("Resource_jkhx3")
 attack = SubResource("Resource_bq2xu")
 health = SubResource("Resource_bnj4v")
 movement = SubResource("Resource_osrxr")
 projectile_attack = SubResource("Resource_evelk")
-ai_config = SubResource("Resource_jkhx3")
 
 [node name="RightSideEntrance" type="Node3D" parent="HexagonStonePlatform" unique_id=1235808926]
 transform = Transform3D(-0.18317977, 0, -0.08028184, 0, 0.19999999, 0, 0.08028184, 0, -0.18317977, 1.0399156, 0, 1.708457)
@@ -311,57 +323,69 @@ transform = Transform3D(0.13711588, 0, -4.9981194, 0, 5.000002, 0, 4.9981194, 0,
 
 [node name="SkeletonMage" parent="HexagonStonePlatform/RightSideEntrance/WallStraight" unique_id=1024967108 instance=ExtResource("8_2mg1o")]
 transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, -0.5366845, 0.8999814, 1.4305115e-06)
+collision_layer = 2
+collision_mask = 11
+ai_config = SubResource("Resource_jkhx3")
 attack = SubResource("Resource_km4k4")
 health = SubResource("Resource_cbfif")
 movement = SubResource("Resource_osrxr")
 projectile_attack = SubResource("Resource_evelk")
-ai_config = SubResource("Resource_jkhx3")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/RightSideEntrance/WallStraight" unique_id=433004801 instance=ExtResource("8_2mg1o")]
 transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, 0.46331525, 0.8999814, 1.4305115e-06)
+collision_layer = 2
+collision_mask = 11
+ai_config = SubResource("Resource_jkhx3")
 attack = SubResource("Resource_i0hj8")
 health = SubResource("Resource_qkjba")
 movement = SubResource("Resource_osrxr")
 projectile_attack = SubResource("Resource_evelk")
-ai_config = SubResource("Resource_jkhx3")
 
 [node name="WallStraight2" parent="HexagonStonePlatform/RightSideEntrance" unique_id=839888143 instance=ExtResource("24_5mkjx")]
 transform = Transform3D(0.1371159, 0, -4.998119, 0, 5.000002, 0, 4.998119, 0, 0.1371159, 11.514812, 1.82, 19.657322)
 
 [node name="SkeletonMage" parent="HexagonStonePlatform/RightSideEntrance/WallStraight2" unique_id=7604380 instance=ExtResource("8_2mg1o")]
 transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, -0.5366845, 0.8999814, 1.4305115e-06)
+collision_layer = 2
+collision_mask = 11
+ai_config = SubResource("Resource_jkhx3")
 attack = SubResource("Resource_j5v42")
 health = SubResource("Resource_prhb7")
 movement = SubResource("Resource_osrxr")
 projectile_attack = SubResource("Resource_evelk")
-ai_config = SubResource("Resource_jkhx3")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/RightSideEntrance/WallStraight2" unique_id=1908138671 instance=ExtResource("8_2mg1o")]
 transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, 0.46331525, 0.8999814, 1.4305115e-06)
+collision_layer = 2
+collision_mask = 11
+ai_config = SubResource("Resource_jkhx3")
 attack = SubResource("Resource_13f0g")
 health = SubResource("Resource_opsm2")
 movement = SubResource("Resource_osrxr")
 projectile_attack = SubResource("Resource_evelk")
-ai_config = SubResource("Resource_jkhx3")
 
 [node name="WallStraight3" parent="HexagonStonePlatform/RightSideEntrance" unique_id=1348531623 instance=ExtResource("24_5mkjx")]
 transform = Transform3D(0.1371159, 0, -4.998119, 0, 5.000002, 0, 4.998119, 0, 0.1371159, 11.774687, 1.82, 28.801544)
 
 [node name="SkeletonMage" parent="HexagonStonePlatform/RightSideEntrance/WallStraight3" unique_id=769901878 instance=ExtResource("8_2mg1o")]
 transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, -0.5366845, 0.8999814, 1.4305115e-06)
+collision_layer = 2
+collision_mask = 11
+ai_config = SubResource("Resource_jkhx3")
 attack = SubResource("Resource_qls03")
 health = SubResource("Resource_hhctj")
 movement = SubResource("Resource_osrxr")
 projectile_attack = SubResource("Resource_evelk")
-ai_config = SubResource("Resource_jkhx3")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/RightSideEntrance/WallStraight3" unique_id=1057162096 instance=ExtResource("8_2mg1o")]
 transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, 0.46331525, 0.8999814, 1.4305115e-06)
+collision_layer = 2
+collision_mask = 11
+ai_config = SubResource("Resource_jkhx3")
 attack = SubResource("Resource_ae2es")
 health = SubResource("Resource_7cmvk")
 movement = SubResource("Resource_osrxr")
 projectile_attack = SubResource("Resource_evelk")
-ai_config = SubResource("Resource_jkhx3")
 
 [node name="WallStraightGateOpen" parent="HexagonStonePlatform" unique_id=1102864882 instance=ExtResource("23_5mkjx")]
 transform = Transform3D(1.8589536, 0, 0.73776215, 0, 2, 0, -0.73776215, 0, 1.8589536, 0.576658, 0, 1.315763)

@@ -202,7 +202,8 @@ size = Vector3(1.4916992, 1, 2.89563)
 size = Vector3(0.7448158, 2.0224, 0.53845215)
 
 [node name="Vehicle" type="VehicleBody3D" unique_id=864995165]
-collision_mask = 11
+collision_layer = 2
+collision_mask = 15
 mass = 1200.0
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, -0.2, -0.15)

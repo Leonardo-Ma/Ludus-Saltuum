@@ -1017,6 +1017,7 @@ points = PackedVector3Array(0.26016426, 0.38404757, 0.48511192, -0.83650774, 0, 
 mesh = SubResource("ArrayMesh_yxu4q")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="01-block-grass-low" unique_id=281530766]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="01-block-grass-low/StaticBody3D" unique_id=679780726]
 shape = SubResource("ConvexPolygonShape3D_qmcf3")
@@ -1025,6 +1026,7 @@ shape = SubResource("ConvexPolygonShape3D_qmcf3")
 mesh = SubResource("ArrayMesh_hcuvo")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="02-block-snow-low" unique_id=1381407865]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="02-block-snow-low/StaticBody3D" unique_id=1935216725]
 shape = SubResource("ConvexPolygonShape3D_ah88j")
@@ -1033,6 +1035,7 @@ shape = SubResource("ConvexPolygonShape3D_ah88j")
 mesh = SubResource("ArrayMesh_3v11w")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-snow-large" unique_id=1123564854]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block-snow-large/StaticBody3D" unique_id=1081263671]
 shape = SubResource("ConvexPolygonShape3D_p7tv2")
@@ -1041,6 +1044,7 @@ shape = SubResource("ConvexPolygonShape3D_p7tv2")
 mesh = SubResource("ArrayMesh_tdg8i")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-grass-large-slope" unique_id=760297868]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block-grass-large-slope/StaticBody3D" unique_id=1169256704]
 shape = SubResource("ConvexPolygonShape3D_i16qp")
@@ -1049,6 +1053,7 @@ shape = SubResource("ConvexPolygonShape3D_i16qp")
 mesh = SubResource("ArrayMesh_yinv8")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-grass-large-slope-narrow" unique_id=1785892705]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block-grass-large-slope-narrow/StaticBody3D" unique_id=960019310]
 shape = SubResource("ConvexPolygonShape3D_dfwjj")
@@ -1057,6 +1062,7 @@ shape = SubResource("ConvexPolygonShape3D_dfwjj")
 mesh = SubResource("ArrayMesh_72iy0")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-grass-large-slope-steep" unique_id=1162501087]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block-grass-large-slope-steep/StaticBody3D" unique_id=1571288263]
 shape = SubResource("ConvexPolygonShape3D_l3l2k")
@@ -1065,6 +1071,7 @@ shape = SubResource("ConvexPolygonShape3D_l3l2k")
 mesh = SubResource("ArrayMesh_gs7ov")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-grass-large-slope-steep-narrow" unique_id=211294048]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block-grass-large-slope-steep-narrow/StaticBody3D" unique_id=543753183]
 shape = SubResource("ConvexPolygonShape3D_chiq3")
@@ -1073,6 +1080,7 @@ shape = SubResource("ConvexPolygonShape3D_chiq3")
 mesh = SubResource("ArrayMesh_onimu")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-snow-large-slope" unique_id=1490335375]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block-snow-large-slope/StaticBody3D" unique_id=705919628]
 shape = SubResource("ConvexPolygonShape3D_kaelh")
@@ -1081,6 +1089,7 @@ shape = SubResource("ConvexPolygonShape3D_kaelh")
 mesh = SubResource("ArrayMesh_rw61g")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-snow-large-slope-narrow" unique_id=1556934615]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block-snow-large-slope-narrow/StaticBody3D" unique_id=152485708]
 shape = SubResource("ConvexPolygonShape3D_6p3p5")
@@ -1089,6 +1098,7 @@ shape = SubResource("ConvexPolygonShape3D_6p3p5")
 mesh = SubResource("ArrayMesh_s5ljn")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-snow-large-slope-steep" unique_id=1291108594]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block-snow-large-slope-steep/StaticBody3D" unique_id=443777433]
 shape = SubResource("ConvexPolygonShape3D_sx8pa")
@@ -1097,6 +1107,7 @@ shape = SubResource("ConvexPolygonShape3D_sx8pa")
 mesh = SubResource("ArrayMesh_3vv87")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-snow-large-slope-steep-narrow" unique_id=67139011]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block-snow-large-slope-steep-narrow/StaticBody3D" unique_id=535069126]
 shape = SubResource("ConvexPolygonShape3D_n2gnp")
@@ -1105,6 +1116,7 @@ shape = SubResource("ConvexPolygonShape3D_n2gnp")
 mesh = SubResource("ArrayMesh_241r4")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-grass" unique_id=254575810]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block-grass/StaticBody3D" unique_id=1659402610]
 shape = SubResource("ConvexPolygonShape3D_hh867")
@@ -1113,6 +1125,7 @@ shape = SubResource("ConvexPolygonShape3D_hh867")
 mesh = SubResource("ArrayMesh_j1o2s")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-snow" unique_id=389873230]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block-snow/StaticBody3D" unique_id=749166633]
 shape = SubResource("ConvexPolygonShape3D_c0thx")
@@ -1121,6 +1134,7 @@ shape = SubResource("ConvexPolygonShape3D_c0thx")
 mesh = SubResource("ArrayMesh_ubydy")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="brick" unique_id=1635562516]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="brick/StaticBody3D" unique_id=1616250213]
 shape = SubResource("ConvexPolygonShape3D_polap")
@@ -1129,6 +1143,7 @@ shape = SubResource("ConvexPolygonShape3D_polap")
 mesh = SubResource("ArrayMesh_tvib3")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-grass-curve" unique_id=221982548]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block-grass-curve/StaticBody3D" unique_id=443102579]
 shape = SubResource("ConvexPolygonShape3D_wttsf")
@@ -1137,6 +1152,7 @@ shape = SubResource("ConvexPolygonShape3D_wttsf")
 mesh = SubResource("ArrayMesh_w2ypl")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-grass-curve-half" unique_id=1310604594]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block-grass-curve-half/StaticBody3D" unique_id=746638510]
 shape = SubResource("ConvexPolygonShape3D_616nm")
@@ -1145,6 +1161,7 @@ shape = SubResource("ConvexPolygonShape3D_616nm")
 mesh = SubResource("ArrayMesh_v136q")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-grass-curve-low" unique_id=473616815]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block-grass-curve-low/StaticBody3D" unique_id=409049532]
 shape = SubResource("ConvexPolygonShape3D_xfmji")
@@ -1155,6 +1172,7 @@ shape = SubResource("ConvexPolygonShape3D_xfmji")
 mesh = SubResource("ArrayMesh_stxub")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-grass-long" unique_id=1698887201]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block-grass-long/StaticBody3D" unique_id=1843220229]
 shape = SubResource("ConvexPolygonShape3D_xqqcf")
@@ -1163,6 +1181,7 @@ shape = SubResource("ConvexPolygonShape3D_xqqcf")
 mesh = SubResource("ArrayMesh_07tou")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-grass-low-large" unique_id=941654917]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block-grass-low-large/StaticBody3D" unique_id=793230087]
 shape = SubResource("ConvexPolygonShape3D_oso6n")
@@ -1171,6 +1190,7 @@ shape = SubResource("ConvexPolygonShape3D_oso6n")
 mesh = SubResource("ArrayMesh_ohclw")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-grass-low-long" unique_id=404284751]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block-grass-low-long/StaticBody3D" unique_id=602921033]
 shape = SubResource("ConvexPolygonShape3D_pfyhu")
@@ -1179,6 +1199,7 @@ shape = SubResource("ConvexPolygonShape3D_pfyhu")
 mesh = SubResource("ArrayMesh_016k6")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-grass-low-narrow" unique_id=1977708671]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block-grass-low-narrow/StaticBody3D" unique_id=683034252]
 shape = SubResource("ConvexPolygonShape3D_87hcx")
@@ -1187,6 +1208,7 @@ shape = SubResource("ConvexPolygonShape3D_87hcx")
 mesh = SubResource("ArrayMesh_7lcru")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-snow-curve" unique_id=1850302888]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block-snow-curve/StaticBody3D" unique_id=1377058758]
 shape = SubResource("ConvexPolygonShape3D_bibwa")
@@ -1195,6 +1217,7 @@ shape = SubResource("ConvexPolygonShape3D_bibwa")
 mesh = SubResource("ArrayMesh_yww3v")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-snow-curve-half" unique_id=506947520]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block-snow-curve-half/StaticBody3D" unique_id=1186060136]
 shape = SubResource("ConvexPolygonShape3D_64w0d")
@@ -1203,6 +1226,7 @@ shape = SubResource("ConvexPolygonShape3D_64w0d")
 mesh = SubResource("ArrayMesh_gs175")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="block-snow-curve-low" unique_id=2066764205]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="block-snow-curve-low/StaticBody3D" unique_id=1083815672]
 shape = SubResource("ConvexPolygonShape3D_lqwbu")

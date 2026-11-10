@@ -369,7 +369,7 @@ _data = {
 [node name="FireProjectile" type="Area3D" unique_id=1429494857]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 collision_layer = 0
-collision_mask = 8
+collision_mask = 9
 script = ExtResource("1_bihce")
 sound_effect = ExtResource("2_7dlw6")
 

@@ -13,6 +13,7 @@ mesh = ExtResource("1_yu37n")
 skeleton = NodePath("../..")
 
 [node name="RoomSmallVariation" type="StaticBody3D" parent="." unique_id=1290067127]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RoomSmallVariation" unique_id=1373029615]
 shape = SubResource("ConcavePolygonShape3D_iuqmg")

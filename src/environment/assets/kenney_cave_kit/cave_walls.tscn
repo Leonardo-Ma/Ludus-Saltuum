@@ -67,6 +67,7 @@ mesh = ExtResource("1_ovgno")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="TemplateWall" unique_id=319617580]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.025, -1.0810033)
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TemplateWall/StaticBody3D" unique_id=2034953881]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.50436884)
@@ -77,6 +78,7 @@ mesh = ExtResource("2_f0hvs")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="TemplateWallCorner" unique_id=476405232]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 2.025, -0.5)
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TemplateWallCorner/StaticBody3D" unique_id=1712275220]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.037597656, 0, 0)
@@ -86,6 +88,7 @@ shape = SubResource("BoxShape3D_f0hvs")
 mesh = ExtResource("7_f0hvs")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="TemplateCorner" unique_id=112771687]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TemplateCorner/StaticBody3D" unique_id=2070378873]
 shape = SubResource("ConcavePolygonShape3D_f1owh")
@@ -94,6 +97,7 @@ shape = SubResource("ConcavePolygonShape3D_f1owh")
 mesh = ExtResource("8_0e0v8")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Corridor" unique_id=1947770074]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Corridor/StaticBody3D" unique_id=571004005]
 shape = SubResource("ConcavePolygonShape3D_kmfeo")
@@ -105,6 +109,7 @@ shape = SubResource("BoxShape3D_0e0v8")
 mesh = ExtResource("9_bhkxp")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CorridorCorner" unique_id=213192928]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CorridorCorner/StaticBody3D" unique_id=488634501]
 shape = SubResource("ConcavePolygonShape3D_2ngux")
@@ -116,6 +121,7 @@ shape = SubResource("BoxShape3D_0e0v8")
 mesh = ExtResource("10_a4n52")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CorridorEnd" unique_id=627953272]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CorridorEnd/StaticBody3D" unique_id=1569105211]
 shape = SubResource("ConcavePolygonShape3D_p5wdw")
@@ -127,6 +133,7 @@ shape = SubResource("BoxShape3D_0e0v8")
 mesh = ExtResource("11_imqfo")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CorridorIntersection" unique_id=1803430042]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CorridorIntersection/StaticBody3D" unique_id=712865776]
 shape = SubResource("ConcavePolygonShape3D_2q0r3")
@@ -138,6 +145,7 @@ shape = SubResource("BoxShape3D_0e0v8")
 mesh = ExtResource("12_vctb8")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CorridorJunction" unique_id=2120624147]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CorridorJunction/StaticBody3D" unique_id=758776276]
 shape = SubResource("ConcavePolygonShape3D_3gwwl")
@@ -149,6 +157,7 @@ shape = SubResource("BoxShape3D_0e0v8")
 mesh = ExtResource("13_uwcny")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CorridorTransition" unique_id=41420652]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CorridorTransition/StaticBody3D" unique_id=382588787]
 shape = SubResource("ConcavePolygonShape3D_hdygx")
@@ -160,6 +169,7 @@ shape = SubResource("BoxShape3D_0e0v8")
 mesh = ExtResource("14_y2gca")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CorridorWide" unique_id=1821682691]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CorridorWide/StaticBody3D" unique_id=204189184]
 shape = SubResource("ConcavePolygonShape3D_lrhhx")
@@ -171,6 +181,7 @@ shape = SubResource("BoxShape3D_0e0v8")
 mesh = ExtResource("15_if37x")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CorridorWideCorner" unique_id=1831182403]
+collision_mask = 0
 
 [node name="FloorCollisionShape3D" type="CollisionShape3D" parent="CorridorWideCorner/StaticBody3D" unique_id=2081319386]
 shape = SubResource("BoxShape3D_0e0v8")
@@ -182,6 +193,7 @@ shape = SubResource("ConcavePolygonShape3D_es8kw")
 mesh = ExtResource("16_p1yxg")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CorridorWideEnd" unique_id=1665967990]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CorridorWideEnd/StaticBody3D" unique_id=270231682]
 shape = SubResource("ConcavePolygonShape3D_qdbi5")
@@ -193,6 +205,7 @@ shape = SubResource("BoxShape3D_0e0v8")
 mesh = ExtResource("17_50jn5")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CorridorWideIntersection" unique_id=1363156130]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CorridorWideIntersection/StaticBody3D" unique_id=1856261740]
 shape = SubResource("ConcavePolygonShape3D_2rifv")
@@ -204,6 +217,7 @@ shape = SubResource("BoxShape3D_0e0v8")
 mesh = ExtResource("18_qohg5")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CorridorWideJunction" unique_id=488200476]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CorridorWideJunction/StaticBody3D" unique_id=512861736]
 shape = SubResource("ConcavePolygonShape3D_o5nvk")

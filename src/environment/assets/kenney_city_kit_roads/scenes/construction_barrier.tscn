@@ -7,6 +7,7 @@ size = Vector3(0.105, 0.11874999, 0.225)
 
 [node name="ConstructionBarrier" type="StaticBody3D" unique_id=427598426]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+collision_mask = 0
 
 [node name="ConstructionBarrier" type="MeshInstance3D" parent="." unique_id=1063712010]
 mesh = ExtResource("1_y4rsn")

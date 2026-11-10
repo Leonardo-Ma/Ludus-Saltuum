@@ -46,6 +46,7 @@ shadow_mesh = SubResource("ArrayMesh_0f45e")
 
 [node name="Hedge" type="StaticBody3D" unique_id=273137422]
 transform = Transform3D(-10, 8.742278e-07, 0, -8.742278e-07, -10, 0, 0, 0, 10, 0, 0, 0)
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=843082517]
 shape = SubResource("ConvexPolygonShape3D_sxbck")

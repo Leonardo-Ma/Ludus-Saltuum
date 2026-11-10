@@ -586,7 +586,8 @@ height = 1.2686714
 radius = 0.24023438
 
 [node name="Player" type="CharacterBody3D" unique_id=922527968]
-collision_mask = 11
+collision_layer = 2
+collision_mask = 15
 script = ExtResource("1_tpvn4")
 attack = ExtResource("2_45rvh")
 health = ExtResource("3_xm7nl")

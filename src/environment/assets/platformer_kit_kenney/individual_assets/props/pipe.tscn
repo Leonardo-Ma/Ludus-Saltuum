@@ -46,6 +46,7 @@ data = PackedVector3Array(-0.2737, 0.2786, -0.15799999, -0.15799999, 0.2786, -0.
 
 [node name="Pipe" type="StaticBody3D" unique_id=1422743538]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+collision_mask = 0
 
 [node name="pipe" type="MeshInstance3D" parent="." unique_id=163975357]
 mesh = SubResource("ArrayMesh_sxbck")

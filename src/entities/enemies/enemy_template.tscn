@@ -50,8 +50,8 @@ height = 1.47117
 radius = 0.3
 
 [node name="AggressiveEntity" type="CharacterBody3D" unique_id=280064195]
-collision_layer = 2
-collision_mask = 11
+collision_layer = 4
+collision_mask = 15
 script = ExtResource("1_cqc8c")
 perception_config = SubResource("Resource_k6n52")
 ai_config = SubResource("Resource_f7hab")

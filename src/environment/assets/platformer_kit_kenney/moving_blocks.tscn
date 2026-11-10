@@ -131,6 +131,7 @@ size = Vector3(1, 0.3, 1)
 [node name="MovingBlocks" type="Node3D" unique_id=196292691]
 
 [node name="MovingPlatformBlue" type="AnimatableBody3D" parent="." unique_id=1484134813]
+collision_mask = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MovingPlatformBlue" unique_id=626269113]
 mesh = SubResource("ArrayMesh_3dcxg")
@@ -140,6 +141,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("BoxShape3D_nilue")
 
 [node name="MovingPlatformTallOrange" type="AnimatableBody3D" parent="." unique_id=1692975204]
+collision_mask = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MovingPlatformTallOrange" unique_id=1720473639]
 mesh = SubResource("ArrayMesh_t2hdh")
@@ -149,6 +151,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("BoxShape3D_m3x44")
 
 [node name="MovingPlatformOrange" type="AnimatableBody3D" parent="." unique_id=1533449457]
+collision_mask = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MovingPlatformOrange" unique_id=1094376626]
 mesh = SubResource("ArrayMesh_y0gfq")

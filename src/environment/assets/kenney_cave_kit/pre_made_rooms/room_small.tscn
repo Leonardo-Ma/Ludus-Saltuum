@@ -13,6 +13,7 @@ mesh = ExtResource("1_a6ofn")
 skeleton = NodePath("../..")
 
 [node name="RoomSmall" type="StaticBody3D" parent="." unique_id=1109538277]
+collision_mask = 0
 
 [node name="FloorCollisionShape3D" type="CollisionShape3D" parent="RoomSmall" unique_id=1688490775]
 shape = SubResource("BoxShape3D_u8na7")

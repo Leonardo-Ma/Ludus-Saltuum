@@ -10,6 +10,7 @@ data = PackedVector3Array(0.5, 0.32999998, 0.47, 0.5, 0.32999998, 0.5, -0.5, 0.0
 
 [node name="RoadSlant" type="StaticBody3D" unique_id=961219849]
 transform = Transform3D(-4.371139e-07, 0, -10, 0, 10, 0, 10, 0, -4.371139e-07, 0, 0, 0)
+collision_mask = 0
 
 [node name="Road" type="CollisionShape3D" parent="." unique_id=2100215970]
 transform = Transform3D(1, 0, -3.5527137e-15, 0, 1, 0, 3.5527137e-15, 0, 1, 0, 0, 0)

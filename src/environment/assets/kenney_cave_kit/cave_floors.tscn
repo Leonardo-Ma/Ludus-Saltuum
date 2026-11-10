@@ -33,6 +33,7 @@ mesh = ExtResource("1_ohd2f")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="TemplateFloor" unique_id=928571465]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5e-06, 0)
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TemplateFloor/StaticBody3D" unique_id=1511556193]
 shape = SubResource("BoxShape3D_ohd2f")
@@ -42,6 +43,7 @@ mesh = ExtResource("2_v56xy")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="TemplateFloorBig" unique_id=842131196]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1741774, 0)
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TemplateFloorBig/StaticBody3D" unique_id=1075534787]
 shape = SubResource("BoxShape3D_ohd2f")
@@ -51,6 +53,7 @@ mesh = ExtResource("3_0i111")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="TemplateFloorDetail" unique_id=218718967]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TemplateFloorDetail/StaticBody3D" unique_id=1381631084]
 shape = SubResource("BoxShape3D_v56xy")
@@ -60,6 +63,7 @@ mesh = ExtResource("4_403cc")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="TemplateFloorDetailA" unique_id=376544292]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TemplateFloorDetailA/StaticBody3D" unique_id=69046255]
 shape = SubResource("BoxShape3D_0i111")
@@ -68,6 +72,7 @@ shape = SubResource("BoxShape3D_0i111")
 mesh = ExtResource("5_yjtof")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="TemplateFloorLayer" unique_id=264668227]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TemplateFloorLayer/StaticBody3D" unique_id=130186269]
 shape = SubResource("ConvexPolygonShape3D_403cc")
@@ -76,6 +81,7 @@ shape = SubResource("ConvexPolygonShape3D_403cc")
 mesh = ExtResource("6_wvsmg")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="TemplateFloorLayerHole" unique_id=1858558856]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TemplateFloorLayerHole/StaticBody3D" unique_id=1930465447]
 shape = SubResource("ConvexPolygonShape3D_yjtof")
@@ -84,6 +90,7 @@ shape = SubResource("ConvexPolygonShape3D_yjtof")
 mesh = ExtResource("7_y46uj")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="TemplateFloorLayerRaised" unique_id=630225803]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TemplateFloorLayerRaised/StaticBody3D" unique_id=792925051]
 shape = SubResource("ConvexPolygonShape3D_wvsmg")

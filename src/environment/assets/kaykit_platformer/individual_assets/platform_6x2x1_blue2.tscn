@@ -44,6 +44,7 @@ shadow_mesh = SubResource("ArrayMesh_eyvea")
 size = Vector3(0.06, 0.020000003, 0.01)
 
 [node name="Platform6x2x1Blue2" type="StaticBody3D" unique_id=1301643200]
+collision_mask = 0
 
 [node name="platform_6x2x1_blue2" type="MeshInstance3D" parent="." unique_id=1966322702]
 transform = Transform3D(100, 0, 0, 0, -4.3711384e-06, 99.99999, 0, -99.99999, -4.3711384e-06, 0, 0, 0)

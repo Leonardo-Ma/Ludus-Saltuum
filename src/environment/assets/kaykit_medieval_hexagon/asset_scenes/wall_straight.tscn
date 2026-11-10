@@ -7,6 +7,7 @@ data = PackedVector3Array(0.0033, 0.0039999997, 0.009, 0.0033, 0.003, 0.009, 0, 
 
 [node name="WallStraight" type="StaticBody3D" unique_id=1555351482]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+collision_mask = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1851701271]
 transform = Transform3D(100, 0, 0, 0, -4.371139e-06, 100, 0, -100, -4.371139e-06, 0, 0, 0)

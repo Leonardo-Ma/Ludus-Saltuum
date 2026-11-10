@@ -9,7 +9,7 @@ radius = 0.67529297
 [node name="Barrel" type="RigidBody3D" unique_id=867034360]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 collision_layer = 8
-collision_mask = 3
+collision_mask = 15
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=486811208]
