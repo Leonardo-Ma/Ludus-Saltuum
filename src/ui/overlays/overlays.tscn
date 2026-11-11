@@ -62,12 +62,7 @@ offset_left = -200.0
 offset_top = -74.0
 
 [node name="LowHealthOverlay" parent="." unique_id=1348396716 instance=ExtResource("5_3ci0o")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
+layout_mode = 1
 
 [node name="CosmeticAvailableOverlay" parent="." unique_id=1027948758 instance=ExtResource("6_s544n")]
 visible = false
