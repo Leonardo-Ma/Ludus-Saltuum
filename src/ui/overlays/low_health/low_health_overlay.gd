@@ -33,10 +33,10 @@ func _on_player_spawned(player: Node3D) -> void:
 		return
 
 	var player_entity: PlayerEntity = player as PlayerEntity
-	assert(player_entity != null, "PlayerEntity missing in " + name)
+	assert(player_entity, "PlayerEntity missing in " + name)
 
 	_health = player_entity.health
-	assert(_health != null, "Health missing in " + name)
+	assert(_health, "Health missing in " + name)
 
 	_health.health_changed.connect(_on_health_changed)
 	_refresh()

@@ -7,6 +7,6 @@ extends CollectibleData
 
 func apply_effect(player: PlayerEntity) -> void:
 	var player_entity: PlayerEntity = player
-	var health_resource: Health = player_entity.health
+	var health_resource: HealthComponent = player_entity.health
 
-	health_resource.health += health_recovered
+	health_resource.health.current_health += health_recovered

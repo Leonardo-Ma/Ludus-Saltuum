@@ -1,4 +1,3 @@
-# https://www.youtube.com/watch?v=f90ieBOoIYQ DashNothing - How to Make a Great Health Bar in Godot 4 | Let's Godot
 extends ProgressBar
 
 var health: float = 0.0:
