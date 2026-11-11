@@ -19,6 +19,8 @@ func set_actions(actions: Array[GoapAction]) -> void:
 ## Receives a Goal and an optional blackboard.
 ## Returns a list of actions to be executed.
 func get_plan(goal: GoapGoal, blackboard: Dictionary) -> Array[GoapAction]:
+	assert(goal, "GoapActionPlanner: goal is null in " + name)
+
 	var desired_state: Dictionary = goal.get_desired_state().duplicate()
 	if desired_state.is_empty():
 		assert(false, "GoapActionPlanner: Goal '%s' has no desired state!" % goal.get_custom_class_name())

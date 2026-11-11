@@ -25,6 +25,8 @@ var _blackboard: Dictionary = { }
 ## Called every GoapAgent tick [br]
 ## Throttles _refresh_blackboard() to a random interval, returns true when refreshed
 func update_blackboard(delta: float) -> bool:
+	assert(not _blackboard.is_empty(), "GoapMemory: init() must populate blackboard in " + name)
+
 	_seconds_until_update -= delta
 	if _seconds_until_update > 0.0:
 		return false

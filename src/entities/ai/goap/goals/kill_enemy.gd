@@ -8,7 +8,7 @@ func get_custom_class_name() -> String:
 
 # Not valid if not in combat
 func is_valid(_blackboard: Dictionary) -> bool:
-	return _blackboard.get("in_combat", false) == true
+	return _blackboard[GoapKeys.IN_COMBAT] == true
 
 
 func priority() -> int:
@@ -16,4 +16,4 @@ func priority() -> int:
 
 
 func get_desired_state() -> Dictionary:
-	return { "enemy_alive": false }
+	return { GoapKeys.ENEMY_ALIVE: false }

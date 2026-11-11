@@ -10,7 +10,7 @@ func get_custom_class_name() -> String:
 
 
 func is_valid(_blackboard: Dictionary) -> bool:
-	return _blackboard.get("in_combat", false) == true
+	return _blackboard[GoapKeys.IN_COMBAT] == true
 
 
 func get_cost(_blackboard: Dictionary) -> int:
@@ -18,27 +18,29 @@ func get_cost(_blackboard: Dictionary) -> int:
 
 
 func get_preconditions() -> Dictionary:
-	return { "enemy_in_melee_range": true, "enemy_alive": true }
+	return { GoapKeys.ENEMY_IN_MELEE_RANGE: true, GoapKeys.ENEMY_ALIVE: true }
 
 
 func get_effects() -> Dictionary:
-	return { "enemy_alive": false }
+	return { GoapKeys.ENEMY_ALIVE: false }
 
 
 func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
-	_actor.npc_movement_controller.stop()
+	var entity: NPCEntity = _actor
+	assert(entity, "MeleeAttack: actor is not NPCEntity: " + str(_actor))
+	entity.npc_movement_controller.stop()
 
-	var enemy_pos: Vector3 = _blackboard.get("enemy_position", _actor.global_position)
-	var direction: Vector3 = _actor.global_position.direction_to(enemy_pos)
+	var enemy_pos: Vector3 = _blackboard[GoapKeys.ENEMY_POSITION]
+	var direction: Vector3 = entity.global_position.direction_to(enemy_pos)
 	direction.y = 0.0
 
 	if direction.length_squared() > 0.001:
 		direction = direction.normalized()
 		var target_rotation_y: float = atan2(direction.x, direction.z)
-		_actor.global_rotation.y = lerp_angle(_actor.global_rotation.y, target_rotation_y, 10.0 * _delta)
+		entity.global_rotation.y = lerp_angle(entity.global_rotation.y, target_rotation_y, 10.0 * _delta)
 
 	if _cooldown_timer == null or _cooldown_timer.time_left <= 0.0:
-		_actor.melee_attacked.emit()
-		_cooldown_timer = _actor.get_tree().create_timer(ATTACK_COOLDOWN, false)
+		entity.melee_attacked.emit()
+		_cooldown_timer = entity.get_tree().create_timer(ATTACK_COOLDOWN, false)
 		return true
 	return false

@@ -7,28 +7,32 @@ func get_custom_class_name() -> String:
 
 
 func is_valid(_blackboard: Dictionary) -> bool:
-	return _blackboard.get("enemy_alive", false) == true
+	return _blackboard[GoapKeys.ENEMY_ALIVE] == true
 
 
 func get_cost(_blackboard: Dictionary) -> int:
-	var actor_pos: Vector3 = _blackboard.get("position", Vector3.ZERO)
-	var enemy_pos: Vector3 = _blackboard.get("enemy_position", Vector3.ZERO)
+	var actor_pos: Vector3 = _blackboard[GoapKeys.POSITION]
+	var enemy_pos: Vector3 = _blackboard[GoapKeys.ENEMY_POSITION]
 	return int(actor_pos.distance_to(enemy_pos))
 
 
 func get_preconditions() -> Dictionary:
-	return { "enemy_in_ranged_range": false }
+	return { GoapKeys.ENEMY_IN_RANGED_RANGE: false }
 
 
 func get_effects() -> Dictionary:
-	return { "enemy_in_ranged_range": true }
+	return { GoapKeys.ENEMY_IN_RANGED_RANGE: true }
 
 
 func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
-	if _blackboard.get("enemy_in_ranged_range", false) or _actor.npc_movement_controller.is_navigation_finished():
-		_actor.npc_movement_controller.stop()
+	var entity: NPCEntity = _actor
+	assert(entity, "ApproachEnemy: actor is not NPCEntity: " + str(_actor))
+	var controller: NPCMovementController = entity.npc_movement_controller
+
+	if _blackboard[GoapKeys.ENEMY_IN_RANGED_RANGE] == true:
+		controller.stop()
 		return true
 
-	_actor.npc_movement_controller.set_physics_process(true)
-	_actor.npc_movement_controller.update_target_location(_blackboard.get("enemy_position", Vector3.ZERO))
+	controller.set_physics_process(true)
+	controller.update_target_location(_blackboard.get("enemy_position", Vector3.ZERO))
 	return false

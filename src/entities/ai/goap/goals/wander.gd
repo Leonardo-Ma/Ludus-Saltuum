@@ -7,8 +7,8 @@ func get_custom_class_name() -> String:
 
 
 func is_valid(_blackboard: Dictionary) -> bool:
-	var enemy_nearby: bool = _blackboard.get("enemy_nearby", false)
-	var in_combat: bool = _blackboard.get("in_combat", false)
+	var enemy_nearby: bool = _blackboard[GoapKeys.ENEMY_NEARBY]
+	var in_combat: bool = _blackboard[GoapKeys.IN_COMBAT]
 	return not enemy_nearby and not in_combat
 
 
@@ -17,4 +17,4 @@ func priority() -> int:
 
 
 func get_desired_state() -> Dictionary:
-	return { "is_wandering": true }
+	return { GoapKeys.IS_WANDERING: true }

@@ -24,6 +24,8 @@ var _sorted_goals_cache: Array[GoapGoal] = [] # Cache for performance
 # For ever frame, is current goal still highest priority?
 # if not request the action planner a new plan for new highest priority
 func _process(delta: float) -> void:
+	assert(_goap_memory and _action_planner, "GoapAgent: init() not called in " + name)
+
 	_goal_switch_cooldown -= delta
 	_replan_cooldown -= delta
 
@@ -123,15 +125,33 @@ func _clear_current() -> void:
 
 
 func init(actor: Node, goals: Array[GoapGoal], goap_memory: GoapMemory, actions: Array[GoapAction]) -> void:
+	assert(actor != null, "GoapAgent: actor missing in " + name)
+	assert(goap_memory != null, "GoapAgent: memory missing for agent: " + actor.name)
 	assert(not actions.is_empty(), "GoapAgent: No actions provided for agent: " + actor.name)
 	assert(not goals.is_empty(), "GoapAgent: No goals provided for agent: " + actor.name)
 
 	_goap_memory = goap_memory
 	_goap_memory.init(actor)
 	_goals = goals
+	_assert_blackboard_keys(goals, actions, actor.name)
 
 	_action_planner = GoapActionPlanner.new()
 	_action_planner.set_actions(actions)
+
+
+func _assert_blackboard_keys(goals: Array[GoapGoal], actions: Array[GoapAction], actor_name: String) -> void:
+	var blackboard: Dictionary = _goap_memory.get_blackboard()
+	for goal: GoapGoal in goals:
+		for key: String in goal.get_desired_state():
+			assert(blackboard.has(key), "GoapAgent: goal %s uses unknown key '%s' in %s" % [goal.get_custom_class_name(), key, actor_name])
+	for action: GoapAction in actions:
+		for key: String in action.get_preconditions():
+			assert(
+				blackboard.has(key),
+				"GoapAgent: action %s precondition unknown key '%s' in %s" % [action.get_custom_class_name(), key, actor_name],
+			)
+		for key: String in action.get_effects():
+			assert(blackboard.has(key), "GoapAgent: action %s effect unknown key '%s' in %s" % [action.get_custom_class_name(), key, actor_name])
 
 
 func _get_best_goal() -> GoapGoal:
@@ -155,6 +175,7 @@ func _follow_plan(delta: float, blackboard: Dictionary) -> void:
 		return
 
 	var current_action: GoapAction = _current_plan[_current_plan_step]
+	assert(current_action, "GoapAgent: null action in plan in " + name)
 
 	if not current_action.is_valid(blackboard):
 		_clear_current()

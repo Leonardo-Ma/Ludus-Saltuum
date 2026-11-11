@@ -7,7 +7,7 @@ func get_custom_class_name() -> String:
 
 
 func is_valid(_blackboard: Dictionary) -> bool:
-	return _blackboard.get("enemy_alive", false) == true and _blackboard.get("enemy_in_ranged_range", false) == false
+	return _blackboard[GoapKeys.ENEMY_ALIVE] == true and _blackboard[GoapKeys.ENEMY_IN_RANGED_RANGE] == false
 
 
 func priority() -> int:
@@ -15,4 +15,4 @@ func priority() -> int:
 
 
 func get_desired_state() -> Dictionary:
-	return { "enemy_in_ranged_range": true }
+	return { GoapKeys.ENEMY_IN_RANGED_RANGE: true }

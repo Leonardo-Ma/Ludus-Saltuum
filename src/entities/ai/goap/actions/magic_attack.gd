@@ -11,7 +11,7 @@ func get_custom_class_name() -> String:
 
 
 func is_valid(_blackboard: Dictionary) -> bool:
-	return _blackboard.get("in_combat", false) == true
+	return _blackboard[GoapKeys.IN_COMBAT] == true
 
 
 func get_cost(_blackboard: Dictionary) -> int:
@@ -19,11 +19,11 @@ func get_cost(_blackboard: Dictionary) -> int:
 
 
 func get_preconditions() -> Dictionary:
-	return { "enemy_in_ranged_range": true, "enemy_alive": true }
+	return { GoapKeys.ENEMY_IN_RANGED_RANGE: true, GoapKeys.ENEMY_ALIVE: true }
 
 
 func get_effects() -> Dictionary:
-	return { "enemy_alive": false }
+	return { GoapKeys.ENEMY_ALIVE: false }
 
 
 func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
@@ -34,7 +34,7 @@ func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 	entity.npc_movement_controller.stop()
 	entity.goap_controller.force_refresh_blackboard()
 
-	var enemy_position: Vector3 = _blackboard.get("enemy_position", entity.global_position)
+	var enemy_position: Vector3 = _blackboard[GoapKeys.ENEMY_POSITION]
 	var direction: Vector3 = entity.global_position.direction_to(enemy_position)
 	direction.y = 0.0
 	if direction.length_squared() > 0.001:

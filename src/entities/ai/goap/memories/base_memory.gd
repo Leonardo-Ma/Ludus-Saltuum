@@ -18,15 +18,15 @@ func init(actor: Node) -> void:
 	)
 
 	_blackboard = {
-		"position": _actor.position,
-		"enemy_alive": false,
-		"enemy_nearby": false,
-		"enemy_in_melee_range": false,
-		"enemy_in_ranged_range": false,
-		"enemy_position": Vector3(),
-		"in_combat": false,
-		"low_health": false,
-		"is_wandering": false,
+		GoapKeys.POSITION: _actor.position,
+		GoapKeys.ENEMY_ALIVE: false,
+		GoapKeys.ENEMY_NEARBY: false,
+		GoapKeys.ENEMY_IN_MELEE_RANGE: false,
+		GoapKeys.ENEMY_IN_RANGED_RANGE: false,
+		GoapKeys.ENEMY_POSITION: Vector3(),
+		GoapKeys.IN_COMBAT: false,
+		GoapKeys.LOW_HEALTH: false,
+		GoapKeys.IS_WANDERING: false,
 	}
 
 
@@ -55,14 +55,14 @@ func _refresh_blackboard() -> void:
 	var actor_pos: Vector3 = _actor.global_position
 
 	if not best_target_data:
-		_blackboard["position"] = actor_pos
-		_blackboard["enemy_in_melee_range"] = false
-		_blackboard["enemy_in_ranged_range"] = false
-		_blackboard["enemy_nearby"] = false
-		_blackboard["enemy_alive"] = false
-		_blackboard["in_combat"] = false
-		_blackboard["low_health"] = _is_low_health()
-		_blackboard["is_wandering"] = false
+		_blackboard[GoapKeys.POSITION] = actor_pos
+		_blackboard[GoapKeys.ENEMY_IN_MELEE_RANGE] = false
+		_blackboard[GoapKeys.ENEMY_IN_RANGED_RANGE] = false
+		_blackboard[GoapKeys.ENEMY_NEARBY] = false
+		_blackboard[GoapKeys.ENEMY_ALIVE] = false
+		_blackboard[GoapKeys.IN_COMBAT] = false
+		_blackboard[GoapKeys.LOW_HEALTH] = _is_low_health()
+		_blackboard[GoapKeys.IS_WANDERING] = false
 		return
 
 	var current_target: Node3D = best_target_data.entity
@@ -93,12 +93,12 @@ func _refresh_blackboard() -> void:
 	var in_ranged_range: bool = projectile_attack != null and true_distance_squared <= projectile_attack.max_range * projectile_attack.max_range
 	var in_combat: bool = (in_melee_range or in_ranged_range) and enemy_alive
 
-	_blackboard["enemy_position"] = enemy_pos
-	_blackboard["position"] = actor_pos
-	_blackboard["enemy_in_melee_range"] = in_melee_range
-	_blackboard["enemy_nearby"] = enemy_nearby
-	_blackboard["enemy_alive"] = enemy_alive
-	_blackboard["enemy_in_ranged_range"] = in_ranged_range
-	_blackboard["in_combat"] = in_combat
-	_blackboard["low_health"] = _is_low_health()
-	_blackboard["is_wandering"] = false
+	_blackboard[GoapKeys.ENEMY_POSITION] = enemy_pos
+	_blackboard[GoapKeys.POSITION] = actor_pos
+	_blackboard[GoapKeys.ENEMY_IN_MELEE_RANGE] = in_melee_range
+	_blackboard[GoapKeys.ENEMY_NEARBY] = enemy_nearby
+	_blackboard[GoapKeys.ENEMY_ALIVE] = enemy_alive
+	_blackboard[GoapKeys.ENEMY_IN_RANGED_RANGE] = in_ranged_range
+	_blackboard[GoapKeys.IN_COMBAT] = in_combat
+	_blackboard[GoapKeys.LOW_HEALTH] = _is_low_health()
+	_blackboard[GoapKeys.IS_WANDERING] = false

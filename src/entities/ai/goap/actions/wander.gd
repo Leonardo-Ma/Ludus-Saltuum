@@ -26,18 +26,21 @@ func get_preconditions() -> Dictionary:
 
 
 func get_effects() -> Dictionary:
-	return { "is_wandering": true }
+	return { GoapKeys.IS_WANDERING: true }
 
 
 # TODO Define actor to use walk speed
 # This needs to be changed with navigation agent 3d: _on_navigation_agent_3d_velocity_computed
 func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
-	var actor_position: Vector3 = _blackboard.get("position", _actor.global_position)
+	var entity: NPCEntity = _actor as NPCEntity
+	assert(entity != null, "WanderAction: actor is not NPCEntity: " + str(_actor))
+	var controller: NPCMovementController = entity.npc_movement_controller
+	var actor_position: Vector3 = _blackboard[GoapKeys.POSITION]
 	var current_time: int = Time.get_ticks_msec()
 
 	if current_time - _last_wander_end_time < int(WANDER_COOLDOWN * 1000.0):
 		if _wander_target_set:
-			_actor.npc_movement_controller.stop()
+			controller.stop()
 			_wander_target_set = false
 			_wander_timer = 0.0
 		return false
@@ -53,16 +56,16 @@ func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 
 	_wander_timer += _delta
 
-	if _wander_target_set and (_actor.npc_movement_controller.is_navigation_finished() or _actor.npc_movement_controller.is_target_reached()):
+	if _wander_target_set and (controller.is_navigation_finished() or controller.is_target_reached()):
 		_last_wander_end_time = current_time
-		_actor.npc_movement_controller.stop()
+		controller.stop()
 		_wander_target_set = false
 		_wander_timer = 0.0
 		return true
 
 	if _wander_timer >= _wander_duration:
 		_last_wander_end_time = current_time
-		_actor.npc_movement_controller.stop()
+		controller.stop()
 		_wander_target_set = false
 		_wander_timer = 0.0
 		return true
