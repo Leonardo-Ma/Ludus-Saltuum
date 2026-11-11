@@ -1,11 +1,14 @@
-## Responsible for determining if a target is visually detectable
 class_name VisualProcessor
 extends RefCounted
+
+## Responsible for determining if target is visually detectable or near enough (considering a "smell or noise" / sixth sense)
 
 var config: VisualConfig
 
 
 func _init(config_data: VisualConfig) -> void:
+	assert(config_data.awareness_radius <= config_data.visual_range, "VisualProcessor: awareness_radius exceeds visual_range")
+
 	config = config_data
 
 
@@ -18,15 +21,17 @@ func detect(owner_node: Node3D, target: Node3D) -> DetectionResult:
 	if distance_squared > range_squared:
 		return result
 
-	# Sixth-sense / Hearing radius (e.g., they can always notice you if you're very close)
-	var is_very_close: bool = distance_squared < 9.0 # 3.0 * 3.0
+	# Sixth-sense / Hearing radius (distance that can always notice)
+	var is_very_close: bool = distance_squared < config.awareness_radius * config.awareness_radius
 
-	# Angle check (cone vision) - only strictly apply if not very close
+	# Angle check (cone vision), only applied if not very close
 	var target_pos: Vector3 = target.global_position
 	target_pos.y = owner_node.global_position.y # Only check horizontal angle
 	var to_target: Vector3 = (target_pos - owner_node.global_position).normalized()
-	# In Godot -Z is typically forward, but the navigation script uses atan2(x, z)
-	# which aligns the +Z axis with the movement direction. Therefore, +Z is forward.
+
+	# TODO Double check
+	# -Z is typically forward, but the navigation script uses atan2(x, z)
+	# which aligns the +Z axis with the movement direction. So, +Z is forward.
 	var forward: Vector3 = owner_node.global_transform.basis.z
 	forward.y = 0.0
 	forward = forward.normalized()
@@ -40,6 +45,7 @@ func detect(owner_node: Node3D, target: Node3D) -> DetectionResult:
 		return result
 
 	var distance: float = sqrt(distance_squared) # We need actual distance for detection chance formulas
+
 	# TODO Improve this detection calculation
 	var stealth_penalty: float = _calculate_stealth_penalty(target)
 	var detection_chance: float = _calculate_detection_chance(distance, angle, stealth_penalty)
@@ -71,7 +77,7 @@ func _has_line_of_sight(owner_node: Node3D, target: Node3D) -> bool:
 	var space_state: PhysicsDirectSpaceState3D = owner_node.get_world_3d().direct_space_state
 	var ray_result: Dictionary = space_state.intersect_ray(query)
 
-	# If we hit nothing, or we hit the target
+	# If hit nothing, or hit the target
 	if ray_result.is_empty() or ray_result.collider == target:
 		return true
 

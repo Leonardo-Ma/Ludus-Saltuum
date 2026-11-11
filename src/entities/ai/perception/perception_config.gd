@@ -1,6 +1,7 @@
-## General configuration for the perception system, holding multiple perception types
 class_name PerceptionConfig
 extends Resource
+
+## General configuration for the perception system, holding multiple perception types
 
 @export_category("General")
 @export var update_interval: float = 0.1
