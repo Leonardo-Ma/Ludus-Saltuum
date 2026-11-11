@@ -1,8 +1,8 @@
-# https://www.youtube.com/watch?v=EP5AYllgHy8 Godot 4.0 Third Person Controller Tutorial ( 2023 )
 @icon("uid://d4g1stey2kdtm") # character_move.png
+class_name PlayerMovementComponent
+extends MovementComponent
+
 ## Player movement controller
-class_name PlayerMovementController
-extends EntityMovementController
 
 signal jumped # emitted only in first ground jump
 signal in_air
@@ -52,14 +52,14 @@ func movement_logic() -> void:
 		var direction: Vector3 = (cam_right * input_direction.x + cam_forward * input_direction.y).normalized()
 
 		# Speed scales with stick deflection (0..1); keyboard always produces 1.0
-		var current_speed: float = input_length * _movement.get_speed()
+		var current_speed: float = input_length * get_speed()
 
 		# Clamp to allowed maximum
-		current_speed = clamp(current_speed, 0.0, _movement.get_speed())
+		current_speed = clamp(current_speed, 0.0, get_speed())
 
 		# Calculate blend direction in owner's local space (mesh is child of owner with 0 rotation)
 		var local_direction: Vector3 = owner.global_transform.basis.orthonormalized().inverse() * direction
-		var speed_factor: float = current_speed / _movement.get_speed()
+		var speed_factor: float = current_speed / get_speed()
 		var blend_direction: Vector2 = Vector2(local_direction.x, local_direction.z) * speed_factor
 
 		movement_direction_changed.emit(blend_direction, speed_factor)
@@ -71,8 +71,8 @@ func movement_logic() -> void:
 		owner.velocity.z = direction.z * current_speed
 	else:
 		movement_direction_changed.emit(Vector2.ZERO, 0.0)
-		owner.velocity.x = move_toward(owner.velocity.x, 0.0, _movement.get_speed())
-		owner.velocity.z = move_toward(owner.velocity.z, 0.0, _movement.get_speed())
+		owner.velocity.x = move_toward(owner.velocity.x, 0.0, get_speed())
+		owner.velocity.z = move_toward(owner.velocity.z, 0.0, get_speed())
 
 
 func jump_air_logic(delta: float) -> void:
@@ -82,10 +82,10 @@ func jump_air_logic(delta: float) -> void:
 		coyote_timer -= delta
 		if _was_on_floor:
 			in_air.emit()
-		var gravity_scale: float = _movement.gravity_multiplier
+		var gravity_scale: float = gravity_multiplier
 
 		if owner.velocity.y < 0.0:
-			gravity_scale *= _movement.fall_gravity_multiplier
+			gravity_scale *= fall_gravity_multiplier
 
 		owner.velocity += owner.get_gravity() * gravity_scale * delta
 
@@ -104,7 +104,7 @@ func jump_air_logic(delta: float) -> void:
 
 	# Ground jump, only when coyote time is still valid
 	if Input.is_action_just_pressed("jump") and coyote_timer > 0.0:
-		jump(_movement.get_jump_velocity())
+		jump(get_jump_velocity())
 		jumped.emit()
 
 
@@ -124,5 +124,5 @@ func _set_crouching(active: bool) -> void:
 	if is_crouching == active:
 		return
 	is_crouching = active
-	_movement.speed_multiplier *= CROUCH_SPEED_MULTIPLIER if active else 1.0 / CROUCH_SPEED_MULTIPLIER
+	speed_multiplier *= CROUCH_SPEED_MULTIPLIER if active else 1.0 / CROUCH_SPEED_MULTIPLIER
 	crouch_toggled.emit(active)

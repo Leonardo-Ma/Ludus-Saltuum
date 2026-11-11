@@ -9,30 +9,6 @@ signal melee_attacked
 @warning_ignore("unused_signal")
 signal magic_casted
 
-## When damaged, called by code
-const DAMAGE_SOUNDS: Array[AudioStream] = [
-	preload("uid://c2uxva6p1yaxw"), # chequered_ink/punch.wav
-	preload("uid://ygovytmkf0xu"), # chequered_ink/punch_2.wav
-	preload("uid://c4qxkql51g7pm"), # chequered_ink/punch_3.wav
-]
-
-## When attacking, called by animation player
-const ATTACK_SOUNDS: Array[AudioStream] = [
-	preload("uid://domodec4epc7f"), # sword_slice.wav
-	#preload("uid://doay56c5x3rwr"),  # sword_clash_2.wav
-]
-
-@export_category("Core")
-@export var attack: Attack
-@export var health: Health
-@export var movement: Movement
-## Null when entity has no ranged attack
-@export var projectile_attack: ProjectileAttack
-
-var _damage_material: StandardMaterial3D
-var _damage_tween: Tween
-var _prev_health: int = 0
-
 @onready var collision_shape: CollisionShape3D = %CollisionShape3D
 
 @onready var hitbox: Hitbox = %Hitbox
@@ -41,29 +17,37 @@ var _prev_health: int = 0
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var animation_tree: AnimationTree = %AnimationTree
 
+@onready var health: HealthComponent = %HealthComponent
+# TODO BUG Find better way to implement this, other places use this reference from player
+@onready var attack: Attack = %AttackComponent.attack
+
+@onready var _lifecycle: EntityLifecycleController = %EntityLifecycleController
+@onready var _damage_feedback: EntityDamageFeedback = %EntityDamageFeedback
+@onready var _combat_audio: EntityCombatAudio = %EntityCombatAudio
+
 
 ## Children should override _child_ready instead of this
 func _ready() -> void:
-	assert(collision_shape.shape != null, "CollisionShape missing in " + name)
+	assert(collision_shape.shape, "CollisionShape missing in " + name)
 	assert(hitbox, "Hitbox incorrect for " + name)
 	assert(hurtbox, "Hurtbox incorrect for " + name)
 	assert(status_manager, "Status Manager missing for " + name)
 	assert(animation_player, "Animation player missing for " + name)
 	assert(animation_tree and animation_tree.anim_player, "Animation tree missing or wrong for " + name)
-	assert(attack and attack.damage > 0 and attack.type != null, "Attack property incorrect for " + name)
-	assert(health and health.current_health > 0, "Health property incorrect for " + name)
-	assert(movement, "Movement incorrect for " + name)
 
-	# TODO Move this to VFX controller?
-	_setup_damage_feedback_visual_material()
+	assert(_lifecycle, "lifecycle missing for " + name)
+	assert(_damage_feedback, "damage_feedback missing for " + name)
+	assert(_combat_audio, "combat_audio missing for " + name)
 
-	_prev_health = health.current_health
-	health.died.connect(_on_death)
-	health.damaged.connect(_on_damaged_effects_feedback)
-	health.health_changed.connect(_on_health_changed)
-	# TODO Double check this
-	# Inject timer creation capability into health resource - Dependency Injection
-	health.initialize_timer_callback(_create_timer)
+	_lifecycle.initialize()
+	_damage_feedback.initialize()
+	_combat_audio.initialize()
+
+	_lifecycle.dying.connect(_on_dying)
+	_lifecycle.death_completed.connect(_on_death_complete)
+	_lifecycle.revived.connect(_on_revived)
+
+	animation_tree.initialize()
 
 	_child_ready()
 
@@ -74,7 +58,7 @@ func _ready() -> void:
 
 ## To Override [br]
 ## Async post-death behavior (e.g. respawn, scene transition) [br]
-## Called when _on_death is finished
+## Called when death sequence is finished
 @abstract func _on_death_complete() -> void
 
 
@@ -88,106 +72,25 @@ func _on_revived() -> void:
 	pass
 
 
-# TODO Disable navigation for GOAP, disable player controller
-# Maybe transform into abstract method to force override? Or use set_state (player has but not npc)?
-func _on_death() -> void:
-	print(str(name) + " is dead, Jim!")
-
-	if _damage_tween and _damage_tween.is_valid():
-		_damage_tween.kill()
-
-	_on_dying()
-
-	disable_entity()
-	await _death_animation()
-	_on_death_complete()
-
-
 ## Also used by save/load
 func disable_entity() -> void:
-	hitbox.set_deferred("monitoring", false)
-	hitbox.set_deferred("monitorable", false)
-	hurtbox.set_deferred("monitoring", false)
-	hurtbox.set_deferred("monitorable", false)
-	collision_shape.disabled = true
-	set_physics_process(false)
+	_lifecycle.disable()
 
 
 ## Used on world reset/load
 func revive() -> void:
-	health.reset()
-	visible = true
-	collision_shape.disabled = false
-	set_physics_process(true)
-	hitbox.set_deferred("monitoring", true)
-	hitbox.set_deferred("monitorable", true)
-	hurtbox.set_deferred("monitoring", true)
-	hurtbox.set_deferred("monitorable", true)
-	_on_revived()
+	_lifecycle.revive()
 
 
-#region Visual effects and animations
-func _setup_damage_feedback_visual_material() -> void:
-	_damage_material = StandardMaterial3D.new()
-	_damage_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	_damage_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	_damage_material.albedo_color = Color(1.0, 1.0, 1.0, 0.0)
-
-	for mesh: MeshInstance3D in _get_all_mesh_instances(self):
-		mesh.material_overlay = _damage_material
-
-
-func _on_damaged_effects_feedback(_attack: Attack) -> void:
-	if _damage_tween and _damage_tween.is_valid():
-		_damage_tween.kill()
-
-	AudioManager.play_sound(DAMAGE_SOUNDS.pick_random(), AudioManager.SoundBus.SFX, global_position)
-
-	_damage_material.albedo_color = Color(1.0, 1.0, 1.0, 0.5)
-	_damage_tween = create_tween()
-	_damage_tween.tween_property(_damage_material, "albedo_color:a", 0.0, 0.2).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-
-
-func _death_animation() -> void:
-	var death_tween: Tween = create_tween()
-
-	death_tween.tween_interval(2.0)
-	death_tween.tween_property(self, "scale", Vector3(0.001, 0.001, 0.001), 1.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
-
-	await death_tween.finished
-
-
-func _on_health_changed(new_health: int) -> void:
-	if new_health > _prev_health:
-		if _damage_tween and _damage_tween.is_valid():
-			_damage_tween.kill()
-		# Flash green on heal (pulse)
-		_damage_material.albedo_color = Color(0.3, 1.0, 0.3, 0.4)
-		_damage_tween = create_tween()
-		_damage_tween.tween_property(_damage_material, "albedo_color:a", 0.0, 1.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-
-	_prev_health = new_health
+## Call after meshes were swapped so damage overlay covers new meshes
+func refresh_damage_feedback_meshes() -> void:
+	_damage_feedback.refresh_meshes()
 
 
 # NOTE Used in animation player
 func play_attack_sound() -> void:
-	if ATTACK_SOUNDS.size() > 0:
-		AudioManager.play_sound(ATTACK_SOUNDS.pick_random(), AudioManager.SoundBus.SFX, global_position)
+	_combat_audio.play_attack_sound()
 
 
-func _get_all_mesh_instances(node: Node) -> Array[MeshInstance3D]:
-	var result: Array[MeshInstance3D] = []
-	for child: Node in node.get_children():
-		if child is MeshInstance3D:
-			result.append(child)
-		result.append_array(_get_all_mesh_instances(child))
-	return result
-
-#endregion
-
-
-## Timer creation callback for Health resource (dependency injection)
 func _create_timer(duration: float, callback: Callable) -> void:
-	await get_tree().create_timer(duration).timeout
-	if is_instance_valid(self): # Entity alive?
-		callback.call()
+	get_tree().create_timer(duration).timeout.connect(callback)

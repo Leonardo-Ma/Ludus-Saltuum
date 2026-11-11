@@ -11,7 +11,7 @@ var base_fov: float = 0.0
 var _skills: Dictionary[SkillDefinition, BaseSkill] = { }
 
 @onready var entity: PlayerEntity = owner
-@onready var movement_controller: PlayerMovementController = %PlayerMovementController
+@onready var movement_controller: PlayerMovementComponent = %PlayerMovementComponent
 @onready var camera: Camera3D = %Camera3D
 @onready var vfx_controller: VFXController = %VFXController
 

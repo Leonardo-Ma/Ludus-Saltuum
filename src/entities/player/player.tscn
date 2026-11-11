@@ -1,16 +1,13 @@
 [gd_scene format=4 uid="uid://dwxbechemu2kl"]
 
 [ext_resource type="Script" uid="uid://bo0feed2mfho2" path="res://src/entities/player/player.gd" id="1_tpvn4"]
-[ext_resource type="Resource" uid="uid://b100j3dnp13hl" path="res://src/entities/player/resources/player_attack.tres" id="2_45rvh"]
-[ext_resource type="Resource" uid="uid://kgbc8eki2sxi" path="res://src/entities/player/resources/player_health.tres" id="3_xm7nl"]
-[ext_resource type="Resource" uid="uid://dq7ekml454vq1" path="res://src/entities/player/resources/player_movement.tres" id="4_f610a"]
+[ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="3_7vsgj"]
+[ext_resource type="Script" uid="uid://dlbf4w8moqj2j" path="res://src/entities/components/movement.gd" id="4_oyxv6"]
 [ext_resource type="Script" uid="uid://ce8ig2j71kitw" path="res://src/entities/player/controller/camera_controller.gd" id="5_2wg8a"]
-[ext_resource type="PackedScene" uid="uid://c4jq7s82wru52" path="res://src/entities/vfx/elemental_magic_fx/projectile/fire_projectile.tscn" id="5_i78gy"]
 [ext_resource type="Script" uid="uid://csig12422io62" path="res://src/entities/components/combat/hitbox.gd" id="5_w2bk0"]
-[ext_resource type="Script" uid="uid://b14wamm35ys53" path="res://src/entities/components/combat/projectile_attack.gd" id="6_ts1rd"]
 [ext_resource type="AnimationLibrary" uid="uid://d0b53v2ggy8ma" path="res://src/entities/animation/libraries/magic.res" id="7_akx0o"]
 [ext_resource type="Script" uid="uid://wqopxvagomo6" path="res://src/entities/components/combat/hurtbox.gd" id="7_cdsl0"]
-[ext_resource type="Script" uid="uid://otpekb0jb3ab" path="res://src/entities/player/controller/player_movement_controller.gd" id="8_ebec5"]
+[ext_resource type="Script" uid="uid://otpekb0jb3ab" path="res://src/entities/player/components/player_movement_component.gd" id="8_ebec5"]
 [ext_resource type="Script" uid="uid://cuefrffw4m4jh" path="res://src/entities/components/animation_controller.gd" id="9_yllr7"]
 [ext_resource type="AnimationLibrary" uid="uid://vginonlwcip8" path="res://src/entities/animation/libraries/combat.res" id="10_qo2tj"]
 [ext_resource type="Script" uid="uid://cdw0xeo616qlp" path="res://src/entities/player/visual.gd" id="11_f610a"]
@@ -30,6 +27,12 @@
 [ext_resource type="ArrayMesh" uid="uid://b5xmatpfh3mfq" path="res://src/entities/player/visual/mesh/leg_right.res" id="19_g2vqo"]
 [ext_resource type="Script" uid="uid://rpbdsks54nbp" path="res://src/entities/components/stat_modifier/status_manager.gd" id="19_s033l"]
 [ext_resource type="Texture2D" uid="uid://cqwuuqsliuv2f" path="res://src/entities/player/visual/asset/knight_texture.png" id="20_b2fsy"]
+[ext_resource type="Script" uid="uid://p7nksncfrnax" path="res://src/entities/components/combat/health_component.gd" id="21_2a6xp"]
+[ext_resource type="Script" uid="uid://cxqsapbic2imr" path="res://src/entities/components/combat/attack.gd" id="24_hvei5"]
+[ext_resource type="Script" uid="uid://dm8nwmbpvtayk" path="res://src/entities/components/combat/projectile_attack_component.gd" id="25_oyxv6"]
+[ext_resource type="PackedScene" uid="uid://c4jq7s82wru52" path="res://src/entities/vfx/elemental_magic_fx/projectile/fire_projectile.tscn" id="26_l2t0n"]
+[ext_resource type="Script" uid="uid://cym217h6pegvg" path="res://src/entities/components/combat/attack_component.gd" id="27_7vsgj"]
+[ext_resource type="Script" uid="uid://b14wamm35ys53" path="res://src/entities/components/combat/projectile_attack.gd" id="27_orc7i"]
 [ext_resource type="Script" uid="uid://ck5x1bx5lem3y" path="res://src/entities/player/controller/player_save_controller.gd" id="29_2cmg6"]
 [ext_resource type="Script" uid="uid://iyeemya81j8m" path="res://src/entities/player/skills/skills_controller.gd" id="29_skills"]
 [ext_resource type="Script" uid="uid://biwfa126u8fpm" path="res://src/entities/player/controller/economy_controller.gd" id="30_snams"]
@@ -40,13 +43,12 @@
 [ext_resource type="Script" uid="uid://grgmrh5nfxle" path="res://src/entities/player/controller/cosmetics_controller.gd" id="32_xm7nl"]
 [ext_resource type="Script" uid="uid://bkp1xy01pk8yn" path="res://src/entities/player/components/portal_controller.gd" id="33_portalcontroller"]
 [ext_resource type="Resource" uid="uid://b2bfyxo1s4qql" path="res://src/entities/resources/character_catalog.tres" id="34_lacky"]
-
-[sub_resource type="Resource" id="Resource_drftx"]
-script = ExtResource("6_ts1rd")
-projectile_scene = ExtResource("5_i78gy")
-type = 2
-damage = 20
-metadata/_custom_type_script = "uid://b14wamm35ys53"
+[ext_resource type="Script" uid="uid://btuyxkleak0qc" path="res://src/entities/components/entity_lifecycle_controller.gd" id="38_ts1rd"]
+[ext_resource type="Script" uid="uid://pwxg2m6bhi7c" path="res://src/entities/components/entity_damage_feedback.gd" id="39_pg6a0"]
+[ext_resource type="Script" uid="uid://c4njooktldes0" path="res://src/entities/components/entity_combat_audio.gd" id="40_y8r58"]
+[ext_resource type="Script" uid="uid://ddgg0ymntnqbf" path="res://src/entities/player/controller/player_state_controller.gd" id="41_y8r58"]
+[ext_resource type="Script" uid="uid://dqampygsc6gnh" path="res://src/entities/player/controller/player_respawn_controller.gd" id="42_8dxlo"]
+[ext_resource type="Script" uid="uid://cbmvswr7bttut" path="res://src/entities/player/controller/player_combat_controller.gd" id="43_hvei5"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_wjvoe"]
 height = 1.0117772
@@ -578,6 +580,27 @@ shadow_mesh = SubResource("ArrayMesh_jrsv0")
 [sub_resource type="SphereShape3D" id="SphereShape3D_jhkml"]
 radius = 0.3
 
+[sub_resource type="Resource" id="Resource_oyxv6"]
+script = ExtResource("3_7vsgj")
+metadata/_custom_type_script = "uid://njkofl5g11k7"
+
+[sub_resource type="Resource" id="Resource_8dxlo"]
+script = ExtResource("24_hvei5")
+type = 1
+damage = 20
+metadata/_custom_type_script = "uid://cxqsapbic2imr"
+
+[sub_resource type="Resource" id="Resource_40k2b"]
+script = ExtResource("27_orc7i")
+projectile_scene = ExtResource("26_l2t0n")
+type = 2
+damage = 35
+metadata/_custom_type_script = "uid://b14wamm35ys53"
+
+[sub_resource type="Resource" id="Resource_3j5rn"]
+script = ExtResource("4_oyxv6")
+metadata/_custom_type_script = "uid://dlbf4w8moqj2j"
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_p2pe3"]
 size = Vector3(1, 1.083667, 0.562427)
 
@@ -589,10 +612,6 @@ radius = 0.24023438
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_tpvn4")
-attack = ExtResource("2_45rvh")
-health = ExtResource("3_xm7nl")
-movement = ExtResource("4_f610a")
-projectile_attack = SubResource("Resource_drftx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=680952906]
 unique_name_in_owner = true
@@ -931,54 +950,103 @@ unique_name_in_owner = true
 transform = Transform3D(0.9999818, 0.0009890932, -0.005951516, 0, 0.9864698, 0.1639432, 0.006033146, -0.16394022, 0.98645186, 0.46841216, 0.80568004, 1.2775903)
 fov = 37.8493
 
-[node name="Controllers" type="Node" parent="." unique_id=1311379674]
+[node name="Components" type="Node" parent="." unique_id=634230869]
 
-[node name="PlayerMovementController" type="Node3D" parent="Controllers" unique_id=51190727 node_paths=PackedStringArray("camera")]
+[node name="HealthComponent" type="Node" parent="Components" unique_id=503190779]
 unique_name_in_owner = true
-editor_description = "Everything related to movement, emits signals to other controllers. Player physics process uses this"
+script = ExtResource("21_2a6xp")
+health = SubResource("Resource_oyxv6")
+
+[node name="AttackComponent" type="Node" parent="Components" unique_id=1685017726]
+unique_name_in_owner = true
+script = ExtResource("27_7vsgj")
+attack = SubResource("Resource_8dxlo")
+
+[node name="ProjectileAttackComponent" type="Node" parent="Components" unique_id=848156058]
+unique_name_in_owner = true
+script = ExtResource("25_oyxv6")
+projectile_attack = SubResource("Resource_40k2b")
+
+[node name="PlayerMovementComponent" type="Node3D" parent="Components" unique_id=1813678786 node_paths=PackedStringArray("camera")]
+unique_name_in_owner = true
 script = ExtResource("8_ebec5")
 camera = NodePath("../../CamRoot")
+movement = SubResource("Resource_3j5rn")
 
-[node name="InputController" type="Node" parent="Controllers" unique_id=1804300917]
+[node name="Controllers" type="Node" parent="." unique_id=1311379674]
+
+[node name="Core" type="Node" parent="Controllers" unique_id=1598503833]
+
+[node name="InputController" type="Node" parent="Controllers/Core" unique_id=1804300917]
 unique_name_in_owner = true
 script = ExtResource("16_b2jeh")
 
-[node name="SkillsController" type="Node" parent="Controllers" unique_id=477450999]
-unique_name_in_owner = true
-script = ExtResource("29_skills")
-
-[node name="VFXController" type="Node" parent="Controllers" unique_id=476175254]
+[node name="VFXController" type="Node" parent="Controllers/Core" unique_id=476175254]
 unique_name_in_owner = true
 script = ExtResource("31_gxh5t")
 
-[node name="VehicleRider" type="Node" parent="Controllers" unique_id=1987654321]
+[node name="EntityLifecycleController" type="Node" parent="Controllers/Core" unique_id=2030662932]
 unique_name_in_owner = true
-script = ExtResource("32_vehiclerider")
+script = ExtResource("38_ts1rd")
 
-[node name="PortalController" type="Node" parent="Controllers" unique_id=1987654322]
+[node name="EntityDamageFeedback" type="Node" parent="Controllers/Core" unique_id=1979702343]
 unique_name_in_owner = true
-script = ExtResource("33_portalcontroller")
+script = ExtResource("39_pg6a0")
 
-[node name="PlayerSaveController" type="Node" parent="Controllers" unique_id=1311394959]
+[node name="EntityCombatAudio" type="Node" parent="Controllers/Core" unique_id=506053907]
+unique_name_in_owner = true
+script = ExtResource("40_y8r58")
+
+[node name="PlayerStateController" type="Node" parent="Controllers/Core" unique_id=1081113974]
+unique_name_in_owner = true
+script = ExtResource("41_y8r58")
+
+[node name="PlayerSaveController" type="Node" parent="Controllers/Core" unique_id=1311394959]
 unique_name_in_owner = true
 script = ExtResource("29_2cmg6")
 
-[node name="EconomyController" type="Node" parent="Controllers" unique_id=1842982480]
+[node name="External" type="Node" parent="Controllers" unique_id=170527211]
+
+[node name="PortalController" type="Node" parent="Controllers/External" unique_id=1987654322]
+unique_name_in_owner = true
+script = ExtResource("33_portalcontroller")
+
+[node name="EconomyController" type="Node" parent="Controllers/External" unique_id=1842982480]
 unique_name_in_owner = true
 script = ExtResource("30_snams")
 
-[node name="EasterEggController" type="Node" parent="Controllers" unique_id=612611735]
+[node name="EasterEggController" type="Node" parent="Controllers/External" unique_id=612611735]
 unique_name_in_owner = true
 script = ExtResource("31_45rvh")
 
-[node name="EnvironmentTransitionController" type="Node" parent="Controllers" unique_id=1282739149]
+[node name="EnvironmentTransitionController" type="Node" parent="Controllers/External" unique_id=1282739149]
 unique_name_in_owner = true
 script = ExtResource("31_xm7nl")
 
-[node name="CosmeticsController" type="Node" parent="Controllers" unique_id=973579251]
+[node name="CosmeticsController" type="Node" parent="Controllers/External" unique_id=973579251]
 unique_name_in_owner = true
 script = ExtResource("32_xm7nl")
 character_catalog = ExtResource("34_lacky")
+
+[node name="VehicleRider" type="Node" parent="Controllers/External" unique_id=1987654321]
+unique_name_in_owner = true
+script = ExtResource("32_vehiclerider")
+
+[node name="Combat" type="Node" parent="Controllers" unique_id=170493514]
+
+[node name="PlayerRespawnController" type="Node" parent="Controllers/Combat" unique_id=1513774269]
+unique_name_in_owner = true
+script = ExtResource("42_8dxlo")
+
+[node name="PlayerCombatController" type="Node" parent="Controllers/Combat" unique_id=1075213676]
+unique_name_in_owner = true
+script = ExtResource("43_hvei5")
+
+[node name="Other" type="Node" parent="Controllers" unique_id=2011758432]
+
+[node name="SkillsController" type="Node" parent="Controllers/Other" unique_id=477450999]
+unique_name_in_owner = true
+script = ExtResource("29_skills")
 
 [node name="Status" type="Node" parent="." unique_id=1830557303]
 

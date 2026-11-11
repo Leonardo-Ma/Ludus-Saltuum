@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d0qopgxxjomc5" path="res://src/entities/enemies/barbarian/barbarian_barbarian_texture.png" id="5_18ttt"]
 [ext_resource type="AnimationLibrary" uid="uid://qw3lmf4rabqb" path="res://src/entities/animation/libraries/general.res" id="6_q7dfg"]
 [ext_resource type="AnimationLibrary" uid="uid://dfypubq6ngr7a" path="res://src/entities/animation/libraries/movement.res" id="7_0ektb"]
+[ext_resource type="Script" uid="uid://dlbf4w8moqj2j" path="res://src/entities/components/movement.gd" id="9_oiqqw"]
 [ext_resource type="AnimationLibrary" uid="uid://bp21tmj3ajjq" path="res://src/entities/animation/libraries/movement_advanced.res" id="19_2rf2y"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://basam7g1dbev2" path="res://src/entities/animation/libraries/base_medium_animation_blend_tree.tres" id="20_cr6u0"]
 
@@ -626,6 +627,11 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
+[sub_resource type="Resource" id="Resource_njikp"]
+script = ExtResource("9_oiqqw")
+speed = 3.5
+metadata/_custom_type_script = "uid://dlbf4w8moqj2j"
+
 [node name="Barbarian" unique_id=280064195 instance=ExtResource("1_4frua")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
@@ -693,6 +699,7 @@ parameters/crouch_movement/observer = null
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 
 [node name="Skeleton3D" type="Skeleton3D" parent="Visual/Rig_Medium" index="0" unique_id=1611000305]
+unique_name_in_owner = true
 bones/0/name = "root"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 2.3841855e-07, 0, 1, 0, -2.3841855e-07, 0, 1, 0, 0, 0)
@@ -912,3 +919,6 @@ skeleton = NodePath("..")
 mesh = SubResource("ArrayMesh_w4hp5")
 skin = SubResource("Skin_uj2ef")
 skeleton = NodePath("..")
+
+[node name="NPCMovementController" parent="Components" parent_id_path=PackedInt32Array(2054122343) index="2" unique_id=1768493993]
+movement = SubResource("Resource_njikp")

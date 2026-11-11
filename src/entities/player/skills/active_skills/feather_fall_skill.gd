@@ -39,7 +39,7 @@ func _set_toggled(active: bool) -> void:
 		return
 
 	_is_toggled = active
-	var movement: Movement = skills_controller.entity.movement
+	var movement: MovementComponent = skills_controller.entity.movement
 	if active:
 		movement.fall_gravity_multiplier *= feather_fall_gravity_mult
 	else:

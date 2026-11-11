@@ -25,7 +25,7 @@ func get_effects() -> Dictionary:
 
 
 func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
-	if _blackboard.get("enemy_in_ranged_range", false):
+	if _blackboard.get("enemy_in_ranged_range", false) or _actor.npc_movement_controller.is_navigation_finished():
 		_actor.npc_movement_controller.stop()
 		return true
 

@@ -78,8 +78,8 @@ func _process_perception() -> void:
 func _purge_if_dead(target: Node) -> bool:
 	if not (target.has_method("get_health") or "health" in target):
 		return false
-	var target_health: Health = target.get_health() if target.has_method("get_health") else target.get("health")
-	if target_health and target_health.current_health <= 0.0:
+	var target_health: HealthComponent = target.get_health() if target.has_method("get_health") else target.get("health")
+	if target_health and target_health.current_health <= 0:
 		known_entities.erase(target)
 		return true
 	return false

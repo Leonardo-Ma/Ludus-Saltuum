@@ -31,7 +31,7 @@ func init(actor: Node) -> void:
 
 
 func _get_health_percentage() -> float:
-	var health: Health = (_actor as NPCEntity).health
+	var health: HealthComponent = (_actor as NPCEntity).health
 	if health == null or health.max_health <= 0:
 		return 1.0
 
@@ -87,7 +87,9 @@ func _refresh_blackboard() -> void:
 
 	var enemy_alive: bool = current_target.health.current_health > 0.0
 
-	var projectile_attack: ProjectileAttack = _actor.projectile_attack
+	# TODO Find better approach without get
+	var proj_component: ProjectileAttackComponent = _actor.get("projectile_attack_component") as ProjectileAttackComponent
+	var projectile_attack: ProjectileAttack = proj_component.projectile_attack if proj_component != null else null
 	var in_ranged_range: bool = projectile_attack != null and true_distance_squared <= projectile_attack.max_range * projectile_attack.max_range
 	var in_combat: bool = (in_melee_range or in_ranged_range) and enemy_alive
 

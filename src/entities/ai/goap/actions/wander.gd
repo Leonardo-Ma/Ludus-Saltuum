@@ -53,6 +53,13 @@ func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 
 	_wander_timer += _delta
 
+	if _wander_target_set and (_actor.npc_movement_controller.is_navigation_finished() or _actor.npc_movement_controller.is_target_reached()):
+		_last_wander_end_time = current_time
+		_actor.npc_movement_controller.stop()
+		_wander_target_set = false
+		_wander_timer = 0.0
+		return true
+
 	if _wander_timer >= _wander_duration:
 		_last_wander_end_time = current_time
 		_actor.npc_movement_controller.stop()

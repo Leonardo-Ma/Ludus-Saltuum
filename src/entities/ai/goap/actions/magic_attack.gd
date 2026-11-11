@@ -28,10 +28,9 @@ func get_effects() -> Dictionary:
 
 func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 	var entity: NPCEntity = _actor
-	assert(
-		entity != null and entity.projectile_attack != null and entity.projectile_attack.projectile_scene != null,
-		"projectile_attack missing in " + _actor.name,
-	)
+
+	# BUG This asserts only when trying to attack
+	assert(entity and entity.projectile_attack_component, "projectile_attack_component missing in " + _actor.name)
 	entity.npc_movement_controller.stop()
 	entity.goap_controller.force_refresh_blackboard()
 
@@ -46,20 +45,6 @@ func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 		return false
 
 	entity.magic_casted.emit()
-	_spawn_projectile(entity, enemy_position)
-	_cooldown_timer = entity.get_tree().create_timer(entity.projectile_attack.rate, false)
+	entity.projectile_attack_component.fire(enemy_position + Vector3.UP * AIM_HEIGHT, entity)
+	_cooldown_timer = entity.get_tree().create_timer(entity.projectile_attack_component.projectile_attack.rate, false)
 	return true
-
-
-func _spawn_projectile(entity: NPCEntity, enemy_position: Vector3) -> void:
-	var projectile_attack: ProjectileAttack = entity.projectile_attack
-	var projectile: Projectile = projectile_attack.projectile_scene.instantiate() as Projectile
-	assert(projectile != null, "projectile_scene root must be Projectile in " + entity.name)
-	assert(projectile_attack != null, "Projectile attack missing for " + entity.name)
-
-	var origin: Vector3 = entity.global_transform * projectile_attack.muzzle_offset
-	var direction: Vector3 = origin.direction_to(enemy_position + Vector3.UP * AIM_HEIGHT)
-
-	entity.get_tree().current_scene.add_child(projectile)
-	projectile.global_position = origin
-	projectile.launch(projectile_attack, entity, direction)

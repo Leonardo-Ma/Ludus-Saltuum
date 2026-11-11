@@ -1,15 +1,26 @@
-@abstract class_name EntityMovementController
+@abstract class_name MovementComponent
 extends Node3D
+
+## Abstract base component handling entity movement and physics collisions
 
 # These signals go to animation controller, debug...
 signal movement_direction_changed(direction: Vector2, speed_factor: float)
 
+@export var movement: Movement
+
 var movement_enabled: bool = true
+
+## Runtime bonuses and multipliers
+var speed_bonus: float = 0.0
+var speed_multiplier: float = 1.0
+var gravity_multiplier: float = 1.0
+var jump_bonus: float = 0.0
+var jump_multiplier: float = 1.0
+## Applied to gravity only while falling
+var fall_gravity_multiplier: float = 1.0
 
 var _disable_timer: float = 0.0
 var _external_force: Vector3 = Vector3.ZERO
-
-@onready var _movement: Movement = owner.movement
 
 
 ## Children must override this instead of _ready()
@@ -17,16 +28,24 @@ var _external_force: Vector3 = Vector3.ZERO
 
 
 ## Children must override [br]
-## Core movement logic for movement controllers that will be executed each physics frame by owner
+## Core movement logic for movement controllers executed each physics frame by owner
 @abstract func _move(delta: float) -> void
 
 
 func _ready() -> void:
-	assert(_movement != null, "Movement missing for " + owner.name)
+	assert(movement != null, "Movement missing for " + owner.name)
 	_child_ready()
 
 
-## This is executed by entity's _physics_process
+func get_speed() -> float:
+	return (movement.speed + speed_bonus) * speed_multiplier
+
+
+func get_jump_velocity() -> float:
+	return (movement.jump_velocity + jump_bonus) * jump_multiplier
+
+
+## Executed by entity's _physics_process
 func move(delta: float) -> void:
 	_update_disable_timer(delta)
 	_move(delta)
@@ -39,7 +58,7 @@ func handle_collisions() -> void:
 		var collision: KinematicCollision3D = owner.get_slide_collision(i)
 		var collider: Object = collision.get_collider()
 		if collider is RigidBody3D:
-			var push_force: float = _movement.get_speed() * 0.1
+			var push_force: float = get_speed() * 0.1
 			var push_dir: Vector3 = -collision.get_normal()
 			# Push down or sideways, never up
 			if push_dir.y > 0.0:

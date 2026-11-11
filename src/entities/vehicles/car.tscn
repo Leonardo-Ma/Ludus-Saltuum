@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://bfr3cktr3wbck" path="res://src/entities/vehicles/car.gd" id="1_car"]
 [ext_resource type="Texture2D" uid="uid://b0u7r60i2gn0n" path="res://src/entities/vehicles/assets/kenney_car_kit/models/Textures/colormap.png" id="2_ns0je"]
 [ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="2_wx5wo"]
-[ext_resource type="Script" uid="uid://wqopxvagomo6" path="res://src/entities/components/combat/hurtbox.gd" id="3_u1f61"]
 [ext_resource type="AudioStream" uid="uid://cxipnw773t3tw" path="res://src/sound/sfx/car/kenney_starter_kit_racing/engine.ogg" id="5_q6bat"]
 [ext_resource type="Script" uid="uid://dfrhjcfuoev81" path="res://src/sound/helpers/looping_audio_emitter.gd" id="6_mvrra"]
 [ext_resource type="AudioStream" uid="uid://cdcvdombioj0x" path="res://src/sound/sfx/car/kenney_starter_kit_racing/skid.ogg" id="7_mvrra"]
@@ -12,7 +11,6 @@
 
 [sub_resource type="Resource" id="Resource_u1f61"]
 script = ExtResource("2_wx5wo")
-max_health = 100
 health_regen = 2.0
 metadata/_custom_type_script = "uid://njkofl5g11k7"
 
@@ -198,9 +196,6 @@ shadow_mesh = SubResource("ArrayMesh_lrtn4")
 [sub_resource type="BoxShape3D" id="BoxShape3D_enter"]
 size = Vector3(1.4916992, 1, 2.89563)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_cvtp5"]
-size = Vector3(0.7448158, 2.0224, 0.53845215)
-
 [node name="Vehicle" type="VehicleBody3D" unique_id=864995165]
 collision_layer = 2
 collision_mask = 15
@@ -309,15 +304,6 @@ top_level = true
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=1747624805]
 unique_name_in_owner = true
-
-[node name="Hurtbox" type="Area3D" parent="." unique_id=134077829]
-collision_layer = 0
-collision_mask = 32768
-script = ExtResource("3_u1f61")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=974147913]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -1.3499743e-13, 0.41627213, -3.609557e-16)
-shape = SubResource("BoxShape3D_cvtp5")
 
 [node name="VehicleAudioController" type="Node3D" parent="." unique_id=765360919]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5156424, 0.98732877)

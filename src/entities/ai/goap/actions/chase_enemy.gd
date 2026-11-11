@@ -33,7 +33,7 @@ func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 	_actor.npc_movement_controller.set_physics_process(true)
 	_actor.npc_movement_controller.update_target_location(enemy_position)
 
-	if enemy_in_melee_range:
-		_actor.npc_movement_controller.set_physics_process(false)
+	if enemy_in_melee_range or _actor.npc_movement_controller.is_navigation_finished():
+		_actor.npc_movement_controller.stop()
 		return true
 	return false

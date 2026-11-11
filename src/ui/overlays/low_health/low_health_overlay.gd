@@ -9,7 +9,7 @@ const PULSE_OUT_DURATION: float = 0.6
 const PULSE_PAUSE_DURATION: float = 1.0
 const FADE_OUT_DURATION: float = 0.3
 
-var _health: Health
+var _health: HealthComponent
 var _tween: Tween
 var _is_pulsing: bool = false
 var _is_racing: bool = false

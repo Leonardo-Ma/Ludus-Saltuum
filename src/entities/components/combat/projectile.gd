@@ -16,7 +16,7 @@ var _time_left: float = 0.0
 
 
 func _ready() -> void:
-	assert(collision_layer == 0 and collision_mask == 8, "Projectile must have no layer and have world object mask")
+	assert(collision_layer == 0 and collision_mask == 9, "Projectile must have no layer and have world and world object mask")
 
 	set_physics_process(false)
 	body_entered.connect(_on_body_entered)

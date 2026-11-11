@@ -4,7 +4,7 @@ extends Node
 
 class FakeHealthTarget:
 	extends Node3D
-	var health: Health
+	var health: HealthComponent
 
 
 func _ready() -> void:
@@ -21,7 +21,7 @@ func _ready() -> void:
 func _test_dead_target_purged_from_known_entities() -> void:
 	var perception: PerceptionSystem = PerceptionSystem.new()
 	var target: FakeHealthTarget = FakeHealthTarget.new()
-	target.health = Health.new()
+	target.health = HealthComponent.new()
 	target.health.max_health = 10
 	target.health.current_health = 0
 
@@ -38,7 +38,7 @@ func _test_dead_target_purged_from_known_entities() -> void:
 func _test_alive_target_not_purged() -> void:
 	var perception: PerceptionSystem = PerceptionSystem.new()
 	var target: FakeHealthTarget = FakeHealthTarget.new()
-	target.health = Health.new()
+	target.health = HealthComponent.new()
 	target.health.max_health = 10
 	target.health.current_health = 5
 

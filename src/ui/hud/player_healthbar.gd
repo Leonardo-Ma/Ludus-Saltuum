@@ -4,7 +4,7 @@ extends ProgressBar
 var health: float = 0.0:
 	set = _set_health
 
-var health_resource: Health
+var health_resource: HealthComponent
 
 @onready var timer: Timer = $Timer
 @onready var damagebar: ProgressBar = %Damagebar

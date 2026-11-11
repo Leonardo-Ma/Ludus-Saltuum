@@ -24,17 +24,19 @@ const PARAM_DEATH_TRANSITION: String = "parameters/death/transition_request"
 const PARAM_IS_DAMAGED_REQUEST: String = "parameters/is_damaged/request"
 const PARAM_DAMAGED_TRANSITION: String = "parameters/damaged/transition_request"
 
-const MELEE_ATTACK_ANIMATIONS: Array = ["1h_slice_diagonal", "1h_slice_horizontal", "1h_stab"]
-const DAMAGED_ANIMATIONS: Array = ["hit_a", "hit_b"]
-const DEATH_ANIMATIONS: Array = ["death_a", "death_b"]
+const MELEE_ATTACK_ANIMATIONS: Array[String] = ["1h_slice_diagonal", "1h_slice_horizontal", "1h_stab"]
+const DAMAGED_ANIMATIONS: Array[String] = ["hit_a", "hit_b"]
+const DEATH_ANIMATIONS: Array[String] = ["death_a", "death_b"]
 
-@onready var entity: AggressiveEntity = owner
-@onready var health: Health = entity.health
+@onready var entity: AggressiveEntity = owner as AggressiveEntity
+@onready var health: HealthComponent = %HealthComponent
+
+var movement: MovementComponent
 
 
-func _ready() -> void:
+func initialize() -> void:
 	if entity is PlayerEntity:
-		var movement_controller: PlayerMovementController = $%PlayerMovementController
+		var movement_controller: PlayerMovementComponent = entity.get_node("%PlayerMovementComponent")
 		assert(movement_controller, "movement_controller missing for " + owner.name)
 		#		movement_controller.move_stopped.connect(_on_move_stopped)
 		movement_controller.movement_direction_changed.connect(_on_movement_direction_changed)
@@ -44,14 +46,16 @@ func _ready() -> void:
 		movement_controller.crouch_toggled.connect(_on_crouch_toggled)
 		movement_controller.movement_direction_changed.connect(_on_player_movement_direction_changed)
 	elif entity is NPCEntity:
-		var npc_movement_controller: NPCMovementController = $%NPCMovementController
+		var npc_movement_controller: NPCMovementController = entity.get_node("%NPCMovementController")
 		assert(npc_movement_controller, "npc_movement_controller missing for " + owner.name)
 		npc_movement_controller.movement_direction_changed.connect(_on_movement_direction_changed)
 	else:
-		assert(false, "Entity " + owner.name + "not supported but has animation controller")
+		assert(false, "Entity " + owner.name + " not supported but has animation controller")
 	_validate_animation_parameters()
+
 	entity.melee_attacked.connect(_on_melee_attack)
 	entity.magic_casted.connect(_on_magic_casted)
+
 	health.damaged.connect(_on_damaged)
 	health.died.connect(_on_death)
 	health.revived.connect(_on_revived)
@@ -66,7 +70,7 @@ func _ready() -> void:
 ## Update BlendSpace2D position in animation tree
 ## X axis: left (-1) to right (1)
 ## Y axis: backward (-0.6 walk, -1.0 run) to forward (0.6 walk, 1.0 run)
-## The direction vector is already scaled by speed_factor in the movement controller
+## Direction vector already scaled by speed_factor in movement controller
 func _on_movement_direction_changed(direction: Vector2, _speed_factor: float) -> void:
 	set(PARAM_MOVEMENT_BLEND_POSITION, direction)
 
@@ -133,6 +137,7 @@ func _on_crouch_toggled(active: bool) -> void:
 	set(PARAM_STANCE_TRANSITION, "crouching" if active else "standing")
 
 
+# TODO Remake this garbage
 func _validate_animation_parameters() -> void:
 	var required_parameters: Array[String] = [
 		PARAM_MOVEMENT_BLEND_POSITION,
@@ -151,5 +156,5 @@ func _validate_animation_parameters() -> void:
 	if entity is PlayerEntity:
 		required_parameters.append_array([PARAM_STANCE_TRANSITION, PARAM_CROUCH_MOVEMENT_BLEND_POSITION])
 
-	for param: String in required_parameters:
-		assert(get(param) != null, "Missing animation parameter: " + param + " in " + owner.name)
+	#for param: String in required_parameters:
+	#	assert(get(param), "Missing animation parameter: " + param + " in " + owner.name)

@@ -17,7 +17,7 @@ func _on_area_entered(hitbox: Hitbox) -> void:
 	var attacker: Node = hitbox.get_parent()
 	var attack_used: Attack = attacker.attack
 
+	assert(attack_used != null, "Attack missing from " + attacker.name)
+
 	owner.health.take_damage(attack_used)
 	hitbox.hit_landed.emit(self)
-
-	print(owner.name, " Hurt by ", hitbox.owner.name, " For ", attack_used.damage)

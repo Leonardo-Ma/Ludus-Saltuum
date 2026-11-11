@@ -1,9 +1,6 @@
 [gd_scene format=3 uid="uid://cq301lp0jblvc"]
 
 [ext_resource type="Script" uid="uid://dkh5m525rjidn" path="res://src/entities/components/npc_entity.gd" id="1_cqc8c"]
-[ext_resource type="Resource" uid="uid://cue70vb5xfvur" path="res://src/entities/enemies/resources/base_enemy_attack.tres" id="2_d3c46"]
-[ext_resource type="Resource" uid="uid://blu7iavd60pbx" path="res://src/entities/enemies/resources/base_enemy_health.tres" id="3_ejhyg"]
-[ext_resource type="Resource" uid="uid://11dvy0ydxiej" path="res://src/entities/enemies/resources/base_enemy_movement.tres" id="4_d3c46"]
 [ext_resource type="Script" uid="uid://bqys3jbut4h6" path="res://src/entities/ai/perception/perception_config.gd" id="6_iieoc"]
 [ext_resource type="Script" uid="uid://cuwnfmbuuro3s" path="res://src/entities/ai/perception/visual_config.gd" id="7_djwp5"]
 [ext_resource type="Script" uid="uid://dycviide8g017" path="res://src/entities/ai/goap/actions/chase_enemy.gd" id="9_i57bl"]
@@ -13,13 +10,21 @@
 [ext_resource type="Script" uid="uid://c5rs5bpioolo8" path="res://src/entities/ai/goap/goals/enemy_in_range.gd" id="13_hwngx"]
 [ext_resource type="Script" uid="uid://b7v4ao8jga5rg" path="res://src/entities/ai/goap/goals/flee.gd" id="14_ejhyg"]
 [ext_resource type="Script" uid="uid://o8dqx6i7woqt" path="res://src/entities/ai/goap/goals/kill_enemy.gd" id="14_ia32q"]
+[ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="14_n1si8"]
+[ext_resource type="Script" uid="uid://dlbf4w8moqj2j" path="res://src/entities/components/movement.gd" id="15_8icye"]
 [ext_resource type="Script" uid="uid://8ib48sr624k3" path="res://src/entities/ai/goap/goals/wander.gd" id="15_tur1j"]
 [ext_resource type="Script" uid="uid://bvvk88q345vy4" path="res://src/entities/ai/goap/helpers/ai_config.gd" id="16_iqbar"]
+[ext_resource type="Script" uid="uid://p7nksncfrnax" path="res://src/entities/components/combat/health_component.gd" id="17_8icye"]
 [ext_resource type="Script" uid="uid://cuefrffw4m4jh" path="res://src/entities/components/animation_controller.gd" id="17_ejhyg"]
+[ext_resource type="Script" uid="uid://cxqsapbic2imr" path="res://src/entities/components/combat/attack.gd" id="17_qurdx"]
 [ext_resource type="Script" uid="uid://cjc0pv560qqv1" path="res://src/entities/ai/goap/memories/base_memory.gd" id="18_h6n62"]
+[ext_resource type="Script" uid="uid://cym217h6pegvg" path="res://src/entities/components/combat/attack_component.gd" id="18_qurdx"]
 [ext_resource type="Script" uid="uid://bccasf1g707qk" path="res://src/entities/components/npc_movement_controller.gd" id="19_nw04b"]
 [ext_resource type="Script" uid="uid://r2b3ysikxov0" path="res://src/entities/ai/perception/perception_system.gd" id="20_tbbw0"]
+[ext_resource type="Script" uid="uid://btuyxkleak0qc" path="res://src/entities/components/entity_lifecycle_controller.gd" id="21_5h4r3"]
 [ext_resource type="Script" uid="uid://cpusxg43clwxv" path="res://src/entities/player/controller/vfx_controller.gd" id="22_ju7vx"]
+[ext_resource type="Script" uid="uid://pwxg2m6bhi7c" path="res://src/entities/components/entity_damage_feedback.gd" id="22_n1si8"]
+[ext_resource type="Script" uid="uid://c4njooktldes0" path="res://src/entities/components/entity_combat_audio.gd" id="23_8icye"]
 [ext_resource type="Script" uid="uid://rpbdsks54nbp" path="res://src/entities/components/stat_modifier/status_manager.gd" id="23_o0y4x"]
 [ext_resource type="Script" uid="uid://csig12422io62" path="res://src/entities/components/combat/hitbox.gd" id="24_sx6k8"]
 [ext_resource type="Script" uid="uid://wqopxvagomo6" path="res://src/entities/components/combat/hurtbox.gd" id="25_ljr68"]
@@ -42,6 +47,20 @@ available_goals = Array[Script]([ExtResource("13_hwngx"), ExtResource("14_ia32q"
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wefi8"]
 height = 1.9296875
 
+[sub_resource type="Resource" id="Resource_n1si8"]
+script = ExtResource("14_n1si8")
+metadata/_custom_type_script = "uid://njkofl5g11k7"
+
+[sub_resource type="Resource" id="Resource_hvei5"]
+script = ExtResource("17_qurdx")
+type = 1
+damage = 20
+metadata/_custom_type_script = "uid://cxqsapbic2imr"
+
+[sub_resource type="Resource" id="Resource_7vsgj"]
+script = ExtResource("15_8icye")
+metadata/_custom_type_script = "uid://dlbf4w8moqj2j"
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_4bfx7"]
 size = Vector3(1, 1.4, 1.4268188)
 
@@ -55,9 +74,6 @@ collision_mask = 15
 script = ExtResource("1_cqc8c")
 perception_config = SubResource("Resource_k6n52")
 ai_config = SubResource("Resource_f7hab")
-attack = ExtResource("2_d3c46")
-health = ExtResource("3_ejhyg")
-movement = ExtResource("4_d3c46")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1263244351]
 unique_name_in_owner = true
@@ -72,15 +88,28 @@ script = ExtResource("17_ejhyg")
 [node name="Visual" type="Node3D" parent="." unique_id=977755737]
 unique_name_in_owner = true
 
+[node name="Components" type="Node" parent="." unique_id=2054122343]
+
+[node name="HealthComponent" type="Node" parent="Components" unique_id=97775302]
+unique_name_in_owner = true
+script = ExtResource("17_8icye")
+health = SubResource("Resource_n1si8")
+
+[node name="AttackComponent" type="Node" parent="Components" unique_id=1093069409]
+unique_name_in_owner = true
+script = ExtResource("18_qurdx")
+attack = SubResource("Resource_hvei5")
+
+[node name="NPCMovementController" type="Node3D" parent="Components" unique_id=1768493993]
+unique_name_in_owner = true
+script = ExtResource("19_nw04b")
+movement = SubResource("Resource_7vsgj")
+
 [node name="Controllers" type="Node" parent="." unique_id=1494063068]
 
 [node name="GoapController" type="Node" parent="Controllers" unique_id=1716733961]
 unique_name_in_owner = true
 script = ExtResource("18_h6n62")
-
-[node name="NPCMovementController" type="Node3D" parent="Controllers" unique_id=1768493993]
-unique_name_in_owner = true
-script = ExtResource("19_nw04b")
 
 [node name="VFXController" type="Node" parent="Controllers" unique_id=92317038]
 unique_name_in_owner = true
@@ -89,6 +118,18 @@ script = ExtResource("22_ju7vx")
 [node name="PerceptionSystem" type="Node" parent="Controllers" unique_id=1183982017]
 unique_name_in_owner = true
 script = ExtResource("20_tbbw0")
+
+[node name="EntityLifecycleController" type="Node" parent="Controllers" unique_id=161635634]
+unique_name_in_owner = true
+script = ExtResource("21_5h4r3")
+
+[node name="EntityDamageFeedback" type="Node" parent="Controllers" unique_id=1755163676]
+unique_name_in_owner = true
+script = ExtResource("22_n1si8")
+
+[node name="EntityCombatAudio" type="Node" parent="Controllers" unique_id=645684150]
+unique_name_in_owner = true
+script = ExtResource("23_8icye")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1218537899]
 unique_name_in_owner = true

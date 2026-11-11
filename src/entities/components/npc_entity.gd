@@ -20,11 +20,18 @@ extends AggressiveEntity
 
 var enemy_id: StringName = &""
 
-var goap_agent: GoapAgent = null
+var goap_agent: GoapAgent:
+	get:
+		return _brain.goap_agent
+
+var _brain: NPCBrainController
 
 @onready var npc_movement_controller: NPCMovementController = %NPCMovementController
 @onready var goap_controller: GoapMemory = %GoapController
 @onready var perception_system: PerceptionSystem = %PerceptionSystem
+
+# TODO Decouple from here, GOAP requires a reference from entity
+@onready var projectile_attack_component: ProjectileAttackComponent
 
 
 func _physics_process(delta: float) -> void:
@@ -40,20 +47,17 @@ func _child_ready() -> void:
 	assert(npc_movement_controller, "NPCMovementController missing for " + name)
 	assert(perception_system, "Perception system missing for " + name)
 
+	# TODO Remove magic string, but still need entity level reference for GOAP
+	if $%ProjectileAttackComponent:
+		projectile_attack_component = %ProjectileAttackComponent
+
 	if not is_procedurally_spawned:
 		assert(static_id != &"", "Enemy static_id not set on non-procedural instance " + name)
 		enemy_id = static_id
 
-	goap_agent = GoapAgent.new()
-	assert(goap_agent != null, "Failed to create GoapAgent in " + name)
-	var goals: Array[GoapGoal] = ai_config.create_goals()
-	var actions: Array[GoapAction] = ai_config.create_actions()
-
-	goap_agent.name = name
-	print("Registering GOAP agent: ", goap_agent.name)
-
-	goap_agent.init(self, goals, goap_controller, actions)
-	add_child(goap_agent)
+	_brain = NPCBrainController.new()
+	_brain.setup(self, ai_config, goap_controller)
+	add_child(_brain)
 
 	npc_movement_controller.set_physics_process(false)
 
@@ -61,14 +65,12 @@ func _child_ready() -> void:
 
 
 func _on_dying() -> void:
-	if goap_agent:
-		print("Disabling GOAP agent ", goap_agent.name)
-		goap_agent.set_process(false)
+	print("Disabling GOAP agent ", goap_agent.name)
+	_brain.set_active(false)
 
 
 func _on_revived() -> void:
-	if goap_agent:
-		goap_agent.set_process(true)
+	_brain.set_active(true)
 
 
 func assign_procedural_id(seed_value: int, scene_local_path: NodePath) -> void:

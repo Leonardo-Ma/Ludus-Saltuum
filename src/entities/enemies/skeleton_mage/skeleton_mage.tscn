@@ -2,12 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://cq301lp0jblvc" path="res://src/entities/enemies/enemy_template.tscn" id="1_virfw"]
 [ext_resource type="Texture2D" uid="uid://dl0whti1opxcc" path="res://src/entities/meshes/enemy/skeleton_mage_skeleton_texture_A.png" id="2_emuhi"]
-[ext_resource type="PackedScene" uid="uid://c4jq7s82wru52" path="res://src/entities/vfx/elemental_magic_fx/projectile/fire_projectile.tscn" id="2_l2qw7"]
-[ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="2_r2me2"]
 [ext_resource type="AnimationLibrary" uid="uid://vginonlwcip8" path="res://src/entities/animation/libraries/combat.res" id="2_ymq7x"]
 [ext_resource type="AnimationLibrary" uid="uid://qw3lmf4rabqb" path="res://src/entities/animation/libraries/general.res" id="3_ggklk"]
 [ext_resource type="Script" uid="uid://dlbf4w8moqj2j" path="res://src/entities/components/movement.gd" id="3_htfkf"]
-[ext_resource type="Script" uid="uid://b14wamm35ys53" path="res://src/entities/components/combat/projectile_attack.gd" id="3_r2me2"]
 [ext_resource type="AnimationLibrary" uid="uid://dfypubq6ngr7a" path="res://src/entities/animation/libraries/movement.res" id="4_crluf"]
 [ext_resource type="AnimationLibrary" uid="uid://bp21tmj3ajjq" path="res://src/entities/animation/libraries/movement_advanced.res" id="5_gxruy"]
 [ext_resource type="Script" uid="uid://cd8isclluq4nq" path="res://src/entities/ai/goap/actions/magic_attack.gd" id="6_jikcy"]
@@ -22,27 +19,11 @@
 [ext_resource type="AnimationLibrary" uid="uid://d0b53v2ggy8ma" path="res://src/entities/animation/libraries/magic.res" id="15_l2qw7"]
 [ext_resource type="Script" uid="uid://bvvk88q345vy4" path="res://src/entities/ai/goap/helpers/ai_config.gd" id="15_xccq2"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://basam7g1dbev2" path="res://src/entities/animation/libraries/base_medium_animation_blend_tree.tres" id="18_njikp"]
-
-[sub_resource type="Resource" id="Resource_htfkf"]
-resource_local_to_scene = true
-script = ExtResource("2_r2me2")
-max_health = 10
-health_regen = 2.0
-metadata/_custom_type_script = "uid://njkofl5g11k7"
+[ext_resource type="Script" uid="uid://dm8nwmbpvtayk" path="res://src/entities/components/combat/projectile_attack_component.gd" id="19_r2me2"]
+[ext_resource type="PackedScene" uid="uid://c4jq7s82wru52" path="res://src/entities/vfx/elemental_magic_fx/projectile/fire_projectile.tscn" id="20_bdim5"]
+[ext_resource type="Script" uid="uid://b14wamm35ys53" path="res://src/entities/components/combat/projectile_attack.gd" id="20_htfkf"]
 
 [sub_resource type="Resource" id="Resource_bdim5"]
-script = ExtResource("3_htfkf")
-_speed = 3.0
-metadata/_custom_type_script = "uid://dlbf4w8moqj2j"
-
-[sub_resource type="Resource" id="Resource_mroeu"]
-script = ExtResource("3_r2me2")
-projectile_scene = ExtResource("2_l2qw7")
-type = 2
-damage = 30
-metadata/_custom_type_script = "uid://b14wamm35ys53"
-
-[sub_resource type="Resource" id="Resource_jkwdp"]
 script = ExtResource("15_xccq2")
 available_actions = Array[Script]([ExtResource("7_kpxjl"), ExtResource("7_njikp"), ExtResource("6_jikcy"), ExtResource("9_ug76y"), ExtResource("10_8y3hd")])
 available_goals = Array[Script]([ExtResource("12_q3avm"), ExtResource("13_ai8h2"), ExtResource("14_wex8l"), ExtResource("10_sss5e")])
@@ -723,11 +704,20 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
+[sub_resource type="Resource" id="Resource_htfkf"]
+script = ExtResource("20_htfkf")
+projectile_scene = ExtResource("20_bdim5")
+type = 2
+damage = 25
+metadata/_custom_type_script = "uid://b14wamm35ys53"
+
+[sub_resource type="Resource" id="Resource_n1si8"]
+script = ExtResource("3_htfkf")
+speed = 2.5
+metadata/_custom_type_script = "uid://dlbf4w8moqj2j"
+
 [node name="SkeletonMage" unique_id=280064195 instance=ExtResource("1_virfw")]
-health = SubResource("Resource_htfkf")
-movement = SubResource("Resource_bdim5")
-projectile_attack = SubResource("Resource_mroeu")
-ai_config = SubResource("Resource_jkwdp")
+ai_config = SubResource("Resource_bdim5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1" unique_id=1945772632]
 unique_name_in_owner = true
@@ -793,6 +783,7 @@ parameters/crouch_movement/observer = null
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 
 [node name="Skeleton3D" type="Skeleton3D" parent="Visual/Rig_Medium" index="0" unique_id=223581482]
+unique_name_in_owner = true
 bones/0/name = "root"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 2.3841855e-07, 0, 1, 0, -2.3841855e-07, 0, 1, 0, 0, 0)
@@ -1025,6 +1016,14 @@ skeleton = NodePath("..")
 mesh = SubResource("ArrayMesh_ik065")
 skin = SubResource("Skin_sk468")
 skeleton = NodePath("..")
+
+[node name="ProjectileAttackComponent" type="Node" parent="Components" parent_id_path=PackedInt32Array(2054122343) index="2" unique_id=1030829192]
+unique_name_in_owner = true
+script = ExtResource("19_r2me2")
+projectile_attack = SubResource("Resource_htfkf")
+
+[node name="NPCMovementController" parent="Components" parent_id_path=PackedInt32Array(2054122343) index="3" unique_id=1768493993]
+movement = SubResource("Resource_n1si8")
 
 [node name="CollisionShape3D" parent="Hitbox" parent_id_path=PackedInt32Array(998701689) index="0" unique_id=186970168]
 disabled = false

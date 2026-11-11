@@ -45,4 +45,4 @@ func _on_magic_cast() -> void:
 
 	entity.get_parent().add_child(projectile)
 	projectile.global_position = entity.global_position + Vector3.UP * _definition.spawn_height + direction * _definition.spawn_distance
-	projectile.launch(entity.projectile_attack, entity, direction)
+	projectile.launch(entity.projectile_attack_component.projectile_attack, entity, direction)
