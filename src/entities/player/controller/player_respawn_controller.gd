@@ -41,8 +41,7 @@ func respawn(delay: float, target_transform: Transform3D, is_death: bool = false
 	owner.status_manager.clear_temporary_statuses()
 
 	if is_death:
-		owner.health.reset()
-		owner.scale = Vector3.ONE
+		owner.revive()
 
 	owner.input_controller.set_process_input(true)
 	owner.input_controller.set_process_unhandled_input(true)
