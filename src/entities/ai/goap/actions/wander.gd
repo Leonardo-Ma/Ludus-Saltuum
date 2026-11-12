@@ -45,12 +45,17 @@ func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 			_wander_timer = 0.0
 		return false
 
+	if _wander_target_set and controller.is_blocked():
+		_wander_target_set = false
+
 	if not _wander_target_set or _wander_timer >= _wander_duration:
 		var random_offset: Vector3 = Vector3(randf_range(-WANDER_RADIUS, WANDER_RADIUS), 0, randf_range(-WANDER_RADIUS, WANDER_RADIUS))
 		var wander_target: Vector3 = actor_position + random_offset
 
-		_actor.npc_movement_controller.set_physics_process(true)
-		_actor.npc_movement_controller.update_target_location(wander_target)
+		controller.set_physics_process(true)
+		if not controller.request_target(wander_target, false):
+			_wander_target_set = false
+			return false
 		_wander_target_set = true
 		_wander_timer = 0.0
 

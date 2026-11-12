@@ -28,11 +28,17 @@ func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 	var entity: NPCEntity = _actor
 	assert(entity, "ApproachEnemy: actor is not NPCEntity: " + str(_actor))
 	var controller: NPCMovementController = entity.npc_movement_controller
+	var enemy_position: Vector3 = _blackboard[GoapKeys.ENEMY_POSITION]
 
 	if _blackboard[GoapKeys.ENEMY_IN_RANGED_RANGE] == true:
 		controller.stop()
 		return true
 
 	controller.set_physics_process(true)
-	controller.update_target_location(_blackboard.get("enemy_position", Vector3.ZERO))
+	if not controller.request_target(_blackboard[GoapKeys.ENEMY_POSITION], true) or controller.is_navigation_finished():
+		controller.stop()
+		return true
+
+	controller.request_target(enemy_position, true)
+
 	return false

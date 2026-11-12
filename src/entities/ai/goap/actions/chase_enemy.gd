@@ -34,9 +34,11 @@ func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 	var enemy_in_melee_range: bool = _blackboard[GoapKeys.ENEMY_IN_MELEE_RANGE]
 
 	controller.set_physics_process(true)
-	controller.update_target_location(enemy_position)
 
-	if enemy_in_melee_range or _actor.npc_movement_controller.is_navigation_finished():
+	if enemy_in_melee_range or not controller.request_target(enemy_position, true) or controller.is_navigation_finished():
 		controller.stop()
 		return true
+
+	controller.request_target(enemy_position, true)
+
 	return false
