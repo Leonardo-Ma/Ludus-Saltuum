@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dibncct5bj8s6" path="res://src/ui/menus/shared/center_screen_dot.gd" id="7_gucsq"]
 [ext_resource type="PackedScene" uid="uid://ck2xnsf2rcgoi" path="res://src/ui/popups/popups.tscn" id="8_cx7gx"]
 [ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="8_t30i7"]
+[ext_resource type="PackedScene" uid="uid://bq1ecmltuj6nk" path="res://src/ui/menus/shared/version_label.tscn" id="9_t30i7"]
 
 [node name="UI" type="CanvasLayer" unique_id=670172270]
 script = ExtResource("1_7abqo")
@@ -55,3 +56,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("7_gucsq")
+
+[node name="VersionLabel" parent="." unique_id=854464690 instance=ExtResource("9_t30i7")]
+z_index = 200

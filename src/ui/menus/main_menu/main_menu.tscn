@@ -10,7 +10,6 @@
 [ext_resource type="Script" uid="uid://u2p8jay56jmx" path="res://src/ui/menus/shared/open_settings.gd" id="6_30lnw"]
 [ext_resource type="PackedScene" uid="uid://b6ednpu0kwboc" path="res://src/ui/helpers/grab_focus_on_visible.tscn" id="6_l674l"]
 [ext_resource type="Texture2D" uid="uid://dj6mk6ic8le0p" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/save.png" id="7_vprs7"]
-[ext_resource type="PackedScene" uid="uid://bq1ecmltuj6nk" path="res://src/ui/menus/shared/version_label.tscn" id="8_fpg57"]
 [ext_resource type="Texture2D" uid="uid://cluw1pjw0m0g0" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/settings.png" id="8_rq6ct"]
 [ext_resource type="Script" uid="uid://bf42wt66l7u5e" path="res://src/ui/menus/main_menu/load_game.gd" id="8_vprs7"]
 [ext_resource type="Texture2D" uid="uid://7p2j8n842i0a" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/cross.png" id="10_rq6ct"]
@@ -115,10 +114,6 @@ icon = ExtResource("10_rq6ct")
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("4_gdklf")
-
-[node name="VersionLabel" parent="." unique_id=854464690 instance=ExtResource("8_fpg57")]
-layout_mode = 1
-offset_top = -23.0
 
 [node name="GamepadPromptsMargin" type="MarginContainer" parent="." unique_id=186216965]
 custom_minimum_size = Vector2(138, 138)
