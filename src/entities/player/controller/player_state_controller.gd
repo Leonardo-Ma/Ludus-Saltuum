@@ -25,7 +25,7 @@ func _initialize() -> void:
 func set_state(new_state: PlayerEntity.PlayerState) -> void:
 	assert(_initialized, "PlayerStateController not initialized for " + name)
 
-	state = new_state
+	_player.state = new_state
 	var is_active: bool = new_state == PlayerEntity.PlayerState.ACTIVE
 	if is_active:
 		ControlledEntityEvents.set_controlled_entity(_player)
@@ -49,6 +49,6 @@ func _on_application_state_changed(new_state: ApplicationStateManager.GameState,
 		return
 
 	# TODO Double check this
-	if state == PlayerEntity.PlayerState.IN_VEHICLE:
+	if _player.state == PlayerEntity.PlayerState.IN_VEHICLE:
 		return
 	set_state(PlayerEntity.PlayerState.ACTIVE if new_state == ApplicationStateManager.GameState.PLAYING else PlayerEntity.PlayerState.INACTIVE)

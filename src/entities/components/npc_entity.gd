@@ -20,9 +20,7 @@ extends AggressiveEntity
 
 var enemy_id: StringName = &""
 
-var goap_agent: GoapAgent:
-	get:
-		return _brain.goap_agent
+var goap_agent: GoapAgent
 
 var _brain: NPCBrainController
 
@@ -58,6 +56,7 @@ func _child_ready() -> void:
 	_brain = NPCBrainController.new()
 	_brain.setup(self, ai_config, goap_controller)
 	add_child(_brain)
+	goap_agent = _brain.goap_agent
 
 	npc_movement_controller.set_physics_process(false)
 

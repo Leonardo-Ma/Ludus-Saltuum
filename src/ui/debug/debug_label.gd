@@ -33,8 +33,7 @@ func _process(delta: float) -> void:
 	var text_output: String = ""
 	text_output += _get_performance_text()
 	text_output += _get_player_info_text()
-	text_output += "\nLast Key press: " + event_text + "\n"
-
+	#text_output += "\nLast Key press: " + event_text + "\n"
 	self.text = text_output
 
 
@@ -83,7 +82,7 @@ func _get_player_info_text() -> String:
 	var recently_damaged: String = "Yes" if _damage_indicator_timer > 0.0 else "No"
 	output += "Damaged: %s\n" % recently_damaged
 
-	output += "Movement blend position: %s\n" % player_entity.animation_tree.get("parameters/movement/blend_position")
+	#output += "Movement blend position: %s\n" % player_entity.animation_tree.get("parameters/movement/blend_position")
 	return output
 
 

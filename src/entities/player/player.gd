@@ -10,9 +10,7 @@ enum PlayerState {
 @export_category("Skills")
 @export var startup_skills: Array[SkillDefinition] = []
 
-var state: PlayerState:
-	get:
-		return _player_state_controller.state
+var state: PlayerState = PlayerState.INACTIVE
 
 @onready var visual: CharacterVisual = %Visual
 

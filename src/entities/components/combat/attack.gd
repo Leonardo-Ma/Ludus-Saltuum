@@ -13,7 +13,3 @@ extends Resource
 @export_range(0.1, 999, 0.1, "suffix:Seconds/attack") var rate: float = 1
 #@export var attack_position: Vector2
 @export var hitkill: bool
-
-
-func _ready() -> void:
-	assert(damage > 0, "Attack not properly configured")
