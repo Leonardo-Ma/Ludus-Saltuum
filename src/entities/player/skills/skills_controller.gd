@@ -19,7 +19,7 @@ var _skills: Dictionary[SkillDefinition, BaseSkill] = { }
 func _ready() -> void:
 	base_fov = SettingsManager.settings.camera.camera_fov
 	movement_controller.landed.connect(_on_landed)
-	_initialize_from_entity()
+	_unlock_editor_defined_startup_skills()
 	SettingsManager.camera_settings_changed.connect(_on_camera_settings_changed)
 
 
@@ -34,6 +34,8 @@ func reset() -> void:
 
 	_skills.clear()
 	resetted_skills.emit()
+
+	_unlock_editor_defined_startup_skills()
 
 
 ## Replaces any existing skill
@@ -75,8 +77,7 @@ func spawn_ghost_trail(duration: float = 0.5, color: Color = Color(0.8, 1.0, 1.5
 	vfx_controller.spawn_ghost_trail(duration, color)
 
 
-## Unlocks startup skills
-func _initialize_from_entity() -> void:
+func _unlock_editor_defined_startup_skills() -> void:
 	for definition: SkillDefinition in entity.startup_skills:
 		unlock(definition)
 
