@@ -30,6 +30,7 @@ func launch(projectile_attack: ProjectileAttack, new_shooter: AggressiveEntity, 
 	_hitbox.ignored_entity = new_shooter
 	_velocity = direction * projectile_attack.projectile_speed
 	_time_left = projectile_attack.projectile_lifetime
+	scale = new_shooter.global_basis.get_scale()
 
 	if not direction.is_zero_approx():
 		look_at(global_position + direction)

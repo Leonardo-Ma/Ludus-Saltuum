@@ -39,10 +39,19 @@ func _is_on_cooldown() -> bool:
 
 func _on_magic_cast() -> void:
 	var entity: PlayerEntity = skills_controller.entity
-	var direction: Vector3 = -skills_controller.camera.global_basis.z.normalized()
+	var camera_direction: Vector3 = -skills_controller.camera.global_basis.z.normalized()
 	var projectile: Projectile = _definition.projectile_scene.instantiate()
+
 	assert(projectile != null, "Projectile scene root must be FireballProjectile in " + name)
 
 	entity.get_parent().add_child(projectile)
-	projectile.global_position = entity.global_position + Vector3.UP * _definition.spawn_height + direction * _definition.spawn_distance
-	projectile.launch(entity.projectile_attack_component.projectile_attack, entity, direction)
+	projectile.global_position = _get_projectile_spawn_position(entity, camera_direction)
+	projectile.launch(entity.projectile_attack_component.projectile_attack, entity, camera_direction)
+
+
+func _get_projectile_spawn_position(entity: PlayerEntity, direction: Vector3) -> Vector3:
+	var shooter_scale: float = entity.global_basis.get_scale().y
+	var spawn_height: Vector3 = Vector3.UP * _definition.spawn_height
+	var spawn_distance: Vector3 = direction * _definition.spawn_distance
+
+	return entity.global_position + (spawn_height + spawn_distance) * shooter_scale
