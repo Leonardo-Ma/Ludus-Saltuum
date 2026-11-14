@@ -1,7 +1,5 @@
 class_name ChunkFeature
 
-# TODO Add check that for each Feature there should be a FEATURE_NAME below
-
 enum Feature {
 	CAR = 0,
 	SPRING = 1,
@@ -17,21 +15,4 @@ enum Feature {
 	GIGANTIFY = 11,
 	SHRINK = 12,
 	CONVEYOR_BELT = 13,
-}
-
-const FEATURE_NAME: Dictionary = {
-	Feature.CAR: &"car",
-	Feature.SPRING: &"spring",
-	Feature.DISAPPEARING_PLATFORM: &"disappearing_platform",
-	Feature.PORTAL: &"portal",
-	Feature.MAZE: &"maze",
-	Feature.TORNADO: &"tornado",
-	Feature.MOVING_PLATFORM: &"moving_platform",
-	Feature.LAVA: &"lava",
-	Feature.ENEMY: &"enemy",
-	Feature.ROTATING_PLATFORM: &"rotating_platform",
-	Feature.SPIKES: &"spikes",
-	Feature.GIGANTIFY: &"gigantify",
-	Feature.SHRINK: &"shrink",
-	Feature.CONVEYOR_BELT: &"conveyor_belt",
 }
