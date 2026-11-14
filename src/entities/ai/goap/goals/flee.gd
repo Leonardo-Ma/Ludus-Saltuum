@@ -7,10 +7,11 @@ func get_custom_class_name() -> String:
 
 
 func is_valid(_blackboard: Dictionary) -> bool:
-	# Only valid when health is low and enemy is nearby
 	var low_health: bool = _blackboard[GoapKeys.LOW_HEALTH]
+	var enemy_reachable: bool = _blackboard[GoapKeys.ENEMY_REACHABLE]
 	var enemy_nearby: bool = _blackboard[GoapKeys.ENEMY_NEARBY]
-	return low_health and enemy_nearby
+
+	return (low_health or not enemy_reachable) and enemy_nearby
 
 
 func priority() -> int:

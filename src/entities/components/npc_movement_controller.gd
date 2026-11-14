@@ -9,6 +9,9 @@ const DETOUR_DIRECTIONS: int = 8
 const HEAD_ON_DOT: float = -0.5
 const MAX_SKIPPED_CHARACTERS: int = 4
 
+const REACH_HORIZONTAL_TOLERANCE: float = 1.5
+const REACH_VERTICAL_TOLERANCE: float = 4.0
+
 @export_category("Pathfinding")
 ## Layers treated as route obstacles (World, World Object)
 @export_flags_3d_physics var obstacle_mask: int = 9
@@ -111,6 +114,25 @@ func is_target_reached() -> bool:
 
 func is_target_reachable() -> bool:
 	return _navigation_agent.is_target_reachable()
+
+
+## False when target has no navmesh route or detour from current position, true while navmesh is not ready
+func can_reach(target: Vector3) -> bool:
+	var map: RID = _navigation_agent.get_navigation_map()
+	if not map.is_valid() or NavigationServer3D.map_get_iteration_id(map) == 0:
+		return true
+
+	var origin: Vector3 = _character_owner.global_position
+	var path: PackedVector3Array = NavigationServer3D.map_get_path(map, origin, target, true)
+	if path.is_empty():
+		return false
+
+	var path_end: Vector3 = path[path.size() - 1]
+	var horizontal_gap: float = Vector2(path_end.x, path_end.z).distance_to(Vector2(target.x, target.z))
+	if horizontal_gap > REACH_HORIZONTAL_TOLERANCE or absf(path_end.y - target.y) > REACH_VERTICAL_TOLERANCE:
+		return false
+
+	return _is_path_clear(origin, target) or _find_detour(target).is_finite()
 
 
 func stop() -> void:

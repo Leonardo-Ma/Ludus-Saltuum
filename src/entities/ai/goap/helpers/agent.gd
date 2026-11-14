@@ -122,6 +122,7 @@ func _clear_current() -> void:
 	_current_goal = null
 	_current_plan = []
 	_current_plan_step = 0
+	_replan_cooldown = randf_range(MIN_REPLAN_DELAY, MAX_REPLAN_DELAY)
 
 
 func init(actor: Node, goals: Array[GoapGoal], goap_memory: GoapMemory, actions: Array[GoapAction]) -> void:

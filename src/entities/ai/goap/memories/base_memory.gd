@@ -5,7 +5,7 @@ extends GoapMemory
 
 const HEALTH_LOW_THRESHOLD: float = 0.3
 const MELEE_RANGE_SQUARED: float = 1.44 # 1.2 * 1.2
-const NEARBY_RANGE_SQUARED: float = 225.0 # 15.0 * 15.0
+const NEARBY_RANGE: float = 15.0
 
 
 func init(actor: Node) -> void:
@@ -27,6 +27,7 @@ func init(actor: Node) -> void:
 		GoapKeys.IN_COMBAT: false,
 		GoapKeys.LOW_HEALTH: false,
 		GoapKeys.IS_WANDERING: false,
+		GoapKeys.ENEMY_REACHABLE: true,
 	}
 
 
@@ -46,7 +47,8 @@ func _refresh_blackboard() -> void:
 	if not is_instance_valid(_actor):
 		return
 
-	var perception: PerceptionSystem = _actor.perception_system
+	var entity: NPCEntity = _actor
+	var perception: PerceptionSystem = entity.perception_system
 	if not perception:
 		push_warning("Perception missing for " + _actor.name)
 		return
@@ -61,6 +63,7 @@ func _refresh_blackboard() -> void:
 		_blackboard[GoapKeys.ENEMY_IN_RANGED_RANGE] = false
 		_blackboard[GoapKeys.ENEMY_NEARBY] = false
 		_blackboard[GoapKeys.ENEMY_ALIVE] = false
+		_blackboard[GoapKeys.ENEMY_REACHABLE] = true
 		_blackboard[GoapKeys.IN_COMBAT] = false
 		_blackboard[GoapKeys.LOW_HEALTH] = _is_low_health()
 		_blackboard[GoapKeys.IS_WANDERING] = false
@@ -81,24 +84,31 @@ func _refresh_blackboard() -> void:
 	var distance_to_last_known_squared: float = actor_pos.distance_squared_to(enemy_pos)
 	var true_distance_squared: float = actor_pos.distance_squared_to(current_target.global_position)
 
-	# BUG In order for this to work it has to be same
-	# target desired distance of NavigationAgent3D
-	var in_melee_range: bool = true_distance_squared <= MELEE_RANGE_SQUARED
-	var enemy_nearby: bool = distance_to_last_known_squared < NEARBY_RANGE_SQUARED
-
-	var enemy_alive: bool = current_target.health.current_health > 0.0
-
 	# TODO Find better approach without get
 	var proj_component: ProjectileAttackComponent = _actor.get("projectile_attack_component") as ProjectileAttackComponent
 	var projectile_attack: ProjectileAttack = proj_component.projectile_attack if proj_component != null else null
+
+	# Ranged NPCs flee until beyond their own max range
+	var nearby_range: float = NEARBY_RANGE
+	if projectile_attack != null:
+		nearby_range = maxf(nearby_range, projectile_attack.max_range)
+
+	# BUG In order for this to work it has to be same
+	# target desired distance of NavigationAgent3D
+	var in_melee_range: bool = true_distance_squared <= MELEE_RANGE_SQUARED
+	var enemy_nearby: bool = distance_to_last_known_squared < nearby_range * nearby_range
+	var enemy_alive: bool = current_target.health.current_health > 0.0
+	var enemy_reachable: bool = entity.npc_movement_controller.can_reach(enemy_pos)
+
 	var in_ranged_range: bool = projectile_attack != null and true_distance_squared <= projectile_attack.max_range * projectile_attack.max_range
-	var in_combat: bool = (in_melee_range or in_ranged_range) and enemy_alive
+	var in_combat: bool = (in_melee_range or in_ranged_range) and enemy_alive and enemy_reachable
 
 	_blackboard[GoapKeys.ENEMY_POSITION] = enemy_pos
 	_blackboard[GoapKeys.POSITION] = actor_pos
 	_blackboard[GoapKeys.ENEMY_IN_MELEE_RANGE] = in_melee_range
 	_blackboard[GoapKeys.ENEMY_NEARBY] = enemy_nearby
 	_blackboard[GoapKeys.ENEMY_ALIVE] = enemy_alive
+	_blackboard[GoapKeys.ENEMY_REACHABLE] = enemy_reachable
 	_blackboard[GoapKeys.ENEMY_IN_RANGED_RANGE] = in_ranged_range
 	_blackboard[GoapKeys.IN_COMBAT] = in_combat
 	_blackboard[GoapKeys.LOW_HEALTH] = _is_low_health()

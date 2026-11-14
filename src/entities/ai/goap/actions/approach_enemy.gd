@@ -7,7 +7,7 @@ func get_custom_class_name() -> String:
 
 
 func is_valid(_blackboard: Dictionary) -> bool:
-	return _blackboard[GoapKeys.ENEMY_ALIVE] == true
+	return _blackboard[GoapKeys.ENEMY_ALIVE] == true and _blackboard[GoapKeys.ENEMY_REACHABLE] == true
 
 
 func get_cost(_blackboard: Dictionary) -> int:
