@@ -101,7 +101,7 @@ func _refresh_blackboard() -> void:
 	var enemy_reachable: bool = entity.npc_movement_controller.can_reach(enemy_pos)
 
 	var in_ranged_range: bool = projectile_attack != null and true_distance_squared <= projectile_attack.max_range * projectile_attack.max_range
-	var in_combat: bool = (in_melee_range or in_ranged_range) and enemy_alive and enemy_reachable
+	var in_combat: bool = (in_melee_range or in_ranged_range) and enemy_alive
 
 	_blackboard[GoapKeys.ENEMY_POSITION] = enemy_pos
 	_blackboard[GoapKeys.POSITION] = actor_pos

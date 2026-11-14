@@ -6,22 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="5_48pvm"]
 [ext_resource type="PackedScene" uid="uid://7ugwdowsimwr" path="res://src/environment/levels/assets/platforms/static_platforms/hexagon_stone.tscn" id="6_2tmb3"]
 [ext_resource type="PackedScene" uid="uid://bylcq0tsjv7o4" path="res://src/entities/enemies/skeleton_mage/skeleton_mage.tscn" id="8_2mg1o"]
-[ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="9_osrxr"]
-[ext_resource type="Script" uid="uid://dlbf4w8moqj2j" path="res://src/entities/components/movement.gd" id="10_5mkjx"]
-[ext_resource type="PackedScene" uid="uid://c4jq7s82wru52" path="res://src/entities/vfx/elemental_magic_fx/projectile/fire_projectile.tscn" id="11_0ob4r"]
-[ext_resource type="Script" uid="uid://b14wamm35ys53" path="res://src/entities/components/combat/projectile_attack.gd" id="12_dgbcr"]
-[ext_resource type="Script" uid="uid://dycviide8g017" path="res://src/entities/ai/goap/actions/chase_enemy.gd" id="13_4520b"]
-[ext_resource type="Script" uid="uid://b83mgqwni7j8x" path="res://src/entities/ai/goap/actions/approach_enemy.gd" id="14_qniw8"]
 [ext_resource type="Script" uid="uid://cd8isclluq4nq" path="res://src/entities/ai/goap/actions/magic_attack.gd" id="15_17lco"]
-[ext_resource type="Script" uid="uid://djjmno7kihjpr" path="res://src/entities/ai/goap/actions/wander.gd" id="16_iyue6"]
-[ext_resource type="Script" uid="uid://v5kimqljxjc2" path="res://src/entities/ai/goap/actions/flee_from_enemy.gd" id="17_bkt38"]
 [ext_resource type="Script" uid="uid://o8dqx6i7woqt" path="res://src/entities/ai/goap/goals/kill_enemy.gd" id="18_keii4"]
-[ext_resource type="Script" uid="uid://8ib48sr624k3" path="res://src/entities/ai/goap/goals/wander.gd" id="19_81m0y"]
-[ext_resource type="Script" uid="uid://b7v4ao8jga5rg" path="res://src/entities/ai/goap/goals/flee.gd" id="20_bq2xu"]
 [ext_resource type="Script" uid="uid://bj2xml7lbt3ld" path="res://src/entities/ai/goap/goals/enemy_in_ranged_range.gd" id="21_bnj4v"]
 [ext_resource type="Script" uid="uid://bvvk88q345vy4" path="res://src/entities/ai/goap/helpers/ai_config.gd" id="22_km4k4"]
 [ext_resource type="PackedScene" uid="uid://bq40gaxcv13ml" path="res://src/environment/assets/kaykit_medieval_hexagon/asset_scenes/wall_straight_gate.tscn" id="23_5mkjx"]
-[ext_resource type="Script" uid="uid://cxqsapbic2imr" path="res://src/entities/components/combat/attack.gd" id="23_osrxr"]
 [ext_resource type="PackedScene" uid="uid://cfm0nge5vjc0d" path="res://src/environment/mechanics/collectible/unlock_skill/unlock_skill.tscn" id="24_0ob4r"]
 [ext_resource type="PackedScene" uid="uid://b1ng4j32ylvr1" path="res://src/environment/assets/kaykit_medieval_hexagon/asset_scenes/wall_straight.tscn" id="24_5mkjx"]
 [ext_resource type="Resource" uid="uid://bqq32jxlbtgpc" path="res://src/entities/player/skills/active_skills/fireball.tres" id="25_dgbcr"]
@@ -29,188 +18,8 @@
 
 [sub_resource type="Resource" id="Resource_jkhx3"]
 script = ExtResource("22_km4k4")
-available_actions = Array[Script]([ExtResource("13_4520b"), ExtResource("14_qniw8"), ExtResource("15_17lco"), ExtResource("16_iyue6"), ExtResource("17_bkt38")])
-available_goals = Array[Script]([ExtResource("18_keii4"), ExtResource("19_81m0y"), ExtResource("20_bq2xu"), ExtResource("21_bnj4v")])
-
-[sub_resource type="Resource" id="Resource_5mkjx"]
-resource_local_to_scene = true
-script = ExtResource("23_osrxr")
-type = 1
-damage = 20
-metadata/_custom_type_script = "uid://cxqsapbic2imr"
-
-[sub_resource type="Resource" id="Resource_0ob4r"]
-resource_local_to_scene = true
-script = ExtResource("9_osrxr")
-max_health = 10
-health_regen = 2.0
-metadata/_custom_type_script = "uid://njkofl5g11k7"
-
-[sub_resource type="Resource" id="Resource_osrxr"]
-script = ExtResource("10_5mkjx")
-_speed = 3.0
-metadata/_custom_type_script = "uid://dlbf4w8moqj2j"
-
-[sub_resource type="Resource" id="Resource_evelk"]
-script = ExtResource("12_dgbcr")
-projectile_scene = ExtResource("11_0ob4r")
-type = 2
-damage = 30
-metadata/_custom_type_script = "uid://b14wamm35ys53"
-
-[sub_resource type="Resource" id="Resource_dgbcr"]
-resource_local_to_scene = true
-script = ExtResource("23_osrxr")
-type = 1
-damage = 20
-metadata/_custom_type_script = "uid://cxqsapbic2imr"
-
-[sub_resource type="Resource" id="Resource_4520b"]
-resource_local_to_scene = true
-script = ExtResource("9_osrxr")
-max_health = 10
-health_regen = 2.0
-metadata/_custom_type_script = "uid://njkofl5g11k7"
-
-[sub_resource type="Resource" id="Resource_qniw8"]
-resource_local_to_scene = true
-script = ExtResource("23_osrxr")
-type = 1
-damage = 20
-metadata/_custom_type_script = "uid://cxqsapbic2imr"
-
-[sub_resource type="Resource" id="Resource_17lco"]
-resource_local_to_scene = true
-script = ExtResource("9_osrxr")
-max_health = 10
-health_regen = 2.0
-metadata/_custom_type_script = "uid://njkofl5g11k7"
-
-[sub_resource type="Resource" id="Resource_iyue6"]
-resource_local_to_scene = true
-script = ExtResource("23_osrxr")
-type = 1
-damage = 20
-metadata/_custom_type_script = "uid://cxqsapbic2imr"
-
-[sub_resource type="Resource" id="Resource_bkt38"]
-resource_local_to_scene = true
-script = ExtResource("9_osrxr")
-max_health = 10
-health_regen = 2.0
-metadata/_custom_type_script = "uid://njkofl5g11k7"
-
-[sub_resource type="Resource" id="Resource_keii4"]
-resource_local_to_scene = true
-script = ExtResource("23_osrxr")
-type = 1
-damage = 20
-metadata/_custom_type_script = "uid://cxqsapbic2imr"
-
-[sub_resource type="Resource" id="Resource_81m0y"]
-resource_local_to_scene = true
-script = ExtResource("9_osrxr")
-max_health = 10
-health_regen = 2.0
-metadata/_custom_type_script = "uid://njkofl5g11k7"
-
-[sub_resource type="Resource" id="Resource_bq2xu"]
-resource_local_to_scene = true
-script = ExtResource("23_osrxr")
-type = 1
-damage = 20
-metadata/_custom_type_script = "uid://cxqsapbic2imr"
-
-[sub_resource type="Resource" id="Resource_bnj4v"]
-resource_local_to_scene = true
-script = ExtResource("9_osrxr")
-max_health = 10
-health_regen = 2.0
-metadata/_custom_type_script = "uid://njkofl5g11k7"
-
-[sub_resource type="Resource" id="Resource_km4k4"]
-resource_local_to_scene = true
-script = ExtResource("23_osrxr")
-type = 1
-damage = 20
-metadata/_custom_type_script = "uid://cxqsapbic2imr"
-
-[sub_resource type="Resource" id="Resource_cbfif"]
-resource_local_to_scene = true
-script = ExtResource("9_osrxr")
-max_health = 10
-health_regen = 2.0
-metadata/_custom_type_script = "uid://njkofl5g11k7"
-
-[sub_resource type="Resource" id="Resource_i0hj8"]
-resource_local_to_scene = true
-script = ExtResource("23_osrxr")
-type = 1
-damage = 20
-metadata/_custom_type_script = "uid://cxqsapbic2imr"
-
-[sub_resource type="Resource" id="Resource_qkjba"]
-resource_local_to_scene = true
-script = ExtResource("9_osrxr")
-max_health = 10
-health_regen = 2.0
-metadata/_custom_type_script = "uid://njkofl5g11k7"
-
-[sub_resource type="Resource" id="Resource_j5v42"]
-resource_local_to_scene = true
-script = ExtResource("23_osrxr")
-type = 1
-damage = 20
-metadata/_custom_type_script = "uid://cxqsapbic2imr"
-
-[sub_resource type="Resource" id="Resource_prhb7"]
-resource_local_to_scene = true
-script = ExtResource("9_osrxr")
-max_health = 10
-health_regen = 2.0
-metadata/_custom_type_script = "uid://njkofl5g11k7"
-
-[sub_resource type="Resource" id="Resource_13f0g"]
-resource_local_to_scene = true
-script = ExtResource("23_osrxr")
-type = 1
-damage = 20
-metadata/_custom_type_script = "uid://cxqsapbic2imr"
-
-[sub_resource type="Resource" id="Resource_opsm2"]
-resource_local_to_scene = true
-script = ExtResource("9_osrxr")
-max_health = 10
-health_regen = 2.0
-metadata/_custom_type_script = "uid://njkofl5g11k7"
-
-[sub_resource type="Resource" id="Resource_qls03"]
-resource_local_to_scene = true
-script = ExtResource("23_osrxr")
-type = 1
-damage = 20
-metadata/_custom_type_script = "uid://cxqsapbic2imr"
-
-[sub_resource type="Resource" id="Resource_hhctj"]
-resource_local_to_scene = true
-script = ExtResource("9_osrxr")
-max_health = 10
-health_regen = 2.0
-metadata/_custom_type_script = "uid://njkofl5g11k7"
-
-[sub_resource type="Resource" id="Resource_ae2es"]
-resource_local_to_scene = true
-script = ExtResource("23_osrxr")
-type = 1
-damage = 20
-metadata/_custom_type_script = "uid://cxqsapbic2imr"
-
-[sub_resource type="Resource" id="Resource_7cmvk"]
-resource_local_to_scene = true
-script = ExtResource("9_osrxr")
-max_health = 10
-health_regen = 2.0
-metadata/_custom_type_script = "uid://njkofl5g11k7"
+available_actions = Array[Script]([ExtResource("15_17lco")])
+available_goals = Array[Script]([ExtResource("18_keii4"), ExtResource("21_bnj4v")])
 
 [sub_resource type="Resource" id="Resource_webur"]
 script = ExtResource("26_4520b")
@@ -254,20 +63,12 @@ transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
-attack = SubResource("Resource_5mkjx")
-health = SubResource("Resource_0ob4r")
-movement = SubResource("Resource_osrxr")
-projectile_attack = SubResource("Resource_evelk")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/LeftSideEntrance/WallStraight" unique_id=1062805800 instance=ExtResource("8_2mg1o")]
 transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, 0.46331525, 0.8999814, 1.4305115e-06)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
-attack = SubResource("Resource_dgbcr")
-health = SubResource("Resource_4520b")
-movement = SubResource("Resource_osrxr")
-projectile_attack = SubResource("Resource_evelk")
 
 [node name="WallStraight2" parent="HexagonStonePlatform/LeftSideEntrance" unique_id=2110368786 instance=ExtResource("24_5mkjx")]
 transform = Transform3D(0.1371159, 0, -4.998119, 0, 5.000002, 0, 4.998119, 0, 0.1371159, 11.514812, 1.82, 19.657322)
@@ -277,20 +78,12 @@ transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
-attack = SubResource("Resource_qniw8")
-health = SubResource("Resource_17lco")
-movement = SubResource("Resource_osrxr")
-projectile_attack = SubResource("Resource_evelk")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/LeftSideEntrance/WallStraight2" unique_id=69921404 instance=ExtResource("8_2mg1o")]
 transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, 0.46331525, 0.8999814, 1.4305115e-06)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
-attack = SubResource("Resource_iyue6")
-health = SubResource("Resource_bkt38")
-movement = SubResource("Resource_osrxr")
-projectile_attack = SubResource("Resource_evelk")
 
 [node name="WallStraight3" parent="HexagonStonePlatform/LeftSideEntrance" unique_id=778881268 instance=ExtResource("24_5mkjx")]
 transform = Transform3D(0.1371159, 0, -4.998119, 0, 5.000002, 0, 4.998119, 0, 0.1371159, 11.774687, 1.82, 28.801544)
@@ -300,20 +93,12 @@ transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
-attack = SubResource("Resource_keii4")
-health = SubResource("Resource_81m0y")
-movement = SubResource("Resource_osrxr")
-projectile_attack = SubResource("Resource_evelk")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/LeftSideEntrance/WallStraight3" unique_id=1439446807 instance=ExtResource("8_2mg1o")]
 transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, 0.46331525, 0.8999814, 1.4305115e-06)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
-attack = SubResource("Resource_bq2xu")
-health = SubResource("Resource_bnj4v")
-movement = SubResource("Resource_osrxr")
-projectile_attack = SubResource("Resource_evelk")
 
 [node name="RightSideEntrance" type="Node3D" parent="HexagonStonePlatform" unique_id=1235808926]
 transform = Transform3D(-0.18317977, 0, -0.08028184, 0, 0.19999999, 0, 0.08028184, 0, -0.18317977, 1.0399156, 0, 1.708457)
@@ -326,20 +111,12 @@ transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
-attack = SubResource("Resource_km4k4")
-health = SubResource("Resource_cbfif")
-movement = SubResource("Resource_osrxr")
-projectile_attack = SubResource("Resource_evelk")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/RightSideEntrance/WallStraight" unique_id=433004801 instance=ExtResource("8_2mg1o")]
 transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, 0.46331525, 0.8999814, 1.4305115e-06)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
-attack = SubResource("Resource_i0hj8")
-health = SubResource("Resource_qkjba")
-movement = SubResource("Resource_osrxr")
-projectile_attack = SubResource("Resource_evelk")
 
 [node name="WallStraight2" parent="HexagonStonePlatform/RightSideEntrance" unique_id=839888143 instance=ExtResource("24_5mkjx")]
 transform = Transform3D(0.1371159, 0, -4.998119, 0, 5.000002, 0, 4.998119, 0, 0.1371159, 11.514812, 1.82, 19.657322)
@@ -349,20 +126,12 @@ transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
-attack = SubResource("Resource_j5v42")
-health = SubResource("Resource_prhb7")
-movement = SubResource("Resource_osrxr")
-projectile_attack = SubResource("Resource_evelk")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/RightSideEntrance/WallStraight2" unique_id=1908138671 instance=ExtResource("8_2mg1o")]
 transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, 0.46331525, 0.8999814, 1.4305115e-06)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
-attack = SubResource("Resource_13f0g")
-health = SubResource("Resource_opsm2")
-movement = SubResource("Resource_osrxr")
-projectile_attack = SubResource("Resource_evelk")
 
 [node name="WallStraight3" parent="HexagonStonePlatform/RightSideEntrance" unique_id=1348531623 instance=ExtResource("24_5mkjx")]
 transform = Transform3D(0.1371159, 0, -4.998119, 0, 5.000002, 0, 4.998119, 0, 0.1371159, 11.774687, 1.82, 28.801544)
@@ -372,20 +141,12 @@ transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
-attack = SubResource("Resource_qls03")
-health = SubResource("Resource_hhctj")
-movement = SubResource("Resource_osrxr")
-projectile_attack = SubResource("Resource_evelk")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/RightSideEntrance/WallStraight3" unique_id=1057162096 instance=ExtResource("8_2mg1o")]
 transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, 0.46331525, 0.8999814, 1.4305115e-06)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
-attack = SubResource("Resource_ae2es")
-health = SubResource("Resource_7cmvk")
-movement = SubResource("Resource_osrxr")
-projectile_attack = SubResource("Resource_evelk")
 
 [node name="WallStraightGateOpen" parent="HexagonStonePlatform" unique_id=1102864882 instance=ExtResource("23_5mkjx")]
 transform = Transform3D(1.8589536, 0, 0.73776215, 0, 2, 0, -0.73776215, 0, 1.8589536, 0.576658, 0, 1.315763)
