@@ -16,6 +16,7 @@ enum Feature {
 	SPIKES = 10,
 	GIGANTIFY = 11,
 	SHRINK = 12,
+	CONVEYOR_BELT = 13,
 }
 
 const FEATURE_NAME: Dictionary = {
@@ -32,4 +33,5 @@ const FEATURE_NAME: Dictionary = {
 	Feature.SPIKES: &"spikes",
 	Feature.GIGANTIFY: &"gigantify",
 	Feature.SHRINK: &"shrink",
+	Feature.CONVEYOR_BELT: &"conveyor_belt",
 }
