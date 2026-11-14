@@ -46,8 +46,9 @@ func _refresh_blackboard() -> void:
 	if not is_instance_valid(_actor):
 		return
 
-	var perception: PerceptionSystem = _actor.get("perception_system")
+	var perception: PerceptionSystem = _actor.perception_system
 	if not perception:
+		push_warning("Perception missing for " + _actor.name)
 		return
 
 	var best_target_data: KnownEntityData = perception.get_best_target_data()
