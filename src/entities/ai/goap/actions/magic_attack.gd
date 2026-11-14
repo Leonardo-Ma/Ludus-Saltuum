@@ -29,7 +29,6 @@ func get_effects() -> Dictionary:
 func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 	var entity: NPCEntity = _actor
 
-	# BUG This asserts only when trying to attack
 	assert(entity and entity.projectile_attack_component, "projectile_attack_component missing in " + _actor.name)
 	entity.npc_movement_controller.stop()
 	entity.goap_controller.force_refresh_blackboard()

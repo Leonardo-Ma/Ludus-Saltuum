@@ -84,8 +84,7 @@ func _refresh_blackboard() -> void:
 	var distance_to_last_known_squared: float = actor_pos.distance_squared_to(enemy_pos)
 	var true_distance_squared: float = actor_pos.distance_squared_to(current_target.global_position)
 
-	# TODO Find better approach without get
-	var proj_component: ProjectileAttackComponent = _actor.get("projectile_attack_component") as ProjectileAttackComponent
+	var proj_component: ProjectileAttackComponent = entity.projectile_attack_component
 	var projectile_attack: ProjectileAttack = proj_component.projectile_attack if proj_component != null else null
 
 	# Ranged NPCs flee until beyond their own max range

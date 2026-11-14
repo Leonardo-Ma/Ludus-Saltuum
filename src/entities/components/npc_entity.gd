@@ -29,7 +29,7 @@ var _brain: NPCBrainController
 @onready var perception_system: PerceptionSystem = %PerceptionSystem
 
 # TODO Decouple from here, GOAP requires a reference from entity
-@onready var projectile_attack_component: ProjectileAttackComponent
+@export var projectile_attack_component: ProjectileAttackComponent
 
 
 func _physics_process(delta: float) -> void:
@@ -45,9 +45,10 @@ func _child_ready() -> void:
 	assert(npc_movement_controller, "NPCMovementController missing for " + name)
 	assert(perception_system, "Perception system missing for " + name)
 
-	# TODO Remove magic string, but still need entity level reference for GOAP
-	if $%ProjectileAttackComponent:
-		projectile_attack_component = %ProjectileAttackComponent
+	assert(
+		projectile_attack_component != null or not ai_config.available_actions.has(MagicAttack),
+		"ProjectileAttackComponent must be assigned for MagicAttack action to work for " + name,
+	)
 
 	if not is_procedurally_spawned:
 		assert(static_id != &"", "Enemy static_id not set on non-procedural instance " + name)

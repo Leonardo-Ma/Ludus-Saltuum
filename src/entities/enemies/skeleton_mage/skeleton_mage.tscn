@@ -716,8 +716,9 @@ script = ExtResource("3_htfkf")
 speed = 2.5
 metadata/_custom_type_script = "uid://dlbf4w8moqj2j"
 
-[node name="SkeletonMage" unique_id=280064195 instance=ExtResource("1_virfw")]
+[node name="SkeletonMage" unique_id=280064195 node_paths=PackedStringArray("projectile_attack_component") instance=ExtResource("1_virfw")]
 ai_config = SubResource("Resource_bdim5")
+projectile_attack_component = NodePath("Components/ProjectileAttackComponent")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1" unique_id=1945772632]
 unique_name_in_owner = true
