@@ -21,6 +21,8 @@ signal magic_casted
 # TODO BUG Find better way to implement this, other places use this reference from player
 @onready var attack: Attack = %AttackComponent.attack
 
+@onready var attack_component: AttackComponent = %AttackComponent
+
 @onready var _lifecycle: EntityLifecycleController = %EntityLifecycleController
 @onready var _damage_feedback: EntityDamageFeedback = %EntityDamageFeedback
 @onready var _combat_audio: EntityCombatAudio = %EntityCombatAudio

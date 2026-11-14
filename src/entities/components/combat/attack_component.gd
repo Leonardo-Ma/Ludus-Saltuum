@@ -8,6 +8,16 @@ extends Node
 
 @export var attack: Attack
 
+var _cooldown_timer: SceneTreeTimer = null
+
 
 func _ready() -> void:
 	assert(attack and attack.damage > 0, "Attack not properly configured for " + owner.name)
+
+
+func can_attack() -> bool:
+	return _cooldown_timer == null or _cooldown_timer.time_left <= 0.0
+
+
+func start_cooldown() -> void:
+	_cooldown_timer = get_tree().create_timer(attack.rate, false)

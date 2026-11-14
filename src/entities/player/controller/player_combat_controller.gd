@@ -12,18 +12,25 @@ func _ready() -> void:
 
 
 func _initialize() -> void:
-	_player = owner as PlayerEntity
-	assert(_player != null, "PlayerEntity owner missing for " + name)
+	_player = owner
+	assert(_player, "PlayerEntity owner missing for " + name)
 
 	_initialized = true
 	# Receives from input controller, goes to animation controller for attack
-	owner.input_controller.attack_pressed.connect(owner.melee_attacked.emit)
+	_player.input_controller.attack_pressed.connect(_on_attack_pressed)
 
-	owner.health.damaged.connect(_on_damaged_vibration)
+	_player.health.damaged.connect(_on_damaged_vibration)
 	# TODO Also disable input controller, player can attack between death and respawn
-	owner.health.died.connect(owner.player_movement_controller.disable_movement.bind(INF))
+	_player.health.died.connect(_player.player_movement_controller.disable_movement.bind(INF))
 
 
 func _on_damaged_vibration(_attack: Attack) -> void:
 	# TODO Change the gamepad index to the current player gamepad?
 	Input.start_joy_vibration(0, 0.5, 0.5, 0.7)
+
+
+func _on_attack_pressed() -> void:
+	if not _player.attack_component.can_attack():
+		return
+	_player.attack_component.start_cooldown()
+	_player.melee_attacked.emit()

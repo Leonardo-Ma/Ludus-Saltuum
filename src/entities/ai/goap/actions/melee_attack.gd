@@ -1,9 +1,6 @@
 class_name MeleeAttack
 extends GoapAction
 
-const ATTACK_COOLDOWN: float = 1.8
-var _cooldown_timer: SceneTreeTimer = null
-
 
 func get_custom_class_name() -> String:
 	return "MeleeAttack"
@@ -39,8 +36,9 @@ func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 		var target_rotation_y: float = atan2(direction.x, direction.z)
 		entity.global_rotation.y = lerp_angle(entity.global_rotation.y, target_rotation_y, 10.0 * _delta)
 
-	if _cooldown_timer == null or _cooldown_timer.time_left <= 0.0:
+	if entity.attack_component.can_attack():
+		entity.attack_component.start_cooldown()
 		entity.melee_attacked.emit()
-		_cooldown_timer = entity.get_tree().create_timer(ATTACK_COOLDOWN, false)
 		return true
+
 	return false
