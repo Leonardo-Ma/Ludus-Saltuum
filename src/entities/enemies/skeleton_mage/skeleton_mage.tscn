@@ -19,11 +19,12 @@
 [ext_resource type="AnimationLibrary" uid="uid://d0b53v2ggy8ma" path="res://src/entities/animation/libraries/magic.res" id="15_l2qw7"]
 [ext_resource type="Script" uid="uid://bvvk88q345vy4" path="res://src/entities/ai/goap/helpers/ai_config.gd" id="15_xccq2"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://basam7g1dbev2" path="res://src/entities/animation/libraries/base_medium_animation_blend_tree.tres" id="18_njikp"]
+[ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="19_bdim5"]
 [ext_resource type="Script" uid="uid://dm8nwmbpvtayk" path="res://src/entities/components/combat/projectile_attack_component.gd" id="19_r2me2"]
 [ext_resource type="PackedScene" uid="uid://c4jq7s82wru52" path="res://src/entities/vfx/elemental_magic_fx/projectile/fire_projectile.tscn" id="20_bdim5"]
 [ext_resource type="Script" uid="uid://b14wamm35ys53" path="res://src/entities/components/combat/projectile_attack.gd" id="20_htfkf"]
 
-[sub_resource type="Resource" id="Resource_bdim5"]
+[sub_resource type="Resource" id="Resource_mroeu"]
 script = ExtResource("15_xccq2")
 available_actions = Array[Script]([ExtResource("7_kpxjl"), ExtResource("7_njikp"), ExtResource("6_jikcy"), ExtResource("9_ug76y"), ExtResource("10_8y3hd")])
 available_goals = Array[Script]([ExtResource("12_q3avm"), ExtResource("13_ai8h2"), ExtResource("14_wex8l"), ExtResource("10_sss5e")])
@@ -704,6 +705,11 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
+[sub_resource type="Resource" id="Resource_1itw8"]
+script = ExtResource("19_bdim5")
+max_health = 20
+metadata/_custom_type_script = "uid://njkofl5g11k7"
+
 [sub_resource type="Resource" id="Resource_htfkf"]
 script = ExtResource("20_htfkf")
 projectile_scene = ExtResource("20_bdim5")
@@ -717,7 +723,7 @@ speed = 2.5
 metadata/_custom_type_script = "uid://dlbf4w8moqj2j"
 
 [node name="SkeletonMage" unique_id=280064195 node_paths=PackedStringArray("projectile_attack_component") instance=ExtResource("1_virfw")]
-ai_config = SubResource("Resource_bdim5")
+ai_config = SubResource("Resource_mroeu")
 projectile_attack_component = NodePath("Components/ProjectileAttackComponent")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1" unique_id=1945772632]
@@ -1017,6 +1023,9 @@ skeleton = NodePath("..")
 mesh = SubResource("ArrayMesh_ik065")
 skin = SubResource("Skin_sk468")
 skeleton = NodePath("..")
+
+[node name="HealthComponent" parent="Components" parent_id_path=PackedInt32Array(2054122343) index="0" unique_id=97775302]
+health = SubResource("Resource_1itw8")
 
 [node name="ProjectileAttackComponent" type="Node" parent="Components" parent_id_path=PackedInt32Array(2054122343) index="2" unique_id=1030829192]
 unique_name_in_owner = true
