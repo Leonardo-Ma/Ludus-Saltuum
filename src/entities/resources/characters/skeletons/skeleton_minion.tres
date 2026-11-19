@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CharacterEntityAsset" format=3 uid="uid://dcu2uc3vvt52y"]
+
+[ext_resource type="PackedScene" uid="uid://c81n48n8q1h51" path="res://src/entities/meshes/characters/skeletons/skeleton_minion.glb" id="1_ttn8f"]
+[ext_resource type="Script" uid="uid://dxpdc7nvj48k7" path="res://src/entities/data/character_entity_asset.gd" id="2_7hp1o"]
+
+[resource]
+script = ExtResource("2_7hp1o")
+character_mesh = ExtResource("1_ttn8f")
+character_type = 2
+cosmetic_id = &"character.skeleton_minion"
+display_name = "Skeleton Minion"
+metadata/_custom_type_script = "uid://dxpdc7nvj48k7"

@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://b7v4ao8jga5rg" path="res://src/entities/ai/goap/goals/flee.gd" id="14_wex8l"]
 [ext_resource type="AnimationLibrary" uid="uid://d0b53v2ggy8ma" path="res://src/entities/animation/libraries/magic.res" id="15_l2qw7"]
 [ext_resource type="Script" uid="uid://bvvk88q345vy4" path="res://src/entities/ai/goap/helpers/ai_config.gd" id="15_xccq2"]
+[ext_resource type="Resource" uid="uid://bw0sadv5k72uq" path="res://src/entities/resources/characters/skeletons/skeleton_mage.tres" id="18_bdim5"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://basam7g1dbev2" path="res://src/entities/animation/libraries/base_medium_animation_blend_tree.tres" id="18_njikp"]
 [ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="19_bdim5"]
 [ext_resource type="Script" uid="uid://dm8nwmbpvtayk" path="res://src/entities/components/combat/projectile_attack_component.gd" id="19_r2me2"]
@@ -506,6 +507,9 @@ parameters/stance/current_index = 0
 parameters/stance/observer = null
 parameters/crouch_movement/blend_position = Vector2(0, 0)
 parameters/crouch_movement/observer = null
+
+[node name="Visual" parent="." index="3" unique_id=1937025669]
+_initial_character = ExtResource("18_bdim5")
 
 [node name="HealthComponent" parent="Components" parent_id_path=PackedInt32Array(2054122343) index="0" unique_id=97775302]
 health = SubResource("Resource_1itw8")

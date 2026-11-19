@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CharacterEntityAsset" format=3 uid="uid://dcwkh704kcpcc"]
+
+[ext_resource type="PackedScene" uid="uid://dgxwvgbvef83k" path="res://src/entities/meshes/characters/skeletons/skeleton_rogue.glb" id="1_et31l"]
+[ext_resource type="Script" uid="uid://dxpdc7nvj48k7" path="res://src/entities/data/character_entity_asset.gd" id="2_vpd6l"]
+
+[resource]
+script = ExtResource("2_vpd6l")
+character_mesh = ExtResource("1_et31l")
+character_type = 2
+cosmetic_id = &"character.skeleton_rogue"
+display_name = "Skeleton Rogue"
+metadata/_custom_type_script = "uid://dxpdc7nvj48k7"

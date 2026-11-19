@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CharacterEntityAsset" format=3 uid="uid://dxa8deeer5g41"]
+
+[ext_resource type="PackedScene" uid="uid://b5egp2g6uxrmn" path="res://src/entities/meshes/characters/skeletons/necromancer.glb" id="1_mvqbd"]
+[ext_resource type="Script" uid="uid://dxpdc7nvj48k7" path="res://src/entities/data/character_entity_asset.gd" id="2_fmomc"]
+
+[resource]
+script = ExtResource("2_fmomc")
+character_mesh = ExtResource("1_mvqbd")
+character_type = 2
+cosmetic_id = &"character.skeleton_necromancer"
+display_name = "Skeleton Necromancer"
+metadata/_custom_type_script = "uid://dxpdc7nvj48k7"
