@@ -1,3 +1,4 @@
+@tool
 class_name CharacterVisual
 extends Node3D
 
@@ -5,31 +6,55 @@ extends Node3D
 
 signal meshes_replaced
 
+const _EDITOR_PREVIEW_META: StringName = &"_character_visual_preview"
+
+## Optional for entities without cosmetics, such as enemies
+@export var _initial_character: CharacterEntityAsset:
+	set(value):
+		_initial_character = value
+
+		if Engine.is_editor_hint() and is_node_ready():
+			_refresh_editor_preview()
+
 @onready var _skeleton: Skeleton3D = %Skeleton3D
-@onready var _cosmetics_controller: CosmeticsController = %CosmeticsController
 
 
 func _ready() -> void:
-	_cosmetics_controller.equipped_changed.connect(_on_equipped_changed)
-	_on_equipped_changed(_cosmetics_controller.get_equipped_asset(CosmeticAsset.Slot.CHARACTER))
+	if Engine.is_editor_hint():
+		_refresh_editor_preview()
+	else:
+		assert(_initial_character)
+		replace_character_visual(_initial_character.character_mesh)
 
 
-func _on_equipped_changed(asset: CosmeticAsset) -> void:
-	var character_asset: CharacterEntityAsset = asset as CharacterEntityAsset
-	if character_asset == null:
+func _refresh_editor_preview() -> void:
+	_clear_editor_preview()
+
+	if _initial_character == null or _initial_character.character_mesh == null:
 		return
 
-	replace_character_visual(character_asset.character_mesh)
+	_replace_character_visual(_initial_character.character_mesh, true)
+
+
+func _clear_editor_preview() -> void:
+	for child: Node in _skeleton.get_children():
+		if child is MeshInstance3D and child.has_meta(_EDITOR_PREVIEW_META):
+			_skeleton.remove_child(child)
+			child.free()
 
 
 func replace_character_visual(character_scene: PackedScene) -> void:
-	assert(character_scene != null, "Character scene missing in " + name)
+	_replace_character_visual(character_scene, false)
+
+
+func _replace_character_visual(character_scene: PackedScene, editor_preview: bool) -> void:
+	assert(character_scene, "Character scene missing in " + name)
 
 	var character_instance: Node3D = character_scene.instantiate() as Node3D
-	assert(character_instance != null, "Character scene root must be Node3D in " + name)
+	assert(character_instance, "Character scene root must be Node3D in " + name)
 
 	var source_skeleton: Skeleton3D = character_instance.get_node("Rig_Medium/Skeleton3D") as Skeleton3D
-	assert(source_skeleton != null, "Skeleton3D missing in " + character_instance.name)
+	assert(source_skeleton, "Skeleton3D missing in " + character_instance.name)
 
 	_validate_skeleton(source_skeleton)
 
@@ -40,18 +65,19 @@ func replace_character_visual(character_scene: PackedScene) -> void:
 
 	assert(not new_meshes.is_empty(), "Character has no meshes in " + character_instance.name)
 
-	for mesh: MeshInstance3D in new_meshes:
-		if mesh.skin != null:
-			_remap_skin(mesh.skin, source_skeleton)
-
 	var previous_meshes: Array[MeshInstance3D] = []
 	for child: Node in _skeleton.get_children():
 		if child is MeshInstance3D:
-			previous_meshes.append(child as MeshInstance3D)
+			if not editor_preview or child.has_meta(_EDITOR_PREVIEW_META):
+				previous_meshes.append(child as MeshInstance3D)
 
 	for mesh: MeshInstance3D in previous_meshes:
 		_skeleton.remove_child(mesh)
-		mesh.queue_free()
+
+		if editor_preview:
+			mesh.free()
+		else:
+			mesh.queue_free()
 
 	for mesh: MeshInstance3D in new_meshes:
 		if mesh.skin != null:
@@ -62,8 +88,16 @@ func replace_character_visual(character_scene: PackedScene) -> void:
 		_skeleton.add_child(mesh)
 		mesh.skeleton = mesh.get_path_to(_skeleton)
 
-	character_instance.queue_free()
-	meshes_replaced.emit()
+		if editor_preview:
+			mesh.set_meta(_EDITOR_PREVIEW_META, true)
+
+	if editor_preview:
+		character_instance.free()
+	else:
+		character_instance.queue_free()
+
+	if not editor_preview:
+		meshes_replaced.emit()
 
 
 func _validate_skeleton(source_skeleton: Skeleton3D) -> void:

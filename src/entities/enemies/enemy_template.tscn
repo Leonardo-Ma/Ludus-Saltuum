@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://b7v4ao8jga5rg" path="res://src/entities/ai/goap/goals/flee.gd" id="14_ejhyg"]
 [ext_resource type="Script" uid="uid://o8dqx6i7woqt" path="res://src/entities/ai/goap/goals/kill_enemy.gd" id="14_ia32q"]
 [ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="14_n1si8"]
+[ext_resource type="PackedScene" uid="uid://vimkn28kx0tr" path="res://src/entities/base_humanoid_character_rig.tscn" id="14_qurdx"]
 [ext_resource type="Script" uid="uid://dlbf4w8moqj2j" path="res://src/entities/components/movement.gd" id="15_8icye"]
 [ext_resource type="Script" uid="uid://8ib48sr624k3" path="res://src/entities/ai/goap/goals/wander.gd" id="15_tur1j"]
 [ext_resource type="Script" uid="uid://bvvk88q345vy4" path="res://src/entities/ai/goap/helpers/ai_config.gd" id="16_iqbar"]
@@ -44,8 +45,9 @@ script = ExtResource("16_iqbar")
 available_actions = Array[Script]([ExtResource("9_i57bl"), ExtResource("10_2ajce"), ExtResource("11_lrta4"), ExtResource("10_d3c46")])
 available_goals = Array[Script]([ExtResource("13_hwngx"), ExtResource("14_ia32q"), ExtResource("15_tur1j"), ExtResource("14_ejhyg")])
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wefi8"]
-height = 1.9296875
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qurdx"]
+height = 1.0117772
+radius = 0.24023438
 
 [sub_resource type="Resource" id="Resource_n1si8"]
 script = ExtResource("14_n1si8")
@@ -61,12 +63,12 @@ metadata/_custom_type_script = "uid://cxqsapbic2imr"
 script = ExtResource("15_8icye")
 metadata/_custom_type_script = "uid://dlbf4w8moqj2j"
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_4bfx7"]
-size = Vector3(1, 1.4, 1.4268188)
+[sub_resource type="BoxShape3D" id="BoxShape3D_to0xg"]
+size = Vector3(1, 1.083667, 0.562427)
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_7mh1l"]
-height = 1.47117
-radius = 0.3
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_aulef"]
+height = 1.2686714
+radius = 0.24023438
 
 [node name="AggressiveEntity" type="CharacterBody3D" unique_id=280064195]
 collision_layer = 4
@@ -75,17 +77,17 @@ script = ExtResource("1_cqc8c")
 perception_config = SubResource("Resource_k6n52")
 ai_config = SubResource("Resource_f7hab")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1263244351]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2093385500]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.94727004, 0)
-shape = SubResource("CapsuleShape3D_wefi8")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.542, 0)
+shape = SubResource("CylinderShape3D_qurdx")
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=905057315]
 unique_name_in_owner = true
 deterministic = false
 script = ExtResource("17_ejhyg")
 
-[node name="Visual" type="Node3D" parent="." unique_id=977755737]
+[node name="Visual" parent="." unique_id=1937025669 instance=ExtResource("14_qurdx")]
 unique_name_in_owner = true
 
 [node name="Components" type="Node" parent="." unique_id=2054122343]
@@ -144,27 +146,6 @@ debug_enabled = true
 unique_name_in_owner = true
 script = ExtResource("23_o0y4x")
 
-[node name="Hitbox" type="Area3D" parent="." unique_id=998701689]
-unique_name_in_owner = true
-collision_layer = 32768
-collision_mask = 0
-script = ExtResource("24_sx6k8")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=186970168]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0167861, 0.793203, 1.3786688)
-shape = SubResource("BoxShape3D_4bfx7")
-disabled = true
-
-[node name="Hurtbox" type="Area3D" parent="." unique_id=2035338296]
-unique_name_in_owner = true
-collision_layer = 0
-collision_mask = 32768
-script = ExtResource("25_ljr68")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=1446340234]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00218695, 0.771088, -0.02247)
-shape = SubResource("CylinderShape3D_7mh1l")
-
 [node name="Label3D" type="Label3D" parent="." unique_id=2037298063]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 2.9496033, 0)
 billboard = 1
@@ -172,3 +153,26 @@ double_sided = false
 font_size = 24
 outline_size = 8
 script = ExtResource("26_5e42j")
+
+[node name="Hitbox" type="Area3D" parent="." unique_id=744692812]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+collision_layer = 32768
+collision_mask = 0
+monitoring = false
+script = ExtResource("24_sx6k8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=669871644]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.017, 0.635, -0.819)
+shape = SubResource("BoxShape3D_to0xg")
+disabled = true
+
+[node name="Hurtbox" type="Area3D" parent="." unique_id=2030759605]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 32768
+script = ExtResource("25_ljr68")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=621494799]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.548, 0)
+shape = SubResource("CylinderShape3D_aulef")

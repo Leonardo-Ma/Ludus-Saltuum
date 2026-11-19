@@ -39,13 +39,17 @@ var state: PlayerState = PlayerState.INACTIVE
 func _child_ready() -> void:
 	add_to_group(Groups.PLAYERS)
 
-	assert(player_save_controller != null, "Player save controller missing for " + name)
+	assert(player_save_controller, "Player save controller missing for " + name)
 
 	ControlledEntityEvents.player_spawning.emit(self)
 
 	# TODO Move this to VFX controller?
 	visual.meshes_replaced.connect(refresh_damage_feedback_meshes)
 	weapon_visual.weapon_replaced.connect(refresh_damage_feedback_meshes)
+
+	# TODO Move this to cosmetics controller? Or Visual?
+	cosmetics_controller.equipped_changed.connect(_on_equipped_changed)
+	_on_equipped_changed(cosmetics_controller.get_equipped_asset(CosmeticAsset.Slot.CHARACTER))
 
 	ControlledEntityEvents.player_finished_spawning.emit(self)
 
@@ -72,3 +76,8 @@ func finish_load() -> void:
 
 func _on_death_complete() -> void:
 	_player_respawn_controller.on_death_complete()
+
+
+func _on_equipped_changed(asset: CosmeticAsset) -> void:
+	if asset is CharacterEntityAsset:
+		visual.replace_character_visual(asset.character_mesh)

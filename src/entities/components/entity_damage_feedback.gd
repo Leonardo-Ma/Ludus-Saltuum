@@ -9,8 +9,8 @@ const DAMAGE_FLASH_DURATION: float = 0.2
 const HEAL_FLASH_COLOR: Color = Color(0.3, 1.0, 0.3, 0.4)
 const HEAL_FLASH_DURATION: float = 1.5
 
-@onready var _entity: CharacterBody3D = owner as CharacterBody3D
-@onready var _skeleton_3d: Skeleton3D = %Skeleton3D
+@onready var _entity: CharacterBody3D = owner
+@onready var _visual: Node3D = %Visual
 @onready var _health: HealthComponent = %HealthComponent
 
 var _material: StandardMaterial3D
@@ -19,9 +19,9 @@ var _prev_health: int = 0
 
 
 func initialize() -> void:
-	assert(_entity, "Entity owner missing in " + name)
-	assert(_skeleton_3d, "Make Skeleton3D unique name for " + _entity.name)
-	assert(_health, "HealthComponent missing in " + _entity.name)
+	assert(_entity, "Entity owner missing for " + _entity.name)
+	assert(_visual, "Visual missing for " + _entity.name)
+	assert(_health, "HealthComponent missing for " + _entity.name)
 
 	_material = StandardMaterial3D.new()
 	_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
@@ -39,7 +39,7 @@ func initialize() -> void:
 func refresh_meshes() -> void:
 	assert(_material, "Damage material not initialized in " + name)
 
-	for node: MeshInstance3D in _skeleton_3d.find_children("*", "MeshInstance3D", true, false):
+	for node: MeshInstance3D in _visual.find_children("*", "MeshInstance3D", true, false):
 		node.material_overlay = _material
 
 
