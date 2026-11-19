@@ -59,13 +59,13 @@ transform = Transform3D(0.18317977, 0, 0.08028184, 0, 0.2, 0, -0.08028184, 0, 0.
 transform = Transform3D(0.13711588, 0, -4.9981194, 0, 5.000002, 0, 4.9981194, 0, 0.13711588, 11.260004, 1.82, 9.810563)
 
 [node name="SkeletonMage" parent="HexagonStonePlatform/LeftSideEntrance/WallStraight" unique_id=280064195 instance=ExtResource("8_2mg1o")]
-transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, -0.5366845, 0.8999814, 1.4305115e-06)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.4963765, 1.1021066, 0.2290386)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/LeftSideEntrance/WallStraight" unique_id=1062805800 instance=ExtResource("8_2mg1o")]
-transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, 0.46331525, 0.8999814, 1.4305115e-06)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.5036235, 1.1021066, 0.22903812)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
@@ -74,13 +74,13 @@ ai_config = SubResource("Resource_jkhx3")
 transform = Transform3D(0.1371159, 0, -4.998119, 0, 5.000002, 0, 4.998119, 0, 0.1371159, 11.514812, 1.82, 19.657322)
 
 [node name="SkeletonMage" parent="HexagonStonePlatform/LeftSideEntrance/WallStraight2" unique_id=1461613197 instance=ExtResource("8_2mg1o")]
-transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, -0.5366845, 0.8999814, 1.4305115e-06)
+transform = Transform3D(0.3, 0, 0, 0, 0.3000002, 0, 0, 0, 0.3, -0.4963789, 1.1021067, 0.22903812)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/LeftSideEntrance/WallStraight2" unique_id=69921404 instance=ExtResource("8_2mg1o")]
-transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, 0.46331525, 0.8999814, 1.4305115e-06)
+transform = Transform3D(0.3, 0, 0, 0, 0.3000002, 0, 0, 0, 0.3, 0.5036211, 1.1021067, 0.22903824)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
@@ -89,13 +89,13 @@ ai_config = SubResource("Resource_jkhx3")
 transform = Transform3D(0.1371159, 0, -4.998119, 0, 5.000002, 0, 4.998119, 0, 0.1371159, 11.774687, 1.82, 28.801544)
 
 [node name="SkeletonMage" parent="HexagonStonePlatform/LeftSideEntrance/WallStraight3" unique_id=888371605 instance=ExtResource("8_2mg1o")]
-transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, -0.5366845, 0.8999814, 1.4305115e-06)
+transform = Transform3D(0.3, 0, 0, 0, 0.3000002, 0, 0, 0, 0.3, -0.4963827, 1.1021067, 0.229038)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/LeftSideEntrance/WallStraight3" unique_id=1439446807 instance=ExtResource("8_2mg1o")]
-transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, 0.46331525, 0.8999814, 1.4305115e-06)
+transform = Transform3D(0.3, 0, 0, 0, 0.3000002, 0, 0, 0, 0.3, 0.50361824, 1.1021067, 0.22903812)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
@@ -107,13 +107,13 @@ transform = Transform3D(-0.18317977, 0, -0.08028184, 0, 0.19999999, 0, 0.0802818
 transform = Transform3D(0.13711588, 0, -4.9981194, 0, 5.000002, 0, 4.9981194, 0, 0.13711588, 11.260004, 1.82, 9.810563)
 
 [node name="SkeletonMage" parent="HexagonStonePlatform/RightSideEntrance/WallStraight" unique_id=1024967108 instance=ExtResource("8_2mg1o")]
-transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, -0.5366845, 0.8999814, 1.4305115e-06)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.49866772, 1.0936203, 0.25349653)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/RightSideEntrance/WallStraight" unique_id=433004801 instance=ExtResource("8_2mg1o")]
-transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, 0.46331525, 0.8999814, 1.4305115e-06)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.5013294, 1.0936203, 0.25349665)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
@@ -122,13 +122,13 @@ ai_config = SubResource("Resource_jkhx3")
 transform = Transform3D(0.1371159, 0, -4.998119, 0, 5.000002, 0, 4.998119, 0, 0.1371159, 11.514812, 1.82, 19.657322)
 
 [node name="SkeletonMage" parent="HexagonStonePlatform/RightSideEntrance/WallStraight2" unique_id=7604380 instance=ExtResource("8_2mg1o")]
-transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, -0.5366845, 0.8999814, 1.4305115e-06)
+transform = Transform3D(0.3, 0, 9.313226e-10, 0, 0.3, 0, -9.313226e-10, 0, 0.3, -0.49867105, 1.0936203, 0.25349617)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/RightSideEntrance/WallStraight2" unique_id=1908138671 instance=ExtResource("8_2mg1o")]
-transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, 0.46331525, 0.8999814, 1.4305115e-06)
+transform = Transform3D(0.3, 0, 9.313226e-10, 0, 0.3, 0, -9.313226e-10, 0, 0.3, 0.50132847, 1.0936203, 0.2534964)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
@@ -137,13 +137,13 @@ ai_config = SubResource("Resource_jkhx3")
 transform = Transform3D(0.1371159, 0, -4.998119, 0, 5.000002, 0, 4.998119, 0, 0.1371159, 11.774687, 1.82, 28.801544)
 
 [node name="SkeletonMage" parent="HexagonStonePlatform/RightSideEntrance/WallStraight3" unique_id=769901878 instance=ExtResource("8_2mg1o")]
-transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, -0.5366845, 0.8999814, 1.4305115e-06)
+transform = Transform3D(0.3, 0, 9.313226e-10, 0, 0.3, 0, -9.313226e-10, 0, 0.3, -0.498672, 1.0936203, 0.2534964)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/RightSideEntrance/WallStraight3" unique_id=1057162096 instance=ExtResource("8_2mg1o")]
-transform = Transform3D(0.3, 0, -5.3290705e-15, 0, 0.3, 0, 5.3290705e-15, 0, 0.3, 0.46331525, 0.8999814, 1.4305115e-06)
+transform = Transform3D(0.3, 0, 9.313226e-10, 0, 0.3, 0, -9.313226e-10, 0, 0.3, 0.50132847, 1.0936203, 0.25349677)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
