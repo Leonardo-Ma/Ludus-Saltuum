@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponAsset" format=3 uid="uid://dvvmf1k44q5x5"]
+
+[ext_resource type="Script" uid="uid://cx0jguneos6kp" path="res://src/entities/data/weapon_asset.gd" id="1_l8y48"]
+[ext_resource type="PackedScene" uid="uid://cfqlk1selvvab" path="res://src/entities/meshes/weapons/staffs/druid_staff.fbx" id="2_l8y48"]
+
+[resource]
+script = ExtResource("1_l8y48")
+weapon_scene = ExtResource("2_l8y48")
+damage_multiplier = 1.2000000000000002
+attack_speed_multiplier = 0.9
+cosmetic_id = &"weapon.druid_staff"
+display_name = "Druid Staff"
+price = 140
+metadata/_custom_type_script = "uid://cx0jguneos6kp"

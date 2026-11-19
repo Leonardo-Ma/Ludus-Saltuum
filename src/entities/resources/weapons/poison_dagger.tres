@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponAsset" format=3 uid="uid://ds3dpkqre0pnm"]
+
+[ext_resource type="Script" uid="uid://cx0jguneos6kp" path="res://src/entities/data/weapon_asset.gd" id="1_0ymks"]
+[ext_resource type="PackedScene" uid="uid://bq8hi3r8cnbyp" path="res://src/entities/meshes/weapons/daggers/stone_poison_dagger.fbx" id="2_o3j4l"]
+
+[resource]
+script = ExtResource("1_0ymks")
+weapon_scene = ExtResource("2_o3j4l")
+damage_multiplier = 0.7
+attack_speed_multiplier = 1.3
+cosmetic_id = &"weapon.poison_dagger"
+display_name = "Poison Dagger"
+price = 370
+metadata/_custom_type_script = "uid://cx0jguneos6kp"

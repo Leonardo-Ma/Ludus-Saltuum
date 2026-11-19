@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponAsset" format=3 uid="uid://bgwr87ti28qvk"]
+
+[ext_resource type="Script" uid="uid://cx0jguneos6kp" path="res://src/entities/data/weapon_asset.gd" id="1_spcdh"]
+[ext_resource type="PackedScene" uid="uid://8x50e7xg4tfo" path="res://src/entities/meshes/weapons/staffs/staff.fbx" id="2_hwt81"]
+
+[resource]
+script = ExtResource("1_spcdh")
+weapon_scene = ExtResource("2_hwt81")
+damage_multiplier = 1.1
+attack_speed_multiplier = 0.9
+cosmetic_id = &"weapon.stone_staff"
+display_name = "Stone Staff"
+price = 160
+metadata/_custom_type_script = "uid://cx0jguneos6kp"

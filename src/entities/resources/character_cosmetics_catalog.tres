@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CosmeticSlotCatalog" format=3 uid="uid://buh2ovsh3hrt4"]
+
+[ext_resource type="Script" uid="uid://mvpsia1e36qv" path="res://src/entities/data/cosmetic_asset.gd" id="1_wtab8"]
+[ext_resource type="Script" uid="uid://d3lng2e8754rw" path="res://src/entities/data/cosmetic_slot_catalog.gd" id="2_m8yur"]
+[ext_resource type="Resource" uid="uid://c3n684po0joc4" path="res://src/entities/resources/characters/barbarian.tres" id="2_n3ell"]
+[ext_resource type="Resource" uid="uid://bh2tx4elmljs8" path="res://src/entities/resources/characters/druid.tres" id="3_s3p8k"]
+[ext_resource type="Resource" uid="uid://c6f3xuf0j77dc" path="res://src/entities/resources/characters/knight.tres" id="4_6cw4m"]
+[ext_resource type="Resource" uid="uid://cq06jgmjen48" path="res://src/entities/resources/characters/mage.tres" id="5_bp0hk"]
+[ext_resource type="Resource" uid="uid://b0qrs6n5261tg" path="res://src/entities/resources/characters/ranger.tres" id="6_ii00w"]
+[ext_resource type="Resource" uid="uid://bki4s7nheq5kh" path="res://src/entities/resources/characters/rogue.tres" id="7_ufcfw"]
+
+[resource]
+script = ExtResource("2_m8yur")
+assets = Array[ExtResource("1_wtab8")]([ExtResource("2_n3ell"), ExtResource("3_s3p8k"), ExtResource("4_6cw4m"), ExtResource("5_bp0hk"), ExtResource("6_ii00w"), ExtResource("7_ufcfw")])
+metadata/_custom_type_script = "uid://d3lng2e8754rw"

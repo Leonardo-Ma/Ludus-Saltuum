@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource("2_mwoyi")
-character_id = &"character.ranger"
-character_name = "Ranger"
 character_mesh = ExtResource("1_7xfjp")
-character_price = 120
+cosmetic_id = &"character.ranger"
+display_name = "Ranger"
+price = 120
 metadata/_custom_type_script = "uid://dxpdc7nvj48k7"

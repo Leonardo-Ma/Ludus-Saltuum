@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponAsset" format=3 uid="uid://brt6nw0bl6r7k"]
+
+[ext_resource type="Script" uid="uid://cx0jguneos6kp" path="res://src/entities/data/weapon_asset.gd" id="1_fgnlk"]
+[ext_resource type="PackedScene" uid="uid://p882omecwd4e" path="res://src/entities/meshes/weapons/swords/lightning_sword.fbx" id="2_fgnlk"]
+
+[resource]
+script = ExtResource("1_fgnlk")
+weapon_scene = ExtResource("2_fgnlk")
+damage_multiplier = 3.0
+attack_speed_multiplier = 1.3
+cosmetic_id = &"weapon.lightning_sword"
+display_name = "Lightning Sword"
+price = 1000
+metadata/_custom_type_script = "uid://cx0jguneos6kp"

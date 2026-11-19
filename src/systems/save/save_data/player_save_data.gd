@@ -14,5 +14,6 @@ extends Resource
 ## NOTE Save v1 only, converted to unlocked_skill_ids on load
 @export var unlocked_skills: Array[SkillDefinition] = []
 
-@export var owned_cosmetic_ids: Array[StringName] = []
-@export var equipped_character_id: StringName
+@export var acquired_cosmetic_ids: Array[StringName] = []
+## Key is CosmeticAsset.Slot, value is equipped cosmetic id
+@export var equipped_ids: Dictionary[int, StringName] = { }

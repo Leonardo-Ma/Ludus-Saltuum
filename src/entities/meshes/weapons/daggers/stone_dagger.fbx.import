@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://d3eoqafg2gqns"
-path="res://.godot/imported/dagger.fbx-aec4e5ee26768866a910d8d08c2c3c83.scn"
+path="res://.godot/imported/stone_dagger.fbx-405aa557ef8cf08afa72a9b13980113f.scn"
 
 [deps]
 
-source_file="res://src/entities/meshes/weapons/daggers/dagger.fbx"
-dest_files=["res://.godot/imported/dagger.fbx-aec4e5ee26768866a910d8d08c2c3c83.scn"]
+source_file="res://src/entities/meshes/weapons/daggers/stone_dagger.fbx"
+dest_files=["res://.godot/imported/stone_dagger.fbx-405aa557ef8cf08afa72a9b13980113f.scn"]
 
 [params]
 

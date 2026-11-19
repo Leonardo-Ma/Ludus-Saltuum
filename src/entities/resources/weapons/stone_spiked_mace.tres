@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponAsset" format=3 uid="uid://buh24qyyieu5g"]
+
+[ext_resource type="Script" uid="uid://cx0jguneos6kp" path="res://src/entities/data/weapon_asset.gd" id="1_cuq0g"]
+[ext_resource type="PackedScene" uid="uid://bkp6d07dlklac" path="res://src/entities/meshes/weapons/hammers/stone_spiked_mace.fbx" id="2_cuq0g"]
+
+[resource]
+script = ExtResource("1_cuq0g")
+weapon_scene = ExtResource("2_cuq0g")
+damage_multiplier = 2.0
+attack_speed_multiplier = 0.4
+cosmetic_id = &"weapon.stone_spiked_mace"
+display_name = "Stone Spiked Mace"
+price = 400
+metadata/_custom_type_script = "uid://cx0jguneos6kp"

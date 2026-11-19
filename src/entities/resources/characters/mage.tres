@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource("1_fj7uv")
-character_id = &"character.mage"
-character_name = "Mage"
 character_mesh = ExtResource("1_p2laj")
-character_price = 250
+cosmetic_id = &"character.mage"
+display_name = "Mage"
+price = 250
 metadata/_custom_type_script = "uid://dxpdc7nvj48k7"

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponAsset" format=3 uid="uid://b82wh7rxddy1b"]
+
+[ext_resource type="Script" uid="uid://cx0jguneos6kp" path="res://src/entities/data/weapon_asset.gd" id="1_5iy8w"]
+[ext_resource type="PackedScene" uid="uid://dtt8obi77i15w" path="res://src/entities/meshes/weapons/hammers/gold_paladin_hammer.fbx" id="2_5iy8w"]
+
+[resource]
+script = ExtResource("1_5iy8w")
+weapon_scene = ExtResource("2_5iy8w")
+damage_multiplier = 2.1
+attack_speed_multiplier = 0.4
+cosmetic_id = &"weapon.gold_paladin_hammer"
+display_name = "Stone Spiked Club"
+price = 500
+metadata/_custom_type_script = "uid://cx0jguneos6kp"

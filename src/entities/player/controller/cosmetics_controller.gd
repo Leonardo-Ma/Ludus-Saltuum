@@ -2,30 +2,32 @@
 class_name CosmeticsController
 extends Node
 
-signal owned_changed
-signal equipped_character_changed(character_asset: CharacterEntityAsset)
-signal affordable_cosmetic_reminded
+## Ownership and equipped cosmetic per slot, slot defaults are owned and equipped implicitly
 
-const DEFAULT_CHARACTER_ID: StringName = &"character.knight"
+signal owned_changed
+signal equipped_changed(asset: CosmeticAsset)
+signal affordable_cosmetic_reminded
 
 const NO_PRICE: int = -1
 const MIN_REMINDER_PRICE: int = 1
 const REMINDER_COOLDOWN: float = 120.0
 
-@export var character_catalog: CharacterEntityCatalog
+@export var catalog: CosmeticCatalog
 
-@onready var _economy_controller: EconomyController = %EconomyController
-
-var _character_ids: Array[StringName] = [DEFAULT_CHARACTER_ID]
-var _equipped_character_id: StringName = DEFAULT_CHARACTER_ID
+## Excludes slot defaults
+var _acquired_ids: Array[StringName] = []
+## Key is CosmeticAsset.Slot, missing key means slot default
+var _equipped_ids: Dictionary[int, StringName] = { }
 
 var _reminder_pending: bool = false
 var _cooldown_timer: SceneTreeTimer = null
 
+@onready var _economy_controller: EconomyController = %EconomyController
+
 
 func _ready() -> void:
-	assert(character_catalog != null, "Character catalog missing in " + name)
-	assert(get_character_asset(DEFAULT_CHARACTER_ID) != null, "Default character missing in " + name)
+	assert(catalog != null, "Cosmetic catalog missing in " + name)
+	catalog.validate()
 
 	_economy_controller.gold_changed.connect(_on_gold_changed)
 	owned_changed.connect(_evaluate_affordability)
@@ -33,94 +35,101 @@ func _ready() -> void:
 	ApplicationStateManager.gameplay_resumed.connect(_evaluate_affordability)
 
 
-func acquire(character_id: StringName) -> void:
-	assert(not character_id.is_empty(), "Character ID cannot be empty in " + name)
+func acquire(cosmetic_id: StringName) -> void:
+	assert(catalog.find_asset(cosmetic_id) != null, "Unknown cosmetic id in " + name + ": " + String(cosmetic_id))
 
-	if owns(character_id):
+	if owns(cosmetic_id):
 		return
 
-	_character_ids.append(character_id)
+	_acquired_ids.append(cosmetic_id)
 	owned_changed.emit()
 
 
-func owns(character_id: StringName) -> bool:
-	return character_id in _character_ids
+func owns(cosmetic_id: StringName) -> bool:
+	var asset: CosmeticAsset = catalog.find_asset(cosmetic_id)
+	return asset != null and (asset.is_default or cosmetic_id in _acquired_ids)
 
 
-func get_owned_ids() -> Array[StringName]:
-	return _character_ids.duplicate()
+func get_acquired_ids() -> Array[StringName]:
+	return _acquired_ids.duplicate()
 
 
-func set_owned_ids(character_ids: Array[StringName]) -> void:
-	_character_ids = character_ids.duplicate()
+## Unknown ids are skipped, equipped cosmetics no longer owned fall back to slot default
+func set_acquired_ids(cosmetic_ids: Array[StringName]) -> void:
+	_acquired_ids = []
+	for cosmetic_id: StringName in cosmetic_ids:
+		if catalog.find_asset(cosmetic_id) == null:
+			push_warning("Save references unknown cosmetic '%s', skipped" % [cosmetic_id])
+			continue
+		if not _acquired_ids.has(cosmetic_id):
+			_acquired_ids.append(cosmetic_id)
 
-	assert(not _character_ids.has(StringName()), "Empty character ID in owned characters for " + name)
-
-	if not owns(DEFAULT_CHARACTER_ID):
-		_character_ids.append(DEFAULT_CHARACTER_ID)
-
-	if not owns(_equipped_character_id):
-		set_equipped_character_id(DEFAULT_CHARACTER_ID)
-
+	set_equipped_ids(get_equipped_ids())
 	owned_changed.emit()
 
 
 func reset() -> void:
-	_character_ids = [DEFAULT_CHARACTER_ID]
-	set_equipped_character_id(DEFAULT_CHARACTER_ID)
+	_acquired_ids = []
+	set_equipped_ids({ })
 	owned_changed.emit()
 
 
-func equip(character_id: StringName) -> bool:
-	if not owns(character_id):
+func equip(cosmetic_id: StringName) -> bool:
+	if not owns(cosmetic_id):
 		return false
 
-	if _equipped_character_id == character_id:
-		return true
-
-	_set_equipped_character_id(character_id)
+	_set_equipped(catalog.get_asset(cosmetic_id))
 	return true
 
 
-func get_equipped_character_id() -> StringName:
-	return _equipped_character_id
+func get_equipped_id(slot: CosmeticAsset.Slot) -> StringName:
+	return _equipped_ids.get(slot, catalog.get_default(slot).cosmetic_id)
 
 
-func get_equipped_character_asset() -> CharacterEntityAsset:
-	return get_character_asset(_equipped_character_id)
+func get_equipped_asset(slot: CosmeticAsset.Slot) -> CosmeticAsset:
+	return catalog.get_asset(get_equipped_id(slot))
 
 
-func set_equipped_character_id(character_id: StringName) -> void:
-	var target_id: StringName = character_id if owns(character_id) else DEFAULT_CHARACTER_ID
+## Every slot in use, for saving
+func get_equipped_ids() -> Dictionary[int, StringName]:
+	var ids: Dictionary[int, StringName] = { }
+	for slot: CosmeticAsset.Slot in CosmeticAsset.Slot.values():
+		if not catalog.get_assets(slot).is_empty():
+			ids[slot] = get_equipped_id(slot)
+	return ids
 
-	if _equipped_character_id == target_id:
+
+## Missing, unowned or wrong slot ids fall back to slot default
+func set_equipped_ids(ids: Dictionary[int, StringName]) -> void:
+	for slot: CosmeticAsset.Slot in CosmeticAsset.Slot.values():
+		if catalog.get_assets(slot).is_empty():
+			continue
+
+		var saved_id: StringName = ids.get(slot, &"")
+		var asset: CosmeticAsset = catalog.find_asset(saved_id)
+		if asset == null or asset.get_slot() != slot or not owns(saved_id):
+			asset = catalog.get_default(slot)
+		_set_equipped(asset)
+
+
+func _set_equipped(asset: CosmeticAsset) -> void:
+	var slot: CosmeticAsset.Slot = asset.get_slot()
+	if get_equipped_id(slot) == asset.cosmetic_id:
 		return
 
-	_set_equipped_character_id(target_id)
+	_equipped_ids[slot] = asset.cosmetic_id
+	equipped_changed.emit(asset)
 
 
-func get_character_asset(character_id: StringName) -> CharacterEntityAsset:
-	assert(character_catalog != null, "Character catalog missing in " + name)
-	return character_catalog.get_character_asset(character_id)
-
-
-func _set_equipped_character_id(character_id: StringName) -> void:
-	var character_asset: CharacterEntityAsset = get_character_asset(character_id)
-
-	_equipped_character_id = character_id
-	equipped_character_changed.emit(character_asset)
-
-
-#region Character affordable visual highlight warning
+#region Affordable visual highlight warning
 ## NO_PRICE when no unowned cosmetic costs at least MIN_REMINDER_PRICE
 func get_cheapest_unowned_price() -> int:
-	assert(character_catalog != null, "Character catalog missing in " + name)
 	var cheapest_price: int = NO_PRICE
-	for character_asset: CharacterEntityAsset in character_catalog.characters:
-		if owns(character_asset.character_id) or character_asset.character_price < MIN_REMINDER_PRICE:
+	for asset: CosmeticAsset in catalog.get_all_assets():
+		if owns(asset.cosmetic_id) or asset.price < MIN_REMINDER_PRICE:
 			continue
-		if cheapest_price == NO_PRICE or character_asset.character_price < cheapest_price:
-			cheapest_price = character_asset.character_price
+		if cheapest_price == NO_PRICE or asset.price < cheapest_price:
+			cheapest_price = asset.price
 	return cheapest_price
 
 

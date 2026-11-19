@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponAsset" format=3 uid="uid://6m8vbwphmr1c"]
+
+[ext_resource type="Script" uid="uid://cx0jguneos6kp" path="res://src/entities/data/weapon_asset.gd" id="1_ck3a6"]
+[ext_resource type="PackedScene" uid="uid://d0k0ev8k0frao" path="res://src/entities/meshes/weapons/hammers/stone_spiked_club.fbx" id="2_ck3a6"]
+
+[resource]
+script = ExtResource("1_ck3a6")
+weapon_scene = ExtResource("2_ck3a6")
+damage_multiplier = 2.0
+attack_speed_multiplier = 0.4
+cosmetic_id = &"weapon.stone_spiked_club"
+display_name = "Stone Spiked Club"
+price = 400
+metadata/_custom_type_script = "uid://cx0jguneos6kp"

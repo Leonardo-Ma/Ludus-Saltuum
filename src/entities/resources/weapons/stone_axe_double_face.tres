@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponAsset" format=3 uid="uid://bodsdw8n3v5tm"]
+
+[ext_resource type="Script" uid="uid://cx0jguneos6kp" path="res://src/entities/data/weapon_asset.gd" id="1_u7ijb"]
+[ext_resource type="PackedScene" uid="uid://hsg4lwg3b4mo" path="res://src/entities/meshes/weapons/axes/stone_axe_double_face.fbx" id="2_u7ijb"]
+
+[resource]
+script = ExtResource("1_u7ijb")
+weapon_scene = ExtResource("2_u7ijb")
+damage_multiplier = 1.4000000000000001
+attack_speed_multiplier = 0.7
+cosmetic_id = &"weapon.stone_axe_double_face"
+display_name = "Stone Axe Double Face"
+price = 270
+metadata/_custom_type_script = "uid://cx0jguneos6kp"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CosmeticCatalog" format=3 uid="uid://fcuvxgh84u61"]
+
+[ext_resource type="Script" uid="uid://6mh8hqayac35" path="res://src/entities/data/cosmetic_catalog.gd" id="1_bybr3"]
+[ext_resource type="Script" uid="uid://d3lng2e8754rw" path="res://src/entities/data/cosmetic_slot_catalog.gd" id="2_ay7hd"]
+[ext_resource type="Resource" uid="uid://buh2ovsh3hrt4" path="res://src/entities/resources/character_cosmetics_catalog.tres" id="3_lyrx5"]
+[ext_resource type="Resource" uid="uid://c6ssrsxo071c3" path="res://src/entities/resources/weapon_cosmetics_catalog.tres" id="4_ay7hd"]
+
+[resource]
+script = ExtResource("1_bybr3")
+slots = Array[ExtResource("2_ay7hd")]([ExtResource("3_lyrx5"), ExtResource("4_ay7hd")])
+metadata/_custom_type_script = "uid://6mh8hqayac35"

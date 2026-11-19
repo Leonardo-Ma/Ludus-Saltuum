@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponAsset" format=3 uid="uid://7dyg6mfdv6wi"]
+
+[ext_resource type="Script" uid="uid://cx0jguneos6kp" path="res://src/entities/data/weapon_asset.gd" id="1_qp8w0"]
+[ext_resource type="PackedScene" uid="uid://bhdemqpdk06na" path="res://src/entities/meshes/weapons/staffs/wood_quarterstaff.fbx" id="2_qp8w0"]
+
+[resource]
+script = ExtResource("1_qp8w0")
+weapon_scene = ExtResource("2_qp8w0")
+damage_multiplier = 1.1
+attack_speed_multiplier = 0.9
+cosmetic_id = &"weapon.wood_quarterstaff"
+display_name = "Wood Quarterstaff"
+price = 70
+metadata/_custom_type_script = "uid://cx0jguneos6kp"

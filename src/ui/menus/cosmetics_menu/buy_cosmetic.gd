@@ -5,8 +5,8 @@ extends UIButton
 
 var _player: PlayerEntity
 
-@onready var _cosmetic: CharacterEntityAsset = owner.chosen_character
-@onready var _price: int = _cosmetic.character_price
+@onready var _card: CosmeticCard = owner as CosmeticCard
+@onready var _asset: CosmeticAsset = _card.asset
 
 
 func _button_ready() -> void:
@@ -19,13 +19,13 @@ func _on_menu_opened(menu: ApplicationStateManager.GameState) -> void:
 
 
 func _button_pressed() -> void:
-	var cosmetic_id: StringName = _cosmetic.character_id
+	var cosmetic_id: StringName = _asset.cosmetic_id
 
 	if _player.cosmetics_controller.owns(cosmetic_id):
 		_player.cosmetics_controller.equip(cosmetic_id)
 	else:
-		if not _player.economy_controller.remove_gold(_price):
-			assert(false, "Tried to acquire character " + _cosmetic.character_name + " without gold at " + owner.name)
+		if not _player.economy_controller.remove_gold(_asset.price):
+			assert(false, "Tried to acquire cosmetic " + _asset.display_name + " without gold at " + owner.name)
 			return
 
 		_player.cosmetics_controller.acquire(cosmetic_id)
@@ -37,13 +37,13 @@ func _button_pressed() -> void:
 func _update_button() -> void:
 	_player = _get_player()
 	# TODO Find better way
-	if not _player.cosmetics_controller.equipped_character_changed.is_connected(_on_equipped_character_changed):
-		_player.cosmetics_controller.equipped_character_changed.connect(_on_equipped_character_changed)
+	if not _player.cosmetics_controller.equipped_changed.is_connected(_on_equipped_changed):
+		_player.cosmetics_controller.equipped_changed.connect(_on_equipped_changed)
 
-	var cosmetic_id: StringName = _cosmetic.character_id
+	var cosmetic_id: StringName = _asset.cosmetic_id
 	var already_owned: bool = _player.cosmetics_controller.owns(cosmetic_id)
-	var is_equipped: bool = _player.cosmetics_controller.get_equipped_character_id() == cosmetic_id
-	var can_afford: bool = _player.economy_controller.gold >= _price
+	var is_equipped: bool = _player.cosmetics_controller.get_equipped_id(_asset.get_slot()) == cosmetic_id
+	var can_afford: bool = _player.economy_controller.gold >= _asset.price
 
 	var font_color: Color = Color.LIGHT_CORAL if not can_afford else Color.WHITE
 
@@ -59,12 +59,12 @@ func _update_button() -> void:
 		text = ""
 		icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	else:
-		text = str(_price)
+		text = str(_asset.price)
 
 	disabled = is_equipped or (not already_owned and not can_afford)
 
 
-func _on_equipped_character_changed(_character_asset: CharacterEntityAsset) -> void:
+func _on_equipped_changed(_equipped: CosmeticAsset) -> void:
 	_update_button()
 
 

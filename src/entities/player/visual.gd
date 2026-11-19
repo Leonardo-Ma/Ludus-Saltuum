@@ -10,11 +10,15 @@ signal meshes_replaced
 
 
 func _ready() -> void:
-	_cosmetics_controller.equipped_character_changed.connect(_on_equipped_character_changed)
-	_on_equipped_character_changed(_cosmetics_controller.get_equipped_character_asset())
+	_cosmetics_controller.equipped_changed.connect(_on_equipped_changed)
+	_on_equipped_changed(_cosmetics_controller.get_equipped_asset(CosmeticAsset.Slot.CHARACTER))
 
 
-func _on_equipped_character_changed(character_asset: CharacterEntityAsset) -> void:
+func _on_equipped_changed(asset: CosmeticAsset) -> void:
+	var character_asset: CharacterEntityAsset = asset as CharacterEntityAsset
+	if character_asset == null:
+		return
+
 	replace_character_visual(character_asset.character_mesh)
 
 

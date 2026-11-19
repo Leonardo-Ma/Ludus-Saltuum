@@ -18,9 +18,8 @@ signal magic_casted
 @onready var animation_tree: AnimationTree = %AnimationTree
 
 @onready var health: HealthComponent = %HealthComponent
-# TODO BUG Find better way to implement this, other places use this reference from player
-@onready var attack: Attack = %AttackComponent.attack
 
+@onready var attack: Attack
 @onready var attack_component: AttackComponent = %AttackComponent
 
 @onready var _lifecycle: EntityLifecycleController = %EntityLifecycleController
@@ -40,6 +39,9 @@ func _ready() -> void:
 	assert(_lifecycle, "lifecycle missing for " + name)
 	assert(_damage_feedback, "damage_feedback missing for " + name)
 	assert(_combat_audio, "combat_audio missing for " + name)
+
+	# TODO Find better way to implement this, other places use this reference from player
+	attack = attack_component.get_effective_attack()
 
 	_lifecycle.initialize()
 	_damage_feedback.initialize()

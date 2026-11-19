@@ -19,6 +19,12 @@
 [ext_resource type="Resource" uid="uid://bh2tx4elmljs8" path="res://src/entities/resources/characters/druid.tres" id="15_xyti5"]
 [ext_resource type="Resource" uid="uid://b0qrs6n5261tg" path="res://src/entities/resources/characters/ranger.tres" id="16_chkjm"]
 [ext_resource type="Resource" uid="uid://c3n684po0joc4" path="res://src/entities/resources/characters/barbarian.tres" id="17_4ghdm"]
+[ext_resource type="Resource" uid="uid://bgdv4xkrfy3vg" path="res://src/entities/resources/weapons/stone_sword.tres" id="20_v07pk"]
+[ext_resource type="Resource" uid="uid://i38i6t8fj314" path="res://src/entities/resources/weapons/stone_sai_dagger.tres" id="21_obmyq"]
+[ext_resource type="Resource" uid="uid://bgwr87ti28qvk" path="res://src/entities/resources/weapons/stone_staff.tres" id="22_3eced"]
+[ext_resource type="Resource" uid="uid://dvvmf1k44q5x5" path="res://src/entities/resources/weapons/druid_staff.tres" id="23_m7kne"]
+[ext_resource type="Resource" uid="uid://bddhvg1ytve8r" path="res://src/entities/resources/weapons/stone_axe.tres" id="24_obmyq"]
+[ext_resource type="Resource" uid="uid://bodsdw8n3v5tm" path="res://src/entities/resources/weapons/stone_axe_double_face.tres" id="25_3eced"]
 
 [node name="CosmeticsMenu" type="Control" unique_id=1586382864]
 layout_mode = 3
@@ -95,7 +101,6 @@ panel = NodePath("../../../MarginContainer/VBoxContainer/Tabs/CostumesTab")
 [node name="FocusOnVisible" parent="RootContainer/CosmeticsContainer/TabButtonsContainer/TabContainer/CostumesTab" unique_id=1305006327 instance=ExtResource("7_ut1kn")]
 
 [node name="WeaponsTab" type="Button" parent="RootContainer/CosmeticsContainer/TabButtonsContainer/TabContainer" unique_id=180984817 node_paths=PackedStringArray("panel")]
-visible = false
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -140,6 +145,7 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="CostumesTab" type="VBoxContainer" parent="RootContainer/CosmeticsContainer/MarginContainer/VBoxContainer/Tabs" unique_id=1601643246]
+visible = false
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -151,35 +157,62 @@ metadata/_tab_name = ""
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="CosmeticCard6" parent="RootContainer/CosmeticsContainer/MarginContainer/VBoxContainer/Tabs/CostumesTab/RowContainer" unique_id=86488370 instance=ExtResource("12_3oxqg")]
+layout_mode = 2
+asset = ExtResource("13_8oev5")
+
 [node name="CosmeticCard" parent="RootContainer/CosmeticsContainer/MarginContainer/VBoxContainer/Tabs/CostumesTab/RowContainer" unique_id=1595548576 instance=ExtResource("12_3oxqg")]
 layout_mode = 2
-chosen_character = ExtResource("13_8oev5")
+asset = ExtResource("15_chkjm")
 
 [node name="CosmeticCard5" parent="RootContainer/CosmeticsContainer/MarginContainer/VBoxContainer/Tabs/CostumesTab/RowContainer" unique_id=1526892025 instance=ExtResource("12_3oxqg")]
 layout_mode = 2
-chosen_character = ExtResource("15_chkjm")
-
-[node name="CosmeticCard6" parent="RootContainer/CosmeticsContainer/MarginContainer/VBoxContainer/Tabs/CostumesTab/RowContainer" unique_id=86488370 instance=ExtResource("12_3oxqg")]
-layout_mode = 2
-chosen_character = ExtResource("17_4ghdm")
+asset = ExtResource("17_4ghdm")
 
 [node name="CosmeticCard4" parent="RootContainer/CosmeticsContainer/MarginContainer/VBoxContainer/Tabs/CostumesTab/RowContainer" unique_id=594963246 instance=ExtResource("12_3oxqg")]
 layout_mode = 2
-chosen_character = ExtResource("16_chkjm")
+asset = ExtResource("16_chkjm")
 
 [node name="CosmeticCard2" parent="RootContainer/CosmeticsContainer/MarginContainer/VBoxContainer/Tabs/CostumesTab/RowContainer" unique_id=1353738041 instance=ExtResource("12_3oxqg")]
 layout_mode = 2
-chosen_character = ExtResource("14_tjh6d")
+asset = ExtResource("14_tjh6d")
 
 [node name="CosmeticCard3" parent="RootContainer/CosmeticsContainer/MarginContainer/VBoxContainer/Tabs/CostumesTab/RowContainer" unique_id=1670881273 instance=ExtResource("12_3oxqg")]
 layout_mode = 2
-chosen_character = ExtResource("15_xyti5")
+asset = ExtResource("15_xyti5")
 
 [node name="WeaponsTab" type="VBoxContainer" parent="RootContainer/CosmeticsContainer/MarginContainer/VBoxContainer/Tabs" unique_id=1823561650]
-visible = false
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 metadata/_tab_index = 0
 metadata/_tab_name = ""
+
+[node name="RowContainer" type="HBoxContainer" parent="RootContainer/CosmeticsContainer/MarginContainer/VBoxContainer/Tabs/WeaponsTab" unique_id=839757604]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CosmeticCard" parent="RootContainer/CosmeticsContainer/MarginContainer/VBoxContainer/Tabs/WeaponsTab/RowContainer" unique_id=1984374978 instance=ExtResource("12_3oxqg")]
+layout_mode = 2
+asset = ExtResource("20_v07pk")
+
+[node name="CosmeticCard7" parent="RootContainer/CosmeticsContainer/MarginContainer/VBoxContainer/Tabs/WeaponsTab/RowContainer" unique_id=215279988 instance=ExtResource("12_3oxqg")]
+layout_mode = 2
+asset = ExtResource("24_obmyq")
+
+[node name="CosmeticCard5" parent="RootContainer/CosmeticsContainer/MarginContainer/VBoxContainer/Tabs/WeaponsTab/RowContainer" unique_id=1216331375 instance=ExtResource("12_3oxqg")]
+layout_mode = 2
+asset = ExtResource("21_obmyq")
+
+[node name="CosmeticCard6" parent="RootContainer/CosmeticsContainer/MarginContainer/VBoxContainer/Tabs/WeaponsTab/RowContainer" unique_id=71131203 instance=ExtResource("12_3oxqg")]
+layout_mode = 2
+asset = ExtResource("22_3eced")
+
+[node name="CosmeticCard4" parent="RootContainer/CosmeticsContainer/MarginContainer/VBoxContainer/Tabs/WeaponsTab/RowContainer" unique_id=1068622978 instance=ExtResource("12_3oxqg")]
+layout_mode = 2
+asset = ExtResource("23_m7kne")
+
+[node name="CosmeticCard8" parent="RootContainer/CosmeticsContainer/MarginContainer/VBoxContainer/Tabs/WeaponsTab/RowContainer" unique_id=158215393 instance=ExtResource("12_3oxqg")]
+layout_mode = 2
+asset = ExtResource("25_3eced")

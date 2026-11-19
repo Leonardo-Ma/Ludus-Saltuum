@@ -1,3 +1,6 @@
+class_name CosmeticCard
 extends VBoxContainer
 
-@export var chosen_character: CharacterEntityAsset
+## Card for one cosmetic asset, assigned in inspector
+
+@export var asset: CosmeticAsset

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="WeaponAsset" format=3 uid="uid://bgdv4xkrfy3vg"]
+
+[ext_resource type="Script" uid="uid://cx0jguneos6kp" path="res://src/entities/data/weapon_asset.gd" id="1_nwhnk"]
+[ext_resource type="PackedScene" uid="uid://yokirlfhff1x" path="res://src/entities/meshes/weapons/swords/sword_1handed.fbx" id="2_nwhnk"]
+
+[resource]
+script = ExtResource("1_nwhnk")
+weapon_scene = ExtResource("2_nwhnk")
+cosmetic_id = &"weapon.stone_sword"
+display_name = "Stone Sword"
+is_default = true
+metadata/_custom_type_script = "uid://cx0jguneos6kp"

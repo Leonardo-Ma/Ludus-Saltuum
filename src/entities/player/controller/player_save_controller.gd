@@ -34,8 +34,8 @@ func build_save_data(data: PlayerSaveData) -> void:
 
 	data.score = economy_controller.score
 	data.gold = economy_controller.gold
-	data.owned_cosmetic_ids = cosmetics_controller.get_owned_ids()
-	data.equipped_character_id = cosmetics_controller.get_equipped_character_id()
+	data.acquired_cosmetic_ids = cosmetics_controller.get_acquired_ids()
+	data.equipped_ids = cosmetics_controller.get_equipped_ids()
 
 	data.found_easter_egg_names = []
 
@@ -62,8 +62,8 @@ func apply_save_data(data: PlayerSaveData) -> void:
 	economy_controller.score_changed.emit(data.score)
 	economy_controller.gold_changed.emit(data.gold)
 
-	cosmetics_controller.set_owned_ids(data.owned_cosmetic_ids)
-	cosmetics_controller.set_equipped_character_id(data.equipped_character_id)
+	cosmetics_controller.set_acquired_ids(data.acquired_cosmetic_ids)
+	cosmetics_controller.set_equipped_ids(data.equipped_ids)
 
 	easter_egg_controller.found_easter_eggs.clear()
 	for egg: EasterEgg.Name in data.found_easter_egg_names:
@@ -87,6 +87,5 @@ func initialize_new_save_data() -> void:
 	economy_controller.gold_changed.emit(economy_controller.gold)
 
 	cosmetics_controller.reset()
-	cosmetics_controller.set_equipped_character_id(CosmeticsController.DEFAULT_CHARACTER_ID)
 
 	easter_egg_controller.found_easter_eggs.clear()

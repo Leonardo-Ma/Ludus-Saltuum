@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="WeaponAsset" format=3 uid="uid://3heichfxhxv5"]
+
+[ext_resource type="Script" uid="uid://cx0jguneos6kp" path="res://src/entities/data/weapon_asset.gd" id="1_11tqr"]
+[ext_resource type="PackedScene" uid="uid://bia5i6foxwvsu" path="res://src/entities/meshes/weapons/wands/water_wand.fbx" id="2_11tqr"]
+
+[resource]
+script = ExtResource("1_11tqr")
+weapon_scene = ExtResource("2_11tqr")
+cosmetic_id = &"weapon.water_wand"
+display_name = "Water Wand"
+price = 100
+metadata/_custom_type_script = "uid://cx0jguneos6kp"

@@ -788,3 +788,7 @@ transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, -0.42224252, -0.8631
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_34xkb")
 autoplay = &"RESET"
+
+[node name="WeaponPivot" type="Node3D" parent="." unique_id=511115254]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, -0.8)

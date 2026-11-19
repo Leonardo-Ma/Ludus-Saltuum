@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponAsset" format=3 uid="uid://bkr64wkkregtn"]
+
+[ext_resource type="Script" uid="uid://cx0jguneos6kp" path="res://src/entities/data/weapon_asset.gd" id="1_ch4r5"]
+[ext_resource type="PackedScene" uid="uid://d4iojrfqusdo" path="res://src/entities/meshes/weapons/spears/lightning_spear.fbx" id="2_ch4r5"]
+
+[resource]
+script = ExtResource("1_ch4r5")
+weapon_scene = ExtResource("2_ch4r5")
+damage_multiplier = 1.2000000000000002
+attack_speed_multiplier = 0.7999999999999999
+cosmetic_id = &"weapon.lightning_spear"
+display_name = "Lightning Spear"
+price = 1000
+metadata/_custom_type_script = "uid://cx0jguneos6kp"

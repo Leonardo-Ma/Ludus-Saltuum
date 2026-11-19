@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("1_v6tja")
-character_id = &"character.knight"
-character_name = "Knight"
 character_mesh = ExtResource("1_nyswx")
+cosmetic_id = &"character.knight"
+display_name = "Knight"
+is_default = true
 metadata/_custom_type_script = "uid://dxpdc7nvj48k7"

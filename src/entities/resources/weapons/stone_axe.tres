@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponAsset" format=3 uid="uid://bddhvg1ytve8r"]
+
+[ext_resource type="Script" uid="uid://cx0jguneos6kp" path="res://src/entities/data/weapon_asset.gd" id="1_i20rn"]
+[ext_resource type="PackedScene" uid="uid://babx04yelmj8p" path="res://src/entities/meshes/weapons/axes/axe_1handed.fbx" id="2_i7y83"]
+
+[resource]
+script = ExtResource("1_i20rn")
+weapon_scene = ExtResource("2_i7y83")
+damage_multiplier = 1.2000000000000002
+attack_speed_multiplier = 0.7999999999999999
+cosmetic_id = &"weapon.stone_axe"
+display_name = "Stone Axe"
+price = 80
+metadata/_custom_type_script = "uid://cx0jguneos6kp"

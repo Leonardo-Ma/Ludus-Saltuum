@@ -13,6 +13,7 @@ enum PlayerState {
 var state: PlayerState = PlayerState.INACTIVE
 
 @onready var visual: CharacterVisual = %Visual
+@onready var weapon_visual: WeaponVisual = %WeaponVisual
 
 @onready var camera_controller: CameraController = %CamRoot
 @onready var player_movement_controller: PlayerMovementComponent = %PlayerMovementComponent
@@ -35,6 +36,20 @@ var state: PlayerState = PlayerState.INACTIVE
 @onready var _player_respawn_controller: PlayerRespawnController = %PlayerRespawnController
 
 
+func _child_ready() -> void:
+	add_to_group(Groups.PLAYERS)
+
+	assert(player_save_controller != null, "Player save controller missing for " + name)
+
+	ControlledEntityEvents.player_spawning.emit(self)
+
+	# TODO Move this to VFX controller?
+	visual.meshes_replaced.connect(refresh_damage_feedback_meshes)
+	weapon_visual.weapon_replaced.connect(refresh_damage_feedback_meshes)
+
+	ControlledEntityEvents.player_finished_spawning.emit(self)
+
+
 func _physics_process(delta: float) -> void:
 	player_movement_controller.move(delta)
 	move_and_slide()
@@ -53,19 +68,6 @@ func set_state(new_state: PlayerState) -> void:
 
 func finish_load() -> void:
 	_player_respawn_controller.finish_load()
-
-
-func _child_ready() -> void:
-	add_to_group(Groups.PLAYERS)
-
-	assert(player_save_controller != null, "Player save controller missing for " + name)
-
-	ControlledEntityEvents.player_spawning.emit(self)
-
-	# TODO Move this to VFX controller?
-	visual.meshes_replaced.connect(refresh_damage_feedback_meshes)
-
-	ControlledEntityEvents.player_finished_spawning.emit(self)
 
 
 func _on_death_complete() -> void:
