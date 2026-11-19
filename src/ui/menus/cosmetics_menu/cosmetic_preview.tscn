@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://be0irpnf8gbb"]
 
 [ext_resource type="Script" uid="uid://bswxkhwk3u6au" path="res://src/ui/menus/cosmetics_menu/cosmetic_preview.gd" id="1_0acvv"]
-[ext_resource type="PackedScene" uid="uid://bsoq2ldtrk7er" path="res://src/entities/meshes/friendly/druid.glb" id="2_0acvv"]
+[ext_resource type="PackedScene" uid="uid://bsoq2ldtrk7er" path="res://src/entities/meshes/characters/humans/druid.glb" id="2_0acvv"]
 
 [sub_resource type="Animation" id="Animation_0acvv"]
 resource_name = "Idle_A"

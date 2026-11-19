@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CharacterEntityAsset" format=3 uid="uid://c6f3xuf0j77dc"]
+
+[ext_resource type="PackedScene" uid="uid://xvgnrol7rv8s" path="res://src/entities/meshes/characters/humans/knight.glb" id="1_nyswx"]
+[ext_resource type="Script" uid="uid://dxpdc7nvj48k7" path="res://src/entities/data/character_entity_asset.gd" id="1_v6tja"]
+
+[resource]
+script = ExtResource("1_v6tja")
+character_mesh = ExtResource("1_nyswx")
+cosmetic_id = &"character.knight"
+display_name = "Knight"
+is_default = true
+metadata/_custom_type_script = "uid://dxpdc7nvj48k7"
