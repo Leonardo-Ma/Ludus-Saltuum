@@ -35,6 +35,7 @@ func _ready() -> void:
 	_test_ids_survive_save_slot()
 	_test_legacy_save_without_cosmetics()
 	_test_cheapest_unowned_price()
+	_test_assets_sorted_by_price()
 
 	_restore_slot()
 
@@ -256,6 +257,14 @@ func _test_cheapest_unowned_price() -> void:
 	assert(controller.get_cheapest_unowned_price() == CosmeticsController.NO_PRICE, "CosmeticsController: free or owned cosmetics counted")
 
 	controller.free()
+
+
+func _test_assets_sorted_by_price() -> void:
+	var slot_catalog: CosmeticSlotCatalog = _make_catalog().slots[1]
+	var prices: Array[int] = []
+	for asset: CosmeticAsset in slot_catalog.get_assets_by_price():
+		prices.append(asset.price)
+	assert(prices == [0, 100], "CosmeticSlotCatalog: expected assets sorted by price, got %s" % str(prices))
 
 
 func _backup_slot() -> void:

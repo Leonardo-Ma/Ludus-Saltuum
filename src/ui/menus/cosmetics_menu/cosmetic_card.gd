@@ -1,6 +1,12 @@
+@tool
 class_name CosmeticCard
 extends VBoxContainer
 
-## Card for one cosmetic asset, assigned in inspector
+## Card for one cosmetic asset, assigned in inspector or by CosmeticSlotTab
 
-@export var asset: CosmeticAsset
+signal asset_changed
+
+@export var asset: CosmeticAsset:
+	set(value):
+		asset = value
+		asset_changed.emit()

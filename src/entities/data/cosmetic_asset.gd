@@ -1,3 +1,4 @@
+@tool
 @abstract class_name CosmeticAsset
 extends Resource
 
@@ -18,3 +19,8 @@ enum Slot {
 
 
 @abstract func get_slot() -> Slot
+
+
+## Override to assert subclass data
+func validate() -> void:
+	pass
