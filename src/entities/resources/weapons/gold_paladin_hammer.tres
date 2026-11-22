@@ -6,6 +6,8 @@
 [resource]
 script = ExtResource("1_5iy8w")
 weapon_scene = ExtResource("2_5iy8w")
+weapon_type = 4
+weapon_material = 3
 damage_multiplier = 2.1
 attack_speed_multiplier = 0.4
 cosmetic_id = &"weapon.gold_paladin_hammer"

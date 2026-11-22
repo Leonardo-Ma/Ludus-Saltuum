@@ -6,6 +6,8 @@
 [resource]
 script = ExtResource("1_0ymks")
 weapon_scene = ExtResource("2_o3j4l")
+weapon_type = 2
+weapon_material = 4
 damage_multiplier = 0.7
 attack_speed_multiplier = 1.3
 cosmetic_id = &"weapon.poison_dagger"

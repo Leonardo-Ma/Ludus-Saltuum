@@ -12,7 +12,7 @@
 [ext_resource type="Resource" uid="uid://bodsdw8n3v5tm" path="res://src/entities/resources/weapons/stone_axe_double_face.tres" id="7_3aug0"]
 [ext_resource type="Script" uid="uid://d3lng2e8754rw" path="res://src/entities/data/cosmetic_slot_catalog.gd" id="8_q0sk6"]
 [ext_resource type="Resource" uid="uid://cr636gvdsdnu3" path="res://src/entities/resources/weapons/stone_katana.tres" id="9_5xbgv"]
-[ext_resource type="Resource" uid="uid://bmfkmrlxyqye1" path="res://src/entities/resources/weapons/stone_poison_dagger.tres" id="10_w1d4h"]
+[ext_resource type="Resource" uid="uid://utu6yp1uv6tw" path="res://src/entities/resources/weapons/stone_dagger.tres" id="9_w3ftp"]
 [ext_resource type="Resource" uid="uid://cngpygv3w7o5e" path="res://src/entities/resources/weapons/stone_rapier.tres" id="11_1yiht"]
 [ext_resource type="Resource" uid="uid://ds3dpkqre0pnm" path="res://src/entities/resources/weapons/poison_dagger.tres" id="12_uv08d"]
 [ext_resource type="Resource" uid="uid://bo4r0net70lpc" path="res://src/entities/resources/weapons/stone_spear.tres" id="13_o2dir"]
@@ -25,5 +25,5 @@
 [resource]
 script = ExtResource("8_q0sk6")
 slot = 1
-assets = Array[ExtResource("1_3aug0")]([ExtResource("2_6yant"), ExtResource("3_w3ftp"), ExtResource("4_r0xgb"), ExtResource("5_e8wwy"), ExtResource("3_3aug0"), ExtResource("7_3aug0"), ExtResource("4_u64q3"), ExtResource("9_5xbgv"), ExtResource("10_w1d4h"), ExtResource("11_1yiht"), ExtResource("12_uv08d"), ExtResource("13_o2dir"), ExtResource("14_okvfn"), ExtResource("15_2bae7"), ExtResource("5_plvlr"), ExtResource("6_my4fc"), ExtResource("18_04gyb"), ExtResource("19_gv0w8"), ExtResource("20_uuink")])
+assets = Array[ExtResource("1_3aug0")]([ExtResource("2_6yant"), ExtResource("3_w3ftp"), ExtResource("4_r0xgb"), ExtResource("5_e8wwy"), ExtResource("12_uv08d"), ExtResource("3_3aug0"), ExtResource("7_3aug0"), ExtResource("9_w3ftp"), ExtResource("9_5xbgv"), ExtResource("11_1yiht"), ExtResource("4_u64q3"), ExtResource("13_o2dir"), ExtResource("14_okvfn"), ExtResource("15_2bae7"), ExtResource("5_plvlr"), ExtResource("6_my4fc"), ExtResource("18_04gyb"), ExtResource("19_gv0w8"), ExtResource("20_uuink")])
 metadata/_custom_type_script = "uid://d3lng2e8754rw"

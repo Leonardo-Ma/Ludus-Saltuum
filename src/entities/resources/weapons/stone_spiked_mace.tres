@@ -6,6 +6,8 @@
 [resource]
 script = ExtResource("1_cuq0g")
 weapon_scene = ExtResource("2_cuq0g")
+weapon_type = 8
+weapon_material = 2
 damage_multiplier = 2.0
 attack_speed_multiplier = 0.4
 cosmetic_id = &"weapon.stone_spiked_mace"

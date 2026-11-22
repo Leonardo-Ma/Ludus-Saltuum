@@ -6,7 +6,9 @@
 [resource]
 script = ExtResource("1_u7ijb")
 weapon_scene = ExtResource("2_u7ijb")
-damage_multiplier = 1.4000000000000001
+weapon_type = 3
+weapon_material = 2
+damage_multiplier = 1.4
 attack_speed_multiplier = 0.7
 cosmetic_id = &"weapon.stone_axe_double_face"
 display_name = "Stone Axe Double Face"

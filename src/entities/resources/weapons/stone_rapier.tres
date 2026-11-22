@@ -6,6 +6,8 @@
 [resource]
 script = ExtResource("1_uubeh")
 weapon_scene = ExtResource("2_uubeh")
+weapon_type = 1
+weapon_material = 2
 damage_multiplier = 1.1
 attack_speed_multiplier = 1.3
 cosmetic_id = &"weapon.stone_rapier"

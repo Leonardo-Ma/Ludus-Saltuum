@@ -6,6 +6,8 @@
 [resource]
 script = ExtResource("1_fgnlk")
 weapon_scene = ExtResource("2_fgnlk")
+weapon_type = 1
+weapon_material = 4
 damage_multiplier = 3.0
 attack_speed_multiplier = 1.3
 cosmetic_id = &"weapon.lightning_sword"

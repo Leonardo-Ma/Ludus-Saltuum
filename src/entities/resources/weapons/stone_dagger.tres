@@ -6,8 +6,10 @@
 [resource]
 script = ExtResource("1_dpdt0")
 weapon_scene = ExtResource("2_5i3l4")
+weapon_type = 2
+weapon_material = 2
 damage_multiplier = 0.7999999999999999
-attack_speed_multiplier = 1.4000000000000001
+attack_speed_multiplier = 1.4
 cosmetic_id = &"weapon.stone_dagger"
 display_name = "Stone Dagger"
 price = 80

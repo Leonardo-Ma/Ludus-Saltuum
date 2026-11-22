@@ -6,6 +6,8 @@
 [resource]
 script = ExtResource("1_dpdt0")
 weapon_scene = ExtResource("2_5i3l4")
+weapon_type = 2
+weapon_material = 2
 damage_multiplier = 0.6
 attack_speed_multiplier = 1.6
 cosmetic_id = &"weapon.stone_sai_dagger"

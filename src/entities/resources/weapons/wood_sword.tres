@@ -6,6 +6,8 @@
 [resource]
 script = ExtResource("1_k5ykn")
 weapon_scene = ExtResource("2_k5ykn")
+weapon_type = 1
+weapon_material = 1
 cosmetic_id = &"weapon.wood_sword"
 display_name = "Wood Sword"
 price = 10

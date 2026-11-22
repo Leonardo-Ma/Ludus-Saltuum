@@ -56,6 +56,8 @@ func _make_weapon(id: StringName, price: int, is_default: bool) -> WeaponAsset:
 	asset.cosmetic_id = id
 	asset.price = price
 	asset.is_default = is_default
+	asset.weapon_type = WeaponAsset.WeaponType.SWORD
+	asset.weapon_material = WeaponAsset.WeaponMaterial.STONE
 	return asset
 
 

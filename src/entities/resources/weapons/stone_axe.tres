@@ -6,6 +6,8 @@
 [resource]
 script = ExtResource("1_i20rn")
 weapon_scene = ExtResource("2_i7y83")
+weapon_type = 3
+weapon_material = 2
 damage_multiplier = 1.2000000000000002
 attack_speed_multiplier = 0.7999999999999999
 cosmetic_id = &"weapon.stone_axe"

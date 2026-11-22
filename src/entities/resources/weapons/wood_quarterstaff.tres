@@ -6,6 +6,8 @@
 [resource]
 script = ExtResource("1_qp8w0")
 weapon_scene = ExtResource("2_qp8w0")
+weapon_type = 99
+weapon_material = 1
 damage_multiplier = 1.1
 attack_speed_multiplier = 0.9
 cosmetic_id = &"weapon.wood_quarterstaff"
