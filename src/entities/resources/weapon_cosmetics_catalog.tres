@@ -21,9 +21,10 @@
 [ext_resource type="Resource" uid="uid://3heichfxhxv5" path="res://src/entities/resources/weapons/water_wand.tres" id="18_04gyb"]
 [ext_resource type="Resource" uid="uid://7dyg6mfdv6wi" path="res://src/entities/resources/weapons/wood_quarterstaff.tres" id="19_gv0w8"]
 [ext_resource type="Resource" uid="uid://dxpgih650sr1" path="res://src/entities/resources/weapons/wood_sword.tres" id="20_uuink"]
+[ext_resource type="Resource" uid="uid://faeio5xc2xun" path="res://src/entities/resources/weapons/skeleton_staff.tres" id="21_r0xgb"]
 
 [resource]
 script = ExtResource("8_q0sk6")
 slot = 1
-assets = Array[ExtResource("1_3aug0")]([ExtResource("2_6yant"), ExtResource("3_w3ftp"), ExtResource("4_r0xgb"), ExtResource("5_e8wwy"), ExtResource("12_uv08d"), ExtResource("3_3aug0"), ExtResource("7_3aug0"), ExtResource("9_w3ftp"), ExtResource("9_5xbgv"), ExtResource("11_1yiht"), ExtResource("4_u64q3"), ExtResource("13_o2dir"), ExtResource("14_okvfn"), ExtResource("15_2bae7"), ExtResource("5_plvlr"), ExtResource("6_my4fc"), ExtResource("18_04gyb"), ExtResource("19_gv0w8"), ExtResource("20_uuink")])
+assets = Array[ExtResource("1_3aug0")]([ExtResource("2_6yant"), ExtResource("3_w3ftp"), ExtResource("4_r0xgb"), ExtResource("5_e8wwy"), ExtResource("12_uv08d"), ExtResource("3_3aug0"), ExtResource("7_3aug0"), ExtResource("9_w3ftp"), ExtResource("9_5xbgv"), ExtResource("11_1yiht"), ExtResource("4_u64q3"), ExtResource("13_o2dir"), ExtResource("14_okvfn"), ExtResource("15_2bae7"), ExtResource("5_plvlr"), ExtResource("6_my4fc"), ExtResource("18_04gyb"), ExtResource("19_gv0w8"), ExtResource("20_uuink"), ExtResource("21_r0xgb")])
 metadata/_custom_type_script = "uid://d3lng2e8754rw"

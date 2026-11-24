@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponAsset" format=3 uid="uid://faeio5xc2xun"]
+
+[ext_resource type="Script" uid="uid://cx0jguneos6kp" path="res://src/entities/data/weapon_asset.gd" id="1_a61y7"]
+[ext_resource type="PackedScene" uid="uid://dc3ewj4osvihl" path="res://src/entities/meshes/weapons/staffs/skeleton_staff.fbx" id="2_507d5"]
+
+[resource]
+script = ExtResource("1_a61y7")
+weapon_scene = ExtResource("2_507d5")
+weapon_type = 6
+weapon_material = 5
+cosmetic_id = &"weapon.skeleton_staff"
+display_name = "Skeleton Staff"
+price = 650
+metadata/_custom_type_script = "uid://cx0jguneos6kp"
