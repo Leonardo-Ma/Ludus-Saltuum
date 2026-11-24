@@ -23,9 +23,6 @@ func _initialize() -> void:
 	# TODO Also disable input controller, player can attack between death and respawn
 	_player.health.died.connect(_player.player_movement_controller.disable_movement.bind(INF))
 
-	_player.cosmetics_controller.equipped_changed.connect(_on_equipped_changed)
-	_on_equipped_changed(_player.cosmetics_controller.get_equipped_asset(CosmeticAsset.Slot.WEAPON))
-
 
 func _on_damaged_vibration(_attack: Attack) -> void:
 	# TODO Change the gamepad index to the current player gamepad?
@@ -37,11 +34,3 @@ func _on_attack_pressed() -> void:
 		return
 	_player.attack_component.start_cooldown()
 	_player.melee_attacked.emit()
-
-
-func _on_equipped_changed(asset: CosmeticAsset) -> void:
-	var weapon: WeaponAsset = asset as WeaponAsset
-	if weapon == null:
-		return
-
-	_player.attack_component.set_multipliers(weapon.damage_multiplier, weapon.attack_speed_multiplier)

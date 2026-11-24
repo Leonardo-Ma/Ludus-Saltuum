@@ -8,6 +8,10 @@ extends AggressiveEntity
 @export var target_groups: Array[String] = [Groups.PLAYERS]
 @export var debug_perception: bool = false
 
+@export_category("Weapon")
+## Optional, null keeps socket empty
+@export var weapon: WeaponAsset
+
 @export_category("AI System")
 @export var ai_config: AIConfig
 
@@ -49,6 +53,9 @@ func _child_ready() -> void:
 		projectile_attack_component != null or not ai_config.available_actions.has(MagicAttack),
 		"ProjectileAttackComponent must be assigned for MagicAttack action to work for " + name,
 	)
+
+	if weapon != null:
+		equip_weapon(weapon)
 
 	if not is_procedurally_spawned:
 		assert(static_id != &"", "Enemy static_id not set on non-procedural instance " + name)

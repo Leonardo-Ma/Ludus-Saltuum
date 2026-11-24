@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://vimkn28kx0tr"]
 
-[ext_resource type="Script" uid="uid://cdw0xeo616qlp" path="res://src/entities/player/character_visual.gd" id="1_is7u5"]
+[ext_resource type="Script" uid="uid://cdw0xeo616qlp" path="res://src/entities/components/character_visual.gd" id="1_is7u5"]
 
 [node name="Visual" type="Node3D" unique_id=1937025669]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)

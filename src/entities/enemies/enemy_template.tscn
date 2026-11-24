@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="14_n1si8"]
 [ext_resource type="PackedScene" uid="uid://vimkn28kx0tr" path="res://src/entities/base_humanoid_character_rig.tscn" id="14_qurdx"]
 [ext_resource type="Script" uid="uid://dlbf4w8moqj2j" path="res://src/entities/components/movement.gd" id="15_8icye"]
+[ext_resource type="Script" uid="uid://brwdwpotcaxaj" path="res://src/entities/components/weapon_visual.gd" id="15_to0xg"]
 [ext_resource type="Script" uid="uid://8ib48sr624k3" path="res://src/entities/ai/goap/goals/wander.gd" id="15_tur1j"]
 [ext_resource type="Script" uid="uid://bvvk88q345vy4" path="res://src/entities/ai/goap/helpers/ai_config.gd" id="16_iqbar"]
 [ext_resource type="Script" uid="uid://p7nksncfrnax" path="res://src/entities/components/combat/health_component.gd" id="17_8icye"]
@@ -89,6 +90,11 @@ script = ExtResource("17_ejhyg")
 
 [node name="Visual" parent="." unique_id=1937025669 instance=ExtResource("14_qurdx")]
 unique_name_in_owner = true
+
+[node name="WeaponVisual" type="Node3D" parent="Visual" unique_id=1415001676 node_paths=PackedStringArray("socket")]
+unique_name_in_owner = true
+script = ExtResource("15_to0xg")
+socket = NodePath("../Rig_Medium/Skeleton3D/RightHandAttachment/WeaponSocket")
 
 [node name="Components" type="Node" parent="." unique_id=2054122343]
 
@@ -176,3 +182,5 @@ script = ExtResource("25_ljr68")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=621494799]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.548, 0)
 shape = SubResource("CylinderShape3D_aulef")
+
+[editable path="Visual"]

@@ -18,8 +18,8 @@ signal magic_casted
 @onready var animation_tree: AnimationTree = %AnimationTree
 
 @onready var health: HealthComponent = %HealthComponent
-
 @onready var attack: Attack
+@onready var weapon_visual: WeaponVisual = %WeaponVisual
 @onready var attack_component: AttackComponent = %AttackComponent
 
 @onready var _lifecycle: EntityLifecycleController = %EntityLifecycleController
@@ -35,6 +35,7 @@ func _ready() -> void:
 	assert(status_manager, "Status Manager missing for " + name)
 	assert(animation_player, "Animation player missing for " + name)
 	assert(animation_tree and animation_tree.anim_player, "Animation tree missing or wrong for " + name)
+	assert(weapon_visual, "WeaponVisual missing for " + name)
 
 	assert(_lifecycle, "lifecycle missing for " + name)
 	assert(_damage_feedback, "damage_feedback missing for " + name)
@@ -46,6 +47,8 @@ func _ready() -> void:
 	_lifecycle.initialize()
 	_damage_feedback.initialize()
 	_combat_audio.initialize()
+
+	weapon_visual.weapon_replaced.connect(refresh_damage_feedback_meshes)
 
 	_lifecycle.dying.connect(_on_dying)
 	_lifecycle.death_completed.connect(_on_death_complete)
@@ -84,6 +87,12 @@ func disable_entity() -> void:
 ## Used on world reset/load
 func revive() -> void:
 	_lifecycle.revive()
+
+
+## Visual and attack modifiers together
+func equip_weapon(weapon: WeaponAsset) -> void:
+	weapon_visual.replace_weapon_visual(weapon)
+	attack_component.set_multipliers(weapon.damage_multiplier, weapon.attack_speed_multiplier)
 
 
 ## Call after meshes were swapped so damage overlay covers new meshes
