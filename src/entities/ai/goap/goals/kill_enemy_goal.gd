@@ -1,9 +1,5 @@
-class_name KillEnemy
+class_name KillEnemyGoal
 extends GoapGoal
-
-
-func get_custom_class_name() -> String:
-	return "KillEnemy"
 
 
 # Not valid if not in combat

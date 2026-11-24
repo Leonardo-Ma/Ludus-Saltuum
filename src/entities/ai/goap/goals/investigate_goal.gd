@@ -1,9 +1,5 @@
-class_name Investigate
+class_name InvestigateGoal
 extends GoapGoal
-
-
-func get_custom_class_name() -> String:
-	return "Investigate"
 
 
 func is_valid(_blackboard: Dictionary) -> bool:

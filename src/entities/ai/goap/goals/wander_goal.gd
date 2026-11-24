@@ -1,9 +1,5 @@
-class_name Wander
+class_name WanderGoal
 extends GoapGoal
-
-
-func get_custom_class_name() -> String:
-	return "Wander"
 
 
 func is_valid(_blackboard: Dictionary) -> bool:

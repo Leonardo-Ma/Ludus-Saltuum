@@ -1,9 +1,5 @@
-class_name Flee
+class_name FleeGoal
 extends GoapGoal
-
-
-func get_custom_class_name() -> String:
-	return "Flee"
 
 
 func is_valid(_blackboard: Dictionary) -> bool:

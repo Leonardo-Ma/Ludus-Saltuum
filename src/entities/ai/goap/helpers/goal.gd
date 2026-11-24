@@ -3,7 +3,7 @@ extends Node
 
 
 func get_custom_class_name() -> String:
-	return ""
+	return get_script().get_global_name()
 
 
 ## Should goal be considered?

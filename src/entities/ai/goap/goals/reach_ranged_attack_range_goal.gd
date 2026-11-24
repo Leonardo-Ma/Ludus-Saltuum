@@ -1,9 +1,5 @@
-class_name EnemyInRangedRange
+class_name ReachRangedAttackRangeGoal
 extends GoapGoal
-
-
-func get_custom_class_name() -> String:
-	return "EnemyInRangedRange"
 
 
 func is_valid(_blackboard: Dictionary) -> bool:

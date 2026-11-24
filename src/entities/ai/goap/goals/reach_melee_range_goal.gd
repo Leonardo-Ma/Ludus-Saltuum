@@ -1,9 +1,5 @@
-class_name EnemyInRange
+class_name ReachMeleeRangeGoal
 extends GoapGoal
-
-
-func get_custom_class_name() -> String:
-	return "EnemyInRange"
 
 
 func is_valid(_blackboard: Dictionary) -> bool:
