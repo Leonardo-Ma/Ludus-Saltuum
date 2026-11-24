@@ -151,60 +151,71 @@ func reset_level_state() -> void:
 	_pending_new_game_seed = 0
 
 
+## Validates saved route and stages persisted picks outside scene tree without filtering or RNG
+func prepare_saved_chunks(data: ChunkSaveData) -> Array[LevelChunk]:
+	if (
+		data.generation_version != GENERATION_VERSION or data.active_chunk_keys.is_empty()
+		or not ChunkSelector.is_valid_save_state(data.chunk_selector_state)
+	):
+		return []
+
+	var catalog_entries: Dictionary[int, ChunkData] = { }
+	var previous_key: int = -1
+	for chunk_key: int in data.active_chunk_keys:
+		if chunk_key <= previous_key or chunk_key >= data.next_chunk_key:
+			return []
+		var entry: ChunkData = _get_chunk_data_by_uid(data.chunk_key_to_scene_uid.get(chunk_key, ""))
+		if entry == null:
+			return []
+		catalog_entries[chunk_key] = entry
+		previous_key = chunk_key
+	# Route needs an unscored chunk for restore to select as current
+	if data.scored_chunk_keys.has(previous_key):
+		return []
+	for chunk_key: int in data.scored_chunk_keys:
+		if not catalog_entries.has(chunk_key):
+			return []
+
+	var chunks: Array[LevelChunk] = []
+	for chunk_key: int in data.active_chunk_keys:
+		var chunk: LevelChunk = _instantiate_chunk_data(catalog_entries[chunk_key])
+		if chunk == null:
+			for prepared_chunk: LevelChunk in chunks:
+				prepared_chunk.queue_free()
+			return []
+		chunk.chunk_key = chunk_key
+		chunk.is_scored = data.scored_chunk_keys.has(chunk_key)
+		chunks.append(chunk)
+	return chunks
+
+
 ## Replaces active chunks with persisted ones, emits level_loaded when done
-func restore_level(
-	world_seed: int,
-	active_chunk_keys: Array[int],
-	saved_next_key: int,
-	scored_keys: Dictionary[int, bool],
-	key_to_scene_uid: Dictionary[int, String],
-	selector_state: Dictionary,
-) -> void:
-	set_procedural_seed(world_seed)
-	_chunk_key_to_scene_uid = key_to_scene_uid.duplicate()
-
-	var parent_world: Node = get_tree().root.get_node("Main")
-
+func restore_level(data: ChunkSaveData, chunks: Array[LevelChunk], player: PlayerEntity, parent_world: Node) -> void:
 	clear_level()
-
-	_player = get_tree().get_first_node_in_group(Groups.PLAYERS)
-	assert(_player != null, "No player found for " + name)
-
-	assert(_chunk_selector != null, "restore_level called before metadata was loaded")
-	_chunk_selector.load_save_state(selector_state)
-	assert(not active_chunk_keys.is_empty(), "Save contains no active chunks in " + name)
-
-	_next_chunk_key = saved_next_key
+	set_procedural_seed(data.world_seed)
+	_chunk_key_to_scene_uid = data.chunk_key_to_scene_uid.duplicate()
+	_player = player
+	_chunk_selector.load_save_state(data.chunk_selector_state)
+	_next_chunk_key = data.next_chunk_key
 
 	var next_spawn_transform: Transform3D = Transform3D()
 
-	for chunk_key: int in active_chunk_keys:
-		var chunk: LevelChunk = _instantiate_persisted_chunk(chunk_key)
-
-		if chunk.get_parent() != null:
-			chunk.get_parent().remove_child(chunk)
+	for chunk: LevelChunk in chunks:
 		parent_world.add_child(chunk)
 		chunk.process_mode = Node.PROCESS_MODE_INHERIT
 		chunk.visible = true
 
 		_align_chunk_to_transform(chunk, next_spawn_transform)
 
-		if scored_keys.has(chunk_key):
-			chunk.is_scored = true
-
 		_active_chunks.push_back(chunk)
 		_setup_chunk_trigger(chunk)
 
 		next_spawn_transform = chunk.exit_trigger.global_transform
 
-		_current_chunk_index = 0
-
 	for chunk: LevelChunk in _active_chunks:
-		if not scored_keys.has(chunk.chunk_key):
+		if not chunk.is_scored:
 			break
 		_current_chunk_index += 1
-
-	assert(_current_chunk_index < _active_chunks.size(), "ChunkManager: no current chunk found after loading in " + name)
 
 	level_loaded.emit()
 
@@ -245,6 +256,9 @@ func clear_level() -> void:
 	for chunk: LevelChunk in _active_chunks:
 		if is_instance_valid(chunk):
 			_pool_chunk(chunk)
+			var parent_world: Node = chunk.get_parent()
+			if parent_world != null:
+				parent_world.remove_child(chunk)
 	_active_chunks.clear()
 	_current_chunk_index = 0
 	if _chunk_selector:
@@ -456,16 +470,6 @@ func _generate_new_chunk(target_transform: Transform3D) -> LevelChunk:
 	var chunk: LevelChunk = _instantiate_chunk_data(chosen_data)
 	chunk.chunk_key = chunk_key
 
-	return chunk
-
-
-## Instantiates a chunk_key using its persisted pick, no filtering/RNG involved
-func _instantiate_persisted_chunk(chunk_key: int) -> LevelChunk:
-	assert(_chunk_key_to_scene_uid.has(chunk_key), "ChunkManager: no persisted scene uid for chunk_key %d" % chunk_key)
-	var chunk_data: ChunkData = _get_chunk_data_by_uid(_chunk_key_to_scene_uid[chunk_key])
-	assert(chunk_data != null, "ChunkManager: no chunk found for persisted uid at chunk_key %d" % chunk_key)
-	var chunk: LevelChunk = _instantiate_chunk_data(chunk_data)
-	chunk.chunk_key = chunk_key
 	return chunk
 
 

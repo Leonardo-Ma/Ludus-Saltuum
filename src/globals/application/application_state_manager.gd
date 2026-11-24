@@ -35,6 +35,7 @@ const _MENU_ORIGINS: Dictionary[GameState, Array] = {
 
 var _current_state: GameState = GameState.MAIN_MENU
 var _previous_state: GameState = GameState.MAIN_MENU
+var _root_state: GameState = GameState.MAIN_MENU
 ## States below current overlay menu, last = return target
 var _menu_stack: Array[GameState] = []
 
@@ -58,6 +59,7 @@ func _apply_state(new_state: GameState) -> void:
 
 func _change_root_state(new_state: GameState) -> void:
 	_menu_stack.clear()
+	_root_state = new_state
 	_apply_state(new_state)
 	_on_root_state_entered(new_state, _previous_state)
 	state_changed.emit(new_state, _previous_state)
@@ -66,6 +68,7 @@ func _change_root_state(new_state: GameState) -> void:
 func _on_root_state_entered(new_state: GameState, previous_state: GameState) -> void:
 	match new_state:
 		GameState.MAIN_MENU:
+			main_menu_requested.emit()
 			PauseManager.request_pause("gameplay")
 			main_menu_opened.emit()
 
@@ -98,6 +101,11 @@ func is_in_state(state: GameState) -> bool:
 
 func is_gameplay_active() -> bool:
 	return _current_state in [GameState.PLAYING, GameState.PAUSED]
+
+
+## Reports whether gameplay exists underneath any overlay
+func has_active_run() -> bool:
+	return _root_state in [GameState.PLAYING, GameState.PAUSED]
 
 
 func is_in_overlay_menu() -> bool:
@@ -136,7 +144,6 @@ func request_resume() -> void:
 
 func request_main_menu() -> void:
 	assert(_current_state != GameState.MAIN_MENU, "Already in MAIN_MENU")
-	main_menu_requested.emit()
 	_change_root_state(GameState.MAIN_MENU)
 
 

@@ -6,9 +6,10 @@ func _button_ready() -> void:
 
 
 func _button_pressed() -> void:
-	if not SaveManager.has_any_save():
-		SaveManager.initialize_new_save(SaveManager.FIRST_MANUAL_SLOT)
-	else:
-		SaveManager.load_from_slot(SaveManager.get_latest_slot())
+	var slot_index: int = SaveManager.get_latest_slot()
+	var loaded: bool = (SaveManager.initialize_new_save(SaveManager.FIRST_MANUAL_SLOT)
+		if slot_index == -1
+		else SaveManager.load_from_slot(slot_index))
 
-	ApplicationStateManager.request_play_from_save()
+	if loaded:
+		ApplicationStateManager.request_play_from_save()

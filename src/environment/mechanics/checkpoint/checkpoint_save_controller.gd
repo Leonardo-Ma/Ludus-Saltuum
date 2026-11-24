@@ -1,16 +1,10 @@
 extends SaveController
 
-## Persists CheckpointManager state. Must be autoloaded before ChunkSaveController, checkpoint restore runs after chunks are restored
-
-## Unconditional, fires at the end of apply_save_data() regardless of a valid checkpoint
-signal load_applied
-
-var _pending_data: CheckpointSaveData
+## Persists CheckpointManager state, checkpoint restore runs after chunks are restored
 
 
 func _child_ready() -> void:
-	SaveManager.load_requested.connect(_on_load_requested)
-	ChunkManager.level_loaded.connect(_on_level_loaded)
+	pass
 
 
 func _on_save_requested(data: SaveData) -> void:
@@ -31,19 +25,18 @@ func build_save_data(data: CheckpointSaveData) -> void:
 	data.checkpoint_local_transform = CheckpointManager.get_checkpoint_local_transform()
 
 
+func can_apply_save_data(data: CheckpointSaveData, chunk_count: int) -> bool:
+	if not data.has_checkpoint_position:
+		return true
+	var transform: Transform3D = data.checkpoint_local_transform
+	var determinant: float = transform.basis.determinant()
+	return (
+		CheckpointSaveData.is_valid_chunk_index(data.checkpoint_chunk_index, chunk_count)
+		and transform.is_finite() and is_finite(determinant) and not is_zero_approx(determinant)
+	)
+
+
 func apply_save_data(data: CheckpointSaveData) -> void:
+	CheckpointManager.reset_checkpoint()
 	if data.has_checkpoint_position:
 		CheckpointManager.restore_checkpoint(data.checkpoint_chunk_index, data.checkpoint_local_transform)
-	else:
-		CheckpointManager.reset_checkpoint()
-	load_applied.emit()
-
-
-func _on_load_requested(data: SaveData) -> void:
-	_pending_data = data.checkpoint
-
-
-func _on_level_loaded() -> void:
-	assert(_pending_data != null, "Checkpoint data missing in " + name + ", autoload it before ChunkSaveController")
-	apply_save_data(_pending_data)
-	_pending_data = null

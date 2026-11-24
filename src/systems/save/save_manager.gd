@@ -7,8 +7,6 @@ extends Node
 
 ## Every system should trigger internal save
 signal save_requested(data: SaveData)
-## Every system should trigger internal load
-signal load_requested(data: SaveData)
 signal save_changed(slot_index: int)
 ## Reports cloud failures independently of local save success
 signal cloud_sync_failed(slot_index: int, operation: CloudOperation)
@@ -23,6 +21,9 @@ const AUTO_SLOTS: int = 2
 const TOTAL_SLOTS: int = MANUAL_SLOTS + AUTO_SLOTS
 const AUTO_SAVE_INTERVAL: float = 120.0
 const CURRENT_SAVE_VERSION: int = 2
+const LOADING: StringName = &"loading"
+const NEW_GAME: StringName = &"new_game"
+const WRITING: StringName = &"writing"
 
 const CORRUPT_SUFFIX: String = ".corrupt_"
 
@@ -39,12 +40,12 @@ class SlotSnapshot:
 	var data: SaveData
 
 
-var _save_block_sources: Dictionary = { }
+var _save_block_sources: Dictionary[StringName, bool] = { }
 
 var _next_auto_slot: int = 0
 var _auto_timer: Timer
 
-var _active_slot_index: int = -1
+var _active_manual_slot: int = -1
 
 var _cloud_backend: CloudSaveBackend
 
@@ -65,64 +66,61 @@ func _ready() -> void:
 
 	_setup_auto_save_timer()
 
-	# Saves to quick slot upon pause and quit
-	ApplicationStateManager.gameplay_paused.connect(_save_to_active_slot.bind(false))
-	ApplicationStateManager.quit_requested.connect(_save_to_active_slot.bind(true))
-
-	ApplicationStateManager.gameplay_started.connect(
-		func() -> void:
-			_auto_timer.start(),
-	)
-	ApplicationStateManager.gameplay_paused.connect(
-		func() -> void:
-			_auto_timer.stop(),
-	)
+	# Saves to active manual slot upon pause and quit
+	ApplicationStateManager.gameplay_paused.connect(save_to_quick_slot)
+	ApplicationStateManager.quit_requested.connect(save_to_quick_slot)
+	ApplicationStateManager.main_menu_opened.connect(_clear_active_manual_slot)
 
 
 func configure_cloud_backend(backend: CloudSaveBackend) -> void:
 	_cloud_backend = backend
 
 
-func initialize_new_save(slot_index: int) -> void:
-	_active_slot_index = slot_index
-	_next_auto_slot = 0
+func initialize_new_save(slot_index: int) -> bool:
+	if not _is_manual_slot(slot_index) or is_save_blocked():
+		return false
+
+	request_save_block(NEW_GAME)
 	reset_requested.emit()
 	reset_finished.emit()
+	_active_manual_slot = slot_index
+	release_save_block(NEW_GAME)
+	return true
 
 
 #region Save Load and Delete
 
+func _clear_active_manual_slot() -> void:
+	_active_manual_slot = -1
+
+
 # TODO Change to a request save to slot
-func _save_to_active_slot(force: bool) -> void:
-	if _active_slot_index == -1:
-		push_warning("Tried saving without active slot")
-		return
-	_write_slot(_active_slot_index, false, force)
-
-
 # TODO Change to a request quick save
-func save_to_quick_slot(force: bool) -> bool:
-	return _write_slot(MANUAL_SLOTS - 1, false, force)
+## Writes active manual slot when run can be saved. Legacy force argument obeys transition blocks
+func save_to_quick_slot(_force: bool = false) -> bool:
+	return _write_slot(_active_manual_slot, false)
 
 
+## Loads each system from snapshot before committing manual destination
 func load_from_slot(slot_index: int) -> bool:
-	assert(not is_save_blocked(), "Saving blocked in %s by %s" % [name, _save_block_sources.keys()])
-
-	assert(slot_index >= 0 and slot_index < TOTAL_SLOTS, "SaveManager: slot out of range in " + name)
+	if is_save_blocked() or slot_index < 0 or slot_index >= TOTAL_SLOTS:
+		return false
 	var data: SaveData = get_slot_data(slot_index)
-	assert(data != null, "No readable save in slot %d in %s" % [slot_index, name])
-	if data == null:
+	if data == null or not _migrate(data):
 		return false
 
-	if data.save_version != CURRENT_SAVE_VERSION:
-		if not _migrate(data):
-			return false
+	var manual_slot: int = slot_index
+	if not _is_manual_slot(slot_index):
+		manual_slot = FIRST_MANUAL_SLOT if data.manual_slot_index == -1 else data.manual_slot_index
+	if not _is_manual_slot(manual_slot):
+		return false
 
-	_active_slot_index = slot_index
-	request_save_block(&"loading")
-	_apply(data)
-
-	return true
+	request_save_block(LOADING)
+	var applied: bool = GameLoadManager.apply_save_data(data)
+	release_save_block(LOADING)
+	if applied:
+		_active_manual_slot = manual_slot
+	return applied
 
 
 func delete_slot(slot_index: int) -> bool:
@@ -210,8 +208,7 @@ func is_save_blocked() -> bool:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("quick_save") and ApplicationStateManager.is_gameplay_active():
-		_save_to_active_slot(false)
+	if event.is_action_pressed("quick_save") and save_to_quick_slot():
 		get_viewport().set_input_as_handled()
 
 
@@ -222,33 +219,32 @@ func _on_auto_save() -> void:
 		_next_auto_slot = (_next_auto_slot + 1) % AUTO_SLOTS
 
 
-func _write_slot(slot_index: int, is_auto: bool, force: bool = false) -> bool:
+func _write_slot(slot_index: int, is_auto: bool) -> bool:
+	if not _can_save():
+		return false
+
 	assert(slot_index >= 0 and slot_index < TOTAL_SLOTS, "SaveManager: slot out of range in " + name)
-
-	if not _can_save(force):
-		return false
-
+	request_save_block(WRITING)
 	var data: SaveData = _build_save_data(slot_index, is_auto)
-	if not _persist_slot(slot_index, data):
+	var persisted: bool = _persist_slot(slot_index, data)
+	if persisted:
+		_upload_slot(slot_index)
+		save_changed.emit(slot_index)
+		print_debug("Saved slot ", slot_index)
+	release_save_block(WRITING)
+	return persisted
+
+
+func _can_save() -> bool:
+	if not _is_manual_slot(_active_manual_slot) or not ApplicationStateManager.has_active_run() or is_save_blocked():
 		return false
 
-	_upload_slot(slot_index)
-	save_changed.emit(slot_index)
-
-	print_debug("Saved slot ", slot_index)
-	return true
+	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS)
+	return player != null and player.is_node_ready() and player.health.current_health > 0
 
 
-func _can_save(force: bool) -> bool:
-	if not force and is_save_blocked():
-		print_debug("Save blocked by ", _save_block_sources.keys())
-		return false
-
-	if not ApplicationStateManager.is_gameplay_active():
-		print_debug("Tried saving while gameplay not active")
-		return false
-
-	return true
+func _is_manual_slot(slot_index: int) -> bool:
+	return slot_index >= FIRST_MANUAL_SLOT and slot_index < MANUAL_SLOTS
 
 
 func _persist_slot(slot_index: int, data: SaveData) -> bool:
@@ -287,6 +283,7 @@ func _build_save_data(slot_index: int, is_auto: bool) -> SaveData:
 	data.save_version = CURRENT_SAVE_VERSION
 	data.slot_index = slot_index
 	data.is_auto_save = is_auto
+	data.manual_slot_index = _active_manual_slot
 	data.save_timestamp = int(Time.get_unix_time_from_system())
 	data.play_time_seconds = GameplayStateManager.get_play_time()
 
@@ -295,13 +292,11 @@ func _build_save_data(slot_index: int, is_auto: bool) -> SaveData:
 	return data
 
 
-func _apply(data: SaveData) -> void:
-	GameplayStateManager.set_play_time(data.play_time_seconds)
-	load_requested.emit(data)
-
-
 func _migrate(data: SaveData) -> bool:
 	if data.save_version == 1:
+		for definition: SkillDefinition in data.player.unlocked_skills:
+			if definition == null:
+				return false
 		_migrate_v1_to_v2(data)
 	return data.save_version == CURRENT_SAVE_VERSION
 
@@ -422,6 +417,7 @@ func _setup_auto_save_timer() -> void:
 	ApplicationStateManager.gameplay_started.connect(_auto_timer.start)
 	ApplicationStateManager.gameplay_resumed.connect(_auto_timer.start)
 	ApplicationStateManager.gameplay_paused.connect(_auto_timer.stop)
+	ApplicationStateManager.main_menu_opened.connect(_auto_timer.stop)
 
 
 func _notification(what: int) -> void:

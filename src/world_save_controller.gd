@@ -10,7 +10,6 @@ func _child_ready() -> void:
 	CollectiblesEvents.collectible_collected.connect(_on_collectible_collected)
 	CombatEvents.enemy_killed.connect(_on_enemy_killed)
 	ApplicationStateManager.main_menu_requested.connect(initialize_new_save_data)
-	SaveManager.load_requested.connect(_on_load_requested)
 
 
 func _on_save_requested(data: SaveData) -> void:
@@ -21,10 +20,6 @@ func _on_save_requested(data: SaveData) -> void:
 func build_save_data(data: WorldSaveData) -> void:
 	data.collected_collectible_ids = _collected_collectible_ids.duplicate()
 	data.killed_enemy_ids = _killed_enemy_ids.duplicate()
-
-
-func _on_load_requested(data: SaveData) -> void:
-	apply_save_data(data.world)
 
 
 func initialize_new_save_data() -> void:
@@ -38,8 +33,11 @@ func initialize_new_save_data() -> void:
 func apply_save_data(data: WorldSaveData) -> void:
 	_collected_collectible_ids = data.collected_collectible_ids.duplicate()
 	_killed_enemy_ids = data.killed_enemy_ids.duplicate()
-	_disable_collected_collectibles.call_deferred()
-	_disable_killed_enemies.call_deferred()
+
+
+func apply_saved_entity_states() -> void:
+	_disable_collected_collectibles()
+	_disable_killed_enemies()
 
 #endregion
 

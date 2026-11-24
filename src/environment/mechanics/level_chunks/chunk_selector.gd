@@ -207,8 +207,22 @@ func get_save_state() -> Dictionary:
 
 
 func load_save_state(state: Dictionary) -> void:
-	_recent_chunk_scene_uids = state.get("recent_chunk_scene_uids", []).duplicate()
+	_recent_chunk_scene_uids.assign(state.get("recent_chunk_scene_uids", []))
 	_chunks_since_turn = state.get("chunks_since_turn", TURN_COOLDOWN_CHUNKS)
 	_chunks_since_skill_unlock = state.get("chunks_since_skill_unlock", MIN_CHUNKS_BETWEEN_SKILLS)
 	_last_skill_score_threshold = state.get("last_skill_score_threshold", 0)
+
+
+static func is_valid_save_state(state: Dictionary) -> bool:
+	var recent_uids: Variant = state.get("recent_chunk_scene_uids", [])
+	if not (recent_uids is Array):
+		return false
+	for uid: Variant in recent_uids:
+		if not (uid is String):
+			return false
+	for key: String in ["chunks_since_turn", "chunks_since_skill_unlock", "last_skill_score_threshold"]:
+		var value: Variant = state.get(key, 0)
+		if not (value is int) or value < 0:
+			return false
+	return true
 #endregion

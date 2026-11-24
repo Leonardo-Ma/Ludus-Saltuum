@@ -38,8 +38,8 @@ func _on_save_file_item_play_requested(slot_index: int) -> void:
 		if not SaveManager.load_from_slot(slot_index):
 			# TODO Open a version error popup, make backup and possibly delete save
 			return
-	else:
-		SaveManager.initialize_new_save(slot_index)
+	elif not SaveManager.initialize_new_save(slot_index):
+		return
 
 	ApplicationStateManager.request_play_from_save()
 

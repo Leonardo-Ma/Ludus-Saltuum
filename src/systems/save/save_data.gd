@@ -5,6 +5,8 @@ extends Resource
 @export var save_version: int = 2
 @export var slot_index: int = 0
 @export var is_auto_save: bool = false
+## Manual destination for this run; -1 for saves written before this field existed
+@export var manual_slot_index: int = -1
 @export var save_timestamp: int = 0
 @export var play_time_seconds: float = 0.0
 
