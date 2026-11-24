@@ -18,7 +18,10 @@ signal magic_casted
 @onready var animation_tree: AnimationTree = %AnimationTree
 
 @onready var health: HealthComponent = %HealthComponent
-@onready var attack: Attack
+# TODO Find better way to implement this, other places use this reference from player
+var attack: Attack:
+	get:
+		return attack_component.get_effective_attack() if attack_component else null
 @onready var weapon_visual: WeaponVisual = %WeaponVisual
 @onready var attack_component: AttackComponent = %AttackComponent
 
@@ -52,9 +55,6 @@ func _ready() -> void:
 	assert(_lifecycle, "lifecycle missing for " + name)
 	assert(_damage_feedback, "damage_feedback missing for " + name)
 	assert(_combat_audio, "combat_audio missing for " + name)
-
-	# TODO Find better way to implement this, other places use this reference from player
-	attack = attack_component.get_effective_attack()
 
 	_lifecycle.initialize()
 	_damage_feedback.initialize()
@@ -99,12 +99,6 @@ func disable_entity() -> void:
 ## Used on world reset/load
 func revive() -> void:
 	_lifecycle.revive()
-
-
-## Visual and attack modifiers together
-func equip_weapon(weapon: WeaponAsset) -> void:
-	weapon_visual.replace_weapon_visual(weapon)
-	attack_component.set_multipliers(weapon.damage_multiplier, weapon.attack_speed_multiplier)
 
 
 ## Call after meshes were swapped so damage overlay covers new meshes

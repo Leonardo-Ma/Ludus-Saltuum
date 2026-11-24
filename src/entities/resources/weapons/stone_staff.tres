@@ -10,7 +10,4 @@ weapon_type = 6
 weapon_material = 2
 damage_multiplier = 1.1
 attack_speed_multiplier = 0.9
-cosmetic_id = &"weapon.stone_staff"
-display_name = "Stone Staff"
-price = 160
 metadata/_custom_type_script = "uid://cx0jguneos6kp"

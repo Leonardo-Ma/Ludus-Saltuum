@@ -446,7 +446,6 @@ speed = 2.5
 metadata/_custom_type_script = "uid://dlbf4w8moqj2j"
 
 [node name="SkeletonMage" unique_id=280064195 node_paths=PackedStringArray("projectile_attack_component") instance=ExtResource("1_virfw")]
-weapon = ExtResource("2_mroeu")
 ai_config = SubResource("Resource_bdim5")
 projectile_attack_component = NodePath("Components/ProjectileAttackComponent")
 
@@ -579,5 +578,8 @@ movement = SubResource("Resource_n1si8")
 
 [node name="CollisionShape3D" parent="Hitbox" parent_id_path=PackedInt32Array(744692812) index="0" unique_id=669871644]
 disabled = false
+
+[node name="WeaponController" parent="Components" unique_id=1903887241]
+weapons = [ExtResource("2_mroeu")]
 
 [editable path="Visual"]

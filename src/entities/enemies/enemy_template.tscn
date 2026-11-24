@@ -31,6 +31,7 @@
 [ext_resource type="Script" uid="uid://csig12422io62" path="res://src/entities/components/combat/hitbox.gd" id="24_sx6k8"]
 [ext_resource type="Script" uid="uid://wqopxvagomo6" path="res://src/entities/components/combat/hurtbox.gd" id="25_ljr68"]
 [ext_resource type="Script" uid="uid://cpnmaicmyhwd6" path="res://src/entities/components/entity_debug_label.gd" id="26_5e42j"]
+[ext_resource type="Script" uid="uid://0qabyveq1ul1" path="res://src/entities/components/weapon_controller.gd" id="weapon_controller"]
 
 [sub_resource type="Resource" id="Resource_kcsny"]
 script = ExtResource("7_djwp5")
@@ -112,6 +113,12 @@ attack = SubResource("Resource_hvei5")
 unique_name_in_owner = true
 script = ExtResource("19_nw04b")
 movement = SubResource("Resource_7vsgj")
+
+[node name="WeaponController" type="Node" parent="Components" unique_id=1903887241]
+unique_name_in_owner = true
+script = ExtResource("weapon_controller")
+apply_weapon_damage = false
+apply_weapon_attack_rate = false
 
 [node name="Controllers" type="Node" parent="." unique_id=1494063068]
 

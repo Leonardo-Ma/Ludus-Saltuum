@@ -9,6 +9,10 @@
 [ext_resource type="Resource" uid="uid://c3n684po0joc4" path="res://src/entities/resources/characters/humans/barbarian.tres" id="8_cin2i"]
 [ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="9_cin2i"]
 [ext_resource type="Script" uid="uid://dlbf4w8moqj2j" path="res://src/entities/components/movement.gd" id="9_oiqqw"]
+[ext_resource type="Script" uid="uid://cx0jguneos6kp" path="res://src/entities/data/weapon_asset.gd" id="11_85d17"]
+[ext_resource type="Resource" uid="uid://bgdv4xkrfy3vg" path="res://src/entities/resources/weapons/stone_sword.tres" id="13_iamlb"]
+[ext_resource type="Resource" uid="uid://bddhvg1ytve8r" path="res://src/entities/resources/weapons/stone_axe.tres" id="14_3q2kk"]
+[ext_resource type="Resource" uid="uid://b82wh7rxddy1b" path="res://src/entities/resources/weapons/gold_paladin_hammer.tres" id="15_m2hlj"]
 [ext_resource type="AnimationLibrary" uid="uid://bp21tmj3ajjq" path="res://src/entities/animation/libraries/movement_advanced.res" id="19_2rf2y"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://basam7g1dbev2" path="res://src/entities/animation/libraries/base_medium_animation_blend_tree.tres" id="20_cr6u0"]
 
@@ -421,7 +425,6 @@ speed = 3.5
 metadata/_custom_type_script = "uid://dlbf4w8moqj2j"
 
 [node name="Barbarian" unique_id=280064195 instance=ExtResource("1_4frua")]
-weapon = ExtResource("2_ud1dh")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1" unique_id=341113318]
 unique_name_in_owner = true
@@ -544,5 +547,9 @@ health = SubResource("Resource_qu22f")
 
 [node name="NPCMovementController" parent="Components" parent_id_path=PackedInt32Array(2054122343) index="2" unique_id=1768493993]
 movement = SubResource("Resource_njikp")
+
+[node name="WeaponController" parent="Components" parent_id_path=PackedInt32Array(2054122343) index="3" unique_id=1903887241]
+weapons = Array[ExtResource("11_85d17")]([ExtResource("2_ud1dh"), ExtResource("13_iamlb"), ExtResource("14_3q2kk"), ExtResource("15_m2hlj")])
+randomize_weapon = true
 
 [editable path="Visual"]

@@ -9,7 +9,4 @@ weapon_scene = ExtResource("2_nacwv")
 weapon_type = 1
 weapon_material = 2
 attack_speed_multiplier = 2.0
-cosmetic_id = &"weapon.stone_katana"
-display_name = "Stone Katana"
-price = 500
 metadata/_custom_type_script = "uid://cx0jguneos6kp"

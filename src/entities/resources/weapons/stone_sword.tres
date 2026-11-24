@@ -8,7 +8,4 @@ script = ExtResource("1_nwhnk")
 weapon_scene = ExtResource("2_nwhnk")
 weapon_type = 1
 weapon_material = 2
-cosmetic_id = &"weapon.stone_sword"
-display_name = "Stone Sword"
-is_default = true
 metadata/_custom_type_script = "uid://cx0jguneos6kp"

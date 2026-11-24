@@ -10,7 +10,4 @@ weapon_type = 3
 weapon_material = 2
 damage_multiplier = 1.4
 attack_speed_multiplier = 0.7
-cosmetic_id = &"weapon.stone_axe_double_face"
-display_name = "Stone Axe Double Face"
-price = 270
 metadata/_custom_type_script = "uid://cx0jguneos6kp"

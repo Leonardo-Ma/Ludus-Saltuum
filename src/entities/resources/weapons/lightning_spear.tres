@@ -10,7 +10,4 @@ weapon_type = 5
 weapon_material = 4
 damage_multiplier = 1.2000000000000002
 attack_speed_multiplier = 0.7999999999999999
-cosmetic_id = &"weapon.lightning_spear"
-display_name = "Lightning Spear"
-price = 1000
 metadata/_custom_type_script = "uid://cx0jguneos6kp"

@@ -51,13 +51,12 @@ func _make_character(id: StringName, price: int, is_default: bool) -> CharacterE
 	return asset
 
 
-func _make_weapon(id: StringName, price: int, is_default: bool) -> WeaponAsset:
-	var asset: WeaponAsset = WeaponAsset.new()
+func _make_weapon(id: StringName, price: int, is_default: bool) -> WeaponCosmetic:
+	var asset: WeaponCosmetic = WeaponCosmetic.new()
 	asset.cosmetic_id = id
 	asset.price = price
 	asset.is_default = is_default
-	asset.weapon_type = WeaponAsset.WeaponType.SWORD
-	asset.weapon_material = WeaponAsset.WeaponMaterial.STONE
+	asset.weapon = preload("uid://bgdv4xkrfy3vg") # stone_sword.tres
 	return asset
 
 

@@ -10,7 +10,4 @@ weapon_type = 2
 weapon_material = 2
 damage_multiplier = 0.7999999999999999
 attack_speed_multiplier = 1.4
-cosmetic_id = &"weapon.stone_dagger"
-display_name = "Stone Dagger"
-price = 80
 metadata/_custom_type_script = "uid://cx0jguneos6kp"

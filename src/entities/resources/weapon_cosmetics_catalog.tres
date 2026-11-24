@@ -22,9 +22,170 @@
 [ext_resource type="Resource" uid="uid://7dyg6mfdv6wi" path="res://src/entities/resources/weapons/wood_quarterstaff.tres" id="19_gv0w8"]
 [ext_resource type="Resource" uid="uid://dxpgih650sr1" path="res://src/entities/resources/weapons/wood_sword.tres" id="20_uuink"]
 [ext_resource type="Resource" uid="uid://faeio5xc2xun" path="res://src/entities/resources/weapons/skeleton_staff.tres" id="21_r0xgb"]
+[ext_resource type="Script" uid="uid://cvlqlrugjgt8d" path="res://src/entities/data/weapon_cosmetic.gd" id="weapon_cosmetic"]
+
+[sub_resource type="Resource" id="Cosmetic_druid_staff"]
+resource_name = "druid_staff.tres"
+script = ExtResource("weapon_cosmetic")
+weapon = ExtResource("2_6yant")
+cosmetic_id = &"weapon.druid_staff"
+display_name = "Druid Staff"
+price = 140
+
+[sub_resource type="Resource" id="Cosmetic_gold_paladin_hammer"]
+resource_name = "gold_paladin_hammer.tres"
+script = ExtResource("weapon_cosmetic")
+weapon = ExtResource("3_w3ftp")
+cosmetic_id = &"weapon.gold_paladin_hammer"
+display_name = "Gold Paladin Hammer"
+price = 500
+
+[sub_resource type="Resource" id="Cosmetic_lightning_spear"]
+resource_name = "lightning_spear.tres"
+script = ExtResource("weapon_cosmetic")
+weapon = ExtResource("4_r0xgb")
+cosmetic_id = &"weapon.lightning_spear"
+display_name = "Lightning Spear"
+price = 1000
+
+[sub_resource type="Resource" id="Cosmetic_lightning_sword"]
+resource_name = "lightning_sword.tres"
+script = ExtResource("weapon_cosmetic")
+weapon = ExtResource("5_e8wwy")
+cosmetic_id = &"weapon.lightning_sword"
+display_name = "Lightning Sword"
+price = 1000
+
+[sub_resource type="Resource" id="Cosmetic_poison_dagger"]
+resource_name = "poison_dagger.tres"
+script = ExtResource("weapon_cosmetic")
+weapon = ExtResource("12_uv08d")
+cosmetic_id = &"weapon.poison_dagger"
+display_name = "Poison Dagger"
+price = 370
+
+[sub_resource type="Resource" id="Cosmetic_stone_axe"]
+resource_name = "stone_axe.tres"
+script = ExtResource("weapon_cosmetic")
+weapon = ExtResource("3_3aug0")
+cosmetic_id = &"weapon.stone_axe"
+display_name = "Stone Axe"
+price = 80
+
+[sub_resource type="Resource" id="Cosmetic_stone_axe_double_face"]
+resource_name = "stone_axe_double_face.tres"
+script = ExtResource("weapon_cosmetic")
+weapon = ExtResource("7_3aug0")
+cosmetic_id = &"weapon.stone_axe_double_face"
+display_name = "Stone Axe Double Face"
+price = 270
+
+[sub_resource type="Resource" id="Cosmetic_stone_dagger"]
+resource_name = "stone_dagger.tres"
+script = ExtResource("weapon_cosmetic")
+weapon = ExtResource("9_w3ftp")
+cosmetic_id = &"weapon.stone_dagger"
+display_name = "Stone Dagger"
+price = 80
+
+[sub_resource type="Resource" id="Cosmetic_stone_katana"]
+resource_name = "stone_katana.tres"
+script = ExtResource("weapon_cosmetic")
+weapon = ExtResource("9_5xbgv")
+cosmetic_id = &"weapon.stone_katana"
+display_name = "Stone Katana"
+price = 500
+
+[sub_resource type="Resource" id="Cosmetic_stone_rapier"]
+resource_name = "stone_rapier.tres"
+script = ExtResource("weapon_cosmetic")
+weapon = ExtResource("11_1yiht")
+cosmetic_id = &"weapon.stone_rapier"
+display_name = "Stone Rapier"
+price = 300
+
+[sub_resource type="Resource" id="Cosmetic_stone_sai_dagger"]
+resource_name = "stone_sai_dagger.tres"
+script = ExtResource("weapon_cosmetic")
+weapon = ExtResource("4_u64q3")
+cosmetic_id = &"weapon.stone_sai_dagger"
+display_name = "Stone Sai Dagger"
+price = 300
+
+[sub_resource type="Resource" id="Cosmetic_stone_spear"]
+resource_name = "stone_spear.tres"
+script = ExtResource("weapon_cosmetic")
+weapon = ExtResource("13_o2dir")
+cosmetic_id = &"weapon.stone_spear"
+display_name = "Stone Spear"
+price = 80
+
+[sub_resource type="Resource" id="Cosmetic_stone_spiked_club"]
+resource_name = "stone_spiked_club.tres"
+script = ExtResource("weapon_cosmetic")
+weapon = ExtResource("14_okvfn")
+cosmetic_id = &"weapon.stone_spiked_club"
+display_name = "Stone Spiked Club"
+price = 400
+
+[sub_resource type="Resource" id="Cosmetic_stone_spiked_mace"]
+resource_name = "stone_spiked_mace.tres"
+script = ExtResource("weapon_cosmetic")
+weapon = ExtResource("15_2bae7")
+cosmetic_id = &"weapon.stone_spiked_mace"
+display_name = "Stone Spiked Mace"
+price = 400
+
+[sub_resource type="Resource" id="Cosmetic_stone_staff"]
+resource_name = "stone_staff.tres"
+script = ExtResource("weapon_cosmetic")
+weapon = ExtResource("5_plvlr")
+cosmetic_id = &"weapon.stone_staff"
+display_name = "Stone Staff"
+price = 160
+
+[sub_resource type="Resource" id="Cosmetic_stone_sword"]
+resource_name = "stone_sword.tres"
+script = ExtResource("weapon_cosmetic")
+weapon = ExtResource("6_my4fc")
+cosmetic_id = &"weapon.stone_sword"
+display_name = "Stone Sword"
+is_default = true
+
+[sub_resource type="Resource" id="Cosmetic_water_wand"]
+resource_name = "water_wand.tres"
+script = ExtResource("weapon_cosmetic")
+weapon = ExtResource("18_04gyb")
+cosmetic_id = &"weapon.water_wand"
+display_name = "Water Wand"
+price = 100
+
+[sub_resource type="Resource" id="Cosmetic_wood_quarterstaff"]
+resource_name = "wood_quarterstaff.tres"
+script = ExtResource("weapon_cosmetic")
+weapon = ExtResource("19_gv0w8")
+cosmetic_id = &"weapon.wood_quarterstaff"
+display_name = "Wood Quarterstaff"
+price = 70
+
+[sub_resource type="Resource" id="Cosmetic_wood_sword"]
+resource_name = "wood_sword.tres"
+script = ExtResource("weapon_cosmetic")
+weapon = ExtResource("20_uuink")
+cosmetic_id = &"weapon.wood_sword"
+display_name = "Wood Sword"
+price = 10
+
+[sub_resource type="Resource" id="Cosmetic_skeleton_staff"]
+resource_name = "skeleton_staff.tres"
+script = ExtResource("weapon_cosmetic")
+weapon = ExtResource("21_r0xgb")
+cosmetic_id = &"weapon.skeleton_staff"
+display_name = "Skeleton Staff"
+price = 650
 
 [resource]
 script = ExtResource("8_q0sk6")
 slot = 1
-assets = Array[ExtResource("1_3aug0")]([ExtResource("2_6yant"), ExtResource("3_w3ftp"), ExtResource("4_r0xgb"), ExtResource("5_e8wwy"), ExtResource("12_uv08d"), ExtResource("3_3aug0"), ExtResource("7_3aug0"), ExtResource("9_w3ftp"), ExtResource("9_5xbgv"), ExtResource("11_1yiht"), ExtResource("4_u64q3"), ExtResource("13_o2dir"), ExtResource("14_okvfn"), ExtResource("15_2bae7"), ExtResource("5_plvlr"), ExtResource("6_my4fc"), ExtResource("18_04gyb"), ExtResource("19_gv0w8"), ExtResource("20_uuink"), ExtResource("21_r0xgb")])
+assets = Array[ExtResource("1_3aug0")]([SubResource("Cosmetic_druid_staff"), SubResource("Cosmetic_gold_paladin_hammer"), SubResource("Cosmetic_lightning_spear"), SubResource("Cosmetic_lightning_sword"), SubResource("Cosmetic_poison_dagger"), SubResource("Cosmetic_stone_axe"), SubResource("Cosmetic_stone_axe_double_face"), SubResource("Cosmetic_stone_dagger"), SubResource("Cosmetic_stone_katana"), SubResource("Cosmetic_stone_rapier"), SubResource("Cosmetic_stone_sai_dagger"), SubResource("Cosmetic_stone_spear"), SubResource("Cosmetic_stone_spiked_club"), SubResource("Cosmetic_stone_spiked_mace"), SubResource("Cosmetic_stone_staff"), SubResource("Cosmetic_stone_sword"), SubResource("Cosmetic_water_wand"), SubResource("Cosmetic_wood_quarterstaff"), SubResource("Cosmetic_wood_sword"), SubResource("Cosmetic_skeleton_staff")])
 metadata/_custom_type_script = "uid://d3lng2e8754rw"

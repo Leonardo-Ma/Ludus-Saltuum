@@ -46,6 +46,7 @@
 [ext_resource type="PackedScene" uid="uid://7ugwdowsimwr" path="res://src/environment/levels/assets/platforms/static_platforms/hexagon_stone.tscn" id="43_aem2r"]
 [ext_resource type="PackedScene" uid="uid://nd1uo24vt6d5" path="res://src/entities/enemies/barbarian/barbarian.tscn" id="44_mgsk8"]
 [ext_resource type="PackedScene" uid="uid://b1ng4j32ylvr1" path="res://src/environment/assets/kaykit_medieval_hexagon/asset_scenes/wall_straight.tscn" id="45_esj2f"]
+[ext_resource type="Script" uid="uid://b2vxvhdl8bvno" path="res://tests/test_weapon_controller.gd" id="weapon_test"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4hukf"]
 size = Vector3(20, 9, 20)
@@ -187,6 +188,9 @@ script = ExtResource("12_7adl8")
 [node name="TestSaveMigration" type="Node" parent="UnitTestAutomaticScripts" unique_id=1156368114]
 script = ExtResource("12_axgai")
 
+[node name="WeaponController" type="Node" parent="UnitTestAutomaticScripts" unique_id=768587718]
+script = ExtResource("weapon_test")
+
 [node name="Cosmetics" type="Node" parent="UnitTestAutomaticScripts" unique_id=2088720414]
 script = ExtResource("13_kdkg8")
 
@@ -259,7 +263,7 @@ curve = SubResource("Curve3D_xcpnr")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="InteractableAndHazards/MovingPlatforMOrange/Path3D" unique_id=1111835856]
 unique_name_in_owner = true
-transform = Transform3D(-0.9999641, -0.0004485696, -0.008052075, -7.275934e-11, 0.9984519, -0.05562216, 0.008064545, -0.055620424, -0.99841803, -0.012, 0, 0.01)
+transform = Transform3D(-0.99996406, -0.0004485696, -0.008052075, -7.275933e-11, 0.9984519, -0.05562216, 0.008064545, -0.055620424, -0.99841803, -0.012, 0, 0.01)
 
 [node name="MovingComponent" parent="InteractableAndHazards/MovingPlatforMOrange" unique_id=452120223 node_paths=PackedStringArray("moving_object", "path", "surface_detection") instance=ExtResource("23_7vcmu")]
 moving_object = NodePath("..")

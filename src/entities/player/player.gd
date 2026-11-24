@@ -13,6 +13,7 @@ enum PlayerState {
 var state: PlayerState = PlayerState.INACTIVE
 
 @onready var visual: CharacterVisual = %Visual
+@onready var weapon_controller: WeaponController = %WeaponController
 
 @onready var camera_controller: CameraController = %CamRoot
 @onready var player_movement_controller: PlayerMovementComponent = %PlayerMovementComponent
@@ -48,7 +49,9 @@ func _child_ready() -> void:
 	# TODO Move this to cosmetics controller? Or Visual?
 	cosmetics_controller.equipped_changed.connect(_on_equipped_changed)
 	_on_equipped_changed(cosmetics_controller.get_equipped_asset(CosmeticAsset.Slot.CHARACTER))
-	_on_equipped_changed(cosmetics_controller.get_equipped_asset(CosmeticAsset.Slot.WEAPON))
+	var cosmetic_weapon: CosmeticAsset = cosmetics_controller.get_equipped_asset(CosmeticAsset.Slot.WEAPON)
+	if weapon_controller.equipped_weapon == null or not cosmetic_weapon.is_default:
+		_on_equipped_changed(cosmetic_weapon)
 
 	ControlledEntityEvents.player_finished_spawning.emit(self)
 
@@ -84,5 +87,5 @@ func _on_death_complete() -> void:
 func _on_equipped_changed(asset: CosmeticAsset) -> void:
 	if asset is CharacterEntityAsset:
 		visual.replace_character_visual(asset.character_mesh)
-	elif asset is WeaponAsset:
-		equip_weapon(asset)
+	elif asset is WeaponCosmetic:
+		weapon_controller.equip_weapon(asset.weapon)

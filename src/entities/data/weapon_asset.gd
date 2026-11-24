@@ -1,6 +1,6 @@
 @tool
 class_name WeaponAsset
-extends CosmeticAsset
+extends Resource
 
 ## Root origin of [member weapon_scene] is the grip, aligned to player WeaponSocket
 
@@ -26,7 +26,10 @@ enum WeaponMaterial {
 	SPECIAL = 5,
 }
 
-@export var weapon_scene: PackedScene
+@export var weapon_scene: PackedScene:
+	set(value):
+		weapon_scene = value
+		emit_changed()
 
 @export_category("Category")
 @export var weapon_type: WeaponType = WeaponType.UNDEFINED
@@ -38,10 +41,7 @@ enum WeaponMaterial {
 @export_range(0.1, 10.0, 0.05, "suffix:x") var attack_speed_multiplier: float = 1.0
 
 
-func get_slot() -> Slot:
-	return Slot.WEAPON
-
-
 func validate() -> void:
-	assert(weapon_type != WeaponType.UNDEFINED, "Weapon type undefined in " + String(cosmetic_id))
-	assert(weapon_material != WeaponMaterial.UNDEFINED, "Weapon material undefined in " + String(cosmetic_id))
+	assert(weapon_scene, "Weapon scene missing in " + resource_path)
+	assert(weapon_type != WeaponType.UNDEFINED, "Weapon type undefined in " + resource_path)
+	assert(weapon_material != WeaponMaterial.UNDEFINED, "Weapon material undefined in " + resource_path)

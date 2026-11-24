@@ -42,7 +42,8 @@ func _refresh() -> void:
 			_show_character(asset as CharacterEntityAsset)
 		CosmeticAsset.Slot.WEAPON:
 			_discard(visual)
-			_show_weapon(asset as WeaponAsset)
+			if asset is WeaponCosmetic:
+				_show_weapon(asset.weapon)
 		_:
 			assert(false, "Preview unsupported for slot in " + name)
 
@@ -74,7 +75,6 @@ func _show_character(character: CharacterEntityAsset) -> void:
 
 
 func _show_weapon(weapon: WeaponAsset) -> void:
-	assert(weapon != null and (weapon.weapon_scene != null or Engine.is_editor_hint()), "Weapon scene missing in " + name)
 	if weapon == null or weapon.weapon_scene == null:
 		return
 

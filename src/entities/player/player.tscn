@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://rpbdsks54nbp" path="res://src/entities/components/stat_modifier/status_manager.gd" id="19_s033l"]
 [ext_resource type="Script" uid="uid://brwdwpotcaxaj" path="res://src/entities/components/weapon_visual.gd" id="20_l2t0n"]
 [ext_resource type="Script" uid="uid://p7nksncfrnax" path="res://src/entities/components/combat/health_component.gd" id="21_2a6xp"]
+[ext_resource type="Script" uid="uid://cx0jguneos6kp" path="res://src/entities/data/weapon_asset.gd" id="23_y8r58"]
 [ext_resource type="Script" uid="uid://cxqsapbic2imr" path="res://src/entities/components/combat/attack.gd" id="24_hvei5"]
 [ext_resource type="Script" uid="uid://dm8nwmbpvtayk" path="res://src/entities/components/combat/projectile_attack_component.gd" id="25_oyxv6"]
 [ext_resource type="PackedScene" uid="uid://c4jq7s82wru52" path="res://src/entities/vfx/elemental_magic_fx/projectile/fire_projectile.tscn" id="26_l2t0n"]
@@ -41,6 +42,8 @@
 [ext_resource type="Script" uid="uid://dqampygsc6gnh" path="res://src/entities/player/controller/player_respawn_controller.gd" id="42_8dxlo"]
 [ext_resource type="Script" uid="uid://cbmvswr7bttut" path="res://src/entities/player/controller/player_combat_controller.gd" id="43_hvei5"]
 [ext_resource type="Resource" uid="uid://fcuvxgh84u61" path="res://src/entities/resources/cosmetic_catalogs.tres" id="43_l2t0n"]
+[ext_resource type="Resource" uid="uid://bgdv4xkrfy3vg" path="res://src/entities/resources/weapons/stone_sword.tres" id="default_weapon"]
+[ext_resource type="Script" uid="uid://0qabyveq1ul1" path="res://src/entities/components/weapon_controller.gd" id="weapon_controller"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_wjvoe"]
 height = 1.0117772
@@ -649,6 +652,11 @@ unique_name_in_owner = true
 script = ExtResource("8_ebec5")
 camera = NodePath("../../CamRoot")
 movement = SubResource("Resource_3j5rn")
+
+[node name="WeaponController" type="Node" parent="Components" unique_id=1903887241]
+unique_name_in_owner = true
+script = ExtResource("weapon_controller")
+weapons = Array[ExtResource("23_y8r58")]([ExtResource("default_weapon")])
 
 [node name="Controllers" type="Node" parent="." unique_id=1311379674]
 

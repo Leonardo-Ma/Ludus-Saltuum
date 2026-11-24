@@ -8,7 +8,4 @@ script = ExtResource("1_11tqr")
 weapon_scene = ExtResource("2_11tqr")
 weapon_type = 7
 weapon_material = 4
-cosmetic_id = &"weapon.water_wand"
-display_name = "Water Wand"
-price = 100
 metadata/_custom_type_script = "uid://cx0jguneos6kp"

@@ -10,7 +10,4 @@ weapon_type = 4
 weapon_material = 3
 damage_multiplier = 2.1
 attack_speed_multiplier = 0.4
-cosmetic_id = &"weapon.gold_paladin_hammer"
-display_name = "Gold Paladin Hammer"
-price = 500
 metadata/_custom_type_script = "uid://cx0jguneos6kp"

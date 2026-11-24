@@ -10,7 +10,4 @@ weapon_type = 2
 weapon_material = 2
 damage_multiplier = 0.6
 attack_speed_multiplier = 1.6
-cosmetic_id = &"weapon.stone_sai_dagger"
-display_name = "Stone Sai Dagger"
-price = 300
 metadata/_custom_type_script = "uid://cx0jguneos6kp"

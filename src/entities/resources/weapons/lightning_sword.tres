@@ -10,7 +10,4 @@ weapon_type = 1
 weapon_material = 4
 damage_multiplier = 3.0
 attack_speed_multiplier = 1.3
-cosmetic_id = &"weapon.lightning_sword"
-display_name = "Lightning Sword"
-price = 1000
 metadata/_custom_type_script = "uid://cx0jguneos6kp"

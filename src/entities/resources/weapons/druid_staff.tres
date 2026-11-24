@@ -10,7 +10,4 @@ weapon_type = 6
 weapon_material = 4
 damage_multiplier = 1.2000000000000002
 attack_speed_multiplier = 0.9
-cosmetic_id = &"weapon.druid_staff"
-display_name = "Druid Staff"
-price = 140
 metadata/_custom_type_script = "uid://cx0jguneos6kp"

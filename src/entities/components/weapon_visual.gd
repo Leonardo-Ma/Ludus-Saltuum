@@ -1,3 +1,4 @@
+@tool
 class_name WeaponVisual
 extends Node
 
@@ -7,20 +8,23 @@ signal weapon_replaced
 
 @export var socket: Node3D
 
+var _instance: Node3D
+
 
 func _ready() -> void:
 	assert(socket, "Socket missing in " + name)
 
 
 func replace_weapon_visual(weapon: WeaponAsset) -> void:
-	assert(weapon and weapon.weapon_scene, "Weapon scene missing in " + name)
+	if is_instance_valid(_instance):
+		socket.remove_child(_instance)
+		_instance.queue_free()
+		_instance = null
 
-	var instance: Node3D = weapon.weapon_scene.instantiate() as Node3D
-	assert(instance, "Weapon scene root must be Node3D in " + name)
+	if weapon and weapon.weapon_scene:
+		_instance = weapon.weapon_scene.instantiate()
+		assert(_instance, "Weapon scene root must be Node3D in " + name)
+		socket.add_child(_instance)
 
-	for child: Node in socket.get_children():
-		socket.remove_child(child)
-		child.queue_free()
-
-	socket.add_child(instance)
-	weapon_replaced.emit()
+	if not Engine.is_editor_hint():
+		weapon_replaced.emit()

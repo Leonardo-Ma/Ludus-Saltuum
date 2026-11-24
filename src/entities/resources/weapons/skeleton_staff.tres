@@ -8,7 +8,4 @@ script = ExtResource("1_a61y7")
 weapon_scene = ExtResource("2_507d5")
 weapon_type = 6
 weapon_material = 5
-cosmetic_id = &"weapon.skeleton_staff"
-display_name = "Skeleton Staff"
-price = 650
 metadata/_custom_type_script = "uid://cx0jguneos6kp"
