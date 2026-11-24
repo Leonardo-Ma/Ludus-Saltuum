@@ -27,6 +27,18 @@ signal magic_casted
 @onready var _combat_audio: EntityCombatAudio = %EntityCombatAudio
 
 
+func _push_rigid_body(collision: KinematicCollision3D, push_force: float) -> void:
+	var collider: Object = collision.get_collider()
+	if collider is RigidBody3D:
+		var body: RigidBody3D = collider
+		var push_dir: Vector3 = -collision.get_normal()
+		# Push down or sideways, never up
+		if push_dir.y > 0.0:
+			push_dir.y = 0.0
+		if not push_dir.is_zero_approx():
+			body.apply_central_impulse(push_dir.normalized() * push_force)
+
+
 ## Children should override _child_ready instead of this
 func _ready() -> void:
 	assert(collision_shape.shape, "CollisionShape missing in " + name)

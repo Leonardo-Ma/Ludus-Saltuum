@@ -1,7 +1,7 @@
 class_name NPCMovementController
 extends MovementComponent
 
-## NOTE If this is used by GOAP, it will be disabled and enabled depending on current action
+## NOTE GOAP starts movement by requesting a route and cancels it with stop()
 ## Routes are checked against world collision before moving, blocked routes get a detour waypoint
 
 const DETOUR_DIRECTIONS: int = 8
@@ -22,6 +22,7 @@ const REACH_VERTICAL_TOLERANCE: float = 4.0
 
 var _final_target: Vector3 = Vector3.ZERO
 var _desired_direction: Vector3 = Vector3.ZERO
+var _safe_horizontal_velocity: Vector3 = Vector3.ZERO
 var _has_route: bool = false
 var _detour_active: bool = false
 var _blocked: bool = false
@@ -38,12 +39,9 @@ func _child_ready() -> void:
 	_navigation_agent.target_reached.connect(_on_navigation_agent_3d_target_reached)
 	_navigation_agent.navigation_finished.connect(_on_navigation_agent_3d_navigation_finished)
 
-	# Start disabled by default for GOAP to control
-	set_physics_process(false)
 
-
-func _move(delta: float) -> void:
-	if not is_physics_processing() or not movement_enabled or _disable_timer > 0.0 or not _has_route:
+func _move(_delta: float) -> void:
+	if not _can_follow_route():
 		_stop_velocity()
 		return
 
@@ -52,43 +50,39 @@ func _move(delta: float) -> void:
 		return
 
 	if _detour_active and _navigation_agent.is_navigation_finished() and not _plan_route(_final_target, true, false):
-		stop()
 		return
 
 	var next_location: Vector3 = _navigation_agent.get_next_path_position()
+	if _navigation_agent.is_navigation_finished():
+		return
+
 	var direction: Vector3 = next_location - _character_owner.global_position
 	direction.y = 0.0
-	direction = direction.normalized()
-
-	if direction.length_squared() > 0.001:
-		direction = direction.normalized()
-		var target_rotation_y: float = atan2(direction.x, direction.z)
-		var rotation_speed: float = 10
-		_character_owner.global_rotation.y = lerp_angle(_character_owner.global_rotation.y, target_rotation_y, 1.0 - exp(-rotation_speed * delta))
-
-	_desired_direction = direction
-
-	var move_speed: float = get_speed()
-	var new_velocity: Vector3 = direction * move_speed
-
-	if not _character_owner.is_on_floor():
-		new_velocity.y = _character_owner.velocity.y + _character_owner.get_gravity().y * gravity_multiplier * delta
+	_desired_direction = direction.normalized()
 
 	if _navigation_agent.avoidance_enabled:
-		_navigation_agent.set_velocity(new_velocity)
-		movement_direction_changed.emit(Vector2(0, 1), 1.0)
-	else:
-		_character_owner.velocity = new_velocity
-		movement_direction_changed.emit(Vector2(0, 1), 1.0)
+		_navigation_agent.set_velocity(_desired_direction * get_speed())
+	movement_direction_changed.emit(Vector2(0, 1), 1.0)
 
 
-func handle_collisions() -> void:
-	super()
-	if _has_route and _is_blocked_by_wall() and not _plan_route(_final_target, true, true):
-		stop()
+## Direction of current route segment, before avoidance
+func get_desired_direction() -> Vector3:
+	return _desired_direction
 
 
-## Validates route to [param target] before moving, false when blocked and no way through exists [br]
+func get_horizontal_velocity() -> Vector3:
+	if _navigation_agent.avoidance_enabled:
+		return _safe_horizontal_velocity
+	return _desired_direction * get_speed()
+
+
+## Replans around an obstacle reported by the body after sliding
+func handle_route_obstruction() -> void:
+	if _has_route:
+		_plan_route(_final_target, true, true)
+
+
+## Starts movement along a validated route to [param target], false if no route exists [br]
 ## With [param allow_detour] a blocked route is replaced by a waypoint route around the obstacle
 func request_target(target: Vector3, allow_detour: bool) -> bool:
 	if _detour_active:
@@ -102,6 +96,10 @@ func request_target(target: Vector3, allow_detour: bool) -> bool:
 ## True when last route request or movement found no way through
 func is_blocked() -> bool:
 	return _blocked
+
+
+func has_route() -> bool:
+	return _has_route
 
 
 func is_navigation_finished() -> bool:
@@ -136,11 +134,9 @@ func can_reach(target: Vector3) -> bool:
 
 
 func stop() -> void:
-	set_physics_process(false)
 	_has_route = false
 	_detour_active = false
 	_stop_velocity()
-	_navigation_agent.set_velocity(Vector3.ZERO)
 
 
 func _plan_route(target: Vector3, allow_detour: bool, force_detour: bool) -> bool:
@@ -156,7 +152,9 @@ func _plan_route(target: Vector3, allow_detour: bool, force_detour: bool) -> boo
 	_has_route = waypoint.is_finite()
 	_blocked = not _has_route
 	if _has_route:
-		_set_agent_target(waypoint)
+		_navigation_agent.target_position = waypoint
+	else:
+		_stop_velocity()
 	return _has_route
 
 
@@ -215,41 +213,31 @@ func _is_segment_clear(space: PhysicsDirectSpaceState3D, from: Vector3, to: Vect
 
 
 ## Static or rigid obstacle opposing movement, other characters are left to avoidance
-func _is_blocked_by_wall() -> bool:
-	if _desired_direction.is_zero_approx():
-		return false
-
-	for index: int in _character_owner.get_slide_collision_count():
-		var collision: KinematicCollision3D = _character_owner.get_slide_collision(index)
-		if collision.get_collider() is CharacterBody3D or collision.get_angle() <= _character_owner.floor_max_angle:
-			continue
-		var wall_normal: Vector3 = collision.get_normal()
-		wall_normal.y = 0.0
-		if not wall_normal.is_zero_approx() and _desired_direction.dot(wall_normal.normalized()) <= HEAD_ON_DOT:
-			return true
-
-	return false
-
-
-func _set_agent_target(target_location: Vector3) -> void:
-	if not _navigation_agent.target_position.is_equal_approx(target_location):
-		_navigation_agent.target_position = target_location
+func is_route_obstructed_by(normal: Vector3) -> bool:
+	var wall_normal: Vector3 = Vector3(normal.x, 0.0, normal.z)
+	return not wall_normal.is_zero_approx() and _desired_direction.dot(wall_normal.normalized()) <= HEAD_ON_DOT
 
 
 func _stop_velocity() -> void:
+	var had_movement: bool = not _desired_direction.is_zero_approx() or not _safe_horizontal_velocity.is_zero_approx()
 	_desired_direction = Vector3.ZERO
-	_character_owner.velocity.x = 0.0
-	_character_owner.velocity.z = 0.0
-	movement_direction_changed.emit(Vector2.ZERO, 0.0)
+	_safe_horizontal_velocity = Vector3.ZERO
+	if had_movement:
+		if _navigation_agent.avoidance_enabled:
+			_navigation_agent.set_velocity(Vector3.ZERO)
+		movement_direction_changed.emit(Vector2.ZERO, 0.0)
+
+
+func _can_follow_route() -> bool:
+	return _has_route and movement_enabled and _disable_timer <= 0.0
 
 
 # TODO Change speed to use a variable that is defined by goap action instead (both referencing movement resource instead)
 func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
-	if not is_physics_processing() or not movement_enabled or _disable_timer > 0.0:
+	if not _can_follow_route() or _desired_direction.is_zero_approx():
 		return
 
-	_character_owner.velocity.x = safe_velocity.x
-	_character_owner.velocity.z = safe_velocity.z
+	_safe_horizontal_velocity = Vector3(safe_velocity.x, 0.0, safe_velocity.z)
 
 
 func _on_navigation_agent_3d_target_reached() -> void:

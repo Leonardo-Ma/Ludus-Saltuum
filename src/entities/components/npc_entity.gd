@@ -3,6 +3,8 @@ extends AggressiveEntity
 
 ## Abstract base for GOAP, perception and procedural identity
 
+const TURN_SPEED: float = 10.0
+
 @export_category("Perception System")
 @export var perception_config: PerceptionConfig
 @export var target_groups: Array[String] = [Groups.PLAYERS]
@@ -39,8 +41,36 @@ var _brain: NPCBrainController
 func _physics_process(delta: float) -> void:
 	assert(npc_movement_controller, "NPCMovementController missing in " + name)
 	npc_movement_controller.move(delta)
+
+	var direction: Vector3 = npc_movement_controller.get_desired_direction()
+	if not direction.is_zero_approx():
+		var target_rotation_y: float = atan2(direction.x, direction.z)
+		global_rotation.y = lerp_angle(global_rotation.y, target_rotation_y, 1.0 - exp(-TURN_SPEED * delta))
+
+	var horizontal_velocity: Vector3 = npc_movement_controller.get_horizontal_velocity()
+	velocity.x = horizontal_velocity.x
+	velocity.z = horizontal_velocity.z
+	if not is_on_floor():
+		velocity.y += get_gravity().y * npc_movement_controller.gravity_multiplier * delta
+
+	velocity += npc_movement_controller.consume_external_force()
 	move_and_slide()
-	npc_movement_controller.handle_collisions()
+	_handle_movement_collisions()
+
+
+func _handle_movement_collisions() -> void:
+	var route_obstructed: bool = false
+	var push_force: float = npc_movement_controller.get_speed() * 0.1
+	for index: int in get_slide_collision_count():
+		var collision: KinematicCollision3D = get_slide_collision(index)
+		_push_rigid_body(collision, push_force)
+		if collision.get_collider() is CharacterBody3D or collision.get_angle() <= floor_max_angle:
+			continue
+		if npc_movement_controller.is_route_obstructed_by(collision.get_normal()):
+			route_obstructed = true
+
+	if route_obstructed:
+		npc_movement_controller.handle_route_obstruction()
 
 
 func _child_ready() -> void:
@@ -66,14 +96,13 @@ func _child_ready() -> void:
 	add_child(_brain)
 	goap_agent = _brain.goap_agent
 
-	npc_movement_controller.set_physics_process(false)
-
 	add_to_group(Groups.ENEMIES)
 
 
 func _on_dying() -> void:
 	print("Disabling GOAP agent ", goap_agent.name)
 	_brain.set_active(false)
+	npc_movement_controller.stop()
 
 
 func _on_revived() -> void:

@@ -34,11 +34,8 @@ func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 		controller.stop()
 		return true
 
-	controller.set_physics_process(true)
-	if not controller.request_target(_blackboard[GoapKeys.ENEMY_POSITION], true) or controller.is_navigation_finished():
+	if not controller.request_target(enemy_position, true) or controller.is_navigation_finished():
 		controller.stop()
 		return true
-
-	controller.request_target(enemy_position, true)
 
 	return false

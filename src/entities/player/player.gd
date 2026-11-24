@@ -54,9 +54,13 @@ func _child_ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	assert(player_movement_controller, "PlayerMovementComponent missing in " + name)
 	player_movement_controller.move(delta)
+	velocity += player_movement_controller.consume_external_force()
 	move_and_slide()
-	player_movement_controller.handle_collisions()
+	var push_force: float = player_movement_controller.get_speed() * 0.1
+	for index: int in get_slide_collision_count():
+		_push_rigid_body(get_slide_collision(index), push_force)
 
 
 func respawn(delay: float, target_transform: Transform3D, is_death: bool = false) -> void:

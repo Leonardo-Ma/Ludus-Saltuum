@@ -37,11 +37,8 @@ func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 	var flee_distance: float = 15.0
 	var flee_target: Vector3 = actor_position + flee_direction * flee_distance
 
-	controller.set_physics_process(true)
 	if not enemy_nearby or not controller.request_target(flee_target, true):
 		controller.stop()
 		return true
-
-	controller.request_target(flee_target, true)
 
 	return false
