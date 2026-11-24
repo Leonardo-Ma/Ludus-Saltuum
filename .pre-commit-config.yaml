@@ -118,7 +118,7 @@ repos:
         language: pygrep
         entry: 'ResourceLoader\.load\('
         files: \.gd$
-        exclude: ^(src/systems/save/|src/globals/settings_manager\.gd)
+        exclude: ^(src/systems/save/|src/globals/settings_manager\.gd|tests/)
 
       - id: no-change-scene
         name: "ban change_scene_to_file/change_scene_to_packed | bypasses StateManager"

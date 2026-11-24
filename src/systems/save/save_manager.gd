@@ -1,15 +1,17 @@
 # TODO Refactor to decouple from player spawn
 extends Node
 
-## [img]res://docs/diagrams/saving/saving.drawio.png[/img] [br]
-## Slot save system: slots 2 manual, 2 auto [br]
-## Write to .tmp → rename to .tres, keep .bak of previous good save
+## Manages manual and automatic save slots, disk recovery, and cloud sync [br]
+## Stage and validate .tres snapshots before replacing primary, keep previous good save [br]
+## [img]res://docs/diagrams/saving/saving.drawio.png[/img]
 
 ## Every system should trigger internal save
 signal save_requested(data: SaveData)
 ## Every system should trigger internal load
 signal load_requested(data: SaveData)
 signal save_changed(slot_index: int)
+## Reports cloud failures independently of local save success
+signal cloud_sync_failed(slot_index: int, operation: CloudOperation)
 ## Every system should restore defaults for new game
 signal reset_requested
 signal reset_finished
@@ -23,6 +25,19 @@ const AUTO_SAVE_INTERVAL: float = 120.0
 const CURRENT_SAVE_VERSION: int = 2
 
 const CORRUPT_SUFFIX: String = ".corrupt_"
+
+enum CloudOperation {
+	DOWNLOAD = 0,
+	UPLOAD = 1,
+	DELETE = 2,
+	CONFLICT = 3,
+}
+
+
+class SlotSnapshot:
+	var path: String
+	var data: SaveData
+
 
 var _save_block_sources: Dictionary = { }
 
@@ -45,9 +60,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	DirAccess.make_dir_recursive_absolute(SAVE_DIR)
 	get_tree().set_auto_accept_quit(false)
-	_cleanup_stale_temp_files()
-
-	_sync_cloud_saves()
+	_recover_and_sync_slots()
 	_next_auto_slot = _find_next_auto_slot()
 
 	_setup_auto_save_timer()
@@ -93,12 +106,11 @@ func save_to_quick_slot(force: bool) -> bool:
 
 
 func load_from_slot(slot_index: int) -> bool:
-	assert(not is_save_blocked(), "Saving blocked by " + str(_save_block_sources.keys()))
+	assert(not is_save_blocked(), "Saving blocked in %s by %s" % [name, _save_block_sources.keys()])
 
 	assert(slot_index >= 0 and slot_index < TOTAL_SLOTS, "SaveManager: slot out of range in " + name)
-	assert(has_save(slot_index), "Slot index " + str(slot_index) + " doesn't have save")
-
-	var data: SaveData = _load_slot_resource(slot_index)
+	var data: SaveData = get_slot_data(slot_index)
+	assert(data != null, "No readable save in slot %d in %s" % [slot_index, name])
 	if data == null:
 		return false
 
@@ -113,29 +125,40 @@ func load_from_slot(slot_index: int) -> bool:
 	return true
 
 
-func delete_slot(slot_index: int) -> void:
+func delete_slot(slot_index: int) -> bool:
 	assert(slot_index >= 0 and slot_index < TOTAL_SLOTS, "SaveManager: slot out of range in " + name)
 	var base: String = _slot_path(slot_index)
-	for suffix: String in ["", ".bak", ".tmp"]:
-		var path: String = base + suffix
-		if FileAccess.file_exists(path):
-			_safe_remove(path)
-	_cloud_backend.delete(_cloud_filename(slot_index))
+	if _cloud_backend.is_available() and not _cloud_backend.delete(_cloud_filename(slot_index)):
+		_report_cloud_failure(slot_index, CloudOperation.DELETE)
+		return false
+
+	var paths: Array[String] = [
+		_backup_path(slot_index),
+		base + ".bak",
+		base + ".bak.old",
+		_tmp_path(slot_index),
+		base + ".tmp",
+		_incoming_path(slot_index),
+		base,
+	]
+	for path: String in paths:
+		if FileAccess.file_exists(path) and not _safe_remove(path):
+			save_changed.emit(slot_index)
+			return false
 	save_changed.emit(slot_index)
+	return true
 
 #endregion
 
 
 #region Public getters
 func has_save(slot_index: int) -> bool:
-	var base: String = _slot_path(slot_index)
-	return FileAccess.file_exists(base) or FileAccess.file_exists(base + ".bak")
+	return get_slot_data(slot_index) != null
 
 
 func get_slot_data(slot_index: int) -> SaveData:
-	if not has_save(slot_index):
-		return null
-	return _load_slot_resource(slot_index)
+	var snapshot: SlotSnapshot = _read_slot(slot_index)
+	return snapshot.data if snapshot != null else null
 
 
 func has_any_save() -> bool:
@@ -209,8 +232,8 @@ func _write_slot(slot_index: int, is_auto: bool, force: bool = false) -> bool:
 	if not _persist_slot(slot_index, data):
 		return false
 
+	_upload_slot(slot_index)
 	save_changed.emit(slot_index)
-	_cloud_backend.upload(_cloud_filename(slot_index), _slot_path(slot_index))
 
 	print_debug("Saved slot ", slot_index)
 	return true
@@ -229,44 +252,33 @@ func _can_save(force: bool) -> bool:
 
 
 func _persist_slot(slot_index: int, data: SaveData) -> bool:
-	var base: String = _slot_path(slot_index)
+	if not _recover_slot(slot_index):
+		return false
 	var tmp: String = _tmp_path(slot_index)
-	var bak: String = base + ".bak"
-	var bak_prev: String = base + ".bak.old"
-
 	var err: int = ResourceSaver.save(data, tmp)
 	if err != OK:
 		push_error("SaveManager: failed writing tmp for slot %d (error %d)" % [slot_index, err])
 		return false
 
-	var verify: SaveData = ResourceLoader.load(tmp, "", ResourceLoader.CACHE_MODE_IGNORE) as SaveData
-	if verify == null:
-		_safe_remove(tmp)
+	if _read_snapshot(tmp, slot_index) == null:
 		push_error("SaveManager: tmp verification failed for slot %d, aborting commit" % slot_index)
 		return false
+	return _commit_staged_slot(slot_index, tmp)
 
-	var had_prev_bak: bool = FileAccess.file_exists(bak)
-	if had_prev_bak and not _safe_rename(bak, bak_prev):
-		_safe_remove(tmp)
+
+func _commit_staged_slot(slot_index: int, staged: String) -> bool:
+	var base: String = _slot_path(slot_index)
+	if not FileAccess.file_exists(base):
+		return _safe_rename(staged, base)
+
+	var previous: String = _backup_path(slot_index)
+	if _read_snapshot(base, slot_index) == null:
+		previous = "%s%s%d_%d" % [base, CORRUPT_SUFFIX, int(Time.get_unix_time_from_system()), Time.get_ticks_usec()]
+	if not _safe_rename(base, previous):
 		return false
-
-	if FileAccess.file_exists(base) and not _safe_rename(base, bak):
-		if had_prev_bak:
-			_safe_rename(bak_prev, bak)
-		_safe_remove(tmp)
+	if not _safe_rename(staged, base):
+		_safe_rename(previous, base)
 		return false
-
-	if not _safe_rename(tmp, base):
-		push_error("SaveManager: failed committing save for slot %d" % slot_index)
-		if FileAccess.file_exists(bak):
-			_safe_rename(bak, base)
-		if had_prev_bak:
-			_safe_rename(bak_prev, bak)
-		return false
-
-	if had_prev_bak:
-		_safe_remove(bak_prev)
-
 	return true
 
 
@@ -306,32 +318,66 @@ func _slot_path(slot_index: int) -> String:
 	return SAVE_DIR + "slot_%d.tres" % slot_index
 
 
-func _load_slot_resource(slot_index: int) -> SaveData:
+func _read_slot(slot_index: int) -> SlotSnapshot:
 	var base: String = _slot_path(slot_index)
-	var data: SaveData = ResourceLoader.load(base) as SaveData
-	if data != null:
-		return data
-	var bak: String = base + ".bak"
-	if FileAccess.file_exists(bak):
-		push_error("SaveManager: slot %d corrupt, loading backup" % slot_index)
-		data = ResourceLoader.load(bak) as SaveData
-	if data == null:
-		_quarantine_slot(slot_index)
-	return data
+	var best: SlotSnapshot = _read_snapshot(base, slot_index)
+	var candidates: Array[String] = [_tmp_path(slot_index), base + ".tmp"]
+	if best == null:
+		candidates.append_array([_backup_path(slot_index), base + ".bak", base + ".bak.old"])
+	for path: String in candidates:
+		var candidate: SlotSnapshot = _read_snapshot(path, slot_index)
+		if candidate != null and (best == null or candidate.data.save_timestamp > best.data.save_timestamp):
+			best = candidate
+	return best
 
 
-## Renames unreadable slot files to slot_N.tres.corrupt_<unix time>, never deletes
-func _quarantine_slot(slot_index: int) -> void:
+func _read_snapshot(path: String, slot_index: int) -> SlotSnapshot:
+	if not FileAccess.file_exists(path):
+		return null
+	var load_path: String = path
+	var staging_file: FileAccess
+	if path.get_extension() != "tres":
+		staging_file = FileAccess.create_temp(FileAccess.WRITE, "ludus-save", "tres")
+		if staging_file == null or not staging_file.store_buffer(FileAccess.get_file_as_bytes(path)):
+			return null
+		staging_file.flush()
+		if staging_file.get_error() != OK:
+			return null
+		load_path = staging_file.get_path_absolute()
+	var resource: Resource = ResourceLoader.load(load_path, "", ResourceLoader.CACHE_MODE_IGNORE)
+	if not (resource is SaveData):
+		return null
+	var data: SaveData = resource
+	if (
+		data.slot_index != slot_index or data.save_version < 1 or data.save_timestamp < 0 or not is_finite(data.play_time_seconds)
+		or data.play_time_seconds < 0.0 or data.player == null or data.world == null or data.chunks == null or data.checkpoint == null
+	):
+		return null
+	var snapshot: SlotSnapshot = SlotSnapshot.new()
+	snapshot.path = path
+	snapshot.data = data
+	return snapshot
+
+
+## Recover before cleaning interrupted writes; archive unreadable primaries only when replacing them
+func _recover_slot(slot_index: int) -> bool:
+	var best: SlotSnapshot = _read_slot(slot_index)
 	var base: String = _slot_path(slot_index)
-	var stamp: int = int(Time.get_unix_time_from_system())
-	for suffix: String in ["", ".bak"]:
-		var path: String = base + suffix
-		if FileAccess.file_exists(path):
-			_safe_rename(path, "%s%s%d" % [path, CORRUPT_SUFFIX, stamp])
-	# TODO Study cloud cleanup if too many files
-	var cloud_name: String = _cloud_filename(slot_index)
-	_cloud_backend.rename(cloud_name, "%s%s%d" % [cloud_name, CORRUPT_SUFFIX, stamp])
-	save_changed.emit(slot_index)
+	var tmp: String = _tmp_path(slot_index)
+	if best != null and best.path != base:
+		var staged: String = best.path
+		if staged != tmp:
+			staged = _incoming_path(slot_index)
+			var error: Error = DirAccess.copy_absolute(best.path, staged)
+			if error != OK:
+				push_error("SaveManager: failed staging recovery for slot %d (%d)" % [slot_index, error])
+				return false
+		if not _commit_staged_slot(slot_index, staged):
+			return false
+	for path: String in [tmp, base + ".tmp", _incoming_path(slot_index)]:
+		if FileAccess.file_exists(path) and not _safe_remove(path):
+			return false
+	return true
 
 
 func _safe_remove(path: String) -> bool:
@@ -351,14 +397,15 @@ func _safe_rename(from: String, to: String) -> bool:
 
 
 func _tmp_path(slot_index: int) -> String:
-	return _slot_path(slot_index).replace(".tres", "_tmp.tres")
+	return _slot_path(slot_index).get_basename() + "_tmp.tres"
 
 
-func _cleanup_stale_temp_files() -> void:
-	for i: int in range(TOTAL_SLOTS):
-		var path: String = _tmp_path(i)
-		if FileAccess.file_exists(path):
-			_safe_remove(path)
+func _backup_path(slot_index: int) -> String:
+	return _slot_path(slot_index).get_basename() + "_bak.tres"
+
+
+func _incoming_path(slot_index: int) -> String:
+	return _slot_path(slot_index).get_basename() + "_incoming.tres"
 
 
 func _find_next_auto_slot() -> int:
@@ -385,11 +432,41 @@ func _notification(what: int) -> void:
 
 
 #region Cloud
-func _sync_cloud_saves() -> void:
-	for i: int in range(TOTAL_SLOTS):
-		var cloud_name: String = _cloud_filename(i)
-		if _cloud_backend.remote_is_newer(cloud_name, _slot_path(i)):
-			_cloud_backend.download(cloud_name, _slot_path(i))
+func _recover_and_sync_slots() -> void:
+	for slot_index: int in range(TOTAL_SLOTS):
+		if (_recover_slot(slot_index) and _cloud_backend.is_available() and _cloud_backend.has_remote_save(_cloud_filename(slot_index))):
+			_sync_cloud_slot(slot_index)
+
+
+func _sync_cloud_slot(slot_index: int) -> void:
+	var local: SlotSnapshot = _read_slot(slot_index)
+	var staged: String = _incoming_path(slot_index)
+	var downloaded: bool = _cloud_backend.download(_cloud_filename(slot_index), staged)
+	var remote: SlotSnapshot = _read_snapshot(staged, slot_index) if downloaded else null
+	if remote == null or remote.data.save_version > CURRENT_SAVE_VERSION:
+		_report_cloud_failure(slot_index, CloudOperation.DOWNLOAD)
+	elif local == null or (local.data.save_version <= CURRENT_SAVE_VERSION and remote.data.save_timestamp > local.data.save_timestamp):
+		if _commit_staged_slot(slot_index, staged):
+			save_changed.emit(slot_index)
+		else:
+			_report_cloud_failure(slot_index, CloudOperation.DOWNLOAD)
+	elif (remote.data.save_timestamp == local.data.save_timestamp and FileAccess.get_sha256(staged) != FileAccess.get_sha256(local.path)):
+		_report_cloud_failure(slot_index, CloudOperation.CONFLICT)
+	if FileAccess.file_exists(staged):
+		_safe_remove(staged)
+
+
+func _upload_slot(slot_index: int) -> void:
+	if _cloud_backend.is_available() and not _cloud_backend.upload(_cloud_filename(slot_index), _slot_path(slot_index)):
+		_report_cloud_failure(slot_index, CloudOperation.UPLOAD)
+
+
+func _report_cloud_failure(slot_index: int, operation: CloudOperation) -> void:
+	var operation_name: String = CloudOperation.keys()[operation]
+	print("SaveManager: cloud %s failed for slot %d" % [operation_name, slot_index])
+	cloud_sync_failed.emit(slot_index, operation)
+
+# TODO Study cloud cleanup if too many files
 
 
 func _cloud_filename(slot_index: int) -> String:

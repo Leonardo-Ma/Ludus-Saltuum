@@ -5,7 +5,7 @@ extends CloudSaveBackend
 
 
 func is_available() -> bool:
-	return true
+	return false
 
 
 func upload(_remote_name: String, _local_path: String) -> bool:
@@ -20,5 +20,5 @@ func delete(_remote_name: String) -> bool:
 	return false
 
 
-func remote_is_newer(_remote_name: String, _local_path: String) -> bool:
+func has_remote_save(_remote_name: String) -> bool:
 	return false

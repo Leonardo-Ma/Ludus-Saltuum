@@ -11,24 +11,26 @@ func is_available() -> bool:
 func upload(cloud_filename: String, local_path: String) -> bool:
 	if not is_available():
 		return false
-	assert(FileAccess.file_exists(local_path), "SteamCloudSaveBackend: local file missing " + local_path)
-	return SteamWorks.cloud_file_write(cloud_filename, FileAccess.get_file_as_bytes(local_path))
+	assert(FileAccess.file_exists(local_path), "Upload source missing in SteamCloudSaveBackend: " + local_path)
+	var bytes: PackedByteArray = FileAccess.get_file_as_bytes(local_path)
+	return not bytes.is_empty() and SteamWorks.cloud_file_write(cloud_filename, bytes)
 
 
 func download(cloud_filename: String, local_path: String) -> bool:
-	if not is_available() or not SteamWorks.cloud_file_exists(cloud_filename):
-		push_warning("Steam cloud download failed")
+	if not has_remote_save(cloud_filename):
 		return false
 	var size: int = SteamWorks.cloud_file_size(cloud_filename)
+	if size <= 0:
+		return false
 	var result: Dictionary = SteamWorks.cloud_file_read(cloud_filename, size)
-	if not result.get("ret", false):
-		push_warning("Steam cloud download failed")
+	var bytes: PackedByteArray = result.get("buf", PackedByteArray())
+	if not result.get("ret", false) or bytes.size() != size:
 		return false
 	var file: FileAccess = FileAccess.open(local_path, FileAccess.WRITE)
-	assert(file != null, "SteamCloudSaveBackend: cannot open local file for write " + local_path)
-	file.store_buffer(result.get("buf", PackedByteArray()))
-	file.close()
-	return true
+	if file == null or not file.store_buffer(bytes):
+		return false
+	file.flush()
+	return file.get_error() == OK and file.get_length() == size
 
 
 func delete(cloud_filename: String) -> bool:
@@ -39,24 +41,5 @@ func delete(cloud_filename: String) -> bool:
 	return SteamWorks.cloud_file_delete(cloud_filename)
 
 
-func remote_is_newer(cloud_filename: String, local_path: String) -> bool:
-	if not is_available() or not SteamWorks.cloud_file_exists(cloud_filename):
-		return false
-	if not FileAccess.file_exists(local_path):
-		return true
-	return SteamWorks.cloud_file_timestamp(cloud_filename) > FileAccess.get_modified_time(local_path)
-
-
-## Mostly used in case of save corruption to block redownload corrupted file
-func rename(cloud_filename: String, new_cloud_filename: String) -> bool:
-	if not is_available() or not SteamWorks.cloud_file_exists(cloud_filename):
-		return false
-	var size: int = SteamWorks.cloud_file_size(cloud_filename)
-	var result: Dictionary = SteamWorks.cloud_file_read(cloud_filename, size)
-	if not result.get("ret", false):
-		push_warning("Steam cloud rename failed reading " + cloud_filename)
-		return false
-	if not SteamWorks.cloud_file_write(new_cloud_filename, result.get("buf", PackedByteArray())):
-		push_warning("Steam cloud rename failed writing " + new_cloud_filename)
-		return false
-	return SteamWorks.cloud_file_delete(cloud_filename)
+func has_remote_save(cloud_filename: String) -> bool:
+	return is_available() and SteamWorks.cloud_file_exists(cloud_filename)

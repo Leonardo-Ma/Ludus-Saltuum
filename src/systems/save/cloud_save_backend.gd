@@ -15,4 +15,4 @@ extends RefCounted
 @abstract func delete(cloud_filename: String) -> bool
 
 
-@abstract func remote_is_newer(cloud_filename: String, local_path: String) -> bool
+@abstract func has_remote_save(cloud_filename: String) -> bool
