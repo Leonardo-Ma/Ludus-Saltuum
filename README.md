@@ -66,10 +66,13 @@ Strictly follows [Godot's recommended code style guidelines](https://docs.godote
 - [Git-lfs](https://git-lfs.com/)
 
 ```
-1 - Clone this repo
-2 - run: git lfs pull
-3 - Scan the project's root in Godot
-4 - Open the project.
+1 - Run git lfs install
+2 - Clone this repo
+3 - In the clone, run git lfs install to enable LFS uploads for git push
+4 - Run git lfs pull
+5 - Scan the project's root in Godot
+6 - Open the project.
+7 - Double check if .git/hooks/pre-push (or pre-push.legacy) contains lfs push (if this is missing it could lead to data loss and github lies about blocking pushes without it).
 ```
 
 ### For commit hooks (formatter/lint/parser/spelling...) to work ([.pre-commit-config.yaml](.pre-commit-config.yaml)):
