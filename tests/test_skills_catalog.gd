@@ -1,19 +1,15 @@
+extends ProjectTest
+
 ## Verifies all active skill resources are registered in the SkillCatalogue
-extends Node
 
 const SKILL_CATALOGUE: SkillCatalogue = preload("uid://6ygr0ieawafb")
 
 
-func _ready() -> void:
-	if not OS.is_debug_build() or not owner.should_tests_be_executed:
-		queue_free()
-		return
-
+func run_tests() -> void:
 	_test_all_skills_in_catalog()
 	_test_catalog_skills_exist_on_disk()
 	_test_skill_ids_valid_and_unique()
 	print("Skills catalog test completed.")
-	self.queue_free()
 
 
 func _test_all_skills_in_catalog() -> void:

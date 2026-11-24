@@ -1,5 +1,6 @@
+extends ProjectTest
+
 ## Verifies PerceptionSystem purges dead targets from known_entities
-extends Node
 
 
 class FakeHealthTarget:
@@ -40,18 +41,13 @@ class FinishedRoute:
 		return true
 
 
-func _ready() -> void:
-	if not OS.is_debug_build() or not owner.should_tests_be_executed:
-		queue_free()
-		return
-
+func run_tests() -> void:
 	_test_dead_target_purged_from_known_entities()
 	_test_alive_target_not_purged()
 	_test_closest_target_selection()
 	_test_investigation_after_arrival()
 	_test_scan_detects_target_behind_observer()
 	print("PerceptionSystem test completed.")
-	self.queue_free()
 
 
 func _test_dead_target_purged_from_known_entities() -> void:

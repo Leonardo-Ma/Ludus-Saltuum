@@ -1,15 +1,12 @@
+extends ProjectTest
+
 ## Verifies every save version in TEST_SAVES_DIR loads, migrates to current version and resolves all references
-extends Node
 
 const TEST_SAVES_DIR: String = "res://tests/saves/"
 const SKILL_CATALOGUE: SkillCatalogue = preload("uid://6ygr0ieawafb") # skill_catalogue.tres
 
 
-func _ready() -> void:
-	if not OS.is_debug_build() or not owner.should_tests_be_executed:
-		queue_free()
-		return
-
+func run_tests() -> void:
 	var version_directory: DirAccess = DirAccess.open(TEST_SAVES_DIR)
 	assert(version_directory != null, "Save version directory missing in " + name)
 
@@ -21,7 +18,6 @@ func _ready() -> void:
 
 	assert(saves > 0, "No save found in " + name)
 	print("Save version test completed (%d version)." % saves)
-	self.queue_free()
 
 
 func _test_save_migration(path: String) -> void:

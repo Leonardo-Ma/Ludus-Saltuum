@@ -125,6 +125,7 @@ repos:
         language: pygrep
         entry: '(change_scene_to_file|change_scene_to_packed|change_scene)\('
         files: \.gd$
+        exclude: 'tests/'
 
       - id: no-steam-singleton-outside-steamworks
         name: "ban direct Steam singleton access outside SteamWorks facade"
@@ -150,6 +151,7 @@ repos:
         language: pygrep
         entry: 'OS\.execute\s*\('
         files: \.gd$
+        exclude: tests/execute_tests_flag.gd
 
       - id: no-audio-server-direct
         name: "ban using AudioServer directly | bypasses AudioManager | use AudioManager"

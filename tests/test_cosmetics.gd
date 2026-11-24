@@ -1,4 +1,4 @@
-extends Node
+extends ProjectTest
 
 ## Verifies CosmeticsController slots, ownership, equip rules, defaults and acquired/equipped ids surviving slot save round trip
 
@@ -16,11 +16,7 @@ var _owned_changed_count: int = 0
 var _equipped_changed_count: int = 0
 
 
-func _ready() -> void:
-	if not OS.is_debug_build() or not owner.should_tests_be_executed:
-		queue_free()
-		return
-
+func run_tests() -> void:
 	COSMETIC_CATALOGS.validate()
 
 	_backup_slot()
@@ -40,7 +36,6 @@ func _ready() -> void:
 	_restore_slot()
 
 	print("✅ Cosmetics test completed.")
-	queue_free()
 
 
 func _make_character(id: StringName, price: int, is_default: bool) -> CharacterEntityAsset:

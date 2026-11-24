@@ -1,12 +1,14 @@
 # TODO Improve fail safety, add check slot path and slots
+extends ProjectTest
+
 ## Verifies SaveManager slot path resolution, existence checks, and deletion
-extends Node
 
 
 class FakeCloudBackend:
 	extends CloudSaveBackend
 
 	var renamed: Dictionary[String, String] = { }
+	var deleted: Array[String] = []
 
 
 	func is_available() -> bool:
@@ -21,8 +23,9 @@ class FakeCloudBackend:
 		return false
 
 
-	func delete(_cloud_filename: String) -> bool:
-		return false
+	func delete(cloud_filename: String) -> bool:
+		deleted.append(cloud_filename)
+		return true
 
 
 	func remote_is_newer(_cloud_filename: String, _local_path: String) -> bool:
@@ -37,23 +40,23 @@ class FakeCloudBackend:
 var _slot_backups: Dictionary = { } # Dictionary[int, Dictionary] — {"base": PackedByteArray or null, "bak": PackedByteArray or null}
 
 
-func _ready() -> void:
-	if not OS.is_debug_build() or not owner.should_tests_be_executed:
-		queue_free()
-		return
+func run_tests() -> void:
+	var original_backend: CloudSaveBackend = SaveManager._cloud_backend
+	var fake_backend: FakeCloudBackend = FakeCloudBackend.new()
+	SaveManager.configure_cloud_backend(fake_backend)
 
 	_backup_slot(0)
 	_backup_slot(1)
 
 	_test_has_save_and_get_slot_data()
-	_test_delete_slot_removes_all_variants()
-	_test_corrupt_slot_quarantines_local_and_cloud()
+	_test_delete_slot_removes_all_variants(fake_backend)
+	_test_corrupt_slot_quarantines_local_and_cloud(fake_backend)
 
 	_restore_slot(0)
 	_restore_slot(1)
+	SaveManager.configure_cloud_backend(original_backend)
 
 	print("SaveManager test completed.")
-	self.queue_free()
 
 
 func _backup_slot(slot_index: int) -> void:
@@ -102,7 +105,7 @@ func _test_has_save_and_get_slot_data() -> void:
 	assert(loaded.save_timestamp == 12345, "SaveManager: loaded save_timestamp mismatch")
 
 
-func _test_delete_slot_removes_all_variants() -> void:
+func _test_delete_slot_removes_all_variants(fake_backend: FakeCloudBackend) -> void:
 	var slot_index: int = 1
 	var base: String = SaveManager._slot_path(slot_index)
 
@@ -116,12 +119,10 @@ func _test_delete_slot_removes_all_variants() -> void:
 	assert(not FileAccess.file_exists(base), "SaveManager: delete_slot() left .tres behind")
 	assert(not FileAccess.file_exists(base + ".bak"), "SaveManager: delete_slot() left .bak behind")
 	assert(not SaveManager.has_save(slot_index), "SaveManager: has_save() true after delete_slot()")
+	assert(fake_backend.deleted == [SaveManager._cloud_filename(slot_index)], "Wrong cloud deletion in " + name)
 
 
-func _test_corrupt_slot_quarantines_local_and_cloud() -> void:
-	# TODO Find way to ignore errors without ignoring save manager
-	push_error("Starting save corruption handle test. Ignore errors below: ")
-
+func _test_corrupt_slot_quarantines_local_and_cloud(fake_backend: FakeCloudBackend) -> void:
 	var slot_index: int = 1
 	var base: String = SaveManager._slot_path(slot_index)
 	var cloud_name: String = SaveManager._cloud_filename(slot_index)
@@ -133,13 +134,11 @@ func _test_corrupt_slot_quarantines_local_and_cloud() -> void:
 		file.store_string("corrupt")
 		file.close()
 
-	var original_backend: CloudSaveBackend = SaveManager._cloud_backend
-	var fake_backend: FakeCloudBackend = FakeCloudBackend.new()
-	SaveManager.configure_cloud_backend(fake_backend)
-
+	# Limit diagnostic suppression to reading the deliberately corrupt fixture
+	var print_error_messages: bool = Engine.print_error_messages
+	Engine.print_error_messages = false
 	var loaded: SaveData = SaveManager.get_slot_data(slot_index)
-
-	SaveManager.configure_cloud_backend(original_backend)
+	Engine.print_error_messages = print_error_messages
 
 	assert(loaded == null, "SaveManager: corrupt slot returned data")
 	assert(not FileAccess.file_exists(base), "SaveManager: quarantine left .tres behind")
@@ -160,7 +159,7 @@ func _test_corrupt_slot_quarantines_local_and_cloud() -> void:
 	for file_name: String in new_files:
 		DirAccess.remove_absolute(SaveManager.SAVE_DIR + file_name)
 
-	push_error("Corruption handle test finished successfully")
+	print("Corruption handle test finished successfully")
 
 
 func _list_quarantined(slot_index: int) -> PackedStringArray:

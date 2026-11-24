@@ -1,5 +1,6 @@
+extends ProjectTest
+
 ## Verifies ChunkSelector required-skill filtering, turn cooldown, and forced skill unlock
-extends Node
 
 const DASH: SkillDefinition = preload("uid://dq338q84ai7to")
 
@@ -20,17 +21,12 @@ func _make_chunk(
 	return data
 
 
-func _ready() -> void:
-	if not OS.is_debug_build() or not owner.should_tests_be_executed:
-		queue_free()
-		return
-
+func run_tests() -> void:
 	_test_filters_by_required_skills()
 	_test_turn_cooldown()
 	_test_forced_skill_unlock()
 	_test_filters_by_min_score()
 	print("ChunkSelector test completed.")
-	self.queue_free()
 
 
 func _test_filters_by_required_skills() -> void:

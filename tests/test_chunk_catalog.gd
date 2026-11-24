@@ -1,18 +1,14 @@
+extends ProjectTest
+
 ## Verifies all level chunk scenes in base_levels/ and skills/ are registered in the ChunkCatalog
-extends Node
 
 const CHUNK_CATALOG: ChunkCatalog = preload("uid://dwe2glcvgdfgs")
 
 
-func _ready() -> void:
-	if not OS.is_debug_build() or not owner.should_tests_be_executed:
-		queue_free()
-		return
-
+func run_tests() -> void:
 	_test_all_scenes_in_catalog()
 	_test_catalog_scenes_exist_on_disk()
 	print("Chunk catalog test completed.")
-	self.queue_free()
 
 
 func _test_all_scenes_in_catalog() -> void:

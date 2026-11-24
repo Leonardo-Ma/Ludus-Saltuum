@@ -1,5 +1,6 @@
+extends ProjectTest
+
 ## Verifies StatusManager stack, replace, and add duration reapplication modes
-extends Node
 
 
 class TestStatus:
@@ -13,16 +14,11 @@ class TestStatus:
 		return "Test Status"
 
 
-func _ready() -> void:
-	if not OS.is_debug_build() or not owner.should_tests_be_executed:
-		queue_free()
-		return
-
+func run_tests() -> void:
 	_test_stack_mode_caps_at_max()
 	_test_replace_mode_resets_duration()
 	_test_add_duration_mode_extends_time()
 	print("StatusManager test completed.")
-	self.queue_free()
 
 
 func _test_stack_mode_caps_at_max() -> void:

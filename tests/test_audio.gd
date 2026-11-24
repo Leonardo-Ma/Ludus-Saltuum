@@ -1,24 +1,8 @@
-extends Node
+extends ProjectTest
 
 
-func _ready() -> void:
-	if not OS.is_debug_build() or not owner.should_tests_be_executed:
-		queue_free()
-		return
-
-	# Wait one frame to ensure all systems are initialized
-	await get_tree().process_frame
-	_run_all_tests()
-
-
-# Run tests on demand via console command
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_home"):
-		print("\n🔄 Re-running audio system tests...")
-		_run_all_tests()
-
-
-func _run_all_tests() -> void:
+## Run audio tests on demand through the test runner
+func run_tests() -> void:
 	print("\n========== AUDIO SYSTEM TEST ==========")
 
 	_test_audio_buses()

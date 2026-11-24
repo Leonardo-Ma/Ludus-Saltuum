@@ -1,6 +1,6 @@
-## Verifies InputBindingManager rebind, conflict detection, reset defaults, signal, and cleanup
+extends ProjectTest
 
-extends Node
+## Verifies InputBindingManager rebind, conflict detection, reset defaults, signal, and cleanup
 
 const _TEST_ACTION: StringName = &"jump"
 const _OTHER_ACTION: StringName = &"attack"
@@ -14,11 +14,7 @@ var _had_config_file: bool = false
 var _binding_changed_actions: Array[StringName] = []
 
 
-func _ready() -> void:
-	if not OS.is_debug_build() or not owner.should_tests_be_executed:
-		queue_free()
-		return
-
+func run_tests() -> void:
 	# Snapshot the original InputMap state before any test modifies it.
 	assert(InputMap.has_action(_TEST_ACTION), "InputBindingManager test: missing test action '%s'" % _TEST_ACTION)
 
@@ -52,7 +48,6 @@ func _ready() -> void:
 		InputBindingManager.binding_changed.disconnect(_on_binding_changed)
 
 	print("InputBindingManager test completed.")
-	queue_free()
 
 
 func _on_binding_changed(action: StringName) -> void:

@@ -110,5 +110,7 @@ static func get_mouse_motion_icon(action: StringName) -> Texture2D:
 static func get_key_event_icon(event: InputEventKey) -> Texture2D:
 	if event.physical_keycode == KEY_NONE:
 		return get_keyboard_icon(event.keycode)
+	if DisplayServer.get_name() == "headless":
+		return get_keyboard_icon(event.physical_keycode)
 	var icon: Texture2D = get_keyboard_icon(DisplayServer.keyboard_get_keycode_from_physical(event.physical_keycode))
 	return icon if icon != null else get_keyboard_icon(event.physical_keycode)

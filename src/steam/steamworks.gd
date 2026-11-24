@@ -1,7 +1,8 @@
+extends Node
+
 ## NOTE This is wrapper to allow the game not to be directly coupled to Steam addon
 ## https://refactoring.guru/design-patterns/facade
 ## The steam princess is at steamworks_desktop
-extends Node
 
 signal avatar_loaded(user_id: int, avatar_size: int, avatar_buffer: PackedByteArray)
 
@@ -12,7 +13,7 @@ var _provider: Node
 
 
 func _ready() -> void:
-	if OS.has_feature("web"):
+	if OS.has_feature("web") or not ProjectSettings.get_setting("integration/steam/enabled", true):
 		return
 
 	# Load dynamically so Web never loads script that references Steam

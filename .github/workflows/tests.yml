@@ -24,6 +24,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          lfs: true
 
       - name: Setup Godot
         uses: chickensoft-games/setup-godot@ac93246ea68518a384c1c280a496e5989341f2f6 # v2.4.3
@@ -33,19 +35,28 @@ jobs:
       - name: Verify version
         run:  godot --version
 
+      - name: Configure isolated Godot profile
+        run: cp tests/config/override.cfg override.cfg
+
+      - name: Import project
+        env:
+          XDG_DATA_HOME: ${{ runner.temp }}/ludus-test-data
+          XDG_CONFIG_HOME: ${{ runner.temp }}/ludus-test-config
+          XDG_CACHE_HOME: ${{ runner.temp }}/ludus-test-cache
+        run: godot --headless --path . --import
+
       - name: Run GDScript tests
-        shell: bash
-        run: |
-          set -o pipefail
+        env:
+          LUDUS_TEST_DATA_DIR: ${{ runner.temp }}/ludus-test-data
+          XDG_DATA_HOME: ${{ runner.temp }}/ludus-test-data
+          XDG_CONFIG_HOME: ${{ runner.temp }}/ludus-test-config
+          XDG_CACHE_HOME: ${{ runner.temp }}/ludus-test-cache
+        run: >-
+          godot --headless --path . --log-file "$RUNNER_TEMP/ludus-tests.log"
+          --quit-after 60000 res://tests/unit_tests.tscn
 
-          godot \
-            --headless \
-            --path ./src \
-            res://main.tscn \
-            --quit-after 10 \
-            2>&1 | tee test_output.log
+      - name: Require completed suites
+        run: grep -Eq '^Project tests passed \([1-9][0-9]* suites\)$' "$RUNNER_TEMP/ludus-tests.log"
 
-          if grep -qi "assertion failed" test_output.log; then
-            echo "GDScript assertion failure detected"
-            exit 1
-          fi
+      - name: Check runtime diagnostics
+        run: '! grep -E "^(SCRIPT ERROR|ERROR):" "$RUNNER_TEMP/ludus-tests.log"'

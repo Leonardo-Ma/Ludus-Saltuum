@@ -2,14 +2,10 @@
 # TODO Improve and expand to check matching action effects
 # TODO Consider removing hardcoded path?
 
-extends Node
+extends ProjectTest
 
 
-func _ready() -> void:
-	if not OS.is_debug_build() or not owner.should_tests_be_executed:
-		queue_free()
-		return
-
+func run_tests() -> void:
 	var actions_dir: String = "res://src/entities/ai/goap/actions"
 	var actions: Array = _load_all_scripts_in_dir(actions_dir)
 
@@ -21,7 +17,6 @@ func _ready() -> void:
 
 	test_goal_action_consistency(goals, actions)
 	print("GOAP consistency test completed.")
-	queue_free()
 
 
 func _load_all_scripts_in_dir(dir_path: String) -> Array[Object]:

@@ -1,4 +1,4 @@
-extends Node
+extends ProjectTest
 
 ## Exercises loadout selection and repeated equipment changes on inherited NPC scene
 
@@ -7,10 +7,7 @@ const CLUB: WeaponAsset = preload("uid://6m8vbwphmr1c") # stone_spiked_club.tres
 const SWORD: WeaponAsset = preload("uid://bgdv4xkrfy3vg") # stone_sword.tres
 
 
-func _ready() -> void:
-	if not OS.is_debug_build() or not owner.should_tests_be_executed:
-		return
-
+func run_tests() -> void:
 	for randomize_weapon: bool in [false, true]:
 		var npc: NPCEntity = BARBARIAN.instantiate()
 		var controller: WeaponController = npc.get_node("%WeaponController")

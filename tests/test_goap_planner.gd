@@ -1,5 +1,6 @@
+extends ProjectTest
+
 ## Verifies GoapActionPlanner finds valid, optimal plans and terminates safely
-extends Node
 
 
 class CheapAction:
@@ -70,15 +71,10 @@ class OpenDoorGoal:
 		return { "door_open": true }
 
 
-func _ready() -> void:
-	if not OS.is_debug_build() or not owner.should_tests_be_executed:
-		queue_free()
-		return
-
+func run_tests() -> void:
 	_test_finds_cheapest_plan()
 	_test_no_plan_when_unreachable()
 	print("GOAP planner test completed.")
-	self.queue_free()
 
 
 func _test_finds_cheapest_plan() -> void:

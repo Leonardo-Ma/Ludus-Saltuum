@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/mechanics/collectible/coin/gold_coin.tscn" id="13_jitvu"]
 [ext_resource type="PackedScene" uid="uid://ddkudu1a3wgd7" path="res://src/shader_precompilation/shader_warmup.tscn" id="16_e7lu8"]
 [ext_resource type="PackedScene" uid="uid://cf5ku6le2d84s" path="res://src/environment/mechanics/floor_level_boundary/floor_level_boundary.tscn" id="16_tb146"]
-[ext_resource type="PackedScene" uid="uid://bxc67crvwseo8" path="res://tests/test_scene.tscn" id="54_mmgx3"]
+[ext_resource type="Script" uid="uid://7ox0wx5b0ek5" path="res://tests/execute_tests_flag.gd" id="main_script"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_mi8ch"]
 vertices = PackedVector3Array(-2.0784998, 4.5, -5.5785, -3.3284998, 4.5, -4.8285, -3.5784998, 4.5, -4.0785, -3.5784998, 4.5, 0.1715002, -3.0784998, 4.5, 1.1715002, -1.8284998, 4.5, 1.6715002, 1.9215002, 4.5, 1.6715002, 3.6715002, 4.5, -3.8284998, 3.1715002, 4.5, -5.0785, 2.1715002, 4.5, -5.5785, 3.6715002, 4.5, -0.078499794, 3.1715002, 4.5, 1.1715002)
@@ -114,8 +114,8 @@ transform = Transform3D(1, 0, 6.3573026e-08, 0, 1, 0, -6.3573026e-08, 0, 1, -0.3
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -48, 0)
 
-[node name="TestScene" parent="." unique_id=564304661 instance=ExtResource("54_mmgx3")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, -11, -92)
-
 [node name="ShaderWarmup" parent="." unique_id=423066826 instance=ExtResource("16_e7lu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -88)
+
+[node name="ExecuteTestsFlag" type="Node" parent="." unique_id=1030120929]
+script = ExtResource("main_script")
