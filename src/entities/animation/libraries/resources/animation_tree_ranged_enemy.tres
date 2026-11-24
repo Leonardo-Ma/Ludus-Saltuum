@@ -1,9 +1,82 @@
 [gd_resource type="AnimationNodeBlendTree" format=3 uid="uid://dwe10ethf8r5s"]
 
-[ext_resource type="AnimationNodeBlendTree" uid="uid://basam7g1dbev2" path="res://src/entities/animation/libraries/base_medium_animation_blend_tree.tres" id="1_u6ys1"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://c460vvn3y77we" path="res://src/entities/animation/libraries/resources/npc_body.tres" id="Body"]
+
+[sub_resource type="AnimationNodeOneShot" id="FullBody"]
+sync = true
+
+[sub_resource type="AnimationNodeTransition" id="FullBodySelect"]
+input_0/name = "slice_diagonal"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "slice_horizontal"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+input_2/name = "stab"
+input_2/auto_advance = false
+input_2/break_loop_at_end = false
+input_2/reset = true
+input_3/name = "magic"
+input_3/auto_advance = false
+input_3/break_loop_at_end = false
+input_3/reset = true
+
+[sub_resource type="AnimationNodeAnimation" id="HitA"]
+animation = &"general/Hit_A"
+
+[sub_resource type="AnimationNodeAnimation" id="HitB"]
+animation = &"general/Hit_B"
+
+[sub_resource type="AnimationNodeAnimation" id="Magic"]
+animation = &"magic/Ranged_Magic_Shoot"
+
+[sub_resource type="AnimationNodeOneShot" id="Reaction"]
+sync = true
+
+[sub_resource type="AnimationNodeTransition" id="ReactionSelect"]
+input_0/name = "hit_a"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "hit_b"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+
+[sub_resource type="AnimationNodeAnimation" id="SliceDiagonal"]
+animation = &"1h_combat/1H_Attack_Slice_Diagonal"
+
+[sub_resource type="AnimationNodeAnimation" id="SliceHorizontal"]
+animation = &"1h_combat/1H_Attack_Slice_Horizontal"
+
+[sub_resource type="AnimationNodeAnimation" id="Stab"]
+animation = &"1h_combat/1H_Attack_Stab"
 
 [resource]
-graph_offset = Vector2(-400.62674, -235.90813)
-nodes/AnimationNodeBlendTree/node = ExtResource("1_u6ys1")
-nodes/AnimationNodeBlendTree/position = Vector2(-240, 160)
-node_connections = [&"output", 0, &"AnimationNodeBlendTree"]
+graph_offset = Vector2(-10.503723, 350.7162)
+nodes/output/position = Vector2(1620, 1000)
+nodes/body/node = ExtResource("Body")
+nodes/body/position = Vector2(780, 840)
+nodes/slice_diagonal/node = SubResource("SliceDiagonal")
+nodes/slice_diagonal/position = Vector2(400, 920)
+nodes/slice_horizontal/node = SubResource("SliceHorizontal")
+nodes/slice_horizontal/position = Vector2(380, 1120)
+nodes/stab/node = SubResource("Stab")
+nodes/stab/position = Vector2(420, 1300)
+nodes/magic/node = SubResource("Magic")
+nodes/magic/position = Vector2(480, 1460)
+nodes/full_body_select/node = SubResource("FullBodySelect")
+nodes/full_body_select/position = Vector2(840, 1120)
+nodes/full_body/node = SubResource("FullBody")
+nodes/full_body/position = Vector2(1060, 1040)
+nodes/hit_a/node = SubResource("HitA")
+nodes/hit_a/position = Vector2(1280, 1400)
+nodes/hit_b/node = SubResource("HitB")
+nodes/hit_b/position = Vector2(1280, 1560)
+nodes/reaction_select/node = SubResource("ReactionSelect")
+nodes/reaction_select/position = Vector2(1480, 1360)
+nodes/reaction/node = SubResource("Reaction")
+nodes/reaction/position = Vector2(1320, 1000)
+node_connections = [&"output", 0, &"reaction", &"full_body_select", 0, &"slice_diagonal", &"full_body_select", 1, &"slice_horizontal", &"full_body_select", 2, &"stab", &"full_body_select", 3, &"magic", &"full_body", 0, &"body", &"full_body", 1, &"full_body_select", &"reaction_select", 0, &"hit_a", &"reaction_select", 1, &"hit_b", &"reaction", 0, &"full_body", &"reaction", 1, &"reaction_select"]

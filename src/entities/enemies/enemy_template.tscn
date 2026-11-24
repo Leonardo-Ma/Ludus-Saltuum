@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://cq301lp0jblvc"]
 
 [ext_resource type="Script" uid="uid://dkh5m525rjidn" path="res://src/entities/components/npc_entity.gd" id="1_cqc8c"]
-[ext_resource type="Script" uid="uid://dk5rrcj4pm04l" path="res://src/entities/ai/goap/actions/investigate.gd" id="investigate_action"]
-[ext_resource type="Script" uid="uid://bpwcjpy6x10hk" path="res://src/entities/ai/goap/goals/investigate_goal.gd" id="investigate_goal"]
+[ext_resource type="AnimationNodeBlendTree" uid="uid://basam7g1dbev2" path="res://src/entities/animation/libraries/base_medium_animation_blend_tree.tres" id="2_animation_graph"]
 [ext_resource type="Script" uid="uid://bqys3jbut4h6" path="res://src/entities/ai/perception/perception_config.gd" id="6_iieoc"]
 [ext_resource type="Script" uid="uid://cuwnfmbuuro3s" path="res://src/entities/ai/perception/visual_config.gd" id="7_djwp5"]
 [ext_resource type="Script" uid="uid://dycviide8g017" path="res://src/entities/ai/goap/actions/chase_enemy.gd" id="9_i57bl"]
@@ -33,6 +32,9 @@
 [ext_resource type="Script" uid="uid://csig12422io62" path="res://src/entities/components/combat/hitbox.gd" id="24_sx6k8"]
 [ext_resource type="Script" uid="uid://wqopxvagomo6" path="res://src/entities/components/combat/hurtbox.gd" id="25_ljr68"]
 [ext_resource type="Script" uid="uid://cpnmaicmyhwd6" path="res://src/entities/components/entity_debug_label.gd" id="26_5e42j"]
+[ext_resource type="Script" uid="uid://b25o16tsbfvax" path="res://src/entities/animation/helpers/npc_animation_bridge.gd" id="26_qurdx"]
+[ext_resource type="Script" uid="uid://dk5rrcj4pm04l" path="res://src/entities/ai/goap/actions/investigate.gd" id="investigate_action"]
+[ext_resource type="Script" uid="uid://bpwcjpy6x10hk" path="res://src/entities/ai/goap/goals/investigate_goal.gd" id="investigate_goal"]
 [ext_resource type="Script" uid="uid://0qabyveq1ul1" path="res://src/entities/components/weapon_controller.gd" id="weapon_controller"]
 
 [sub_resource type="Resource" id="Resource_kcsny"]
@@ -89,7 +91,8 @@ shape = SubResource("CylinderShape3D_qurdx")
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=905057315]
 unique_name_in_owner = true
 deterministic = false
-script = ExtResource("17_ejhyg")
+tree_root = ExtResource("2_animation_graph")
+parameters/body/conditions/standing = true
 
 [node name="Visual" parent="." unique_id=1937025669 instance=ExtResource("14_qurdx")]
 unique_name_in_owner = true
@@ -148,6 +151,13 @@ script = ExtResource("22_n1si8")
 unique_name_in_owner = true
 script = ExtResource("23_8icye")
 
+[node name="AnimationController" type="Node" parent="Controllers" unique_id=1727454372]
+unique_name_in_owner = true
+script = ExtResource("17_ejhyg")
+
+[node name="NPCAnimationBridge" type="Node" parent="Controllers" unique_id=368034468]
+script = ExtResource("26_qurdx")
+
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1218537899]
 unique_name_in_owner = true
 target_desired_distance = 1.2
@@ -169,13 +179,14 @@ font_size = 24
 outline_size = 8
 script = ExtResource("26_5e42j")
 
-[node name="Hitbox" type="Area3D" parent="." unique_id=744692812]
+[node name="Hitbox" type="Area3D" parent="." unique_id=744692812 node_paths=PackedStringArray("animated_shape")]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 collision_layer = 32768
 collision_mask = 0
 monitoring = false
 script = ExtResource("24_sx6k8")
+animated_shape = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=669871644]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.017, 0.635, -0.819)

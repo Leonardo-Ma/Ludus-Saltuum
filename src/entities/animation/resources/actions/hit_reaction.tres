@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AnimationActionDefinition" format=3 uid="uid://uwdpk4bplsnf"]
+
+[ext_resource type="Script" uid="uid://d2bboswwem0jy" path="res://src/entities/animation/helpers/animation_action_definition.gd" id="1_3vfws"]
+
+[resource]
+script = ExtResource("1_3vfws")
+id = &"hit"
+inputs = Array[StringName]([&"hit_a", &"hit_b"])
+layer = 2
+interrupt_active = true
+metadata/_custom_type_script = "uid://d2bboswwem0jy"

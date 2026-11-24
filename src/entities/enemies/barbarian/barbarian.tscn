@@ -13,8 +13,8 @@
 [ext_resource type="Resource" uid="uid://bgdv4xkrfy3vg" path="res://src/entities/resources/weapons/stone_sword.tres" id="13_iamlb"]
 [ext_resource type="Resource" uid="uid://bddhvg1ytve8r" path="res://src/entities/resources/weapons/stone_axe.tres" id="14_3q2kk"]
 [ext_resource type="Resource" uid="uid://b82wh7rxddy1b" path="res://src/entities/resources/weapons/gold_paladin_hammer.tres" id="15_m2hlj"]
+[ext_resource type="Resource" uid="uid://cu1tai0bd0uic" path="res://src/entities/animation/resources/profiles/enemy_melee_animation_profile.tres" id="11_ud1dh"]
 [ext_resource type="AnimationLibrary" uid="uid://bp21tmj3ajjq" path="res://src/entities/animation/libraries/movement_advanced.res" id="19_2rf2y"]
-[ext_resource type="AnimationNodeBlendTree" uid="uid://basam7g1dbev2" path="res://src/entities/animation/libraries/base_medium_animation_blend_tree.tres" id="20_cr6u0"]
 
 [sub_resource type="Animation" id="Animation_ud1dh"]
 resource_name = "RESET"
@@ -435,56 +435,13 @@ libraries/general = ExtResource("6_q7dfg")
 libraries/magic = ExtResource("4_lmes7")
 libraries/movement = ExtResource("7_0ektb")
 libraries/movement_advanced = ExtResource("19_2rf2y")
-autoplay = &"RESET"
 
 [node name="AnimationTree" parent="." index="2" unique_id=905057315]
 root_node = NodePath("%Visual")
-tree_root = ExtResource("20_cr6u0")
 anim_player = NodePath("../AnimationPlayer")
-parameters/attack/active = false
-parameters/attack/internal_active = false
-parameters/attack/request = 0
-parameters/attack/observer = null
-parameters/in_air_state/current_state = "ground"
-parameters/in_air_state/transition_request = ""
-parameters/in_air_state/current_index = 0
-parameters/in_air_state/observer = null
-parameters/is_alive/current_state = ""
-parameters/is_alive/transition_request = ""
-parameters/is_alive/current_index = -1
-parameters/is_alive/observer = null
-parameters/is_damaged/active = false
-parameters/is_damaged/internal_active = false
-parameters/is_damaged/request = 0
-parameters/is_damaged/observer = null
-parameters/is_jumping/active = false
-parameters/is_jumping/internal_active = false
-parameters/is_jumping/request = 0
-parameters/is_jumping/observer = null
-parameters/movement/blend_position = Vector2(0, 0)
-parameters/movement/observer = null
-parameters/melee_attack/current_state = ""
-parameters/melee_attack/transition_request = ""
-parameters/melee_attack/current_index = -1
-parameters/melee_attack/observer = null
-parameters/death/current_state = ""
-parameters/death/transition_request = ""
-parameters/death/current_index = -1
-parameters/death/observer = null
-parameters/damaged/current_state = ""
-parameters/damaged/transition_request = ""
-parameters/damaged/current_index = -1
-parameters/damaged/observer = null
-parameters/magic_attack/active = false
-parameters/magic_attack/internal_active = false
-parameters/magic_attack/request = 0
-parameters/magic_attack/observer = null
-parameters/stance/current_state = "standing"
-parameters/stance/transition_request = ""
-parameters/stance/current_index = 0
-parameters/stance/observer = null
-parameters/crouch_movement/blend_position = Vector2(0, 0)
-parameters/crouch_movement/observer = null
+parameters/body/dead/death_select/transition_request = "death_a"
+parameters/full_body_select/transition_request = "slice_diagonal"
+parameters/reaction_select/transition_request = "hit_a"
 
 [node name="Visual" parent="." index="3" unique_id=1937025669]
 _initial_character = ExtResource("8_cin2i")
@@ -551,5 +508,8 @@ movement = SubResource("Resource_njikp")
 [node name="WeaponController" parent="Components" parent_id_path=PackedInt32Array(2054122343) index="3" unique_id=1903887241]
 weapons = Array[ExtResource("11_85d17")]([ExtResource("2_ud1dh"), ExtResource("13_iamlb"), ExtResource("14_3q2kk"), ExtResource("15_m2hlj")])
 randomize_weapon = true
+
+[node name="AnimationController" parent="Controllers" parent_id_path=PackedInt32Array(1494063068) index="6" unique_id=1727454372]
+profile = ExtResource("11_ud1dh")
 
 [editable path="Visual"]

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AnimationProfile" format=3 uid="uid://cu1tai0bd0uic"]
+
+[ext_resource type="Script" uid="uid://d2bboswwem0jy" path="res://src/entities/animation/helpers/animation_action_definition.gd" id="1_mqtk5"]
+[ext_resource type="Resource" uid="uid://ciulvkoes8gvg" path="res://src/entities/animation/resources/actions/melee_1h.tres" id="2_660ey"]
+[ext_resource type="Resource" uid="uid://uwdpk4bplsnf" path="res://src/entities/animation/resources/actions/hit_reaction.tres" id="4_ks50o"]
+[ext_resource type="Script" uid="uid://luu758ppfiq8" path="res://src/entities/animation/helpers/animation_profile.gd" id="5_quv54"]
+
+[resource]
+script = ExtResource("5_quv54")
+actions = Array[ExtResource("1_mqtk5")]([ExtResource("2_660ey"), ExtResource("4_ks50o")])
+has_death = true
+death_inputs = Array[StringName]([&"death_a", &"death_b"])
+has_respawn = true
+metadata/_custom_type_script = "uid://luu758ppfiq8"

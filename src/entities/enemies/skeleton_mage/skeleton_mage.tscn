@@ -1,8 +1,6 @@
 [gd_scene format=3 uid="uid://bylcq0tsjv7o4"]
 
 [ext_resource type="PackedScene" uid="uid://cq301lp0jblvc" path="res://src/entities/enemies/enemy_template.tscn" id="1_virfw"]
-[ext_resource type="Script" uid="uid://dk5rrcj4pm04l" path="res://src/entities/ai/goap/actions/investigate.gd" id="investigate_action"]
-[ext_resource type="Script" uid="uid://bpwcjpy6x10hk" path="res://src/entities/ai/goap/goals/investigate_goal.gd" id="investigate_goal"]
 [ext_resource type="Resource" uid="uid://faeio5xc2xun" path="res://src/entities/resources/weapons/skeleton_staff.tres" id="2_mroeu"]
 [ext_resource type="AnimationLibrary" uid="uid://vginonlwcip8" path="res://src/entities/animation/libraries/combat.res" id="2_ymq7x"]
 [ext_resource type="AnimationLibrary" uid="uid://qw3lmf4rabqb" path="res://src/entities/animation/libraries/general.res" id="3_ggklk"]
@@ -21,11 +19,14 @@
 [ext_resource type="AnimationLibrary" uid="uid://d0b53v2ggy8ma" path="res://src/entities/animation/libraries/magic.res" id="15_l2qw7"]
 [ext_resource type="Script" uid="uid://bvvk88q345vy4" path="res://src/entities/ai/goap/helpers/ai_config.gd" id="15_xccq2"]
 [ext_resource type="Resource" uid="uid://bw0sadv5k72uq" path="res://src/entities/resources/characters/skeletons/skeleton_mage.tres" id="18_bdim5"]
-[ext_resource type="AnimationNodeBlendTree" uid="uid://basam7g1dbev2" path="res://src/entities/animation/libraries/base_medium_animation_blend_tree.tres" id="18_njikp"]
 [ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="19_bdim5"]
 [ext_resource type="Script" uid="uid://dm8nwmbpvtayk" path="res://src/entities/components/combat/projectile_attack_component.gd" id="19_r2me2"]
 [ext_resource type="PackedScene" uid="uid://c4jq7s82wru52" path="res://src/entities/vfx/elemental_magic_fx/projectile/fire_projectile.tscn" id="20_bdim5"]
 [ext_resource type="Script" uid="uid://b14wamm35ys53" path="res://src/entities/components/combat/projectile_attack.gd" id="20_htfkf"]
+[ext_resource type="Resource" uid="uid://ca3kih6mtbbxg" path="res://src/entities/animation/resources/profiles/enemy_ranged_animation_profile.tres" id="24_mroeu"]
+[ext_resource type="Script" uid="uid://cx0jguneos6kp" path="res://src/entities/data/weapon_asset.gd" id="26_qu3vd"]
+[ext_resource type="Script" uid="uid://dk5rrcj4pm04l" path="res://src/entities/ai/goap/actions/investigate.gd" id="investigate_action"]
+[ext_resource type="Script" uid="uid://bpwcjpy6x10hk" path="res://src/entities/ai/goap/goals/investigate_goal.gd" id="investigate_goal"]
 
 [sub_resource type="Resource" id="Resource_bdim5"]
 script = ExtResource("15_xccq2")
@@ -460,56 +461,32 @@ libraries/general = ExtResource("3_ggklk")
 libraries/magic = ExtResource("15_l2qw7")
 libraries/movement = ExtResource("4_crluf")
 libraries/movement_advanced = ExtResource("5_gxruy")
-autoplay = &"RESET"
 
 [node name="AnimationTree" parent="." index="2" unique_id=905057315]
 root_node = NodePath("%Visual")
-tree_root = ExtResource("18_njikp")
 anim_player = NodePath("../AnimationPlayer")
-parameters/attack/active = false
-parameters/attack/internal_active = false
-parameters/attack/request = 0
-parameters/attack/observer = null
-parameters/in_air_state/current_state = "ground"
-parameters/in_air_state/transition_request = ""
-parameters/in_air_state/current_index = 0
-parameters/in_air_state/observer = null
-parameters/is_alive/current_state = ""
-parameters/is_alive/transition_request = ""
-parameters/is_alive/current_index = -1
-parameters/is_alive/observer = null
-parameters/is_damaged/active = false
-parameters/is_damaged/internal_active = false
-parameters/is_damaged/request = 0
-parameters/is_damaged/observer = null
-parameters/is_jumping/active = false
-parameters/is_jumping/internal_active = false
-parameters/is_jumping/request = 0
-parameters/is_jumping/observer = null
-parameters/movement/blend_position = Vector2(0, 0)
-parameters/movement/observer = null
-parameters/melee_attack/current_state = ""
-parameters/melee_attack/transition_request = ""
-parameters/melee_attack/current_index = -1
-parameters/melee_attack/observer = null
-parameters/death/current_state = ""
-parameters/death/transition_request = ""
-parameters/death/current_index = -1
-parameters/death/observer = null
-parameters/damaged/current_state = ""
-parameters/damaged/transition_request = ""
-parameters/damaged/current_index = -1
-parameters/damaged/observer = null
-parameters/magic_attack/active = false
-parameters/magic_attack/internal_active = false
-parameters/magic_attack/request = 0
-parameters/magic_attack/observer = null
-parameters/stance/current_state = "standing"
-parameters/stance/transition_request = ""
-parameters/stance/current_index = 0
-parameters/stance/observer = null
-parameters/crouch_movement/blend_position = Vector2(0, 0)
-parameters/crouch_movement/observer = null
+parameters/body/dead/death_select/current_state = ""
+parameters/body/dead/death_select/transition_request = "death_a"
+parameters/body/dead/death_select/current_index = -1
+parameters/body/dead/death_select/observer = null
+parameters/body/standing/blend_position = Vector2(0, 0)
+parameters/body/standing/observer = null
+parameters/full_body_select/current_state = ""
+parameters/full_body_select/transition_request = "magic"
+parameters/full_body_select/current_index = -1
+parameters/full_body_select/observer = null
+parameters/full_body/active = false
+parameters/full_body/internal_active = false
+parameters/full_body/request = 0
+parameters/full_body/observer = null
+parameters/reaction_select/current_state = ""
+parameters/reaction_select/transition_request = "hit_a"
+parameters/reaction_select/current_index = -1
+parameters/reaction_select/observer = null
+parameters/reaction/active = false
+parameters/reaction/internal_active = false
+parameters/reaction/request = 0
+parameters/reaction/observer = null
 
 [node name="Visual" parent="." index="3" unique_id=1937025669]
 _initial_character = ExtResource("18_bdim5")
@@ -578,10 +555,10 @@ projectile_attack = SubResource("Resource_htfkf")
 [node name="NPCMovementController" parent="Components" parent_id_path=PackedInt32Array(2054122343) index="3" unique_id=1768493993]
 movement = SubResource("Resource_n1si8")
 
-[node name="CollisionShape3D" parent="Hitbox" parent_id_path=PackedInt32Array(744692812) index="0" unique_id=669871644]
-disabled = false
+[node name="WeaponController" parent="Components" parent_id_path=PackedInt32Array(2054122343) index="4" unique_id=1903887241]
+weapons = Array[ExtResource("26_qu3vd")]([ExtResource("2_mroeu")])
 
-[node name="WeaponController" parent="Components" unique_id=1903887241]
-weapons = [ExtResource("2_mroeu")]
+[node name="AnimationController" parent="Controllers" parent_id_path=PackedInt32Array(1494063068) index="6" unique_id=1727454372]
+profile = ExtResource("24_mroeu")
 
 [editable path="Visual"]

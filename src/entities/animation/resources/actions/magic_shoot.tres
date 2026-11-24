@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AnimationActionDefinition" format=3 uid="uid://cnfn5d6b4utps"]
+
+[ext_resource type="Script" uid="uid://d2bboswwem0jy" path="res://src/entities/animation/helpers/animation_action_definition.gd" id="1_mjqbj"]
+
+[resource]
+script = ExtResource("1_mjqbj")
+id = &"magic"
+inputs = Array[StringName]([&"magic"])
+ground_only = true
+metadata/_custom_type_script = "uid://d2bboswwem0jy"

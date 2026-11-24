@@ -1,7 +1,7 @@
 ## This label is attached above entity that uses goap
 extends Label3D
 
-@onready var animation_tree: AnimationTree = %AnimationTree
+@onready var _animation_controller: AnimationController = %AnimationController
 
 @onready var goap_controller: BaseMemory = %GoapController
 
@@ -20,7 +20,7 @@ func _process(_delta: float) -> void:
 
 	var is_damaged: String = "Not damaged"
 
-	if animation_tree.get("parameters/is_damaged/active"):
+	if _animation_controller.is_action_running(AnimKeys.HIT):
 		is_damaged = "damaged"
 	label_text = is_damaged + " \n "
 	label_text += str(owner.health.current_health) + "\n"

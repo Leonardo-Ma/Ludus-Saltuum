@@ -1,0 +1,25 @@
+[gd_resource type="AnimationNodeStateMachine" format=3 uid="uid://c460vvn3y77we"]
+
+[ext_resource type="AnimationNodeBlendTree" uid="uid://b00wtlpymptm0" path="res://src/entities/animation/libraries/resources/death_blend_tree.tres" id="Death"]
+[ext_resource type="AnimationNodeBlendSpace2D" uid="uid://bi27fgnbsqn8s" path="res://src/entities/animation/resources/stances/standing.tres" id="Standing"]
+
+[sub_resource type="AnimationNodeAnimation" id="Respawn"]
+animation = &"general/Spawn_Ground"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="Start"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="RespawnEnd"]
+xfade_time = 0.15
+switch_mode = 2
+advance_mode = 2
+
+[resource]
+states/Start/position = Vector2(40, 80)
+states/dead/node = ExtResource("Death")
+states/dead/position = Vector2(40, 240)
+states/respawn/node = SubResource("Respawn")
+states/respawn/position = Vector2(280, 240)
+states/standing/node = ExtResource("Standing")
+states/standing/position = Vector2(280, 80)
+transitions = ["Start", "standing", SubResource("Start"), "respawn", "standing", SubResource("RespawnEnd")]

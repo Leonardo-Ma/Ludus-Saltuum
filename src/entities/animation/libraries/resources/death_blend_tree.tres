@@ -1,0 +1,27 @@
+[gd_resource type="AnimationNodeBlendTree" format=3 uid="uid://b00wtlpymptm0"]
+
+[sub_resource type="AnimationNodeAnimation" id="DeathA"]
+animation = &"general/Death_A"
+
+[sub_resource type="AnimationNodeAnimation" id="DeathB"]
+animation = &"general/Death_B"
+
+[sub_resource type="AnimationNodeTransition" id="DeathSelect"]
+input_0/name = "death_a"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "death_b"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+
+[resource]
+nodes/output/position = Vector2(540, 100)
+nodes/death_a/node = SubResource("DeathA")
+nodes/death_a/position = Vector2(20, 60)
+nodes/death_b/node = SubResource("DeathB")
+nodes/death_b/position = Vector2(20, 200)
+nodes/death_select/node = SubResource("DeathSelect")
+nodes/death_select/position = Vector2(280, 100)
+node_connections = [&"output", 0, &"death_select", &"death_select", 0, &"death_a", &"death_select", 1, &"death_b"]

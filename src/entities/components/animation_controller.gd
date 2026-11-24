@@ -1,160 +1,223 @@
-# TODO Remake this garbage :(
-class_name PlayerAnimationController
+class_name AnimationController
 extends Node
 
-## Entity animation controller [br]
-## To be attached to AnimationTree [br]
-## This acts as a signal listener from other nodes to change animation [br]
+## Plays editor-authored AnimationTree through its declared profile [br]
+## Fed by AnimationBridge nodes
 
-# TODO Improve these names and remove magic strings
-const PARAM_MOVEMENT_BLEND_POSITION: String = "parameters/movement/blend_position"
-const PARAM_STANCE_TRANSITION: String = "parameters/stance/transition_request"
-const PARAM_CROUCH_MOVEMENT_BLEND_POSITION: String = "parameters/crouch_movement/blend_position"
-const PARAM_IN_AIR_STATE_TRANSITION: String = "parameters/in_air_state/transition_request"
-const PARAM_IN_AIR_STATE_CURRENT: String = "parameters/in_air_state/current_state"
-const PARAM_IS_JUMPING_REQUEST: String = "parameters/is_jumping/request"
-const PARAM_ATTACK_TRANSITION: String = "parameters/melee_attack/transition_request"
-const PARAM_MELEE_ATTACK_TRANSITION: String = "parameters/melee_attack/transition_request"
-const PARAM_ATTACK_REQUEST: String = "parameters/attack/request"
-const PARAM_ATTACK_ACTIVE: String = "parameters/attack/active"
-const PARAM_MAGIC_ATTACK_REQUEST: String = "parameters/magic_attack/request"
-const PARAM_MAGIC_ATTACK_ACTIVE: String = "parameters/magic_attack/active"
-const PARAM_IS_ALIVE_TRANSITION: String = "parameters/is_alive/transition_request"
-const PARAM_DEATH_TRANSITION: String = "parameters/death/transition_request"
-const PARAM_IS_DAMAGED_REQUEST: String = "parameters/is_damaged/request"
-const PARAM_DAMAGED_TRANSITION: String = "parameters/damaged/transition_request"
+signal action_finished(action_id: StringName)
+signal action_interrupted(action_id: StringName)
 
-const MELEE_ATTACK_ANIMATIONS: Array[String] = ["1h_slice_diagonal", "1h_slice_horizontal", "1h_stab"]
-const DAMAGED_ANIMATIONS: Array[String] = ["hit_a", "hit_b"]
-const DEATH_ANIMATIONS: Array[String] = ["death_a", "death_b"]
+@export var profile: AnimationProfile
 
-@onready var entity: AggressiveEntity = owner as AggressiveEntity
-@onready var health: HealthComponent = %HealthComponent
+var _is_dead: bool = false
+var _is_airborne: bool = false
+var _stance: StringName
+var _move_direction: Vector2 = Vector2.ZERO
+var _playback: AnimationNodeStateMachinePlayback
+var _definitions: Dictionary[StringName, AnimationActionDefinition] = { }
+var _running: Dictionary[AnimationActionDefinition.Layer, StringName] = { }
+var _combo_index: Dictionary[StringName, int] = { }
+var _finished_msec: Dictionary[StringName, int] = { }
 
-var movement: MovementComponent
+@onready var _tree: AnimationTree = %AnimationTree
+@onready var _player: AnimationPlayer = %AnimationPlayer
 
 
-func initialize() -> void:
-	if entity is PlayerEntity:
-		var movement_controller: PlayerMovementComponent = entity.get_node("%PlayerMovementComponent")
-		assert(movement_controller, "movement_controller missing for " + owner.name)
-		#		movement_controller.move_stopped.connect(_on_move_stopped)
-		movement_controller.movement_direction_changed.connect(_on_movement_direction_changed)
-		movement_controller.jumped.connect(_on_jumped)
-		movement_controller.in_air.connect(_on_in_air)
-		movement_controller.landed.connect(_on_landed)
-		movement_controller.crouch_toggled.connect(_on_crouch_toggled)
-		movement_controller.movement_direction_changed.connect(_on_player_movement_direction_changed)
-	elif entity is NPCEntity:
-		var npc_movement_controller: NPCMovementController = entity.get_node("%NPCMovementController")
-		assert(npc_movement_controller, "npc_movement_controller missing for " + owner.name)
-		npc_movement_controller.movement_direction_changed.connect(_on_movement_direction_changed)
-	else:
-		assert(false, "Entity " + owner.name + " not supported but has animation controller")
-	_validate_animation_parameters()
+func _ready() -> void:
+	assert(profile != null, "AnimationProfile missing in " + name)
+	assert(_tree != null and _player != null, "AnimationTree or AnimationPlayer missing in " + name)
+	assert(_tree.get_node(_tree.anim_player) == _player, "AnimationTree linked to wrong AnimationPlayer in " + name)
+	profile.validate(name)
+	_validate_graph()
 
-	entity.melee_attacked.connect(_on_melee_attack)
-	entity.magic_casted.connect(_on_magic_casted)
+	var observed_layers: Array[AnimationActionDefinition.Layer] = []
+	for definition: AnimationActionDefinition in profile.actions:
+		_definitions[definition.id] = definition
+		if observed_layers.has(definition.layer):
+			continue
+		var observer: AnimationNodeObserverOneShot = AnimationNodeObserverOneShot.new()
+		_tree.set(AnimParams.layer_observer(definition.layer), observer)
+		observer.finished.connect(_on_layer_finished.bind(definition.layer))
+		observed_layers.append(definition.layer)
 
-	health.damaged.connect(_on_damaged)
-	health.died.connect(_on_death)
-	health.revived.connect(_on_revived)
-
-# Only if multiple idle animations (Need to create new connection in tree)
-#func _on_move_stopped() -> void:
-#	set("parameters/moving/transition_request", "idle")
+	_playback = _tree.get(AnimParams.playback())
+	assert(_playback != null, "Body playback missing in " + name)
+	set_stance(profile.default_stance)
+	_tree.active = true
+	_playback.start(_stance)
 
 
-# BUG If player uses shift + movement, strafe animation gets stuck if: shift + a/d + w  then releasing w
+func _on_layer_finished(layer: AnimationActionDefinition.Layer) -> void:
+	if _running.has(layer):
+		action_finished.emit(_clear_layer(layer))
+
+
+#region Public API
+# BUG If player uses shift + movement, strafe animation gets stuck if: shift + a/d + w then releasing w
 # removed strafe left and right on animation tree movement
-## Update BlendSpace2D position in animation tree
-## X axis: left (-1) to right (1)
-## Y axis: backward (-0.6 walk, -1.0 run) to forward (0.6 walk, 1.0 run)
-## Direction vector already scaled by speed_factor in movement controller
-func _on_movement_direction_changed(direction: Vector2, _speed_factor: float) -> void:
-	set(PARAM_MOVEMENT_BLEND_POSITION, direction)
+## Blend space position, x left (-1) to right (1), y backward (-1) to forward (1)
+func set_movement(direction: Vector2) -> void:
+	if direction == _move_direction:
+		return
+	_move_direction = direction
+	_tree.set(AnimParams.blend_position(_stance), direction)
 
 
-func _on_jumped() -> void:
-	set(PARAM_IN_AIR_STATE_TRANSITION, "air")
-	set(PARAM_IS_JUMPING_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+func set_stance(stance: StringName) -> void:
+	assert(profile.stances.has(stance), "Stance '%s' missing in AnimationProfile of %s" % [stance, name])
+	if stance == _stance:
+		return
+	_stance = stance
+	_tree.set(AnimParams.blend_position(stance), _move_direction)
+	for state: StringName in profile.stances:
+		_tree.set(AnimParams.stance_condition(state), state == stance)
 
 
-func _on_in_air() -> void:
-	set(PARAM_IN_AIR_STATE_TRANSITION, "air")
+## Ground jump start, restarts jump state
+func jump() -> void:
+	assert(profile.has_air_states, "Air states missing in AnimationProfile of " + name)
+	_is_airborne = true
+	if _is_dead:
+		return
+	_playback.start(AnimParams.JUMP)
+
+
+func set_airborne(airborne: bool) -> void:
+	if airborne == _is_airborne:
+		return
+	_is_airborne = airborne
+	if not profile.has_air_states or _is_dead:
+		return
+	_playback.travel(AnimParams.FALL if airborne else _stance)
+
+
+func set_dead(dead: bool) -> void:
+	if dead == _is_dead:
+		return
+	_is_dead = dead
+	if dead:
+		for layer: AnimationActionDefinition.Layer in _running.keys():
+			_stop_layer(layer)
+		_combo_index.clear()
+		_finished_msec.clear()
+		if profile.has_death:
+			if not profile.death_inputs.is_empty():
+				_tree.set(AnimParams.death_select(), profile.death_inputs.pick_random())
+			_playback.start(AnimParams.DEAD)
+		return
+
+	_is_airborne = false
+	_playback.start(AnimParams.RESPAWN if profile.has_respawn else _stance)
+
+
+func request_action(action_id: StringName) -> void:
+	var definition: AnimationActionDefinition = _definitions.get(action_id)
+	assert(definition != null, "Action '%s' missing in AnimationProfile of %s" % [action_id, name])
+
 	# TODO Consider input buffering, so if you attack when about to hit ground, it triggers attack
-	_abort_attack()
-
-
-func _on_landed() -> void:
-	set(PARAM_IN_AIR_STATE_TRANSITION, "ground")
-
-
-func _on_melee_attack() -> void:
-	if get(PARAM_IN_AIR_STATE_CURRENT) != "ground" or get(PARAM_ATTACK_ACTIVE) == true:
+	if _is_dead or (definition.ground_only and _is_airborne):
+		return
+	var previous_action: StringName = _running.get(definition.layer, &"")
+	if previous_action != &"" and not definition.interrupt_active:
 		return
 
-	set(PARAM_MELEE_ATTACK_TRANSITION, MELEE_ATTACK_ANIMATIONS.pick_random())
-
-	set(PARAM_ATTACK_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
-
-
-func _on_magic_casted() -> void:
-	if get(PARAM_MAGIC_ATTACK_ACTIVE) == true:
-		return
-
-	set(PARAM_MAGIC_ATTACK_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+	if not definition.inputs.is_empty():
+		_tree.set(AnimParams.layer_select(definition.layer), _pick_variant(definition))
+	_running[definition.layer] = action_id
+	_tree.set(AnimParams.layer_request(definition.layer), AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+	if previous_action != &"":
+		_finished_msec[previous_action] = Time.get_ticks_msec()
+		action_interrupted.emit(previous_action)
 
 
-func _on_damaged(_attack: Attack) -> void:
-	set(PARAM_IS_ALIVE_TRANSITION, "damaged")
-	set(PARAM_DAMAGED_TRANSITION, DAMAGED_ANIMATIONS.pick_random())
-	set(PARAM_IS_DAMAGED_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+## No action_finished emitted, used for held actions (block, bow hold)
+func abort_action(action_id: StringName) -> void:
+	var definition: AnimationActionDefinition = _definitions.get(action_id)
+	if definition != null and _running.get(definition.layer) == action_id:
+		_stop_layer(definition.layer)
 
 
-func _on_death() -> void:
-	set(PARAM_IS_ALIVE_TRANSITION, "dead")
-	set(PARAM_DEATH_TRANSITION, DEATH_ANIMATIONS.pick_random())
-	set(PARAM_IS_DAMAGED_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+func is_action_running(action_id: StringName) -> bool:
+	return _running.values().has(action_id)
+#endregion
 
 
-func _on_revived() -> void:
-	set(PARAM_IS_ALIVE_TRANSITION, "respawn")
-	set(PARAM_IS_DAMAGED_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+func _pick_variant(definition: AnimationActionDefinition) -> StringName:
+	if definition.variant_mode == AnimationActionDefinition.VariantMode.RANDOM:
+		return definition.inputs.pick_random()
+
+	var index: int = _combo_index.get(definition.id, 0)
+	if _is_combo_expired(definition):
+		index = 0
+	_combo_index[definition.id] = (index + 1) % definition.inputs.size()
+	return definition.inputs[index]
 
 
-func _abort_attack() -> void:
-	set(PARAM_ATTACK_REQUEST, AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
-	# The RESET reverts any animation based function or parameter to default state
-	entity.animation_player.play("RESET")
+func _is_combo_expired(definition: AnimationActionDefinition) -> bool:
+	if definition.combo_window <= 0.0:
+		return false
+	var finished_msec: int = _finished_msec.get(definition.id, 0)
+	return Time.get_ticks_msec() - finished_msec > roundi(definition.combo_window * 1000.0)
 
 
-func _on_player_movement_direction_changed(direction: Vector2, _speed_factor: float) -> void:
-	set(PARAM_CROUCH_MOVEMENT_BLEND_POSITION, direction)
+func _stop_layer(layer: AnimationActionDefinition.Layer) -> void:
+	_tree.set(AnimParams.layer_request(layer), AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
+	action_interrupted.emit(_clear_layer(layer))
 
 
-func _on_crouch_toggled(active: bool) -> void:
-	set(PARAM_STANCE_TRANSITION, "crouching" if active else "standing")
+func _clear_layer(layer: AnimationActionDefinition.Layer) -> StringName:
+	var action_id: StringName = _running[layer]
+	_running.erase(layer)
+	_finished_msec[action_id] = Time.get_ticks_msec()
+	return action_id
 
 
-# TODO Remake this garbage
-func _validate_animation_parameters() -> void:
-	var required_parameters: Array[String] = [
-		PARAM_MOVEMENT_BLEND_POSITION,
-		PARAM_IN_AIR_STATE_TRANSITION,
-		PARAM_IS_JUMPING_REQUEST,
-		PARAM_ATTACK_REQUEST,
-		PARAM_MELEE_ATTACK_TRANSITION,
-		PARAM_MAGIC_ATTACK_REQUEST,
-		PARAM_MAGIC_ATTACK_ACTIVE,
-		PARAM_IS_DAMAGED_REQUEST,
-		PARAM_DEATH_TRANSITION,
-		PARAM_DAMAGED_TRANSITION,
-		PARAM_IS_ALIVE_TRANSITION,
-	]
+func _validate_graph() -> void:
+	assert(_tree.tree_root is AnimationNodeBlendTree, "BlendTree root missing in " + name)
+	var root: AnimationNodeBlendTree = _tree.tree_root
+	assert(root.has_node(AnimParams.BODY) and root.get_node(AnimParams.BODY) is AnimationNodeStateMachine, "Body state machine missing in " + name)
+	var body: AnimationNodeStateMachine = root.get_node(AnimParams.BODY)
+	for stance: StringName in profile.stances:
+		assert(
+			body.has_node(stance) and body.get_node(stance) is AnimationNodeBlendSpace2D,
+			"Expected BlendSpace2D '%s' in %s for %s/%s" % [stance, root.resource_path, owner.name, name],
+		)
+		assert(
+			_tree.get(AnimParams.stance_condition(stance)) is bool,
+			"Condition for '%s' missing in %s for %s/%s" % [stance, root.resource_path, owner.name, name],
+		)
+	assert(not profile.has_air_states or (body.has_node(AnimParams.JUMP) and body.has_node(AnimParams.FALL)), "Air states missing in " + name)
+	assert(not profile.has_death or body.has_node(AnimParams.DEAD), "Dead state missing in " + name)
+	assert(not profile.has_respawn or body.has_node(AnimParams.RESPAWN), "Respawn state missing in " + name)
+	if not profile.death_inputs.is_empty():
+		assert(body.get_node(AnimParams.DEAD) is AnimationNodeBlendTree, "Death BlendTree missing in " + name)
+		var death: AnimationNodeBlendTree = body.get_node(AnimParams.DEAD)
+		_validate_inputs(death, AnimParams.DEATH_SELECT, profile.death_inputs)
 
-	if entity is PlayerEntity:
-		required_parameters.append_array([PARAM_STANCE_TRANSITION, PARAM_CROUCH_MOVEMENT_BLEND_POSITION])
+	var direct_layers: Array[AnimationActionDefinition.Layer] = []
+	for action: AnimationActionDefinition in profile.actions:
+		var layer_name: StringName = AnimParams.LAYER_NAMES[action.layer]
+		assert(root.has_node(layer_name) and root.get_node(layer_name) is AnimationNodeOneShot, "OneShot '%s' missing in %s" % [layer_name, name])
+		if action.layer == AnimationActionDefinition.Layer.UPPER_BODY:
+			var one_shot: AnimationNodeOneShot = root.get_node(layer_name)
+			assert(one_shot.filter_enabled, "Upper-body OneShot filter disabled in " + name)
+		var selector_name: StringName = AnimParams.selector_name(action.layer)
+		if action.inputs.is_empty():
+			assert(
+				not root.has_node(selector_name) and not direct_layers.has(action.layer),
+				"Layer '%s' needs named inputs in %s" % [layer_name, name],
+			)
+			direct_layers.append(action.layer)
+		else:
+			_validate_inputs(root, selector_name, action.inputs)
 
-	#for param: String in required_parameters:
-	#	assert(get(param), "Missing animation parameter: " + param + " in " + owner.name)
+
+## Validates named inputs before runtime writes to a Transition
+func _validate_inputs(graph: AnimationNodeBlendTree, selector_name: StringName, inputs: Array[StringName]) -> void:
+	assert(
+		graph.has_node(selector_name) and graph.get_node(selector_name) is AnimationNodeTransition,
+		"Transition '%s' missing in %s" % [selector_name, name],
+	)
+	var selector: AnimationNodeTransition = graph.get_node(selector_name)
+	for input: StringName in inputs:
+		assert(selector.find_input(input) >= 0, "Input '%s' missing in '%s' of %s" % [input, selector_name, name])

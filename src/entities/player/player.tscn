@@ -35,6 +35,8 @@
 [ext_resource type="Script" uid="uid://5or2vf5kpdix" path="res://src/entities/player/components/vehicle_rider.gd" id="32_vehiclerider"]
 [ext_resource type="Script" uid="uid://grgmrh5nfxle" path="res://src/entities/player/controller/cosmetics_controller.gd" id="32_xm7nl"]
 [ext_resource type="Script" uid="uid://bkp1xy01pk8yn" path="res://src/entities/player/components/portal_controller.gd" id="33_portalcontroller"]
+[ext_resource type="Resource" uid="uid://ci1uuquxq5oi" path="res://src/entities/animation/resources/profiles/player_animation_profile.tres" id="36_oyxv6"]
+[ext_resource type="Script" uid="uid://dy5dgrr8j1a32" path="res://src/entities/animation/helpers/player_animation_bridge.gd" id="37_l2t0n"]
 [ext_resource type="Script" uid="uid://btuyxkleak0qc" path="res://src/entities/components/entity_lifecycle_controller.gd" id="38_ts1rd"]
 [ext_resource type="Script" uid="uid://pwxg2m6bhi7c" path="res://src/entities/components/entity_damage_feedback.gd" id="39_pg6a0"]
 [ext_resource type="Script" uid="uid://c4njooktldes0" path="res://src/entities/components/entity_combat_audio.gd" id="40_y8r58"]
@@ -497,60 +499,34 @@ libraries/general = ExtResource("11_wjvoe")
 libraries/magic = ExtResource("7_akx0o")
 libraries/movement = ExtResource("12_gxh5t")
 libraries/movement_advanced = ExtResource("13_lxeum")
-autoplay = &"RESET"
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=1090768790]
 unique_name_in_owner = true
 deterministic = false
 root_node = NodePath("%Visual")
 tree_root = ExtResource("13_xm7nl")
-advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
-parameters/attack/active = false
-parameters/attack/internal_active = false
-parameters/attack/request = 0
-parameters/attack/observer = null
-parameters/in_air_state/current_state = "ground"
-parameters/in_air_state/transition_request = ""
-parameters/in_air_state/current_index = 0
-parameters/in_air_state/observer = null
-parameters/is_alive/current_state = "respawn"
-parameters/is_alive/transition_request = ""
-parameters/is_alive/current_index = 2
-parameters/is_alive/observer = null
-parameters/is_damaged/active = false
-parameters/is_damaged/internal_active = false
-parameters/is_damaged/request = 0
-parameters/is_damaged/observer = null
-parameters/is_jumping/active = false
-parameters/is_jumping/internal_active = false
-parameters/is_jumping/request = 0
-parameters/is_jumping/observer = null
-parameters/movement/blend_position = Vector2(0, 0)
-parameters/movement/observer = null
-parameters/melee_attack/current_state = "1h_stab"
-parameters/melee_attack/transition_request = ""
-parameters/melee_attack/current_index = 2
-parameters/melee_attack/observer = null
-parameters/death/current_state = ""
-parameters/death/transition_request = "death_a"
-parameters/death/current_index = -1
-parameters/death/observer = null
-parameters/damaged/current_state = ""
-parameters/damaged/transition_request = ""
-parameters/damaged/current_index = -1
-parameters/damaged/observer = null
-parameters/magic_attack/active = false
-parameters/magic_attack/internal_active = false
-parameters/magic_attack/request = 0
-parameters/magic_attack/observer = null
-parameters/stance/current_state = "standing"
-parameters/stance/transition_request = ""
-parameters/stance/current_index = 0
-parameters/stance/observer = null
-parameters/crouch_movement/blend_position = Vector2(0, 0)
-parameters/crouch_movement/observer = null
-script = ExtResource("9_yllr7")
+parameters/body/conditions/standing = true
+parameters/body/dead/death_select/current_state = ""
+parameters/body/dead/death_select/transition_request = "death_a"
+parameters/body/dead/death_select/current_index = -1
+parameters/body/dead/death_select/observer = null
+parameters/full_body_select/current_state = ""
+parameters/full_body_select/transition_request = "slice_diagonal"
+parameters/full_body_select/current_index = -1
+parameters/full_body_select/observer = null
+parameters/full_body/active = false
+parameters/full_body/internal_active = false
+parameters/full_body/request = 0
+parameters/full_body/observer = null
+parameters/reaction_select/current_state = ""
+parameters/reaction_select/transition_request = "hit_a"
+parameters/reaction_select/current_index = -1
+parameters/reaction_select/observer = null
+parameters/reaction/active = false
+parameters/reaction/internal_active = false
+parameters/reaction/request = 0
+parameters/reaction/observer = null
 
 [node name="Visual" parent="." unique_id=1937025669 instance=ExtResource("11_2a6xp")]
 unique_name_in_owner = true
@@ -690,6 +666,15 @@ script = ExtResource("41_y8r58")
 unique_name_in_owner = true
 script = ExtResource("29_2cmg6")
 
+[node name="AnimationController" type="Node" parent="Controllers/Core" unique_id=1025650665]
+unique_name_in_owner = true
+script = ExtResource("9_yllr7")
+profile = ExtResource("36_oyxv6")
+
+[node name="PlayerAnimationBridge" type="Node" parent="Controllers/Core" unique_id=1799731605]
+unique_name_in_owner = true
+script = ExtResource("37_l2t0n")
+
 [node name="External" type="Node" parent="Controllers" unique_id=170527211]
 
 [node name="PortalController" type="Node" parent="Controllers/External" unique_id=1987654322]
@@ -739,13 +724,14 @@ script = ExtResource("29_skills")
 unique_name_in_owner = true
 script = ExtResource("19_s033l")
 
-[node name="Hitbox" type="Area3D" parent="." unique_id=58706734]
+[node name="Hitbox" type="Area3D" parent="." unique_id=58706734 node_paths=PackedStringArray("animated_shape")]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 collision_layer = 32768
 collision_mask = 0
 monitoring = false
 script = ExtResource("5_w2bk0")
+animated_shape = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=1436354069]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.017, 0.635, -0.819)

@@ -1,53 +1,116 @@
 [gd_resource type="AnimationNodeBlendTree" format=3 uid="uid://basam7g1dbev2"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kq587"]
-animation = &"1h_combat/1H_Attack_Slice_Diagonal"
+[ext_resource type="AnimationNodeBlendTree" uid="uid://b00wtlpymptm0" path="res://src/entities/animation/libraries/resources/death_blend_tree.tres" id="Death"]
+[ext_resource type="AnimationNodeBlendSpace2D" uid="uid://bi27fgnbsqn8s" path="res://src/entities/animation/resources/stances/standing.tres" id="Standing"]
+[ext_resource type="AnimationNodeBlendSpace2D" uid="uid://bcpg3dv7ei4iy" path="res://src/entities/animation/resources/stances/crouching.tres" id="Crouching"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nnh1l"]
-animation = &"1h_combat/1H_Attack_Slice_Horizontal"
+[sub_resource type="AnimationNodeAnimation" id="Fall"]
+animation = &"movement/Jump_Idle"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iu1jp"]
-animation = &"1h_combat/1H_Attack_Stab"
+[sub_resource type="AnimationNodeAnimation" id="Jump"]
+animation = &"movement/Jump_Start"
 
-[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_bpwly"]
-filters = ["../Hitbox/CollisionShape3D:disabled", "Armature/Skeleton3D:mixamorig_Head", "Armature/Skeleton3D:mixamorig_HeadTop_End", "Armature/Skeleton3D:mixamorig_LeftArm", "Armature/Skeleton3D:mixamorig_LeftForeArm", "Armature/Skeleton3D:mixamorig_LeftHand", "Armature/Skeleton3D:mixamorig_LeftHandIndex1", "Armature/Skeleton3D:mixamorig_LeftHandIndex2", "Armature/Skeleton3D:mixamorig_LeftHandIndex3", "Armature/Skeleton3D:mixamorig_LeftHandIndex4", "Armature/Skeleton3D:mixamorig_LeftHandMiddle1", "Armature/Skeleton3D:mixamorig_LeftHandMiddle2", "Armature/Skeleton3D:mixamorig_LeftHandMiddle3", "Armature/Skeleton3D:mixamorig_LeftHandMiddle4", "Armature/Skeleton3D:mixamorig_LeftHandPinky1", "Armature/Skeleton3D:mixamorig_LeftHandPinky2", "Armature/Skeleton3D:mixamorig_LeftHandPinky3", "Armature/Skeleton3D:mixamorig_LeftHandPinky4", "Armature/Skeleton3D:mixamorig_LeftHandRing1", "Armature/Skeleton3D:mixamorig_LeftHandRing2", "Armature/Skeleton3D:mixamorig_LeftHandRing3", "Armature/Skeleton3D:mixamorig_LeftHandRing4", "Armature/Skeleton3D:mixamorig_LeftHandThumb1", "Armature/Skeleton3D:mixamorig_LeftHandThumb2", "Armature/Skeleton3D:mixamorig_LeftHandThumb3", "Armature/Skeleton3D:mixamorig_LeftHandThumb4", "Armature/Skeleton3D:mixamorig_LeftShoulder", "Armature/Skeleton3D:mixamorig_Neck", "Armature/Skeleton3D:mixamorig_RightArm", "Armature/Skeleton3D:mixamorig_RightForeArm", "Armature/Skeleton3D:mixamorig_RightHand", "Armature/Skeleton3D:mixamorig_RightHandIndex1", "Armature/Skeleton3D:mixamorig_RightHandIndex2", "Armature/Skeleton3D:mixamorig_RightHandIndex3", "Armature/Skeleton3D:mixamorig_RightHandIndex4", "Armature/Skeleton3D:mixamorig_RightHandMiddle1", "Armature/Skeleton3D:mixamorig_RightHandMiddle2", "Armature/Skeleton3D:mixamorig_RightHandMiddle3", "Armature/Skeleton3D:mixamorig_RightHandMiddle4", "Armature/Skeleton3D:mixamorig_RightHandPinky1", "Armature/Skeleton3D:mixamorig_RightHandPinky2", "Armature/Skeleton3D:mixamorig_RightHandPinky3", "Armature/Skeleton3D:mixamorig_RightHandPinky4", "Armature/Skeleton3D:mixamorig_RightHandRing1", "Armature/Skeleton3D:mixamorig_RightHandRing2", "Armature/Skeleton3D:mixamorig_RightHandRing3", "Armature/Skeleton3D:mixamorig_RightHandRing4", "Armature/Skeleton3D:mixamorig_RightHandThumb1", "Armature/Skeleton3D:mixamorig_RightHandThumb2", "Armature/Skeleton3D:mixamorig_RightHandThumb3", "Armature/Skeleton3D:mixamorig_RightHandThumb4", "Armature/Skeleton3D:mixamorig_RightShoulder", "Armature/Skeleton3D:mixamorig_Spine1", "Armature/Skeleton3D:mixamorig_Spine2"]
+[sub_resource type="AnimationNodeAnimation" id="Respawn"]
+animation = &"general/Spawn_Ground"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_crouch_idle"]
-animation = &"movement_advanced/Crouching_idle"
+[sub_resource type="AnimationNodeStateMachineTransition" id="JumpEnd"]
+xfade_time = 0.1
+switch_mode = 2
+advance_mode = 2
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_crouch_fwd"]
-animation = &"movement_advanced/Crouching"
+[sub_resource type="AnimationNodeStateMachineTransition" id="Start"]
+advance_mode = 2
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_crouch_back"]
-animation = &"movement_advanced/Crouching"
-play_mode = 1
+[sub_resource type="AnimationNodeStateMachineTransition" id="ToStanding"]
+xfade_time = 0.15
+advance_mode = 2
+advance_condition = &"standing"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_crouch_left"]
-animation = &"movement_advanced/Crouching"
+[sub_resource type="AnimationNodeStateMachineTransition" id="ToCrouching"]
+xfade_time = 0.15
+advance_mode = 2
+advance_condition = &"crouching"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_crouch_right"]
-animation = &"movement_advanced/Crouching"
+[sub_resource type="AnimationNodeStateMachineTransition" id="Travel"]
+xfade_time = 0.15
 
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_crouch"]
-sync_mode = 2
-blend_point_0/node = SubResource("AnimationNodeAnimation_crouch_idle")
-blend_point_0/pos = Vector2(0, 0)
-blend_point_0/name = &"movement_advanced_Crouching"
-blend_point_1/node = SubResource("AnimationNodeAnimation_crouch_fwd")
-blend_point_1/pos = Vector2(0, 1)
-blend_point_1/name = &"movement_advanced_Sneaking"
-blend_point_2/node = SubResource("AnimationNodeAnimation_crouch_back")
-blend_point_2/pos = Vector2(0, -1)
-blend_point_2/name = &"movement_advanced_Sneaking 2"
-blend_point_3/node = SubResource("AnimationNodeAnimation_crouch_left")
-blend_point_3/pos = Vector2(-1, 0)
-blend_point_3/name = &"movement_advanced_Sneaking 3"
-blend_point_4/node = SubResource("AnimationNodeAnimation_crouch_right")
-blend_point_4/pos = Vector2(1, 0)
-blend_point_4/name = &"movement_advanced_Sneaking 4"
-triangles = PackedInt32Array(0, 2, 3, 0, 1, 3, 0, 2, 4, 0, 1, 4)
+[sub_resource type="AnimationNodeStateMachineTransition" id="RespawnStanding"]
+xfade_time = 0.15
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"standing"
 
-[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_nnh1l"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="RespawnCrouching"]
+xfade_time = 0.15
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"crouching"
+
+[sub_resource type="AnimationNodeStateMachine" id="Body"]
+states/Start/position = Vector2(40, 140)
+states/crouching/node = ExtResource("Crouching")
+states/crouching/position = Vector2(300, 240)
+states/dead/node = ExtResource("Death")
+states/dead/position = Vector2(40, 400)
+states/fall/node = SubResource("Fall")
+states/fall/position = Vector2(560, 240)
+states/jump/node = SubResource("Jump")
+states/jump/position = Vector2(560, 80)
+states/respawn/node = SubResource("Respawn")
+states/respawn/position = Vector2(300, 400)
+states/standing/node = ExtResource("Standing")
+states/standing/position = Vector2(300, 80)
+transitions = [
+	"Start", "standing", SubResource("Start"),
+	"standing", "crouching", SubResource("ToCrouching"),
+	"crouching", "standing", SubResource("ToStanding"),
+	"standing", "fall", SubResource("Travel"),
+	"crouching", "fall", SubResource("Travel"),
+	"jump", "fall", SubResource("JumpEnd"),
+	"jump", "standing", SubResource("Travel"),
+	"jump", "crouching", SubResource("Travel"),
+	"fall", "standing", SubResource("Travel"),
+	"fall", "crouching", SubResource("Travel"),
+	"respawn", "standing", SubResource("RespawnStanding"),
+	"respawn", "crouching", SubResource("RespawnCrouching"),
+]
+
+[sub_resource type="AnimationNodeOneShot" id="FullBody"]
+fadein_time = 0.05
+fadeout_time = 0.08
+sync = true
+
+[sub_resource type="AnimationNodeTransition" id="FullBodySelect"]
+input_0/name = "slice_diagonal"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "slice_horizontal"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+input_2/name = "stab"
+input_2/auto_advance = false
+input_2/break_loop_at_end = false
+input_2/reset = true
+input_3/name = "magic"
+input_3/auto_advance = false
+input_3/break_loop_at_end = false
+input_3/reset = true
+
+[sub_resource type="AnimationNodeAnimation" id="HitA"]
+animation = &"general/Hit_A"
+
+[sub_resource type="AnimationNodeAnimation" id="HitB"]
+animation = &"general/Hit_B"
+
+[sub_resource type="AnimationNodeAnimation" id="Magic"]
+animation = &"magic/Ranged_Magic_Shoot"
+
+[sub_resource type="AnimationNodeOneShot" id="Reaction"]
+sync = true
+
+[sub_resource type="AnimationNodeTransition" id="ReactionSelect"]
 input_0/name = "hit_a"
 input_0/auto_advance = false
 input_0/break_loop_at_end = false
@@ -57,176 +120,38 @@ input_1/auto_advance = false
 input_1/break_loop_at_end = false
 input_1/reset = true
 
-[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_rmr4f"]
-input_0/name = "death_a"
-input_0/auto_advance = false
-input_0/break_loop_at_end = false
-input_0/reset = true
-input_1/name = "death_b"
-input_1/auto_advance = false
-input_1/break_loop_at_end = false
-input_1/reset = true
+[sub_resource type="AnimationNodeAnimation" id="SliceDiagonal"]
+animation = &"1h_combat/1H_Attack_Slice_Diagonal"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7hrci"]
-animation = &"general/Death_A"
+[sub_resource type="AnimationNodeAnimation" id="SliceHorizontal"]
+animation = &"1h_combat/1H_Attack_Slice_Horizontal"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_we42k"]
-animation = &"general/Death_B"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ooae8"]
-animation = &"movement/Jump_Idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4cu3c"]
-animation = &"general/Hit_A"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u2sm2"]
-animation = &"general/Hit_B"
-
-[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_tw3sg"]
-input_0/name = "ground"
-input_0/auto_advance = false
-input_0/break_loop_at_end = false
-input_0/reset = true
-input_1/name = "air"
-input_1/auto_advance = false
-input_1/break_loop_at_end = false
-input_1/reset = true
-
-[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_syyu3"]
-input_0/name = "dead"
-input_0/auto_advance = false
-input_0/break_loop_at_end = false
-input_0/reset = true
-input_1/name = "damaged"
-input_1/auto_advance = false
-input_1/break_loop_at_end = false
-input_1/reset = true
-input_2/name = "respawn"
-input_2/auto_advance = false
-input_2/break_loop_at_end = false
-input_2/reset = true
-
-[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_awwfw"]
-
-[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_nel44"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wid51"]
-animation = &"movement/Jump_Start"
-
-[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_rmr4f"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_otxn8"]
-animation = &"magic/Ranged_Magic_Shoot"
-
-[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_7hrci"]
-input_0/name = "1h_slice_diagonal"
-input_0/auto_advance = false
-input_0/break_loop_at_end = false
-input_0/reset = true
-input_1/name = "1h_slice_horizontal"
-input_1/auto_advance = false
-input_1/break_loop_at_end = false
-input_1/reset = true
-input_2/name = "1h_stab"
-input_2/auto_advance = false
-input_2/break_loop_at_end = false
-input_2/reset = true
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kg3hq"]
-animation = &"general/Idle_A"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nukr8"]
-animation = &"movement/Running_A"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7eq1v"]
-animation = &"movement_advanced/Walking_Backwards"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nljmw"]
-animation = &"movement/Running_A"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gc4ts"]
-animation = &"movement/Running_A"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_oqjme"]
-sync_mode = 2
-blend_point_0/node = SubResource("AnimationNodeAnimation_kg3hq")
-blend_point_0/pos = Vector2(0, 0)
-blend_point_0/name = &"general_Idle_A"
-blend_point_1/node = SubResource("AnimationNodeAnimation_nukr8")
-blend_point_1/pos = Vector2(0, 1)
-blend_point_1/name = &"movement_Running_A"
-blend_point_2/node = SubResource("AnimationNodeAnimation_7eq1v")
-blend_point_2/pos = Vector2(0, -1)
-blend_point_2/name = &"movement_advanced_Walking_Backwards"
-blend_point_3/node = SubResource("AnimationNodeAnimation_nljmw")
-blend_point_3/pos = Vector2(-1, 0)
-blend_point_3/name = &"movement_Running_A 2"
-blend_point_4/node = SubResource("AnimationNodeAnimation_gc4ts")
-blend_point_4/pos = Vector2(1, 0)
-blend_point_4/name = &"movement_Running_A 3"
-triangles = PackedInt32Array(0, 2, 3, 0, 1, 3, 0, 2, 4, 0, 1, 4)
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rmr4f"]
-animation = &"general/Spawn_Ground"
-
-[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_stance"]
-xfade_time = 0.15
-input_0/name = "standing"
-input_0/auto_advance = false
-input_0/break_loop_at_end = false
-input_0/reset = true
-input_1/name = "crouching"
-input_1/auto_advance = false
-input_1/break_loop_at_end = false
-input_1/reset = true
+[sub_resource type="AnimationNodeAnimation" id="Stab"]
+animation = &"1h_combat/1H_Attack_Stab"
 
 [resource]
-graph_offset = Vector2(-1224.7495, -319.70282)
-nodes/output/position = Vector2(1140, 400)
-nodes/hit_b/node = SubResource("AnimationNodeAnimation_u2sm2")
-nodes/hit_b/position = Vector2(-580, 1420)
-nodes/death_b/node = SubResource("AnimationNodeAnimation_we42k")
-nodes/death_b/position = Vector2(-580, 1040)
-nodes/fall/node = SubResource("AnimationNodeAnimation_ooae8")
-nodes/fall/position = Vector2(-440, 440)
-nodes/attack/node = SubResource("AnimationNodeOneShot_bpwly")
-nodes/attack/position = Vector2(-160, -340)
-nodes/1h_slice_diagonal/node = SubResource("AnimationNodeAnimation_kq587")
-nodes/1h_slice_diagonal/position = Vector2(-780, -40)
-nodes/jump/node = SubResource("AnimationNodeAnimation_wid51")
-nodes/jump/position = Vector2(-440, 620)
-nodes/in_air_state/node = SubResource("AnimationNodeTransition_tw3sg")
-nodes/in_air_state/position = Vector2(180, 40)
-nodes/is_alive/node = SubResource("AnimationNodeTransition_syyu3")
-nodes/is_alive/position = Vector2(180, 800)
-nodes/is_damaged/node = SubResource("AnimationNodeOneShot_awwfw")
-nodes/is_damaged/position = Vector2(800, 300)
-nodes/is_jumping/node = SubResource("AnimationNodeOneShot_nel44")
-nodes/is_jumping/position = Vector2(-100, 380)
-nodes/movement/node = SubResource("AnimationNodeBlendSpace2D_oqjme")
-nodes/movement/position = Vector2(-740, -560)
-nodes/respawn/node = SubResource("AnimationNodeAnimation_rmr4f")
-nodes/respawn/position = Vector2(20, 1220)
-nodes/melee_attack/node = SubResource("AnimationNodeTransition_7hrci")
-nodes/melee_attack/position = Vector2(-380, 100)
-nodes/1h_slice_horizontal/node = SubResource("AnimationNodeAnimation_nnh1l")
-nodes/1h_slice_horizontal/position = Vector2(-820, 160)
-nodes/1h_stab/node = SubResource("AnimationNodeAnimation_iu1jp")
-nodes/1h_stab/position = Vector2(-805.83185, 366.31412)
-nodes/death/node = SubResource("AnimationNodeTransition_rmr4f")
-nodes/death/position = Vector2(-340, 840)
-nodes/death_a/node = SubResource("AnimationNodeAnimation_7hrci")
-nodes/death_a/position = Vector2(-580, 840)
-nodes/damaged/node = SubResource("AnimationNodeTransition_nnh1l")
-nodes/damaged/position = Vector2(-320, 1140)
-nodes/hit_a/node = SubResource("AnimationNodeAnimation_4cu3c")
-nodes/hit_a/position = Vector2(-560, 1220)
-nodes/magic_shoot/node = SubResource("AnimationNodeAnimation_otxn8")
-nodes/magic_shoot/position = Vector2(260, 380)
-nodes/magic_attack/node = SubResource("AnimationNodeOneShot_rmr4f")
-nodes/magic_attack/position = Vector2(540, -60)
-nodes/stance/node = SubResource("AnimationNodeTransition_stance")
-nodes/stance/position = Vector2(-460, -340)
-nodes/crouch_movement/node = SubResource("AnimationNodeBlendSpace2D_crouch")
-nodes/crouch_movement/position = Vector2(-920, -320)
-node_connections = [&"output", 0, &"is_damaged", &"attack", 0, &"stance", &"attack", 1, &"melee_attack", &"in_air_state", 0, &"attack", &"in_air_state", 1, &"is_jumping", &"is_alive", 0, &"death", &"is_alive", 1, &"damaged", &"is_alive", 2, &"respawn", &"is_damaged", 0, &"magic_attack", &"is_damaged", 1, &"is_alive", &"is_jumping", 0, &"fall", &"is_jumping", 1, &"jump", &"melee_attack", 0, &"1h_slice_diagonal", &"melee_attack", 1, &"1h_slice_horizontal", &"melee_attack", 2, &"1h_stab", &"death", 0, &"death_a", &"death", 1, &"death_b", &"damaged", 0, &"hit_a", &"damaged", 1, &"hit_b", &"magic_attack", 0, &"in_air_state", &"magic_attack", 1, &"magic_shoot", &"stance", 0, &"movement", &"stance", 1, &"crouch_movement"]
+graph_offset = Vector2(211.76233, 468.22388)
+nodes/output/position = Vector2(1620, 1000)
+nodes/body/node = SubResource("Body")
+nodes/body/position = Vector2(820, 860)
+nodes/slice_diagonal/node = SubResource("SliceDiagonal")
+nodes/slice_diagonal/position = Vector2(440, 940)
+nodes/slice_horizontal/node = SubResource("SliceHorizontal")
+nodes/slice_horizontal/position = Vector2(360, 1160)
+nodes/stab/node = SubResource("Stab")
+nodes/stab/position = Vector2(400, 1340)
+nodes/magic/node = SubResource("Magic")
+nodes/magic/position = Vector2(420, 1540)
+nodes/full_body_select/node = SubResource("FullBodySelect")
+nodes/full_body_select/position = Vector2(820, 1120)
+nodes/full_body/node = SubResource("FullBody")
+nodes/full_body/position = Vector2(1080, 1000)
+nodes/hit_a/node = SubResource("HitA")
+nodes/hit_a/position = Vector2(1160, 1360)
+nodes/hit_b/node = SubResource("HitB")
+nodes/hit_b/position = Vector2(1160, 1520)
+nodes/reaction_select/node = SubResource("ReactionSelect")
+nodes/reaction_select/position = Vector2(1340, 1360)
+nodes/reaction/node = SubResource("Reaction")
+nodes/reaction/position = Vector2(1320, 1000)
+node_connections = [&"output", 0, &"reaction", &"full_body_select", 0, &"slice_diagonal", &"full_body_select", 1, &"slice_horizontal", &"full_body_select", 2, &"stab", &"full_body_select", 3, &"magic", &"full_body", 0, &"body", &"full_body", 1, &"full_body_select", &"reaction_select", 0, &"hit_a", &"reaction_select", 1, &"hit_b", &"reaction", 0, &"full_body", &"reaction", 1, &"reaction_select"]

@@ -79,6 +79,8 @@ folder_colors={
 "res://src/entities/ai/": "pink",
 "res://src/entities/ai/resources/": "purple",
 "res://src/entities/animation/": "orange",
+"res://src/entities/animation/helpers/": "gray",
+"res://src/entities/animation/resources/": "purple",
 "res://src/entities/components/": "gray",
 "res://src/entities/data/": "gray",
 "res://src/entities/enemies/resources/": "purple",

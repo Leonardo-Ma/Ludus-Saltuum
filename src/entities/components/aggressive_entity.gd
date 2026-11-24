@@ -14,8 +14,6 @@ signal magic_casted
 @onready var hitbox: Hitbox = %Hitbox
 @onready var hurtbox: Hurtbox = %Hurtbox
 @onready var status_manager: StatusManager = %StatusManager
-@onready var animation_player: AnimationPlayer = %AnimationPlayer
-@onready var animation_tree: AnimationTree = %AnimationTree
 
 @onready var health: HealthComponent = %HealthComponent
 # TODO Find better way to implement this, other places use this reference from player
@@ -48,8 +46,6 @@ func _ready() -> void:
 	assert(hitbox, "Hitbox incorrect for " + name)
 	assert(hurtbox, "Hurtbox incorrect for " + name)
 	assert(status_manager, "Status Manager missing for " + name)
-	assert(animation_player, "Animation player missing for " + name)
-	assert(animation_tree and animation_tree.anim_player, "Animation tree missing or wrong for " + name)
 	assert(weapon_visual, "WeaponVisual missing for " + name)
 
 	assert(_lifecycle, "lifecycle missing for " + name)
@@ -65,8 +61,6 @@ func _ready() -> void:
 	_lifecycle.dying.connect(_on_dying)
 	_lifecycle.death_completed.connect(_on_death_complete)
 	_lifecycle.revived.connect(_on_revived)
-
-	animation_tree.initialize()
 
 	_child_ready()
 

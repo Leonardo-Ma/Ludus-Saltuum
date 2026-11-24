@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AnimationActionDefinition" format=3 uid="uid://ciulvkoes8gvg"]
+
+[ext_resource type="Script" uid="uid://d2bboswwem0jy" path="res://src/entities/animation/helpers/animation_action_definition.gd" id="1_of8lh"]
+
+[resource]
+script = ExtResource("1_of8lh")
+id = &"melee"
+inputs = Array[StringName]([&"slice_diagonal", &"slice_horizontal", &"stab"])
+ground_only = true
+metadata/_custom_type_script = "uid://d2bboswwem0jy"

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="AnimationProfile" format=3 uid="uid://ci1uuquxq5oi"]
+
+[ext_resource type="Script" uid="uid://luu758ppfiq8" path="res://src/entities/animation/helpers/animation_profile.gd" id="1"]
+[ext_resource type="Script" uid="uid://d2bboswwem0jy" path="res://src/entities/animation/helpers/animation_action_definition.gd" id="3"]
+[ext_resource type="Resource" uid="uid://ciulvkoes8gvg" path="res://src/entities/animation/resources/actions/melee_1h.tres" id="6"]
+[ext_resource type="Resource" uid="uid://cnfn5d6b4utps" path="res://src/entities/animation/resources/actions/magic_shoot.tres" id="7"]
+[ext_resource type="Resource" uid="uid://uwdpk4bplsnf" path="res://src/entities/animation/resources/actions/hit_reaction.tres" id="8"]
+
+[resource]
+script = ExtResource("1")
+stances = Array[StringName]([&"standing", &"crouching"])
+actions = Array[ExtResource("3")]([ExtResource("6"), ExtResource("7"), ExtResource("8")])
+has_air_states = true
+has_death = true
+death_inputs = Array[StringName]([&"death_a", &"death_b"])
+has_respawn = true
+metadata/_custom_type_script = "uid://luu758ppfiq8"

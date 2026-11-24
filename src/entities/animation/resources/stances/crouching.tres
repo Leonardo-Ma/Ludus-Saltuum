@@ -1,0 +1,36 @@
+[gd_resource type="AnimationNodeBlendSpace2D" format=3 uid="uid://bcpg3dv7ei4iy"]
+
+[sub_resource type="AnimationNodeAnimation" id="Idle"]
+animation = &"movement_advanced/Crouching_idle"
+
+[sub_resource type="AnimationNodeAnimation" id="Forward"]
+animation = &"movement_advanced/Crouching"
+
+[sub_resource type="AnimationNodeAnimation" id="Backward"]
+animation = &"movement_advanced/Crouching"
+play_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="Left"]
+animation = &"movement_advanced/Crouching"
+
+[sub_resource type="AnimationNodeAnimation" id="Right"]
+animation = &"movement_advanced/Crouching"
+
+[resource]
+sync_mode = 2
+blend_point_0/node = SubResource("Idle")
+blend_point_0/pos = Vector2(0, 0)
+blend_point_0/name = &"movement_advanced_Crouching"
+blend_point_1/node = SubResource("Forward")
+blend_point_1/pos = Vector2(0, 1)
+blend_point_1/name = &"movement_advanced_Sneaking"
+blend_point_2/node = SubResource("Backward")
+blend_point_2/pos = Vector2(0, -1)
+blend_point_2/name = &"movement_advanced_Sneaking 2"
+blend_point_3/node = SubResource("Left")
+blend_point_3/pos = Vector2(-1, 0)
+blend_point_3/name = &"movement_advanced_Sneaking 3"
+blend_point_4/node = SubResource("Right")
+blend_point_4/pos = Vector2(1, 0)
+blend_point_4/name = &"movement_advanced_Sneaking 4"
+triangles = PackedInt32Array(0, 2, 3, 0, 1, 3, 0, 2, 4, 0, 1, 4)
