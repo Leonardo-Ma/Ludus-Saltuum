@@ -145,6 +145,11 @@ func init(actor: Node, goals: Array[GoapGoal], goap_memory: GoapMemory, actions:
 
 	_action_planner = GoapActionPlanner.new()
 	_action_planner.set_actions(actions)
+	add_child(_action_planner, false, Node.INTERNAL_MODE_BACK)
+	for goal: GoapGoal in goals:
+		add_child(goal, false, Node.INTERNAL_MODE_BACK)
+	for action: GoapAction in actions:
+		add_child(action, false, Node.INTERNAL_MODE_BACK)
 
 
 func _assert_blackboard_keys(goals: Array[GoapGoal], actions: Array[GoapAction], actor_name: String) -> void:

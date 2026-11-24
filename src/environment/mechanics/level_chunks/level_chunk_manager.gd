@@ -36,6 +36,7 @@ var _all_chunks: Array[ChunkData] = []
 var _active_chunks: Array[LevelChunk] = []
 
 var _player: PlayerEntity
+var _chunk_container: Node3D
 
 var _chunk_selector: ChunkSelector
 var _chunk_exit_connections: Dictionary = { }
@@ -142,6 +143,23 @@ func get_chunk_scene_uid(chunk_key: int) -> String:
 	return _chunk_key_to_scene_uid[chunk_key]
 
 
+func register_chunk_container(container: Node3D) -> void:
+	assert(_chunk_container == null or _chunk_container == container, "Multiple chunk containers registered in " + name)
+	_chunk_container = container
+
+
+func unregister_chunk_container(container: Node3D) -> void:
+	if _chunk_container == container:
+		_chunk_container = null
+
+
+func get_chunk_by_key(chunk_key: int) -> LevelChunk:
+	for chunk: LevelChunk in _active_chunks:
+		if chunk.chunk_key == chunk_key:
+			return chunk
+	return null
+
+
 func reset_level_state() -> void:
 	clear_level()
 	_chunk_selector.reset()
@@ -154,10 +172,14 @@ func reset_level_state() -> void:
 ## Validates saved route and stages persisted picks outside scene tree without filtering or RNG
 func prepare_saved_chunks(data: ChunkSaveData) -> Array[LevelChunk]:
 	if (
-		data.generation_version != GENERATION_VERSION or data.active_chunk_keys.is_empty()
-		or not ChunkSelector.is_valid_save_state(data.chunk_selector_state)
+		not is_instance_valid(_chunk_container) or not _chunk_container.is_inside_tree() or data.generation_version != GENERATION_VERSION
+		or data.active_chunk_keys.is_empty() or not ChunkSelector.is_valid_save_state(data.chunk_selector_state)
 	):
 		return []
+	if data.has_first_chunk_transform:
+		var determinant: float = data.first_chunk_transform.basis.determinant()
+		if not data.first_chunk_transform.is_finite() or not is_finite(determinant) or is_zero_approx(determinant):
+			return []
 
 	var catalog_entries: Dictionary[int, ChunkData] = { }
 	var previous_key: int = -1
@@ -185,14 +207,19 @@ func prepare_saved_chunks(data: ChunkSaveData) -> Array[LevelChunk]:
 			return []
 		chunk.chunk_key = chunk_key
 		chunk.is_scored = data.scored_chunk_keys.has(chunk_key)
+		_prepare_chunk_entities(chunk, data.world_seed)
 		chunks.append(chunk)
+	if not WorldSaveController.has_valid_entity_ids(chunks, _chunk_container):
+		for chunk: LevelChunk in chunks:
+			chunk.queue_free()
+		return []
 	return chunks
 
 
 ## Replaces active chunks with persisted ones, emits level_loaded when done
-func restore_level(data: ChunkSaveData, chunks: Array[LevelChunk], player: PlayerEntity, parent_world: Node) -> void:
+func restore_level(data: ChunkSaveData, chunks: Array[LevelChunk], player: PlayerEntity) -> void:
 	clear_level()
-	set_procedural_seed(data.world_seed)
+	procedural_seed = data.world_seed
 	_chunk_key_to_scene_uid = data.chunk_key_to_scene_uid.duplicate()
 	_player = player
 	_chunk_selector.load_save_state(data.chunk_selector_state)
@@ -201,15 +228,12 @@ func restore_level(data: ChunkSaveData, chunks: Array[LevelChunk], player: Playe
 	var next_spawn_transform: Transform3D = Transform3D()
 
 	for chunk: LevelChunk in chunks:
-		parent_world.add_child(chunk)
-		chunk.process_mode = Node.PROCESS_MODE_INHERIT
-		chunk.visible = true
-
-		_align_chunk_to_transform(chunk, next_spawn_transform)
-
-		_active_chunks.push_back(chunk)
-		_setup_chunk_trigger(chunk)
-
+		_chunk_container.add_child(chunk)
+		if _active_chunks.is_empty() and data.has_first_chunk_transform:
+			chunk.global_transform = data.first_chunk_transform
+		else:
+			_align_chunk_to_transform(chunk, next_spawn_transform)
+		_activate_chunk(chunk)
 		next_spawn_transform = chunk.exit_trigger.global_transform
 
 	for chunk: LevelChunk in _active_chunks:
@@ -226,29 +250,17 @@ func restore_level(data: ChunkSaveData, chunks: Array[LevelChunk], player: Playe
 func initialize_level() -> void:
 	_player = get_tree().get_first_node_in_group(Groups.PLAYERS)
 	assert(_player != null, "No player found for " + name)
-	var parent_world: Node = get_tree().root.get_node("Main")
+	assert(is_instance_valid(_chunk_container) and _chunk_container.is_inside_tree(), "Chunk container missing in " + name)
 	assert(_all_chunks.size() > 0, "No chunks available in LevelManager AutoLoad " + self.name)
 	clear_level()
 
 	var next_spawn_transform: Transform3D = Transform3D()
 
 	for i: int in range(CHUNK_SPAWN_AMOUNT):
-		var chunk_instance: LevelChunk = _generate_new_chunk(next_spawn_transform)
-
-		# If chunk was pooled, it might already be in the tree, otherwise add it
-		if chunk_instance.get_parent() != parent_world:
-			if chunk_instance.get_parent() != null:
-				chunk_instance.get_parent().remove_child(chunk_instance)
-			parent_world.add_child(chunk_instance)
-
-		chunk_instance.process_mode = Node.PROCESS_MODE_INHERIT
-		chunk_instance.visible = true
-		_align_chunk_to_transform(chunk_instance, next_spawn_transform)
-		_active_chunks.push_back(chunk_instance)
-
-		_setup_chunk_trigger(chunk_instance)
-
-		next_spawn_transform = chunk_instance.get_node("%ExitTrigger").global_transform
+		var chunk_instance: LevelChunk = _append_generated_chunk(next_spawn_transform)
+		if chunk_instance == null:
+			return
+		next_spawn_transform = chunk_instance.exit_trigger.global_transform
 
 
 ## Reset pool when the reload or exit
@@ -267,8 +279,7 @@ func clear_level() -> void:
 
 ## Triggers by exit trigger world collision boundary
 func recycle_oldest_chunk() -> void:
-	var parent_world: Node = get_tree().root.get_node("Main")
-	assert(not _active_chunks.is_empty(), "Cannot recycle empty pool in " + name)
+	assert(_active_chunks.size() > 1, "Cannot recycle route without a surviving chunk in " + name)
 
 	var oldest: LevelChunk = _active_chunks.pop_front()
 
@@ -276,24 +287,15 @@ func recycle_oldest_chunk() -> void:
 
 	_current_chunk_index = maxi(_current_chunk_index - 1, 0)
 	_pool_chunk(oldest)
+	_chunk_container.remove_child(oldest)
 	_chunk_key_to_scene_uid.erase(oldest.chunk_key)
 
 	var newest: LevelChunk = _active_chunks.back()
 	var target_transform: Transform3D = newest.exit_trigger.global_transform
-	var next_chunk: LevelChunk = _generate_new_chunk(target_transform)
-
-	if next_chunk.get_parent() != parent_world:
-		if next_chunk.get_parent() != null:
-			next_chunk.get_parent().remove_child(next_chunk)
-		parent_world.add_child(next_chunk)
-
 	# Snap the new chunk to the exit trigger of the current newest
-	next_chunk.process_mode = Node.PROCESS_MODE_INHERIT
-	next_chunk.visible = true
-	_align_chunk_to_transform(next_chunk, target_transform)
-
-	_active_chunks.push_back(next_chunk)
-	_setup_chunk_trigger(next_chunk)
+	var next_chunk: LevelChunk = _append_generated_chunk(target_transform)
+	if next_chunk != null:
+		WorldSaveController.apply_saved_entity_states(next_chunk)
 
 
 func get_active_chunks() -> Array[LevelChunk]:
@@ -361,26 +363,50 @@ func _align_chunk_to_transform(chunk: LevelChunk, target_transform: Transform3D)
 	var entrance_node: Node3D = chunk.entrance_trigger
 	var rel_entrance: Transform3D = chunk.global_transform.affine_inverse() * entrance_node.global_transform
 	chunk.global_transform = target_transform * rel_entrance.affine_inverse()
-	_sync_chunk_spawn_ids(chunk)
 
 
 ## Assigns deterministic collectible_id/enemy_id from chunk_seed + scene-local entity path
-func _sync_chunk_spawn_ids(chunk: LevelChunk) -> void:
-	var seed_value: int = ProceduralId.chunk_seed(get_procedural_seed(), chunk.chunk_key)
+func _prepare_chunk_entities(chunk: LevelChunk, world_seed: int) -> void:
+	var seed_value: int = ProceduralId.chunk_seed(world_seed, chunk.chunk_key)
 
 	for node: Node in chunk.find_children("*", "", true, false):
 		if node is Collectible:
-			var collectible: Collectible = node as Collectible
+			var collectible: Collectible = node
 			if collectible.is_procedurally_spawned:
 				var scene_local_path: NodePath = chunk.get_path_to(collectible)
 				collectible.assign_procedural_id(seed_value, scene_local_path)
-		elif node.is_in_group(Groups.ENEMIES):
+		elif node is NPCEntity:
 			var enemy: NPCEntity = node
 			if enemy.is_procedurally_spawned:
 				var scene_local_path: NodePath = chunk.get_path_to(enemy)
 				enemy.assign_procedural_id(seed_value, scene_local_path)
-		elif node.is_in_group(Groups.PLAYERS):
-			node.spawn_position = node.global_position
+		elif node is Checkpoint:
+			# Checkpoints outside chunks have no parent LevelChunk
+			var checkpoint: Checkpoint = node
+			checkpoint.parent_chunk = chunk
+
+
+func _append_generated_chunk(target_transform: Transform3D) -> LevelChunk:
+	var chunk: LevelChunk = _generate_new_chunk(target_transform)
+	_prepare_chunk_entities(chunk, procedural_seed)
+	var valid_ids: bool = WorldSaveController.has_valid_entity_ids([chunk])
+	if not valid_ids:
+		chunk.queue_free()
+		assert(false, "Persistent entity IDs must be nonempty and unique in " + chunk.name)
+		get_tree().quit(1)
+		return null
+	# Chunks are currently instantiated fresh before they enter the tree
+	_chunk_container.add_child(chunk)
+	_align_chunk_to_transform(chunk, target_transform)
+	_activate_chunk(chunk)
+	return chunk
+
+
+func _activate_chunk(chunk: LevelChunk) -> void:
+	chunk.process_mode = Node.PROCESS_MODE_INHERIT
+	chunk.visible = true
+	_active_chunks.push_back(chunk)
+	_setup_chunk_trigger(chunk)
 
 
 func _setup_chunk_trigger(chunk: LevelChunk) -> void:
@@ -427,6 +453,11 @@ func _on_chunk_exit_reached(body: Node3D, passed_chunk: LevelChunk) -> void:
 				break
 
 	# Only start recycling after the configured start index
+	if _active_chunks.size() > CHUNK_INDEX_THAT_TRIGGERS_RECYCLING and _active_chunks[CHUNK_INDEX_THAT_TRIGGERS_RECYCLING] == passed_chunk:
+		_recycle_after_exit.call_deferred(passed_chunk)
+
+
+func _recycle_after_exit(passed_chunk: LevelChunk) -> void:
 	if _active_chunks.size() > CHUNK_INDEX_THAT_TRIGGERS_RECYCLING and _active_chunks[CHUNK_INDEX_THAT_TRIGGERS_RECYCLING] == passed_chunk:
 		recycle_oldest_chunk()
 

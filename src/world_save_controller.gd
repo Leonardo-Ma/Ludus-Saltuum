@@ -24,10 +24,8 @@ func build_save_data(data: WorldSaveData) -> void:
 
 func initialize_new_save_data() -> void:
 	_collected_collectible_ids.clear()
-	_respawn_collectibles()
-
 	_killed_enemy_ids.clear()
-	_respawn_enemies()
+	apply_saved_entity_states()
 
 
 func apply_save_data(data: WorldSaveData) -> void:
@@ -35,61 +33,71 @@ func apply_save_data(data: WorldSaveData) -> void:
 	_killed_enemy_ids = data.killed_enemy_ids.duplicate()
 
 
-func apply_saved_entity_states() -> void:
-	_disable_collected_collectibles()
-	_disable_killed_enemies()
+func apply_saved_entity_states(chunk: LevelChunk = null) -> void:
+	var entities: Array[Node] = chunk.find_children("*", "", true, false) if chunk != null else _get_world_entities()
+	for entity: Node in entities:
+		if entity.is_queued_for_deletion():
+			continue
+		if entity is Collectible:
+			var collectible: Collectible = entity
+			collectible.set_collected_state(is_collectible_collected(collectible.collectible_id))
+		elif entity is NPCEntity:
+			var enemy: NPCEntity = entity
+			enemy.apply_saved_killed_state(is_enemy_killed(enemy.enemy_id))
 
 #endregion
 
 
-#region Collectible
-func _respawn_collectibles() -> void:
-	for collectible: Collectible in get_tree().get_nodes_in_group(Groups.COLLECTIBLES):
-		if collectible.collected:
-			collectible.show()
-			collectible.monitoring = true
-
-
-func _disable_collected_collectibles() -> void:
-	for c: Node in get_tree().get_nodes_in_group(Groups.COLLECTIBLES):
-		var collectible: Collectible = c as Collectible
-		if collectible == null:
+## Checks authored and staged entities together before adding chunks to the scene
+func has_valid_entity_ids(staged_chunks: Array[LevelChunk] = [], replaced_container: Node3D = null) -> bool:
+	var entities: Array[Node] = []
+	for entity: Node in _get_world_entities():
+		if replaced_container != null and replaced_container.is_ancestor_of(entity):
 			continue
-		if _collected_collectible_ids.has(collectible.collectible_id):
-			collectible.disable()
+		entities.append(entity)
+	for chunk: LevelChunk in staged_chunks:
+		entities.append_array(chunk.find_children("*", "", true, false))
+
+	var ids: Dictionary[StringName, bool] = { }
+	for entity: Node in entities:
+		var id: StringName
+		if entity is Collectible:
+			var collectible: Collectible = entity
+			id = collectible.collectible_id if collectible.is_procedurally_spawned else collectible.static_id
+		elif entity is NPCEntity:
+			var enemy: NPCEntity = entity
+			id = enemy.enemy_id if enemy.is_procedurally_spawned else enemy.static_id
+		else:
+			continue
+		if id == &"" or ids.has(id):
+			return false
+		ids[id] = true
+	return true
 
 
+func _get_world_entities() -> Array[Node]:
+	var entities: Array[Node] = get_tree().get_nodes_in_group(Groups.COLLECTIBLES)
+	entities.append_array(get_tree().get_nodes_in_group(Groups.ENEMIES))
+	return entities
+
+
+#region Collectible
 func is_collectible_collected(persistent_id: StringName) -> bool:
 	return _collected_collectible_ids.has(persistent_id)
 
 
 func _on_collectible_collected(id: StringName) -> void:
+	assert(id != &"", "Collectible ID missing in " + name)
 	_collected_collectible_ids[id] = true
 #endregion
 
 
 #region Enemy
-func _respawn_enemies() -> void:
-	for enemy: Node in get_tree().get_nodes_in_group(Groups.ENEMIES):
-		var entity: NPCEntity = enemy
-		if entity == null or entity.is_procedurally_spawned:
-			continue
-		entity.revive()
-
-
-func _disable_killed_enemies() -> void:
-	for enemy: Node in get_tree().get_nodes_in_group(Groups.ENEMIES):
-		var entity: NPCEntity = enemy
-		if entity == null:
-			continue
-		if _killed_enemy_ids.has(entity.enemy_id):
-			entity.disable_entity()
-
-
 func is_enemy_killed(persistent_id: StringName) -> bool:
 	return _killed_enemy_ids.has(persistent_id)
 
 
 func _on_enemy_killed(id: StringName) -> void:
+	assert(id != &"", "Enemy ID missing in " + name)
 	_killed_enemy_ids[id] = true
 #endregion

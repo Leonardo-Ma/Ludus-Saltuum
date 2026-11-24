@@ -49,11 +49,7 @@ func disable() -> void:
 
 
 func revive() -> void:
-	assert(_state != LifecycleState.DYING, "Cannot revive during death sequence in " + name)
-
-	if _death_tween and _death_tween.is_valid():
-		_death_tween.kill()
-
+	_cancel_death_animation()
 	_state = LifecycleState.ALIVE
 	_health.reset()
 	_entity.scale = _initial_scale
@@ -67,6 +63,15 @@ func revive() -> void:
 	revived.emit()
 
 
+func restore_dead() -> void:
+	_cancel_death_animation()
+	_state = LifecycleState.DEAD
+	_health.stop_regeneration()
+	_health.current_health = 0
+	_entity.hide()
+	disable()
+
+
 func _on_died() -> void:
 	if _state != LifecycleState.ALIVE:
 		return
@@ -74,8 +79,10 @@ func _on_died() -> void:
 	_state = LifecycleState.DYING
 	dying.emit()
 	disable()
-	await _play_death_animation()
+	_play_death_animation()
 
+
+func _finish_death() -> void:
 	if not is_inside_tree() or _state != LifecycleState.DYING:
 		return
 
@@ -87,4 +94,9 @@ func _play_death_animation() -> void:
 	_death_tween = create_tween()
 	_death_tween.tween_interval(DEATH_LINGER_DURATION)
 	_death_tween.tween_property(_entity, "scale", DEATH_END_SCALE, DEATH_SHRINK_DURATION).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
-	await _death_tween.finished
+	_death_tween.tween_callback(_finish_death)
+
+
+func _cancel_death_animation() -> void:
+	if _death_tween and _death_tween.is_valid():
+		_death_tween.kill()

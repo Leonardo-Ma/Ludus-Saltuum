@@ -22,7 +22,11 @@ func build_save_data(data: ChunkSaveData) -> void:
 	var keys: Array[int] = []
 	var scored: Dictionary[int, bool] = { }
 	var uid_map: Dictionary[int, String] = { }
-	for chunk: LevelChunk in ChunkManager.get_active_chunks():
+	var active_chunks: Array[LevelChunk] = ChunkManager.get_active_chunks()
+	data.has_first_chunk_transform = not active_chunks.is_empty()
+	if data.has_first_chunk_transform:
+		data.first_chunk_transform = active_chunks[0].global_transform
+	for chunk: LevelChunk in active_chunks:
 		keys.push_back(chunk.chunk_key)
 		if chunk.is_scored:
 			scored[chunk.chunk_key] = true

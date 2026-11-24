@@ -96,12 +96,29 @@ func _child_ready() -> void:
 
 func _on_dying() -> void:
 	print("Disabling GOAP agent ", goap_agent.name)
-	_brain.set_active(false)
-	npc_movement_controller.stop()
+	_stop_ai()
+	CombatEvents.enemy_killed.emit(enemy_id)
 
 
 func _on_revived() -> void:
+	velocity = Vector3.ZERO
+	hitbox.close_attack_window()
+	perception_system.set_process(true)
 	_brain.set_active(true)
+
+
+func apply_saved_killed_state(killed: bool) -> void:
+	if killed:
+		_stop_ai()
+		_lifecycle.restore_dead()
+	else:
+		revive()
+
+
+func _stop_ai() -> void:
+	_brain.set_active(false)
+	perception_system.set_process(false)
+	npc_movement_controller.stop()
 
 
 func assign_procedural_id(seed_value: int, scene_local_path: NodePath) -> void:
@@ -112,7 +129,6 @@ func assign_procedural_id(seed_value: int, scene_local_path: NodePath) -> void:
 
 
 func _on_death_complete() -> void:
-	CombatEvents.enemy_killed.emit(enemy_id)
 	if is_procedurally_spawned:
 		queue_free()
 

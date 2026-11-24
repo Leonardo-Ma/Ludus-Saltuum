@@ -6,21 +6,22 @@ extends Node
 
 func apply_save_data(data: SaveData) -> bool:
 	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS)
-	if player == null or not player.is_node_ready() or player.owner == null:
+	if player == null or not player.is_node_ready():
 		return false
 	if data.player.health <= 0 or data.player.score < 0 or data.player.gold < 0:
 		return false
-	if not CheckpointSaveController.can_apply_save_data(data.checkpoint, data.chunks.active_chunk_keys.size()):
+	if not CheckpointSaveController.can_apply_save_data(data.checkpoint, data.chunks.active_chunk_keys):
 		return false
 
 	var chunks: Array[LevelChunk] = ChunkManager.prepare_saved_chunks(data.chunks)
 	if chunks.is_empty():
 		return false
 
+	CheckpointManager.reset_checkpoint()
 	WorldSaveController.apply_save_data(data.world)
-	ChunkManager.restore_level(data.chunks, chunks, player, player.owner)
+	ChunkManager.restore_level(data.chunks, chunks, player)
 	WorldSaveController.apply_saved_entity_states()
-	CheckpointSaveController.apply_save_data(data.checkpoint)
+	CheckpointSaveController.apply_save_data(data.checkpoint, data.chunks.active_chunk_keys)
 
 	if player.vehicle_rider.is_in_vehicle:
 		player.vehicle_rider.vehicle.exit(player.global_position)

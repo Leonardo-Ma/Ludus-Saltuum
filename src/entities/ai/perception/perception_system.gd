@@ -25,6 +25,14 @@ var _owner_node: Node3D
 var _debug_node: PerceptionDebug
 
 
+func _enter_tree() -> void:
+	AudioManager.sound_played.connect(_on_sound_played)
+
+
+func _exit_tree() -> void:
+	AudioManager.sound_played.disconnect(_on_sound_played)
+
+
 func _ready() -> void:
 	_owner_node = self.owner as Node3D
 	assert(_owner_node != null, "PerceptionSystem must be a child of a Node3D in " + self.name)
@@ -48,8 +56,6 @@ func _ready() -> void:
 		_debug_node = PerceptionDebug.new()
 		_debug_node.name = "PerceptionDebug"
 		add_child(_debug_node)
-
-	AudioManager.sound_played.connect(_on_sound_played)
 
 
 func _process(_delta: float) -> void:
@@ -205,6 +211,12 @@ func _alert_allies(alert_position: Vector3, radius: float, shared_search: bool =
 
 
 func _on_sound_played(sound_position: Vector3) -> void:
+	if not is_instance_valid(_owner_node) or not _owner_node.is_inside_tree():
+		return
+	if _owner_node is NPCEntity:
+		var enemy: NPCEntity = _owner_node
+		if enemy.health.current_health <= 0:
+			return
 	if _owner_node.global_position.distance_squared_to(sound_position) <= config.hearing_range * config.hearing_range:
 		report_stimulus(sound_position)
 #endregion

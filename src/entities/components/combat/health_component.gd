@@ -144,4 +144,4 @@ func apply_regeneration_tick() -> void:
 
 
 func _can_regenerate() -> bool:
-	return health_regen > 0.0 and current_health < max_health
+	return health_regen > 0.0 and current_health > 0 and current_health < max_health

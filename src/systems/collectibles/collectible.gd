@@ -18,6 +18,7 @@ var collect_sounds: Array[AudioStream] = []
 
 var float_tween: Tween
 var rot_tween: Tween
+var _respawn_tween: Tween
 
 var collected: bool = false
 
@@ -49,24 +50,33 @@ func assign_procedural_id(seed_value: int, scene_local_path: NodePath) -> void:
 
 
 func _on_body_entered(body: Node3D) -> void:
-	if body.is_in_group(Groups.CONTROLLED):
+	if visible and body.is_in_group(Groups.CONTROLLED):
+		assert(collectible_id != &"", "Collectible ID missing in " + name)
 		AudioManager.play_sound(collect_sounds.pick_random(), AudioManager.SoundBus.SFX, global_position)
 		_apply_effect(body)
 		if data is StatusCollectible:
-			await _respawn_collectible()
+			_respawn_collectible()
 		else:
+			set_collected_state(true)
 			CollectiblesEvents.collectible_collected.emit(collectible_id)
-			disable()
 
 
 func _apply_effect(player: Node3D) -> void:
 	data.apply_effect(player)
 
 
-func disable() -> void:
-	collected = true
-	hide()
-	set_deferred("monitoring", false)
+func set_collected_state(is_collected: bool) -> void:
+	if _respawn_tween and _respawn_tween.is_valid():
+		_respawn_tween.kill()
+	collected = is_collected
+	visible = not collected
+	set_deferred("monitoring", not collected)
+	if collected:
+		float_tween.pause()
+		rot_tween.pause()
+	else:
+		float_tween.play()
+		rot_tween.play()
 
 
 # TODO: Transform this into an exportable variable bool
@@ -87,8 +97,7 @@ func _respawn_collectible() -> void:
 	visible = false
 	float_tween.pause()
 	rot_tween.pause()
-	await get_tree().create_timer(respawn_delay).timeout
-	visible = true
-	float_tween.play()
-	rot_tween.play()
-	set_deferred("monitoring", true)
+	_respawn_tween = create_tween()
+	_respawn_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	_respawn_tween.tween_interval(respawn_delay)
+	_respawn_tween.tween_callback(set_collected_state.bind(false))

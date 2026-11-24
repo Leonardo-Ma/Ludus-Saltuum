@@ -9,3 +9,6 @@ extends Resource
 ## Which scene was picked for each active chunk_key at generation time
 @export var chunk_key_to_scene_uid: Dictionary[int, String] = { }
 @export var chunk_selector_state: Dictionary = { }
+## NOTE Legacy saves without an anchor align first entrance to world origin
+@export var has_first_chunk_transform: bool = false
+@export var first_chunk_transform: Transform3D = Transform3D.IDENTITY
