@@ -25,7 +25,9 @@ func reset() -> void:
 	_last_skill_score_threshold = 0
 
 
-## Filtering by runtime state produces the valid pool; final selection is deterministic from chunk_seed
+## Returns null and preserves history if no chunk meets skill, score, and feature requirements
+## Relaxes recent history first, then turn spacing, then skill unlock scheduling
+## Final selection is deterministic from chunk_seed
 func select_deterministic_chunk_data(
 	target_transform: Transform3D,
 	chunk_seed: int,
@@ -33,20 +35,18 @@ func select_deterministic_chunk_data(
 	current_score: int,
 	required_features: Array[ChunkFeature.Feature] = [],
 ) -> ChunkData:
-	if not required_features.is_empty():
-		var any_chunk_provides_features: bool = _all_chunks.any(
-			func(data: ChunkData) -> bool:
-				return required_features.all(
-					func(feature: ChunkFeature.Feature) -> bool:
-						return data.features.has(feature),
-				),
-		)
-		assert(any_chunk_provides_features, "ChunkSelector: no chunk provides all required_features %s" % [required_features])
-
-	var current_y: float = target_transform.origin.y
+	var valid_pool: Array[ChunkData] = _all_chunks.filter(
+		func(data: ChunkData) -> bool:
+			return (
+				_passes_required_skill_filter(data, unlocked_skills) and _passes_min_score_filter(data, current_score)
+				and _passes_feature_filter(data, required_features)
+			),
+	)
+	if valid_pool.is_empty():
+		return null
 
 	# Only force unlock when there are skills the player doesn't yet have
-	var has_unlockable_skill: bool = _all_chunks.any(
+	var has_unlockable_skill: bool = valid_pool.any(
 		func(data: ChunkData) -> bool:
 			return data.unlocks_skill != null and not unlocked_skills.has(data.unlocks_skill),
 	)
@@ -55,42 +55,30 @@ func select_deterministic_chunk_data(
 		and _chunks_since_skill_unlock >= MIN_CHUNKS_BETWEEN_SKILLS
 	)
 
-	var valid_pool: Array[ChunkData] = []
-
 	print("\n==================== Chunk Selection Debug ====================")
-	print("Target Y: ", current_y, " | Chunks since turn: ", _chunks_since_turn, " | Last skill score unlock: ", _last_skill_score_threshold)
+	print(
+		"Target Y: ",
+		target_transform.origin.y,
+		" | Chunks since turn: ",
+		_chunks_since_turn,
+		" | Last skill score unlock: ",
+		_last_skill_score_threshold,
+	)
 	print("Force skill unlock: ", force_skill_unlock)
 	print("Recent paths: ", _recent_chunk_scene_uids)
 
-	for data: ChunkData in _all_chunks:
-		if not _passes_skill_unlock_filter(data, unlocked_skills, force_skill_unlock):
-			continue
+	var scheduled_pool: Array[ChunkData] = valid_pool.filter(
+		func(data: ChunkData) -> bool:
+			return _passes_skill_unlock_filter(data, unlocked_skills, force_skill_unlock),
+	)
+	if not scheduled_pool.is_empty():
+		valid_pool = scheduled_pool
 
-		if not _passes_feature_filter(data, required_features):
-			continue
-
-		if not _passes_required_skill_filter(data, unlocked_skills):
-			continue
-
-		if not _passes_turn_filter(data):
-			continue
-
-		if not _passes_min_score_filter(data, current_score):
-			continue
-
-		valid_pool.push_back(data)
+	var turn_spaced_pool: Array[ChunkData] = valid_pool.filter(_passes_turn_filter)
+	if not turn_spaced_pool.is_empty():
+		valid_pool = turn_spaced_pool
 
 	print("Pool size: %d, total available: %d" % [valid_pool.size(), _all_chunks.size()])
-
-	if valid_pool.is_empty():
-		print("  → EMERGENCY FALLBACK: using all basic chunks")
-		valid_pool = _all_chunks.filter(
-			func(data: ChunkData) -> bool:
-				return _is_basic_chunk(data) and _passes_min_score_filter(data, current_score),
-		)
-
-		if valid_pool.is_empty():
-			valid_pool = _all_chunks
 
 	# Avoid recent chunks
 	var non_recent: Array[ChunkData] = _filter_recent_chunks(valid_pool)
@@ -109,9 +97,10 @@ func select_deterministic_chunk_data(
 	pick_rng.seed = chunk_seed
 	var chosen: ChunkData = valid_pool[pick_rng.randi_range(0, valid_pool.size() - 1)]
 
-	if chosen.unlocks_skill != null:
+	if chosen.unlocks_skill != null and not unlocked_skills.has(chosen.unlocks_skill):
 		_chunks_since_skill_unlock = 0
-		_last_skill_score_threshold += SKILL_UNLOCK_SCORE_STEP
+		if current_score >= _last_skill_score_threshold + SKILL_UNLOCK_SCORE_STEP:
+			_last_skill_score_threshold += SKILL_UNLOCK_SCORE_STEP
 	else:
 		_chunks_since_skill_unlock += 1
 
@@ -169,12 +158,8 @@ func _passes_required_skill_filter(data: ChunkData, unlocked_skills: Array[Skill
 
 
 func _passes_turn_filter(data: ChunkData) -> bool:
-	# Prevent back-to-back turns
+	# Prefer spacing between turns
 	return not data.is_turn or _chunks_since_turn >= TURN_COOLDOWN_CHUNKS
-
-
-func _is_basic_chunk(data: ChunkData) -> bool:
-	return data.unlocks_skill == null
 
 
 func _filter_recent_chunks(valid_pool: Array[ChunkData]) -> Array[ChunkData]:

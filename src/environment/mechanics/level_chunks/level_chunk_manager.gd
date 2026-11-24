@@ -1,12 +1,13 @@
 # BUG TODO Improve this garbage
-## Manages object pooling, async loading, and sequential connecting of procedural level chunks
 extends Node
+
+## Manages object pooling, async loading, and sequential connecting of procedural level chunks
 
 signal level_loaded()
 
 signal chunk_recycled(recycled_chunk: LevelChunk)
 
-const CHUNK_CATALOG: ChunkCatalog = preload("uid://dwe2glcvgdfgs")
+const CHUNK_CATALOG: ChunkCatalog = preload("uid://dwe2glcvgdfgs") # chunk_catalog.tres
 
 ## Version of current implementation, MUST be incremented if new version no longer compatible
 const GENERATION_VERSION: int = 1
@@ -85,7 +86,6 @@ func initialize_new_save_data() -> void:
 
 func _load_chunk_metadata_from_catalog() -> void:
 	assert(CHUNK_CATALOG != null, "Chunk catalog missing in " + name)
-	assert(not CHUNK_CATALOG.chunks.is_empty(), "Chunk catalog has no level chunks in " + name)
 
 	for scene: PackedScene in CHUNK_CATALOG.chunks:
 		var chunk: LevelChunk = scene.instantiate() as LevelChunk
@@ -126,7 +126,15 @@ func _load_chunk_metadata_from_catalog() -> void:
 
 		chunk.free()
 
-	assert(not _all_chunks.is_empty(), "Chunk catalog contains no valid LevelChunks in " + name)
+	var has_baseline_route: bool = _all_chunks.any(
+		func(data: ChunkData) -> bool:
+			return data.required_skill.is_empty() and data.min_score <= 0 and data.unlocks_skill == null,
+	)
+	if not has_baseline_route:
+		get_tree().quit(1)
+		assert(false, "Chunk catalog needs a regular route available at zero score without skills in " + name)
+		return
+
 	_chunk_selector = ChunkSelector.new(_all_chunks)
 
 
@@ -388,6 +396,8 @@ func _prepare_chunk_entities(chunk: LevelChunk, world_seed: int) -> void:
 
 func _append_generated_chunk(target_transform: Transform3D) -> LevelChunk:
 	var chunk: LevelChunk = _generate_new_chunk(target_transform)
+	if chunk == null:
+		return null
 	_prepare_chunk_entities(chunk, procedural_seed)
 	var valid_ids: bool = WorldSaveController.has_valid_entity_ids([chunk])
 	if not valid_ids:
@@ -486,7 +496,6 @@ func _disconnect_chunk_trigger(chunk: LevelChunk) -> void:
 ## Picks and instantiates a chunk never generated before, persists the pick for this chunk_key
 func _generate_new_chunk(target_transform: Transform3D) -> LevelChunk:
 	var chunk_key: int = _next_chunk_key
-	_next_chunk_key += 1
 
 	var unlocked_skills: Array[SkillDefinition] = _player.skills_controller.get_unlocked_skills()
 	var chunk_seed: int = ProceduralId.chunk_seed(get_procedural_seed(), chunk_key)
@@ -496,6 +505,12 @@ func _generate_new_chunk(target_transform: Transform3D) -> LevelChunk:
 		unlocked_skills,
 		_player.economy_controller.score,
 	)
+	if chosen_data == null:
+		get_tree().quit(1)
+		assert(false, "No eligible chunk for key %d in %s" % [chunk_key, name])
+		return null
+
+	_next_chunk_key += 1
 	_chunk_key_to_scene_uid[chunk_key] = chosen_data.scene_uid
 
 	var chunk: LevelChunk = _instantiate_chunk_data(chosen_data)
