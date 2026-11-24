@@ -26,6 +26,7 @@ var _safe_horizontal_velocity: Vector3 = Vector3.ZERO
 var _has_route: bool = false
 var _detour_active: bool = false
 var _blocked: bool = false
+var _requires_body_clearance: bool = false
 
 @onready var _navigation_agent: NavigationAgent3D = %NavigationAgent3D
 @onready var _character_owner: NPCEntity = owner
@@ -85,12 +86,40 @@ func handle_route_obstruction() -> void:
 ## Starts movement along a validated route to [param target], false if no route exists [br]
 ## With [param allow_detour] a blocked route is replaced by a waypoint route around the obstacle
 func request_target(target: Vector3, allow_detour: bool) -> bool:
+	if _requires_body_clearance:
+		stop()
 	if _detour_active:
 		_final_target = target
 		return true
 	if _has_route and target.is_equal_approx(_final_target):
 		return true
 	return _plan_route(target, allow_detour, false)
+
+
+## Request route with clearance for NPC body, including other characters
+func request_clear_target(target: Vector3) -> bool:
+	_requires_body_clearance = true
+	return _plan_route(target, true, false)
+
+
+## Request a reachable waypoint within radius of center
+func request_nearby_target(center: Vector3, radius: float) -> bool:
+	var map: RID = _navigation_agent.get_navigation_map()
+	if radius <= 0.0 or not map.is_valid() or NavigationServer3D.map_get_iteration_id(map) == 0:
+		return false
+	var start_angle: float = randf() * TAU
+	for step: int in DETOUR_DIRECTIONS:
+		var angle: float = start_angle + TAU * step / DETOUR_DIRECTIONS
+		var offset: Vector3 = Vector3(cos(angle), 0.0, sin(angle)) * randf_range(radius * 0.5, radius)
+		var point: Vector3 = NavigationServer3D.map_get_closest_point(map, center + offset)
+		if center.distance_to(point) > radius + _character_owner.safe_margin:
+			continue
+		if _character_owner.global_position.distance_to(point) <= _navigation_agent.target_desired_distance:
+			continue
+		_requires_body_clearance = true
+		if _plan_route(point, false, false):
+			return true
+	return false
 
 
 ## True when last route request or movement found no way through
@@ -134,6 +163,7 @@ func can_reach(target: Vector3) -> bool:
 
 
 func stop() -> void:
+	_requires_body_clearance = false
 	_has_route = false
 	_detour_active = false
 	_stop_velocity()
@@ -145,8 +175,8 @@ func _plan_route(target: Vector3, allow_detour: bool, force_detour: bool) -> boo
 	_final_target = target
 	_detour_active = false
 
-	if force_detour or not _is_path_clear(origin, target):
-		waypoint = _find_detour(target) if allow_detour else Vector3.INF
+	if force_detour or not _is_path_clear(origin, target, _requires_body_clearance):
+		waypoint = _find_detour(target, _requires_body_clearance) if allow_detour else Vector3.INF
 		_detour_active = waypoint.is_finite()
 
 	_has_route = waypoint.is_finite()
@@ -158,8 +188,10 @@ func _plan_route(target: Vector3, allow_detour: bool, force_detour: bool) -> boo
 	return _has_route
 
 
-func _find_detour(target: Vector3) -> Vector3:
+func _find_detour(target: Vector3, check_body_clearance: bool = false) -> Vector3:
 	var map: RID = _navigation_agent.get_navigation_map()
+	if not map.is_valid() or NavigationServer3D.map_get_iteration_id(map) == 0:
+		return Vector3.INF
 	var origin: Vector3 = _character_owner.global_position
 	var best: Vector3 = Vector3.INF
 	var best_length: float = INF
@@ -168,29 +200,55 @@ func _find_detour(target: Vector3) -> Vector3:
 		var angle: float = TAU * step / DETOUR_DIRECTIONS
 		var candidate: Vector3 = NavigationServer3D.map_get_closest_point(map, origin + Vector3(cos(angle), 0.0, sin(angle)) * detour_distance)
 		var length: float = origin.distance_to(candidate) + candidate.distance_to(target)
-		if length < best_length and _is_path_clear(origin, candidate) and _is_path_clear(candidate, target):
+		if (
+			length < best_length and _is_path_clear(origin, candidate, check_body_clearance)
+			and _is_path_clear(candidate, target, check_body_clearance)
+		):
 			best = candidate
 			best_length = length
 
 	return best
 
 
-## Navmesh path exists and no obstacle ray hits along it, characters are not obstacles
-func _is_path_clear(from: Vector3, to: Vector3) -> bool:
+## Check navmesh route against world obstacles with optional body clearance
+func _is_path_clear(from: Vector3, to: Vector3, check_body_clearance: bool = false) -> bool:
 	var map: RID = _navigation_agent.get_navigation_map()
 	if not map.is_valid() or NavigationServer3D.map_get_iteration_id(map) == 0:
 		return false
 
-	var path: PackedVector3Array = NavigationServer3D.map_get_path(map, from, to, true)
+	var path: PackedVector3Array = NavigationServer3D.map_get_path(map, from, to, true, _navigation_agent.navigation_layers)
 	if path.is_empty():
 		return false
 
 	var space: PhysicsDirectSpaceState3D = _character_owner.get_world_3d().direct_space_state
+	if check_body_clearance:
+		if path[-1].distance_to(to) > _navigation_agent.target_desired_distance:
+			return false
+		return _has_body_clearance(space, path)
 	var lift: Vector3 = Vector3.UP * path_check_height
 	for index: int in range(1, path.size()):
 		if not _is_segment_clear(space, path[index - 1] + lift, path[index] + lift):
 			return false
 
+	return true
+
+
+func _has_body_clearance(space: PhysicsDirectSpaceState3D, path: PackedVector3Array) -> bool:
+	var collider: CollisionShape3D = _character_owner.collision_shape
+	var query: PhysicsShapeQueryParameters3D = PhysicsShapeQueryParameters3D.new()
+	query.shape = collider.shape
+	query.collision_mask = _character_owner.collision_mask | obstacle_mask
+	query.exclude = [_character_owner.get_rid()]
+	var offset: Vector3 = collider.global_position - _character_owner.global_position + Vector3.UP * _character_owner.safe_margin
+	for index: int in path.size():
+		query.transform = Transform3D(collider.global_basis, path[index] + offset)
+		query.motion = Vector3.ZERO
+		if not space.intersect_shape(query, 1).is_empty():
+			return false
+		if index + 1 < path.size():
+			query.motion = path[index + 1] - path[index]
+			if space.cast_motion(query)[0] < 1.0:
+				return false
 	return true
 
 
@@ -212,8 +270,10 @@ func _is_segment_clear(space: PhysicsDirectSpaceState3D, from: Vector3, to: Vect
 	return false
 
 
-## Static or rigid obstacle opposing movement, other characters are left to avoidance
-func is_route_obstructed_by(normal: Vector3) -> bool:
+## Routes requiring body clearance may detour around blocking characters after local avoidance
+func is_route_obstructed_by(normal: Vector3, character: bool = false) -> bool:
+	if character and not _requires_body_clearance:
+		return false
 	var wall_normal: Vector3 = Vector3(normal.x, 0.0, normal.z)
 	return not wall_normal.is_zero_approx() and _desired_direction.dot(wall_normal.normalized()) <= HEAD_ON_DOT
 

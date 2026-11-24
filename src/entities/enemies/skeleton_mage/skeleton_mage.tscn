@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://bylcq0tsjv7o4"]
 
 [ext_resource type="PackedScene" uid="uid://cq301lp0jblvc" path="res://src/entities/enemies/enemy_template.tscn" id="1_virfw"]
+[ext_resource type="Script" uid="uid://dk5rrcj4pm04l" path="res://src/entities/ai/goap/actions/investigate.gd" id="investigate_action"]
+[ext_resource type="Script" uid="uid://bpwcjpy6x10hk" path="res://src/entities/ai/goap/goals/investigate.gd" id="investigate_goal"]
 [ext_resource type="Resource" uid="uid://faeio5xc2xun" path="res://src/entities/resources/weapons/skeleton_staff.tres" id="2_mroeu"]
 [ext_resource type="AnimationLibrary" uid="uid://vginonlwcip8" path="res://src/entities/animation/libraries/combat.res" id="2_ymq7x"]
 [ext_resource type="AnimationLibrary" uid="uid://qw3lmf4rabqb" path="res://src/entities/animation/libraries/general.res" id="3_ggklk"]
@@ -27,8 +29,8 @@
 
 [sub_resource type="Resource" id="Resource_bdim5"]
 script = ExtResource("15_xccq2")
-available_actions = Array[Script]([ExtResource("7_kpxjl"), ExtResource("7_njikp"), ExtResource("6_jikcy"), ExtResource("9_ug76y"), ExtResource("10_8y3hd")])
-available_goals = Array[Script]([ExtResource("12_q3avm"), ExtResource("13_ai8h2"), ExtResource("14_wex8l"), ExtResource("10_sss5e")])
+available_actions = Array[Script]([ExtResource("7_kpxjl"), ExtResource("7_njikp"), ExtResource("6_jikcy"), ExtResource("9_ug76y"), ExtResource("10_8y3hd"), ExtResource("investigate_action")])
+available_goals = Array[Script]([ExtResource("12_q3avm"), ExtResource("13_ai8h2"), ExtResource("14_wex8l"), ExtResource("10_sss5e"), ExtResource("investigate_goal")])
 
 [sub_resource type="Animation" id="Animation_ud1dh"]
 resource_name = "RESET"

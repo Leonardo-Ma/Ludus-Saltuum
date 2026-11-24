@@ -3,6 +3,9 @@ extends Area3D
 
 ## Upon colliding with a hitbox, triggers take damage from colliding entity, passing own attack
 
+## Emitted after damage applied, with entity responsible for the hit
+signal hit_received(hit_source: Node3D)
+
 
 func _ready() -> void:
 	assert(collision_layer == 0, "Hurtbox of " + owner.name + " must not have a layer") # It's in bits
@@ -20,4 +23,8 @@ func _on_area_entered(hitbox: Hitbox) -> void:
 	assert(attack_used != null, "Attack missing from " + attacker.name)
 
 	owner.health.take_damage(attack_used)
+
+	var hit_source: Node3D = hitbox.ignored_entity if hitbox.ignored_entity != null else hitbox.owner as Node3D
+	hit_received.emit(hit_source)
+
 	hitbox.hit_landed.emit(self)

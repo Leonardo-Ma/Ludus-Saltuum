@@ -1,5 +1,8 @@
 extends Node
 
+## SFX positions only, listened by AI hearing
+signal sound_played(sound_position: Vector3)
+
 enum SoundBus {
 	UNASSIGNED = 0,
 	MASTER = 1,
@@ -31,6 +34,9 @@ func play_sound(sound: AudioStream, bus: SoundBus, position: Vector3) -> void:
 	add_child(player)
 	player.global_position = position
 	player.play()
+
+	if bus == SoundBus.SFX:
+		sound_played.emit(position)
 
 
 func play_ui_sound(sound: AudioStream) -> void:

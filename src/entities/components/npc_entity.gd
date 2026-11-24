@@ -60,9 +60,9 @@ func _handle_movement_collisions() -> void:
 	for index: int in get_slide_collision_count():
 		var collision: KinematicCollision3D = get_slide_collision(index)
 		_push_rigid_body(collision, push_force)
-		if collision.get_collider() is CharacterBody3D or collision.get_angle() <= floor_max_angle:
+		if collision.get_angle() <= floor_max_angle:
 			continue
-		if npc_movement_controller.is_route_obstructed_by(collision.get_normal()):
+		if npc_movement_controller.is_route_obstructed_by(collision.get_normal(), collision.get_collider() is CharacterBody3D):
 			route_obstructed = true
 
 	if route_obstructed:
@@ -89,6 +89,8 @@ func _child_ready() -> void:
 	add_child(_brain)
 	goap_agent = _brain.goap_agent
 
+	hurtbox.hit_received.connect(_on_hit_received)
+
 	add_to_group(Groups.ENEMIES)
 
 
@@ -113,3 +115,8 @@ func _on_death_complete() -> void:
 	CombatEvents.enemy_killed.emit(enemy_id)
 	if is_procedurally_spawned:
 		queue_free()
+
+
+func _on_hit_received(attacker: Node3D) -> void:
+	assert(attacker != null, "Hit source missing in " + name)
+	perception_system.report_hit(attacker)

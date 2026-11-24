@@ -97,6 +97,7 @@ func _try_get_new_plan(blackboard: Dictionary) -> void:
 		var new_plan: Array[GoapAction] = _action_planner.get_plan(potential_goal, blackboard)
 
 		if not new_plan.is_empty():
+			_exit_current_action()
 			_current_goal = potential_goal
 			_current_plan = new_plan
 			_current_plan_step = 0
@@ -119,10 +120,16 @@ func _get_sorted_goals() -> Array[GoapGoal]:
 
 
 func _clear_current() -> void:
+	_exit_current_action()
 	_current_goal = null
 	_current_plan = []
 	_current_plan_step = 0
 	_replan_cooldown = randf_range(MIN_REPLAN_DELAY, MAX_REPLAN_DELAY)
+
+
+func _exit_current_action() -> void:
+	if _current_plan_step < _current_plan.size():
+		_current_plan[_current_plan_step].exit(_goap_memory.get_actor())
 
 
 func init(actor: Node, goals: Array[GoapGoal], goap_memory: GoapMemory, actions: Array[GoapAction]) -> void:
@@ -186,6 +193,7 @@ func _follow_plan(delta: float, blackboard: Dictionary) -> void:
 
 	if is_step_complete:
 		if _current_plan_step < _current_plan.size() - 1:
+			_exit_current_action()
 			_current_plan_step += 1
 		else:
 			_clear_current()

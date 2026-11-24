@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://cq301lp0jblvc"]
 
 [ext_resource type="Script" uid="uid://dkh5m525rjidn" path="res://src/entities/components/npc_entity.gd" id="1_cqc8c"]
+[ext_resource type="Script" uid="uid://dk5rrcj4pm04l" path="res://src/entities/ai/goap/actions/investigate.gd" id="investigate_action"]
+[ext_resource type="Script" uid="uid://bpwcjpy6x10hk" path="res://src/entities/ai/goap/goals/investigate.gd" id="investigate_goal"]
 [ext_resource type="Script" uid="uid://bqys3jbut4h6" path="res://src/entities/ai/perception/perception_config.gd" id="6_iieoc"]
 [ext_resource type="Script" uid="uid://cuwnfmbuuro3s" path="res://src/entities/ai/perception/visual_config.gd" id="7_djwp5"]
 [ext_resource type="Script" uid="uid://dycviide8g017" path="res://src/entities/ai/goap/actions/chase_enemy.gd" id="9_i57bl"]
@@ -44,8 +46,8 @@ metadata/_custom_type_script = "uid://bqys3jbut4h6"
 
 [sub_resource type="Resource" id="Resource_f7hab"]
 script = ExtResource("16_iqbar")
-available_actions = Array[Script]([ExtResource("9_i57bl"), ExtResource("10_2ajce"), ExtResource("11_lrta4"), ExtResource("10_d3c46")])
-available_goals = Array[Script]([ExtResource("13_hwngx"), ExtResource("14_ia32q"), ExtResource("15_tur1j"), ExtResource("14_ejhyg")])
+available_actions = Array[Script]([ExtResource("9_i57bl"), ExtResource("10_2ajce"), ExtResource("11_lrta4"), ExtResource("10_d3c46"), ExtResource("investigate_action")])
+available_goals = Array[Script]([ExtResource("13_hwngx"), ExtResource("14_ia32q"), ExtResource("15_tur1j"), ExtResource("14_ejhyg"), ExtResource("investigate_goal")])
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_qurdx"]
 height = 1.0117772

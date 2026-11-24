@@ -34,6 +34,11 @@ func get_effects() -> Dictionary:
 	return { }
 
 
+## Release action-owned state on completion or interruption
+func exit(_actor: Node) -> void:
+	pass
+
+
 ## Action implementation called on every loop.
 ## "actor" is the NPC using the AI
 ## "delta" is the time in seconds since last loop.

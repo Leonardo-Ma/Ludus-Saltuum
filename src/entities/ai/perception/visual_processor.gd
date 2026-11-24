@@ -12,7 +12,7 @@ func _init(config_data: VisualConfig) -> void:
 	config = config_data
 
 
-func detect(owner_node: Node3D, target: Node3D) -> DetectionResult:
+func detect(owner_node: Node3D, target: Node3D, sight_yaw_offset: float = 0.0) -> DetectionResult:
 	var result: DetectionResult = DetectionResult.new()
 
 	var distance_squared: float = owner_node.global_position.distance_squared_to(target.global_position)
@@ -37,6 +37,9 @@ func detect(owner_node: Node3D, target: Node3D) -> DetectionResult:
 	forward = forward.normalized()
 
 	var angle: float = rad_to_deg(forward.angle_to(to_target))
+	if not is_zero_approx(sight_yaw_offset):
+		var scan_forward: Vector3 = forward.rotated(Vector3.UP, sight_yaw_offset)
+		angle = minf(angle, rad_to_deg(scan_forward.angle_to(to_target)))
 
 	if not is_very_close and abs(angle) > (config.field_of_view / 2.0):
 		return result
