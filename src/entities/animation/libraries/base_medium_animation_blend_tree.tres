@@ -1,8 +1,8 @@
 [gd_resource type="AnimationNodeBlendTree" format=3 uid="uid://basam7g1dbev2"]
 
+[ext_resource type="AnimationNodeBlendSpace2D" uid="uid://bcpg3dv7ei4iy" path="res://src/entities/animation/resources/stances/crouching.tres" id="Crouching"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://b00wtlpymptm0" path="res://src/entities/animation/libraries/resources/death_blend_tree.tres" id="Death"]
 [ext_resource type="AnimationNodeBlendSpace2D" uid="uid://bi27fgnbsqn8s" path="res://src/entities/animation/resources/stances/standing.tres" id="Standing"]
-[ext_resource type="AnimationNodeBlendSpace2D" uid="uid://bcpg3dv7ei4iy" path="res://src/entities/animation/resources/stances/crouching.tres" id="Crouching"]
 
 [sub_resource type="AnimationNodeAnimation" id="Fall"]
 animation = &"movement/Jump_Idle"
@@ -13,26 +13,26 @@ animation = &"movement/Jump_Start"
 [sub_resource type="AnimationNodeAnimation" id="Respawn"]
 animation = &"general/Spawn_Ground"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="JumpEnd"]
-xfade_time = 0.1
-switch_mode = 2
-advance_mode = 2
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="Start"]
 advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="ToStanding"]
-xfade_time = 0.15
-advance_mode = 2
-advance_condition = &"standing"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="ToCrouching"]
 xfade_time = 0.15
 advance_mode = 2
 advance_condition = &"crouching"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="ToStanding"]
+xfade_time = 0.15
+advance_mode = 2
+advance_condition = &"standing"
+
 [sub_resource type="AnimationNodeStateMachineTransition" id="Travel"]
 xfade_time = 0.15
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="JumpEnd"]
+xfade_time = 0.1
+switch_mode = 2
+advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="RespawnStanding"]
 xfade_time = 0.15
@@ -60,25 +60,12 @@ states/respawn/node = SubResource("Respawn")
 states/respawn/position = Vector2(300, 400)
 states/standing/node = ExtResource("Standing")
 states/standing/position = Vector2(300, 80)
-transitions = [
-	"Start", "standing", SubResource("Start"),
-	"standing", "crouching", SubResource("ToCrouching"),
-	"crouching", "standing", SubResource("ToStanding"),
-	"standing", "fall", SubResource("Travel"),
-	"crouching", "fall", SubResource("Travel"),
-	"jump", "fall", SubResource("JumpEnd"),
-	"jump", "standing", SubResource("Travel"),
-	"jump", "crouching", SubResource("Travel"),
-	"fall", "standing", SubResource("Travel"),
-	"fall", "crouching", SubResource("Travel"),
-	"respawn", "standing", SubResource("RespawnStanding"),
-	"respawn", "crouching", SubResource("RespawnCrouching"),
-]
+transitions = ["Start", "standing", SubResource("Start"), "standing", "crouching", SubResource("ToCrouching"), "crouching", "standing", SubResource("ToStanding"), "standing", "fall", SubResource("Travel"), "crouching", "fall", SubResource("Travel"), "jump", "fall", SubResource("JumpEnd"), "jump", "standing", SubResource("Travel"), "jump", "crouching", SubResource("Travel"), "fall", "standing", SubResource("Travel"), "fall", "crouching", SubResource("Travel"), "respawn", "standing", SubResource("RespawnStanding"), "respawn", "crouching", SubResource("RespawnCrouching")]
 
 [sub_resource type="AnimationNodeOneShot" id="FullBody"]
+sync = true
 fadein_time = 0.05
 fadeout_time = 0.08
-sync = true
 
 [sub_resource type="AnimationNodeTransition" id="FullBodySelect"]
 input_0/name = "slice_diagonal"
@@ -130,7 +117,6 @@ animation = &"1h_combat/1H_Attack_Slice_Horizontal"
 animation = &"1h_combat/1H_Attack_Stab"
 
 [resource]
-graph_offset = Vector2(211.76233, 468.22388)
 nodes/output/position = Vector2(1620, 1000)
 nodes/body/node = SubResource("Body")
 nodes/body/position = Vector2(820, 860)

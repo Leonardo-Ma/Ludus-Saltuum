@@ -10,10 +10,10 @@
 [ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="9_cin2i"]
 [ext_resource type="Script" uid="uid://dlbf4w8moqj2j" path="res://src/entities/components/movement.gd" id="9_oiqqw"]
 [ext_resource type="Script" uid="uid://cx0jguneos6kp" path="res://src/entities/data/weapon_asset.gd" id="11_85d17"]
+[ext_resource type="Resource" uid="uid://cu1tai0bd0uic" path="res://src/entities/animation/resources/profiles/enemy_melee_animation_profile.tres" id="11_ud1dh"]
 [ext_resource type="Resource" uid="uid://bgdv4xkrfy3vg" path="res://src/entities/resources/weapons/stone_sword.tres" id="13_iamlb"]
 [ext_resource type="Resource" uid="uid://bddhvg1ytve8r" path="res://src/entities/resources/weapons/stone_axe.tres" id="14_3q2kk"]
 [ext_resource type="Resource" uid="uid://b82wh7rxddy1b" path="res://src/entities/resources/weapons/gold_paladin_hammer.tres" id="15_m2hlj"]
-[ext_resource type="Resource" uid="uid://cu1tai0bd0uic" path="res://src/entities/animation/resources/profiles/enemy_melee_animation_profile.tres" id="11_ud1dh"]
 [ext_resource type="AnimationLibrary" uid="uid://bp21tmj3ajjq" path="res://src/entities/animation/libraries/movement_advanced.res" id="19_2rf2y"]
 
 [sub_resource type="Animation" id="Animation_ud1dh"]

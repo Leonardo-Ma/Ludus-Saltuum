@@ -465,28 +465,9 @@ libraries/movement_advanced = ExtResource("5_gxruy")
 [node name="AnimationTree" parent="." index="2" unique_id=905057315]
 root_node = NodePath("%Visual")
 anim_player = NodePath("../AnimationPlayer")
-parameters/body/dead/death_select/current_state = ""
 parameters/body/dead/death_select/transition_request = "death_a"
-parameters/body/dead/death_select/current_index = -1
-parameters/body/dead/death_select/observer = null
-parameters/body/standing/blend_position = Vector2(0, 0)
-parameters/body/standing/observer = null
-parameters/full_body_select/current_state = ""
 parameters/full_body_select/transition_request = "magic"
-parameters/full_body_select/current_index = -1
-parameters/full_body_select/observer = null
-parameters/full_body/active = false
-parameters/full_body/internal_active = false
-parameters/full_body/request = 0
-parameters/full_body/observer = null
-parameters/reaction_select/current_state = ""
 parameters/reaction_select/transition_request = "hit_a"
-parameters/reaction_select/current_index = -1
-parameters/reaction_select/observer = null
-parameters/reaction/active = false
-parameters/reaction/internal_active = false
-parameters/reaction/request = 0
-parameters/reaction/observer = null
 
 [node name="Visual" parent="." index="3" unique_id=1937025669]
 _initial_character = ExtResource("18_bdim5")
