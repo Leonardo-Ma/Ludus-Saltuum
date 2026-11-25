@@ -42,6 +42,14 @@ func _on_release_mouse_requested() -> void:
 	print_debug("Mouse released by " + name)
 
 
+func set_gameplay_input_enabled(enabled: bool) -> void:
+	set_process_input(enabled)
+	set_process_unhandled_input(enabled)
+	if not enabled and not _respawn_timer.is_stopped():
+		_respawn_timer.stop()
+		return_hold_cancelled.emit()
+
+
 func _is_ui_interacting() -> bool:
 	var viewport: Viewport = get_viewport()
 	var focus_owner: Control = viewport.gui_get_focus_owner()

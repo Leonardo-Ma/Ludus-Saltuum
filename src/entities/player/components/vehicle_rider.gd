@@ -69,7 +69,7 @@ func _on_vehicle_entered() -> void:
 
 
 func _on_vehicle_exited(_exit_position: Vector3) -> void:
-	_player.set_state(PlayerEntity.PlayerState.ACTIVE)
+	_player.refresh_state()
 
 
 func _on_vehicle_tree_exiting() -> void:

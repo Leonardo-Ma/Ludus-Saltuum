@@ -270,6 +270,8 @@ func initialize_level() -> void:
 			return
 		next_spawn_transform = chunk_instance.exit_trigger.global_transform
 
+	level_loaded.emit()
+
 
 ## Reset pool when the reload or exit
 func clear_level() -> void:

@@ -34,114 +34,112 @@ var current_health: int:
 
 var invulnerable: bool = false
 
-var _is_regenerating: bool = false
 var _regen_buffer: float = 0.0
-var _waiting_for_regen_delay: bool = false
-var _last_damage_time: int = 0
+var _invulnerability_timer: Timer
+var _regen_delay_timer: Timer
+var _regen_tick_timer: Timer
 
 
 func _ready() -> void:
-	assert(health != null and health.max_health > 0, "Health property incorrect for " + owner.name)
+	assert(health and health.max_health > 0, "Health property incorrect for " + name)
+
+	_invulnerability_timer = _create_timer(disable_invulnerability)
+	_regen_delay_timer = _create_timer(start_regeneration)
+	_regen_tick_timer = _create_timer(apply_regeneration_tick)
 
 	# TODO Confirm if this is correct
 	max_health = health.max_health
 	health_regen = health.health_regen
 	current_health = max_health
 
-	if _can_regenerate():
-		start_regeneration()
-
 
 func take_damage(attack: Attack) -> void:
-	if invulnerable and not attack.hitkill:
+	if current_health <= 0 or (invulnerable and not attack.hitkill):
 		return
 
-	if attack.hitkill:
-		current_health = 0
-	else:
-		current_health -= attack.damage
-
-	_last_damage_time = Time.get_ticks_msec()
-	damaged.emit(attack)
-	enable_invulnerability(health.invulnerability_duration)
 	stop_regeneration()
-
-	if current_health <= 0:
+	var remaining_health: int = 0 if attack.hitkill else current_health - attack.damage
+	current_health = remaining_health
+	damaged.emit(attack)
+	if remaining_health <= 0 and current_health <= 0:
+		disable_invulnerability()
 		died.emit()
-	else:
+	elif current_health > 0:
+		if health.invulnerability_duration > 0.0:
+			enable_invulnerability(health.invulnerability_duration)
 		schedule_regeneration()
 
 
 func reset() -> void:
 	var was_dead: bool = current_health <= 0
+	stop_regeneration()
+	disable_invulnerability()
 	current_health = max_health
 	if was_dead:
 		revived.emit()
-	stop_regeneration()
-	disable_invulnerability()
-	_waiting_for_regen_delay = false
 
 
 func enable_invulnerability(duration: float = 0.0) -> void:
-	invulnerable = true
-	invulnerability_changed.emit(true)
+	_invulnerability_timer.stop()
 	if duration > 0.0:
-		get_tree().create_timer(duration).timeout.connect(disable_invulnerability)
+		_invulnerability_timer.start(duration)
+	if not invulnerable:
+		invulnerable = true
+		invulnerability_changed.emit(true)
 
 
 func disable_invulnerability() -> void:
-	invulnerable = false
-	invulnerability_changed.emit(false)
+	_invulnerability_timer.stop()
+	if invulnerable:
+		invulnerable = false
+		invulnerability_changed.emit(false)
 
 
 func schedule_regeneration() -> void:
-	if not _can_regenerate() or _waiting_for_regen_delay:
+	if not _can_regenerate():
 		return
 
-	_waiting_for_regen_delay = true
-	get_tree().create_timer(health.regen_delay).timeout.connect(start_regeneration)
+	if health.regen_delay > 0.0:
+		_regen_delay_timer.start(health.regen_delay)
+	else:
+		start_regeneration()
 
 
 func start_regeneration() -> void:
-	_waiting_for_regen_delay = false
-
-	if not _can_regenerate() or _is_regenerating:
-		return
-
-	var time_since_damage: float = (Time.get_ticks_msec() - _last_damage_time) / 1000.0
-	if time_since_damage < health.regen_delay:
-		_waiting_for_regen_delay = true
-		get_tree().create_timer(health.regen_delay - time_since_damage).timeout.connect(start_regeneration)
-		return
-
-	_is_regenerating = true
-	get_tree().create_timer(health.regen_tick_rate).timeout.connect(apply_regeneration_tick)
+	if _can_regenerate() and _regen_delay_timer.is_stopped() and _regen_tick_timer.is_stopped():
+		_regen_tick_timer.start(health.regen_tick_rate)
 
 
 func stop_regeneration() -> void:
 	_regen_buffer = 0.0
-	_is_regenerating = false
-	_waiting_for_regen_delay = false
+	_regen_delay_timer.stop()
+	_regen_tick_timer.stop()
 
 
 func apply_regeneration_tick() -> void:
-	if not _is_regenerating:
+	if not _can_regenerate():
+		stop_regeneration()
 		return
 
-	if current_health >= max_health:
-		_is_regenerating = false
-		return
-
-	_regen_buffer += health_regen * health.regen_tick_rate
+	_regen_buffer += health_regen * _regen_tick_timer.wait_time
 	var whole: int = int(_regen_buffer)
 	_regen_buffer -= whole
 	current_health += whole
 
-	if current_health < max_health and health_regen > 0.0:
-		get_tree().create_timer(health.regen_tick_rate).timeout.connect(apply_regeneration_tick)
+	if _can_regenerate():
+		start_regeneration()
 	else:
-		_is_regenerating = false
+		stop_regeneration()
 
 
 func _can_regenerate() -> bool:
 	return health_regen > 0.0 and current_health > 0 and current_health < max_health
+
+
+func _create_timer(on_timeout: Callable) -> Timer:
+	var timer: Timer = Timer.new()
+	timer.one_shot = true
+	timer.process_mode = Node.PROCESS_MODE_PAUSABLE
+	timer.timeout.connect(on_timeout)
+	add_child(timer)
+	return timer

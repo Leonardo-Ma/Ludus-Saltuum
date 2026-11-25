@@ -14,6 +14,7 @@ func _ready() -> void:
 	var test_path: String = test_directory.get_current_dir()
 	var arguments: PackedStringArray = [
 		"--headless",
+		"--fixed-fps", "60",
 		"--path", ProjectSettings.globalize_path("res://"),
 		"--log-file", test_path.path_join("godot.log"),
 		"--script", "res://tests/startup_test_profile.gd",

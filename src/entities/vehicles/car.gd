@@ -39,6 +39,8 @@ var is_driven: bool = false
 var initial_local_transform: Transform3D
 
 var _driver: PlayerEntity = null
+var _recovery_tween: Tween
+var _was_frozen: bool
 
 @onready var enter_area: Area3D = %EnterArea
 
@@ -76,6 +78,11 @@ func _ready() -> void:
 
 	driving_started.connect(_on_driving_started)
 	driving_stopped.connect(_on_driving_stopped)
+	ApplicationStateManager.main_menu_requested.connect(_cancel_recovery)
+
+
+func _exit_tree() -> void:
+	_cancel_recovery()
 
 
 func _physics_process(delta: float) -> void:
@@ -135,7 +142,10 @@ func _physics_process(delta: float) -> void:
 func _on_enter_area_body_entered(body: Node3D) -> void:
 	if (is_driven) or (body is not PlayerEntity):
 		return
-	_driver = body as PlayerEntity
+	var driver: PlayerEntity = body
+	if driver.state != PlayerEntity.PlayerState.ACTIVE or driver.is_respawning or driver.health.current_health <= 0:
+		return
+	_driver = driver
 
 	# TODO Double check
 	_driver.vehicle_rider.vehicle_exited.connect(_on_vehicle_exited)
@@ -164,6 +174,7 @@ func exit(exit_position: Vector3) -> void:
 func _on_vehicle_exited(_exit_position: Vector3) -> void:
 	assert(is_driven, "Car not driven in " + name)
 
+	_cancel_recovery()
 	set_physics_process(false)
 	set_process(false)
 
@@ -189,25 +200,60 @@ func _on_vehicle_exited(_exit_position: Vector3) -> void:
 	)
 
 
-func respawn(delay: float, target_transform: Transform3D, is_death: bool = false) -> void:
-	ControlledEntityEvents.player_respawning.emit(delay)
+## Holds driving controls until recovery fade ends
+func recover_at(delay: float, target_transform: Transform3D) -> void:
+	assert(is_driven and delay >= 0.0, "Invalid driven recovery in " + name)
+	if _recovery_tween != null:
+		_recovery_tween.kill()
+	else:
+		_was_frozen = freeze
+	freeze = true
+	engine_force = 0.0
+	set_physics_process(false)
 
+	_recovery_tween = create_tween()
+	_recovery_tween.set_pause_mode(Tween.TWEEN_PAUSE_STOP)
 	# TODO Remove this magic number delay
 	# Wait for the screen to fade in
-	await get_tree().create_timer(delay).timeout
+	_recovery_tween.tween_interval(delay)
+	_recovery_tween.tween_callback(_arrive_at_recovery.bind(target_transform))
+	_recovery_tween.tween_interval(ControlledEntityEvents.RESPAWN_FADE_DURATION)
+	_recovery_tween.tween_callback(_finish_recovery)
+	ControlledEntityEvents.begin_respawn(self, delay)
 
+
+## Returns unattended car to its authored location
+func recover_unattended() -> void:
+	if is_driven:
+		return
+
+	transform = initial_local_transform
+	linear_velocity = Vector3.ZERO
+	angular_velocity = Vector3.ZERO
+	teleported.emit()
+
+
+func _arrive_at_recovery(target_transform: Transform3D) -> void:
 	global_position = target_transform.origin
 	global_rotation = Vector3(0.0, atan2(target_transform.basis.z.x, target_transform.basis.z.z), 0.0)
 	linear_velocity = Vector3.ZERO
 	angular_velocity = Vector3.ZERO
 
+	ControlledEntityEvents.arrive_at_respawn(self)
 	teleported.emit()
 
-	if is_death:
-		health.reset()
-		scale = Vector3.ONE
 
-	ControlledEntityEvents.player_finished_respawning.emit()
+func _finish_recovery() -> void:
+	_recovery_tween = null
+	freeze = _was_frozen
+	set_physics_process(is_driven)
+	ControlledEntityEvents.finish_respawn(self)
+
+
+func _cancel_recovery() -> void:
+	if _recovery_tween != null:
+		_recovery_tween.kill()
+		_finish_recovery()
 
 
 @warning_ignore("unused_parameter") # gdlint-ignore-next-line unused-argument

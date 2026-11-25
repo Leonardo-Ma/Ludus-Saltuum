@@ -2,6 +2,7 @@ extends Node
 
 signal checkpoint_activated(checkpoint_position: Vector3)
 signal checkpoint_loaded(checkpoint_position: Vector3) # TODO Check if refactor needed elsewhere to use this instead
+signal checkpoint_cleared
 
 const CHECKPOINT_RESPAWN_DELAY: float = 1.0
 
@@ -41,7 +42,8 @@ func _on_chunk_recycled(recycled_chunk: LevelChunk) -> void:
 
 
 func get_respawn_transform() -> Transform3D:
-	assert(_has_valid_position, "No active checkpoint found in " + name)
+	if not has_active_checkpoint():
+		return get_default_spawn_transform()
 
 	if _checkpoint_chunk_key == CheckpointSaveData.WORLD_CHECKPOINT_KEY:
 		return Transform3D(_checkpoint_local_transform.basis.orthonormalized(), _checkpoint_local_transform.origin)
@@ -71,6 +73,7 @@ func get_active_checkpoint() -> Checkpoint:
 
 
 func reset_checkpoint() -> void:
+	var had_checkpoint: bool = _has_valid_position
 	if _active_checkpoint and is_instance_valid(_active_checkpoint):
 		_active_checkpoint.deactivate_checkpoint()
 
@@ -78,15 +81,19 @@ func reset_checkpoint() -> void:
 	_checkpoint_chunk_key = CheckpointSaveData.WORLD_CHECKPOINT_KEY
 	_checkpoint_local_transform = Transform3D.IDENTITY
 	_has_valid_position = false
+	if had_checkpoint:
+		checkpoint_cleared.emit()
 
 
 func get_default_spawn_transform() -> Transform3D:
 	var chunks: Array[LevelChunk] = ChunkManager.get_active_chunks()
-	if chunks.is_empty(): # TODO Double check if this case should fallback to identity (0,0,0)
-		return Transform3D.IDENTITY
+	if chunks.is_empty():
+		var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS)
+		assert(player != null, "Authored player spawn missing in " + name)
+		return player.starting_transform
 
 	var entrance: Node3D = chunks[0].entrance_trigger
-	return entrance.global_transform
+	return entrance.global_transform.orthonormalized()
 
 
 func get_default_spawn_position() -> Vector3:
@@ -94,7 +101,7 @@ func get_default_spawn_position() -> Vector3:
 
 
 func respawn_at_required_checkpoint() -> void:
-	assert(_has_valid_position, "No required checkpoint found in " + name)
+	assert(has_active_checkpoint(), "No required checkpoint found in " + name)
 
 	var respawn_transform: Transform3D = get_respawn_transform()
 	ControlledEntityEvents.request_respawn(CHECKPOINT_RESPAWN_DELAY, respawn_transform)

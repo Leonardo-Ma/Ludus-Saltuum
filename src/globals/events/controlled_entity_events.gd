@@ -8,12 +8,16 @@ signal player_spawning(player: Node3D)
 signal player_finished_spawning(player: Node3D)
 
 signal player_respawning(duration: float)
+signal player_respawn_arrived
 signal player_finished_respawning
 
 signal controlled_entity_changed(entity: Node3D)
 #endregion
 
 var controlled_entity: Node3D = null
+var _respawn_owner: Node3D
+
+const RESPAWN_FADE_DURATION: float = 0.5
 
 
 func _ready() -> void:
@@ -26,16 +30,35 @@ func set_controlled_entity(entity: Node3D) -> void:
 	controlled_entity_changed.emit(entity)
 
 
-# BUG If something passes is_death = true and doesn't kill the player, it bypasses health and restores player health to max
+# Guard against bypassing health by passing is_death for a living player
 ## Request respawn for currently controlled entity
-## Entity must implement respawn
+## Entity implements its own respawn sequence
 func request_respawn(delay: float, target_transform: Transform3D, is_death: bool = false) -> void:
-	assert(controlled_entity != null, "No controlled entity to respawn")
-	assert(
-		controlled_entity.has_method("respawn"),
-		"Controlled entity " + controlled_entity.name + " must implement respawn(delay: float, target_transform: Transform3D, is_death: bool)",
-	)
-	controlled_entity.respawn(delay, target_transform, is_death)
+	if controlled_entity is PlayerEntity:
+		var player: PlayerEntity = controlled_entity
+		player.respawn(delay, target_transform, is_death)
+	elif controlled_entity is PlayerCar:
+		var car: PlayerCar = controlled_entity
+		car.recover_at(delay, target_transform)
+	else:
+		assert(false, "Player or vehicle missing in " + name)
+
+
+func begin_respawn(entity: Node3D, duration: float) -> void:
+	if entity == controlled_entity:
+		_respawn_owner = entity
+		player_respawning.emit(duration)
+
+
+func arrive_at_respawn(entity: Node3D) -> void:
+	if _respawn_owner == entity:
+		player_respawn_arrived.emit()
+
+
+func finish_respawn(entity: Node3D) -> void:
+	if _respawn_owner == entity:
+		_respawn_owner = null
+		player_finished_respawning.emit()
 
 
 func _on_player_respawning(_duration: float) -> void:

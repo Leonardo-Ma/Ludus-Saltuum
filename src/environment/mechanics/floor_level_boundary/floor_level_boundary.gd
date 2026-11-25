@@ -1,5 +1,9 @@
 extends Area3D
 
+## Tracks the controlled body and recovers players and vehicles crossing the fall plane
+
+const FALL_RECOVERY_DELAY: float = 2.0
+
 # TODO Check if this is best approach
 @export var attack: Attack
 ## The distance below the current checkpoint before the player dies
@@ -8,16 +12,17 @@ extends Area3D
 ## Entity to be followed for fall boundary tracking; set via controlled_entity_changed
 var target: Node3D
 
-# Store the exact spot the player was born before any checkpoints existed
-var _fallback_spawn_transform: Transform3D
-
 @onready var hitbox_collision_shape_3d: CollisionShape3D = $Hitbox/CollisionShape3D
 
 
 func _ready() -> void:
 	set_physics_process(false)
 	body_entered.connect(_on_body_entered)
-	CheckpointManager.checkpoint_activated.connect(_on_checkpoint_activated)
+	CheckpointManager.checkpoint_activated.connect(_on_checkpoint_changed)
+	CheckpointManager.checkpoint_loaded.connect(_on_checkpoint_changed)
+	CheckpointManager.checkpoint_cleared.connect(_refresh_height)
+	ChunkManager.chunk_recycled.connect(_on_chunk_recycled)
+	ChunkManager.level_loaded.connect(_refresh_height)
 	ControlledEntityEvents.controlled_entity_changed.connect(_on_controlled_entity_changed)
 	if ControlledEntityEvents.controlled_entity != null:
 		_on_controlled_entity_changed(ControlledEntityEvents.controlled_entity)
@@ -30,40 +35,36 @@ func _physics_process(_delta: float) -> void:
 	global_position.z = target.global_position.z
 
 
-func _initialize_position() -> void:
-	_fallback_spawn_transform = target.global_transform
-
-	if CheckpointManager.has_active_checkpoint():
-		global_position.y = CheckpointManager.get_respawn_position().y - fall_margin
-	else:
-		global_position.y = target.global_position.y - fall_margin
+func _refresh_height() -> void:
+	# Use the authored spawn before any checkpoints exist
+	_on_checkpoint_changed(CheckpointManager.get_respawn_position())
 
 
-func _on_checkpoint_activated(checkpoint_position: Vector3) -> void:
+func _on_checkpoint_changed(checkpoint_position: Vector3) -> void:
 	global_position.y = checkpoint_position.y - fall_margin
+
+
+func _on_chunk_recycled(_chunk: LevelChunk) -> void:
+	if not CheckpointManager.has_active_checkpoint():
+		_refresh_height()
 
 
 func _on_controlled_entity_changed(entity: Node3D) -> void:
 	assert(entity != null, "Controlled entity missing in " + name)
 	target = entity
+	_refresh_height()
 	set_physics_process(true)
-	hitbox_collision_shape_3d.disabled = false
+	hitbox_collision_shape_3d.set_deferred(&"disabled", false)
 
 
 func _on_body_entered(body: Node3D) -> void:
-	if body != target:
-		# TODO Double check, edge case if you for example push a non controller car out of the world,
-		# softlocking player. Fixed by triggered its respawn. But the respawn is coupled to player so it also
-		# triggers other things like teleport fade camera effect...
-		if body.has_method("respawn"):
-			body.respawn(2.0, _fallback_spawn_transform, false)
-		return
+	_recover_body.call_deferred(body)
 
-	var target_transform: Transform3D
 
-	if CheckpointManager.has_active_checkpoint():
-		target_transform = CheckpointManager.get_respawn_transform()
-	else:
-		target_transform = _fallback_spawn_transform
-
-	ControlledEntityEvents.request_respawn(2.0, target_transform, false)
+func _recover_body(body: Node3D) -> void:
+	if body == target and is_instance_valid(body):
+		ControlledEntityEvents.request_respawn(FALL_RECOVERY_DELAY, CheckpointManager.get_respawn_transform())
+	elif body is PlayerCar:
+		# TODO Verify that pushed cars can always recover before they softlock a route
+		var car: PlayerCar = body
+		car.recover_unattended()

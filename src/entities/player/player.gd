@@ -12,6 +12,12 @@ enum PlayerState {
 
 var state: PlayerState = PlayerState.INACTIVE
 
+var is_respawning: bool:
+	get:
+		return _player_respawn_controller.is_respawning()
+
+@onready var starting_transform: Transform3D = global_transform
+
 @onready var visual: CharacterVisual = %Visual
 @onready var weapon_controller: WeaponController = %WeaponController
 
@@ -67,7 +73,7 @@ func _physics_process(delta: float) -> void:
 
 
 func respawn(delay: float, target_transform: Transform3D, is_death: bool = false) -> void:
-	await _player_respawn_controller.respawn(delay, target_transform, is_death)
+	_player_respawn_controller.respawn(delay, target_transform, is_death)
 
 
 # TODO Maybe change this to a signal based to decouple?
@@ -76,12 +82,20 @@ func set_state(new_state: PlayerState) -> void:
 	_player_state_controller.set_state(new_state)
 
 
+func refresh_state() -> void:
+	_player_state_controller.refresh_state()
+
+
 func finish_load() -> void:
 	_player_respawn_controller.finish_load()
 
 
 func _on_death_complete() -> void:
 	_player_respawn_controller.on_death_complete()
+
+
+func _on_dying() -> void:
+	refresh_state()
 
 
 func _on_equipped_changed(asset: CosmeticAsset) -> void:

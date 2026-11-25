@@ -13,8 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://be65x13d4tlnt" path="res://src/environment/mechanics/collectible/coin/gold_coin.tscn" id="13_jitvu"]
 [ext_resource type="PackedScene" uid="uid://ddkudu1a3wgd7" path="res://src/shader_precompilation/shader_warmup.tscn" id="16_e7lu8"]
 [ext_resource type="PackedScene" uid="uid://cf5ku6le2d84s" path="res://src/environment/mechanics/floor_level_boundary/floor_level_boundary.tscn" id="16_tb146"]
-[ext_resource type="Script" uid="uid://7ox0wx5b0ek5" path="res://tests/execute_tests_flag.gd" id="main_script"]
 [ext_resource type="Script" uid="uid://bhouhxvylfdid" path="res://src/environment/mechanics/level_chunks/level_chunk_container.gd" id="17_chunks"]
+[ext_resource type="Script" uid="uid://7ox0wx5b0ek5" path="res://tests/execute_tests_flag.gd" id="main_script"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_mi8ch"]
 vertices = PackedVector3Array(-2.0784998, 4.5, -5.5785, -3.3284998, 4.5, -4.8285, -3.5784998, 4.5, -4.0785, -3.5784998, 4.5, 0.1715002, -3.0784998, 4.5, 1.1715002, -1.8284998, 4.5, 1.6715002, 1.9215002, 4.5, 1.6715002, 3.6715002, 4.5, -3.8284998, 3.1715002, 4.5, -5.0785, 2.1715002, 4.5, -5.5785, 3.6715002, 4.5, -0.078499794, 3.1715002, 4.5, 1.1715002)
@@ -108,7 +108,7 @@ transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0.99999976, 6.5044346, 
 is_procedurally_spawned = false
 static_id = &"tutorial_gold_0"
 
-[node name="Chunks" type="Node3D" parent="."]
+[node name="Chunks" type="Node3D" parent="." unique_id=1438593344]
 script = ExtResource("17_chunks")
 
 [node name="Player" parent="." unique_id=922527968 instance=ExtResource("7_ss67u")]

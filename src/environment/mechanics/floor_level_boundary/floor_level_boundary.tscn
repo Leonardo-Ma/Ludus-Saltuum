@@ -13,6 +13,7 @@ metadata/_custom_type_script = "uid://cxqsapbic2imr"
 size = Vector3(100, 0.1, 100)
 
 [node name="FloorLevelBoundary" type="Area3D" unique_id=444006995]
+collision_mask = 3
 script = ExtResource("1_g6x07")
 attack = SubResource("Resource_g6x07")
 

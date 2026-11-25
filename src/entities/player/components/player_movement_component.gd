@@ -21,16 +21,20 @@ var is_crouching: bool = false
 
 var _was_on_floor: bool = false
 
+@onready var _player: PlayerEntity = owner
+
 
 func _child_ready() -> void:
+	assert(_player != null, "PlayerEntity owner missing for " + name)
 	assert(camera != null, "Camera missing for " + owner.name)
 
 
 func _move(delta: float) -> void:
-	if movement_enabled:
+	var can_move: bool = movement_enabled and not _player.is_respawning
+	if can_move:
 		_crouch_logic()
 		movement_logic()
-	jump_air_logic(delta)
+	jump_air_logic(delta, can_move)
 
 
 # TODO Possibly multiply by delta? This breaks any size change (shrink/gigantify) though
@@ -75,7 +79,7 @@ func movement_logic() -> void:
 		owner.velocity.z = move_toward(owner.velocity.z, 0.0, get_speed())
 
 
-func jump_air_logic(delta: float) -> void:
+func jump_air_logic(delta: float, can_move: bool) -> void:
 	var is_on_floor_now: bool = owner.is_on_floor()
 
 	if not is_on_floor_now:
@@ -99,7 +103,7 @@ func jump_air_logic(delta: float) -> void:
 
 	_was_on_floor = is_on_floor_now
 
-	if not movement_enabled:
+	if not can_move:
 		return
 
 	# Ground jump, only when coyote time is still valid

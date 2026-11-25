@@ -26,11 +26,9 @@ func apply_save_data(data: SaveData) -> bool:
 	if player.vehicle_rider.is_in_vehicle:
 		player.vehicle_rider.vehicle.exit(player.global_position)
 
+	player.revive()
 	player.player_save_controller.apply_save_data(data.player)
-	if CheckpointManager.has_active_checkpoint():
-		player.global_transform = CheckpointManager.get_respawn_transform()
-	else:
-		player.global_transform = CheckpointManager.get_default_spawn_transform()
+	player.global_transform = CheckpointManager.get_respawn_transform()
 	player.finish_load()
 
 	GameplayStateManager.set_play_time(data.play_time_seconds)

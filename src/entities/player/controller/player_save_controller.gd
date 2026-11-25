@@ -4,8 +4,6 @@ extends SaveController
 
 const SKILL_CATALOGUE: SkillCatalogue = preload("uid://6ygr0ieawafb") # skill_catalogue.tres
 
-var _default_spawn_transform: Transform3D
-
 @onready var player: PlayerEntity = owner
 
 @onready var skills_controller: SkillsController = %SkillsController
@@ -17,7 +15,6 @@ var _default_spawn_transform: Transform3D
 
 func _child_ready() -> void:
 	assert(player != null, "Player owner missing in " + name)
-	_default_spawn_transform = player.global_transform
 	# NOTE Loading is triggered by game load manager
 
 
@@ -74,12 +71,13 @@ func initialize_new_save_data() -> void:
 	if player.vehicle_rider.is_in_vehicle:
 		player.vehicle_rider.vehicle.exit(player.global_position)
 
-	player.health.reset()
+	player.revive()
 	player.skills_controller.reset()
 	player.status_manager.clear_temporary_statuses()
 
 	player.velocity = Vector3.ZERO
-	player.global_transform = _default_spawn_transform
+	player.global_transform = player.starting_transform
+	player.finish_load()
 
 	economy_controller.score = 0
 	economy_controller.gold = 0
