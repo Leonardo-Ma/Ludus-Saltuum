@@ -15,9 +15,10 @@ enum LifecycleState {
 	ALIVE = 0,
 	DYING = 1,
 	DEAD = 2,
+	DISABLED = 3,
 }
 
-@onready var _entity: CharacterBody3D = owner as CharacterBody3D
+@onready var _entity: AggressiveEntity = owner
 
 @onready var _hitbox: Hitbox = %Hitbox
 @onready var _hurtbox: Hurtbox = %Hurtbox
@@ -39,7 +40,14 @@ func initialize() -> void:
 	_health.died.connect(_on_died)
 
 
+func is_alive() -> bool:
+	return _state == LifecycleState.ALIVE and _health.current_health > 0
+
+
 func disable() -> void:
+	if _state == LifecycleState.ALIVE:
+		_state = LifecycleState.DISABLED
+	_entity.interrupt_melee_attack()
 	_hitbox.set_deferred("monitoring", false)
 	_hitbox.set_deferred("monitorable", false)
 	_hurtbox.set_deferred("monitoring", false)
@@ -50,7 +58,9 @@ func disable() -> void:
 
 func revive() -> void:
 	_cancel_death_animation()
-	_state = LifecycleState.ALIVE
+	_state = LifecycleState.DISABLED
+	_entity.interrupt_melee_attack()
+	_entity.attack_component.reset_cooldown()
 	_health.reset()
 	_entity.scale = _initial_scale
 	_entity.visible = true
@@ -60,6 +70,7 @@ func revive() -> void:
 	_hitbox.set_deferred("monitorable", true)
 	_hurtbox.set_deferred("monitoring", true)
 	_hurtbox.set_deferred("monitorable", true)
+	_state = LifecycleState.ALIVE
 	revived.emit()
 
 

@@ -12,9 +12,10 @@ metadata/_custom_type_script = "uid://cxqsapbic2imr"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4hukf"]
 
-[node name="RisingLava" type="Area3D" unique_id=30082993]
+[node name="RisingLava" type="Area3D" unique_id=30082993 node_paths=PackedStringArray("hitbox_shape")]
 script = ExtResource("1_cdi7l")
 attack = SubResource("Resource_cdi7l")
+hitbox_shape = NodePath("Hitbox/CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1905279518]
 shape = SubResource("BoxShape3D_4hukf")

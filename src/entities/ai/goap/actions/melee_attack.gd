@@ -36,9 +36,4 @@ func perform(_actor: Node, _delta: float, _blackboard: Dictionary) -> bool:
 		var target_rotation_y: float = atan2(direction.x, direction.z)
 		entity.global_rotation.y = lerp_angle(entity.global_rotation.y, target_rotation_y, 10.0 * _delta)
 
-	if entity.attack_component.can_attack():
-		entity.attack_component.start_cooldown()
-		entity.melee_attacked.emit()
-		return true
-
-	return false
+	return entity.try_melee_attack()

@@ -5,6 +5,7 @@ signal activate
 signal deactivate
 
 @export var attack: Attack
+@export var hitbox_shape: CollisionShape3D
 
 @onready var hitbox: Hitbox = %Hitbox
 
@@ -14,9 +15,11 @@ signal deactivate
 
 
 func _ready() -> void:
-	assert(attack and attack.type != null, "Attack property incorrect for " + name)
+	assert(attack, "Attack missing in " + name)
+	assert(hitbox and hitbox_shape, "Hitbox or collision shape missing in " + name)
 	if !attack.hitkill:
 		assert(attack.damage > 0, "Attack property incorrect for " + name)
+	hitbox.arm(attack)
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 
@@ -25,11 +28,11 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node3D) -> void:
 	if body.is_in_group(Groups.CONTROLLED) or body.is_in_group(Groups.ENEMIES):
-		hitbox.find_child("CollisionShape3D").disabled = false
+		hitbox_shape.set_deferred(&"disabled", false)
 		activate.emit()
 
 
 func _on_body_exited(body: Node3D) -> void:
 	if body.is_in_group(Groups.CONTROLLED) or body.is_in_group(Groups.ENEMIES):
-		hitbox.find_child("CollisionShape3D").disabled = true
+		hitbox_shape.set_deferred(&"disabled", true)
 		deactivate.emit()

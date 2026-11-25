@@ -8,14 +8,17 @@ const FALL_RECOVERY_DELAY: float = 2.0
 @export var attack: Attack
 ## The distance below the current checkpoint before the player dies
 @export var fall_margin: float = 30.0
+@export var hitbox_collision_shape_3d: CollisionShape3D
 
 ## Entity to be followed for fall boundary tracking; set via controlled_entity_changed
 var target: Node3D
 
-@onready var hitbox_collision_shape_3d: CollisionShape3D = $Hitbox/CollisionShape3D
+@onready var _hitbox: Hitbox = %Hitbox
 
 
 func _ready() -> void:
+	assert(_hitbox and hitbox_collision_shape_3d and attack, "Hitbox, shape or attack missing in " + name)
+	_hitbox.arm(attack)
 	set_physics_process(false)
 	body_entered.connect(_on_body_entered)
 	CheckpointManager.checkpoint_activated.connect(_on_checkpoint_changed)
@@ -29,7 +32,7 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	assert(target != null, "Target missing in " + name)
+	assert(target, "Target missing in " + name)
 
 	global_position.x = target.global_position.x
 	global_position.z = target.global_position.z
@@ -50,7 +53,7 @@ func _on_chunk_recycled(_chunk: LevelChunk) -> void:
 
 
 func _on_controlled_entity_changed(entity: Node3D) -> void:
-	assert(entity != null, "Controlled entity missing in " + name)
+	assert(entity, "Controlled entity missing in " + name)
 	target = entity
 	_refresh_height()
 	set_physics_process(true)

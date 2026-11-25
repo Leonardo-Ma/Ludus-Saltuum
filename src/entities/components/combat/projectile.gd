@@ -2,12 +2,9 @@
 class_name Projectile
 extends Area3D
 
-## Straight-line mover, damage dealt by Hitbox child through attack, freed on world contact or after hit
+## Moves in a straight line and expires on contact or when its lifetime ends
 
 @export var sound_effect: AudioStreamOggVorbis
-
-var attack: Attack
-var shooter: AggressiveEntity
 
 var _velocity: Vector3 = Vector3.ZERO
 var _time_left: float = 0.0
@@ -16,7 +13,8 @@ var _time_left: float = 0.0
 
 
 func _ready() -> void:
-	assert(collision_layer == 0 and collision_mask == 9, "Projectile must have no layer and have world and world object mask")
+	assert(_hitbox, "Hitbox missing in " + name)
+	assert(collision_layer == 0 and collision_mask == 9, name + " must have no layer and mask world and world objects")
 
 	set_physics_process(false)
 	body_entered.connect(_on_body_entered)
@@ -25,9 +23,9 @@ func _ready() -> void:
 
 ## Call after add_child and positioning, faces -Z along travel
 func launch(projectile_attack: ProjectileAttack, new_shooter: AggressiveEntity, direction: Vector3) -> void:
-	attack = projectile_attack
-	shooter = new_shooter
-	_hitbox.ignored_entity = new_shooter
+	_hitbox.source_override = new_shooter
+	_hitbox.arm(projectile_attack)
+	new_shooter.tree_exiting.connect(_on_shooter_exiting, CONNECT_ONE_SHOT)
 	_velocity = direction * projectile_attack.projectile_speed
 	_time_left = projectile_attack.projectile_lifetime
 	scale = new_shooter.global_basis.get_scale()
@@ -41,7 +39,7 @@ func launch(projectile_attack: ProjectileAttack, new_shooter: AggressiveEntity, 
 
 
 func _physics_process(delta: float) -> void:
-	assert(attack != null, "Attack missing in " + name)
+	assert(_hitbox.attack, "Projectile moved before launch in " + name)
 	global_position += _velocity * delta
 	_time_left -= delta
 	if _time_left <= 0.0:
@@ -51,6 +49,10 @@ func _physics_process(delta: float) -> void:
 # NOTE When hitting an world object without hurtbox
 func _on_body_entered(_body: Node3D) -> void:
 	queue_free()
+
+
+func _on_shooter_exiting() -> void:
+	_hitbox.source_override = null
 
 
 func _on_hit_landed(_hurtbox: Hurtbox) -> void:

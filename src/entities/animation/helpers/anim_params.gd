@@ -46,3 +46,11 @@ static func selector_name(layer: AnimationActionDefinition.Layer) -> StringName:
 
 static func layer_select(layer: AnimationActionDefinition.Layer) -> StringName:
 	return StringName("parameters/%s/transition_request" % selector_name(layer))
+
+
+static func speed_name(layer: AnimationActionDefinition.Layer) -> StringName:
+	return StringName("%s_speed" % LAYER_NAMES[layer])
+
+
+static func layer_speed(layer: AnimationActionDefinition.Layer) -> StringName:
+	return StringName("parameters/%s/scale" % speed_name(layer))

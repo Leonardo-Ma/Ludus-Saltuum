@@ -13,7 +13,7 @@ var _cooldown_timer: SceneTreeTimer = null
 
 
 func _ready() -> void:
-	assert(attack and attack.damage > 0, "Attack not properly configured for " + owner.name)
+	assert(attack and attack.damage > 0 and attack.rate > 0.0, "Attack not properly configured for " + name)
 	_effective_attack = attack
 
 
@@ -34,5 +34,9 @@ func can_attack() -> bool:
 	return _cooldown_timer == null or _cooldown_timer.time_left <= 0.0
 
 
-func start_cooldown() -> void:
-	_cooldown_timer = get_tree().create_timer(_effective_attack.rate, false)
+func start_cooldown(duration: float) -> void:
+	_cooldown_timer = get_tree().create_timer(duration, false)
+
+
+func reset_cooldown() -> void:
+	_cooldown_timer = null

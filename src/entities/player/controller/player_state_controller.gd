@@ -11,7 +11,7 @@ var _initialized: bool = false
 
 func _ready() -> void:
 	_player = owner
-	assert(_player != null, "PlayerEntity owner missing for " + name)
+	assert(_player, "PlayerEntity owner missing for " + name)
 	_player.ready.connect(_initialize, CONNECT_ONE_SHOT)
 	ApplicationStateManager.state_changed.connect(_on_application_state_changed)
 
@@ -28,6 +28,8 @@ func set_state(new_state: PlayerEntity.PlayerState) -> void:
 	var is_active: bool = new_state == PlayerEntity.PlayerState.ACTIVE
 	var simulate_physics: bool = is_active and _player.health.current_health > 0
 	var can_control: bool = simulate_physics and not _player.is_respawning
+	if not can_control:
+		_player.interrupt_melee_attack()
 	if is_active:
 		if not _player.is_in_group(Groups.CONTROLLED):
 			_player.add_to_group(Groups.CONTROLLED)

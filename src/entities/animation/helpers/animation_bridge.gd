@@ -11,11 +11,10 @@ extends Node
 
 func _ready() -> void:
 	assert(_entity, "AggressiveEntity owner missing in " + name)
-	assert(_controller != null and _health != null and _hitbox != null, "Animation bridge dependencies missing in " + name)
+	assert(_controller and _health and _hitbox, "Animation bridge dependencies missing in " + name)
 	_health.damaged.connect(_on_damaged)
 	_health.died.connect(_on_died)
 	_health.revived.connect(_on_revived)
-	_entity.melee_attacked.connect(_on_melee_attacked)
 	_entity.magic_casted.connect(_on_magic_casted)
 	_controller.action_finished.connect(_close_melee_window)
 	_controller.action_interrupted.connect(_close_melee_window)
@@ -36,10 +35,6 @@ func _on_died() -> void:
 
 func _on_revived() -> void:
 	_controller.set_dead(false)
-
-
-func _on_melee_attacked() -> void:
-	_controller.request_action(AnimKeys.MELEE)
 
 
 func _on_magic_casted() -> void:

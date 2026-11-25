@@ -24,8 +24,8 @@ var _finished_msec: Dictionary[StringName, int] = { }
 
 
 func _ready() -> void:
-	assert(profile != null, "AnimationProfile missing in " + name)
-	assert(_tree != null and _player != null, "AnimationTree or AnimationPlayer missing in " + name)
+	assert(profile, "AnimationProfile missing in " + name)
+	assert(_tree and _player, "AnimationTree or AnimationPlayer missing in " + name)
 	assert(_tree.get_node(_tree.anim_player) == _player, "AnimationTree linked to wrong AnimationPlayer in " + name)
 	profile.validate(name)
 	_validate_graph()
@@ -41,7 +41,7 @@ func _ready() -> void:
 		observed_layers.append(definition.layer)
 
 	_playback = _tree.get(AnimParams.playback())
-	assert(_playback != null, "Body playback missing in " + name)
+	assert(_playback, "Body playback missing in " + name)
 	set_stance(profile.default_stance)
 	_tree.active = true
 	_playback.start(_stance)
@@ -79,6 +79,7 @@ func jump() -> void:
 	_is_airborne = true
 	if _is_dead:
 		return
+	abort_action(AnimKeys.MELEE)
 	_playback.start(AnimParams.JUMP)
 
 
@@ -88,6 +89,8 @@ func set_airborne(airborne: bool) -> void:
 	_is_airborne = airborne
 	if not profile.has_air_states or _is_dead:
 		return
+	if airborne:
+		abort_action(AnimKeys.MELEE)
 	_playback.travel(AnimParams.FALL if airborne else _stance)
 
 
@@ -110,24 +113,31 @@ func set_dead(dead: bool) -> void:
 	_playback.start(AnimParams.RESPAWN if profile.has_respawn else _stance)
 
 
-func request_action(action_id: StringName) -> void:
+## Optional duration scales selected clip and its event tracks together
+func request_action(action_id: StringName, duration: float = 0.0) -> bool:
 	var definition: AnimationActionDefinition = _definitions.get(action_id)
-	assert(definition != null, "Action '%s' missing in AnimationProfile of %s" % [action_id, name])
+	assert(definition, "Action '%s' missing in AnimationProfile of %s" % [action_id, name])
 
 	# TODO Consider input buffering, so if you attack when about to hit ground, it triggers attack
 	if _is_dead or (definition.ground_only and _is_airborne):
-		return
+		return false
+	if action_id == AnimKeys.MELEE and _playback.get_current_node() == AnimParams.RESPAWN:
+		return false
 	var previous_action: StringName = _running.get(definition.layer, &"")
 	if previous_action != &"" and not definition.interrupt_active:
-		return
+		return false
 
+	var variant: StringName
 	if not definition.inputs.is_empty():
-		_tree.set(AnimParams.layer_select(definition.layer), _pick_variant(definition))
+		variant = _pick_variant(definition)
+		_tree.set(AnimParams.layer_select(definition.layer), variant)
+	_set_action_speed(definition.layer, variant, duration)
 	_running[definition.layer] = action_id
 	_tree.set(AnimParams.layer_request(definition.layer), AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 	if previous_action != &"":
 		_finished_msec[previous_action] = Time.get_ticks_msec()
 		action_interrupted.emit(previous_action)
+	return true
 
 
 ## No action_finished emitted, used for held actions (block, bow hold)
@@ -140,6 +150,21 @@ func abort_action(action_id: StringName) -> void:
 func is_action_running(action_id: StringName) -> bool:
 	return _running.values().has(action_id)
 #endregion
+
+
+func _set_action_speed(layer: AnimationActionDefinition.Layer, variant: StringName, duration: float) -> void:
+	var root: AnimationNodeBlendTree = _tree.tree_root
+	var speed_node: StringName = AnimParams.speed_name(layer)
+	var speed: float = 1.0
+	if duration > 0.0:
+		# Timed variants use matching selector input and clip node names
+		assert(root.has_node(speed_node) and root.get_node(speed_node) is AnimationNodeTimeScale, "Action TimeScale missing in " + name)
+		assert(root.has_node(variant) and root.get_node(variant) is AnimationNodeAnimation, "Action clip '%s' missing in %s" % [variant, name])
+		var clip: AnimationNodeAnimation = root.get_node(variant)
+		assert(_player.has_animation(clip.animation), "Animation '%s' missing in %s" % [clip.animation, name])
+		speed = _player.get_animation(clip.animation).length / duration
+	if root.has_node(speed_node):
+		_tree.set(AnimParams.layer_speed(layer), speed)
 
 
 func _pick_variant(definition: AnimationActionDefinition) -> StringName:

@@ -23,6 +23,8 @@ input_3/auto_advance = false
 input_3/break_loop_at_end = false
 input_3/reset = true
 
+[sub_resource type="AnimationNodeTimeScale" id="FullBodySpeed"]
+
 [sub_resource type="AnimationNodeAnimation" id="HitA"]
 animation = &"general/Hit_A"
 
@@ -69,6 +71,8 @@ nodes/magic/node = SubResource("Magic")
 nodes/magic/position = Vector2(480, 1460)
 nodes/full_body_select/node = SubResource("FullBodySelect")
 nodes/full_body_select/position = Vector2(840, 1120)
+nodes/full_body_speed/node = SubResource("FullBodySpeed")
+nodes/full_body_speed/position = Vector2(985, 1240)
 nodes/full_body/node = SubResource("FullBody")
 nodes/full_body/position = Vector2(1060, 1040)
 nodes/hit_a/node = SubResource("HitA")
@@ -79,4 +83,4 @@ nodes/reaction_select/node = SubResource("ReactionSelect")
 nodes/reaction_select/position = Vector2(1480, 1360)
 nodes/reaction/node = SubResource("Reaction")
 nodes/reaction/position = Vector2(1320, 1000)
-node_connections = [&"output", 0, &"reaction", &"full_body_select", 0, &"slice_diagonal", &"full_body_select", 1, &"slice_horizontal", &"full_body_select", 2, &"stab", &"full_body_select", 3, &"magic", &"full_body", 0, &"body", &"full_body", 1, &"full_body_select", &"reaction_select", 0, &"hit_a", &"reaction_select", 1, &"hit_b", &"reaction", 0, &"full_body", &"reaction", 1, &"reaction_select"]
+node_connections = [&"output", 0, &"reaction", &"full_body_select", 0, &"slice_diagonal", &"full_body_select", 1, &"slice_horizontal", &"full_body_select", 2, &"stab", &"full_body_select", 3, &"magic", &"full_body", 0, &"body", &"full_body_speed", 0, &"full_body_select", &"full_body", 1, &"full_body_speed", &"reaction_select", 0, &"hit_a", &"reaction_select", 1, &"hit_b", &"reaction", 0, &"full_body", &"reaction", 1, &"reaction_select"]

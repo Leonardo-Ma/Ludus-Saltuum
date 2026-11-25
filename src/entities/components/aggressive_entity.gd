@@ -4,7 +4,6 @@ extends CharacterBody3D
 ## Generic abstract class for entities that take damage and attack [br]
 ## Refer to subclass sandbox https://gameprogrammingpatterns.com/subclass-sandbox.html
 
-@warning_ignore("unused_signal")
 signal melee_attacked
 @warning_ignore("unused_signal")
 signal magic_casted
@@ -26,6 +25,7 @@ var attack: Attack:
 @onready var _lifecycle: EntityLifecycleController = %EntityLifecycleController
 @onready var _damage_feedback: EntityDamageFeedback = %EntityDamageFeedback
 @onready var _combat_audio: EntityCombatAudio = %EntityCombatAudio
+@onready var _animation: AnimationController = %AnimationController
 
 
 func _push_rigid_body(collision: KinematicCollision3D, push_force: float) -> void:
@@ -43,7 +43,7 @@ func _push_rigid_body(collision: KinematicCollision3D, push_force: float) -> voi
 ## Children should override _child_ready instead of this
 func _ready() -> void:
 	assert(collision_shape.shape, "CollisionShape missing in " + name)
-	assert(hitbox, "Hitbox incorrect for " + name)
+	assert(hitbox and hitbox.animated_shape, "Melee hitbox incorrect for " + name)
 	assert(hurtbox, "Hurtbox incorrect for " + name)
 	assert(status_manager, "Status Manager missing for " + name)
 	assert(weapon_visual, "WeaponVisual missing for " + name)
@@ -51,6 +51,8 @@ func _ready() -> void:
 	assert(_lifecycle, "lifecycle missing for " + name)
 	assert(_damage_feedback, "damage_feedback missing for " + name)
 	assert(_combat_audio, "combat_audio missing for " + name)
+	assert(_animation, "AnimationController missing for " + name)
+	assert(attack_component, "AttackComponent missing for " + name)
 
 	_lifecycle.initialize()
 	_damage_feedback.initialize()
@@ -88,6 +90,23 @@ func _on_revived() -> void:
 ## Also used by save/load
 func disable_entity() -> void:
 	_lifecycle.disable()
+
+
+func try_melee_attack() -> bool:
+	if not can_process() or not _lifecycle.is_alive() or not attack_component.can_attack():
+		return false
+	var attack_used: Attack = attack_component.get_effective_attack()
+	if not _animation.request_action(AnimKeys.MELEE, attack_used.rate):
+		return false
+
+	hitbox.arm(attack_used)
+	attack_component.start_cooldown(attack_used.rate)
+	melee_attacked.emit()
+	return true
+
+
+func interrupt_melee_attack() -> void:
+	_animation.abort_action(AnimKeys.MELEE)
 
 
 ## Used on world reset/load

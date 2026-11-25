@@ -76,6 +76,12 @@ func respawn(delay: float, target_transform: Transform3D, is_death: bool = false
 	_player_respawn_controller.respawn(delay, target_transform, is_death)
 
 
+func try_melee_attack() -> bool:
+	if state != PlayerState.ACTIVE or is_respawning or not is_on_floor():
+		return false
+	return super.try_melee_attack()
+
+
 # TODO Maybe change this to a signal based to decouple?
 ## Re-applies when unchanged, respawn relies on it to undo disable_entity()
 func set_state(new_state: PlayerState) -> void:

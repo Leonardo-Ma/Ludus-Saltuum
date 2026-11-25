@@ -106,6 +106,7 @@ parameters/full_body_select/current_state = ""
 parameters/full_body_select/transition_request = ""
 parameters/full_body_select/current_index = -1
 parameters/full_body_select/observer = null
+parameters/full_body_speed/scale = 1.0
 parameters/full_body/active = false
 parameters/full_body/internal_active = false
 parameters/full_body/request = 0
@@ -218,11 +219,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.017, 0.635, -0.819)
 shape = SubResource("BoxShape3D_to0xg")
 disabled = true
 
-[node name="Hurtbox" type="Area3D" parent="." unique_id=2030759605]
+[node name="Hurtbox" type="Area3D" parent="." unique_id=2030759605 node_paths=PackedStringArray("health")]
 unique_name_in_owner = true
 collision_layer = 0
 collision_mask = 32768
 script = ExtResource("25_ljr68")
+health = NodePath("../Components/HealthComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=621494799]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.548, 0)

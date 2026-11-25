@@ -10,6 +10,6 @@ extends Resource
 
 @export_category("Attributes")
 @export_range(-99999, 99999, 1, "suffix:base dmg") var damage: int
-@export_range(0.1, 999, 0.1, "suffix:Seconds/attack") var rate: float = 1
+@export_range(0.1, 10, 0.1, "suffix:Seconds/attack") var rate: float = 1.5
 #@export var attack_position: Vector2
 @export var hitkill: bool

@@ -12,16 +12,18 @@ metadata/_custom_type_script = "uid://cxqsapbic2imr"
 [sub_resource type="BoxShape3D" id="BoxShape3D_g6x07"]
 size = Vector3(100, 0.1, 100)
 
-[node name="FloorLevelBoundary" type="Area3D" unique_id=444006995]
+[node name="FloorLevelBoundary" type="Area3D" unique_id=444006995 node_paths=PackedStringArray("hitbox_collision_shape_3d")]
 collision_mask = 3
 script = ExtResource("1_g6x07")
 attack = SubResource("Resource_g6x07")
+hitbox_collision_shape_3d = NodePath("Hitbox/CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=74139295]
 shape = SubResource("BoxShape3D_g6x07")
 debug_color = Color(0.9764706, 0, 0, 1)
 
 [node name="Hitbox" type="Area3D" parent="." unique_id=982130054]
+unique_name_in_owner = true
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("2_ojqax")
