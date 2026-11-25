@@ -10,6 +10,7 @@ var _goals: Array[GoapGoal]
 var _current_goal: GoapGoal
 var _current_plan: Array[GoapAction]
 var _current_plan_step: int = 0
+var _current_action_started: bool = false
 
 ## Memory has actor and blackboard
 var _goap_memory: GoapMemory
@@ -42,7 +43,8 @@ func _process(delta: float) -> void:
 
 
 func _evaluate_goals(blackboard: Dictionary) -> void:
-	var current_valid: bool = _is_current_valid(blackboard)
+	if not _is_current_valid(blackboard):
+		_clear_current()
 
 	var best_goal: GoapGoal = _get_best_goal()
 
@@ -53,9 +55,7 @@ func _evaluate_goals(blackboard: Dictionary) -> void:
 
 	var needs_new_plan: bool = false
 
-	if not current_valid:
-		needs_new_plan = true
-	elif _current_goal == null or _current_plan.is_empty():
+	if _current_goal == null or _current_plan.is_empty():
 		needs_new_plan = true
 	elif _goal_switch_cooldown <= 0.0 and best_goal.priority() > _current_goal.priority():
 		# Higher priority goal available
@@ -75,8 +75,7 @@ func _is_current_valid(blackboard: Dictionary) -> bool:
 
 	if _current_plan_step < _current_plan.size():
 		var current_action: GoapAction = _current_plan[_current_plan_step]
-		if not current_action.is_valid(blackboard):
-			return false
+		return _can_continue_action(current_action, blackboard)
 
 	return true
 
@@ -128,7 +127,8 @@ func _clear_current() -> void:
 
 
 func _exit_current_action() -> void:
-	if _current_plan_step < _current_plan.size():
+	if _current_action_started:
+		_current_action_started = false
 		_current_plan[_current_plan_step].exit(_goap_memory.get_actor())
 
 
@@ -182,6 +182,12 @@ func _get_best_goal() -> GoapGoal:
 	return highest_priority
 
 
+func _can_continue_action(action: GoapAction, blackboard: Dictionary) -> bool:
+	if _current_action_started:
+		return action.is_valid(blackboard)
+	return action.can_start(blackboard)
+
+
 func _follow_plan(delta: float, blackboard: Dictionary) -> void:
 	if _current_plan_step >= _current_plan.size():
 		_clear_current()
@@ -190,15 +196,18 @@ func _follow_plan(delta: float, blackboard: Dictionary) -> void:
 	var current_action: GoapAction = _current_plan[_current_plan_step]
 	assert(current_action, "GoapAgent: null action in plan in " + name)
 
-	if not current_action.is_valid(blackboard):
+	if not _can_continue_action(current_action, blackboard):
 		_clear_current()
+		_try_get_new_plan(blackboard)
 		return
 
+	_current_action_started = true
 	var is_step_complete: bool = current_action.perform(_goap_memory.get_actor(), delta, blackboard)
 
 	if is_step_complete:
 		if _current_plan_step < _current_plan.size() - 1:
 			_exit_current_action()
 			_current_plan_step += 1
+			_goap_memory.force_refresh_blackboard()
 		else:
 			_clear_current()

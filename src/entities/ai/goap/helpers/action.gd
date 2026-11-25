@@ -12,6 +12,7 @@ func is_valid(_blackboard: Dictionary) -> bool:
 
 ## Action Cost. This is a function so it handles situational costs, when the world
 ## state is considered when calculating the cost.
+## Costs must be non-negative for uniform-cost search
 func get_cost(_blackboard: Dictionary) -> int:
 	return 0
 
@@ -32,6 +33,19 @@ func get_preconditions() -> Dictionary:
 ## }
 func get_effects() -> Dictionary:
 	return { }
+
+
+## Checks action eligibility before planning or starting execution
+func can_start(blackboard: Dictionary) -> bool:
+	return matches_state(blackboard, get_preconditions()) and is_valid(blackboard)
+
+
+## Checks whether state contains every required key and value
+static func matches_state(state: Dictionary, required_state: Dictionary) -> bool:
+	for key: String in required_state:
+		if not state.has(key) or state[key] != required_state[key]:
+			return false
+	return true
 
 
 ## Release action-owned state on completion or interruption

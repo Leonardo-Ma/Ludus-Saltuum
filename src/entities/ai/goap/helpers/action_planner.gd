@@ -2,168 +2,113 @@
 class_name GoapActionPlanner
 extends Node
 
-const MAX_DEPTH: int = 15
-const INF_COST: int = 1 << 30
+## Finds lowest-cost plans by exploring simulated blackboard states
 
-var _actions: Array[GoapAction] = []
-var _best_cost_found: int = INF_COST
+const MAX_DEPTH: int = 15
+
+
+class SearchStep:
+	extends RefCounted
+
+	var state: Dictionary
+	var cost: int
+	var depth: int
+	var action: GoapAction
+	var previous: SearchStep
+
+
+	func _init(snapshot: Dictionary, total_cost: int, step_depth: int, step_action: GoapAction, parent_step: SearchStep) -> void:
+		state = snapshot
+		cost = total_cost
+		depth = step_depth
+		action = step_action
+		previous = parent_step
+
+
+var _actions: Array[GoapAction]
 
 
 ## Set actions available for planning.
 ## This can be changed in runtime for more dynamic options.
 func set_actions(actions: Array[GoapAction]) -> void:
 	_actions = actions
-	assert(not _actions.is_empty(), "GoapActionPlanner: No actions provided!")
+	assert(not _actions.is_empty(), "GoapActionPlanner: No actions provided in " + name)
 
 
-## Receives a Goal and an optional blackboard.
-## Returns a list of actions to be executed.
+## Returns actions in execution order for goal and initial blackboard
 func get_plan(goal: GoapGoal, blackboard: Dictionary) -> Array[GoapAction]:
 	assert(goal, "GoapActionPlanner: goal is null in " + name)
 
-	var desired_state: Dictionary = goal.get_desired_state().duplicate()
-	if desired_state.is_empty():
-		assert(false, "GoapActionPlanner: Goal '%s' has no desired state!" % goal.get_custom_class_name())
-		return []
-
-	if _actions.is_empty():
-		assert(false, "GoapActionPlanner: Cannot plan with no actions available!")
-		return []
-
-	for key: String in desired_state.keys():
-		if blackboard.get(key) != null and blackboard.get(key) == desired_state[key]:
-			desired_state.erase(key)
-
-	if desired_state.is_empty():
+	var desired_state: Dictionary = goal.get_desired_state()
+	assert(not desired_state.is_empty(), "GoapActionPlanner: Goal '%s' has no desired state in %s" % [goal.get_custom_class_name(), name])
+	assert(not _actions.is_empty(), "GoapActionPlanner: Cannot plan with no actions available in " + name)
+	if GoapAction.matches_state(blackboard, desired_state):
 		return [] # Goal already achieved
 
-	var all_plans: Array[Dictionary] = []
-	var initial_plan: Array[GoapAction] = []
-	_best_cost_found = INF_COST
-	_build_plans(desired_state, blackboard.duplicate(), initial_plan, all_plans, 0, 0)
+	var initial_state: Dictionary = blackboard.duplicate()
+	# Dictionary hashes depend on insertion order
+	initial_state.sort()
+	var root: SearchStep = SearchStep.new(initial_state, 0, 0, null, null)
+	var frontier: Array[SearchStep] = [root]
+	var best_costs: Dictionary[Dictionary, Dictionary] = { initial_state: { 0: 0 } }
 
-	if all_plans.is_empty():
-		return []
+	while not frontier.is_empty():
+		var step: SearchStep = frontier.pop_back()
+		var costs_by_depth: Dictionary = best_costs[step.state]
+		if costs_by_depth.get(step.depth) != step.cost:
+			continue
 
-	var valid_plans: Array[Dictionary] = []
-	var goal_state_full: Dictionary = goal.get_desired_state()
-	for plan: Dictionary in all_plans:
-		if _verify_plan(plan["actions"], blackboard, goal_state_full):
-			valid_plans.append(plan)
+		# First complete plan reached has lowest cost
+		if GoapAction.matches_state(step.state, desired_state):
+			return _build_plan(step)
+		if step.depth >= MAX_DEPTH:
+			continue
 
-	if valid_plans.is_empty():
-		return []
+		# Expand actions whose validity and preconditions match simulated blackboard
+		for action: GoapAction in _actions:
+			if not action.can_start(step.state):
+				continue
 
-	return _get_cheapest_plan(valid_plans)["actions"]
+			# Apply effects to a simulated blackboard
+			var next_state: Dictionary = step.state.duplicate()
+			next_state.merge(action.get_effects(), true)
+			next_state.sort()
+
+			var action_cost: int = action.get_cost(step.state)
+			assert(action_cost >= 0, "GoapActionPlanner: Negative cost for '%s' in %s" % [action.get_custom_class_name(), name])
+			var next_step: SearchStep = SearchStep.new(next_state, step.cost + action_cost, step.depth + 1, action, step)
+			if _record_best_cost(best_costs, next_step):
+				var index: int = frontier.bsearch_custom(next_step, _has_higher_cost)
+				frontier.insert(index, next_step)
+
+	return []
 
 
-func _verify_plan(plan: Array[GoapAction], initial_blackboard: Dictionary, goal_state: Dictionary) -> bool:
-	var state: Dictionary = initial_blackboard.duplicate()
-	for action: GoapAction in plan:
-		if not action.is_valid(state):
+func _record_best_cost(best_costs: Dictionary[Dictionary, Dictionary], step: SearchStep) -> bool:
+	var costs_by_depth: Dictionary = best_costs.get_or_add(step.state, { })
+	# Prune cycles and costlier paths that leave no more steps to reach goal
+	for depth: int in costs_by_depth:
+		if depth <= step.depth and costs_by_depth[depth] <= step.cost:
 			return false
-		var preconditions: Dictionary = action.get_preconditions()
-		for key: String in preconditions:
-			if not state.has(key) or state.get(key) != preconditions[key]:
-				return false
-		var effects: Dictionary = action.get_effects()
-		for key: String in effects:
-			state[key] = effects[key]
-
-	for key: String in goal_state:
-		if not state.has(key) or state.get(key) != goal_state[key]:
-			return false
+	for depth: int in costs_by_depth.keys():
+		if depth >= step.depth and costs_by_depth[depth] >= step.cost:
+			costs_by_depth.erase(depth)
+	costs_by_depth[step.depth] = step.cost
 	return true
 
 
-func _build_plans(
-	remaining_state: Dictionary,
-	blackboard: Dictionary,
-	current_plan: Array[GoapAction],
-	all_plans: Array[Dictionary],
-	depth: int,
-	current_cost: int,
-) -> void:
-	if depth >= MAX_DEPTH:
-		return
-
-	# Find actions that satisfy any remaining conditions
-	for action: GoapAction in _actions:
-		var effects: Dictionary = action.get_effects()
-		var new_remaining: Dictionary = remaining_state.duplicate()
-		var satisfied_something: bool = false
-
-		# Check if action satisfies any remaining conditions
-		for key: String in remaining_state.keys():
-			if effects.has(key) and remaining_state[key] == effects[key]:
-				new_remaining.erase(key)
-				satisfied_something = true
-
-		if not satisfied_something:
-			continue
-
-		# Add preconditions to remaining state
-		var has_conflict: bool = false
-		var preconditions: Dictionary = action.get_preconditions()
-		for key: String in preconditions.keys():
-			if not blackboard.has(key) or blackboard.get(key) != preconditions[key]:
-				if new_remaining.has(key) and new_remaining[key] != preconditions[key]:
-					has_conflict = true
-					break
-				new_remaining[key] = preconditions[key]
-
-		if has_conflict:
-			continue
-
-		var action_cost: int = action.get_cost(blackboard)
-		var new_cost: int = current_cost + action_cost
-
-		if new_cost > _best_cost_found:
-			continue
-
-		# Apply effects to a simulated blackboard
-		var new_blackboard: Dictionary = blackboard.duplicate()
-		for key: String in effects.keys():
-			new_blackboard[key] = effects[key]
-
-		var new_plan: Array[GoapAction] = current_plan.duplicate()
-		# Insert at front because we are planning backwards from the goal
-		new_plan.push_front(action)
-
-		if _has_cycle(new_plan):
-			continue
-
-		if new_remaining.is_empty():
-			# Found a complete plan
-			if new_cost < _best_cost_found:
-				_best_cost_found = new_cost
-
-			(all_plans.append({ "actions": new_plan, "cost": new_cost }))
-		else:
-			_build_plans(new_remaining, new_blackboard, new_plan, all_plans, depth + 1, new_cost)
+func _has_higher_cost(first: SearchStep, second: SearchStep) -> bool:
+	return first.cost > second.cost
 
 
-func _has_cycle(plan: Array[GoapAction]) -> bool:
-	if plan.size() > MAX_DEPTH:
-		return true
-
-	# Simple rolling window limit
-	var counts: Dictionary = { }
-	for action: GoapAction in plan:
-		var cls: String = action.get_custom_class_name()
-		counts[cls] = counts.get(cls, 0) + 1
-		if counts[cls] > 2:
-			return true
-
-	return false
-
-
-func _get_cheapest_plan(plans: Array[Dictionary]) -> Dictionary:
-	var best_plan: Dictionary = plans[0]
-	for plan: Dictionary in plans:
-		if plan["cost"] < best_plan["cost"]:
-			best_plan = plan
-	return best_plan
+func _build_plan(goal_step: SearchStep) -> Array[GoapAction]:
+	var plan: Array[GoapAction] = []
+	var step: SearchStep = goal_step
+	# Prepend actions while tracing back from goal to initial state
+	while step.previous != null:
+		plan.push_front(step.action)
+		step = step.previous
+	return plan
 
 
 ## Prints plan. Used for debugging only.
