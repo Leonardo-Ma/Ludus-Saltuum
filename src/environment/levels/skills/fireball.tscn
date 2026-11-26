@@ -59,12 +59,14 @@ transform = Transform3D(0.18317977, 0, 0.08028184, 0, 0.2, 0, -0.08028184, 0, 0.
 transform = Transform3D(0.13711588, 0, -4.9981194, 0, 5.000002, 0, 4.9981194, 0, 0.13711588, 11.260004, 1.82, 9.810563)
 
 [node name="SkeletonMage" parent="HexagonStonePlatform/LeftSideEntrance/WallStraight" unique_id=280064195 instance=ExtResource("8_2mg1o")]
+placement_id = &"2121c410a3daf1d5f8fdb6e616368c8a"
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.4963765, 1.1021066, 0.2290386)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/LeftSideEntrance/WallStraight" unique_id=1062805800 instance=ExtResource("8_2mg1o")]
+placement_id = &"c1307833b00d9edc5f34d17d6f3cd81c"
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.5036235, 1.1021066, 0.22903812)
 collision_layer = 2
 collision_mask = 11
@@ -74,12 +76,14 @@ ai_config = SubResource("Resource_jkhx3")
 transform = Transform3D(0.1371159, 0, -4.998119, 0, 5.000002, 0, 4.998119, 0, 0.1371159, 11.514812, 1.82, 19.657322)
 
 [node name="SkeletonMage" parent="HexagonStonePlatform/LeftSideEntrance/WallStraight2" unique_id=1461613197 instance=ExtResource("8_2mg1o")]
+placement_id = &"da85d0a34bb4ae19b7f63c93d60cebdf"
 transform = Transform3D(0.3, 0, 0, 0, 0.3000002, 0, 0, 0, 0.3, -0.4963789, 1.1021067, 0.22903812)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/LeftSideEntrance/WallStraight2" unique_id=69921404 instance=ExtResource("8_2mg1o")]
+placement_id = &"4fc2b8ae285ec6be962aae6d101f70db"
 transform = Transform3D(0.3, 0, 0, 0, 0.3000002, 0, 0, 0, 0.3, 0.5036211, 1.1021067, 0.22903824)
 collision_layer = 2
 collision_mask = 11
@@ -89,12 +93,14 @@ ai_config = SubResource("Resource_jkhx3")
 transform = Transform3D(0.1371159, 0, -4.998119, 0, 5.000002, 0, 4.998119, 0, 0.1371159, 11.774687, 1.82, 28.801544)
 
 [node name="SkeletonMage" parent="HexagonStonePlatform/LeftSideEntrance/WallStraight3" unique_id=888371605 instance=ExtResource("8_2mg1o")]
+placement_id = &"113f6461d39bc2e9fecd30316e3e74d2"
 transform = Transform3D(0.3, 0, 0, 0, 0.3000002, 0, 0, 0, 0.3, -0.4963827, 1.1021067, 0.229038)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/LeftSideEntrance/WallStraight3" unique_id=1439446807 instance=ExtResource("8_2mg1o")]
+placement_id = &"88083d308b7cfa7a006b4bb36c61bdfb"
 transform = Transform3D(0.3, 0, 0, 0, 0.3000002, 0, 0, 0, 0.3, 0.50361824, 1.1021067, 0.22903812)
 collision_layer = 2
 collision_mask = 11
@@ -107,12 +113,14 @@ transform = Transform3D(-0.18317977, 0, -0.08028184, 0, 0.19999999, 0, 0.0802818
 transform = Transform3D(0.13711588, 0, -4.9981194, 0, 5.000002, 0, 4.9981194, 0, 0.13711588, 11.260004, 1.82, 9.810563)
 
 [node name="SkeletonMage" parent="HexagonStonePlatform/RightSideEntrance/WallStraight" unique_id=1024967108 instance=ExtResource("8_2mg1o")]
+placement_id = &"0a48d27a6077bbb4e2430d76141215ef"
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.49866772, 1.0936203, 0.25349653)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/RightSideEntrance/WallStraight" unique_id=433004801 instance=ExtResource("8_2mg1o")]
+placement_id = &"edca75a92e634386405d50a9badc3501"
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.5013294, 1.0936203, 0.25349665)
 collision_layer = 2
 collision_mask = 11
@@ -122,12 +130,14 @@ ai_config = SubResource("Resource_jkhx3")
 transform = Transform3D(0.1371159, 0, -4.998119, 0, 5.000002, 0, 4.998119, 0, 0.1371159, 11.514812, 1.82, 19.657322)
 
 [node name="SkeletonMage" parent="HexagonStonePlatform/RightSideEntrance/WallStraight2" unique_id=7604380 instance=ExtResource("8_2mg1o")]
+placement_id = &"247125032df8ce585031cf59f6544238"
 transform = Transform3D(0.3, 0, 9.313226e-10, 0, 0.3, 0, -9.313226e-10, 0, 0.3, -0.49867105, 1.0936203, 0.25349617)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/RightSideEntrance/WallStraight2" unique_id=1908138671 instance=ExtResource("8_2mg1o")]
+placement_id = &"91f407b6f58fee830019dabc41c205a5"
 transform = Transform3D(0.3, 0, 9.313226e-10, 0, 0.3, 0, -9.313226e-10, 0, 0.3, 0.50132847, 1.0936203, 0.2534964)
 collision_layer = 2
 collision_mask = 11
@@ -137,12 +147,14 @@ ai_config = SubResource("Resource_jkhx3")
 transform = Transform3D(0.1371159, 0, -4.998119, 0, 5.000002, 0, 4.998119, 0, 0.1371159, 11.774687, 1.82, 28.801544)
 
 [node name="SkeletonMage" parent="HexagonStonePlatform/RightSideEntrance/WallStraight3" unique_id=769901878 instance=ExtResource("8_2mg1o")]
+placement_id = &"44d5df595a07c1ec61b7dc5363d54f6f"
 transform = Transform3D(0.3, 0, 9.313226e-10, 0, 0.3, 0, -9.313226e-10, 0, 0.3, -0.498672, 1.0936203, 0.2534964)
 collision_layer = 2
 collision_mask = 11
 ai_config = SubResource("Resource_jkhx3")
 
 [node name="SkeletonMage2" parent="HexagonStonePlatform/RightSideEntrance/WallStraight3" unique_id=1057162096 instance=ExtResource("8_2mg1o")]
+placement_id = &"e694e62740a63547b52d4b3ca7708c0b"
 transform = Transform3D(0.3, 0, 9.313226e-10, 0, 0.3, 0, -9.313226e-10, 0, 0.3, 0.50132847, 1.0936203, 0.25349677)
 collision_layer = 2
 collision_mask = 11
@@ -152,5 +164,6 @@ ai_config = SubResource("Resource_jkhx3")
 transform = Transform3D(1.8589536, 0, 0.73776215, 0, 2, 0, -0.73776215, 0, 1.8589536, 0.576658, 0, 1.315763)
 
 [node name="UnlockSkill" parent="HexagonStonePlatform" unique_id=707485280 instance=ExtResource("24_0ob4r")]
+placement_id = &"11d619fec91be67bfaf2b52b651d11a6"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9067388, 1.1262878, 3.5316315)
 data = SubResource("Resource_webur")

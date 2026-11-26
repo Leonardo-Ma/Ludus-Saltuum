@@ -1,7 +1,7 @@
 class_name NPCEntity
 extends AggressiveEntity
 
-## Abstract base for GOAP, perception and procedural identity
+## Abstract base for GOAP, perception and persistent enemy identity
 
 const TURN_SPEED: float = 10.0
 
@@ -13,18 +13,13 @@ const TURN_SPEED: float = 10.0
 @export_category("AI System")
 @export var ai_config: AIConfig
 
-## False when outside level chunk, requires static_id set in editor
-@export var is_procedurally_spawned: bool = true
-## Must be unique
-@export var static_id: StringName = &""
-## Must be unique within this level chunk
-@export var procedural_id: StringName = &""
-
+## Unique across authored and procedural placements
 var enemy_id: StringName = &""
 
 var goap_agent: GoapAgent
 
 var _brain: NPCBrainController
+var _is_procedurally_spawned: bool = false
 
 @onready var npc_movement_controller: NPCMovementController = %NPCMovementController
 @onready var goap_controller: GoapMemory = %GoapController
@@ -32,6 +27,10 @@ var _brain: NPCBrainController
 
 # TODO Decouple from here, GOAP requires a reference from entity
 @export var projectile_attack_component: ProjectileAttackComponent
+
+## Editor-assigned placement ID saved with scene for runtime use
+## Storage keeps it out of Inspector
+@export_storage var placement_id: StringName
 
 
 func _physics_process(delta: float) -> void:
@@ -80,9 +79,9 @@ func _child_ready() -> void:
 		"ProjectileAttackComponent must be assigned for MagicAttack action to work for " + name,
 	)
 
-	if not is_procedurally_spawned:
-		assert(static_id != &"", "Enemy static_id not set on non-procedural instance " + name)
-		enemy_id = static_id
+	if not _is_procedurally_spawned:
+		enemy_id = AuthoredEntityId.resolve(self, placement_id)
+		assert(owner == null or enemy_id != &"", "Placement ID or enclosing scope missing in " + name)
 
 	_brain = NPCBrainController.new()
 	_brain.setup(self, ai_config, goap_controller)
@@ -121,15 +120,15 @@ func _stop_ai() -> void:
 	npc_movement_controller.stop()
 
 
-func assign_procedural_id(seed_value: int, scene_local_path: NodePath) -> void:
-	assert(is_procedurally_spawned, "Procedural id assigned to non-procedural enemy " + name)
-	procedural_id = StringName(scene_local_path)
-	enemy_id = ProceduralId.spawn_id(seed_value, scene_local_path)
-	assert(enemy_id != &"", "Enemy identity not assigned on " + name)
+## Marks a chunk placement and assigns its unique ID before entering the tree
+func assign_procedural_id(id: StringName) -> void:
+	assert(not is_inside_tree() and enemy_id == &"" and id != &"", "Invalid procedural ID assignment in " + name)
+	_is_procedurally_spawned = true
+	enemy_id = id
 
 
 func _on_death_complete() -> void:
-	if is_procedurally_spawned:
+	if _is_procedurally_spawned:
 		queue_free()
 
 

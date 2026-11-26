@@ -44,6 +44,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.361904, -3, 19.364502)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, -3, 31.64453)
 
 [node name="GoldCoin" parent="Platforms/SnowBlock5" unique_id=1971537253 instance=ExtResource("5_pn68p")]
+placement_id = &"c67345fa54f0230e639027f5f741b05a"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4.492463, 0)
 
 [node name="SnowBlock6" parent="Platforms" unique_id=1312319582 instance=ExtResource("5_sld1t")]
@@ -83,6 +84,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 9, 71.964165)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 10, 82.964165)
 
 [node name="GoldCoin" parent="Platforms/SnowBlock14" unique_id=1661366699 instance=ExtResource("5_pn68p")]
+placement_id = &"3900e8579352f8a5140ca22992dedc5d"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 6, 0)
 
 [node name="SnowBlock15" parent="Platforms" unique_id=1335900885 instance=ExtResource("5_sld1t")]
@@ -104,6 +106,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 13, 121.964165)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 14, 132.96417)
 
 [node name="SpeedUp" parent="Platforms/SnowBlock20" unique_id=1230254953 instance=ExtResource("8_entio")]
+placement_id = &"11915f9bc6ae2bdaa9e7dabeeb563f3c"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5745888, 5.139534, -2.1045685)
 
 [node name="SnowBlock21" parent="Platforms" unique_id=1492979906 instance=ExtResource("5_sld1t")]
@@ -113,6 +116,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 16, 142.96417)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 17, 143.96417)
 
 [node name="GoldCoin" parent="Platforms/SnowBlock22" unique_id=616276032 instance=ExtResource("5_pn68p")]
+placement_id = &"ed3e7cf3e2bc085cbe350114c587f4de"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 5, 0)
 
 [node name="SnowBlock23" parent="Platforms" unique_id=533244456 instance=ExtResource("5_sld1t")]

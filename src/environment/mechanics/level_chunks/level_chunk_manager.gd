@@ -375,21 +375,19 @@ func _align_chunk_to_transform(chunk: LevelChunk, target_transform: Transform3D)
 	chunk.global_transform = target_transform * rel_entrance.affine_inverse()
 
 
-## Assigns deterministic collectible_id/enemy_id from chunk_seed + scene-local entity path
+## Assigns deterministic collectible_id/enemy_id from chunk identity and authored placement
 func _prepare_chunk_entities(chunk: LevelChunk, world_seed: int) -> void:
-	var seed_value: int = ProceduralId.chunk_seed(world_seed, chunk.chunk_key)
-
 	for node: Node in chunk.find_children("*", "", true, false):
 		if node is Collectible:
 			var collectible: Collectible = node
-			if collectible.is_procedurally_spawned:
-				var scene_local_path: NodePath = chunk.get_path_to(collectible)
-				collectible.assign_procedural_id(seed_value, scene_local_path)
+			var placement_id: StringName = AuthoredEntityId.resolve(collectible, collectible.placement_id, chunk)
+			if placement_id != &"":
+				collectible.assign_procedural_id(ProceduralId.spawn_id(world_seed, chunk.chunk_key, placement_id))
 		elif node is NPCEntity:
 			var enemy: NPCEntity = node
-			if enemy.is_procedurally_spawned:
-				var scene_local_path: NodePath = chunk.get_path_to(enemy)
-				enemy.assign_procedural_id(seed_value, scene_local_path)
+			var placement_id: StringName = AuthoredEntityId.resolve(enemy, enemy.placement_id, chunk)
+			if placement_id != &"":
+				enemy.assign_procedural_id(ProceduralId.spawn_id(world_seed, chunk.chunk_key, placement_id))
 		elif node is Checkpoint:
 			# Checkpoints outside chunks have no parent LevelChunk
 			var checkpoint: Checkpoint = node

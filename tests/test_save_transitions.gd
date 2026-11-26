@@ -34,7 +34,9 @@ func run_tests() -> void:
 	_test_invalid_loads(player)
 	_test_quit_destinations(player)
 	_test_legacy_manual_save(player)
+	_test_previous_entity_keys_reset()
 	await _test_recycled_route(player, world)
+	_test_nested_placements(world)
 	await _test_world_states(world)
 
 	ApplicationStateManager.main_menu_requested.connect(_on_main_menu_requested, CONNECT_ONE_SHOT)
@@ -199,6 +201,11 @@ func _test_recycled_route(player: PlayerEntity, world: Node) -> void:
 	var enemy_id: StringName = enemy.enemy_id
 	var retired_planner: WeakRef = weakref(enemy.goap_agent._action_planner)
 	assert(coin_id != &"" and enemy_id != &"", "Procedural entities entered with missing IDs in " + name)
+	assert(
+		coin_id == ProceduralId.spawn_id(fixture.chunks.world_seed, first_survivor.chunk_key, coin.placement_id)
+		and coin_id != ProceduralId.spawn_id(fixture.chunks.world_seed, first_survivor.chunk_key + 1, coin.placement_id),
+		"Chunk instances share a placement identity in " + name,
+	)
 	CheckpointManager.on_checkpoint_activated(chunk_checkpoint)
 	ChunkManager.recycle_oldest_chunk()
 	var survivor_transform: Transform3D = first_survivor.global_transform
@@ -243,26 +250,85 @@ func _test_recycled_route(player: PlayerEntity, world: Node) -> void:
 	assert(not CheckpointManager.has_active_checkpoint(), "Recycled checkpoint remained active in " + name)
 
 
+func _test_nested_placements(world: Node) -> void:
+	var placement_id: StringName = AuthoredEntityId.generate()
+	var authored_root: Node3D = Node3D.new()
+	var outer: Node3D = _add_scoped_instance(authored_root)
+	var first: Collectible = _add_nested_coin(outer, placement_id)
+	var second: Collectible = _add_nested_coin(outer, placement_id)
+	world.add_child(authored_root)
+	assert(String(first.collectible_id).get_slice_count("/") == 3, "Nested authored identity missed a scope in " + name)
+	assert(first.collectible_id != second.collectible_id, "Nested authored copies share an identity in " + name)
+	assert(WorldSaveController.has_valid_entity_ids(), "Nested authored copies failed validation in " + name)
+
+	var snapshot: WorldSaveData = WorldSaveData.new()
+	WorldSaveController.build_save_data(snapshot)
+	snapshot.collected_collectible_ids[first.collectible_id] = true
+	WorldSaveController.apply_save_data(snapshot)
+	WorldSaveController.apply_saved_entity_states()
+	assert(first.collected and not second.collected, "Nested authored copies shared saved state in " + name)
+	authored_root.queue_free()
+	WorldSaveController.initialize_new_save_data()
+
+	var chunk: LevelChunk = LevelChunk.new()
+	outer = _add_scoped_instance(chunk)
+	first = _add_nested_coin(outer, placement_id)
+	second = _add_nested_coin(outer, placement_id)
+	ChunkManager._prepare_chunk_entities(chunk, 12)
+	assert(first.collectible_id != second.collectible_id, "Nested procedural copies share an identity in " + name)
+	assert(WorldSaveController.has_valid_entity_ids([chunk]), "Nested procedural copies failed validation in " + name)
+	chunk.free()
+
+
+func _add_nested_coin(scene_root: Node3D, placement_id: StringName) -> Collectible:
+	var instance_root: Node3D = _add_scoped_instance(scene_root)
+	var coin: Collectible = COIN_SCENE.instantiate()
+	coin.placement_id = placement_id
+	instance_root.add_child(coin)
+	coin.owner = instance_root
+	return coin
+
+
+func _add_scoped_instance(scene_root: Node3D) -> Node3D:
+	var instance_root: Node3D = Node3D.new()
+	scene_root.add_child(instance_root)
+	instance_root.owner = scene_root
+	var scope: EntityPlacementScope = EntityPlacementScope.new()
+	scope.scope_id = AuthoredEntityId.generate()
+	instance_root.add_child(scope)
+	scope.owner = scene_root
+	return instance_root
+
+
 func _test_world_states(world: Node) -> void:
 	var coin: Collectible = COIN_SCENE.instantiate()
-	coin.is_procedurally_spawned = false
-	coin.static_id = &"test_coin"
-	world.add_child(coin)
+	coin.placement_id = AuthoredEntityId.generate()
+	world.add_child(coin, true)
+	var second_coin: Collectible = COIN_SCENE.instantiate()
+	second_coin.placement_id = AuthoredEntityId.generate()
+	world.add_child(second_coin, true)
 	var mage: NPCEntity = MAGE_SCENE.instantiate()
-	mage.is_procedurally_spawned = false
-	mage.static_id = &"test_mage"
-	world.add_child(mage)
+	mage.placement_id = AuthoredEntityId.generate()
+	world.add_child(mage, true)
 	assert(WorldSaveController.has_valid_entity_ids(), "Authored entities have invalid identities in " + name)
-	coin.static_id = &""
-	assert(not WorldSaveController.has_valid_entity_ids(), "Empty authored ID passed validation in " + name)
-	coin.static_id = mage.static_id
-	assert(not WorldSaveController.has_valid_entity_ids(), "Duplicate authored ID passed validation in " + name)
-	coin.static_id = coin.collectible_id
+	assert(coin.collectible_id != second_coin.collectible_id, "Two placements of one collectible shared an ID in " + name)
 
 	var alive: SaveData = SaveManager._build_save_data(MANUAL_SLOT, false)
 	var consumed: SaveData = SaveManager._build_save_data(MANUAL_SLOT, false)
 	consumed.world.collected_collectible_ids[coin.collectible_id] = true
 	consumed.world.killed_enemy_ids[mage.enemy_id] = true
+	var edited_parent: Node3D = Node3D.new()
+	world.add_child(edited_parent)
+	edited_parent.owner = world
+	coin.reparent(edited_parent)
+	coin.name = &"RenamedPickup"
+	coin.owner = world
+	var packed: PackedScene = PackedScene.new()
+	assert(packed.pack(world) == OK, "Could not pack renamed placement in " + name)
+	var reopened: Node = packed.instantiate()
+	var renamed_coin: Collectible = reopened.get_node(world.get_path_to(coin))
+	assert(renamed_coin.placement_id == coin.collectible_id, "Scene edit changed persistent placement ID in " + name)
+	reopened.free()
 	mage.health.current_health = 0
 	mage.health.died.emit()
 	assert(WorldSaveController.is_enemy_killed(mage.enemy_id), "Death was missing during its animation in " + name)
@@ -271,6 +337,7 @@ func _test_world_states(world: Node) -> void:
 	assert(GameLoadManager.apply_save_data(consumed), "Consumed snapshot failed in " + name)
 	await get_tree().process_frame
 	assert(coin.collected and not coin.visible, "Collected coin was visible in " + name)
+	assert(not second_coin.collected, "Loading collected state affected another placement in " + name)
 	assert(not coin.monitoring and mage.collision_shape.disabled and not mage.hurtbox.monitoring, "Consumed entities could still collide in " + name)
 	assert(not mage.visible and mage.health.current_health == 0 and not mage.is_physics_processing(), "Killed enemy remained active in " + name)
 	assert(GameLoadManager.apply_save_data(alive), "Alive snapshot failed in " + name)
@@ -284,3 +351,14 @@ func _test_world_states(world: Node) -> void:
 	assert(GameLoadManager.apply_save_data(consumed), "Second consumed snapshot failed in " + name)
 	WorldSaveController.initialize_new_save_data()
 	assert(not coin.collected and coin.visible and mage.visible, "Reset missed consumed entities in " + name)
+
+
+func _test_previous_entity_keys_reset() -> void:
+	var legacy: WorldSaveData = WorldSaveData.new()
+	legacy.collected_collectible_ids[&"tutorial_gold_0"] = true
+	legacy.killed_enemy_ids[&"tutorial_enemy_0"] = true
+	WorldSaveController.apply_save_data(legacy)
+	var updated: WorldSaveData = WorldSaveData.new()
+	WorldSaveController.build_save_data(updated)
+	assert(updated.entity_id_version != legacy.entity_id_version, "Entity identity version was not updated in " + name)
+	assert(updated.collected_collectible_ids.is_empty() and updated.killed_enemy_ids.is_empty(), "Previous entity keys survived upgrade in " + name)

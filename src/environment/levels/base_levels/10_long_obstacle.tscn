@@ -57,6 +57,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 93)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2598839, 4, -4.955101)
 
 [node name="GoldCoin" parent="." unique_id=1971537253 instance=ExtResource("5_qhihy")]
+placement_id = &"46bd6c72d13fba45af09b37413569da5"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 6, 75)
 
 [node name="GrassPlatform7" parent="." unique_id=1205046339 instance=ExtResource("4_fdenn")]
@@ -75,6 +76,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 139)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 163)
 
 [node name="GoldCoin" parent="GrassPlatform11" unique_id=2070898365 instance=ExtResource("5_qhihy")]
+placement_id = &"c9c09c7e1f31c80dd31ff95839192509"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 5, -3)
 
 [node name="GrassPlatform12" parent="." unique_id=1277502490 instance=ExtResource("4_fdenn")]

@@ -39,6 +39,7 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -9, 23)
 transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, 3.5, 4.3440495, 0)
 
 [node name="UnlockSkill" parent="Map/HexagonGrassPlatform" unique_id=707485280 instance=ExtResource("7_tjswu")]
+placement_id = &"a6c0b3553d6acc345752d33fbc490e30"
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 6, 0)
 data = SubResource("Resource_iqpq7")
 

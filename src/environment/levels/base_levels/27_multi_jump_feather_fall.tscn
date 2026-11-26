@@ -53,9 +53,11 @@ transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, -7, 
 transform = Transform3D(1.4142134, 0, -1.4142137, 0, 2, 0, 1.4142137, 0, 1.4142134, -58, 16, 44)
 
 [node name="GoldCoin" parent="GrassPlatform/StaticBody3D5" unique_id=1971537253 instance=ExtResource("11_8sqsm")]
+placement_id = &"113bd4d9c111f699d5d45dc56eaac961"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35355377, 3, -0.35354996)
 
 [node name="GoldCoin2" parent="GrassPlatform/StaticBody3D5" unique_id=169477347 instance=ExtResource("11_8sqsm")]
+placement_id = &"b0633527fe4d442ea1c8ea693756e7ca"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7677612, 2.5, -0.35354996)
 
 [node name="StaticBody3D6" parent="GrassPlatform" unique_id=1586655006 instance=ExtResource("9_an4we")]

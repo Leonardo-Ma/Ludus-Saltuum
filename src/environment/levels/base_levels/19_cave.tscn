@@ -204,57 +204,75 @@ light_color = Color(1, 0.02745098, 0, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1190472, 0)
 
 [node name="GoldCoin" parent="Map/Coins" unique_id=1971537253 instance=ExtResource("14_ynq7h")]
+placement_id = &"34835b274e284d1979cb7ed6a127bc56"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 2, 29.73388)
 
 [node name="GoldCoin2" parent="Map/Coins" unique_id=1051877876 instance=ExtResource("14_ynq7h")]
+placement_id = &"b9444547d9b043fe6f94426645cb01e1"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 2, 29.73388)
 
 [node name="GoldCoin3" parent="Map/Coins" unique_id=1344515878 instance=ExtResource("14_ynq7h")]
+placement_id = &"2a6c391b7c82a56b02ec9dc535508b31"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 2, 29.73388)
 
 [node name="GoldCoin4" parent="Map/Coins" unique_id=2025440545 instance=ExtResource("14_ynq7h")]
+placement_id = &"e14c5cc50e656de185cdab8a44ab9c5e"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 2, 30.73388)
 
 [node name="GoldCoin5" parent="Map/Coins" unique_id=1380838397 instance=ExtResource("14_ynq7h")]
+placement_id = &"59ac00f50787e2a99fbe8e4105512041"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 2, 30.73388)
 
 [node name="GoldCoin6" parent="Map/Coins" unique_id=1981317140 instance=ExtResource("14_ynq7h")]
+placement_id = &"b7d4492313ffb169693152e77e249443"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 2, 30.73388)
 
 [node name="GoldCoin7" parent="Map/Coins" unique_id=21622856 instance=ExtResource("14_ynq7h")]
+placement_id = &"87409faddb48209286e03ac672a0f287"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 2, 31.73388)
 
 [node name="GoldCoin8" parent="Map/Coins" unique_id=228349885 instance=ExtResource("14_ynq7h")]
+placement_id = &"a965eba44716a6962577686997595607"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 2, 31.73388)
 
 [node name="GoldCoin9" parent="Map/Coins" unique_id=552423030 instance=ExtResource("14_ynq7h")]
+placement_id = &"7715305a7d3f16cd04a61eb4b1a19361"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 2, 31.73388)
 
 [node name="GoldCoin10" parent="Map/Coins" unique_id=2136913563 instance=ExtResource("14_ynq7h")]
+placement_id = &"23bfaf1b67dd5b6698ce465ef298d609"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49, 2, 77.73388)
 
 [node name="GoldCoin11" parent="Map/Coins" unique_id=179568400 instance=ExtResource("14_ynq7h")]
+placement_id = &"87bff19a027b136db2e611a2a21bae85"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 2, 77.73388)
 
 [node name="GoldCoin12" parent="Map/Coins" unique_id=2126177287 instance=ExtResource("14_ynq7h")]
+placement_id = &"d9c2f206cd7b92cd004764fc306e6a9a"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 2, 77.73388)
 
 [node name="GoldCoin13" parent="Map/Coins" unique_id=2041259789 instance=ExtResource("14_ynq7h")]
+placement_id = &"3e3e890b7ade2b073baa0befe0a21a86"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 2, 78.73388)
 
 [node name="GoldCoin14" parent="Map/Coins" unique_id=427392801 instance=ExtResource("14_ynq7h")]
+placement_id = &"fd962769dfde8cbb2c6689d2952d2c49"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49, 2, 78.73388)
 
 [node name="GoldCoin15" parent="Map/Coins" unique_id=788560036 instance=ExtResource("14_ynq7h")]
+placement_id = &"3508c256c5316213097b30a725c79ed0"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 2, 78.73388)
 
 [node name="GoldCoin16" parent="Map/Coins" unique_id=945754001 instance=ExtResource("14_ynq7h")]
+placement_id = &"e287ea0f92f6bb139b57067a9f0a8ddc"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 2, 79.73388)
 
 [node name="GoldCoin17" parent="Map/Coins" unique_id=1293499791 instance=ExtResource("14_ynq7h")]
+placement_id = &"89ec3831b3c606614d7125644611fd21"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49, 2, 79.73388)
 
 [node name="GoldCoin18" parent="Map/Coins" unique_id=1680360338 instance=ExtResource("14_ynq7h")]
+placement_id = &"40472f56652afe147a6e194b9aa363f2"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 2, 79.73388)
 
 [node name="RedTorchTrigger" type="Area3D" parent="Map" unique_id=1706797072]
@@ -344,4 +362,5 @@ transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, 3, 4
 transform = Transform3D(-1.9318516, 0, -0.51763827, 0, 2, 0, 0.51763827, 0, -1.9318516, -50.923603, 0.23874676, 49.671375)
 
 [node name="SpeedUp" parent="." unique_id=707485280 instance=ExtResource("19_ecor2")]
+placement_id = &"5f786e64f60ebc59fefde8f92cdffc39"
 transform = Transform3D(-1.9318516, 0, -0.51763827, 0, 2, 0, 0.51763827, 0, -1.9318516, -76.9236, 2.2387466, 62.671375)

@@ -50,9 +50,11 @@ transform = Transform3D(-1, 0, 8.742276e-08, -2.2626683e-08, 0.9659258, -0.25881
 transform = Transform3D(1, 1.7763568e-15, -1.7484557e-07, -1.7763568e-15, 1.0000001, 0, 1.7484557e-07, -3.0092655e-36, 1.0000001, 1, 3, 52)
 
 [node name="GoldCoin" parent="ConveyorBelt7" unique_id=1971537253 instance=ExtResource("7_xs87h")]
+placement_id = &"2df1a76cdf00b7f097aa3f4b93c32afe"
 transform = Transform3D(1, -1.052e-42, -2.842171e-14, 5.430495e-29, 1, -5.04871e-29, 2.842171e-14, -6.0185304e-36, 1, -4.7683716e-07, 2, -3)
 
 [node name="GoldCoin2" parent="ConveyorBelt7" unique_id=585746563 instance=ExtResource("7_xs87h")]
+placement_id = &"c02522193df54f1cfac9d808a2d6d312"
 transform = Transform3D(1, -1.578e-42, -4.2632564e-14, 5.4304953e-29, 1, -7.5730647e-29, 4.2632564e-14, -9.027795e-36, 1, -3.5762787e-07, 2, -2)
 
 [node name="ConveyorBelt8" parent="." unique_id=211423500 instance=ExtResource("6_nof5m")]
@@ -68,12 +70,14 @@ transform = Transform3D(1, 1.7763568e-15, -1.7484557e-07, -1.7763568e-15, 1.0000
 transform = Transform3D(-1.4901161e-07, 5.293956e-23, -1.0000001, -1.7763568e-15, 1.0000001, 0, 1, 1.7763567e-15, -1.4901161e-07, -8, 3.0000005, 73)
 
 [node name="GoldCoin" parent="ConveyorBelt11" unique_id=1648222500 instance=ExtResource("7_xs87h")]
+placement_id = &"3782e9787e2be0c9c84065ec76d5ce2f"
 transform = Transform3D(1, 2.1175824e-22, -4.2632564e-14, 0, 1, 0, 4.2632564e-14, 0, 1, -1, 2.999999, 0)
 
 [node name="ConveyorBelt17" parent="." unique_id=1862949544 instance=ExtResource("6_nof5m")]
 transform = Transform3D(-1.4901161e-07, 5.293956e-23, -1.0000001, -1.7763568e-15, 1.0000001, 0, 1, 1.7763567e-15, -1.4901161e-07, -8, 2.0000005, 90.69526)
 
 [node name="GoldCoin" parent="ConveyorBelt17" unique_id=1068275563 instance=ExtResource("7_xs87h")]
+placement_id = &"0af865827ae2c0eb21878e632c969c8c"
 transform = Transform3D(1, 2.1175824e-22, -4.2632564e-14, 0, 1, 0, 4.2632564e-14, 0, 1, -1, 2.999999, 0)
 
 [node name="ConveyorBelt18" parent="." unique_id=549201579 instance=ExtResource("6_nof5m")]
@@ -83,12 +87,14 @@ transform = Transform3D(-1.4466744e-07, -0.23970143, -0.9708468, -3.5718298e-08,
 transform = Transform3D(-1.2904785e-07, -0.5, -0.86602545, -7.4505806e-08, 0.86602545, -0.5, 1, 1.7763563e-15, -1.4901164e-07, -16, 4.7683716e-07, 73)
 
 [node name="GoldCoin" parent="ConveyorBelt12" unique_id=1431508774 instance=ExtResource("7_xs87h")]
+placement_id = &"8b3d28b4575ce99e7c50bcb64c4398d9"
 transform = Transform3D(1, 2.1175824e-22, -4.2632564e-14, 0, 1, 0, 4.2632564e-14, 0, 1, -1, 2.999999, 0)
 
 [node name="ConveyorBelt16" parent="." unique_id=304202955 instance=ExtResource("6_nof5m")]
 transform = Transform3D(1.7275919e-07, -0.50000006, 0.86602545, 1.5021615e-07, 0.86602545, 0.50000006, -1, 4.37114e-08, 2.2472199e-07, -15, 4.7683716e-07, 90)
 
 [node name="GoldCoin" parent="ConveyorBelt16" unique_id=160054704 instance=ExtResource("7_xs87h")]
+placement_id = &"40771ac3c510e87c4405cc9f843195e0"
 transform = Transform3D(1, 2.1175824e-22, -4.2632564e-14, 0, 1, 0, 4.2632564e-14, 0, 1, -1, 2.999999, 0)
 
 [node name="ConveyorBelt13" parent="." unique_id=2117650742 instance=ExtResource("6_nof5m")]

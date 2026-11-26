@@ -37,6 +37,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 4)
 transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, 3, 4, -2)
 
 [node name="Gigantify" parent="GrassPlatform" unique_id=1374629069 instance=ExtResource("6_fnp3q")]
+placement_id = &"861479a7ad9595862c95d74f34c988c8"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 6)
 data = SubResource("Resource_t2mco")
 

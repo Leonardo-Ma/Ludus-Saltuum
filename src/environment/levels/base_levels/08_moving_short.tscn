@@ -42,6 +42,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, 16)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -2, 26)
 
 [node name="SpeedUp" parent="SnowPlatform4" unique_id=707485280 instance=ExtResource("7_xcckb")]
+placement_id = &"0f226faed09ea64a96c9712a481dd9cb"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, -2)
 
 [node name="GrassPlatform5" parent="." unique_id=761031890 instance=ExtResource("5_tyk6i")]
@@ -60,9 +61,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -0.10530996, 55)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -0.10530996, 65)
 
 [node name="GoldCoin" parent="SnowPlatform6" unique_id=1971537253 instance=ExtResource("7_w2knr")]
+placement_id = &"d212172f6e88150a2ac9a5091054748a"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 1, 0)
 
 [node name="SpeedUp" parent="SnowPlatform6" unique_id=467854452 instance=ExtResource("7_xcckb")]
+placement_id = &"8ee43002498c2a4d591a6389d6936e85"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, -2)
 
 [node name="GrassPlatform9" parent="." unique_id=1909465993 instance=ExtResource("5_tyk6i")]

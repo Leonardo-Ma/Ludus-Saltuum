@@ -67,7 +67,7 @@ window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godotsteam/plugin.cfg", "res://addons/talo/plugin.cfg")
+enabled=PackedStringArray("res://addons/godotsteam/plugin.cfg", "res://addons/talo/plugin.cfg", "res://addons/entity_placement_ids/plugin.cfg")
 
 [file_customization]
 

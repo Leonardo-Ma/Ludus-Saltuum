@@ -122,6 +122,7 @@ transform = Transform3D(-0.50000006, 0, 0.8660253, 0, 1, 0, -0.8660253, 0, -0.50
 transform = Transform3D(-0.50000006, 0, 0.8660253, 0, 1, 0, -0.8660253, 0, -0.50000006, 78, 1, 63)
 
 [node name="GoldCoin" parent="LeftPath/HexagonGrassPlatform10" unique_id=1135140376 instance=ExtResource("8_j5615")]
+placement_id = &"f2a74e6a001a1fbd03d08de71685b47d"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="LeftPath" unique_id=1518766558]
@@ -131,21 +132,25 @@ navigation_mesh = SubResource("NavigationMesh_4hukf")
 transform = Transform3D(-0.50000006, 0, 0.8660253, 0, 1, 0, -0.8660253, 0, -0.50000006, 91.30023, 1, 63)
 
 [node name="Barbarian" parent="LeftPath/NavigationRegion3D/HexagonGrassPlatform11" unique_id=280064195 instance=ExtResource("9_5vwvj")]
+placement_id = &"ed59cda3674740e25c897a5562435799"
 transform = Transform3D(0.5000001, 0, 1.4901161e-08, 0, 0.5, 0, -1.4901161e-08, 0, 0.5000001, -2.0164337, 4.413416, 3.492588)
 attack = SubResource("Resource_5vwvj")
 health = SubResource("Resource_ksgtg")
 
 [node name="Barbarian2" parent="LeftPath/NavigationRegion3D/HexagonGrassPlatform11" unique_id=1199116761 instance=ExtResource("9_5vwvj")]
+placement_id = &"37a394019e079466e2ee9b26319c17a2"
 transform = Transform3D(0.5000001, 0, 1.4901161e-08, 0, 0.5, 0, -1.4901161e-08, 0, 0.5000001, -2.614502, 4.413416, -1.4715233)
 attack = SubResource("Resource_36gyj")
 health = SubResource("Resource_6si2x")
 
 [node name="Barbarian3" parent="LeftPath/NavigationRegion3D/HexagonGrassPlatform11" unique_id=528371196 instance=ExtResource("9_5vwvj")]
+placement_id = &"dd0071bca091b4c7381d90301775b794"
 transform = Transform3D(0.5000001, 0, 1.4901161e-08, 0, 0.5, 0, -1.4901161e-08, 0, 0.5000001, 3.4476776, 4.413416, 2.0284767)
 attack = SubResource("Resource_hsnq6")
 health = SubResource("Resource_k1gv0")
 
 [node name="GoldCoin" parent="LeftPath/NavigationRegion3D/HexagonGrassPlatform11" unique_id=1971537253 instance=ExtResource("8_j5615")]
+placement_id = &"010f6836f3e70e6be54a531494ae6538"
 transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, -2.5, 4.9815874, 4.3301315)
 
 [node name="HexagonGrassPlatform12" parent="LeftPath" unique_id=973807689 instance=ExtResource("7_5duc8")]
@@ -185,6 +190,7 @@ transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -38, 30,
 transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -38, 31, 84)
 
 [node name="GoldCoin" parent="RightPath/HexagonGrassPlatform9" unique_id=643531628 instance=ExtResource("8_j5615")]
+placement_id = &"5aae35e1735234aff4b220e615bd5bc9"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 
 [node name="Portal7" parent="RightPath/HexagonGrassPlatform9" unique_id=2017359342 node_paths=PackedStringArray("linked_portal") instance=ExtResource("6_3p00d")]
@@ -210,6 +216,7 @@ transform = Transform3D(0.8307605, 0, 0.5566299, 0, 1, 0, -0.5566299, 0, 0.83076
 transform = Transform3D(0.95259106, 0, 0.30425328, 0, 1, 0, -0.30425328, 0, 0.95259106, -63, 40, 117.8182)
 
 [node name="GoldCoin" parent="RightPath/HexagonGrassPlatform13" unique_id=214456465 instance=ExtResource("8_j5615")]
+placement_id = &"655c08bf07f23a4ffc2274cb277f10f4"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.187088, 0)
 
 [node name="Portal9" parent="RightPath/HexagonGrassPlatform13" unique_id=480592937 node_paths=PackedStringArray("linked_portal") instance=ExtResource("6_3p00d")]
@@ -221,6 +228,7 @@ portal_color = Color(0.6862745, 1, 0.6, 1)
 transform = Transform3D(-0.95259106, 0, -0.3042532, 0, 1, 0, 0.3042532, 0, -0.95259106, -13, 6, 137.8182)
 
 [node name="GoldCoin" parent="RightPath/HexagonGrassPlatform14" unique_id=960457945 instance=ExtResource("8_j5615")]
+placement_id = &"07b2c0723987b289e5569480308edf35"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.187088, 0)
 
 [node name="Portal10" parent="RightPath/HexagonGrassPlatform14" unique_id=1656741055 node_paths=PackedStringArray("linked_portal") instance=ExtResource("6_3p00d")]

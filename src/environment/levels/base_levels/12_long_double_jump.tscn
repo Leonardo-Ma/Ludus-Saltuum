@@ -54,6 +54,7 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 4.356741, 0)
 transform = Transform3D(1.4142135, 0, -1.4142135, 0, 2, 0, 1.4142135, 0, 1.4142135, 1, 20, 98)
 
 [node name="SpeedUp" parent="HexagonGrassPlatform9" unique_id=707485280 instance=ExtResource("6_xufyi")]
+placement_id = &"0f320038c7cde1d0017a3feab7937651"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 
 [node name="HexagonGrassPlatform10" parent="." unique_id=1776945566 instance=ExtResource("5_wpoxf")]

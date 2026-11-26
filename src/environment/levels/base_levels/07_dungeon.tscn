@@ -357,6 +357,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 55)
 
 [node name="Barbarian" parent="." unique_id=280064195 instance=ExtResource("5_v0l6h")]
+placement_id = &"b24d0137c45640f7808897db3de8270b"
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -2.0838919, 0.12219049, 8.40078)
 attack = SubResource("Resource_hy038")
 health = SubResource("Resource_u5kiw")
@@ -626,9 +627,11 @@ mesh = SubResource("ArrayMesh_qlb32")
 transform = Transform3D(-6.119594e-08, 0, 1.4, 0, 1.4, 0, -1.4, 0, -6.119594e-08, -8, 0, 47)
 
 [node name="GoldCoin_01" parent="Collectibles" unique_id=1971537253 instance=ExtResource("14_qm0tq")]
+placement_id = &"586c2142885edcc1a44be51bc395509b"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.308853, 2.3183827, -1.4973187)
 
 [node name="GoldCoin_02" parent="Collectibles" unique_id=979430069 instance=ExtResource("14_qm0tq")]
+placement_id = &"a886c26d051b3711b2fdcdb68c7be652"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.308853, 2.3183827, 11.502682)
 
 [node name="ArrowSign" parent="." unique_id=975612369 instance=ExtResource("15_6mv47")]

@@ -2,6 +2,8 @@ extends SaveController
 
 ## Tracks collected collectibles / killed enemies for save/load
 
+const ENTITY_ID_VERSION: int = 1
+
 var _collected_collectible_ids: Dictionary[StringName, bool] = { }
 var _killed_enemy_ids: Dictionary[StringName, bool] = { }
 
@@ -18,6 +20,7 @@ func _on_save_requested(data: SaveData) -> void:
 
 #region Save & Load & Reset
 func build_save_data(data: WorldSaveData) -> void:
+	data.entity_id_version = ENTITY_ID_VERSION
 	data.collected_collectible_ids = _collected_collectible_ids.duplicate()
 	data.killed_enemy_ids = _killed_enemy_ids.duplicate()
 
@@ -29,6 +32,10 @@ func initialize_new_save_data() -> void:
 
 
 func apply_save_data(data: WorldSaveData) -> void:
+	if data.entity_id_version != ENTITY_ID_VERSION:
+		_collected_collectible_ids.clear()
+		_killed_enemy_ids.clear()
+		return
 	_collected_collectible_ids = data.collected_collectible_ids.duplicate()
 	_killed_enemy_ids = data.killed_enemy_ids.duplicate()
 
@@ -60,14 +67,18 @@ func has_valid_entity_ids(staged_chunks: Array[LevelChunk] = [], replaced_contai
 
 	var ids: Dictionary[StringName, bool] = { }
 	for entity: Node in entities:
+		if entity.is_queued_for_deletion():
+			continue
 		var id: StringName
 		if entity is Collectible:
 			var collectible: Collectible = entity
-			id = collectible.collectible_id if collectible.is_procedurally_spawned else collectible.static_id
+			id = collectible.collectible_id
 		elif entity is NPCEntity:
 			var enemy: NPCEntity = entity
-			id = enemy.enemy_id if enemy.is_procedurally_spawned else enemy.static_id
+			id = enemy.enemy_id
 		else:
+			continue
+		if id == &"" and entity.is_inside_tree() and entity.owner == null:
 			continue
 		if id == &"" or ids.has(id):
 			return false
@@ -98,6 +109,6 @@ func is_enemy_killed(persistent_id: StringName) -> bool:
 
 
 func _on_enemy_killed(id: StringName) -> void:
-	assert(id != &"", "Enemy ID missing in " + name)
-	_killed_enemy_ids[id] = true
+	if id != &"":
+		_killed_enemy_ids[id] = true
 #endregion

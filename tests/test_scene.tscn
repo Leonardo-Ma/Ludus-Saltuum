@@ -227,28 +227,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 4)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -17)
 
 [node name="UnlockSkill" parent="SkillsUnlock/GrassPlatform" unique_id=707485280 instance=ExtResource("19_jlvjc")]
+placement_id = &"036b548f1ed5ce14b539524c4dd613c2"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 5, 0)
 data = SubResource("Resource_4wb24")
-is_procedurally_spawned = false
-static_id = &"test_skill_0"
 
 [node name="UnlockSkill2" parent="SkillsUnlock/GrassPlatform" unique_id=1476480636 instance=ExtResource("19_jlvjc")]
+placement_id = &"d60e71db72b14e5196d568a46f6da60e"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 5, 0)
 data = SubResource("Resource_7adl8")
-is_procedurally_spawned = false
-static_id = &"test_skill_1"
 
 [node name="UnlockSkill3" parent="SkillsUnlock/GrassPlatform" unique_id=743930671 instance=ExtResource("19_jlvjc")]
+placement_id = &"d312eb6e56956419ea0063934ef45781"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 5, -3)
 data = SubResource("Resource_2a6xp")
-is_procedurally_spawned = false
-static_id = &"test_skill_2"
 
 [node name="UnlockSkill4" parent="SkillsUnlock/GrassPlatform" unique_id=735560010 instance=ExtResource("19_jlvjc")]
+placement_id = &"41dbd99de33b1f923d2165a6480ed8ae"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 5, -3)
 data = SubResource("Resource_bud03")
-is_procedurally_spawned = false
-static_id = &"test_skill_3"
 
 [node name="EasterEggs" type="Node3D" parent="." unique_id=452354969]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
@@ -274,32 +270,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -1, -12)
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="Gigantify" parent="Collectibles/GrassPlatform2" unique_id=1374629069 instance=ExtResource("19_n72yh")]
+placement_id = &"9d4361ebe4172e1d45f113f2f0976c8d"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 5, -1)
 data = SubResource("Resource_prcxa")
-is_procedurally_spawned = false
-static_id = &"test_potion_0"
 
 [node name="Shrink" parent="Collectibles/GrassPlatform2" unique_id=826481617 instance=ExtResource("20_7b0ha")]
+placement_id = &"0e98ac10e6a9c93f8e1e68c63845719a"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -5)
 data = SubResource("Resource_op4js")
-is_procedurally_spawned = false
-static_id = &"test_potion_1"
 
 [node name="SpeedUp" parent="Collectibles/GrassPlatform2" unique_id=104397505 instance=ExtResource("21_65kr6")]
+placement_id = &"9d6295c9c026f5322116aa5d2546dbaa"
 transform = Transform3D(1.9868216e-08, 0, -1, 0, 1, 0, 1, 0, 1.9868216e-08, -1.5850968, 5.666667, -0.8068166)
-is_procedurally_spawned = false
-static_id = &"test_buff_0"
 
 [node name="GoldCoin" parent="Collectibles/GrassPlatform2" unique_id=1971537253 instance=ExtResource("22_jlvjc")]
+placement_id = &"b96390977f480426fc5313539c3e8d02"
 transform = Transform3D(1.9868216e-08, 0, -1, 0, 1, 0, 1, 0, 1.9868216e-08, -1.5850968, 5.666667, -4.8068166)
 data = SubResource("Resource_e2jay")
-is_procedurally_spawned = false
-static_id = &"test_gold_0"
 
 [node name="JumpUp" parent="Collectibles/GrassPlatform2" unique_id=1068009352 instance=ExtResource("23_oqqo4")]
+placement_id = &"856b663629a04757ad88bb990aa9bc32"
 transform = Transform3D(1.9868216e-08, 0, -1, 0, 1, 0, 1, 0, 1.9868216e-08, -1.5850968, 5.666667, -2.8068147)
-is_procedurally_spawned = false
-static_id = &"test_buff_1"
 
 [node name="Car" type="Node3D" parent="." unique_id=521773801]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 4, -13)
@@ -336,18 +327,23 @@ navigation_mesh = SubResource("NavigationMesh_esj2f")
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -25, 0, 5)
 
 [node name="Barbarian" parent="NavigationRegion3D/HexagonStonePlatform" unique_id=280064195 instance=ExtResource("44_mgsk8")]
+placement_id = &"a166e842c0a9568ad4817b093bc52bf6"
 transform = Transform3D(1.4901161e-08, 0, 0.49999994, 0, 0.5, 0, -0.49999994, 0, 1.4901161e-08, -2.5, 0.39904797, 2.5)
 
 [node name="Barbarian3" parent="NavigationRegion3D/HexagonStonePlatform" unique_id=480005316 instance=ExtResource("44_mgsk8")]
+placement_id = &"a55ed48515f8f14ed7a8e15d0690d23a"
 transform = Transform3D(1.4901161e-08, 0, 0.49999994, 0, 0.5, 0, -0.49999994, 0, 1.4901161e-08, 0, 0.39904797, 2.5)
 
 [node name="Barbarian4" parent="NavigationRegion3D/HexagonStonePlatform" unique_id=1698574430 instance=ExtResource("44_mgsk8")]
+placement_id = &"baec453110fbac9c08aed944c7c2c668"
 transform = Transform3D(1.4901161e-08, 0, 0.49999994, 0, 0.5, 0, -0.49999994, 0, 1.4901161e-08, -3, 0.39904797, 0.5)
 
 [node name="Barbarian5" parent="NavigationRegion3D/HexagonStonePlatform" unique_id=1650928558 instance=ExtResource("44_mgsk8")]
+placement_id = &"c1373ea6f83e197fe7b98190b86d5aa1"
 transform = Transform3D(1.4901161e-08, 0, 0.49999994, 0, 0.5, 0, -0.49999994, 0, 1.4901161e-08, -1.5, 0.39904797, 0.5)
 
 [node name="Barbarian2" parent="NavigationRegion3D/HexagonStonePlatform" unique_id=1316469182 instance=ExtResource("44_mgsk8")]
+placement_id = &"227c37d2146147a8b4d87f2a514a63ae"
 transform = Transform3D(-0.49999994, 0, 2.9802322e-08, 0, 0.5, 0, -2.9802322e-08, 0, -0.49999994, 2.5, 0.39904797, 2.5)
 
 [node name="WallStraight" parent="NavigationRegion3D/HexagonStonePlatform" unique_id=1555351482 instance=ExtResource("45_esj2f")]
@@ -373,18 +369,23 @@ navigation_mesh = SubResource("NavigationMesh_esj2f")
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -25, 0, 5)
 
 [node name="Barbarian" parent="NavigationRegion3D2/HexagonStonePlatform" unique_id=1298633160 instance=ExtResource("44_mgsk8")]
+placement_id = &"4fa16f1119907c0dc813e2ab4bdcb883"
 transform = Transform3D(1.4901161e-08, 0, 0.49999994, 0, 0.5, 0, -0.49999994, 0, 1.4901161e-08, -2.5, 0.39904797, 2.5)
 
 [node name="Barbarian3" parent="NavigationRegion3D2/HexagonStonePlatform" unique_id=1483859116 instance=ExtResource("44_mgsk8")]
+placement_id = &"ff6e1b38b85841239118c2dbdf28349c"
 transform = Transform3D(1.4901161e-08, 0, 0.49999994, 0, 0.5, 0, -0.49999994, 0, 1.4901161e-08, 0, 0.39904797, 2.5)
 
 [node name="Barbarian4" parent="NavigationRegion3D2/HexagonStonePlatform" unique_id=1050381518 instance=ExtResource("44_mgsk8")]
+placement_id = &"1bee7b7b95b618a1350d34eb3e3d6e3c"
 transform = Transform3D(1.4901161e-08, 0, 0.49999994, 0, 0.5, 0, -0.49999994, 0, 1.4901161e-08, -3, 0.39904797, 0.5)
 
 [node name="Barbarian5" parent="NavigationRegion3D2/HexagonStonePlatform" unique_id=1337998623 instance=ExtResource("44_mgsk8")]
+placement_id = &"05329af93a44c2784466f732eb4d3959"
 transform = Transform3D(1.4901161e-08, 0, 0.49999994, 0, 0.5, 0, -0.49999994, 0, 1.4901161e-08, -1.5, 0.39904797, 0.5)
 
 [node name="Barbarian2" parent="NavigationRegion3D2/HexagonStonePlatform" unique_id=891681383 instance=ExtResource("44_mgsk8")]
+placement_id = &"18da0de7fed11fccb0ff5304f7abc898"
 transform = Transform3D(-0.49999994, 0, 2.9802322e-08, 0, 0.5, 0, -2.9802322e-08, 0, -0.49999994, 2.5, 0.39904797, 2.5)
 
 [node name="WallStraight" parent="NavigationRegion3D2/HexagonStonePlatform" unique_id=838079818 instance=ExtResource("45_esj2f")]

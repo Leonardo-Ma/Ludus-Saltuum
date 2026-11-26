@@ -89,9 +89,8 @@ navigation_mesh = SubResource("NavigationMesh_mi8ch")
 [node name="GrassPlatform3" parent="Map/Platforms/NavigationRegion3D" unique_id=1176620490 instance=ExtResource("6_d7bab")]
 
 [node name="Barbarian" parent="Map/Platforms/NavigationRegion3D/GrassPlatform3" unique_id=280064195 instance=ExtResource("9_ocmcv")]
+placement_id = &"58570dd60d577dcbf31aca765f706d1f"
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 4.017614, 0)
-is_procedurally_spawned = false
-static_id = &"tutorial_enemy_0"
 
 [node name="Props" type="Node3D" parent="Map" unique_id=1904790884]
 
@@ -104,9 +103,8 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 7.05
 [node name="Collectibles" type="Node3D" parent="Map" unique_id=1554077165]
 
 [node name="GoldCoin" parent="Map/Collectibles" unique_id=1971537253 instance=ExtResource("13_jitvu")]
+placement_id = &"7807e03e2ec9a9752fdce9fb552a00cf"
 transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0.99999976, 6.5044346, 23)
-is_procedurally_spawned = false
-static_id = &"tutorial_gold_0"
 
 [node name="Chunks" type="Node3D" parent="." unique_id=1438593344]
 script = ExtResource("17_chunks")

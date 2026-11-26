@@ -47,6 +47,7 @@ transform = Transform3D(12, 0, 0, 0, 12, 0, 0, 0, 12, 0, -2.8508797, 72)
 transform = Transform3D(-10, 0, 8.742278e-07, 0, 10, 0, -8.742278e-07, 0, -10, 0.5842614, 1.4292545, 18.978577)
 
 [node name="Barbarian" parent="." unique_id=280064195 instance=ExtResource("9_ges4v")]
+placement_id = &"729ed79e9c6a7e6edfb2ca57aeb88407"
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 0.5842614, 1.4292545, 50.978577)
 
 [node name="WallACornerOutside" parent="." unique_id=261074094 instance=ExtResource("10_vi7jf")]
@@ -77,21 +78,27 @@ transform = Transform3D(-4.999995, 0, 8.660257, 0, 10.000001, 0, -8.660257, 0, -
 transform = Transform3D(10, 0, -1.7484556e-06, 0, 10, 0, 1.7484556e-06, 0, 10, 0.091784835, 1.4292545, 120.71013)
 
 [node name="Barbarian2" parent="." unique_id=687706129 instance=ExtResource("9_ges4v")]
+placement_id = &"6a63e2d9e892e30da28365065d673850"
 transform = Transform3D(1, 0, -2.3841858e-07, 0, 1, 0, 2.3841858e-07, 0, 1, 0.09178758, 1.4292545, 88.71013)
 
 [node name="Barbarian4" parent="." unique_id=959085549 instance=ExtResource("9_ges4v")]
+placement_id = &"92371d5bf139f0be61153c302c939409"
 transform = Transform3D(1, 0, -2.3841858e-07, 0, 1, 0, 2.3841858e-07, 0, 1, -12.908213, 1.4292545, 88.71013)
 
 [node name="Barbarian5" parent="." unique_id=1007478692 instance=ExtResource("9_ges4v")]
+placement_id = &"78e2328ff74ea075febe391d48f952ce"
 transform = Transform3D(1, 0, -2.3841858e-07, 0, 1, 0, 2.3841858e-07, 0, 1, -1.9082127, 1.4292545, 104.71013)
 
 [node name="Barbarian6" parent="." unique_id=2115097899 instance=ExtResource("9_ges4v")]
+placement_id = &"cf4ec6696ea425ec095cbfedfd4e2d73"
 transform = Transform3D(1, 0, -2.3841858e-07, 0, 1, 0, 2.3841858e-07, 0, 1, -29.908213, 1.4292545, 67.71013)
 
 [node name="Barbarian7" parent="." unique_id=920517401 instance=ExtResource("9_ges4v")]
+placement_id = &"b84b084cacacc97197a4f7e1031928f3"
 transform = Transform3D(1, 0, -2.3841858e-07, 0, 1, 0, 2.3841858e-07, 0, 1, -29.908213, 1.4292545, 83.71013)
 
 [node name="Barbarian3" parent="." unique_id=1562372259 instance=ExtResource("9_ges4v")]
+placement_id = &"2f2f36ca7394392e5c4e7434580d3472"
 transform = Transform3D(1, 0, -2.3841858e-07, 0, 1, 0, 2.3841858e-07, 0, 1, 16.206335, 1.4292545, 76.71013)
 
 [node name="WallACornerOutside3" parent="." unique_id=611723552 instance=ExtResource("10_vi7jf")]

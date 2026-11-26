@@ -37,6 +37,7 @@ transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, -1, 4)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 14)
 
 [node name="UnlockSkill" parent="Map/HexagonStonePlatform" unique_id=707485280 instance=ExtResource("6_uipk1")]
+placement_id = &"3ff9f449a40b5bb00b7725f7861cf4e6"
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2, 2)
 data = SubResource("Resource_5h0lt")
 

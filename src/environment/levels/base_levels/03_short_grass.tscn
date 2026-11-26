@@ -35,6 +35,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 140)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -2, 141)
 
 [node name="SpeedUp" parent="Platforms/GrassPlatform4" unique_id=707485280 instance=ExtResource("5_e0o28")]
+placement_id = &"707d8dc897d8e7eeea7a27b623087ef2"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 6, -1)
 
 [node name="GrassPlatform5" parent="Platforms" unique_id=1130352153 instance=ExtResource("6_lxs6o")]

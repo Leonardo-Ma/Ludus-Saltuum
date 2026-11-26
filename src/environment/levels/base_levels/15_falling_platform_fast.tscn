@@ -28,6 +28,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -1, 148)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 
 [node name="SpeedUp" parent="HexagonStonePlatform" unique_id=707485280 instance=ExtResource("5_13q54")]
+placement_id = &"d4dbf9d5914445a5087ee3e2bd2238cb"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)
 
 [node name="ArrowSign" parent="HexagonStonePlatform" unique_id=975612369 instance=ExtResource("6_5qrhp")]

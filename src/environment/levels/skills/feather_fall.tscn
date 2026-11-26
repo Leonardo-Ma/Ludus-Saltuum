@@ -57,6 +57,7 @@ transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 36, 26)
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 37, 36)
 
 [node name="UnlockSkill" parent="StaticBody3D4" unique_id=707485280 instance=ExtResource("7_qid52")]
+placement_id = &"50e32e93219ff87f1e59ba1e1e60e10a"
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0)
 data = SubResource("Resource_2cebc")
 
@@ -70,37 +71,49 @@ linked_portal = NodePath("../../StaticBody3D2/Portal2")
 [node name="Coins" type="Node3D" parent="." unique_id=926859958]
 
 [node name="GoldCoin49" parent="Coins" unique_id=654427791 instance=ExtResource("11_tb3fc")]
+placement_id = &"f8ba61a8b86e3d00b4ced0243bda3cd7"
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.9999998, 25, 51)
 
 [node name="GoldCoin51" parent="Coins" unique_id=188302378 instance=ExtResource("11_tb3fc")]
+placement_id = &"681baa343a78d2fe6765ae3b33dce691"
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2, 23, 53)
 
 [node name="GoldCoin53" parent="Coins" unique_id=589293722 instance=ExtResource("11_tb3fc")]
+placement_id = &"e25411be45031e6c7c658db700eafeb4"
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2, 21, 55)
 
 [node name="GoldCoin55" parent="Coins" unique_id=2129530751 instance=ExtResource("11_tb3fc")]
+placement_id = &"bca21bcc5728b946d8b4e33d7481729b"
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.0000002, 19, 57)
 
 [node name="GoldCoin61" parent="Coins" unique_id=1786404895 instance=ExtResource("11_tb3fc")]
+placement_id = &"798fdd9b38b4a02476fd69276ae10f73"
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3, 25, 51)
 
 [node name="GoldCoin63" parent="Coins" unique_id=1254094304 instance=ExtResource("11_tb3fc")]
+placement_id = &"3abb0c29bc972e17540830c98543fed6"
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3, 23, 53)
 
 [node name="GoldCoin65" parent="Coins" unique_id=1553083618 instance=ExtResource("11_tb3fc")]
+placement_id = &"a9b46e63b6a0fa17bc4374c2391a9b4f"
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3, 21, 55)
 
 [node name="GoldCoin67" parent="Coins" unique_id=144502257 instance=ExtResource("11_tb3fc")]
+placement_id = &"b3a36a7a5457841aa418d3de09500934"
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3, 19, 57)
 
 [node name="GoldCoin85" parent="Coins" unique_id=1259712727 instance=ExtResource("11_tb3fc")]
+placement_id = &"14ccc617788e5f864baeac7ea201ed4e"
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, 25, 51)
 
 [node name="GoldCoin87" parent="Coins" unique_id=1607522460 instance=ExtResource("11_tb3fc")]
+placement_id = &"5234979efdcdcf79850584d85bdff487"
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, 23, 53)
 
 [node name="GoldCoin89" parent="Coins" unique_id=1144635263 instance=ExtResource("11_tb3fc")]
+placement_id = &"07fd140842cc6d3c665672c59bd37e12"
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, 21, 55)
 
 [node name="GoldCoin91" parent="Coins" unique_id=1416890339 instance=ExtResource("11_tb3fc")]
+placement_id = &"5f771c550c5234e59f7ba2a26263423c"
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, 19, 57)
