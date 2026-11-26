@@ -17,6 +17,7 @@ script = ExtResource("1")
 stances = Array[StringName]([&"standing", &"crouching"])
 actions = Array[ExtResource("3")]([ExtResource("6"), ExtResource("7"), ExtResource("8"), SubResource("Dodge")])
 has_air_states = true
+airborne_melee_input = &"jump_chop"
 has_death = true
 death_inputs = Array[StringName]([&"death_a", &"death_b"])
 has_respawn = true

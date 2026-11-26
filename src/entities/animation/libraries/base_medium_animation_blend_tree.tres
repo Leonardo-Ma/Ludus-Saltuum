@@ -112,6 +112,10 @@ input_7/name = "dodge_right"
 input_7/auto_advance = false
 input_7/break_loop_at_end = false
 input_7/reset = true
+input_8/name = "jump_chop"
+input_8/auto_advance = false
+input_8/break_loop_at_end = false
+input_8/reset = true
 
 [sub_resource type="AnimationNodeTimeScale" id="FullBodySpeed"]
 
@@ -120,6 +124,9 @@ animation = &"general/Hit_A"
 
 [sub_resource type="AnimationNodeAnimation" id="HitB"]
 animation = &"general/Hit_B"
+
+[sub_resource type="AnimationNodeAnimation" id="JumpChop"]
+animation = &"1h_combat/1H_Attack_Jump_Chop"
 
 [sub_resource type="AnimationNodeAnimation" id="Magic"]
 animation = &"magic/Ranged_Magic_Shoot"
@@ -147,7 +154,7 @@ animation = &"1h_combat/1H_Attack_Slice_Horizontal"
 animation = &"1h_combat/1H_Attack_Stab"
 
 [resource]
-graph_offset = Vector2(410.60657, 825.23376)
+graph_offset = Vector2(164.7622, 385.06323)
 nodes/output/position = Vector2(1620, 1000)
 nodes/body/node = SubResource("Body")
 nodes/body/position = Vector2(840, 800)
@@ -167,6 +174,8 @@ nodes/dodge_left/node = SubResource("DodgeLeft")
 nodes/dodge_left/position = Vector2(260, 2140)
 nodes/dodge_right/node = SubResource("DodgeRight")
 nodes/dodge_right/position = Vector2(260, 2340)
+nodes/jump_chop/node = SubResource("JumpChop")
+nodes/jump_chop/position = Vector2(260, 2540)
 nodes/full_body_select/node = SubResource("FullBodySelect")
 nodes/full_body_select/position = Vector2(660, 1120)
 nodes/full_body_speed/node = SubResource("FullBodySpeed")
@@ -181,4 +190,4 @@ nodes/reaction_select/node = SubResource("ReactionSelect")
 nodes/reaction_select/position = Vector2(1340, 1360)
 nodes/reaction/node = SubResource("Reaction")
 nodes/reaction/position = Vector2(1320, 1000)
-node_connections = [&"output", 0, &"reaction", &"full_body_select", 0, &"slice_diagonal", &"full_body_select", 1, &"slice_horizontal", &"full_body_select", 2, &"stab", &"full_body_select", 3, &"magic", &"full_body_select", 4, &"dodge_forward", &"full_body_select", 5, &"dodge_backward", &"full_body_select", 6, &"dodge_left", &"full_body_select", 7, &"dodge_right", &"full_body_speed", 0, &"full_body_select", &"full_body", 0, &"body", &"full_body", 1, &"full_body_speed", &"reaction_select", 0, &"hit_a", &"reaction_select", 1, &"hit_b", &"reaction", 0, &"full_body", &"reaction", 1, &"reaction_select"]
+node_connections = [&"output", 0, &"reaction", &"full_body_select", 0, &"slice_diagonal", &"full_body_select", 1, &"slice_horizontal", &"full_body_select", 2, &"stab", &"full_body_select", 3, &"magic", &"full_body_select", 4, &"dodge_forward", &"full_body_select", 5, &"dodge_backward", &"full_body_select", 6, &"dodge_left", &"full_body_select", 7, &"dodge_right", &"full_body_select", 8, &"jump_chop", &"full_body_speed", 0, &"full_body_select", &"full_body", 0, &"body", &"full_body", 1, &"full_body_speed", &"reaction_select", 0, &"hit_a", &"reaction_select", 1, &"hit_b", &"reaction", 0, &"full_body", &"reaction", 1, &"reaction_select"]

@@ -7,6 +7,7 @@ const FAST_WEAPON: WeaponAsset = preload("uid://cr636gvdsdnu3") # stone_katana.t
 const SLOW_WEAPON: WeaponAsset = preload("uid://6m8vbwphmr1c") # stone_spiked_club.tres
 
 var _accepted: int = 0
+var _attack_sounds: int = 0
 var _hit_source: Node3D
 
 
@@ -46,13 +47,12 @@ func run_tests() -> void:
 	player.input_controller.attack_pressed.emit()
 	assert(_accepted == 0 and player.attack_component.can_attack(), "Inactive input spent cooldown in " + name)
 	ApplicationStateManager.request_play_from_save()
-	player.input_controller.attack_pressed.emit()
-	assert(_accepted == 0 and player.attack_component.can_attack(), "Airborne input spent cooldown in " + name)
 	await player.player_movement_controller.landed
 	assert(player.is_on_floor(), "Player did not land in " + name)
 	await _test_shift_strafe(tree, player.player_movement_controller)
 	await _test_rejection_and_interruption(player, animation)
 	await _test_timing_and_damage(player, animation)
+	await _test_airborne_attack(player, animation, tree)
 	var projectile: Projectile = _test_projectile_source(player)
 	await _test_lifecycle(player, animation)
 
@@ -69,11 +69,6 @@ func run_tests() -> void:
 
 
 func _test_rejection_and_interruption(player: PlayerEntity, animation: AnimationController) -> void:
-	animation.set_airborne(true)
-	player.input_controller.attack_pressed.emit()
-	assert(_accepted == 0 and player.attack_component.can_attack(), "Airborne animation spent cooldown in " + name)
-	animation.set_airborne(false)
-
 	assert(animation.request_action(AnimKeys.MAGIC), "Could not occupy full-body layer in " + name)
 	player.input_controller.attack_pressed.emit()
 	assert(_accepted == 0 and player.attack_component.can_attack(), "Busy animation spent cooldown in " + name)
@@ -155,6 +150,59 @@ func _test_timing_and_damage(player: PlayerEntity, animation: AnimationControlle
 	assert(tree.get(AnimParams.layer_speed(AnimationActionDefinition.Layer.FULL_BODY)) == 1.0, "Magic inherited melee speed in " + name)
 	animation.abort_action(AnimKeys.MAGIC)
 	target.queue_free()
+
+
+func _test_airborne_attack(player: PlayerEntity, animation: AnimationController, tree: AnimationTree) -> void:
+	var jump_chop_shape: CollisionShape3D = player.get_node("%JumpChopShape")
+	AudioManager.sound_played.connect(_on_attack_sound)
+	for attempt: int in 2:
+		player.movement.jump(player.movement.get_jump_velocity())
+		await player.movement.in_air
+		assert(not player.is_on_floor(), "Jump left player grounded in " + name)
+
+		var expected_accepted: int = _accepted + 1
+		var expected_sounds: int = _attack_sounds + 1
+		player.input_controller.attack_pressed.emit()
+		assert(
+			_accepted == expected_accepted and player.hitbox.attack == player.attack,
+			"Airborne attack was not armed in %s on attempt %d" % [name, attempt + 1],
+		)
+		player.input_controller.attack_pressed.emit()
+		assert(_accepted == expected_accepted, "Airborne attack bypassed cooldown in " + name)
+
+		var collision_checked: bool = false
+		while animation.is_action_running(AnimKeys.MELEE):
+			await get_tree().process_frame
+			assert(player.hitbox.animated_shape.disabled, "Airborne attack opened ground hitbox in " + name)
+			if not collision_checked and not jump_chop_shape.disabled and _hitbox_contains(player.hitbox, jump_chop_shape.position):
+				assert(not _hitbox_contains(player.hitbox, Vector3(0.0, 0.7, 0.8)), "Jump chop reached behind player in " + name)
+				collision_checked = true
+				if attempt == 1:
+					player.interrupt_melee_attack()
+		await get_tree().process_frame
+		assert(tree.get(&"parameters/full_body_select/current_state") == &"jump_chop", "Airborne attack selected another clip in " + name)
+		assert(collision_checked and jump_chop_shape.disabled and player.hitbox.attack == null, "Jump chop hitbox did not close in " + name)
+		assert(_attack_sounds == expected_sounds, "Airborne attack sound did not play once in " + name)
+
+		while not player.is_on_floor() or not player.attack_component.can_attack():
+			await get_tree().process_frame
+	AudioManager.sound_played.disconnect(_on_attack_sound)
+
+
+func _hitbox_contains(hitbox: Hitbox, local_point: Vector3) -> bool:
+	var query: PhysicsPointQueryParameters3D = PhysicsPointQueryParameters3D.new()
+	query.position = hitbox.to_global(local_point)
+	query.collision_mask = hitbox.collision_layer
+	query.collide_with_bodies = false
+	query.collide_with_areas = true
+	for result: Dictionary in hitbox.get_world_3d().direct_space_state.intersect_point(query):
+		if result[&"collider"] == hitbox:
+			return true
+	return false
+
+
+func _on_attack_sound(_position: Vector3) -> void:
+	_attack_sounds += 1
 
 
 func _test_projectile_source(player: PlayerEntity) -> Projectile:

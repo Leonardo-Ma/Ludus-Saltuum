@@ -120,8 +120,9 @@ func request_action(action_id: StringName, duration: float = 0.0, variant: Strin
 	assert(definition, "Action '%s' missing in AnimationProfile of %s" % [action_id, name])
 	assert(variant == &"" or definition.inputs.has(variant), "Variant '%s' missing for action '%s' in %s" % [variant, action_id, name])
 
+	var airborne_melee: bool = action_id == AnimKeys.MELEE and _is_airborne and profile.airborne_melee_input != &""
 	# TODO Consider input buffering, so if you attack when about to hit ground, it triggers attack
-	if _is_dead or (definition.ground_only and _is_airborne):
+	if _is_dead or (definition.ground_only and _is_airborne and not airborne_melee):
 		return false
 	if action_id == AnimKeys.MELEE and _playback.get_current_node() == AnimParams.RESPAWN:
 		return false
@@ -130,7 +131,9 @@ func request_action(action_id: StringName, duration: float = 0.0, variant: Strin
 		return false
 
 	if not definition.inputs.is_empty():
-		if variant == &"":
+		if airborne_melee:
+			variant = profile.airborne_melee_input
+		elif variant == &"":
 			variant = _pick_variant(definition)
 		_tree.set(AnimParams.layer_select(definition.layer), variant)
 	_set_action_speed(definition.layer, variant, duration)
@@ -237,6 +240,9 @@ func _validate_graph() -> void:
 			direct_layers.append(action.layer)
 		else:
 			_validate_inputs(root, selector_name, action.inputs)
+		if action.id == AnimKeys.MELEE and profile.airborne_melee_input != &"":
+			assert(not action.inputs.is_empty(), "Airborne melee requires named melee inputs in " + name)
+			_validate_inputs(root, selector_name, [profile.airborne_melee_input])
 
 
 ## Validates named inputs before runtime writes to a Transition

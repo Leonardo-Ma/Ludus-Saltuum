@@ -38,6 +38,7 @@ var is_respawning: bool:
 @onready var movement: PlayerMovementComponent = %PlayerMovementComponent
 @onready var projectile_attack_component: ProjectileAttackComponent = %ProjectileAttackComponent
 
+@onready var _player_combat_controller: PlayerCombatController = %PlayerCombatController
 @onready var _player_state_controller: PlayerStateController = %PlayerStateController
 @onready var _player_respawn_controller: PlayerRespawnController = %PlayerRespawnController
 
@@ -77,9 +78,15 @@ func respawn(delay: float, target_transform: Transform3D, is_death: bool = false
 
 
 func try_melee_attack() -> bool:
-	if state != PlayerState.ACTIVE or is_respawning or not is_on_floor():
+	if state != PlayerState.ACTIVE or is_respawning:
 		return false
+	_animation.set_airborne(not is_on_floor())
 	return super.try_melee_attack()
+
+
+## Called by jump chop animation keys
+func set_jump_chop_window_enabled(enabled: bool) -> void:
+	_player_combat_controller.set_jump_chop_window_enabled(enabled)
 
 
 # TODO Maybe change this to a signal based to decouple?

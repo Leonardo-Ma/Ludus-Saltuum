@@ -11,6 +11,8 @@ extends Resource
 @export_category("States")
 ## Jump and fall are authored together
 @export var has_air_states: bool = false
+## Optional melee selector input used in air
+@export var airborne_melee_input: StringName = &""
 @export var has_death: bool = false
 ## Death Transition inputs, empty for a single authored death clip
 @export var death_inputs: Array[StringName] = []
@@ -30,3 +32,7 @@ func validate(owner_name: String) -> void:
 		assert(action != null and action.id != &"", "Incomplete action in " + owner_name)
 		assert(not action_ids.has(action.id), "Duplicate action '%s' in %s" % [action.id, owner_name])
 		action_ids[action.id] = true
+	assert(
+		airborne_melee_input == &"" or (has_air_states and action_ids.has(AnimKeys.MELEE)),
+		"Airborne melee input requires air states and melee in " + owner_name,
+	)
