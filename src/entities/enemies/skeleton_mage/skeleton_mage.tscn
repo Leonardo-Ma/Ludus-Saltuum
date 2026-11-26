@@ -2,11 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://cq301lp0jblvc" path="res://src/entities/enemies/enemy_template.tscn" id="1_virfw"]
 [ext_resource type="Resource" uid="uid://faeio5xc2xun" path="res://src/entities/resources/weapons/skeleton_staff.tres" id="2_mroeu"]
-[ext_resource type="AnimationLibrary" uid="uid://vginonlwcip8" path="res://src/entities/animation/libraries/combat.res" id="2_ymq7x"]
+[ext_resource type="AnimationLibrary" uid="uid://dsv4x78ecrm6t" path="res://src/entities/animation/libraries/combat.res" id="2_ymq7x"]
 [ext_resource type="AnimationLibrary" uid="uid://qw3lmf4rabqb" path="res://src/entities/animation/libraries/general.res" id="3_ggklk"]
 [ext_resource type="Script" uid="uid://dlbf4w8moqj2j" path="res://src/entities/components/movement.gd" id="3_htfkf"]
 [ext_resource type="AnimationLibrary" uid="uid://dfypubq6ngr7a" path="res://src/entities/animation/libraries/movement.res" id="4_crluf"]
-[ext_resource type="AnimationLibrary" uid="uid://bp21tmj3ajjq" path="res://src/entities/animation/libraries/movement_advanced.res" id="5_gxruy"]
+[ext_resource type="AnimationLibrary" uid="uid://cm5ywohf8f74k" path="res://src/entities/animation/libraries/movement_advanced.res" id="5_gxruy"]
 [ext_resource type="Script" uid="uid://cd8isclluq4nq" path="res://src/entities/ai/goap/actions/magic_attack.gd" id="6_jikcy"]
 [ext_resource type="Script" uid="uid://dycviide8g017" path="res://src/entities/ai/goap/actions/chase_enemy.gd" id="7_kpxjl"]
 [ext_resource type="Script" uid="uid://b83mgqwni7j8x" path="res://src/entities/ai/goap/actions/approach_enemy.gd" id="7_njikp"]

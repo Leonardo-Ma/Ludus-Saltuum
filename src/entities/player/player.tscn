@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://wqopxvagomo6" path="res://src/entities/components/combat/hurtbox.gd" id="7_cdsl0"]
 [ext_resource type="Script" uid="uid://otpekb0jb3ab" path="res://src/entities/player/components/player_movement_component.gd" id="8_ebec5"]
 [ext_resource type="Script" uid="uid://cuefrffw4m4jh" path="res://src/entities/components/animation_controller.gd" id="9_yllr7"]
-[ext_resource type="AnimationLibrary" path="res://src/entities/animation/libraries/combat.res" id="10_qo2tj"]
+[ext_resource type="AnimationLibrary" uid="uid://dsv4x78ecrm6t" path="res://src/entities/animation/libraries/combat.res" id="10_qo2tj"]
 [ext_resource type="PackedScene" uid="uid://vimkn28kx0tr" path="res://src/entities/base_humanoid_character_rig.tscn" id="11_2a6xp"]
 [ext_resource type="Resource" uid="uid://c6f3xuf0j77dc" path="res://src/entities/resources/characters/humans/knight.tres" id="11_pg6a0"]
 [ext_resource type="AnimationLibrary" uid="uid://qw3lmf4rabqb" path="res://src/entities/animation/libraries/general.res" id="11_wjvoe"]

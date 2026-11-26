@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cq301lp0jblvc" path="res://src/entities/enemies/enemy_template.tscn" id="1_4frua"]
 [ext_resource type="Resource" uid="uid://6m8vbwphmr1c" path="res://src/entities/resources/weapons/stone_spiked_club.tres" id="2_ud1dh"]
 [ext_resource type="AnimationLibrary" uid="uid://d0b53v2ggy8ma" path="res://src/entities/animation/libraries/magic.res" id="4_lmes7"]
-[ext_resource type="AnimationLibrary" uid="uid://vginonlwcip8" path="res://src/entities/animation/libraries/combat.res" id="5_0ifyg"]
+[ext_resource type="AnimationLibrary" uid="uid://dsv4x78ecrm6t" path="res://src/entities/animation/libraries/combat.res" id="5_0ifyg"]
 [ext_resource type="AnimationLibrary" uid="uid://qw3lmf4rabqb" path="res://src/entities/animation/libraries/general.res" id="6_q7dfg"]
 [ext_resource type="AnimationLibrary" uid="uid://dfypubq6ngr7a" path="res://src/entities/animation/libraries/movement.res" id="7_0ektb"]
 [ext_resource type="Resource" uid="uid://c3n684po0joc4" path="res://src/entities/resources/characters/humans/barbarian.tres" id="8_cin2i"]
@@ -14,7 +14,7 @@
 [ext_resource type="Resource" uid="uid://bgdv4xkrfy3vg" path="res://src/entities/resources/weapons/stone_sword.tres" id="13_iamlb"]
 [ext_resource type="Resource" uid="uid://bddhvg1ytve8r" path="res://src/entities/resources/weapons/stone_axe.tres" id="14_3q2kk"]
 [ext_resource type="Resource" uid="uid://b82wh7rxddy1b" path="res://src/entities/resources/weapons/gold_paladin_hammer.tres" id="15_m2hlj"]
-[ext_resource type="AnimationLibrary" uid="uid://bp21tmj3ajjq" path="res://src/entities/animation/libraries/movement_advanced.res" id="19_2rf2y"]
+[ext_resource type="AnimationLibrary" uid="uid://cm5ywohf8f74k" path="res://src/entities/animation/libraries/movement_advanced.res" id="19_2rf2y"]
 
 [sub_resource type="Animation" id="Animation_ud1dh"]
 resource_name = "RESET"
