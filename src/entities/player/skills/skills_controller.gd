@@ -4,6 +4,7 @@ extends Node
 
 signal skill_unlocked(definition: SkillDefinition)
 signal resetted_skills
+signal dash_started(velocity: Vector3, duration: float)
 
 var is_sliding: bool = false
 var base_fov: float = 0.0

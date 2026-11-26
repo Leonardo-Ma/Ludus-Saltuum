@@ -18,7 +18,14 @@ func get_hud_mode() -> HUDMode:
 	return HUDMode.COOLDOWN
 
 
+func _exit_tree() -> void:
+	if _dash_timer > 0.0:
+		_dash_timer = 0.0
+		skills_controller.is_sliding = false
+
+
 func _physics_process(delta: float) -> void:
+	assert(skills_controller, "SkillsController missing in " + name)
 	if _dash_timer > 0.0:
 		_dash_timer -= delta
 		if _dash_timer <= 0.0:
@@ -64,3 +71,4 @@ func _start_dash() -> void:
 	forward = forward.normalized()
 	_dash_direction = forward * skills_controller.entity.movement.get_speed() * dash_velocity_multiplier
 	skills_controller.movement_controller.disable_movement(dash_duration)
+	skills_controller.dash_started.emit(_dash_direction, dash_duration)

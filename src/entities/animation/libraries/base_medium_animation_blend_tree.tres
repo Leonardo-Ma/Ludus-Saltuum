@@ -62,6 +62,18 @@ states/standing/node = ExtResource("Standing")
 states/standing/position = Vector2(300, 80)
 transitions = ["Start", "standing", SubResource("Start"), "standing", "crouching", SubResource("ToCrouching"), "crouching", "standing", SubResource("ToStanding"), "standing", "fall", SubResource("Travel"), "crouching", "fall", SubResource("Travel"), "jump", "fall", SubResource("JumpEnd"), "jump", "standing", SubResource("Travel"), "jump", "crouching", SubResource("Travel"), "fall", "standing", SubResource("Travel"), "fall", "crouching", SubResource("Travel"), "respawn", "standing", SubResource("RespawnStanding"), "respawn", "crouching", SubResource("RespawnCrouching")]
 
+[sub_resource type="AnimationNodeAnimation" id="DodgeBackward"]
+animation = &"movement_advanced/Dodge_Backward"
+
+[sub_resource type="AnimationNodeAnimation" id="DodgeForward"]
+animation = &"movement_advanced/Dodge_Forward"
+
+[sub_resource type="AnimationNodeAnimation" id="DodgeLeft"]
+animation = &"movement_advanced/Dodge_Left"
+
+[sub_resource type="AnimationNodeAnimation" id="DodgeRight"]
+animation = &"movement_advanced/Dodge_Right"
+
 [sub_resource type="AnimationNodeOneShot" id="FullBody"]
 sync = true
 fadein_time = 0.05
@@ -84,6 +96,22 @@ input_3/name = "magic"
 input_3/auto_advance = false
 input_3/break_loop_at_end = false
 input_3/reset = true
+input_4/name = "dodge_forward"
+input_4/auto_advance = false
+input_4/break_loop_at_end = false
+input_4/reset = true
+input_5/name = "dodge_backward"
+input_5/auto_advance = false
+input_5/break_loop_at_end = false
+input_5/reset = true
+input_6/name = "dodge_left"
+input_6/auto_advance = false
+input_6/break_loop_at_end = false
+input_6/reset = true
+input_7/name = "dodge_right"
+input_7/auto_advance = false
+input_7/break_loop_at_end = false
+input_7/reset = true
 
 [sub_resource type="AnimationNodeTimeScale" id="FullBodySpeed"]
 
@@ -119,21 +147,30 @@ animation = &"1h_combat/1H_Attack_Slice_Horizontal"
 animation = &"1h_combat/1H_Attack_Stab"
 
 [resource]
+graph_offset = Vector2(410.60657, 825.23376)
 nodes/output/position = Vector2(1620, 1000)
 nodes/body/node = SubResource("Body")
-nodes/body/position = Vector2(820, 860)
+nodes/body/position = Vector2(840, 800)
 nodes/slice_diagonal/node = SubResource("SliceDiagonal")
-nodes/slice_diagonal/position = Vector2(440, 940)
+nodes/slice_diagonal/position = Vector2(280, 940)
 nodes/slice_horizontal/node = SubResource("SliceHorizontal")
-nodes/slice_horizontal/position = Vector2(360, 1160)
+nodes/slice_horizontal/position = Vector2(200, 1160)
 nodes/stab/node = SubResource("Stab")
-nodes/stab/position = Vector2(400, 1340)
+nodes/stab/position = Vector2(240, 1340)
 nodes/magic/node = SubResource("Magic")
-nodes/magic/position = Vector2(420, 1540)
+nodes/magic/position = Vector2(260, 1540)
+nodes/dodge_forward/node = SubResource("DodgeForward")
+nodes/dodge_forward/position = Vector2(260, 1740)
+nodes/dodge_backward/node = SubResource("DodgeBackward")
+nodes/dodge_backward/position = Vector2(260, 1940)
+nodes/dodge_left/node = SubResource("DodgeLeft")
+nodes/dodge_left/position = Vector2(260, 2140)
+nodes/dodge_right/node = SubResource("DodgeRight")
+nodes/dodge_right/position = Vector2(260, 2340)
 nodes/full_body_select/node = SubResource("FullBodySelect")
-nodes/full_body_select/position = Vector2(820, 1120)
+nodes/full_body_select/position = Vector2(660, 1120)
 nodes/full_body_speed/node = SubResource("FullBodySpeed")
-nodes/full_body_speed/position = Vector2(960, 1170)
+nodes/full_body_speed/position = Vector2(920, 1200)
 nodes/full_body/node = SubResource("FullBody")
 nodes/full_body/position = Vector2(1080, 1000)
 nodes/hit_a/node = SubResource("HitA")
@@ -144,4 +181,4 @@ nodes/reaction_select/node = SubResource("ReactionSelect")
 nodes/reaction_select/position = Vector2(1340, 1360)
 nodes/reaction/node = SubResource("Reaction")
 nodes/reaction/position = Vector2(1320, 1000)
-node_connections = [&"output", 0, &"reaction", &"full_body_select", 0, &"slice_diagonal", &"full_body_select", 1, &"slice_horizontal", &"full_body_select", 2, &"stab", &"full_body_select", 3, &"magic", &"full_body_speed", 0, &"full_body_select", &"full_body", 0, &"body", &"full_body", 1, &"full_body_speed", &"reaction_select", 0, &"hit_a", &"reaction_select", 1, &"hit_b", &"reaction", 0, &"full_body", &"reaction", 1, &"reaction_select"]
+node_connections = [&"output", 0, &"reaction", &"full_body_select", 0, &"slice_diagonal", &"full_body_select", 1, &"slice_horizontal", &"full_body_select", 2, &"stab", &"full_body_select", 3, &"magic", &"full_body_select", 4, &"dodge_forward", &"full_body_select", 5, &"dodge_backward", &"full_body_select", 6, &"dodge_left", &"full_body_select", 7, &"dodge_right", &"full_body_speed", 0, &"full_body_select", &"full_body", 0, &"body", &"full_body", 1, &"full_body_speed", &"reaction_select", 0, &"hit_a", &"reaction_select", 1, &"hit_b", &"reaction", 0, &"full_body", &"reaction", 1, &"reaction_select"]

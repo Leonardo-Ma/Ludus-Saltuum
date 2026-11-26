@@ -114,9 +114,11 @@ func set_dead(dead: bool) -> void:
 
 
 ## Optional duration scales selected clip and its event tracks together
-func request_action(action_id: StringName, duration: float = 0.0) -> bool:
+## Optional variant selects a named input from this action
+func request_action(action_id: StringName, duration: float = 0.0, variant: StringName = &"") -> bool:
 	var definition: AnimationActionDefinition = _definitions.get(action_id)
 	assert(definition, "Action '%s' missing in AnimationProfile of %s" % [action_id, name])
+	assert(variant == &"" or definition.inputs.has(variant), "Variant '%s' missing for action '%s' in %s" % [variant, action_id, name])
 
 	# TODO Consider input buffering, so if you attack when about to hit ground, it triggers attack
 	if _is_dead or (definition.ground_only and _is_airborne):
@@ -127,9 +129,9 @@ func request_action(action_id: StringName, duration: float = 0.0) -> bool:
 	if previous_action != &"" and not definition.interrupt_active:
 		return false
 
-	var variant: StringName
 	if not definition.inputs.is_empty():
-		variant = _pick_variant(definition)
+		if variant == &"":
+			variant = _pick_variant(definition)
 		_tree.set(AnimParams.layer_select(definition.layer), variant)
 	_set_action_speed(definition.layer, variant, duration)
 	_running[definition.layer] = action_id

@@ -6,10 +6,16 @@
 [ext_resource type="Resource" uid="uid://cnfn5d6b4utps" path="res://src/entities/animation/resources/actions/magic_shoot.tres" id="7"]
 [ext_resource type="Resource" uid="uid://uwdpk4bplsnf" path="res://src/entities/animation/resources/actions/hit_reaction.tres" id="8"]
 
+[sub_resource type="Resource" id="Dodge"]
+script = ExtResource("3")
+id = &"dodge"
+inputs = Array[StringName]([&"dodge_forward", &"dodge_backward", &"dodge_left", &"dodge_right"])
+interrupt_active = true
+
 [resource]
 script = ExtResource("1")
 stances = Array[StringName]([&"standing", &"crouching"])
-actions = Array[ExtResource("3")]([ExtResource("6"), ExtResource("7"), ExtResource("8")])
+actions = Array[ExtResource("3")]([ExtResource("6"), ExtResource("7"), ExtResource("8"), SubResource("Dodge")])
 has_air_states = true
 has_death = true
 death_inputs = Array[StringName]([&"death_a", &"death_b"])
