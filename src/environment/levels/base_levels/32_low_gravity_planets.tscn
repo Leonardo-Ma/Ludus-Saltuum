@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://bnmkm58dhp61e"]
+
+[ext_resource type="Script" uid="uid://dfapcpf4fli57" path="res://src/environment/levels/level_chunk.gd" id="1_oth25"]
+[ext_resource type="PackedScene" uid="uid://cl6psv388cmbx" path="res://src/environment/levels/entrance_trigger.tscn" id="2_rodbx"]
+[ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_7xq1x"]
+[ext_resource type="PackedScene" uid="uid://c7tmf6rofuw1j" path="res://src/environment/mechanics/gravity_field/gravity_field.tscn" id="4_wkeqr"]
+[ext_resource type="PackedScene" uid="uid://b73j2aliqwvvc" path="res://src/environment/mechanics/gameplay_state_area/change_gameplay_state_area_3d.tscn" id="5_xbjk5"]
+[ext_resource type="Script" uid="uid://b78p5akinvqq3" path="res://src/environment/mechanics/environment_zone_3d.gd" id="6_upyos"]
+[ext_resource type="Environment" uid="uid://dajjvm7dcqc5h" path="res://src/environment/mechanics/outer_space/outer_space_environment.tres" id="7_b17fi"]
+[ext_resource type="PackedScene" uid="uid://c8f86k2vkvgrb" path="res://src/environment/levels/assets/outer_space/planet/planet.tscn" id="9_dk2sp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j6rds"]
+size = Vector3(63, 84, 135.5)
+
+[node name="32LowGravityPlanets" type="Node3D" unique_id=1798165210]
+script = ExtResource("1_oth25")
+min_score = 90
+
+[node name="EntranceTrigger" parent="." unique_id=434591847 instance=ExtResource("2_rodbx")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 1)
+
+[node name="ExitTrigger" parent="." unique_id=1043448062 instance=ExtResource("3_7xq1x")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 143.5)
+
+[node name="ChangeGameplayArea3D" type="Node3D" parent="." unique_id=882813542]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 70.25)
+metadata/_edit_group_ = true
+
+[node name="GravityField" parent="ChangeGameplayArea3D" unique_id=1616056158 instance=ExtResource("4_wkeqr")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ChangeGameplayArea3D/GravityField" unique_id=519392366]
+shape = SubResource("BoxShape3D_j6rds")
+
+[node name="ChangeGameplayStateArea3D" parent="ChangeGameplayArea3D" unique_id=109681903 node_paths=PackedStringArray("collision_shape_3d") instance=ExtResource("5_xbjk5")]
+target_gameplay_mode = 4
+collision_shape_3d = NodePath("CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ChangeGameplayArea3D/ChangeGameplayStateArea3D" unique_id=1661858916]
+shape = SubResource("BoxShape3D_j6rds")
+
+[node name="EnvironmentZone3D" type="Area3D" parent="ChangeGameplayArea3D" unique_id=1228425039]
+script = ExtResource("6_upyos")
+target_environment = ExtResource("7_b17fi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ChangeGameplayArea3D/EnvironmentZone3D" unique_id=53271474]
+shape = SubResource("BoxShape3D_j6rds")
+
+[node name="LaunchPlanet" parent="." unique_id=513443111 instance=ExtResource("9_dk2sp")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -2.2, 4)
+
+[node name="Planet2" parent="." unique_id=992619157 instance=ExtResource("9_dk2sp")]
+transform = Transform3D(0, 0, -2.3, 0, 2.3, 0, 2.3, 0, 0, -4, 2.1, 25)
+
+[node name="Planet3" parent="." unique_id=288923518 instance=ExtResource("9_dk2sp")]
+transform = Transform3D(-2.6, 0, 0, 0, 2.6, 0, 0, 0, -2.6, -8, -1.6, 47)
+
+[node name="Planet4" parent="." unique_id=840822113 instance=ExtResource("9_dk2sp")]
+transform = Transform3D(0, 0, 2.5, 0, 2.5, 0, -2.5, 0, 0, 0, 3.4, 69)
+
+[node name="Planet5" parent="." unique_id=1039695080 instance=ExtResource("9_dk2sp")]
+transform = Transform3D(2.7, 0, 0, 0, 2.7, 0, 0, 0, 2.7, 6, 0, 91)
+
+[node name="Planet6" parent="." unique_id=821196571 instance=ExtResource("9_dk2sp")]
+transform = Transform3D(-2.4, 0, 0, 0, 2.4, 0, 0, 0, -2.4, 4, 4, 113)
+
+[node name="ExitPlanet" parent="." unique_id=227897065 instance=ExtResource("9_dk2sp")]
+transform = Transform3D(0, 0, -3.3, 0, 3.3, 0, 3.3, 0, 0, 0, -2.3, 136)
