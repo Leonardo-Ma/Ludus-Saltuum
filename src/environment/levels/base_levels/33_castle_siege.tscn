@@ -1,0 +1,306 @@
+[gd_scene format=3 uid="uid://dwk2qmakkw8vd"]
+
+[ext_resource type="Script" uid="uid://dfapcpf4fli57" path="res://src/environment/levels/level_chunk.gd" id="1_chunk"]
+[ext_resource type="PackedScene" uid="uid://cl6psv388cmbx" path="res://src/environment/levels/entrance_trigger.tscn" id="2_entrance"]
+[ext_resource type="PackedScene" uid="uid://bfl3xs2wgfl1v" path="res://src/environment/levels/exit_trigger.tscn" id="3_exit"]
+[ext_resource type="PackedScene" uid="uid://trd7ogx3xpwh" path="res://src/environment/levels/assets/props/arrow_sign.tscn" id="4_arrow"]
+[ext_resource type="PackedScene" uid="uid://7ugwdowsimwr" path="res://src/environment/levels/assets/platforms/static_platforms/hexagon_stone.tscn" id="5_stone"]
+[ext_resource type="PackedScene" uid="uid://bylcq0tsjv7o4" path="res://src/entities/enemies/skeleton_mage/skeleton_mage.tscn" id="6_mage"]
+[ext_resource type="Script" uid="uid://cd8isclluq4nq" path="res://src/entities/ai/goap/actions/magic_attack.gd" id="7_magic"]
+[ext_resource type="Script" uid="uid://o8dqx6i7woqt" path="res://src/entities/ai/goap/goals/kill_enemy_goal.gd" id="8_kill"]
+[ext_resource type="Script" uid="uid://bj2xml7lbt3ld" path="res://src/entities/ai/goap/goals/reach_ranged_attack_range_goal.gd" id="9_range"]
+[ext_resource type="Script" uid="uid://bvvk88q345vy4" path="res://src/entities/ai/goap/helpers/ai_config.gd" id="10_ai"]
+[ext_resource type="PackedScene" uid="uid://bq40gaxcv13ml" path="res://src/environment/assets/kaykit_medieval_hexagon/asset_scenes/wall_straight_gate.tscn" id="11_gate"]
+[ext_resource type="PackedScene" uid="uid://b1ng4j32ylvr1" path="res://src/environment/assets/kaykit_medieval_hexagon/asset_scenes/wall_straight.tscn" id="12_wall"]
+[ext_resource type="PackedScene" uid="uid://cib5fxanrxerk" path="res://src/environment/assets/kaykit_medieval_hexagon/asset_scenes/building_tower_base_blue.tscn" id="13_tower"]
+[ext_resource type="PackedScene" uid="uid://nd1uo24vt6d5" path="res://src/entities/enemies/barbarian/barbarian.tscn" id="14_barbarian"]
+[ext_resource type="PackedScene" uid="uid://b445q8f3p7y7j" path="res://src/environment/assets/kaykit_medieval_hexagon/asset_scenes/building_home_a_blue.tscn" id="15_house"]
+[ext_resource type="PackedScene" uid="uid://dn17us3ngw2ee" path="res://src/environment/assets/kaykit_medieval_hexagon/asset_scenes/cannon.tscn" id="16_cannon"]
+
+[sub_resource type="Gradient" id="Gradient_stone"]
+colors = PackedColorArray(0.31, 0.33, 0.37, 1, 0.46, 0.49, 0.53, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_stone"]
+frequency = 0.085
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_stone"]
+noise = SubResource("FastNoiseLite_stone")
+color_ramp = SubResource("Gradient_stone")
+seamless = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_stone"]
+albedo_texture = SubResource("NoiseTexture2D_stone")
+roughness = 0.95
+uv1_scale = Vector3(0.16, 0.16, 0.16)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_foundation"]
+material = SubResource("StandardMaterial3D_stone")
+size = Vector3(39.6, 3, 102)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_foundation"]
+size = Vector3(39.6, 3, 102)
+
+[sub_resource type="BoxMesh" id="BoxMesh_exit_bridge"]
+material = SubResource("StandardMaterial3D_stone")
+size = Vector3(8, 1.2, 8.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_exit_bridge"]
+size = Vector3(8, 1.2, 7.4942627)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tower_deck"]
+material = SubResource("StandardMaterial3D_stone")
+size = Vector3(0.62, 0.12, 0.62)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tower_deck"]
+size = Vector3(0.62, 0.12, 0.62)
+
+[sub_resource type="Resource" id="Resource_tower_mage"]
+script = ExtResource("10_ai")
+available_actions = Array[Script]([ExtResource("7_magic")])
+available_goals = Array[Script]([ExtResource("8_kill"), ExtResource("9_range")])
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_barbarian_court"]
+vertices = PackedVector3Array(-10, 2.09, 66, -10, 2.09, 107, 10, 2.09, 107, 10, 2.09, 66)
+polygons = [PackedInt32Array(0, 1, 2, 3)]
+
+[node name="33CastleSiege" type="Node3D" unique_id=532331982]
+script = ExtResource("1_chunk")
+min_score = 430
+difficulty = 2
+score_multiplier = 1.5
+features = Array[int]([8])
+
+[node name="EntranceTrigger" parent="." unique_id=480054722 instance=ExtResource("2_entrance")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+
+[node name="ExitTrigger" parent="." unique_id=1222096536 instance=ExtResource("3_exit")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 120)
+
+[node name="ApproachPlatform" parent="." unique_id=1178518956 instance=ExtResource("5_stone")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.726, 2.4683769)
+
+[node name="ArrowSign" parent="ApproachPlatform" unique_id=2081360549 instance=ExtResource("4_arrow")]
+transform = Transform3D(0, 0, -2, 0, 2, 0, 2, 0, 0, 3, 0.32826352, -0.46837687)
+
+[node name="GateApproach" parent="." unique_id=1157283177 instance=ExtResource("5_stone")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.724, 10.468)
+
+[node name="CourtyardFoundation" type="StaticBody3D" parent="." unique_id=2015243862]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59, 62)
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CourtyardFoundation" unique_id=791699071]
+mesh = SubResource("BoxMesh_foundation")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CourtyardFoundation" unique_id=1402823007]
+shape = SubResource("BoxShape3D_foundation")
+
+[node name="ExitBridge" type="StaticBody3D" parent="." unique_id=1203317922]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 116)
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ExitBridge" unique_id=434620740]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+mesh = SubResource("BoxMesh_exit_bridge")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExitBridge" unique_id=446450559]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.50286865)
+shape = SubResource("BoxShape3D_exit_bridge")
+
+[node name="CastleWalls" type="Node3D" parent="." unique_id=1631638521]
+
+[node name="EntranceGate" parent="CastleWalls" unique_id=871852768 instance=ExtResource("11_gate")]
+transform = Transform3D(-6, 0, 0, 0, 6, 0, 0, 0, -6, 0, 2.09, 14)
+
+[node name="EntranceWestWall" parent="CastleWalls" unique_id=1888463174 instance=ExtResource("12_wall")]
+transform = Transform3D(-6, 0, 0, 0, 6, 0, 0, 0, -6, -12, 2.09, 14)
+
+[node name="EntranceEastWall" parent="CastleWalls" unique_id=1416700195 instance=ExtResource("12_wall")]
+transform = Transform3D(-6, 0, 0, 0, 6, 0, 0, 0, -6, 12, 2.09, 14)
+
+[node name="CourtyardGate" parent="CastleWalls" unique_id=795871243 instance=ExtResource("11_gate")]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 2.09, 62)
+
+[node name="CourtyardWestWall" parent="CastleWalls" unique_id=937573873 instance=ExtResource("12_wall")]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, -12, 2.09, 62)
+
+[node name="CourtyardEastWall" parent="CastleWalls" unique_id=1890418439 instance=ExtResource("12_wall")]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 12, 2.09, 62)
+
+[node name="ExitGate" parent="CastleWalls" unique_id=1373463556 instance=ExtResource("11_gate")]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 2.09, 110)
+
+[node name="ExitWestWall" parent="CastleWalls" unique_id=253644644 instance=ExtResource("12_wall")]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, -12, 2.09, 110)
+
+[node name="ExitEastWall" parent="CastleWalls" unique_id=1828088685 instance=ExtResource("12_wall")]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 12, 2.09, 110)
+
+[node name="WestWall1" parent="CastleWalls" unique_id=311437430 instance=ExtResource("12_wall")]
+transform = Transform3D(0, 0, -6.025, 0, 6.025, 0, 6.025, 0, 0, -18, 2.09, 20)
+
+[node name="WestWall2" parent="CastleWalls" unique_id=1275113981 instance=ExtResource("12_wall")]
+transform = Transform3D(0, 0, -6.025, 0, 6.025, 0, 6.025, 0, 0, -18, 2.09, 32)
+
+[node name="WestWall3" parent="CastleWalls" unique_id=677790896 instance=ExtResource("12_wall")]
+transform = Transform3D(0, 0, -6.025, 0, 6.025, 0, 6.025, 0, 0, -18, 2.09, 44)
+
+[node name="WestWall4" parent="CastleWalls" unique_id=1287055383 instance=ExtResource("12_wall")]
+transform = Transform3D(0, 0, -6.025, 0, 6.025, 0, 6.025, 0, 0, -18, 2.09, 56)
+
+[node name="WestWall5" parent="CastleWalls" unique_id=824346225 instance=ExtResource("12_wall")]
+transform = Transform3D(0, 0, -6.025, 0, 6.025, 0, 6.025, 0, 0, -18, 2.09, 68)
+
+[node name="WestWall6" parent="CastleWalls" unique_id=1654821886 instance=ExtResource("12_wall")]
+transform = Transform3D(0, 0, -6.025, 0, 6.025, 0, 6.025, 0, 0, -18, 2.09, 80)
+
+[node name="WestWall7" parent="CastleWalls" unique_id=174804452 instance=ExtResource("12_wall")]
+transform = Transform3D(0, 0, -6.025, 0, 6.025, 0, 6.025, 0, 0, -18, 2.09, 92)
+
+[node name="WestWall8" parent="CastleWalls" unique_id=1829609932 instance=ExtResource("12_wall")]
+transform = Transform3D(0, 0, -6.025, 0, 6.025, 0, 6.025, 0, 0, -18, 2.09, 104)
+
+[node name="EastWall1" parent="CastleWalls" unique_id=1555330059 instance=ExtResource("12_wall")]
+transform = Transform3D(0, 0, 6.025, 0, 6.025, 0, -6.025, 0, 0, 18, 2.09, 20)
+
+[node name="EastWall2" parent="CastleWalls" unique_id=985845883 instance=ExtResource("12_wall")]
+transform = Transform3D(0, 0, 6.025, 0, 6.025, 0, -6.025, 0, 0, 18, 2.09, 32)
+
+[node name="EastWall3" parent="CastleWalls" unique_id=1575772589 instance=ExtResource("12_wall")]
+transform = Transform3D(0, 0, 6.025, 0, 6.025, 0, -6.025, 0, 0, 18, 2.09, 44)
+
+[node name="EastWall4" parent="CastleWalls" unique_id=137316353 instance=ExtResource("12_wall")]
+transform = Transform3D(0, 0, 6.025, 0, 6.025, 0, -6.025, 0, 0, 18, 2.09, 56)
+
+[node name="EastWall5" parent="CastleWalls" unique_id=1396776555 instance=ExtResource("12_wall")]
+transform = Transform3D(0, 0, 6.025, 0, 6.025, 0, -6.025, 0, 0, 18, 2.09, 68)
+
+[node name="EastWall6" parent="CastleWalls" unique_id=407458415 instance=ExtResource("12_wall")]
+transform = Transform3D(0, 0, 6.025, 0, 6.025, 0, -6.025, 0, 0, 18, 2.09, 80)
+
+[node name="EastWall7" parent="CastleWalls" unique_id=584028987 instance=ExtResource("12_wall")]
+transform = Transform3D(0, 0, 6.025, 0, 6.025, 0, -6.025, 0, 0, 18, 2.09, 92)
+
+[node name="EastWall8" parent="CastleWalls" unique_id=1508183709 instance=ExtResource("12_wall")]
+transform = Transform3D(0, 0, 6.025, 0, 6.025, 0, -6.025, 0, 0, 18, 2.09, 104)
+
+[node name="EntranceWestTower" parent="CastleWalls" unique_id=579229182 instance=ExtResource("13_tower")]
+transform = Transform3D(-6, 0, 0, 0, 6, 0, 0, 0, -6, -16.8, 2.09, 14.5)
+
+[node name="EntranceEastTower" parent="CastleWalls" unique_id=1867802514 instance=ExtResource("13_tower")]
+transform = Transform3D(-6, 0, 0, 0, 6, 0, 0, 0, -6, 16.8, 2.09, 14.5)
+
+[node name="ExitWestTower" parent="CastleWalls" unique_id=1549954417 instance=ExtResource("13_tower")]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, -16.8, 2.09, 109.5)
+
+[node name="ExitEastTower" parent="CastleWalls" unique_id=438628848 instance=ExtResource("13_tower")]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 16.8, 2.09, 109.5)
+
+[node name="MageCourtyard" type="Node3D" parent="." unique_id=122760242]
+
+[node name="WestWatchtower" parent="MageCourtyard" unique_id=114671415 instance=ExtResource("13_tower")]
+transform = Transform3D(0, 0, 3, 0, 3, 0, -3, 0, 0, -10, 2.09, 22)
+
+[node name="CasterDeck" type="StaticBody3D" parent="MageCourtyard/WestWatchtower" unique_id=655552158]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.46, 0)
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MageCourtyard/WestWatchtower/CasterDeck" unique_id=31159049]
+mesh = SubResource("BoxMesh_tower_deck")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MageCourtyard/WestWatchtower/CasterDeck" unique_id=1065078049]
+shape = SubResource("BoxShape3D_tower_deck")
+
+[node name="WestWatchtowerMage" parent="MageCourtyard" unique_id=1652607855 instance=ExtResource("6_mage")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -10, 6.68, 22)
+ai_config = SubResource("Resource_tower_mage")
+placement_id = &"3a7d17c8150d2c33cbd327e61c5b565e"
+
+[node name="EastWatchtower" parent="MageCourtyard" unique_id=524278677 instance=ExtResource("13_tower")]
+transform = Transform3D(0, 0, -3, 0, 3, 0, 3, 0, 0, 10, 2.09, 27)
+
+[node name="CasterDeck" type="StaticBody3D" parent="MageCourtyard/EastWatchtower" unique_id=584914121]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.46, 0)
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MageCourtyard/EastWatchtower/CasterDeck" unique_id=1484792888]
+mesh = SubResource("BoxMesh_tower_deck")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MageCourtyard/EastWatchtower/CasterDeck" unique_id=1194408080]
+shape = SubResource("BoxShape3D_tower_deck")
+
+[node name="EastWatchtowerMage" parent="MageCourtyard" unique_id=894709997 instance=ExtResource("6_mage")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 10, 6.68, 27)
+ai_config = SubResource("Resource_tower_mage")
+placement_id = &"14acb9e0b7039de6a5d835e8bd711313"
+
+[node name="WestKeepTower" parent="MageCourtyard" unique_id=749222769 instance=ExtResource("13_tower")]
+transform = Transform3D(0, 0, 3, 0, 3, 0, -3, 0, 0, -10, 2.09, 34)
+
+[node name="CasterDeck" type="StaticBody3D" parent="MageCourtyard/WestKeepTower" unique_id=611192466]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.46, 0)
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MageCourtyard/WestKeepTower/CasterDeck" unique_id=1185789123]
+mesh = SubResource("BoxMesh_tower_deck")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MageCourtyard/WestKeepTower/CasterDeck" unique_id=1882547563]
+shape = SubResource("BoxShape3D_tower_deck")
+
+[node name="WestKeepTowerMage" parent="MageCourtyard" unique_id=1549572699 instance=ExtResource("6_mage")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -10, 6.68, 34)
+ai_config = SubResource("Resource_tower_mage")
+placement_id = &"dc3bcf745426a5e68a60e4ec6ffac2fc"
+
+[node name="EastKeepTower" parent="MageCourtyard" unique_id=401455129 instance=ExtResource("13_tower")]
+transform = Transform3D(0, 0, -3, 0, 3, 0, 3, 0, 0, 10, 2.09, 39)
+
+[node name="CasterDeck" type="StaticBody3D" parent="MageCourtyard/EastKeepTower" unique_id=487765114]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.46, 0)
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MageCourtyard/EastKeepTower/CasterDeck" unique_id=1898809562]
+mesh = SubResource("BoxMesh_tower_deck")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MageCourtyard/EastKeepTower/CasterDeck" unique_id=2021504282]
+shape = SubResource("BoxShape3D_tower_deck")
+
+[node name="EastKeepTowerMage" parent="MageCourtyard" unique_id=1349181949 instance=ExtResource("6_mage")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 10, 6.68, 39)
+ai_config = SubResource("Resource_tower_mage")
+placement_id = &"40516bc6f924e7c78495283b84ac7199"
+
+[node name="WestCannon" parent="MageCourtyard" unique_id=2060046103 instance=ExtResource("16_cannon")]
+transform = Transform3D(-0.85, 0, 0, 0, 0.85, 0, 0, 0, -0.85, -13.5, 2.09, 48)
+
+[node name="EastCannon" parent="MageCourtyard" unique_id=337718031 instance=ExtResource("16_cannon")]
+transform = Transform3D(-0.85, 0, 0, 0, 0.85, 0, 0, 0, -0.85, 13.5, 2.09, 53)
+
+[node name="BarbarianCourtyard" type="NavigationRegion3D" parent="." unique_id=1772907202]
+navigation_mesh = SubResource("NavigationMesh_barbarian_court")
+
+[node name="WestBarracks" parent="BarbarianCourtyard" unique_id=733852496 instance=ExtResource("15_house")]
+transform = Transform3D(0, 0, 5, 0, 5, 0, -5, 0, 0, -14.25, 2.09, 77)
+
+[node name="EastBarracks" parent="BarbarianCourtyard" unique_id=844993214 instance=ExtResource("15_house")]
+transform = Transform3D(0, 0, -5, 0, 5, 0, 5, 0, 0, 14.25, 2.09, 97)
+
+[node name="Barbarian1" parent="BarbarianCourtyard" unique_id=524757061 instance=ExtResource("14_barbarian")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -6, 2.09, 82)
+placement_id = &"72878b64f0eb2fce64c0d079d58e9cd8"
+
+[node name="Barbarian2" parent="BarbarianCourtyard" unique_id=1067425846 instance=ExtResource("14_barbarian")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 5, 2.09, 87)
+placement_id = &"3df1e81cc1467b458f6b47df1057d402"
+
+[node name="Barbarian3" parent="BarbarianCourtyard" unique_id=952127410 instance=ExtResource("14_barbarian")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -3, 2.09, 96)
+placement_id = &"002ce9b8816782603780fa5548d589a3"
+
+[node name="Barbarian4" parent="BarbarianCourtyard" unique_id=1041774958 instance=ExtResource("14_barbarian")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 6, 2.09, 102)
+placement_id = &"d40400b18b9c2f052aeb2ed20281df8b"
