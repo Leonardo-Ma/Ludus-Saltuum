@@ -453,6 +453,10 @@ _data = {
 [sub_resource type="SphereShape3D" id="SphereShape3D_jhkml"]
 radius = 0.3
 
+[sub_resource type="Resource" id="Resource_3j5rn"]
+script = ExtResource("4_oyxv6")
+metadata/_custom_type_script = "uid://dlbf4w8moqj2j"
+
 [sub_resource type="Resource" id="Resource_oyxv6"]
 script = ExtResource("3_7vsgj")
 metadata/_custom_type_script = "uid://njkofl5g11k7"
@@ -469,10 +473,6 @@ projectile_scene = ExtResource("26_l2t0n")
 type = 2
 damage = 35
 metadata/_custom_type_script = "uid://b14wamm35ys53"
-
-[sub_resource type="Resource" id="Resource_3j5rn"]
-script = ExtResource("4_oyxv6")
-metadata/_custom_type_script = "uid://dlbf4w8moqj2j"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p2pe3"]
 size = Vector3(1, 1.083667, 0.562427)
@@ -617,125 +617,123 @@ unique_name_in_owner = true
 transform = Transform3D(0.9999818, 0.0009890932, -0.005951516, 0, 0.9864698, 0.1639432, 0.006033146, -0.16394022, 0.98645186, 0.46841216, 0.80568004, 1.2775903)
 fov = 37.8493
 
-[node name="Components" type="Node" parent="." unique_id=634230869]
+[node name="Controls" type="Node" parent="." unique_id=634230869]
 
-[node name="HealthComponent" type="Node" parent="Components" unique_id=503190779]
-unique_name_in_owner = true
-script = ExtResource("21_2a6xp")
-health = SubResource("Resource_oyxv6")
-
-[node name="AttackComponent" type="Node" parent="Components" unique_id=1685017726]
-unique_name_in_owner = true
-script = ExtResource("27_7vsgj")
-attack = SubResource("Resource_8dxlo")
-
-[node name="ProjectileAttackComponent" type="Node" parent="Components" unique_id=848156058]
-unique_name_in_owner = true
-script = ExtResource("25_oyxv6")
-projectile_attack = SubResource("Resource_40k2b")
-
-[node name="PlayerMovementComponent" type="Node3D" parent="Components" unique_id=1813678786 node_paths=PackedStringArray("camera")]
+[node name="PlayerMovementComponent" type="Node3D" parent="Controls" unique_id=1813678786 node_paths=PackedStringArray("camera")]
 unique_name_in_owner = true
 script = ExtResource("8_ebec5")
 camera = NodePath("../../CamRoot")
 movement = SubResource("Resource_3j5rn")
 
-[node name="WeaponController" type="Node" parent="Components" unique_id=1903887241]
+[node name="InputController" type="Node" parent="Controls" unique_id=1804300917]
+unique_name_in_owner = true
+script = ExtResource("16_b2jeh")
+
+[node name="Combat" type="Node" parent="." unique_id=170493514]
+
+[node name="HealthComponent" type="Node" parent="Combat" unique_id=503190779]
+unique_name_in_owner = true
+script = ExtResource("21_2a6xp")
+health = SubResource("Resource_oyxv6")
+
+[node name="AttackComponent" type="Node" parent="Combat" unique_id=1685017726]
+unique_name_in_owner = true
+script = ExtResource("27_7vsgj")
+attack = SubResource("Resource_8dxlo")
+
+[node name="ProjectileAttackComponent" type="Node" parent="Combat" unique_id=848156058]
+unique_name_in_owner = true
+script = ExtResource("25_oyxv6")
+projectile_attack = SubResource("Resource_40k2b")
+
+[node name="WeaponController" type="Node" parent="Combat" unique_id=1903887241]
 unique_name_in_owner = true
 script = ExtResource("weapon_controller")
 weapons = Array[ExtResource("23_y8r58")]([ExtResource("default_weapon")])
 
-[node name="Controllers" type="Node" parent="." unique_id=1311379674]
-
-[node name="Core" type="Node" parent="Controllers" unique_id=1598503833]
-
-[node name="InputController" type="Node" parent="Controllers/Core" unique_id=1804300917]
+[node name="PlayerCombatController" type="Node" parent="Combat" unique_id=1075213676]
 unique_name_in_owner = true
-script = ExtResource("16_b2jeh")
+script = ExtResource("43_hvei5")
 
-[node name="VFXController" type="Node" parent="Controllers/Core" unique_id=476175254]
+[node name="Presentation" type="Node" parent="." unique_id=1598503833]
+
+[node name="VFXController" type="Node" parent="Presentation" unique_id=476175254]
 unique_name_in_owner = true
 script = ExtResource("31_gxh5t")
 
-[node name="EntityLifecycleController" type="Node" parent="Controllers/Core" unique_id=2030662932]
-unique_name_in_owner = true
-script = ExtResource("38_ts1rd")
-
-[node name="EntityDamageFeedback" type="Node" parent="Controllers/Core" unique_id=1979702343]
+[node name="EntityDamageFeedback" type="Node" parent="Presentation" unique_id=1979702343]
 unique_name_in_owner = true
 script = ExtResource("39_pg6a0")
 
-[node name="EntityCombatAudio" type="Node" parent="Controllers/Core" unique_id=506053907]
+[node name="EntityCombatAudio" type="Node" parent="Presentation" unique_id=506053907]
 unique_name_in_owner = true
 script = ExtResource("40_y8r58")
 
-[node name="PlayerStateController" type="Node" parent="Controllers/Core" unique_id=1081113974]
-unique_name_in_owner = true
-script = ExtResource("41_y8r58")
-
-[node name="PlayerSaveController" type="Node" parent="Controllers/Core" unique_id=1311394959]
-unique_name_in_owner = true
-script = ExtResource("29_2cmg6")
-
-[node name="AnimationController" type="Node" parent="Controllers/Core" unique_id=1025650665]
+[node name="AnimationController" type="Node" parent="Presentation" unique_id=1025650665]
 unique_name_in_owner = true
 script = ExtResource("9_yllr7")
 profile = ExtResource("36_oyxv6")
 
-[node name="PlayerAnimationBridge" type="Node" parent="Controllers/Core" unique_id=1799731605]
+[node name="PlayerAnimationBridge" type="Node" parent="Presentation" unique_id=1799731605]
 unique_name_in_owner = true
 script = ExtResource("37_l2t0n")
 
-[node name="External" type="Node" parent="Controllers" unique_id=170527211]
-
-[node name="PortalController" type="Node" parent="Controllers/External" unique_id=1987654322]
-unique_name_in_owner = true
-script = ExtResource("33_portalcontroller")
-
-[node name="EconomyController" type="Node" parent="Controllers/External" unique_id=1842982480]
-unique_name_in_owner = true
-script = ExtResource("30_snams")
-
-[node name="EasterEggController" type="Node" parent="Controllers/External" unique_id=612611735]
-unique_name_in_owner = true
-script = ExtResource("31_45rvh")
-
-[node name="EnvironmentTransitionController" type="Node" parent="Controllers/External" unique_id=1282739149]
+[node name="EnvironmentTransitionController" type="Node" parent="Presentation" unique_id=1282739149]
 unique_name_in_owner = true
 script = ExtResource("31_xm7nl")
 
-[node name="CosmeticsController" type="Node" parent="Controllers/External" unique_id=973579251]
+[node name="PlayerAppearance" type="Node" parent="Presentation" unique_id=447481050]
+unique_name_in_owner = true
+script = ExtResource("2_appearance")
+
+[node name="WorldInteraction" type="Node" parent="." unique_id=170527211]
+
+[node name="PortalController" type="Node" parent="WorldInteraction" unique_id=1987654322]
+unique_name_in_owner = true
+script = ExtResource("33_portalcontroller")
+
+[node name="VehicleRider" type="Node" parent="WorldInteraction" unique_id=1987654321]
+unique_name_in_owner = true
+script = ExtResource("32_vehiclerider")
+
+[node name="Progression" type="Node" parent="." unique_id=2011758432]
+
+[node name="EconomyController" type="Node" parent="Progression" unique_id=1842982480]
+unique_name_in_owner = true
+script = ExtResource("30_snams")
+
+[node name="EasterEggController" type="Node" parent="Progression" unique_id=612611735]
+unique_name_in_owner = true
+script = ExtResource("31_45rvh")
+
+[node name="CosmeticsController" type="Node" parent="Progression" unique_id=973579251]
 unique_name_in_owner = true
 script = ExtResource("32_xm7nl")
 catalog = ExtResource("43_l2t0n")
 
-[node name="VehicleRider" type="Node" parent="Controllers/External" unique_id=1987654321]
-unique_name_in_owner = true
-script = ExtResource("32_vehiclerider")
-
-[node name="PlayerAppearance" type="Node" parent="Controllers/External" unique_id=447481050]
-unique_name_in_owner = true
-script = ExtResource("2_appearance")
-
-[node name="Combat" type="Node" parent="Controllers" unique_id=170493514]
-
-[node name="PlayerRespawnController" type="Node" parent="Controllers/Combat" unique_id=1513774269]
-unique_name_in_owner = true
-script = ExtResource("42_8dxlo")
-
-[node name="PlayerCombatController" type="Node" parent="Controllers/Combat" unique_id=1075213676]
-unique_name_in_owner = true
-script = ExtResource("43_hvei5")
-
-[node name="Other" type="Node" parent="Controllers" unique_id=2011758432]
-
-[node name="SkillsController" type="Node" parent="Controllers/Other" unique_id=477450999]
+[node name="SkillsController" type="Node" parent="Progression" unique_id=477450999]
 unique_name_in_owner = true
 script = ExtResource("29_skills")
 
-[node name="Status" type="Node" parent="." unique_id=1830557303]
+[node name="PlayerSaveController" type="Node" parent="Progression" unique_id=1311394959]
+unique_name_in_owner = true
+script = ExtResource("29_2cmg6")
 
-[node name="StatusManager" type="Node" parent="Status" unique_id=972557881]
+[node name="Lifecycle" type="Node" parent="." unique_id=1830557303]
+
+[node name="EntityLifecycleController" type="Node" parent="Lifecycle" unique_id=2030662932]
+unique_name_in_owner = true
+script = ExtResource("38_ts1rd")
+
+[node name="PlayerStateController" type="Node" parent="Lifecycle" unique_id=1081113974]
+unique_name_in_owner = true
+script = ExtResource("41_y8r58")
+
+[node name="PlayerRespawnController" type="Node" parent="Lifecycle" unique_id=1513774269]
+unique_name_in_owner = true
+script = ExtResource("42_8dxlo")
+
+[node name="StatusManager" type="Node" parent="Lifecycle" unique_id=972557881]
 unique_name_in_owner = true
 script = ExtResource("19_s033l")
 
@@ -764,7 +762,7 @@ unique_name_in_owner = true
 collision_layer = 0
 collision_mask = 32768
 script = ExtResource("7_cdsl0")
-health = NodePath("../Components/HealthComponent")
+health = NodePath("../Combat/HealthComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=812737651]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.548, 0)
