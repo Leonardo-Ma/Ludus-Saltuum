@@ -5,6 +5,7 @@ extends Control
 @onready var fade_rect: ColorRect = %FadeRect
 @onready var _low_health: LowHealthOverlay = %LowHealthOverlay
 @onready var _cosmetics: CosmeticAvailableOverlay = %CosmeticAvailableOverlay
+@onready var _environment_fade: EnvironmentFadeOverlay = %EnvironmentFade
 
 var _fade_tween: Tween
 
@@ -13,11 +14,18 @@ func _ready() -> void:
 	ControlledEntityEvents.player_respawning.connect(_on_player_respawning)
 	ControlledEntityEvents.player_respawn_arrived.connect(_on_player_respawn_arrived)
 	ControlledEntityEvents.player_finished_respawning.connect(_on_player_finished_respawning)
+	visibility_changed.connect(_sync_environment_fade_visibility)
+	_sync_environment_fade_visibility()
 
 
-func bind_player_features(health: HealthComponent, cosmetics: CosmeticsController) -> void:
+func bind_player_features(health: HealthComponent, cosmetics: CosmeticsController, transition: EnvironmentTransitionController) -> void:
 	_low_health.bind_health(health)
 	_cosmetics.bind_cosmetics(cosmetics)
+	_environment_fade.bind_transition(transition)
+
+
+func _sync_environment_fade_visibility() -> void:
+	_environment_fade.visible = is_visible_in_tree()
 
 
 ## Fade in and out effect, to solid color then back

@@ -1,6 +1,7 @@
-## Change player's camera to use target environment while inside
 class_name EnvironmentZone3D
 extends Area3D
+
+## Change player's camera to use target environment while inside
 
 const THUNDER_SOUNDS: Array[AudioStream] = [
 	preload("uid://dsk5roghsbtm3"), # thunder_1_near
@@ -32,7 +33,7 @@ func _on_body_entered(body: Node3D) -> void:
 	if play_thunder_on_enter:
 		AudioManager.play_sound(THUNDER_SOUNDS.pick_random(), AudioManager.SoundBus.SFX, player.global_position + Vector3(0.0, 5.0, 0.0))
 
-	await controller.enter_zone(self, target_environment)
+	controller.enter_zone(self, target_environment)
 
 
 func _on_body_exited(body: Node3D) -> void:
@@ -45,4 +46,4 @@ func _on_body_exited(body: Node3D) -> void:
 	var controller: EnvironmentTransitionController = player.get_node(^"%EnvironmentTransitionController")
 	assert(controller != null, "EnvironmentTransitionController child is missing for " + player.name)
 
-	await controller.exit_zone(self)
+	controller.exit_zone(self)

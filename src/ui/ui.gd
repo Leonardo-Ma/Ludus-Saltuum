@@ -97,7 +97,7 @@ func _on_player_exiting() -> void:
 
 func _clear_player_features() -> void:
 	_hud.bind_player_features(null, null, null, null, null)
-	_overlays.bind_player_features(null, null)
+	_overlays.bind_player_features(null, null, null)
 	_menus.bind_player_features(null, null)
 	if is_instance_valid(_debug):
 		_debug.bind_player(null, null)
@@ -108,8 +108,9 @@ func _bind_player_features() -> void:
 	var skills: SkillsController = _player.get_node(^"%SkillsController")
 	var input: InputController = _player.get_node(^"%InputController")
 	var cosmetics: CosmeticsController = _player.get_node(^"%CosmeticsController")
+	var transition: EnvironmentTransitionController = _player.get_node(^"%EnvironmentTransitionController")
 	_hud.bind_player_features(economy, skills, input, _player.health, _player.status_manager)
-	_overlays.bind_player_features(_player.health, cosmetics)
+	_overlays.bind_player_features(_player.health, cosmetics, transition)
 	_menus.bind_player_features(economy, cosmetics)
 	if is_instance_valid(_debug):
 		var movement: PlayerMovementComponent = _player.get_node(^"%PlayerMovementComponent")
