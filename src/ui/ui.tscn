@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bq1ecmltuj6nk" path="res://src/ui/menus/shared/version_label.tscn" id="9_t30i7"]
 
 [node name="UI" type="CanvasLayer" unique_id=670172270]
+process_mode = 3
 script = ExtResource("1_7abqo")
 
 [node name="Overlays" parent="." unique_id=1930051961 instance=ExtResource("3_cywme")]

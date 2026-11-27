@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bqulx5utcm8jk" path="res://src/ui/assets/kenney_input-prompts/keyboard_and_mouse_double/keyboard_escape_outline.png" id="4_knmme"]
 
 [node name="CosmeticAvailableOverlay" type="PanelContainer" unique_id=2126949261]
+visible = false
 custom_minimum_size = Vector2(160, 60)
 anchors_preset = 3
 anchor_left = 1.0

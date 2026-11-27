@@ -3,8 +3,6 @@ extends Resource
 
 ## Stores video preferences and supported windowed display sizes
 
-const FPS_PRESETS: Array[int] = [30, 60, 90, 120, 144, 165, 240, 0] # 0 = Unlimited
-
 const WINDOWED_RESOLUTIONS: Array[Vector2i] = [
 	# 16:9
 	Vector2i(1280, 720),

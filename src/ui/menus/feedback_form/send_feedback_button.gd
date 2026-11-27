@@ -18,7 +18,6 @@ var _is_submitting: bool = false
 
 
 func _button_ready() -> void:
-	sucess_overlay.hide()
 	success_overlay_timer.timeout.connect(_on_success_overlay_timer_timeout)
 
 

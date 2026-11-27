@@ -9,9 +9,6 @@ func _ready() -> void:
 	assert(bus != AudioManager.SoundBus.UNASSIGNED, "VolumeSlider: category not set in " + name)
 	assert(bus < AudioManager.SoundBus.size(), "VolumeSlider: category wrong in " + name)
 
-	min_value = 0.0
-	max_value = 1.0
-	step = 0.01
 	value = _get_saved_volume()
 
 	value_changed.connect(_on_volume_changed)

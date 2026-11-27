@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://dtsfsipg77yyn" path="res://src/ui/popups/skip_level_confirm/yes_button.gd" id="7_r7tm3"]
 
 [node name="GenericConfirmationPopup" type="Control" unique_id=300276930]
+process_mode = 3
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

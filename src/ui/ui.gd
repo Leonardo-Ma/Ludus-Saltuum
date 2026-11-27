@@ -15,7 +15,6 @@ var _player: PlayerEntity
 
 
 func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS
 	UIManager.register_ui(self)
 
 	for child: Control in get_children():

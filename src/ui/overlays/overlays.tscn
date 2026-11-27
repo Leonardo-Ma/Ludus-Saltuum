@@ -32,12 +32,14 @@ grow_vertical = 2
 
 [node name="FadeRect" type="ColorRect" parent="ScreenTransition" unique_id=37966433]
 unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0.23392546, 0.23392546, 0.23392543, 1)
 
 [node name="GrayscaleOverlay" type="CanvasLayer" parent="." unique_id=569608881]
@@ -56,7 +58,6 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="AchievementToast" parent="." unique_id=131548610 instance=ExtResource("4_b3qka")]
-visible = false
 layout_mode = 1
 offset_left = -200.0
 offset_top = -74.0
@@ -67,5 +68,4 @@ layout_mode = 1
 
 [node name="CosmeticAvailableOverlay" parent="." unique_id=1027948758 instance=ExtResource("6_s544n")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1

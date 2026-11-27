@@ -18,7 +18,6 @@ func _ready() -> void:
 	assert(_name_label != null, "name_label missing for " + name)
 	assert(_description_label != null, "description_label missing for " + name)
 
-	hide()
 	Achievements.achievement_unlocked.connect(_on_achievement_unlocked)
 
 

@@ -10,8 +10,6 @@ extends PopupTemplate
 
 
 func _ready() -> void:
-	process_mode = PROCESS_MODE_ALWAYS
-	hide()
 	_yes_button.pressed.connect(_on_yes_pressed)
 	_no_button.pressed.connect(_on_no_pressed)
 

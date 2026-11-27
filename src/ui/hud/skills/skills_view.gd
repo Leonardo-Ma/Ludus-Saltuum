@@ -12,7 +12,6 @@ var _skills: SkillsController
 
 
 func _ready() -> void:
-	hide()
 	GameplayStateManager.gameplay_mode_changed.connect(_on_gameplay_mode_changed)
 
 

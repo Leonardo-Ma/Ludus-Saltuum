@@ -3,4 +3,6 @@
 [ext_resource type="Script" uid="uid://bx0n3ljltmivl" path="res://src/ui/menus/settings_menu/video/display_slider.gd" id="1_wamlq"]
 
 [node name="DisplaySlider" type="HSlider" unique_id=663037113]
+min_value = 0.5
+max_value = 1.5
 script = ExtResource("1_wamlq")

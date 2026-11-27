@@ -16,9 +16,6 @@ func _ready() -> void:
 
 	assert(confirmation_popup != null and confirmation_popup.get_parent() == self, "ConfirmationPopup must be assigned as a direct child of " + name)
 
-	for popup: PopupTemplate in get_children():
-		popup.hide_popup()
-
 	confirmation_popup.choice_made.connect(_on_confirmation_choice_made)
 	ApplicationStateManager.state_changed.connect(_on_application_state_changed)
 

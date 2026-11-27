@@ -10,11 +10,6 @@ var _fade_tween: Tween
 
 
 func _ready() -> void:
-	fade_rect.modulate.a = 0.0
-	fade_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
-
-	screen_transition.visible = false
-
 	ControlledEntityEvents.player_respawning.connect(_on_player_respawning)
 	ControlledEntityEvents.player_respawn_arrived.connect(_on_player_respawn_arrived)
 	ControlledEntityEvents.player_finished_respawning.connect(_on_player_finished_respawning)

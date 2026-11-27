@@ -7,10 +7,6 @@ var _tween: Tween
 var _input: InputController
 
 
-func _ready() -> void:
-	hide()
-
-
 func bind_input(input: InputController) -> void:
 	if is_instance_valid(_input):
 		_input.return_hold_started.disconnect(_on_hold_started)

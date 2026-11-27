@@ -12,7 +12,6 @@ var _rows: Dictionary[StringName, RebindingRow] = { }
 
 func _ready() -> void:
 	assert(_row_scene != null, "KeyBindingsPanel: _row_scene not assigned in " + name)
-	process_mode = Node.PROCESS_MODE_ALWAYS
 	visibility_changed.connect(_on_visibility_changed)
 	InputBindingManager.binding_changed.connect(_on_binding_changed)
 	_populate()

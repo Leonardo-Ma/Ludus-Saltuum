@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://bt6l4787ym077" path="res://src/ui/overlays/achievement_toast/achievement_toast.gd" id="1_2smk6"]
 
 [node name="AchievementToast" type="PanelContainer" unique_id=131548610]
+visible = false
+modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(200, 60)
 anchors_preset = 3
 anchor_left = 1.0

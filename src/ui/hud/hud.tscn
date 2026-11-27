@@ -465,6 +465,7 @@ metadata/_edit_group_ = true
 
 [node name="ReturnCheckpoingProgress" type="TextureProgressBar" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/ReturnCheckpoint/PromptsPanel/X" unique_id=603943047]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -513,6 +514,7 @@ action = &"skip_level"
 
 [node name="SkillsPanel" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=114191235]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8

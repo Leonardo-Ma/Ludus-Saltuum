@@ -7,16 +7,11 @@ enum DisplayProperty {
 	SATURATION = 2,
 }
 
-const _DB_MAX: float = 1.5
-const _DB_MIN: float = 0.5
-
 @export var property: DisplayProperty
 
 
 func _ready() -> void:
 	assert(property != null, "DisplaySlider: property not set in " + name)
-	min_value = _DB_MIN
-	max_value = _DB_MAX
 	value = _get_saved_value()
 	value_changed.connect(_on_value_changed)
 	SettingsManager.settings_reset.connect(_on_settings_reset)

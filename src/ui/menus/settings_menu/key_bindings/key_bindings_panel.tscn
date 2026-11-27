@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://di80ffb0v6qrw" path="res://src/ui/menus/settings_menu/key_bindings/rebinding_row.tscn" id="2_kbp"]
 
 [node name="KeyBindingsPanel" type="VBoxContainer" unique_id=200001]
+process_mode = 3
 size_flags_vertical = 3
 script = ExtResource("1_kbp")
 _row_scene = ExtResource("2_kbp")

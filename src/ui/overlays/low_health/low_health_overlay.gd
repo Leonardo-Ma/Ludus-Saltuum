@@ -18,7 +18,6 @@ var _is_racing: bool = false
 func _ready() -> void:
 	GameplayStateManager.gameplay_mode_changed.connect(_on_gameplay_mode_changed)
 	_is_racing = GameplayStateManager.is_in_mode(GameplayStateManager.GameplayMode.RACING)
-	_set_vein_intensity(0.0)
 
 
 func bind_health(health: HealthComponent) -> void:

@@ -10,10 +10,6 @@ var _tween: Tween
 var _cosmetics: CosmeticsController
 
 
-func _ready() -> void:
-	hide()
-
-
 func bind_cosmetics(cosmetics: CosmeticsController) -> void:
 	if is_instance_valid(_cosmetics):
 		_cosmetics.affordable_cosmetic_reminded.disconnect(_on_reminder)

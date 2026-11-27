@@ -1,23 +1,11 @@
 extends OptionButton
 
-@export var windowed_icon: Texture2D
-@export var maximized_icon: Texture2D
-@export var fullscreen_icon: Texture2D
-@export var exclusive_fullscreen_icon: Texture2D
-
-var _window_modes: Array[Dictionary] = []
 var _last_mode: DisplayServer.WindowMode = DisplayServer.WINDOW_MODE_WINDOWED
 
 
 func _ready() -> void:
 	disabled = OS.has_feature("web")
-
-	_window_modes = [
-		{ &"icon": windowed_icon, &"mode": DisplayServer.WINDOW_MODE_WINDOWED },
-		{ &"icon": maximized_icon, &"mode": DisplayServer.WINDOW_MODE_MAXIMIZED },
-		{ &"icon": fullscreen_icon, &"mode": DisplayServer.WINDOW_MODE_FULLSCREEN },
-	]
-	_populate()
+	_sync_selection()
 	item_selected.connect(_on_item_selected)
 
 
@@ -28,23 +16,13 @@ func _process(_delta: float) -> void:
 		_sync_selection()
 
 
-func _populate() -> void:
-	clear()
-	for entry: Dictionary in _window_modes:
-		add_icon_item(entry[&"icon"], "")
-		set_item_metadata(get_item_count() - 1, entry[&"mode"])
-	_sync_selection()
-
-
 func _sync_selection() -> void:
-	var current_mode: DisplayServer.WindowMode = DisplayServer.window_get_mode()
-	for i: int in get_item_count():
-		if get_item_metadata(i) == current_mode:
-			select(i)
-			return
+	var index: int = get_item_index(DisplayServer.window_get_mode())
+	if index >= 0:
+		select(index)
 
 
 func _on_item_selected(index: int) -> void:
-	SettingsManager.settings.video.window_mode = get_item_metadata(index)
+	SettingsManager.settings.video.window_mode = get_item_id(index)
 	SettingsManager.apply_window()
 	SettingsManager.save()
