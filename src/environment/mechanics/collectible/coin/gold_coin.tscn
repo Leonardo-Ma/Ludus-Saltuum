@@ -1,8 +1,12 @@
 [gd_scene format=4 uid="uid://be65x13d4tlnt"]
 
-[ext_resource type="Script" uid="uid://c2mf4ow0r2nd" path="res://src/environment/mechanics/collectible/coin/gold_coin.gd" id="1_tg3p4"]
+[ext_resource type="Script" uid="uid://dwwy5ieawwur3" path="res://src/systems/collectibles/collectible.gd" id="1_tg3p4"]
 [ext_resource type="Resource" uid="uid://d4l1e5omaovdj" path="res://src/environment/mechanics/collectible/coin/gold_coin.tres" id="2_eix43"]
 [ext_resource type="Texture2D" uid="uid://ccs62hofilq3i" path="res://src/environment/assets/platformer_kit_kenney/texture/assets_colormap.png" id="3_8jsbt"]
+[ext_resource type="AudioStream" uid="uid://cwptti4mle3g0" path="res://src/sound/sfx/collectibles/coin_collect/chequered_ink/coin.wav" id="4_coin"]
+[ext_resource type="AudioStream" uid="uid://dgdotgk6kwxi" path="res://src/sound/sfx/collectibles/coin_collect/chequered_ink/coin_3.wav" id="5_coin"]
+[ext_resource type="AudioStream" uid="uid://luy8ck7csy0q" path="res://src/sound/sfx/collectibles/coin_collect/chequered_ink/coin_4.wav" id="6_coin"]
+[ext_resource type="AudioStream" uid="uid://ckl5fl1a1sq0w" path="res://src/sound/sfx/collectibles/coin_collect/chequered_ink/coin_collect.wav" id="7_coin"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v2gel"]
 size = Vector3(0.5175781, 0.5527344, 0.49316406)
@@ -48,6 +52,7 @@ shadow_mesh = SubResource("ArrayMesh_582fi")
 collision_layer = 0
 script = ExtResource("1_tg3p4")
 data = ExtResource("2_eix43")
+collect_sounds = Array[AudioStream]([ExtResource("4_coin"), ExtResource("5_coin"), ExtResource("6_coin"), ExtResource("7_coin")])
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1486315182]

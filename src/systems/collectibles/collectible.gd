@@ -1,4 +1,5 @@
-@abstract class_name Collectible
+@icon("uid://b2ggug31fd52y") # star.png
+class_name Collectible
 extends Area3D
 
 ## Applies pickup effects and tracks persistent collectible state
@@ -6,6 +7,8 @@ extends Area3D
 @export_category("Core")
 @export var data: CollectibleData
 @export var respawn_delay: float = 5.0
+## If more than one is set, one is chosen at random upon collected
+@export var collect_sounds: Array[AudioStream] = []
 
 ## Editor-assigned placement ID saved with scene for runtime use
 ## Storage keeps it out of Inspector
@@ -13,8 +16,6 @@ extends Area3D
 
 ## Unique across authored and procedural placements
 var collectible_id: StringName = &""
-
-var collect_sounds: Array[AudioStream] = []
 
 var float_tween: Tween
 var rot_tween: Tween
@@ -24,7 +25,8 @@ var collected: bool = false
 
 
 ## Children should override this instead of _ready()
-@abstract func _child_ready() -> void
+func _child_ready() -> void:
+	pass
 
 
 func _ready() -> void:
@@ -38,6 +40,7 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	add_to_group(Groups.COLLECTIBLES)
 	_child_ready()
+	assert(not collect_sounds.is_empty() and not collect_sounds.has(null), "Collect sounds missing on " + name)
 
 	_setup_float_animation()
 

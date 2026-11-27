@@ -1,8 +1,9 @@
 [gd_scene format=4 uid="uid://cyk7txgkpg83"]
 
-[ext_resource type="Script" uid="uid://c80lihp6p26so" path="res://src/environment/mechanics/collectible/jump_up/jump_up.gd" id="1_vv5ev"]
+[ext_resource type="Script" uid="uid://dwwy5ieawwur3" path="res://src/systems/collectibles/collectible.gd" id="1_vv5ev"]
 [ext_resource type="Script" uid="uid://cqo4vne1iqdw4" path="res://src/systems/collectibles/collectibles_data/status_collectible.gd" id="3_qyq2a"]
 [ext_resource type="Resource" uid="uid://c83km0rbkiout" path="res://src/environment/mechanics/collectible/jump_up/jump_up.tres" id="3_y1fqf"]
+[ext_resource type="AudioStream" uid="uid://dph7e3ucr86v7" path="res://src/sound/sfx/collectibles/speed_up/chequered_ink/ambient_wind.ogg" id="4_collect"]
 
 [sub_resource type="Resource" id="Resource_ltgpi"]
 script = ExtResource("3_qyq2a")
@@ -54,6 +55,7 @@ size = Vector3(0.58618164, 0.566359, 0.3017578)
 [node name="JumpUp" type="Area3D" unique_id=707485280]
 script = ExtResource("1_vv5ev")
 data = SubResource("Resource_ltgpi")
+collect_sounds = Array[AudioStream]([ExtResource("4_collect")])
 
 [node name="Arrow" type="MeshInstance3D" parent="." unique_id=703598953]
 transform = Transform3D(-0.108856834, 0.9940574, 0, -0.99232876, -0.10866754, 0.058948666, 0.05859836, 0.0064169653, 0.99826103, 0, 0.30399436, -0.0056705587)

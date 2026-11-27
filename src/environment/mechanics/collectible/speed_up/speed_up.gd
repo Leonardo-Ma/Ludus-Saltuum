@@ -1,8 +1,0 @@
-@icon("uid://ckymx5j2we16r") # arrow_speed.png
-extends Collectible
-
-
-func _child_ready() -> void:
-	collect_sounds = [
-		preload("uid://dph7e3ucr86v7"), # ambient_wind.wav
-	]

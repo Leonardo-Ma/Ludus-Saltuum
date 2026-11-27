@@ -1,8 +1,9 @@
 [gd_scene format=4 uid="uid://cagbuvx8fhprc"]
 
-[ext_resource type="Script" uid="uid://c3q21jderdj2g" path="res://src/environment/mechanics/collectible/shrink/shrink.gd" id="1_6nycq"]
+[ext_resource type="Script" uid="uid://dwwy5ieawwur3" path="res://src/systems/collectibles/collectible.gd" id="1_6nycq"]
 [ext_resource type="Script" uid="uid://cqo4vne1iqdw4" path="res://src/systems/collectibles/collectibles_data/status_collectible.gd" id="3_6g4ml"]
 [ext_resource type="Resource" uid="uid://b86rvjt6lasya" path="res://src/environment/mechanics/collectible/shrink/shrink.tres" id="4_da43x"]
+[ext_resource type="AudioStream" uid="uid://dph7e3ucr86v7" path="res://src/sound/sfx/collectibles/speed_up/chequered_ink/ambient_wind.ogg" id="5_collect"]
 
 [sub_resource type="Resource" id="Resource_6nycq"]
 script = ExtResource("3_6g4ml")
@@ -94,6 +95,7 @@ size = Vector3(0.0071865898, 0.0071865898, 0.012367193)
 [node name="Shrink" type="Area3D" unique_id=826481617]
 script = ExtResource("1_6nycq")
 data = SubResource("Resource_6nycq")
+collect_sounds = Array[AudioStream]([ExtResource("5_collect")])
 
 [node name="PotionVariation" type="MeshInstance3D" parent="." unique_id=1314423173]
 transform = Transform3D(100, 0, 0, 0, -1.1920931e-05, 100, 0, -100, -1.1920931e-05, 0, 0, 0)

@@ -1,9 +1,10 @@
 [gd_scene format=4 uid="uid://cvcxve456vw1e"]
 
-[ext_resource type="Script" uid="uid://ba3iid01vglkb" path="res://src/environment/mechanics/collectible/speed_up/speed_up.gd" id="1_f0w0h"]
+[ext_resource type="Script" uid="uid://dwwy5ieawwur3" path="res://src/systems/collectibles/collectible.gd" id="1_f0w0h"]
 [ext_resource type="Texture2D" uid="uid://dr1j7pfphg208" path="res://src/environment/assets/kaykit_platformer/platformer_texture.png" id="2_lv6xb"]
 [ext_resource type="Script" uid="uid://cqo4vne1iqdw4" path="res://src/systems/collectibles/collectibles_data/status_collectible.gd" id="3_d827c"]
 [ext_resource type="Resource" uid="uid://62y38laatth2" path="res://src/environment/mechanics/collectible/speed_up/speed_up.tres" id="4_utwfx"]
+[ext_resource type="AudioStream" uid="uid://dph7e3ucr86v7" path="res://src/sound/sfx/collectibles/speed_up/chequered_ink/ambient_wind.ogg" id="5_collect"]
 
 [sub_resource type="Resource" id="Resource_oda6i"]
 script = ExtResource("3_d827c")
@@ -56,6 +57,7 @@ size = Vector3(0.8907236, 1.2038057, 0.4)
 [node name="SpeedUp" type="Area3D" unique_id=707485280]
 script = ExtResource("1_f0w0h")
 data = SubResource("Resource_oda6i")
+collect_sounds = Array[AudioStream]([ExtResource("5_collect")])
 
 [node name="PowerBlue" type="MeshInstance3D" parent="." unique_id=968833370]
 mesh = SubResource("ArrayMesh_yjiye")

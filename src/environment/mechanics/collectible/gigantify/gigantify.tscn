@@ -1,8 +1,9 @@
 [gd_scene format=4 uid="uid://bgrkv1kk52j1t"]
 
-[ext_resource type="Script" uid="uid://b75l4oh6wligb" path="res://src/environment/mechanics/collectible/gigantify/gigantify.gd" id="1_76cho"]
+[ext_resource type="Script" uid="uid://dwwy5ieawwur3" path="res://src/systems/collectibles/collectible.gd" id="1_76cho"]
 [ext_resource type="Script" uid="uid://cqo4vne1iqdw4" path="res://src/systems/collectibles/collectibles_data/status_collectible.gd" id="3_jy7e6"]
 [ext_resource type="Resource" uid="uid://bfr78paglfbvw" path="res://src/environment/mechanics/collectible/gigantify/gigantify.tres" id="4_eybqc"]
+[ext_resource type="AudioStream" uid="uid://dph7e3ucr86v7" path="res://src/sound/sfx/collectibles/speed_up/chequered_ink/ambient_wind.ogg" id="5_collect"]
 
 [sub_resource type="Resource" id="Resource_utwfx"]
 script = ExtResource("3_jy7e6")
@@ -96,6 +97,7 @@ size = Vector3(0.006684711, 0.006684711, 0.009629173)
 [node name="Gigantify" type="Area3D" unique_id=1374629069]
 script = ExtResource("1_76cho")
 data = SubResource("Resource_utwfx")
+collect_sounds = Array[AudioStream]([ExtResource("5_collect")])
 
 [node name="PotionRounded" type="MeshInstance3D" parent="." unique_id=1030625764]
 transform = Transform3D(100, 0, 0, 0, -4.371139e-06, 100, 0, -100, -4.371139e-06, 0, 0, 0)
