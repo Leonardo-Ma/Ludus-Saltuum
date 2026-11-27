@@ -338,7 +338,9 @@ func skip_current_chunk() -> void:
 	var target_transform: Transform3D = Transform3D(_player.global_basis.orthonormalized(), current_chunk.exit_trigger.global_position)
 
 	# TODO Find better way than couple this
-	_player.vehicle_rider.exit_vehicle(_player.position)
+	var rider: VehicleRider = _player.get_node(^"%VehicleRider")
+	assert(rider, "VehicleRider missing in " + _player.name)
+	rider.exit_vehicle(_player.position)
 
 	ControlledEntityEvents.request_respawn(SKIP_LEVEL_RESPAWN_DELAY, target_transform)
 
@@ -459,7 +461,9 @@ func _on_chunk_exit_reached(body: Node3D, passed_chunk: LevelChunk) -> void:
 		for data: ChunkData in _all_chunks:
 			if data.scene_path == chunk_path:
 				var total_score: int = roundi((data.difficulty_points + data.skill_points) * data.score_multiplier)
-				_player.economy_controller.add_score(total_score)
+				var economy: EconomyController = _player.get_node(^"%EconomyController")
+				assert(economy, "EconomyController missing in " + _player.name)
+				economy.add_score(total_score)
 				break
 
 	# Only start recycling after the configured start index
@@ -497,13 +501,16 @@ func _disconnect_chunk_trigger(chunk: LevelChunk) -> void:
 func _generate_new_chunk(target_transform: Transform3D) -> LevelChunk:
 	var chunk_key: int = _next_chunk_key
 
-	var unlocked_skills: Array[SkillDefinition] = _player.skills_controller.get_unlocked_skills()
+	var skills: SkillsController = _player.get_node(^"%SkillsController")
+	var economy: EconomyController = _player.get_node(^"%EconomyController")
+	assert(skills and economy, "Chunk progression sources missing in " + _player.name)
+	var unlocked_skills: Array[SkillDefinition] = skills.get_unlocked_skills()
 	var chunk_seed: int = ProceduralId.chunk_seed(get_procedural_seed(), chunk_key)
 	var chosen_data: ChunkData = _chunk_selector.select_deterministic_chunk_data(
 		target_transform,
 		chunk_seed,
 		unlocked_skills,
-		_player.economy_controller.score,
+		economy.score,
 	)
 	if chosen_data == null:
 		get_tree().quit(1)

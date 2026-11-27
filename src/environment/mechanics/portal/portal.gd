@@ -84,7 +84,8 @@ func _physics_process(delta: float) -> void:
 
 				AudioManager.play_sound(TELEPORT_SOUNDS.pick_random(), AudioManager.SoundBus.SFX, linked_portal.global_position)
 
-				var player_portal_controller: PortalController = player.portal_controller
+				var player_portal_controller: PortalController = player.get_node(^"%PortalController")
+				assert(player_portal_controller, "PortalController missing in " + player.name)
 				await player_portal_controller.begin_portal_transition(linked_portal, player)
 
 				linked_portal._cooldown_players[player] = true

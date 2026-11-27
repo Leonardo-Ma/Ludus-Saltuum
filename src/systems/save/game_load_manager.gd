@@ -8,6 +8,8 @@ func apply_save_data(data: SaveData) -> bool:
 	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS)
 	if player == null or not player.is_node_ready():
 		return false
+	var player_save: PlayerSaveController = player.get_node(^"%PlayerSaveController")
+	assert(player_save, "PlayerSaveController missing in " + name)
 	if data.player.health <= 0 or data.player.score < 0 or data.player.gold < 0:
 		return false
 	if not CheckpointSaveController.can_apply_save_data(data.checkpoint, data.chunks.active_chunk_keys):
@@ -23,11 +25,9 @@ func apply_save_data(data: SaveData) -> bool:
 	WorldSaveController.apply_saved_entity_states()
 	CheckpointSaveController.apply_save_data(data.checkpoint, data.chunks.active_chunk_keys)
 
-	if player.vehicle_rider.is_in_vehicle:
-		player.vehicle_rider.vehicle.exit(player.global_position)
-
+	player_save.exit_vehicle_for_load()
 	player.revive()
-	player.player_save_controller.apply_save_data(data.player)
+	player_save.apply_save_data(data.player)
 	player.global_transform = CheckpointManager.get_respawn_transform()
 	player.finish_load()
 

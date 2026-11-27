@@ -11,12 +11,13 @@ const RETURN_HOLD_DURATION: float = 1.5
 
 var _respawn_timer: Timer
 
-@onready var camera_controller: Node3D = %CamRoot
+@onready var _camera: CameraController = %CamRoot
 
 
 func _ready() -> void:
-	camera_controller.capture_mouse_requested.connect(_on_capture_mouse_requested)
-	camera_controller.release_mouse_requested.connect(_on_release_mouse_requested)
+	assert(_camera, "CameraController missing in " + name)
+	_camera.capture_mouse_requested.connect(_on_capture_mouse_requested)
+	_camera.release_mouse_requested.connect(_on_release_mouse_requested)
 
 	_respawn_timer = Timer.new()
 	_respawn_timer.one_shot = true

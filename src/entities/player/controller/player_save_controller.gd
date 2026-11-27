@@ -11,10 +11,12 @@ const SKILL_CATALOGUE: SkillCatalogue = preload("uid://6ygr0ieawafb") # skill_ca
 @onready var easter_egg_controller: EasterEggController = %EasterEggController
 @onready var status_manager: StatusManager = %StatusManager
 @onready var cosmetics_controller: CosmeticsController = %CosmeticsController
+@onready var _vehicle_rider: VehicleRider = %VehicleRider
 
 
 func _child_ready() -> void:
 	assert(player != null, "Player owner missing in " + name)
+	assert(skills_controller and economy_controller and easter_egg_controller and status_manager and cosmetics_controller and _vehicle_rider, "Save dependencies missing in " + name)
 	# NOTE Loading is triggered by game load manager
 
 
@@ -68,12 +70,11 @@ func apply_save_data(data: PlayerSaveData) -> void:
 
 
 func initialize_new_save_data() -> void:
-	if player.vehicle_rider.is_in_vehicle:
-		player.vehicle_rider.vehicle.exit(player.global_position)
+	exit_vehicle_for_load()
 
 	player.revive()
-	player.skills_controller.reset()
-	player.status_manager.clear_temporary_statuses()
+	skills_controller.reset()
+	status_manager.clear_temporary_statuses()
 
 	player.velocity = Vector3.ZERO
 	player.global_transform = player.starting_transform
@@ -87,3 +88,8 @@ func initialize_new_save_data() -> void:
 	cosmetics_controller.reset()
 
 	easter_egg_controller.found_easter_eggs.clear()
+
+
+func exit_vehicle_for_load() -> void:
+	if _vehicle_rider.is_in_vehicle:
+		_vehicle_rider.vehicle.exit(player.global_position)

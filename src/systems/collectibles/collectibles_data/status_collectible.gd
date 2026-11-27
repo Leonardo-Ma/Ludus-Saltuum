@@ -20,8 +20,7 @@ func apply_effect(player: PlayerEntity) -> void:
 	)
 	assert(icon != null, "Status buff collectible " + resource_path + " missing data.icon definition in child_ready.")
 
-	var entity: PlayerEntity = player as PlayerEntity
-	var status_manager: StatusManager = entity.status_manager
+	var status_manager: StatusManager = player.status_manager
 
 	assert(status_manager != null, "Status buff collectible " + resource_path + " missing StatusManager.")
 

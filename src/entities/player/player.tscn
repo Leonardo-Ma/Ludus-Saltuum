@@ -599,10 +599,11 @@ unique_name_in_owner = true
 script = ExtResource("20_l2t0n")
 socket = NodePath("../Rig_Medium/Skeleton3D/RightHandAttachment/WeaponSocket")
 
-[node name="CamRoot" type="Node3D" parent="." unique_id=1468433888]
+[node name="CamRoot" type="Node3D" parent="." unique_id=1468433888 node_paths=PackedStringArray("player")]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.12912, 0)
 script = ExtResource("5_2wg8a")
+player = NodePath("..")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CamRoot" unique_id=1121529721]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.433, 0.618, 0)

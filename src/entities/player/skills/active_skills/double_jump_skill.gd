@@ -58,7 +58,7 @@ func _execute_extra_jump() -> void:
 	_jumps_remaining -= 1
 	charges_updated.emit(_jumps_remaining)
 
-	var jump_vel: float = skills_controller.entity.movement.get_jump_velocity() * jump_velocity_multiplier
+	var jump_vel: float = skills_controller.movement_controller.get_jump_velocity() * jump_velocity_multiplier
 	skills_controller.movement_controller.jump(jump_vel)
 	_frame_of_last_jump = Engine.get_physics_frames()
 

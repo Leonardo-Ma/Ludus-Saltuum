@@ -31,7 +31,9 @@ func _physics_process(delta: float) -> void:
 		body.velocity *= damping_factor
 
 		if body.is_in_group(Groups.PLAYERS):
-			body.player_movement_controller.add_external_force(force)
+			var movement: PlayerMovementComponent = body.get_node(^"%PlayerMovementComponent")
+			assert(movement, "PlayerMovementComponent missing in " + body.name)
+			movement.add_external_force(force)
 		elif body.is_in_group(Groups.ENEMIES):
 			body.npc_movement_controller.add_external_force(force)
 

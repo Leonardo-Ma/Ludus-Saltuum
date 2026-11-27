@@ -26,7 +26,7 @@ func _on_body_entered(body: Node3D) -> void:
 	var player: PlayerEntity = body as PlayerEntity
 	assert(player != null, "Node in Groups.PLAYERS is not a PlayerEntity: " + body.name)
 
-	var controller: EnvironmentTransitionController = player.environment_transition_controller
+	var controller: EnvironmentTransitionController = player.get_node(^"%EnvironmentTransitionController")
 	assert(controller != null, "EnvironmentTransitionController child is missing for " + player.name)
 
 	if play_thunder_on_enter:
@@ -42,7 +42,7 @@ func _on_body_exited(body: Node3D) -> void:
 	var player: PlayerEntity = body as PlayerEntity
 	assert(player != null, "Node in Groups.PLAYERS is not a PlayerEntity: " + body.name)
 
-	var controller: EnvironmentTransitionController = player.environment_transition_controller
+	var controller: EnvironmentTransitionController = player.get_node(^"%EnvironmentTransitionController")
 	assert(controller != null, "EnvironmentTransitionController child is missing for " + player.name)
 
 	await controller.exit_zone(self)

@@ -51,6 +51,7 @@ func run_tests() -> void:
 
 
 func _test_invalid_loads(player: PlayerEntity) -> void:
+	var economy: EconomyController = player.get_node(^"%EconomyController")
 	var snapshot: SaveData = SaveManager._build_save_data(AUTOSAVE_SLOT, true)
 	var live_chunk: LevelChunk = ChunkManager.get_active_chunks()[0]
 	var live_transform: Transform3D = player.global_transform
@@ -85,7 +86,7 @@ func _test_invalid_loads(player: PlayerEntity) -> void:
 	snapshot.chunks.first_chunk_transform.basis = Basis.IDENTITY
 	snapshot.checkpoint.checkpoint_chunk_key = snapshot.chunks.next_chunk_key
 	assert(ChunkManager.get_active_chunks()[0] == live_chunk, "Failed load replaced live route in " + name)
-	assert(player.global_transform == live_transform and player.economy_controller.gold == 0, "Failed load changed player in " + name)
+	assert(player.global_transform == live_transform and economy.gold == 0, "Failed load changed player in " + name)
 	assert(not WorldSaveController.is_collectible_collected(&"rejected_load"), "Failed load changed world in " + name)
 	assert(SaveManager.save_to_quick_slot(), "Failed load changed manual destination in " + name)
 	assert(SaveManager.get_slot_data(MANUAL_SLOT).player.gold == 0, "Manual slot was not written in " + name)
@@ -106,9 +107,10 @@ func _assert_rejected(snapshot: SaveData) -> void:
 
 
 func _test_quit_destinations(player: PlayerEntity) -> void:
+	var economy: EconomyController = player.get_node(^"%EconomyController")
 	assert(SaveManager.initialize_new_save(MANUAL_SLOT), "Could not restart gameplay in " + name)
 	ApplicationStateManager.request_play_from_save()
-	player.economy_controller.gold = 10
+	economy.gold = 10
 	SaveManager._next_auto_slot = 0
 	SaveManager._on_auto_save()
 	var snapshot: SaveData = SaveManager.get_slot_data(AUTOSAVE_SLOT)
@@ -127,16 +129,16 @@ func _test_quit_destinations(player: PlayerEntity) -> void:
 	ApplicationStateManager.request_play_from_save()
 	ApplicationStateManager.request_pause()
 
-	player.economy_controller.gold = 20
+	economy.gold = 20
 	ApplicationStateManager.quit_requested.emit()
 	assert(SaveManager.get_slot_data(MANUAL_SLOT).player.gold == 20, "Quit from Pause missed manual slot in " + name)
 	ApplicationStateManager.request_open_menu(ApplicationStateManager.GameState.SETTINGS)
-	player.economy_controller.gold = 30
+	economy.gold = 30
 	ApplicationStateManager.quit_requested.emit()
 	assert(SaveManager.get_slot_data(MANUAL_SLOT).player.gold == 30, "Quit from Settings missed manual slot in " + name)
 	assert(SaveManager.get_slot_data(AUTOSAVE_SLOT).player.gold == 10, "Quit overwrote rotating autosave in " + name)
 
-	player.economy_controller.gold = 40
+	economy.gold = 40
 	SaveManager.request_save_block(&"player_respawning")
 	ApplicationStateManager.quit_requested.emit()
 	SaveManager.release_save_block(&"player_respawning")
@@ -172,11 +174,12 @@ func _on_main_menu_requested() -> void:
 
 
 func _test_legacy_manual_save(player: PlayerEntity) -> void:
+	var economy: EconomyController = player.get_node(^"%EconomyController")
 	var slot_index: int = SaveManager.FIRST_MANUAL_SLOT
 	var error: Error = DirAccess.copy_absolute("res://tests/saves/slot_0.tres", SaveManager._slot_path(slot_index))
 	assert(error == OK, "Could not stage version 1 save in " + name)
 	assert(SaveManager.load_from_slot(slot_index), "Could not restore version 1 save in " + name)
-	assert(player.economy_controller.gold == 70, "Version 1 player data was not restored in " + name)
+	assert(economy.gold == 70, "Version 1 player data was not restored in " + name)
 	assert(player.global_transform.is_equal_approx(CheckpointManager.get_respawn_transform()), "Version 1 checkpoint was not restored in " + name)
 
 

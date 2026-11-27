@@ -19,4 +19,6 @@ func _on_body_entered(body: Node3D) -> void:
 
 	player.velocity = global_basis.z.normalized() * launch_speed
 	# Needed to avoid being overwritten every frame
-	player.player_movement_controller.disable_movement(control_lock_duration)
+	var movement: PlayerMovementComponent = player.get_node(^"%PlayerMovementComponent")
+	assert(movement, "PlayerMovementComponent missing in " + player.name)
+	movement.disable_movement(control_lock_duration)

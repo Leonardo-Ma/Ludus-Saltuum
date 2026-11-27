@@ -16,14 +16,17 @@ var vehicle: PlayerCar:
 
 var _vehicle: PlayerCar = null
 
-@onready var _player: PlayerEntity = owner as PlayerEntity
+@onready var _player: PlayerEntity = owner
+@onready var _state: PlayerStateController = %PlayerStateController
 
 
 func _ready() -> void:
+	assert(_player and _state, "VehicleRider dependencies missing in " + name)
 	_setup_component_connections()
 
 
 func _physics_process(_delta: float) -> void:
+	assert(_player, "PlayerEntity missing in " + name)
 	if not is_in_vehicle:
 		return
 	if not is_instance_valid(_vehicle):
@@ -65,11 +68,11 @@ func exit_vehicle(exit_position: Vector3) -> void:
 
 #region Private API
 func _on_vehicle_entered() -> void:
-	_player.set_state(PlayerEntity.PlayerState.IN_VEHICLE)
+	_state.refresh_state()
 
 
 func _on_vehicle_exited(_exit_position: Vector3) -> void:
-	_player.refresh_state()
+	_state.refresh_state()
 
 
 func _on_vehicle_tree_exiting() -> void:

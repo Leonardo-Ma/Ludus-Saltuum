@@ -27,6 +27,8 @@ func run_tests() -> void:
 	add_child(floor)
 
 	var player: PlayerEntity = PLAYER.instantiate()
+	var input: InputController = player.get_node(^"%InputController")
+	var movement: PlayerMovementComponent = player.get_node(^"%PlayerMovementComponent")
 	var animation: AnimationController = player.get_node("%AnimationController")
 	# Use a deterministic combo to exercise every authored variant
 	animation.profile = animation.profile.duplicate()
@@ -44,12 +46,12 @@ func run_tests() -> void:
 	)
 	var tree: AnimationTree = player.get_node("%AnimationTree")
 
-	player.input_controller.attack_pressed.emit()
+	input.attack_pressed.emit()
 	assert(_accepted == 0 and player.attack_component.can_attack(), "Inactive input spent cooldown in " + name)
 	ApplicationStateManager.request_play_from_save()
-	await player.player_movement_controller.landed
+	await movement.landed
 	assert(player.is_on_floor(), "Player did not land in " + name)
-	await _test_shift_strafe(tree, player.player_movement_controller)
+	await _test_shift_strafe(tree, movement)
 	await _test_rejection_and_interruption(player, animation)
 	await _test_timing_and_damage(player, animation)
 	await _test_airborne_attack(player, animation, tree)
@@ -69,12 +71,13 @@ func run_tests() -> void:
 
 
 func _test_rejection_and_interruption(player: PlayerEntity, animation: AnimationController) -> void:
+	var input: InputController = player.get_node(^"%InputController")
 	assert(animation.request_action(AnimKeys.MAGIC), "Could not occupy full-body layer in " + name)
-	player.input_controller.attack_pressed.emit()
+	input.attack_pressed.emit()
 	assert(_accepted == 0 and player.attack_component.can_attack(), "Busy animation spent cooldown in " + name)
 	animation.abort_action(AnimKeys.MAGIC)
 
-	player.input_controller.attack_pressed.emit()
+	input.attack_pressed.emit()
 	assert(_accepted == 1 and not player.attack_component.can_attack(), "Accepted input missed cooldown in " + name)
 	var rate: float = player.attack.rate
 	var elapsed: float = 0.0
@@ -88,7 +91,7 @@ func _test_rejection_and_interruption(player: PlayerEntity, animation: Animation
 	elapsed += get_process_delta_time()
 	assert(player.hitbox.animated_shape.disabled, "Interruption left the shape enabled in " + name)
 	animation.set_airborne(false)
-	player.input_controller.attack_pressed.emit()
+	input.attack_pressed.emit()
 	assert(_accepted == 1, "Interruption bypassed cooldown in " + name)
 	# SceneTree timers update after process_frame
 	while not player.attack_component.can_attack() and elapsed <= rate + get_process_delta_time():
@@ -98,6 +101,8 @@ func _test_rejection_and_interruption(player: PlayerEntity, animation: Animation
 
 
 func _test_timing_and_damage(player: PlayerEntity, animation: AnimationController) -> void:
+	var weapons: WeaponController = player.get_node(^"%WeaponController")
+	var input: InputController = player.get_node(^"%InputController")
 	var target: Node3D = Node3D.new()
 	var health: HealthComponent = HealthComponent.new()
 	health.health = Health.new()
@@ -126,15 +131,15 @@ func _test_timing_and_damage(player: PlayerEntity, animation: AnimationControlle
 	var tree: AnimationTree = player.get_node("%AnimationTree")
 	for index: int in variants.size():
 		var weapon: WeaponAsset = SLOW_WEAPON if index == 1 else FAST_WEAPON
-		player.weapon_controller.equip_weapon(weapon)
+		weapons.equip_weapon(weapon)
 		var attack: Attack = player.attack
 		var expected_accepted: int = _accepted + 1
 		var expected_health: int = health.max_health - attack.damage
 		health.reset()
 		_hit_source = null
-		player.input_controller.attack_pressed.emit()
+		input.attack_pressed.emit()
 		assert(_accepted == expected_accepted and player.hitbox.attack == attack, "Next swing was not accepted in " + name)
-		player.weapon_controller.equip_weapon(SLOW_WEAPON if weapon == FAST_WEAPON else FAST_WEAPON)
+		weapons.equip_weapon(SLOW_WEAPON if weapon == FAST_WEAPON else FAST_WEAPON)
 		var elapsed: float = 0.0
 		var frame: float = get_process_delta_time()
 		while animation.is_action_running(AnimKeys.MELEE) and elapsed <= attack.rate + frame * 3.0:
@@ -153,21 +158,23 @@ func _test_timing_and_damage(player: PlayerEntity, animation: AnimationControlle
 
 
 func _test_airborne_attack(player: PlayerEntity, animation: AnimationController, tree: AnimationTree) -> void:
+	var movement: PlayerMovementComponent = player.get_node(^"%PlayerMovementComponent")
+	var input: InputController = player.get_node(^"%InputController")
 	var jump_chop_shape: CollisionShape3D = player.get_node("%JumpChopShape")
 	AudioManager.sound_played.connect(_on_attack_sound)
 	for attempt: int in 2:
-		player.movement.jump(player.movement.get_jump_velocity())
-		await player.movement.in_air
+		movement.jump(movement.get_jump_velocity())
+		await movement.in_air
 		assert(not player.is_on_floor(), "Jump left player grounded in " + name)
 
 		var expected_accepted: int = _accepted + 1
 		var expected_sounds: int = _attack_sounds + 1
-		player.input_controller.attack_pressed.emit()
+		input.attack_pressed.emit()
 		assert(
 			_accepted == expected_accepted and player.hitbox.attack == player.attack,
 			"Airborne attack was not armed in %s on attempt %d" % [name, attempt + 1],
 		)
-		player.input_controller.attack_pressed.emit()
+		input.attack_pressed.emit()
 		assert(_accepted == expected_accepted, "Airborne attack bypassed cooldown in " + name)
 
 		var collision_checked: bool = false
@@ -206,7 +213,8 @@ func _on_attack_sound(_position: Vector3) -> void:
 
 
 func _test_projectile_source(player: PlayerEntity) -> Projectile:
-	var attack: ProjectileAttack = player.projectile_attack_component.projectile_attack
+	var projectile_attack: ProjectileAttackComponent = player.get_node(^"%ProjectileAttackComponent")
+	var attack: ProjectileAttack = projectile_attack.projectile_attack
 	var projectile: Projectile = attack.projectile_scene.instantiate()
 	projectile.position = Vector3.UP * 30.0
 	add_child(projectile)
@@ -221,27 +229,28 @@ func _test_projectile_source(player: PlayerEntity) -> Projectile:
 
 
 func _test_lifecycle(player: PlayerEntity, animation: AnimationController) -> void:
+	var input: InputController = player.get_node(^"%InputController")
 	player.disable_entity()
-	player.input_controller.attack_pressed.emit()
+	input.attack_pressed.emit()
 	assert(player.attack_component.can_attack() and not animation.is_action_running(AnimKeys.MELEE), "Disabled entity could attack in " + name)
 	player.revive()
 	player.respawn(PlayerRespawnController.CHECKPOINT_RETURN_DELAY, player.global_transform)
-	player.input_controller.attack_pressed.emit()
+	input.attack_pressed.emit()
 	assert(player.attack_component.can_attack() and not animation.is_action_running(AnimKeys.MELEE), "Respawn startup spent cooldown in " + name)
 	await ControlledEntityEvents.player_respawn_arrived
-	player.input_controller.attack_pressed.emit()
+	input.attack_pressed.emit()
 	assert(player.attack_component.can_attack() and not animation.is_action_running(AnimKeys.MELEE), "Respawn fade spent cooldown in " + name)
 	await ControlledEntityEvents.player_finished_respawning
 
-	player.input_controller.attack_pressed.emit()
+	input.attack_pressed.emit()
 	assert(animation.is_action_running(AnimKeys.MELEE), "Respawn blocked next valid swing in " + name)
 	var lethal: Attack = Attack.new()
 	lethal.hitkill = true
 	player.health.take_damage(lethal)
 	assert(player.hitbox.attack == null and not animation.is_action_running(AnimKeys.MELEE), "Death retained an active swing in " + name)
-	assert(not player.input_controller.is_processing_input(), "Death left input enabled in " + name)
+	assert(not input.is_processing_input(), "Death left input enabled in " + name)
 	player.attack_component.reset_cooldown()
-	player.input_controller.attack_pressed.emit()
+	input.attack_pressed.emit()
 	assert(player.attack_component.can_attack() and not animation.is_action_running(AnimKeys.MELEE), "Dead input spent cooldown in " + name)
 
 

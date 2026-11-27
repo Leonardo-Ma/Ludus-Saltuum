@@ -39,6 +39,7 @@ var is_driven: bool = false
 var initial_local_transform: Transform3D
 
 var _driver: PlayerEntity = null
+var _driver_rider: VehicleRider
 var _recovery_tween: Tween
 var _was_frozen: bool
 
@@ -56,7 +57,6 @@ var _was_frozen: bool
 ## m/s?
 @onready var speed_ratio: float
 
-@onready var portal_controller: PortalController = %PortalController
 
 
 func _ready() -> void:
@@ -146,13 +146,15 @@ func _on_enter_area_body_entered(body: Node3D) -> void:
 	if driver.state != PlayerEntity.PlayerState.ACTIVE or driver.is_respawning or driver.health.current_health <= 0:
 		return
 	_driver = driver
+	_driver_rider = driver.get_node(^"%VehicleRider")
+	assert(_driver_rider, "VehicleRider missing in " + driver.name)
 
 	# TODO Double check
-	_driver.vehicle_rider.vehicle_exited.connect(_on_vehicle_exited)
+	_driver_rider.vehicle_exited.connect(_on_vehicle_exited)
 
 	is_driven = true
 	enter_area.set_deferred("monitoring", false)
-	_driver.vehicle_rider.enter_vehicle(self)
+	_driver_rider.enter_vehicle(self)
 
 	camera_pivot.global_transform = camera_anchor.global_transform
 	camera_look_at = global_position + (global_basis.z * 10.0)
@@ -168,7 +170,7 @@ func _on_enter_area_body_entered(body: Node3D) -> void:
 ## Delegates only, reset runs in _on_vehicle_exited so every exit path converges
 func exit(exit_position: Vector3) -> void:
 	assert(is_driven, "Car not driven in " + name)
-	_driver.vehicle_rider.exit_vehicle(exit_position)
+	_driver_rider.exit_vehicle(exit_position)
 
 
 func _on_vehicle_exited(_exit_position: Vector3) -> void:
@@ -186,7 +188,8 @@ func _on_vehicle_exited(_exit_position: Vector3) -> void:
 	camera.current = false
 
 	var driver: PlayerEntity = _driver
-	driver.vehicle_rider.vehicle_exited.disconnect(_on_vehicle_exited)
+	_driver_rider.vehicle_exited.disconnect(_on_vehicle_exited)
+	_driver_rider = null
 	_driver = null
 	is_driven = false
 

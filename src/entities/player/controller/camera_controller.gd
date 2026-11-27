@@ -7,6 +7,7 @@ signal capture_mouse_requested
 signal release_mouse_requested
 
 @export var gamepad_look_invert_y: bool = false
+@export var player: CharacterBody3D
 
 var horizontal_sensibility: float = 0.2
 var vertical_sensibility: float = 0.2
@@ -18,12 +19,12 @@ var mouse_look_enabled: bool = false
 var _pitch: float = 0.0
 
 @onready var cam_root: Node3D = $"."
-@onready var player: CharacterBody3D = $".."
 @onready var _spring_arm: SpringArm3D = $SpringArm3D
 @onready var _camera: Camera3D = $SpringArm3D/Camera3D
 
 
 func _ready() -> void:
+	assert(player, "Camera actor missing in " + name)
 	refresh_sensitivity_from_settings()
 	refresh_camera_from_settings()
 	SettingsManager.settings_reset.connect(refresh_sensitivity_from_settings)
@@ -73,6 +74,7 @@ func _input(event: InputEvent) -> void:
 
 #region Gamepad (right stick)
 func _process(delta: float) -> void:
+	assert(player, "Camera actor missing in " + name)
 	var look_input: Vector2 = Input.get_vector("look_left", "look_right", "look_down", "look_up")
 	if look_input.length() > 0.1: # small deadzone
 		var h: float = look_input.x * gamepad_look_sensitivity * delta

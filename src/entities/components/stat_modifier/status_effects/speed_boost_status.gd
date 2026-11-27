@@ -15,12 +15,17 @@ func get_status_name() -> String:
 
 
 func on_apply(active_status: ActiveStatusEffect) -> void:
-	var player: PlayerEntity = active_status.target
-	player.movement.speed_bonus += bonus_speed
-	player.vfx_controller.set_trail(get_id(), true, TRAIL_COLOR)
+	_apply_boost(active_status, bonus_speed, true)
 
 
 func on_remove(active_status: ActiveStatusEffect) -> void:
+	_apply_boost(active_status, -bonus_speed, false)
+
+
+func _apply_boost(active_status: ActiveStatusEffect, speed_delta: float, trail_enabled: bool) -> void:
 	var player: PlayerEntity = active_status.target
-	player.movement.speed_bonus -= bonus_speed
-	player.vfx_controller.set_trail(get_id(), false, TRAIL_COLOR)
+	var movement: PlayerMovementComponent = player.get_node(^"%PlayerMovementComponent")
+	var vfx: VFXController = player.get_node(^"%VFXController")
+	assert(movement and vfx, "Speed boost dependencies missing in " + player.name)
+	movement.speed_bonus += speed_delta
+	vfx.set_trail(get_id(), trail_enabled, TRAIL_COLOR)

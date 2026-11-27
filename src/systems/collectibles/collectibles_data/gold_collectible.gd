@@ -5,5 +5,7 @@ extends CollectibleData
 @export var amount: int = 10
 
 
-func apply_effect(player: Node3D) -> void:
-	player.economy_controller.add_gold(amount)
+func apply_effect(player: PlayerEntity) -> void:
+	var economy: EconomyController = player.get_node(^"%EconomyController")
+	assert(economy, "EconomyController missing in " + player.name)
+	economy.add_gold(amount)

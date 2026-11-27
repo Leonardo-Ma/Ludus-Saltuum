@@ -98,6 +98,7 @@ func _test_health() -> void:
 
 
 func _test_first_death(player: PlayerEntity, boundary: Area3D) -> void:
+	var input: InputController = player.get_node(^"%InputController")
 	assert(not CheckpointManager.has_active_checkpoint(), "Expected an unset checkpoint in " + name)
 	assert(CheckpointManager.get_respawn_transform().is_equal_approx(player.starting_transform), "Missing authored fall fallback in " + name)
 	assert(is_equal_approx(boundary.global_position.y, player.starting_transform.origin.y - 30.0), "Fall plane did not initialize in " + name)
@@ -105,14 +106,15 @@ func _test_first_death(player: PlayerEntity, boundary: Area3D) -> void:
 	lethal.hitkill = true
 	player.global_position.x += 5.0
 	player.health.take_damage(lethal)
-	assert(not player.input_controller.is_processing_input(), "Dead player retained input in " + name)
+	assert(not input.is_processing_input(), "Dead player retained input in " + name)
 	await _wait(6.8)
 	assert(player.health.current_health == player.health.max_health, "First death did not revive player in " + name)
 	assert(is_equal_approx(player.global_position.x, player.starting_transform.origin.x), "First death missed authored spawn in " + name)
-	assert(player.input_controller.is_processing_input(), "Player input did not return after respawn in " + name)
+	assert(input.is_processing_input(), "Player input did not return after respawn in " + name)
 
 
 func _test_overlapping_respawns(player: PlayerEntity, overlays: Control) -> void:
+	var input: InputController = player.get_node(^"%InputController")
 	var fade_rect: ColorRect = overlays.get_node("%FadeRect")
 	var first: Transform3D = player.starting_transform.translated(Vector3(5.0, 0.0, 0.0))
 	var latest: Transform3D = player.starting_transform.translated(Vector3(11.0, 0.0, 0.0))
@@ -134,23 +136,24 @@ func _test_overlapping_respawns(player: PlayerEntity, overlays: Control) -> void
 	await _wait(0.6)
 	assert(player.is_respawning and player.global_position.x != latest.origin.x, "Respawn advanced while paused in " + name)
 	assert(fade_opacity > 0.0 and fade_opacity < 1.0 and is_equal_approx(fade_rect.modulate.a, fade_opacity), "Fade advanced while paused in " + name)
-	assert(not player.input_controller.is_processing_input() and SaveManager.is_save_blocked(), "Pause unlocked an unfinished respawn in " + name)
+	assert(not input.is_processing_input() and SaveManager.is_save_blocked(), "Pause unlocked an unfinished respawn in " + name)
 	ApplicationStateManager.request_resume()
 	await ControlledEntityEvents.player_respawn_arrived
 	assert(player.global_position.is_equal_approx(latest.origin), "Latest respawn missed its destination in " + name)
 	Input.action_press(&"move_right")
 	await _wait(0.4)
 	Input.action_release(&"move_right")
-	assert(player.is_respawning and not player.input_controller.is_processing_input(), "Input returned during fade-out in " + name)
+	assert(player.is_respawning and not input.is_processing_input(), "Input returned during fade-out in " + name)
 	assert(is_equal_approx(player.global_position.x, latest.origin.x), "Movement input affected player during fade-out in " + name)
 	assert(player.global_position.y < latest.origin.y and player.is_on_floor(), "Player did not fall and land during fade-out in " + name)
 	await ControlledEntityEvents.player_finished_respawning
-	assert(not player.is_respawning and player.input_controller.is_processing_input(), "Latest respawn left controls locked in " + name)
+	assert(not player.is_respawning and input.is_processing_input(), "Latest respawn left controls locked in " + name)
 	assert(not SaveManager.is_save_blocked(), "Completed respawn kept saving blocked in " + name)
 	floor.queue_free()
 
 
 func _test_vehicle_falls(player: PlayerEntity, car: PlayerCar, boundary: Area3D) -> void:
+	var input: InputController = player.get_node(^"%InputController")
 	_drop_car(car, boundary)
 	await _wait(0.8)
 	assert(car.transform.is_equal_approx(car.initial_local_transform), "Unattended car missed its authored spawn in " + name)
@@ -165,7 +168,7 @@ func _test_vehicle_falls(player: PlayerEntity, car: PlayerCar, boundary: Area3D)
 	assert(car.global_position.is_equal_approx(CheckpointManager.get_respawn_position()), "Driven car missed respawn destination in " + name)
 	assert(car.is_driven and not car.freeze and car.is_physics_processing(), "Car did not resume driving in " + name)
 	assert(
-		player.state == PlayerEntity.PlayerState.IN_VEHICLE and not player.input_controller.is_processing_input(),
+		player.state == PlayerEntity.PlayerState.IN_VEHICLE and not input.is_processing_input(),
 		"Vehicle fall restored on-foot controls in " + name,
 	)
 	car.exit(player.starting_transform.origin)
