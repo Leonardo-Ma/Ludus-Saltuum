@@ -48,6 +48,12 @@ func register_ui(ui: UIView) -> void:
 	hud_visible = SettingsManager.settings.hud.hud_visible
 
 	ApplicationStateManager.state_changed.connect(_on_game_state_changed)
+	ui.tree_exiting.connect(_unregister_ui, CONNECT_ONE_SHOT)
+
+
+func _unregister_ui() -> void:
+	ApplicationStateManager.state_changed.disconnect(_on_game_state_changed)
+	_ui = null
 
 
 func request_confirmation(icons: Array[CompressedTexture2D]) -> bool:

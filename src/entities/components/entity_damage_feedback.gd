@@ -19,7 +19,7 @@ var _prev_health: int = 0
 
 
 func initialize() -> void:
-	assert(_entity, "Entity owner missing for " + _entity.name)
+	assert(_entity, "Entity owner missing for " + name)
 	assert(_visual, "Visual missing for " + _entity.name)
 	assert(_health, "HealthComponent missing for " + _entity.name)
 
@@ -29,6 +29,10 @@ func initialize() -> void:
 	_material.albedo_color = Color(1.0, 1.0, 1.0, 0.0)
 
 	refresh_meshes()
+
+	if _visual is CharacterVisual:
+		var character_visual: CharacterVisual = _visual
+		character_visual.meshes_replaced.connect(refresh_meshes)
 
 	_prev_health = _health.current_health
 	_health.died.connect(_kill_tween)

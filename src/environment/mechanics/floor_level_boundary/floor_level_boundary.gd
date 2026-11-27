@@ -53,11 +53,11 @@ func _on_chunk_recycled(_chunk: LevelChunk) -> void:
 
 
 func _on_controlled_entity_changed(entity: Node3D) -> void:
-	assert(entity, "Controlled entity missing in " + name)
 	target = entity
-	_refresh_height()
-	set_physics_process(true)
-	hitbox_collision_shape_3d.set_deferred(&"disabled", false)
+	if target != null:
+		_refresh_height()
+	set_physics_process(target != null)
+	hitbox_collision_shape_3d.set_deferred(&"disabled", target == null)
 
 
 func _on_body_entered(body: Node3D) -> void:

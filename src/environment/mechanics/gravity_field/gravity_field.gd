@@ -14,15 +14,21 @@ func _child_ready() -> void:
 	pass
 
 
-var _previous_gravity_multiplier: float = 1.0
+var _previous_gravity_multipliers: Dictionary[PlayerMovementComponent, float] = { }
 
 
 func _on_trigger_entered(body: Node3D) -> void:
 	if body.is_in_group(Groups.PLAYERS):
-		_previous_gravity_multiplier = body.movement.gravity_multiplier
-		body.movement.gravity_multiplier = gravity_override / float(ProjectSettings.get_setting("physics/3d/default_gravity"))
+		var movement: PlayerMovementComponent = body.get_node(^"%PlayerMovementComponent")
+		assert(movement, "PlayerMovementComponent missing in " + name)
+		_previous_gravity_multipliers[movement] = movement.gravity_multiplier
+		movement.gravity_multiplier = gravity_override / float(ProjectSettings.get_setting("physics/3d/default_gravity"))
 
 
 func _on_trigger_exited(body: Node3D) -> void:
 	if body.is_in_group(Groups.PLAYERS):
-		body.movement.gravity_multiplier = _previous_gravity_multiplier
+		var movement: PlayerMovementComponent = body.get_node(^"%PlayerMovementComponent")
+		assert(movement, "PlayerMovementComponent missing in " + name)
+		if _previous_gravity_multipliers.has(movement):
+			movement.gravity_multiplier = _previous_gravity_multipliers[movement]
+			_previous_gravity_multipliers.erase(movement)

@@ -157,6 +157,7 @@ grow_horizontal = 0
 grow_vertical = 2
 
 [node name="CosmeticsButton" type="Button" parent="." unique_id=1968441196]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 1
 anchors_preset = -1

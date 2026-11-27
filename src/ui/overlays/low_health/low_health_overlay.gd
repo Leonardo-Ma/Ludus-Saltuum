@@ -16,29 +16,21 @@ var _is_racing: bool = false
 
 
 func _ready() -> void:
-	assert(material is ShaderMaterial, "ShaderMaterial missing in " + name)
-
-	ControlledEntityEvents.player_finished_spawning.connect(_on_player_spawned)
 	GameplayStateManager.gameplay_mode_changed.connect(_on_gameplay_mode_changed)
-
-	var players: Array[Node] = get_tree().get_nodes_in_group(Groups.PLAYERS)
-	if not players.is_empty():
-		_on_player_spawned(players[0])
-
+	_is_racing = GameplayStateManager.is_in_mode(GameplayStateManager.GameplayMode.RACING)
 	_set_vein_intensity(0.0)
 
 
-func _on_player_spawned(player: Node3D) -> void:
+func bind_health(health: HealthComponent) -> void:
+	if is_instance_valid(_health):
+		_health.health_changed.disconnect(_on_health_changed)
+	if _tween != null:
+		_tween.kill()
+	_is_pulsing = false
+	_set_vein_intensity(0.0)
+	_health = health
 	if _health != null:
-		return
-
-	var player_entity: PlayerEntity = player as PlayerEntity
-	assert(player_entity, "PlayerEntity missing in " + name)
-
-	_health = player_entity.health
-	assert(_health, "Health missing in " + name)
-
-	_health.health_changed.connect(_on_health_changed)
+		_health.health_changed.connect(_on_health_changed)
 	_refresh()
 
 
@@ -52,7 +44,7 @@ func _on_gameplay_mode_changed(new_mode: GameplayStateManager.GameplayMode, _pre
 
 
 func _refresh() -> void:
-	if _health == null:
+	if not is_instance_valid(_health) or material is not ShaderMaterial:
 		return
 
 	var health_ratio: float = float(_health.current_health) / _health.max_health
@@ -79,4 +71,6 @@ func _refresh() -> void:
 
 
 func _set_vein_intensity(value: float) -> void:
-	(material as ShaderMaterial).set_shader_parameter("intensity", value)
+	if material is ShaderMaterial:
+		var shader_material: ShaderMaterial = material
+		shader_material.set_shader_parameter("intensity", value)

@@ -7,20 +7,22 @@ const TOTAL_DURATION: float = 5.0
 const FADE_DURATION: float = 0.4
 
 var _tween: Tween
+var _cosmetics: CosmeticsController
 
 
 func _ready() -> void:
 	hide()
-	ControlledEntityEvents.player_finished_spawning.connect(_on_player_spawned)
-	var players: Array[Node] = get_tree().get_nodes_in_group(Groups.PLAYERS)
-	if not players.is_empty():
-		_on_player_spawned(players[0] as Node3D)
 
 
-func _on_player_spawned(player: Node3D) -> void:
-	var controller: CosmeticsController = (player as PlayerEntity).cosmetics_controller
-	if not controller.affordable_cosmetic_reminded.is_connected(_on_reminder):
-		controller.affordable_cosmetic_reminded.connect(_on_reminder)
+func bind_cosmetics(cosmetics: CosmeticsController) -> void:
+	if is_instance_valid(_cosmetics):
+		_cosmetics.affordable_cosmetic_reminded.disconnect(_on_reminder)
+	if _tween != null:
+		_tween.kill()
+	hide()
+	_cosmetics = cosmetics
+	if _cosmetics != null:
+		_cosmetics.affordable_cosmetic_reminded.connect(_on_reminder)
 
 
 func _on_reminder() -> void:

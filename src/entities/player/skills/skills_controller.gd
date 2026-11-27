@@ -6,6 +6,9 @@ signal skill_unlocked(definition: SkillDefinition)
 signal resetted_skills
 signal dash_started(velocity: Vector3, duration: float)
 
+@export_category("Skills")
+@export var startup_skills: Array[SkillDefinition] = []
+
 var is_sliding: bool = false
 var base_fov: float = 0.0
 
@@ -15,9 +18,12 @@ var _skills: Dictionary[SkillDefinition, BaseSkill] = { }
 @onready var movement_controller: PlayerMovementComponent = %PlayerMovementComponent
 @onready var camera: Camera3D = %Camera3D
 @onready var vfx_controller: VFXController = %VFXController
+@onready var projectile_attack: ProjectileAttackComponent = %ProjectileAttackComponent
 
 
-func _ready() -> void:
+#region Initialization and input
+func initialize() -> void:
+	assert(entity and movement_controller and camera and vfx_controller and projectile_attack, "Skill dependencies missing in " + name)
 	base_fov = SettingsManager.settings.camera.camera_fov
 	movement_controller.landed.connect(_on_landed)
 	_unlock_editor_defined_startup_skills()
@@ -25,10 +31,13 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
+	assert(entity, "PlayerEntity missing in " + name)
 	for skill: BaseSkill in _skills.values():
 		skill.process_input()
+#endregion
 
 
+#region Skill management
 func reset() -> void:
 	for skill: BaseSkill in _skills.values():
 		skill.queue_free()
@@ -70,6 +79,7 @@ func set_unlocked_skills(skills: Array[SkillDefinition]) -> void:
 
 	for skill: SkillDefinition in skills:
 		unlock(skill)
+#endregion
 
 
 # TODO Reconsider where to place this
@@ -79,7 +89,7 @@ func spawn_ghost_trail(duration: float = 0.5, color: Color = Color(0.8, 1.0, 1.5
 
 
 func _unlock_editor_defined_startup_skills() -> void:
-	for definition: SkillDefinition in entity.startup_skills:
+	for definition: SkillDefinition in startup_skills:
 		unlock(definition)
 
 

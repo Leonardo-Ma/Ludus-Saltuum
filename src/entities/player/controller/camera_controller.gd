@@ -30,6 +30,7 @@ func _ready() -> void:
 	SettingsManager.settings_reset.connect(refresh_sensitivity_from_settings)
 	SettingsManager.settings_reset.connect(refresh_camera_from_settings)
 	SettingsManager.camera_settings_changed.connect(refresh_camera_from_settings)
+	SettingsManager.camera_settings_changed.connect(refresh_sensitivity_from_settings)
 
 
 ## Call after settings changes

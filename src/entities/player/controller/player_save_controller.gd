@@ -16,7 +16,10 @@ const SKILL_CATALOGUE: SkillCatalogue = preload("uid://6ygr0ieawafb") # skill_ca
 
 func _child_ready() -> void:
 	assert(player != null, "Player owner missing in " + name)
-	assert(skills_controller and economy_controller and easter_egg_controller and status_manager and cosmetics_controller and _vehicle_rider, "Save dependencies missing in " + name)
+	assert(
+		skills_controller and economy_controller and easter_egg_controller and status_manager and cosmetics_controller and _vehicle_rider,
+		"Save dependencies missing in " + name,
+	)
 	# NOTE Loading is triggered by game load manager
 
 
@@ -66,7 +69,7 @@ func apply_save_data(data: PlayerSaveData) -> void:
 
 	easter_egg_controller.found_easter_eggs.clear()
 	for egg: EasterEgg.Name in data.found_easter_egg_names:
-		easter_egg_controller.found_easter_eggs[egg] = true
+		easter_egg_controller.discover(egg)
 
 
 func initialize_new_save_data() -> void:

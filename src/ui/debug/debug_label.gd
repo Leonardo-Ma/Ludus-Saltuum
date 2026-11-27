@@ -1,20 +1,22 @@
+class_name PlayerDebugLabel
 extends Label
 
 var event_text: String = ""
 
 var _damage_indicator_timer: float = 0.0
+var _player: PlayerEntity
+var _movement: PlayerMovementComponent
 
 
 #region Setup and Signals
-func _ready() -> void:
-	ControlledEntityEvents.player_finished_spawning.connect(_on_player_spawned)
-	var players: Array[Node] = get_tree().get_nodes_in_group(Groups.PLAYERS)
-	if not players.is_empty():
-		_on_player_spawned(players[0])
-
-
-func _on_player_spawned(player: Node) -> void:
-	player.health.damaged.connect(_on_player_damaged)
+func bind_player(player: PlayerEntity, movement: PlayerMovementComponent) -> void:
+	if is_instance_valid(_player) and is_instance_valid(_player.health):
+		_player.health.damaged.disconnect(_on_player_damaged)
+	_player = player
+	_movement = movement
+	_damage_indicator_timer = 0.0
+	if _player != null and _player.health != null:
+		_player.health.damaged.connect(_on_player_damaged)
 
 
 func _on_player_damaged(_attack: Attack) -> void:
@@ -59,12 +61,11 @@ func _get_performance_text() -> String:
 
 
 func _get_player_info_text() -> String:
-	var players: Array[Node] = get_tree().get_nodes_in_group(Groups.PLAYERS)
-	if players.is_empty() or not is_instance_valid(players[0]):
+	if not is_instance_valid(_player):
 		return "--- No Player Found ---\n"
 
-	var player_entity: PlayerEntity = players[0] as PlayerEntity
-	if player_entity == null:
+	var player_entity: PlayerEntity = _player
+	if not is_instance_valid(_movement) or not is_instance_valid(player_entity.health):
 		return "--- Invalid Player Node ---\n"
 
 	var output: String = "--- %s ---\n" % player_entity.name
@@ -73,7 +74,7 @@ func _get_player_info_text() -> String:
 	var is_in_air: bool = not player_entity.is_on_floor()
 	output += "In Air: %s\n" % str(is_in_air)
 
-	var speed: float = player_entity.movement.get_speed()
+	var speed: float = _movement.get_speed()
 	output += "Move Speed: %.1f\n" % speed
 
 	output += "Health: %.2f / %.2f\n" % [player_entity.health.current_health, player_entity.health.max_health]

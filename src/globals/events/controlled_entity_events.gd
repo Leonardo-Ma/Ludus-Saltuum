@@ -26,8 +26,19 @@ func _ready() -> void:
 
 
 func set_controlled_entity(entity: Node3D) -> void:
+	if is_instance_valid(controlled_entity):
+		var previous_exit: Callable = _on_controlled_entity_exiting.bind(controlled_entity)
+		if controlled_entity.tree_exiting.is_connected(previous_exit):
+			controlled_entity.tree_exiting.disconnect(previous_exit)
 	controlled_entity = entity
+	if entity != null:
+		entity.tree_exiting.connect(_on_controlled_entity_exiting.bind(entity), CONNECT_ONE_SHOT)
 	controlled_entity_changed.emit(entity)
+
+
+func _on_controlled_entity_exiting(entity: Node3D) -> void:
+	if controlled_entity == entity:
+		set_controlled_entity(null)
 
 
 # Guard against bypassing health by passing is_death for a living player

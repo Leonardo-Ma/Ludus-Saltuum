@@ -10,3 +10,9 @@ signal asset_changed
 	set(value):
 		asset = value
 		asset_changed.emit()
+
+
+## Binds purchase control to selected player's features
+func bind_player_features(economy: EconomyController, cosmetics: CosmeticsController) -> void:
+	var buy_button: BuyCosmeticButton = %BuyCosmetic
+	buy_button.bind_player_features(economy, cosmetics)

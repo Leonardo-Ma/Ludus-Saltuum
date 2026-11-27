@@ -1,3 +1,4 @@
+class_name PauseCosmeticsButton
 extends UIButton
 
 const OUTLINE_COLOR_DIM: Color = Color(1.0, 0.85, 0.3, 0.35)
@@ -10,6 +11,7 @@ const PULSE_COUNT: int = 6
 
 var _outline_style: StyleBoxFlat
 var _tween: Tween
+var _cosmetics: CosmeticsController
 
 @onready var _outline: Panel = %HighlightOutline
 
@@ -26,11 +28,16 @@ func _button_pressed() -> void:
 
 
 func _on_gameplay_paused() -> void:
-	var player: PlayerEntity = get_tree().get_first_node_in_group(Groups.PLAYERS) as PlayerEntity
-	if player == null or not player.cosmetics_controller.consume_reminder():
+	if not is_instance_valid(_cosmetics) or not _cosmetics.consume_reminder():
 		return
 
 	_play_outline()
+
+
+## Clears reminder animation when assigned player changes
+func bind_cosmetics(cosmetics: CosmeticsController) -> void:
+	_stop_outline()
+	_cosmetics = cosmetics
 
 
 func _play_outline() -> void:

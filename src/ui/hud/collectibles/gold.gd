@@ -1,23 +1,22 @@
-## Handles player gold and applies a visual animation
+class_name GoldView
 extends HBoxContainer
 
+## Handles player gold and applies a visual animation
+
 var _current_gold: int = 0
+var _economy: EconomyController
 
 @onready var _gold_label: Label = %GoldCounter
 @onready var _gold_icon: TextureRect = %GoldIcon
 
 
-func _ready() -> void:
-	ControlledEntityEvents.player_finished_spawning.connect(_on_player_finished_spawning)
-
-
-func _on_player_finished_spawning(player: Node3D) -> void:
-	var _economy_controller: EconomyController = player.economy_controller
-
-	_current_gold = _economy_controller.gold
-
-	_economy_controller.gold_changed.connect(_on_gold_changed)
-
+func bind_economy(economy: EconomyController) -> void:
+	if is_instance_valid(_economy):
+		_economy.gold_changed.disconnect(_on_gold_changed)
+	_economy = economy
+	_current_gold = _economy.gold if _economy != null else 0
+	if _economy != null:
+		_economy.gold_changed.connect(_on_gold_changed)
 	_update_label()
 
 

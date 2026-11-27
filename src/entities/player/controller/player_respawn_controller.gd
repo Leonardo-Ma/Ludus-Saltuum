@@ -10,16 +10,17 @@ const DEATH_SCORE_PENALTY: int = 10
 var _player: PlayerEntity
 var _respawn_tween: Tween
 
+@onready var _input: InputController = %InputController
+@onready var _movement: PlayerMovementComponent = %PlayerMovementComponent
+@onready var _economy: EconomyController = %EconomyController
 
-func _ready() -> void:
+
+func initialize() -> void:
 	_player = owner
 	assert(_player, "PlayerEntity owner missing for " + name)
+	assert(_input and _movement and _economy, "Respawn dependencies missing in " + name)
 	ApplicationStateManager.main_menu_requested.connect(_cancel_respawn)
-	_initialize.call_deferred()
-
-
-func _initialize() -> void:
-	_player.input_controller.return_to_checkpoint_requested.connect(_on_return_to_checkpoint_requested)
+	_input.return_to_checkpoint_requested.connect(_on_return_to_checkpoint_requested)
 
 
 func _exit_tree() -> void:
@@ -52,7 +53,7 @@ func respawn(delay: float, target_transform: Transform3D, is_death: bool = false
 
 func _arrive(target_transform: Transform3D, is_death: bool) -> void:
 	_player.velocity = Vector3.ZERO
-	_player.player_movement_controller.consume_external_force()
+	_movement.consume_external_force()
 	_player.global_position = target_transform.origin
 	_player.global_rotation.y = atan2(target_transform.basis.z.x, target_transform.basis.z.z)
 	_player.status_manager.clear_temporary_statuses()
@@ -66,8 +67,8 @@ func _arrive(target_transform: Transform3D, is_death: bool) -> void:
 
 func _finish_respawn() -> void:
 	_respawn_tween = null
-	_player.player_movement_controller.consume_external_force()
-	_player.player_movement_controller.enable_movement()
+	_movement.consume_external_force()
+	_movement.enable_movement()
 	_player.refresh_state()
 	if not is_respawning():
 		ControlledEntityEvents.finish_respawn(_player)
@@ -82,15 +83,15 @@ func _cancel_respawn() -> void:
 
 func on_death_complete() -> void:
 	if ApplicationStateManager.has_active_run():
-		_player.economy_controller.remove_score(DEATH_SCORE_PENALTY)
+		_economy.remove_score(DEATH_SCORE_PENALTY)
 		respawn(DEATH_RESPAWN_DELAY, CheckpointManager.get_respawn_transform(), true)
 
 
 func finish_load() -> void:
 	_cancel_respawn()
 	_player.velocity = Vector3.ZERO
-	_player.player_movement_controller.consume_external_force()
-	_player.player_movement_controller.enable_movement()
+	_movement.consume_external_force()
+	_movement.enable_movement()
 	_player.refresh_state()
 
 

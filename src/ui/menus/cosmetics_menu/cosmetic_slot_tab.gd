@@ -18,9 +18,20 @@ extends HFlowContainer
 		_rebuild()
 @export_tool_button("Rebuild", "Reload") var rebuild_action: Callable = _rebuild
 
+var _economy: EconomyController
+var _cosmetics: CosmeticsController
+
 
 func _ready() -> void:
 	_rebuild()
+
+
+## Supplies selected player's features to current and rebuilt cards
+func bind_player_features(economy: EconomyController, cosmetics: CosmeticsController) -> void:
+	_economy = economy
+	_cosmetics = cosmetics
+	for card: CosmeticCard in get_children():
+		card.bind_player_features(economy, cosmetics)
 
 
 func _rebuild() -> void:
@@ -39,3 +50,5 @@ func _rebuild() -> void:
 		assert(card != null, "card_scene root must be CosmeticCard in " + name)
 		card.asset = asset
 		add_child(card)
+		if not Engine.is_editor_hint():
+			card.bind_player_features(_economy, _cosmetics)

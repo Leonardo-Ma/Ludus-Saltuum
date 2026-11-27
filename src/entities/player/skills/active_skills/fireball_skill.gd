@@ -12,7 +12,7 @@ func get_hud_mode() -> HUDMode:
 
 
 func _ready() -> void:
-	_attack_component = skills_controller.entity.projectile_attack_component
+	_attack_component = skills_controller.projectile_attack
 	assert(_attack_component != null and _attack_component.projectile_attack != null, "ProjectileAttack missing in " + name)
 	skills_controller.entity.magic_casted.connect(_on_magic_cast)
 

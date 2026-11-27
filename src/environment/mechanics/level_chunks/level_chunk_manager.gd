@@ -506,12 +506,7 @@ func _generate_new_chunk(target_transform: Transform3D) -> LevelChunk:
 	assert(skills and economy, "Chunk progression sources missing in " + _player.name)
 	var unlocked_skills: Array[SkillDefinition] = skills.get_unlocked_skills()
 	var chunk_seed: int = ProceduralId.chunk_seed(get_procedural_seed(), chunk_key)
-	var chosen_data: ChunkData = _chunk_selector.select_deterministic_chunk_data(
-		target_transform,
-		chunk_seed,
-		unlocked_skills,
-		economy.score,
-	)
+	var chosen_data: ChunkData = _chunk_selector.select_deterministic_chunk_data(target_transform, chunk_seed, unlocked_skills, economy.score)
 	if chosen_data == null:
 		get_tree().quit(1)
 		assert(false, "No eligible chunk for key %d in %s" % [chunk_key, name])

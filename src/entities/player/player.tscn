@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dwxbechemu2kl"]
 
 [ext_resource type="Script" uid="uid://bo0feed2mfho2" path="res://src/entities/player/player.gd" id="1_tpvn4"]
+[ext_resource type="Script" uid="uid://bpx3lyc67stg0" path="res://src/entities/player/controller/player_appearance.gd" id="2_appearance"]
 [ext_resource type="Script" uid="uid://njkofl5g11k7" path="res://src/entities/components/combat/health.gd" id="3_7vsgj"]
 [ext_resource type="Script" uid="uid://dlbf4w8moqj2j" path="res://src/entities/components/movement.gd" id="4_oyxv6"]
 [ext_resource type="Script" uid="uid://ce8ig2j71kitw" path="res://src/entities/player/controller/camera_controller.gd" id="5_2wg8a"]
@@ -711,6 +712,10 @@ catalog = ExtResource("43_l2t0n")
 [node name="VehicleRider" type="Node" parent="Controllers/External" unique_id=1987654321]
 unique_name_in_owner = true
 script = ExtResource("32_vehiclerider")
+
+[node name="PlayerAppearance" type="Node" parent="Controllers/External" unique_id=447481050]
+unique_name_in_owner = true
+script = ExtResource("2_appearance")
 
 [node name="Combat" type="Node" parent="Controllers" unique_id=170493514]
 

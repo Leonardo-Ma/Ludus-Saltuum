@@ -464,6 +464,7 @@ action = &"return_to_checkpoint"
 metadata/_edit_group_ = true
 
 [node name="ReturnCheckpoingProgress" type="TextureProgressBar" parent="MarginContainer/HBoxContainer/LeftSideContainer/GamepadPromptsMargin/VBoxContainer/ReturnCheckpoint/PromptsPanel/X" unique_id=603943047]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

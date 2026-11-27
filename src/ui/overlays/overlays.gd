@@ -1,7 +1,10 @@
+class_name OverlaysView
 extends Control
 
 @onready var screen_transition: Control = %ScreenTransition
 @onready var fade_rect: ColorRect = %FadeRect
+@onready var _low_health: LowHealthOverlay = %LowHealthOverlay
+@onready var _cosmetics: CosmeticAvailableOverlay = %CosmeticAvailableOverlay
 
 var _fade_tween: Tween
 
@@ -15,6 +18,11 @@ func _ready() -> void:
 	ControlledEntityEvents.player_respawning.connect(_on_player_respawning)
 	ControlledEntityEvents.player_respawn_arrived.connect(_on_player_respawn_arrived)
 	ControlledEntityEvents.player_finished_respawning.connect(_on_player_finished_respawning)
+
+
+func bind_player_features(health: HealthComponent, cosmetics: CosmeticsController) -> void:
+	_low_health.bind_health(health)
+	_cosmetics.bind_cosmetics(cosmetics)
 
 
 ## Fade in and out effect, to solid color then back

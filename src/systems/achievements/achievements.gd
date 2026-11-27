@@ -13,11 +13,10 @@ const _ALL_SKILLS: Array[SkillDefinition] = _SKILL_CATALOGUE.definitions
 
 var _definitions: Dictionary[AchievementDefinition.Id, AchievementDefinition] = { }
 var _unlocked: Dictionary[AchievementDefinition.Id, bool] = { }
-
-var _economy_controller: EconomyController
-var _skills_controller: SkillsController
-var _easter_egg_controller: EasterEggController
 var _score: int = 0
+var _economy: EconomyController
+var _skills: SkillsController
+var _discoveries: EasterEggController
 
 var _backend: AchievementBackend
 
@@ -37,13 +36,7 @@ func _ready() -> void:
 		_definitions[definition.id] = definition
 
 	_load()
-
-	ControlledEntityEvents.player_finished_spawning.connect(_on_player_spawned)
-
-	CollectiblesEvents.skill_collected.connect(
-		func(_skill_definition: SkillDefinition) -> void:
-			_check_skill_completion(),
-	)
+	ControlledEntityEvents.controlled_entity_changed.connect(_on_controlled_entity_changed)
 
 
 func configure_achievement_backend(backend: AchievementBackend) -> void:
@@ -144,24 +137,44 @@ func _get_definition(id: AchievementDefinition.Id) -> AchievementDefinition:
 
 
 #region Unlocks
+# TODO Improve this garbage
+func _on_controlled_entity_changed(entity: Node3D) -> void:
+	if entity is not PlayerEntity:
+		return
+	var player: PlayerEntity = entity
+	var economy: EconomyController = player.get_node(^"%EconomyController")
+	if economy == _economy:
+		return
+	if is_instance_valid(_economy):
+		_economy.score_changed.disconnect(record_score)
+	if is_instance_valid(_skills):
+		_skills.skill_unlocked.disconnect(_on_skill_unlocked)
+	if is_instance_valid(_discoveries):
+		_discoveries.found.disconnect(_on_discovery)
+	_economy = economy
+	_skills = player.get_node(^"%SkillsController")
+	_discoveries = player.get_node(^"%EasterEggController")
+	assert(_economy and _skills and _discoveries, "Achievement sources missing in " + name)
+	_economy.score_changed.connect(record_score)
+	_skills.skill_unlocked.connect(_on_skill_unlocked)
+	_discoveries.found.connect(_on_discovery)
+	record_score(_economy.score)
+	record_skills(_skills.get_unlocked_skills())
+	record_discoveries(_discoveries.found_easter_eggs.size())
 
-func _on_player_spawned(player: PlayerEntity) -> void:
-	_economy_controller = player.economy_controller
-	_skills_controller = player.skills_controller
-	_easter_egg_controller = player.easter_egg_controller
-	_easter_egg_controller.found.connect(_on_easter_egg_found)
 
-	if not _economy_controller.score_changed.is_connected(_on_score_changed):
-		_economy_controller.score_changed.connect(_on_score_changed)
-
-	_score = _economy_controller.score
-
-	_check_skill_completion()
+func _on_skill_unlocked(_definition: SkillDefinition) -> void:
+	record_skills(_skills.get_unlocked_skills())
 
 
-func _on_score_changed(score: int) -> void:
+func _on_discovery(_discovery: EasterEgg.Name) -> void:
+	record_discoveries(_discoveries.found_easter_eggs.size())
+
+
+func record_score(score: int) -> void:
+	if OS.has_feature("demo"):
+		return
 	_score = score
-
 	if score >= 1:
 		unlock(AchievementDefinition.Id.FIRST_RUN)
 	if score >= 100:
@@ -176,11 +189,9 @@ func _on_score_changed(score: int) -> void:
 		unlock(AchievementDefinition.Id.SCORE_10000)
 
 
-func _check_skill_completion() -> void:
-	if not is_instance_valid(_skills_controller):
+func record_skills(skills: Array[SkillDefinition]) -> void:
+	if OS.has_feature("demo"):
 		return
-
-	var skills: Array[SkillDefinition] = _skills_controller.get_unlocked_skills()
 
 	if _ALL_SKILLS.all(
 		func(skill: SkillDefinition) -> bool:
@@ -189,9 +200,9 @@ func _check_skill_completion() -> void:
 		unlock(AchievementDefinition.Id.ALL_SKILLS)
 
 
-func _on_easter_egg_found(_easter_egg_name: EasterEgg.Name) -> void:
-	var easter_eggs_found: int = _easter_egg_controller.found_easter_eggs.size()
-
+func record_discoveries(easter_eggs_found: int) -> void:
+	if OS.has_feature("demo"):
+		return
 	if easter_eggs_found >= 1:
 		unlock(AchievementDefinition.Id.FIRST_EASTER_EGG)
 

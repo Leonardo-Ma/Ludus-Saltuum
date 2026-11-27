@@ -8,10 +8,10 @@ signal status_removed(status_id: StringName)
 @export_category("Statuses")
 ## Statuses that are permanent/innate (like passives or racial bonuses)
 @export var permanent_statuses: Array[StatusEffect] = []
-## Statuses that are applied temporarily at the start (e.g., starting with a timed buff)
+## Statuses applied at startup that remain until removed or cleared with temporary statuses
 @export var initial_statuses: Array[StatusEffect] = []
 
-var _active_statuses: Dictionary = { } # Dictionary[StringName, ActiveStatusEffect]
+var _active_statuses: Dictionary[StringName, ActiveStatusEffect] = { }
 
 var _target: AggressiveEntity
 
@@ -30,8 +30,14 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	assert(_target, "StatusManager target missing in " + name)
 	for active: ActiveStatusEffect in _active_statuses.values():
 		active.process_time(delta)
+
+
+## Current effects in application order for status displays and other consumers
+func get_active_statuses() -> Array[ActiveStatusEffect]:
+	return _active_statuses.values()
 
 
 func apply_status(

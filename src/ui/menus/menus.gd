@@ -4,6 +4,9 @@ extends Control
 
 var _screens: Dictionary[ApplicationStateManager.GameState, MenuScreen] = { }
 
+@onready var _pause_menu: PauseMenuView = %PauseMenu
+@onready var _cosmetics_menu: CosmeticsMenuView = %CosmeticsMenu
+
 
 func _ready() -> void:
 	for child: Node in get_children():
@@ -17,3 +20,9 @@ func show_screen(state: ApplicationStateManager.GameState) -> void:
 	for screen_state: ApplicationStateManager.GameState in _screens:
 		_screens[screen_state].visible = screen_state == state
 	visible = _screens.has(state)
+
+
+## Assigns player data to menus with account-specific controls
+func bind_player_features(economy: EconomyController, cosmetics: CosmeticsController) -> void:
+	_pause_menu.bind_cosmetics(cosmetics)
+	_cosmetics_menu.bind_player_features(economy, cosmetics)

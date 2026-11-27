@@ -74,6 +74,7 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="Gold" parent="RootContainer/CosmeticsContainer/TabButtonsContainer/TabContainer/MarginContainer" unique_id=694921832 instance=ExtResource("4_xyti5")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="CostumesTab" type="Button" parent="RootContainer/CosmeticsContainer/TabButtonsContainer/TabContainer" unique_id=1797839700 node_paths=PackedStringArray("panel")]
@@ -143,6 +144,7 @@ follow_focus = true
 horizontal_scroll_mode = 0
 
 [node name="CostumesTab" type="HFlowContainer" parent="RootContainer/CosmeticsContainer/MarginContainer/VBoxContainer/Tabs/CostumesScroll" unique_id=900826147]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -160,6 +162,7 @@ follow_focus = true
 horizontal_scroll_mode = 0
 
 [node name="WeaponsTab" type="HFlowContainer" parent="RootContainer/CosmeticsContainer/MarginContainer/VBoxContainer/Tabs/WeaponsScroll" unique_id=2088802970]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

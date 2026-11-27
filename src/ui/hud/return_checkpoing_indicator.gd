@@ -1,21 +1,25 @@
-## Clock progress bar while holding return to checkpoint
+class_name ReturnCheckpointIndicator
 extends TextureProgressBar
 
+## Circular clock progress bar while holding return to checkpoint
+
 var _tween: Tween
+var _input: InputController
 
 
 func _ready() -> void:
 	hide()
-	ControlledEntityEvents.player_finished_spawning.connect(_on_player_spawned)
-	var players: Array[Node] = get_tree().get_nodes_in_group(Groups.PLAYERS)
-	if not players.is_empty():
-		_on_player_spawned(players[0])
 
 
-func _on_player_spawned(player: Node) -> void:
-	var controller: InputController = (player as PlayerEntity).input_controller
-	controller.return_hold_started.connect(_on_hold_started)
-	controller.return_hold_cancelled.connect(_on_hold_cancelled)
+func bind_input(input: InputController) -> void:
+	if is_instance_valid(_input):
+		_input.return_hold_started.disconnect(_on_hold_started)
+		_input.return_hold_cancelled.disconnect(_on_hold_cancelled)
+	_on_hold_cancelled()
+	_input = input
+	if _input != null:
+		_input.return_hold_started.connect(_on_hold_started)
+		_input.return_hold_cancelled.connect(_on_hold_cancelled)
 
 
 func _on_hold_started(duration: float) -> void:

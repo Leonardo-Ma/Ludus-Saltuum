@@ -1,9 +1,11 @@
 [gd_resource type="Resource" script_class="ChangeSizeStatus" format=3 uid="uid://bfr78paglfbvw"]
 
 [ext_resource type="Script" uid="uid://c4ugtconyjoou" path="res://src/entities/components/stat_modifier/status_effects/change_size_status.gd" id="1_8xwuh"]
+[ext_resource type="Texture2D" uid="uid://ba8mk8t0mx82y" path="res://src/icons/16x16/potion.png" id="2_hud_icon"]
 
 [resource]
 script = ExtResource("1_8xwuh")
 speed_multiplier = 2.5
 jump_multiplier = 1.2
+hud_icon = ExtResource("2_hud_icon")
 metadata/_custom_type_script = "uid://c4ugtconyjoou"

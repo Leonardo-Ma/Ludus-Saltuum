@@ -12,6 +12,8 @@ var type: StatusEffect.StatusType
 var tags: Array[StringName] = []
 var current_stacks: int = 1
 var remaining_time: float
+## Full timer span, including extensions, for progress display
+var total_duration: float
 var tick_timer: float
 var duration: float
 var stack_mode: StatusEffect.StackMode
@@ -37,6 +39,7 @@ func _init(
 	max_stacks = _max_stacks
 	tick_interval = _tick_interval
 	remaining_time = _duration
+	total_duration = _duration
 	tick_timer = _tick_interval
 	status.on_apply(self)
 
@@ -64,10 +67,12 @@ func handle_reapplication() -> void:
 				current_stacks += 1
 		StatusEffect.StackMode.REPLACE:
 			remaining_time = duration
+			total_duration = duration
 			tick_timer = tick_interval
 		StatusEffect.StackMode.ADD_DURATION:
 			if not is_infinite():
 				remaining_time += duration
+				total_duration += duration
 		StatusEffect.StackMode.NONE:
 			pass
 

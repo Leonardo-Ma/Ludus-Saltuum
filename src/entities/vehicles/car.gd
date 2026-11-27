@@ -1,8 +1,9 @@
-# https://www.youtube.com/watch?v=5m7nBj98rx4 LegionGames - Race Car Controller Tutorial - Godot 3D
-## Uses Groups.CONTROLLED when driven, player stays in Groups.PLAYERS [br]
-## Vehicle state tracked via VehicleRider.is_in_vehicle
+# TODO Remake this garbage
 class_name PlayerCar
 extends VehicleBody3D
+
+## Uses Groups.CONTROLLED when driven, player stays in Groups.PLAYERS [br]
+## Vehicle state tracked via VehicleRider.is_in_vehicle
 
 signal driving_started(player: PlayerEntity)
 signal driving_stopped(player: PlayerEntity)
@@ -56,7 +57,6 @@ var _was_frozen: bool
 @onready var back_right_wheel: VehicleWheel3D = %BackRightWheel
 ## m/s?
 @onready var speed_ratio: float
-
 
 
 func _ready() -> void:

@@ -14,6 +14,8 @@ func _child_ready() -> void:
 
 
 func _on_trigger_entered(body: Node3D) -> void:
-	if body.is_in_group(Groups.CONTROLLED):
+	if body is PlayerEntity and body.is_in_group(Groups.CONTROLLED):
 		var player: PlayerEntity = body
-		player.easter_egg_controller.found.emit(easter_egg_name)
+		var discovery: EasterEggController = player.get_node(^"%EasterEggController")
+		assert(discovery, "EasterEggController missing in " + player.name)
+		discovery.discover(easter_egg_name)

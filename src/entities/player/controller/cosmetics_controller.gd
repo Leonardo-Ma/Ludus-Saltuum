@@ -35,6 +35,7 @@ func _ready() -> void:
 	ApplicationStateManager.gameplay_resumed.connect(_evaluate_affordability)
 
 
+#region Ownership and equipment
 func acquire(cosmetic_id: StringName) -> void:
 	assert(catalog.find_asset(cosmetic_id) != null, "Unknown cosmetic id in " + name + ": " + String(cosmetic_id))
 
@@ -86,6 +87,16 @@ func get_equipped_id(slot: CosmeticAsset.Slot) -> StringName:
 	return _equipped_ids.get(slot, catalog.get_default(slot).cosmetic_id)
 
 
+## Validates affordability and equips owned or newly acquired cosmetic
+func buy_or_equip(cosmetic_id: StringName) -> bool:
+	var asset: CosmeticAsset = catalog.get_asset(cosmetic_id)
+	if not owns(cosmetic_id):
+		if not _economy_controller.remove_gold(asset.price):
+			return false
+		acquire(cosmetic_id)
+	return equip(cosmetic_id)
+
+
 func get_equipped_asset(slot: CosmeticAsset.Slot) -> CosmeticAsset:
 	return catalog.get_asset(get_equipped_id(slot))
 
@@ -119,6 +130,7 @@ func _set_equipped(asset: CosmeticAsset) -> void:
 
 	_equipped_ids[slot] = asset.cosmetic_id
 	equipped_changed.emit(asset)
+#endregion
 
 
 #region Affordable visual highlight warning

@@ -18,6 +18,8 @@ enum StatusType {
 @export var type: StatusType = StatusType.NEUTRAL
 ## Optional tags
 @export var tags: Array[StringName] = []
+## Optional icon for active status displays
+@export var hud_icon: Texture2D
 
 
 ## To be overridden
