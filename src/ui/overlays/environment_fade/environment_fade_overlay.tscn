@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://c3vmbgk4yc8v0" path="res://src/ui/overlays/environment_fade/environment_fade_overlay.gd" id="1_fade"]
 
-[node name="EnvironmentFade" type="CanvasLayer"]
+[node name="EnvironmentFade" type="CanvasLayer" unique_id=165114279]
 layer = 100
 script = ExtResource("1_fade")
 
-[node name="FadeRect" type="ColorRect" parent="."]
+[node name="FadeRect" type="ColorRect" parent="." unique_id=1179492306]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0

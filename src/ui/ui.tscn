@@ -39,7 +39,6 @@ theme = ExtResource("8_t30i7")
 [node name="DebugInterface" parent="." unique_id=1832192178 instance=ExtResource("4_bi8hs")]
 unique_name_in_owner = true
 z_index = 6
-mouse_filter = 2
 
 [node name="CenterScreenDot" type="ColorRect" parent="." unique_id=401992933]
 unique_name_in_owner = true
