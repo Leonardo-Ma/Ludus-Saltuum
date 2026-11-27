@@ -66,7 +66,8 @@ func _refresh() -> void:
 		_tween.tween_method(_set_vein_intensity, 0.15, 0.08, PULSE_OUT_DURATION).set_trans(Tween.TRANS_SINE)
 		_tween.tween_interval(PULSE_PAUSE_DURATION)
 	else:
-		_tween.tween_method(_set_vein_intensity, (material as ShaderMaterial).get_shader_parameter("intensity"), 0.0, FADE_OUT_DURATION)
+		var shader_material: ShaderMaterial = material
+		_tween.tween_method(_set_vein_intensity, shader_material.get_shader_parameter("intensity"), 0.0, FADE_OUT_DURATION)
 
 
 func _set_vein_intensity(value: float) -> void:

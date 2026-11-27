@@ -4,6 +4,7 @@ extends Control
 @onready var screen_transition: Control = %ScreenTransition
 @onready var fade_rect: ColorRect = %FadeRect
 @onready var _low_health: LowHealthOverlay = %LowHealthOverlay
+@onready var _damage: DamageOverlay = %DamageOverlay
 @onready var _cosmetics: CosmeticAvailableOverlay = %CosmeticAvailableOverlay
 @onready var _environment_fade: EnvironmentFadeOverlay = %EnvironmentFade
 
@@ -20,6 +21,7 @@ func _ready() -> void:
 
 func bind_player_features(health: HealthComponent, cosmetics: CosmeticsController, transition: EnvironmentTransitionController) -> void:
 	_low_health.bind_health(health)
+	_damage.bind_health(health)
 	_cosmetics.bind_cosmetics(cosmetics)
 	_environment_fade.bind_transition(transition)
 

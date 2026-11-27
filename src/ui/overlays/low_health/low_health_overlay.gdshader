@@ -52,9 +52,9 @@ void fragment() {
 
 	float edge_mask = 1.0 - smoothstep(0.0, edge_depth, edge);
 
-	float pulse = 0.85 + sin(TIME * pulse_speed) * 0.15;
+	float pulse = pulse_speed > 0.0 ? 0.85 + sin(TIME * pulse_speed) * 0.15 : 1.0;
 
-	// Normalize existing GDScript intensity range (0.08-0.15)
+	// Normalize GDScript intensity against its peak (0.15)
 	float effect = clamp(intensity / 0.15, 0.0, 1.0);
 
 	float vein_pattern = veins(uv);
