@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dl4tpaxj10pb5" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/11_symbols/plus.png" id="7_plus"]
 [ext_resource type="Script" uid="uid://b7vbaifph2qh7" path="res://src/ui/menus/save_menu/play_button.gd" id="8_53v2h"]
 [ext_resource type="Script" uid="uid://drev3m1qtoc8b" path="res://src/ui/menus/save_menu/delete_button.gd" id="10_ogn8n"]
+[ext_resource type="Texture2D" uid="uid://cwf156qhijpke" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/10_editing/pencil.png" id="11_pencil"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqr8n"]
 content_margin_left = 4.0
@@ -104,15 +105,43 @@ size_flags_horizontal = 3
 [node name="TopSaveContainer" type="HBoxContainer" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer" unique_id=1703487694]
 layout_mode = 2
 
-[node name="SaveNameValueLabel" type="Label" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/TopSaveContainer" unique_id=957792216]
+[node name="SaveNameContainer" type="HBoxContainer" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/TopSaveContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 6
+
+[node name="SlotNumberLabel" type="Label" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/TopSaveContainer/SaveNameContainer"]
 unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "01"
+
+[node name="RenameButton" type="Button" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/TopSaveContainer/SaveNameContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"GenericIconButton"
+theme_override_constants/icon_max_width = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_hqr8n")
+icon = ExtResource("11_pencil")
+icon_alignment = 1
+expand_icon = true
+
+[node name="SaveNameValueLabel" type="Label" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/TopSaveContainer/SaveNameContainer" unique_id=957792216]
+unique_name_in_owner = true
+auto_translate_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-theme_override_font_sizes/font_size = 16
-text = "01"
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 14
 vertical_alignment = 1
+autowrap_mode = 3
+text_overrun_behavior = 3
+max_lines_visible = 2
+text_direction = 0
 
 [node name="ScoreContainer" type="HBoxContainer" parent="OuterMarginContainer/SaveFileMarginContainer/VBoxContainer/SaveContainer/SaveDataMargin/SaveDataContainer/TopSaveContainer" unique_id=35128468]
 layout_mode = 2
@@ -216,6 +245,7 @@ custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 0
+focus_neighbor_left = NodePath("%PlayButton")
 theme_type_variation = &"DangerIconButton"
 theme_override_styles/normal = SubResource("StyleBoxFlat_4v4yn")
 icon = ExtResource("6_06awo")

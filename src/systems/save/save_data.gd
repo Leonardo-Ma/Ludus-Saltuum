@@ -9,6 +9,9 @@ extends Resource
 @export var manual_slot_index: int = -1
 @export var save_timestamp: int = 0
 @export var play_time_seconds: float = 0.0
+@export var display_name: String = ""
+## Orders edits to snapshots with matching gameplay timestamps
+@export var save_modified_at_usec: int = 0
 
 @export var player: PlayerSaveData = PlayerSaveData.new()
 @export var world: WorldSaveData = WorldSaveData.new()

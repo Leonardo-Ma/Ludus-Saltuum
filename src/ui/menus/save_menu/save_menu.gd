@@ -9,6 +9,7 @@ func _ready() -> void:
 	for slot: SaveFileItem in _slot_items:
 		slot.play_requested.connect(_on_save_file_item_play_requested)
 		slot.delete_requested.connect(_on_save_file_item_delete_requested)
+		slot.rename_requested.connect(_on_save_file_item_rename_requested)
 	SaveManager.save_changed.connect(_on_save_changed)
 	visibility_changed.connect(_on_visibility_changed)
 
@@ -52,3 +53,16 @@ func _on_save_file_item_delete_requested(slot_index: int) -> void:
 
 	if confirmed:
 		SaveManager.delete_slot(slot_index)
+
+
+func _on_save_file_item_rename_requested(slot_index: int) -> void:
+	var data: SaveData = SaveManager.get_slot_data(slot_index)
+	if data == null:
+		return
+
+	UIManager.open_save_name_editor(
+		slot_index,
+		data.display_name,
+		func(display_name: String) -> bool:
+			return SaveManager.rename_slot(slot_index, display_name),
+	)

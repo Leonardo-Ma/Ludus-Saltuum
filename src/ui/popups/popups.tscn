@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://c47168lpalyg1" path="res://src/ui/popups/skip_level_confirm/skip_level_confirm.tscn" id="1_88p43"]
 [ext_resource type="Script" uid="uid://bwsbnsabl5y43" path="res://src/ui/popups/popups_manager.gd" id="1_it2ep"]
 [ext_resource type="PackedScene" uid="uid://cuc8y4bhxiujy" path="res://src/ui/popups/confirmation_popup.tscn" id="3_prcxa"]
+[ext_resource type="PackedScene" uid="uid://bbiehqgti6qxk" path="res://src/ui/popups/save_name_popup.tscn" id="4_save_name"]
 
 [node name="PopupsManager" type="Control" unique_id=1969549540]
 layout_mode = 3
@@ -19,4 +20,8 @@ layout_mode = 1
 popups_view = NodePath("..")
 
 [node name="ConfirmationPopup" parent="." unique_id=300276930 instance=ExtResource("3_prcxa")]
+layout_mode = 1
+
+[node name="SaveNamePopup" parent="." instance=ExtResource("4_save_name")]
+unique_name_in_owner = true
 layout_mode = 1

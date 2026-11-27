@@ -60,6 +60,7 @@ func run_tests() -> void:
 	_test_corrupt_slot_inspection_is_read_only()
 	_test_cloud_sync(fake_backend)
 	_test_local_commit_keeps_previous_save()
+	_test_rename_round_trip(fake_backend)
 	_test_delete_slot_removes_all_variants(fake_backend)
 
 	_restore_slot(0)
@@ -281,6 +282,44 @@ func _test_local_commit_keeps_previous_save() -> void:
 	assert(SaveManager._persist_slot(slot_index, data), "Local write failed in " + name)
 	assert(SaveManager.get_slot_data(slot_index).save_timestamp == 50000, "Local write did not install snapshot in " + name)
 	assert(FileAccess.get_file_as_bytes(SaveManager._backup_path(slot_index)) == original_bytes, "Local write lost previous save in " + name)
+
+
+func _test_rename_round_trip(backend: FakeCloudBackend) -> void:
+	var slot_index: int = 0
+	var base: String = SaveManager._slot_path(slot_index)
+	_write_snapshot(base, slot_index, 12345, 42)
+	var original: PackedByteArray = FileAccess.get_file_as_bytes(base)
+	assert(SaveManager.get_slot_data(slot_index).display_name.is_empty(), "Legacy save has a name in " + name)
+	assert(not SaveManager.rename_slot(SaveManager.MANUAL_SLOTS, "Auto"), "Autosave accepted a rename in " + name)
+
+	var display_name: String = "São / 日本語 : \"العربية\" 👩‍🚀 e\u0301"
+	assert(SaveManager.rename_slot(slot_index, display_name), "Rename failed in " + name)
+	var renamed: SaveData = SaveManager.get_slot_data(slot_index)
+	assert(renamed.display_name == display_name, "Rename did not round-trip in " + name)
+	assert(renamed.save_timestamp == 12345 and renamed.player.gold == 42, "Rename changed progress in " + name)
+	var renamed_bytes: PackedByteArray = FileAccess.get_file_as_bytes(base)
+	assert(SaveManager.rename_slot(slot_index, display_name), "Identical rename failed in " + name)
+	assert(FileAccess.get_file_as_bytes(base) == renamed_bytes, "Identical rename rewrote the save in " + name)
+
+	_write_bytes(base, original)
+	var cloud_filename: String = SaveManager._cloud_filename(slot_index)
+	backend.remote_saves[cloud_filename] = renamed_bytes
+	SaveManager._recover_and_sync_slots()
+	assert(SaveManager.get_slot_data(slot_index).display_name == display_name, "Cloud missed a rename in " + name)
+	assert(SaveManager.rename_slot(slot_index, ""), "Clearing the name failed in " + name)
+	assert(SaveManager.get_slot_data(slot_index).display_name.is_empty(), "Clearing the name did not persist in " + name)
+	SaveManager._recover_and_sync_slots()
+	assert(SaveManager.get_slot_data(slot_index).display_name.is_empty(), "Cloud replayed an earlier name in " + name)
+
+	var newer_save: SaveData = SaveData.new()
+	newer_save.save_timestamp = 12346
+	newer_save.player.gold = 43
+	var remote_path: String = SaveManager._incoming_path(slot_index)
+	assert(ResourceSaver.save(newer_save, remote_path) == OK, "Could not stage newer gameplay in " + name)
+	backend.remote_saves[cloud_filename] = FileAccess.get_file_as_bytes(remote_path)
+	SaveManager._recover_and_sync_slots()
+	backend.remote_saves.erase(cloud_filename)
+	assert(SaveManager.get_slot_data(slot_index).player.gold == 43, "Rename overrode newer gameplay in " + name)
 
 
 func _on_cloud_sync_failed(_slot_index: int, operation: SaveManager.CloudOperation) -> void:

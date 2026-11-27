@@ -60,6 +60,10 @@ func request_confirmation(icons: Array[CompressedTexture2D]) -> bool:
 	return await _ui.request_confirmation(icons)
 
 
+func open_save_name_editor(slot_index: int, current_name: String, submit: Callable) -> void:
+	_ui.open_save_name_editor(slot_index, current_name, submit)
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	var current_state: ApplicationStateManager.GameState = ApplicationStateManager.get_current_state()
 	if current_state == ApplicationStateManager.GameState.MAIN_MENU:

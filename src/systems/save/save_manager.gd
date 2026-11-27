@@ -125,6 +125,26 @@ func load_from_slot(slot_index: int) -> bool:
 	return applied
 
 
+## Renames an occupied manual slot without capturing gameplay again
+func rename_slot(slot_index: int, display_name: String) -> bool:
+	if not _is_manual_slot(slot_index) or is_save_blocked():
+		return false
+
+	var data: SaveData = get_slot_data(slot_index)
+	if data == null or data.save_version > CURRENT_SAVE_VERSION:
+		return false
+	if display_name.strip_edges().is_empty():
+		display_name = ""
+	if data.display_name == display_name:
+		return true
+
+	request_save_block(WRITING)
+	data.display_name = display_name
+	var persisted: bool = _persist_and_publish_slot(slot_index, data)
+	release_save_block(WRITING)
+	return persisted
+
+
 func delete_slot(slot_index: int) -> bool:
 	assert(slot_index >= 0 and slot_index < TOTAL_SLOTS, "SaveManager: slot out of range in " + name)
 	var base: String = _slot_path(slot_index)
@@ -228,10 +248,13 @@ func _write_slot(slot_index: int, is_auto: bool) -> bool:
 	assert(slot_index >= 0 and slot_index < TOTAL_SLOTS, "SaveManager: slot out of range in " + name)
 	request_save_block(WRITING)
 	var data: SaveData = _build_save_data(slot_index, is_auto)
-	var persisted: bool = _persist_slot(slot_index, data)
+	var previous: SaveData = get_slot_data(slot_index)
+	if previous != null:
+		data.save_modified_at_usec = previous.save_modified_at_usec
+		if not is_auto:
+			data.display_name = previous.display_name
+	var persisted: bool = _persist_and_publish_slot(slot_index, data)
 	if persisted:
-		_upload_slot(slot_index)
-		save_changed.emit(slot_index)
 		print_debug("Saved slot ", slot_index)
 	release_save_block(WRITING)
 	return persisted
@@ -249,9 +272,18 @@ func _is_manual_slot(slot_index: int) -> bool:
 	return slot_index >= FIRST_MANUAL_SLOT and slot_index < MANUAL_SLOTS
 
 
+func _persist_and_publish_slot(slot_index: int, data: SaveData) -> bool:
+	if not _persist_slot(slot_index, data):
+		return false
+	_upload_slot(slot_index)
+	save_changed.emit(slot_index)
+	return true
+
+
 func _persist_slot(slot_index: int, data: SaveData) -> bool:
 	if not _recover_slot(slot_index):
 		return false
+	data.save_modified_at_usec = maxi(data.save_modified_at_usec + 1, int(Time.get_unix_time_from_system() * 1_000_000.0))
 	var tmp: String = _tmp_path(slot_index)
 	var err: int = ResourceSaver.save(data, tmp)
 	if err != OK:
@@ -261,7 +293,11 @@ func _persist_slot(slot_index: int, data: SaveData) -> bool:
 	if _read_snapshot(tmp, slot_index) == null:
 		push_error("SaveManager: tmp verification failed for slot %d, aborting commit" % slot_index)
 		return false
-	return _commit_staged_slot(slot_index, tmp)
+	if _commit_staged_slot(slot_index, tmp):
+		return true
+	if _read_snapshot(_slot_path(slot_index), slot_index) != null:
+		_safe_remove(tmp)
+	return false
 
 
 func _commit_staged_slot(slot_index: int, staged: String) -> bool:
@@ -315,6 +351,12 @@ func _slot_path(slot_index: int) -> String:
 	return SAVE_DIR + "slot_%d.tres" % slot_index
 
 
+func _compare_save_revisions(left: SaveData, right: SaveData) -> int:
+	if left.save_timestamp != right.save_timestamp:
+		return signi(left.save_timestamp - right.save_timestamp)
+	return signi(left.save_modified_at_usec - right.save_modified_at_usec)
+
+
 func _read_slot(slot_index: int) -> SlotSnapshot:
 	var base: String = _slot_path(slot_index)
 	var best: SlotSnapshot = _read_snapshot(base, slot_index)
@@ -323,7 +365,7 @@ func _read_slot(slot_index: int) -> SlotSnapshot:
 		candidates.append_array([_backup_path(slot_index), base + ".bak", base + ".bak.old"])
 	for path: String in candidates:
 		var candidate: SlotSnapshot = _read_snapshot(path, slot_index)
-		if candidate != null and (best == null or candidate.data.save_timestamp > best.data.save_timestamp):
+		if candidate != null and (best == null or _compare_save_revisions(candidate.data, best.data) > 0):
 			best = candidate
 	return best
 
@@ -346,8 +388,9 @@ func _read_snapshot(path: String, slot_index: int) -> SlotSnapshot:
 		return null
 	var data: SaveData = resource
 	if (
-		data.slot_index != slot_index or data.save_version < 1 or data.save_timestamp < 0 or not is_finite(data.play_time_seconds)
-		or data.play_time_seconds < 0.0 or data.player == null or data.world == null or data.chunks == null or data.checkpoint == null
+		data.slot_index != slot_index or data.save_version < 1 or data.save_timestamp < 0
+		or data.save_modified_at_usec < 0 or not is_finite(data.play_time_seconds) or data.play_time_seconds < 0.0
+		or data.player == null or data.world == null or data.chunks == null or data.checkpoint == null
 	):
 		return null
 	var snapshot: SlotSnapshot = SlotSnapshot.new()
@@ -443,12 +486,12 @@ func _sync_cloud_slot(slot_index: int) -> void:
 	var remote: SlotSnapshot = _read_snapshot(staged, slot_index) if downloaded else null
 	if remote == null or remote.data.save_version > CURRENT_SAVE_VERSION:
 		_report_cloud_failure(slot_index, CloudOperation.DOWNLOAD)
-	elif local == null or (local.data.save_version <= CURRENT_SAVE_VERSION and remote.data.save_timestamp > local.data.save_timestamp):
+	elif local == null or (local.data.save_version <= CURRENT_SAVE_VERSION and _compare_save_revisions(remote.data, local.data) > 0):
 		if _commit_staged_slot(slot_index, staged):
 			save_changed.emit(slot_index)
 		else:
 			_report_cloud_failure(slot_index, CloudOperation.DOWNLOAD)
-	elif (remote.data.save_timestamp == local.data.save_timestamp and FileAccess.get_sha256(staged) != FileAccess.get_sha256(local.path)):
+	elif (_compare_save_revisions(remote.data, local.data) == 0 and FileAccess.get_sha256(staged) != FileAccess.get_sha256(local.path)):
 		_report_cloud_failure(slot_index, CloudOperation.CONFLICT)
 	if FileAccess.file_exists(staged):
 		_safe_remove(staged)

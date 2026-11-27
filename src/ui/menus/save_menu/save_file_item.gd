@@ -6,6 +6,7 @@ extends AspectRatioContainer
 
 signal play_requested(slot_index: int)
 signal delete_requested(slot_index: int)
+signal rename_requested(slot_index: int)
 
 @export var automatic_save_icon: Texture2D
 @export var empty_slot_action_icon: Texture2D
@@ -16,6 +17,7 @@ var is_quick: bool
 var _slot_index: int = -1
 var _has_data: bool = false
 
+@onready var _slot_number_label: Label = %SlotNumberLabel
 @onready var _save_name_label: Label = %SaveNameValueLabel
 
 @onready var _score_label: Label = %ScoreLabel
@@ -27,6 +29,7 @@ var _has_data: bool = false
 
 @onready var _play_button: UIButton = %PlayButton
 @onready var _delete_button: UIButton = %DeleteButton
+@onready var _rename_button: Button = %RenameButton
 @onready var _manual_save_icon: Texture2D = _save_type_icon.texture
 @onready var _load_slot_action_icon: Texture2D = _play_button.icon
 
@@ -34,6 +37,7 @@ var _has_data: bool = false
 func _ready() -> void:
 	_play_button.pressed.connect(_on_play_pressed)
 	_delete_button.pressed.connect(_on_delete_pressed)
+	_rename_button.pressed.connect(_on_rename_pressed)
 
 
 ## Used by [SaveMenu] on visibility changed
@@ -41,7 +45,10 @@ func setup(slot_index: int, data: SaveData) -> void:
 	_slot_index = slot_index
 	_has_data = data != null
 	is_auto = slot_index >= SaveManager.MANUAL_SLOTS
-	_save_name_label.text = "%02d" % (slot_index + 1)
+	_slot_number_label.text = "%02d" % (slot_index + 1)
+	_save_name_label.text = data.display_name if _has_data else ""
+	_play_button.focus_neighbor_right = ^"%DeleteButton" if _has_data else ^"."
+	_rename_button.visible = _has_data and not is_auto
 	_save_type_icon.texture = automatic_save_icon if is_auto else _manual_save_icon
 
 	if not _has_data:
@@ -75,6 +82,10 @@ func _on_play_pressed() -> void:
 ## Goes to save menu parent
 func _on_delete_pressed() -> void:
 	delete_requested.emit(_slot_index)
+
+
+func _on_rename_pressed() -> void:
+	rename_requested.emit(_slot_index)
 
 
 func _format_save_date(unix_time: int) -> String:

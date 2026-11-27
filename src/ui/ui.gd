@@ -59,6 +59,10 @@ func request_confirmation(icons: Array[CompressedTexture2D]) -> bool:
 	return confirmed
 
 
+func open_save_name_editor(slot_index: int, current_name: String, submit: Callable) -> void:
+	_popups.open_save_name_editor(slot_index, current_name, submit)
+
+
 func set_hud_visible(_hud_visible: bool) -> void:
 	_hud.visible = _hud_visible and ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.PLAYING)
 #endregion

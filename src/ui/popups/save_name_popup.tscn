@@ -1,0 +1,132 @@
+[gd_scene format=3 uid="uid://bbiehqgti6qxk"]
+
+[ext_resource type="Script" uid="uid://dspow6vyir1kl" path="res://src/ui/popups/save_name_popup.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://cikfldg8du084" path="res://src/ui/themes/base_theme.tres" id="2_theme"]
+[ext_resource type="Texture2D" uid="uid://7p2j8n842i0a" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/cross.png" id="3_cancel"]
+[ext_resource type="Texture2D" uid="uid://r8ac5it4c01m" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/tick.png" id="4_confirm"]
+[ext_resource type="Texture2D" uid="uid://c2khjby7me4bp" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/exclamation_02.png" id="5_error"]
+[ext_resource type="Texture2D" uid="uid://dj6mk6ic8le0p" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/8_ui/save.png" id="6_save"]
+
+[node name="SaveNamePopup" type="Control"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="Backdrop" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.55)
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchor_left = 0.25
+anchor_top = 0.5
+anchor_right = 0.75
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Padding" type="MarginContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 20
+
+[node name="Content" type="VBoxContainer" parent="Panel/Padding"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 12
+
+[node name="SlotHeader" type="HBoxContainer" parent="Panel/Padding/Content"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="SaveIcon" type="TextureRect" parent="Panel/Padding/Content/SlotHeader"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("6_save")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SlotNumberLabel" type="Label" parent="Panel/Padding/Content/SlotHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "01"
+
+[node name="Field" type="HBoxContainer" parent="Panel/Padding/Content"]
+layout_mode = 2
+
+[node name="NameInput" type="LineEdit" parent="Panel/Padding/Content/Field"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 88)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("%ConfirmButton")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("%ConfirmButton")
+focus_next = NodePath("%CancelButton")
+focus_previous = NodePath("%ConfirmButton")
+theme_override_font_sizes/font_size = 22
+keep_editing_on_text_submit = true
+
+[node name="ErrorIcon" type="TextureRect" parent="Panel/Padding/Content/Field"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 0.45, 0.35, 1)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("5_error")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Actions" type="HBoxContainer" parent="Panel/Padding/Content"]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="CancelButton" type="Button" parent="Panel/Padding/Content/Actions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(84, 44)
+layout_mode = 2
+focus_neighbor_left = NodePath("%ConfirmButton")
+focus_neighbor_top = NodePath("%NameInput")
+focus_neighbor_right = NodePath("%ConfirmButton")
+focus_neighbor_bottom = NodePath("%NameInput")
+focus_next = NodePath("%ConfirmButton")
+focus_previous = NodePath("%NameInput")
+theme_type_variation = &"DangerIconButton"
+icon = ExtResource("3_cancel")
+icon_alignment = 1
+expand_icon = true
+
+[node name="ConfirmButton" type="Button" parent="Panel/Padding/Content/Actions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(84, 44)
+layout_mode = 2
+focus_neighbor_left = NodePath("%CancelButton")
+focus_neighbor_top = NodePath("%NameInput")
+focus_neighbor_right = NodePath("%CancelButton")
+focus_neighbor_bottom = NodePath("%NameInput")
+focus_next = NodePath("%NameInput")
+focus_previous = NodePath("%CancelButton")
+theme_type_variation = &"PrimaryIconButton"
+icon = ExtResource("4_confirm")
+icon_alignment = 1
+expand_icon = true

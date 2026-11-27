@@ -90,6 +90,9 @@ func _test_invalid_loads(player: PlayerEntity) -> void:
 	assert(not WorldSaveController.is_collectible_collected(&"rejected_load"), "Failed load changed world in " + name)
 	assert(SaveManager.save_to_quick_slot(), "Failed load changed manual destination in " + name)
 	assert(SaveManager.get_slot_data(MANUAL_SLOT).player.gold == 0, "Manual slot was not written in " + name)
+	assert(SaveManager.rename_slot(MANUAL_SLOT, "霧の谷 🦊"), "Manual rename failed in " + name)
+	assert(SaveManager.save_to_quick_slot(), "Renamed manual slot could not be saved in " + name)
+	assert(SaveManager.get_slot_data(MANUAL_SLOT).display_name == "霧の谷 🦊", "Quick save lost the name in " + name)
 
 	snapshot.save_timestamp += 10
 	assert(ResourceSaver.save(snapshot, SaveManager._slot_path(AUTOSAVE_SLOT)) == OK, "Could not write menu fixture in " + name)

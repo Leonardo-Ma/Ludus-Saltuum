@@ -3,6 +3,7 @@ class_name PopupsManager
 extends Control
 
 @onready var confirmation_popup: ConfirmationPopup = $ConfirmationPopup
+@onready var _save_name_popup: SaveNamePopup = %SaveNamePopup
 
 var _active_popup: PopupTemplate = null
 var _was_visible_before_popup: bool = false
@@ -17,6 +18,7 @@ func _ready() -> void:
 	assert(confirmation_popup != null and confirmation_popup.get_parent() == self, "ConfirmationPopup must be assigned as a direct child of " + name)
 
 	confirmation_popup.choice_made.connect(_on_confirmation_choice_made)
+	_save_name_popup.close_requested.connect(close_open_popup)
 	ApplicationStateManager.state_changed.connect(_on_application_state_changed)
 
 
@@ -41,6 +43,15 @@ func open_confirmation(icons: Array[CompressedTexture2D]) -> bool:
 	return _open_popup(confirmation_popup)
 
 
+func open_save_name_editor(slot_index: int, current_name: String, submit: Callable) -> void:
+	if has_open_popup():
+		return
+
+	_save_name_popup.prepare(slot_index, current_name, submit)
+	if _open_popup(_save_name_popup):
+		_save_name_popup.focus_name()
+
+
 func request_open(popup: PopupTemplate) -> bool:
 	if has_open_popup() or not is_visible_in_tree():
 		return false
@@ -56,7 +67,8 @@ func _open_popup(popup: PopupTemplate) -> bool:
 	_was_visible_before_popup = visible
 	visible = true
 	_active_popup = popup
-	PauseManager.request_pause("active_popup")
+	if ApplicationStateManager.is_in_state(ApplicationStateManager.GameState.PLAYING):
+		PauseManager.request_pause("active_popup")
 	MouseModeManager.request_mode(MouseModeManager.Source.POPUP, Input.MOUSE_MODE_VISIBLE)
 	_previous_focus_owner = get_viewport().gui_get_focus_owner()
 
