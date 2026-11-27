@@ -72,9 +72,11 @@ func run_tests() -> void:
 
 func _test_rejection_and_interruption(player: PlayerEntity, animation: AnimationController) -> void:
 	var input: InputController = player.get_node(^"%InputController")
+	var trail: Trail3D = player.weapon_visual.swing_trail
 	assert(animation.request_action(AnimKeys.MAGIC), "Could not occupy full-body layer in " + name)
 	input.attack_pressed.emit()
 	assert(_accepted == 0 and player.attack_component.can_attack(), "Busy animation spent cooldown in " + name)
+	assert(not trail.emitting, "Rejected attack started swing trail in " + name)
 	animation.abort_action(AnimKeys.MAGIC)
 
 	input.attack_pressed.emit()
@@ -85,8 +87,18 @@ func _test_rejection_and_interruption(player: PlayerEntity, animation: Animation
 		await get_tree().process_frame
 		elapsed += get_process_delta_time()
 	assert(not player.hitbox.animated_shape.disabled, "Swing never opened hitbox in " + name)
+	assert(trail.emitting, "Swing reached contact without trail in " + name)
+	var weapons: WeaponController = player.get_node(^"%WeaponController")
+	var previous_head: Vector3 = player.weapon_visual.socket.to_local(trail.global_position)
+	weapons.equip_weapon(SLOW_WEAPON)
+	assert(trail.emitting and is_zero_approx(trail.get_current_length()), "Weapon swap did not restart trail in " + name)
+	assert(
+		not player.weapon_visual.socket.to_local(trail.global_position).is_equal_approx(previous_head),
+		"Weapon swap kept old trail anchor in " + name,
+	)
 	animation.set_airborne(true)
 	assert(not animation.is_action_running(AnimKeys.MELEE) and player.hitbox.attack == null, "Interruption retained a swing in " + name)
+	assert(not trail.emitting, "Interrupted swing kept emitting trail in " + name)
 	await get_tree().process_frame
 	elapsed += get_process_delta_time()
 	assert(player.hitbox.animated_shape.disabled, "Interruption left the shape enabled in " + name)
@@ -103,6 +115,7 @@ func _test_rejection_and_interruption(player: PlayerEntity, animation: Animation
 func _test_timing_and_damage(player: PlayerEntity, animation: AnimationController) -> void:
 	var weapons: WeaponController = player.get_node(^"%WeaponController")
 	var input: InputController = player.get_node(^"%InputController")
+	var trail: Trail3D = player.weapon_visual.swing_trail
 	var target: Node3D = Node3D.new()
 	var health: HealthComponent = HealthComponent.new()
 	health.health = Health.new()
@@ -142,10 +155,15 @@ func _test_timing_and_damage(player: PlayerEntity, animation: AnimationControlle
 		weapons.equip_weapon(SLOW_WEAPON if weapon == FAST_WEAPON else FAST_WEAPON)
 		var elapsed: float = 0.0
 		var frame: float = get_process_delta_time()
+		var trail_traced: bool = false
 		while animation.is_action_running(AnimKeys.MELEE) and elapsed <= attack.rate + frame * 3.0:
 			await get_tree().process_frame
 			elapsed += get_process_delta_time()
+			if trail.emitting and not trail_traced:
+				RenderingServer.force_draw()
+				trail_traced = trail.get_current_length() > 0.0
 		assert(not animation.is_action_running(AnimKeys.MELEE), "Swing exceeded attack rate in " + name)
+		assert(trail_traced and not trail.emitting, "Combo swing did not trace its path in " + name)
 		assert(tree.get(&"parameters/full_body_select/current_state") == variants[index], "Expected different swing variant in " + name)
 		assert(absf(elapsed - attack.rate) <= frame * 3.0, "Swing took %f instead of %f seconds in %s" % [elapsed, attack.rate, name])
 		assert(health.current_health == expected_health and _hit_source == player, "Swing lost accepted damage or source in " + name)
@@ -161,6 +179,7 @@ func _test_airborne_attack(player: PlayerEntity, animation: AnimationController,
 	var movement: PlayerMovementComponent = player.get_node(^"%PlayerMovementComponent")
 	var input: InputController = player.get_node(^"%InputController")
 	var jump_chop_shape: CollisionShape3D = player.get_node("%JumpChopShape")
+	var trail: Trail3D = player.weapon_visual.swing_trail
 	AudioManager.sound_played.connect(_on_attack_sound)
 	for attempt: int in 2:
 		movement.jump(movement.get_jump_velocity())
@@ -183,12 +202,14 @@ func _test_airborne_attack(player: PlayerEntity, animation: AnimationController,
 			assert(player.hitbox.animated_shape.disabled, "Airborne attack opened ground hitbox in " + name)
 			if not collision_checked and not jump_chop_shape.disabled and _hitbox_contains(player.hitbox, jump_chop_shape.position):
 				assert(not _hitbox_contains(player.hitbox, Vector3(0.0, 0.7, 0.8)), "Jump chop reached behind player in " + name)
+				assert(trail.emitting, "Jump chop reached contact without trail in " + name)
 				collision_checked = true
 				if attempt == 1:
 					player.interrupt_melee_attack()
 		await get_tree().process_frame
 		assert(tree.get(&"parameters/full_body_select/current_state") == &"jump_chop", "Airborne attack selected another clip in " + name)
 		assert(collision_checked and jump_chop_shape.disabled and player.hitbox.attack == null, "Jump chop hitbox did not close in " + name)
+		assert(not trail.emitting, "Jump chop kept emitting trail in " + name)
 		assert(_attack_sounds == expected_sounds, "Airborne attack sound did not play once in " + name)
 
 		while not player.is_on_floor() or not player.attack_component.can_attack():

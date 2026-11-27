@@ -444,6 +444,18 @@ tracks/54/path = NodePath("Rig_Medium/Skeleton3D:handslot.l")
 tracks/54/interp = 1
 tracks/54/loop_wrap = true
 tracks/54/keys = PackedFloat32Array(0, 1, 0.99999994, 1, 0.99999994)
+tracks/55/type = "value"
+tracks/55/imported = false
+tracks/55/enabled = true
+tracks/55/path = NodePath("Rig_Medium/Skeleton3D/RightHandAttachment/WeaponSwingTrail:custom_aabb")
+tracks/55/interp = 1
+tracks/55/loop_wrap = true
+tracks/55/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [AABB(0, 0, 0, 0, 0, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wjvoe"]
 _data = {
@@ -520,18 +532,18 @@ parameters/body/dead/death_select/current_index = -1
 parameters/body/dead/death_select/observer = null
 parameters/body/standing/blend_position = Vector2(0, 0)
 parameters/body/standing/observer = null
-parameters/full_body_select/current_state = ""
-parameters/full_body_select/transition_request = "slice_diagonal"
-parameters/full_body_select/current_index = -1
+parameters/full_body_select/current_state = "slice_diagonal"
+parameters/full_body_select/transition_request = ""
+parameters/full_body_select/current_index = 0
 parameters/full_body_select/observer = null
 parameters/full_body_speed/scale = 1.0
 parameters/full_body/active = false
 parameters/full_body/internal_active = false
 parameters/full_body/request = 0
 parameters/full_body/observer = null
-parameters/reaction_select/current_state = ""
-parameters/reaction_select/transition_request = "hit_a"
-parameters/reaction_select/current_index = -1
+parameters/reaction_select/current_state = "hit_a"
+parameters/reaction_select/transition_request = ""
+parameters/reaction_select/current_index = 0
 parameters/reaction_select/observer = null
 parameters/reaction/active = false
 parameters/reaction/internal_active = false
@@ -595,10 +607,11 @@ bones/21/scale = Vector3(1, 1.0000008, 0.99999875)
 bones/22/rotation = Quaternion(4.775981e-08, 0.92035496, -0.3910841, 5.8015768e-08)
 bones/22/scale = Vector3(1, 0.9999966, 1.0000037)
 
-[node name="WeaponVisual" type="Node3D" parent="Visual" unique_id=1756660595 node_paths=PackedStringArray("socket")]
+[node name="WeaponVisual" type="Node3D" parent="Visual" unique_id=1756660595 node_paths=PackedStringArray("socket", "swing_trail")]
 unique_name_in_owner = true
 script = ExtResource("20_l2t0n")
 socket = NodePath("../Rig_Medium/Skeleton3D/RightHandAttachment/WeaponSocket")
+swing_trail = NodePath("../Rig_Medium/Skeleton3D/RightHandAttachment/WeaponSwingTrail")
 
 [node name="CamRoot" type="Node3D" parent="." unique_id=1468433888 node_paths=PackedStringArray("player")]
 unique_name_in_owner = true

@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cl7tnj4pxevtm"]
+
+[ext_resource type="Shader" uid="uid://wnk6tf2nnxy" path="res://src/entities/vfx/weapon_swing_wind.gdshader" id="1_weapon_wind"]
+
+[sub_resource type="Curve" id="Curve_weapon_swing"]
+_data = [Vector2(0, 0.65), 0.0, 0.0, 0, 0, Vector2(0.2, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.25, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_weapon_swing"]
+offsets = PackedFloat32Array(0, 0.36, 1)
+colors = PackedColorArray(0.96, 0.99, 1, 0.7, 0.76, 0.89, 1, 0.49, 0.53, 0.74, 0.93, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_weapon_wind"]
+render_priority = 0
+shader = ExtResource("1_weapon_wind")
+
+[node name="WeaponSwingTrail" type="Trail3D" unique_id=1455928714]
+process_mode = 4
+cast_shadow = 0
+emitting = false
+lifetime = 0.18
+width = 0.27
+width_curve = SubResource("Curve_weapon_swing")
+color_gradient = SubResource("Gradient_weapon_swing")
+material_mode = 2
+material = SubResource("ShaderMaterial_weapon_wind")
+tiling_mode = 0
+min_section_length = 0.015

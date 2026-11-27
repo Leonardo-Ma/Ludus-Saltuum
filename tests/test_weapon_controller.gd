@@ -16,6 +16,12 @@ func run_tests() -> void:
 		controller.apply_weapon_damage = true
 		controller.apply_weapon_attack_rate = true
 		add_child(npc)
+		var animation_player: AnimationPlayer = npc.get_node(^"%AnimationPlayer")
+		var reset: Animation = animation_player.get_animation(&"RESET")
+		var bounds_track: int = reset.find_track(^"Rig_Medium/Skeleton3D/RightHandAttachment/WeaponSwingTrail:custom_aabb", Animation.TYPE_VALUE)
+		var trail: Trail3D = npc.weapon_visual.swing_trail
+		assert(trail and bounds_track >= 0, "Missing trail or bounds reset in " + name)
+		assert(reset.track_get_key_value(bounds_track, 0) == AABB(), "Trail RESET must clear generated bounds in " + name)
 		assert(controller.weapons.has(controller.equipped_weapon), "Weapon outside loadout in " + name)
 		assert(randomize_weapon or controller.equipped_weapon == SWORD, "Expected first weapon in " + name)
 

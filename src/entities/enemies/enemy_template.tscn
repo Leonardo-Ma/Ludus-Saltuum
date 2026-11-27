@@ -123,10 +123,11 @@ parameters/reaction/observer = null
 [node name="Visual" parent="." unique_id=1937025669 instance=ExtResource("14_qurdx")]
 unique_name_in_owner = true
 
-[node name="WeaponVisual" type="Node3D" parent="Visual" unique_id=1415001676 node_paths=PackedStringArray("socket")]
+[node name="WeaponVisual" type="Node3D" parent="Visual" unique_id=1415001676 node_paths=PackedStringArray("socket", "swing_trail")]
 unique_name_in_owner = true
 script = ExtResource("15_to0xg")
 socket = NodePath("../Rig_Medium/Skeleton3D/RightHandAttachment/WeaponSocket")
+swing_trail = NodePath("../Rig_Medium/Skeleton3D/RightHandAttachment/WeaponSwingTrail")
 
 [node name="Components" type="Node" parent="." unique_id=2054122343]
 

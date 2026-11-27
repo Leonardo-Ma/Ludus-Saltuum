@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://vimkn28kx0tr"]
 
 [ext_resource type="Script" uid="uid://cdw0xeo616qlp" path="res://src/entities/components/character_visual.gd" id="1_is7u5"]
+[ext_resource type="PackedScene" uid="uid://cl7tnj4pxevtm" path="res://src/entities/vfx/weapon_swing_trail.tscn" id="2_weapon_trail"]
 
 [node name="Visual" type="Node3D" unique_id=1937025669]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
@@ -201,3 +202,5 @@ bone_idx = 12
 
 [node name="WeaponSocket" type="Node3D" parent="Rig_Medium/Skeleton3D/RightHandAttachment" unique_id=1031542767]
 transform = Transform3D(0.06911752, -0.9648379, -0.2535952, 0.9648414, 3.556443e-05, 0.2628323, -0.25358152, -0.26284546, 0.9309182, 0.00012294948, 0.00044173002, 4.1484833e-05)
+
+[node name="WeaponSwingTrail" parent="Rig_Medium/Skeleton3D/RightHandAttachment" unique_id=1455928714 instance=ExtResource("2_weapon_trail")]
