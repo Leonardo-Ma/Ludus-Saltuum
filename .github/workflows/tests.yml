@@ -30,7 +30,7 @@ jobs:
       - name: Setup Godot
         uses: chickensoft-games/setup-godot@ac93246ea68518a384c1c280a496e5989341f2f6 # v2.4.3
         with:
-          version: '4.8.0-dev.4'
+          version: '4.8.0-beta.5'
 
       - name: Verify version
         run:  godot --version
