@@ -1,6 +1,7 @@
-## Displays icon-based confirmation choices and emits selected result
 class_name ConfirmationPopup
 extends PopupTemplate
+
+## Displays icon-based confirmation choices and emits selected result
 
 signal choice_made(confirmed: bool)
 
@@ -21,15 +22,14 @@ func _ready() -> void:
 func prepare_confirmation(icons: Array[CompressedTexture2D]) -> void:
 	assert(not _is_active, "Confirmation already active in " + name)
 
-	for child: Node in _icon_container.get_children():
-		_icon_container.remove_child(child)
-		child.queue_free()
-
-	for icon_texture: CompressedTexture2D in icons:
-		var icon_view: ConfirmationIcon = icon_view_scene.instantiate() as ConfirmationIcon
-		assert(icon_view != null, "Invalid icon view scene in " + name)
-		icon_view.texture = icon_texture
+	for index: int in range(_icon_container.get_child_count(), icons.size()):
+		var icon_view: TextureRect = icon_view_scene.instantiate()
 		_icon_container.add_child(icon_view)
+
+	for index: int in _icon_container.get_child_count():
+		var icon_view: TextureRect = _icon_container.get_child(index)
+		icon_view.texture = icons[index] if index < icons.size() else null
+		icon_view.visible = index < icons.size()
 
 	_is_active = true
 

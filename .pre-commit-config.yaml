@@ -137,6 +137,49 @@ repos:
         language: pygrep
         entry: 'Input\.(is_action_pressed|is_action_just_pressed|is_key_pressed)\('
         files: src/ui/.*\.gd$
+
+      - id: no-hardcoded-ui-ready-defaults
+        name: "ban editor specific initialization logic in _ready() | Code must not immediately change editor defaults upon running | Use the editor"
+        language: pygrep
+        args: [--multiline]
+        entry: |
+          (?mx)
+          ^func[ \t]+_(?:\w+_)?ready\([^\r\n]*\)[^\r\n]*:\r?\n
+          (?:(?:[ \t][^\r\n]*|)\r?\n)*?
+          ^(?:\t|[ ]{4})(?:[\w%$/]+\.)*
+          (?:
+            (?:show|hide)\([ \t]*\)
+            | visible[ \t]*=[ \t]*(?:true|false)\b
+            | set_visible\([ \t]*(?:true|false)[ \t]*\)
+            | process_mode[ \t]*=[ \t]*(?:[0-4]|(?:Node\.)?PROCESS_MODE_\w+)\b
+            | set_process_mode\([ \t]*(?:[0-4]|(?:Node\.)?PROCESS_MODE_\w+)[ \t]*\)
+            | mouse_filter[ \t]*=[ \t]*(?:[0-2]|(?:Control\.)?MOUSE_FILTER_\w+)\b
+            | set_mouse_filter\([ \t]*(?:[0-2]|(?:Control\.)?MOUSE_FILTER_\w+)[ \t]*\)
+          )
+        files: ^src/ui/.*\.gd$
+        # Script autoload has no scene to store its processing mode
+        exclude: ^src/ui/ui_manager\.gd$
+
+      - id: no-screen-ui-outside-ui
+        name: "keep screen UI declarations and construction in src/ui"
+        language: pygrep
+        entry: |
+          (?x)
+          ^(?:
+            (?:@\w+[ \t]+)*(?:class_name[ \t]+\w+[ \t]+)?extends[ \t]+
+            | [ \t]*(?:@onready[ \t]+)?var[ \t]+\w+(?:[ \t]*:[^=\r\n]*)?[ \t]*=[ \t]*(?=\w+\.new\()
+            | \[node[ \t][^\r\n]*?[ \t]type="
+          )
+          (?:
+            Control|CanvasLayer|Window|GraphEdit|GraphNode|Label|RichTextLabel|Panel|ColorRect|TextureRect|NinePatchRect
+            | (?:AspectRatio|Center|Grid|HBox|HFlow|Margin|Panel|Scroll|SubViewport|Tab|VBox|VFlow)?Container
+            | (?:Base|Check|Menu|Option|Texture|Link|Tab|UI)?Button|CheckBox|(?:H|V)?Slider|(?:Texture)?ProgressBar
+            | (?:Accept|Confirmation|File)Dialog|Popup(?:Menu|Panel)?|Tree|ItemList|LineEdit|TextEdit|CodeEdit|SpinBox|TabBar
+            | MenuScreen|PopupTemplate|UIView
+          )\b
+        files: ^src/.*\.(gd|tscn)$
+        # GOAP graph viewer is pending a dedicated remake
+        exclude: ^src/(ui/|entities/ai/goap/graph_builder/)
         # ----------------------------------------------------------
         # Safety / platform
         # ----------------------------------------------------------

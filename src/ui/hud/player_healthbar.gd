@@ -16,7 +16,6 @@ var _flash_tween: Tween
 
 func _ready() -> void:
 	timer.timeout.connect(_on_timer_timeout)
-	timer.wait_time *= 2.0
 	GameplayStateManager.gameplay_mode_changed.connect(_on_gameplay_mode_changed)
 
 

@@ -5,6 +5,9 @@ extends UIButton
 
 @export var owned_texture: Texture2D
 @export var equipped_texture: Texture2D
+@export var owned_icon_alignment: HorizontalAlignment
+@export var affordable_font_color: Color
+@export var unaffordable_font_color: Color
 
 var _cosmetics: CosmeticsController
 var _economy: EconomyController
@@ -59,19 +62,15 @@ func _update_button() -> void:
 	var is_equipped: bool = _cosmetics.get_equipped_id(asset.get_slot()) == cosmetic_id
 	var can_afford: bool = _economy.gold >= asset.price
 
-	var font_color: Color = Color.LIGHT_CORAL if not can_afford else Color.WHITE
+	var font_color: Color = affordable_font_color if can_afford else unaffordable_font_color
 
 	add_theme_color_override("font_color", font_color)
 	add_theme_color_override("font_disabled_color", font_color)
 
-	if is_equipped:
-		icon = equipped_texture
+	if already_owned or is_equipped:
+		icon = equipped_texture if is_equipped else owned_texture
 		text = ""
-		icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	elif already_owned:
-		icon = owned_texture
-		text = ""
-		icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		icon_alignment = owned_icon_alignment
 	else:
 		icon = _purchase_icon
 		icon_alignment = _purchase_icon_alignment

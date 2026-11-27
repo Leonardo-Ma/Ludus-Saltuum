@@ -1,6 +1,7 @@
-## Non-blocking toast on achievement unlock, queues consecutive unlocks
 class_name AchievementToast
 extends PanelContainer
+
+## Non-blocking toast on achievement unlock, queues consecutive unlocks
 
 const FADE_DURATION: float = 0.4
 const VISIBLE_DURATION: float = 3.0

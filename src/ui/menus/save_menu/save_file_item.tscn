@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://8hkrepcpd520" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/10_editing/cursor_link.png" id="3_hqr8n"]
 [ext_resource type="Texture2D" uid="uid://cqgd6g3oujuj" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/play.png" id="5_06awo"]
 [ext_resource type="Texture2D" uid="uid://biqkiy2y3opd2" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/trash.png" id="6_06awo"]
+[ext_resource type="Texture2D" uid="uid://bkg1s07hgwn6s" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/9_media/display.png" id="7_display"]
+[ext_resource type="Texture2D" uid="uid://dl4tpaxj10pb5" path="res://src/ui/assets/neobi_game_icon_pack_1.4_padding_256_white/11_symbols/plus.png" id="7_plus"]
 [ext_resource type="Script" uid="uid://b7vbaifph2qh7" path="res://src/ui/menus/save_menu/play_button.gd" id="8_53v2h"]
 [ext_resource type="Script" uid="uid://drev3m1qtoc8b" path="res://src/ui/menus/save_menu/delete_button.gd" id="10_ogn8n"]
 
@@ -42,6 +44,8 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("1_hqr8n")
 script = ExtResource("1_06awo")
+automatic_save_icon = ExtResource("7_display")
+empty_slot_action_icon = ExtResource("7_plus")
 
 [node name="OuterMarginContainer" type="MarginContainer" parent="." unique_id=1911005888]
 custom_minimum_size = Vector2(600, 0)

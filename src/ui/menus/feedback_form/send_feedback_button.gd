@@ -3,7 +3,6 @@
 extends UIButton
 
 const INTERNAL_FEEDBACK_CATEGORY: String = "feedback_form"
-const SUCCESS_OVERLAY_DURATION: float = 10.0
 
 @onready var feedback_text_input: TextEdit = %FeedbackTextInput
 @onready var anonymous_feedback_toggle: CheckButton = %AnonymousFeedbackToggle
@@ -68,7 +67,7 @@ func _handle_submission_result(result: FeedbackAPI.FeedbackSendResult) -> void:
 
 func _show_success_overlay() -> void:
 	sucess_overlay.show()
-	success_overlay_timer.start(SUCCESS_OVERLAY_DURATION)
+	success_overlay_timer.start()
 
 
 func _on_success_overlay_timer_timeout() -> void:

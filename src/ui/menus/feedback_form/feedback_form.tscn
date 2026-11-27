@@ -125,4 +125,5 @@ stretch_mode = 5
 
 [node name="SuccessOverlayTimer" type="Timer" parent="." unique_id=1060988608]
 unique_name_in_owner = true
+wait_time = 10.0
 one_shot = true

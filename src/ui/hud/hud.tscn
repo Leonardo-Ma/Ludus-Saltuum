@@ -125,7 +125,7 @@ value = 80.0
 show_percentage = false
 
 [node name="Timer" type="Timer" parent="MarginContainer/HBoxContainer/LeftSideContainer/PlayerHealthbar" unique_id=266650581]
-wait_time = 0.4
+wait_time = 0.8
 one_shot = true
 
 [node name="ShatterOverlay" type="ColorRect" parent="MarginContainer/HBoxContainer/LeftSideContainer/PlayerHealthbar" unique_id=1036887465]

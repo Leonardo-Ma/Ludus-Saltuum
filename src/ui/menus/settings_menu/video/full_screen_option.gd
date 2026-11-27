@@ -1,19 +1,15 @@
 extends OptionButton
 
-var _last_mode: DisplayServer.WindowMode = DisplayServer.WINDOW_MODE_WINDOWED
+## Binds scene-authored window mode item IDs to display settings
 
 
 func _ready() -> void:
 	disabled = OS.has_feature("web")
-	_sync_selection()
 	item_selected.connect(_on_item_selected)
-
-
-func _process(_delta: float) -> void:
-	var current_mode: DisplayServer.WindowMode = DisplayServer.window_get_mode()
-	if current_mode != _last_mode:
-		_last_mode = current_mode
-		_sync_selection()
+	SettingsManager.video_settings_changed.connect(_sync_selection)
+	get_window().size_changed.connect(_sync_selection)
+	visibility_changed.connect(_sync_selection)
+	_sync_selection()
 
 
 func _sync_selection() -> void:

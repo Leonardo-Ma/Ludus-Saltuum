@@ -75,3 +75,6 @@ expand_icon = true
 script = ExtResource("7_3q51y")
 owned_texture = ExtResource("7_ampx7")
 equipped_texture = ExtResource("8_ampx7")
+owned_icon_alignment = 1
+affordable_font_color = Color(1, 1, 1, 1)
+unaffordable_font_color = Color(0.9411765, 0.5019608, 0.5019608, 1)
