@@ -31,6 +31,7 @@ func run_tests() -> void:
 	ChunkManager.stage_new_game_seed(4802)
 	assert(SaveManager.initialize_new_save(MANUAL_SLOT), "New game failed in " + name)
 	ApplicationStateManager.request_play_from_save()
+	_test_repeated_chunk_exit(player)
 	_test_invalid_loads(player)
 	_test_quit_destinations(player)
 	_test_legacy_manual_save(player)
@@ -48,6 +49,23 @@ func run_tests() -> void:
 	world.queue_free()
 	await get_tree().process_frame
 	ApplicationStateManager.state_changed.connect(music_state_changed)
+
+
+func _test_repeated_chunk_exit(player: PlayerEntity) -> void:
+	var chunk: LevelChunk = ChunkManager.get_active_chunks()[0]
+	var economy: EconomyController = player.get_node(^"%EconomyController")
+	var starting_score: int = economy.score
+	var status: SpeedBoostStatus = SpeedBoostStatus.new()
+	player.status_manager.apply_status(status)
+	chunk.exit_trigger.body_entered.emit(player)
+	var completion_score: int = economy.score
+	assert(chunk.is_scored and completion_score > starting_score, "First chunk exit did not award score in " + name)
+	assert(player.status_manager.get_active_statuses().is_empty(), "First chunk exit retained temporary status in " + name)
+
+	player.status_manager.apply_status(status)
+	chunk.exit_trigger.body_entered.emit(player)
+	assert(player.status_manager.get_active_statuses().is_empty(), "Repeated chunk exit retained temporary status in " + name)
+	assert(economy.score == completion_score, "Repeated chunk exit awarded score again in " + name)
 
 
 func _test_invalid_loads(player: PlayerEntity) -> void:

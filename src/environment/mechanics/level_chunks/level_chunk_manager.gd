@@ -445,12 +445,12 @@ func _on_chunk_exit_reached(body: Node3D, passed_chunk: LevelChunk) -> void:
 		ControlledEntityEvents.request_respawn(SKIP_LEVEL_RESPAWN_DELAY, respawn_transform)
 		return
 
+	_player.status_manager.clear_temporary_statuses()
+
 	if passed_index < _current_chunk_index:
 		return
 
 	_current_chunk_index = passed_index + 1
-
-	_player.status_manager.clear_temporary_statuses()
 
 	if not passed_chunk.is_scored:
 		passed_chunk.is_scored = true
