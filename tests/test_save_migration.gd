@@ -50,7 +50,7 @@ func _test_chunks(chunks: ChunkSaveData, checkpoint: CheckpointSaveData, path: S
 		assert(chunk_key < chunks.next_chunk_key, "Chunk key %d >= next_chunk_key: %s in %s" % [chunk_key, path, name])
 		assert(chunks.chunk_key_to_scene_uid.has(chunk_key), "No scene uid for chunk key %d: %s in %s" % [chunk_key, path, name])
 		var scene_uid: String = chunks.chunk_key_to_scene_uid[chunk_key]
-		assert(ChunkManager._get_chunk_data_by_uid(scene_uid) != null, "Unknown chunk scene uid '%s': %s in %s" % [scene_uid, path, name])
+		assert(ChunkManager.get_chunk_data_by_uid(scene_uid) != null, "Unknown chunk scene uid '%s': %s in %s" % [scene_uid, path, name])
 
 	for chunk_key: int in chunks.scored_chunk_keys:
 		assert(chunks.active_chunk_keys.has(chunk_key), "Scored chunk key %d not active: %s in %s" % [chunk_key, path, name])

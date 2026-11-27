@@ -26,7 +26,7 @@ func _on_player_damaged(_attack: Attack) -> void:
 
 
 func _process(delta: float) -> void:
-	if not self.visible:
+	if not is_visible_in_tree():
 		return
 
 	if _damage_indicator_timer > 0.0:

@@ -26,7 +26,6 @@ func _ready() -> void:
 
 	goap_agent = GoapAgent.new()
 	goap_agent.name = _actor.name
-	print("Registering GOAP agent: ", goap_agent.name)
 
 	goap_agent.init(_actor, goals, _memory, actions)
 	add_child(goap_agent)

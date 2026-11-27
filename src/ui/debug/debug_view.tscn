@@ -2,18 +2,21 @@
 
 [ext_resource type="Script" uid="uid://c6lqd8lydwydg" path="res://src/ui/debug/debug_label.gd" id="1_2eafd"]
 [ext_resource type="Script" uid="uid://4fw4r1uhtus1" path="res://src/ui/debug/debug_view.gd" id="1_nofc5"]
+[ext_resource type="PackedScene" uid="uid://dc4emcvac7toq" path="res://src/ui/menus/shared/prompt_icon.tscn" id="3_prompt"]
+[ext_resource type="Script" uid="uid://db7gd3lfce2g1" path="res://src/ui/debug/chunk_history_tree.gd" id="4_history_tree"]
 
 [node name="DebugInterface" type="Control" unique_id=1005611581]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_nofc5")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1801278865]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.68200004
@@ -59,3 +62,114 @@ offset_left = 1.0
 offset_top = 123.0
 offset_right = 341.0
 offset_bottom = 134.0
+
+[node name="ChunkHistoryPrompt" type="HBoxContainer" parent="MarginContainer/Panel" unique_id=1177984196]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -38.0
+offset_right = -10.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Key" parent="MarginContainer/Panel/ChunkHistoryPrompt" unique_id=812340043 node_paths=PackedStringArray("linked_container") instance=ExtResource("3_prompt")]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+action = &"debug_chunk_history"
+device_filter = 1
+linked_container = NodePath("..")
+
+[node name="Label" type="Label" parent="MarginContainer/Panel/ChunkHistoryPrompt" unique_id=1929385720]
+layout_mode = 2
+text = "Chunk History"
+
+[node name="ChunkHistory" type="Control" parent="." unique_id=464334518]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Backdrop" type="ColorRect" parent="ChunkHistory" unique_id=1461269721]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.035, 0.05, 0.075, 0.73)
+
+[node name="Panel" type="PanelContainer" parent="ChunkHistory" unique_id=1154171288]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.06
+anchor_top = 0.04
+anchor_right = 0.94
+anchor_bottom = 0.96
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Padding" type="MarginContainer" parent="ChunkHistory/Panel" unique_id=217067815]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 14
+
+[node name="Content" type="VBoxContainer" parent="ChunkHistory/Panel/Padding" unique_id=2003143994]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Header" type="HBoxContainer" parent="ChunkHistory/Panel/Padding/Content" unique_id=111467766]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ChunkHistory/Panel/Padding/Content/Header" unique_id=754415114]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 23
+text = "Chunk History"
+
+[node name="CloseHistory" type="Button" parent="ChunkHistory/Panel/Padding/Content/Header" unique_id=90025623]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Esc"
+text = "Close"
+
+[node name="ChunkHistoryTree" type="Tree" parent="ChunkHistory/Panel/Padding/Content" unique_id=338393655]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+size_flags_vertical = 3
+columns = 5
+column_titles_visible = true
+hide_root = true
+select_mode = 1
+script = ExtResource("4_history_tree")
+column_titles = PackedStringArray("Chunk scene", "Shape", "Height Δ", "Source", "Tags")
+fixed_column_widths = PackedInt32Array(0, 88, 88, 96, 0)
+
+[node name="Details" type="VBoxContainer" parent="ChunkHistory/Panel/Padding/Content" unique_id=509261289]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ChunkHistory/Panel/Padding/Content/Details" unique_id=347944076]
+layout_mode = 2
+text = "Decision Details"
+
+[node name="DecisionDetails" type="Label" parent="ChunkHistory/Panel/Padding/Content/Details" unique_id=154393936]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 112)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "No chunks generated yet"
+autowrap_mode = 3

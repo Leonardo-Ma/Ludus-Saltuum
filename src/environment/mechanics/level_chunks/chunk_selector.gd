@@ -1,6 +1,21 @@
-## Logic for selecting next procedural level based on constraints
 class_name ChunkSelector
 extends RefCounted
+
+## Logic for selecting next procedural level based on constraints
+
+signal selection_made(
+	chunk_seed: int,
+	score: int,
+	force_skill_unlock: bool,
+	catalog_count: int,
+	eligible_count: int,
+	scheduled_count: int,
+	turn_spaced_count: int,
+	non_recent_count: int,
+	non_last_count: int,
+	final_count: int,
+)
+signal selection_history_reset
 
 const SKILL_UNLOCK_SCORE_STEP: int = 50
 const MIN_CHUNKS_BETWEEN_SKILLS: int = 5
@@ -23,13 +38,13 @@ func reset() -> void:
 	_chunks_since_turn = TURN_COOLDOWN_CHUNKS
 	_chunks_since_skill_unlock = MIN_CHUNKS_BETWEEN_SKILLS
 	_last_skill_score_threshold = 0
+	selection_history_reset.emit()
 
 
 ## Returns null and preserves history if no chunk meets skill, score, and feature requirements
 ## Relaxes recent history first, then turn spacing, then skill unlock scheduling
 ## Final selection is deterministic from chunk_seed
 func select_deterministic_chunk_data(
-	target_transform: Transform3D,
 	chunk_seed: int,
 	unlocked_skills: Array[SkillDefinition],
 	current_score: int,
@@ -44,6 +59,7 @@ func select_deterministic_chunk_data(
 	)
 	if valid_pool.is_empty():
 		return null
+	var eligible_count: int = valid_pool.size()
 
 	# Only force unlock when there are skills the player doesn't yet have
 	var has_unlockable_skill: bool = valid_pool.any(
@@ -54,18 +70,6 @@ func select_deterministic_chunk_data(
 		has_unlockable_skill and current_score >= _last_skill_score_threshold + SKILL_UNLOCK_SCORE_STEP
 		and _chunks_since_skill_unlock >= MIN_CHUNKS_BETWEEN_SKILLS
 	)
-
-	print("\n==================== Chunk Selection Debug ====================")
-	print(
-		"Target Y: ",
-		target_transform.origin.y,
-		" | Chunks since turn: ",
-		_chunks_since_turn,
-		" | Last skill score unlock: ",
-		_last_skill_score_threshold,
-	)
-	print("Force skill unlock: ", force_skill_unlock)
-	print("Recent paths: ", _recent_chunk_scene_uids)
 
 	var scheduled_pool: Array[ChunkData] = valid_pool.filter(
 		func(data: ChunkData) -> bool:
@@ -78,24 +82,33 @@ func select_deterministic_chunk_data(
 	if not turn_spaced_pool.is_empty():
 		valid_pool = turn_spaced_pool
 
-	print("Pool size: %d, total available: %d" % [valid_pool.size(), _all_chunks.size()])
-
 	# Avoid recent chunks
 	var non_recent: Array[ChunkData] = _filter_recent_chunks(valid_pool)
-
+	var non_last_count: int = 0
 	if not non_recent.is_empty():
-		print("  → Filtered out recent chunks, %d remain" % non_recent.size())
 		valid_pool = non_recent
 	else:
-		print("  → WARNING: All valid chunks were recent! Relaxing filter to exclude only last chunk")
 		var non_last: Array[ChunkData] = _filter_non_last_chunk(valid_pool)
-
+		non_last_count = non_last.size()
 		if not non_last.is_empty():
 			valid_pool = non_last
 
 	var pick_rng: RandomNumberGenerator = RandomNumberGenerator.new()
 	pick_rng.seed = chunk_seed
 	var chosen: ChunkData = valid_pool[pick_rng.randi_range(0, valid_pool.size() - 1)]
+	if selection_made.has_connections():
+		selection_made.emit(
+			chunk_seed,
+			current_score,
+			force_skill_unlock,
+			_all_chunks.size(),
+			eligible_count,
+			scheduled_pool.size(),
+			turn_spaced_pool.size(),
+			non_recent.size(),
+			non_last_count,
+			valid_pool.size(),
+		)
 
 	if chosen.unlocks_skill != null and not unlocked_skills.has(chosen.unlocks_skill):
 		_chunks_since_skill_unlock = 0
@@ -103,9 +116,6 @@ func select_deterministic_chunk_data(
 			_last_skill_score_threshold += SKILL_UNLOCK_SCORE_STEP
 	else:
 		_chunks_since_skill_unlock += 1
-
-	print("  ✓ SELECTED: [%s] (is_turn: %s, height_shift: %.1f)" % [chosen.scene_path.get_file(), chosen.is_turn, chosen.height_shift])
-	print("====================================================\n")
 
 	if chosen.is_turn:
 		_chunks_since_turn = 0
@@ -196,6 +206,7 @@ func load_save_state(state: Dictionary) -> void:
 	_chunks_since_turn = state.get("chunks_since_turn", TURN_COOLDOWN_CHUNKS)
 	_chunks_since_skill_unlock = state.get("chunks_since_skill_unlock", MIN_CHUNKS_BETWEEN_SKILLS)
 	_last_skill_score_threshold = state.get("last_skill_score_threshold", 0)
+	selection_history_reset.emit()
 
 
 static func is_valid_save_state(state: Dictionary) -> bool:

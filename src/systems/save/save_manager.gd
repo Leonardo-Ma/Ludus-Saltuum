@@ -8,6 +8,7 @@ extends Node
 ## Every system should trigger internal save
 signal save_requested(data: SaveData)
 signal save_changed(slot_index: int)
+signal save_loaded(data: SaveData)
 ## Reports cloud failures independently of local save success
 signal cloud_sync_failed(slot_index: int, operation: CloudOperation)
 ## Every system should restore defaults for new game
@@ -120,6 +121,7 @@ func load_from_slot(slot_index: int) -> bool:
 	release_save_block(LOADING)
 	if applied:
 		_active_manual_slot = manual_slot
+		save_loaded.emit(data)
 	return applied
 
 

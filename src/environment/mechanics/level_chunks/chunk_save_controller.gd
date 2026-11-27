@@ -35,4 +35,4 @@ func build_save_data(data: ChunkSaveData) -> void:
 	data.next_chunk_key = ChunkManager.get_next_chunk_key()
 	data.scored_chunk_keys = scored
 	data.chunk_key_to_scene_uid = uid_map
-	data.chunk_selector_state = ChunkManager.get_chunk_selector_state()
+	data.chunk_selector_state = ChunkManager.get_chunk_selector().get_save_state()

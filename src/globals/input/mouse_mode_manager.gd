@@ -7,6 +7,7 @@ extends Node
 ## NOTE Use explicit names instead of values to allow reordering
 enum Source {
 	POPUP = 0, ## Example: Popup is highest priority here
+	DEBUG = 4,
 	MENU = 1,
 	GAMEPLAY = 2,
 	DEVICE = 3,

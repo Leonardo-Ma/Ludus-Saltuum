@@ -142,8 +142,8 @@ func get_next_chunk_key() -> int:
 	return _next_chunk_key
 
 
-func get_chunk_selector_state() -> Dictionary:
-	return _chunk_selector.get_save_state()
+func get_chunk_selector() -> ChunkSelector:
+	return _chunk_selector
 
 
 func get_chunk_scene_uid(chunk_key: int) -> String:
@@ -194,7 +194,7 @@ func prepare_saved_chunks(data: ChunkSaveData) -> Array[LevelChunk]:
 	for chunk_key: int in data.active_chunk_keys:
 		if chunk_key <= previous_key or chunk_key >= data.next_chunk_key:
 			return []
-		var entry: ChunkData = _get_chunk_data_by_uid(data.chunk_key_to_scene_uid.get(chunk_key, ""))
+		var entry: ChunkData = get_chunk_data_by_uid(data.chunk_key_to_scene_uid.get(chunk_key, ""))
 		if entry == null:
 			return []
 		catalog_entries[chunk_key] = entry
@@ -397,7 +397,7 @@ func _prepare_chunk_entities(chunk: LevelChunk, world_seed: int) -> void:
 
 
 func _append_generated_chunk(target_transform: Transform3D) -> LevelChunk:
-	var chunk: LevelChunk = _generate_new_chunk(target_transform)
+	var chunk: LevelChunk = _generate_new_chunk()
 	if chunk == null:
 		return null
 	_prepare_chunk_entities(chunk, procedural_seed)
@@ -498,7 +498,7 @@ func _disconnect_chunk_trigger(chunk: LevelChunk) -> void:
 
 
 ## Picks and instantiates a chunk never generated before, persists the pick for this chunk_key
-func _generate_new_chunk(target_transform: Transform3D) -> LevelChunk:
+func _generate_new_chunk() -> LevelChunk:
 	var chunk_key: int = _next_chunk_key
 
 	var skills: SkillsController = _player.get_node(^"%SkillsController")
@@ -506,7 +506,7 @@ func _generate_new_chunk(target_transform: Transform3D) -> LevelChunk:
 	assert(skills and economy, "Chunk progression sources missing in " + _player.name)
 	var unlocked_skills: Array[SkillDefinition] = skills.get_unlocked_skills()
 	var chunk_seed: int = ProceduralId.chunk_seed(get_procedural_seed(), chunk_key)
-	var chosen_data: ChunkData = _chunk_selector.select_deterministic_chunk_data(target_transform, chunk_seed, unlocked_skills, economy.score)
+	var chosen_data: ChunkData = _chunk_selector.select_deterministic_chunk_data(chunk_seed, unlocked_skills, economy.score)
 	if chosen_data == null:
 		get_tree().quit(1)
 		assert(false, "No eligible chunk for key %d in %s" % [chunk_key, name])
@@ -532,7 +532,7 @@ func _instantiate_chunk_data(chunk_data: ChunkData) -> LevelChunk:
 	return scene.instantiate() as LevelChunk
 
 
-func _get_chunk_data_by_uid(uid: String) -> ChunkData:
+func get_chunk_data_by_uid(uid: String) -> ChunkData:
 	for data: ChunkData in _all_chunks:
 		if data.scene_uid == uid:
 			return data
