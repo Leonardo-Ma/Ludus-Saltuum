@@ -151,14 +151,8 @@ func _show_selected_decision() -> void:
 		relaxed_rules.append("skill unlock scheduling")
 	if decision.turn_spaced_count == 0:
 		relaxed_rules.append("turn spacing")
-	if decision.non_recent_count == 0:
-		relaxed_rules.append("recent history")
-		if decision.non_last_count == 0:
-			relaxed_rules.append("last pick")
 
-	var recency: String = "Non-recent %d" % decision.non_recent_count
-	if decision.non_recent_count == 0:
-		recency += "  ·  Non-last %d" % decision.non_last_count
+	var recency: String = "Unseen %d" % decision.unseen_count if decision.unseen_count > 0 else "Least recently generated"
 	var relaxed: String = "none" if relaxed_rules.is_empty() else ", ".join(relaxed_rules)
 	_decision_details.text = (
 		"Chunk seed %d  ·  Score %d\n" + "Since turn %d  ·  Last skill threshold %d  ·  Forced unlock %s\n"

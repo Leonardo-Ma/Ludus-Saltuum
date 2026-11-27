@@ -78,8 +78,7 @@ func _record(
 	eligible_count: int,
 	scheduled_count: int,
 	turn_spaced_count: int,
-	non_recent_count: int,
-	non_last_count: int,
+	unseen_count: int,
 	final_count: int,
 ) -> void:
 	var state: Dictionary = _selector.get_save_state()
@@ -93,8 +92,7 @@ func _record(
 	decision.eligible_count = eligible_count
 	decision.scheduled_count = scheduled_count
 	decision.turn_spaced_count = turn_spaced_count
-	decision.non_recent_count = non_recent_count
-	decision.non_last_count = non_last_count
+	decision.unseen_count = unseen_count
 	decision.final_count = final_count
 	var chunk_key: int = _get_next_chunk_key.call()
 	_store_decision(chunk_key, decision)

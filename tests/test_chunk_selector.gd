@@ -31,6 +31,8 @@ func run_tests() -> void:
 	_test_relaxes_unlock_scheduling_last()
 	_test_empty_pool_keeps_state()
 	_test_deterministic_picks()
+	_test_large_pool_repeat_spacing()
+	_test_legacy_recency_with_changing_pool()
 	_test_decision_recording()
 	_test_loaded_chunk_history()
 	print("ChunkSelector test completed.")
@@ -161,6 +163,51 @@ func _test_deterministic_picks() -> void:
 	assert(first.get_save_state() == second.get_save_state(), "Identical picks produced different selector state in " + name)
 
 
+func _test_large_pool_repeat_spacing() -> void:
+	var chunk_count: int = 80
+	var chunks: Array[ChunkData] = []
+	for index: int in chunk_count:
+		chunks.append(_make_chunk("res://chunk_%d.tscn" % index))
+	var selector: ChunkSelector = ChunkSelector.new(chunks)
+	var resumed: ChunkSelector = ChunkSelector.new(chunks)
+	var last_pick_keys: Dictionary[String, int] = { }
+	for chunk_key: int in chunk_count * 3:
+		if chunk_key == chunk_count:
+			resumed.load_save_state(selector.get_save_state())
+		var chosen: ChunkData = selector.select_deterministic_chunk_data(chunk_key, [], 0)
+		if chunk_key < chunk_count:
+			assert(not last_pick_keys.has(chosen.scene_uid), "Repeated a scene before exhausting eligible scenes in " + name)
+		else:
+			var repeat_gap: int = chunk_key - last_pick_keys[chosen.scene_uid]
+			assert(repeat_gap >= chunk_count - 1, "Repeated a scene too soon in " + name)
+			assert(resumed.select_deterministic_chunk_data(chunk_key, [], 0) == chosen, "Save changed future picks in " + name)
+		last_pick_keys[chosen.scene_uid] = chunk_key
+	assert(selector.get_save_state() == resumed.get_save_state(), "Resumed recency diverged in " + name)
+	assert(selector.get_save_state()["chunk_scene_recency"].size() == chunk_count, "Recency gained duplicate scenes in " + name)
+
+
+func _test_legacy_recency_with_changing_pool() -> void:
+	var first: ChunkData = _make_chunk("res://first.tscn")
+	var second: ChunkData = _make_chunk("res://second.tscn")
+	var gated: ChunkData = _make_chunk("res://gated.tscn", [], null, false, 50)
+	var unseen: ChunkData = _make_chunk("res://unseen.tscn", [], null, false, 50)
+	var selector: ChunkSelector = ChunkSelector.new([first, second, gated, unseen])
+	var legacy_state: Dictionary = {
+		"recent_chunk_scene_uids": [first.scene_uid, second.scene_uid, gated.scene_uid, first.scene_uid, "res://removed.tscn"],
+	}
+	assert(ChunkSelector.is_valid_save_state(legacy_state), "Legacy selector state was rejected in " + name)
+	selector.load_save_state(legacy_state)
+	assert(
+		selector.get_save_state()["chunk_scene_recency"] == [second.scene_uid, gated.scene_uid, first.scene_uid],
+		"Legacy state did not preserve last occurrences of catalog scenes in " + name,
+	)
+	assert(selector.select_deterministic_chunk_data(0, [], 0) == second, "Tight pool repeated its newest scene in " + name)
+	assert(selector.select_deterministic_chunk_data(1, [], 0) == first, "Tight pool did not alternate in " + name)
+	assert(selector.select_deterministic_chunk_data(2, [], 50) == unseen, "Newly eligible unseen scene did not take priority in " + name)
+	selector.reset()
+	assert(selector.get_save_state()["chunk_scene_recency"].is_empty(), "Reset retained scene recency in " + name)
+
+
 func _test_decision_recording() -> void:
 	var turn: ChunkData = _make_chunk("res://turn.tscn", [], DASH, true)
 	var selector: ChunkSelector = ChunkSelector.new([turn])
@@ -183,7 +230,7 @@ func _test_decision_recording() -> void:
 	assert(recorded.chunks_since_turn == 0, "Wrong generation context in " + name)
 	assert(
 		recorded.eligible_count == 1 and recorded.scheduled_count == 0 and recorded.turn_spaced_count == 0
-		and recorded.non_recent_count == 0 and recorded.non_last_count == 0 and recorded.final_count == 1,
+		and recorded.unseen_count == 0 and recorded.final_count == 1,
 		"Recorded counts did not reflect relaxed rules in " + name,
 	)
 

@@ -11,8 +11,7 @@ signal selection_made(
 	eligible_count: int,
 	scheduled_count: int,
 	turn_spaced_count: int,
-	non_recent_count: int,
-	non_last_count: int,
+	unseen_count: int,
 	final_count: int,
 )
 signal selection_history_reset
@@ -21,9 +20,12 @@ const SKILL_UNLOCK_SCORE_STEP: int = 50
 const MIN_CHUNKS_BETWEEN_SKILLS: int = 5
 const TURN_COOLDOWN_CHUNKS: int = 5
 const RECENT_CHUNK_HISTORY_SIZE: int = 15
+const LEAST_RECENT_PICK_COUNT: int = 2
 
 var _all_chunks: Array[ChunkData]
 var _recent_chunk_scene_uids: Array[String] = []
+## One entry per generated scene, ordered by last pick from oldest to newest
+var _chunk_scene_recency: Array[String] = []
 var _chunks_since_turn: int = TURN_COOLDOWN_CHUNKS
 var _last_skill_score_threshold: int = 0
 var _chunks_since_skill_unlock: int = MIN_CHUNKS_BETWEEN_SKILLS
@@ -35,6 +37,7 @@ func _init(all_chunks: Array[ChunkData]) -> void:
 
 func reset() -> void:
 	_recent_chunk_scene_uids.clear()
+	_chunk_scene_recency.clear()
 	_chunks_since_turn = TURN_COOLDOWN_CHUNKS
 	_chunks_since_skill_unlock = MIN_CHUNKS_BETWEEN_SKILLS
 	_last_skill_score_threshold = 0
@@ -83,15 +86,8 @@ func select_deterministic_chunk_data(
 		valid_pool = turn_spaced_pool
 
 	# Avoid recent chunks
-	var non_recent: Array[ChunkData] = _filter_recent_chunks(valid_pool)
-	var non_last_count: int = 0
-	if not non_recent.is_empty():
-		valid_pool = non_recent
-	else:
-		var non_last: Array[ChunkData] = _filter_non_last_chunk(valid_pool)
-		non_last_count = non_last.size()
-		if not non_last.is_empty():
-			valid_pool = non_last
+	var unseen: Array[ChunkData] = _get_unseen_chunks(valid_pool)
+	valid_pool = unseen if not unseen.is_empty() else _get_least_recent_chunks(valid_pool)
 
 	var pick_rng: RandomNumberGenerator = RandomNumberGenerator.new()
 	pick_rng.seed = chunk_seed
@@ -105,8 +101,7 @@ func select_deterministic_chunk_data(
 			eligible_count,
 			scheduled_pool.size(),
 			turn_spaced_pool.size(),
-			non_recent.size(),
-			non_last_count,
+			unseen.size(),
 			valid_pool.size(),
 		)
 
@@ -122,6 +117,7 @@ func select_deterministic_chunk_data(
 	else:
 		_chunks_since_turn += 1
 
+	_record_scene_recency(chosen.scene_uid)
 	_recent_chunk_scene_uids.push_back(chosen.scene_uid)
 	if _recent_chunk_scene_uids.size() > RECENT_CHUNK_HISTORY_SIZE:
 		_recent_chunk_scene_uids.pop_front()
@@ -172,18 +168,26 @@ func _passes_turn_filter(data: ChunkData) -> bool:
 	return not data.is_turn or _chunks_since_turn >= TURN_COOLDOWN_CHUNKS
 
 
-func _filter_recent_chunks(valid_pool: Array[ChunkData]) -> Array[ChunkData]:
+func _get_unseen_chunks(valid_pool: Array[ChunkData]) -> Array[ChunkData]:
 	return valid_pool.filter(
 		func(data: ChunkData) -> bool:
-			return not data.scene_uid in _recent_chunk_scene_uids,
+			return not _chunk_scene_recency.has(data.scene_uid),
 	)
 
 
-func _filter_non_last_chunk(valid_pool: Array[ChunkData]) -> Array[ChunkData]:
-	return valid_pool.filter(
-		func(data: ChunkData) -> bool:
-			return _recent_chunk_scene_uids.is_empty() or data.scene_uid != _recent_chunk_scene_uids.back(),
-	)
+func _get_least_recent_chunks(valid_pool: Array[ChunkData]) -> Array[ChunkData]:
+	var chunks_by_uid: Dictionary[String, ChunkData] = { }
+	for data: ChunkData in valid_pool:
+		chunks_by_uid[data.scene_uid] = data
+	# Leave newest eligible scene out whenever another scene is available.
+	var pick_count: int = clampi(chunks_by_uid.size() - 1, 1, LEAST_RECENT_PICK_COUNT)
+	var oldest: Array[ChunkData] = []
+	for scene_uid: String in _chunk_scene_recency:
+		if chunks_by_uid.has(scene_uid):
+			oldest.append(chunks_by_uid[scene_uid])
+			if oldest.size() == pick_count:
+				break
+	return oldest
 
 
 func _passes_min_score_filter(data: ChunkData, current_score: int) -> bool:
@@ -191,10 +195,16 @@ func _passes_min_score_filter(data: ChunkData, current_score: int) -> bool:
 #endregion
 
 
+func _record_scene_recency(scene_uid: String) -> void:
+	_chunk_scene_recency.erase(scene_uid)
+	_chunk_scene_recency.append(scene_uid)
+
+
 #region Save and Load
 func get_save_state() -> Dictionary:
 	return {
 		"recent_chunk_scene_uids": _recent_chunk_scene_uids.duplicate(),
+		"chunk_scene_recency": _chunk_scene_recency.duplicate(),
 		"chunks_since_turn": _chunks_since_turn,
 		"chunks_since_skill_unlock": _chunks_since_skill_unlock,
 		"last_skill_score_threshold": _last_skill_score_threshold,
@@ -203,6 +213,14 @@ func get_save_state() -> Dictionary:
 
 func load_save_state(state: Dictionary) -> void:
 	_recent_chunk_scene_uids.assign(state.get("recent_chunk_scene_uids", []))
+	var saved_recency: Array = state.get("chunk_scene_recency", _recent_chunk_scene_uids)
+	var catalog_uids: Array[String] = []
+	for data: ChunkData in _all_chunks:
+		catalog_uids.append(data.scene_uid)
+	_chunk_scene_recency.clear()
+	for scene_uid: String in saved_recency:
+		if catalog_uids.has(scene_uid):
+			_record_scene_recency(scene_uid)
 	_chunks_since_turn = state.get("chunks_since_turn", TURN_COOLDOWN_CHUNKS)
 	_chunks_since_skill_unlock = state.get("chunks_since_skill_unlock", MIN_CHUNKS_BETWEEN_SKILLS)
 	_last_skill_score_threshold = state.get("last_skill_score_threshold", 0)
@@ -210,12 +228,13 @@ func load_save_state(state: Dictionary) -> void:
 
 
 static func is_valid_save_state(state: Dictionary) -> bool:
-	var recent_uids: Variant = state.get("recent_chunk_scene_uids", [])
-	if not (recent_uids is Array):
-		return false
-	for uid: Variant in recent_uids:
-		if not (uid is String):
+	for key: String in ["recent_chunk_scene_uids", "chunk_scene_recency"]:
+		var scene_uids: Variant = state.get(key, [])
+		if not (scene_uids is Array):
 			return false
+		for uid: Variant in scene_uids:
+			if not (uid is String):
+				return false
 	for key: String in ["chunks_since_turn", "chunks_since_skill_unlock", "last_skill_score_threshold"]:
 		var value: Variant = state.get(key, 0)
 		if not (value is int) or value < 0:

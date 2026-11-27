@@ -13,6 +13,5 @@ var catalog_count: int
 var eligible_count: int
 var scheduled_count: int
 var turn_spaced_count: int
-var non_recent_count: int
-var non_last_count: int
+var unseen_count: int
 var final_count: int
